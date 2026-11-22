@@ -265,8 +265,8 @@
       <button class="tgl" id="langBtn" type="button" aria-label="Language">
         <span aria-hidden="true">🌐</span><span id="langLabel">한</span>
       </button>
-      <button class="tgl" id="soundBtn" type="button" aria-pressed="false" aria-label="Sound">
-        <span id="soundIcon" aria-hidden="true">🔕</span><span id="soundLabel" data-en="Sound Off" data-ko="무음">Sound Off</span>
+      <button class="tgl" id="soundBtn" type="button" aria-pressed="true" aria-label="Sound">
+        <span id="soundIcon" aria-hidden="true">🔔</span><span id="soundLabel" data-en="Sound On" data-ko="소리 켜짐">Sound On</span>
       </button>
     </div>
   </div>
@@ -549,7 +549,7 @@
   };
   var qs = new URLSearchParams(location.search).get("lang");
   var lang = LS.get("waglePartyLang", null) || (qs === "ko" ? "ko" : "en");
-  var soundOn = LS.get("waglePartySound", false) === true;
+  var soundOn = LS.get("waglePartySound", true) !== false;  /* 2026-11-22: 기본 효과음 켜짐 */
 
   function T(o){ return (o && (o[lang] || o.en)) || ""; }
   function $(s, r){ return (r||document).querySelector(s); }
@@ -558,8 +558,8 @@
 
   var TXT = {
     title: {en:"Wagle Holiday Party 🎄 Free Christmas Table Games", ko:"와글 홀리데이 파티 🎄 무료 크리스마스 테이블 게임"},
-    soundOff: {en:"Sound Off", ko:"무음"},
-    soundOn: {en:"Sound On", ko:"소리 켬"},
+    soundOff: {en:"Sound Off", ko:"소리 꺼짐"},
+    soundOn: {en:"Sound On", ko:"소리 켜짐"},
     next: {en:"Next question →", ko:"다음 질문 →"},
     seeResult: {en:"See my score →", ko:"점수 보기 →"},
     correct: {en:"Correct!", ko:"정답!"},
@@ -608,6 +608,12 @@
     if(name === "end")   { beep(523, .12, "triangle", .08); beep(392, .16, "triangle", .07, .13); beep(261, .28, "triangle", .07, .3); }
   }
   function buzz(ms){ try{ if(navigator.vibrate) navigator.vibrate(ms||12); }catch(e){} }
+  /* 모바일 브라우저 정책: 첫 터치/클릭 안에서 AudioContext를 깨워 두어야 이후 효과음이 난다 */
+  if(soundOn){
+    ["pointerdown","touchstart","keydown"].forEach(function(ev){
+      window.addEventListener(ev, function(){ ctx(); }, {once:true, passive:true});
+    });
+  }
 
   /* ══════════════ 1) Would You Rather — 24개 자체 창작 질문 ══════════════ */
   var WYR = [
