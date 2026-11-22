@@ -852,7 +852,7 @@ html.big .isteps li>span{font-size:1rem}
     <h2 id="addTitle">메뉴 추가</h2>
     <div class="tabs" role="tablist">
       <button class="tab on" data-tab="manual" role="tab">직접 입력</button>
-      <button class="tab" data-tab="photo" role="tab">📷 사진으로</button>
+      <button class="tab" data-tab="photo" role="tab">📷 사진으로 (여러 장 가능)</button>
       <button class="tab" data-tab="paste" role="tab">글 붙여넣기</button>
     </div>
 
@@ -865,8 +865,8 @@ html.big .isteps li>span{font-size:1rem}
     </div>
 
     <div class="panel" data-panel="photo" hidden>
-      <p class="note" id="photoNote1">메뉴판을 찍으면 글자를 읽어서 메뉴와 가격을 찾아 드려요. <b>사진은 이 폰 안에서만 처리되고 어디로도 보내지 않아요(0원).</b></p>
-      <input id="photoInput" class="photoinput" type="file" accept="image/*" aria-label="메뉴판 사진 고르기">
+      <p class="note" id="photoNote1">메뉴판을 찍으면 글자를 읽어서 메뉴와 가격을 찾아 드려요. <b>사진 여러 장을 한 번에 골라도 돼요(최대 10장).</b> <b>사진은 이 폰 안에서만 처리되고 어디로도 보내지 않아요(0원).</b></p>
+      <input id="photoInput" class="photoinput" type="file" accept="image/*" multiple aria-label="메뉴판 사진 고르기 (여러 장)">
       <label class="btn primary filebtn" id="photoLabel" for="photoInput"><span id="photoLabelTxt">📷 사진 찍기 / 앨범에서 고르기</span></label>
       <img id="preview" alt="고른 메뉴판 사진" hidden>
       <div id="progWrap" hidden>
@@ -1304,7 +1304,7 @@ function applyLang(){
 
   setTxt('#addTitle','메뉴 추가','Add Menu');
   setTxt('[data-tab="manual"]','직접 입력','Type In');
-  setTxt('[data-tab="photo"]','📷 사진으로','📷 Photo');
+  setTxt('[data-tab="photo"]','📷 사진으로 (여러 장 가능)','📷 From Photo (Multi)');
   setTxt('[data-tab="paste"]','글 붙여넣기','Paste');
   setTxt('#addSubmit','＋ 메뉴 넣기','＋ Add Menu');
   setAttr('#newName','placeholder','메뉴 이름 (예: 대추차)','Menu name (e.g. Latte)');
@@ -1312,9 +1312,10 @@ function applyLang(){
   setAttr('#newPrice','placeholder','가격 (예: 6000)','Price (e.g. 6000)');
   setAttr('#newPrice','aria-label','가격','Price');
   setHTML('#photoNote1',
-    '메뉴판을 찍으면 글자를 읽어서 메뉴와 가격을 찾아 드려요. <b>사진은 이 폰 안에서만 처리되고 어디로도 보내지 않아요(0원).</b>',
-    'Take a photo of the menu and the text is read to find items and prices. <b>The photo is handled only on this phone and is never sent anywhere (free).</b>');
+    '메뉴판을 찍으면 글자를 읽어서 메뉴와 가격을 찾아 드려요. <b>사진 여러 장을 한 번에 골라도 돼요(최대 10장).</b> <b>사진은 이 폰 안에서만 처리되고 어디로도 보내지 않아요(0원).</b>',
+    'Take a photo of the menu and the text is read to find items and prices. <b>You can pick several photos at once (up to 10).</b> <b>The photos are handled only on this phone and are never sent anywhere (free).</b>');
   setTxt('#photoLabelTxt','📷 사진 찍기 / 앨범에서 고르기','📷 Take a photo / Pick from album');
+  setAttr('#photoInput','aria-label','메뉴판 사진 고르기 (여러 장)','Pick menu photos (several)');
   setTxt('#photoToManual','✍️ 직접 입력으로 넣기','✍️ Type In Instead');
   setTxt('#photoToPaste','📋 글 붙여넣기로 넣기','📋 Paste Instead');
   setHTML('#photoNote2','글자가 잘 안 읽히면 <b>직접 입력</b>이나 <b>글 붙여넣기</b>로 1초 만에 넣을 수 있어요.',
@@ -2082,19 +2083,24 @@ $('#pasteBtn').addEventListener('click', ()=>{
 });
 
 /* ── 후보 확인 ── */
-let cands=[], reviewKind='', reviewCount=0;
+let cands=[], reviewKind='', reviewCount=0, reviewPhotoN=0;
 function reviewTitleNow(){
   if(!reviewKind) return;
-  var base = reviewKind==='photo'? L('사진에서 찾은 메뉴','Found in photo') : L('붙여넣은 글에서 찾은 메뉴','Found in pasted text');
-  $('#reviewTitle').textContent = base+L(' ('+reviewCount+'개)',' ('+reviewCount+')');
+  if(reviewKind==='photo'){
+    $('#reviewTitle').textContent = reviewPhotoN>1
+      ? L('사진 '+reviewPhotoN+'장에서 찾은 메뉴 (총 '+reviewCount+'개)', 'Found in '+reviewPhotoN+' photos (total '+reviewCount+')')
+      : L('사진에서 찾은 메뉴 (총 '+reviewCount+'개)', 'Found in photo (total '+reviewCount+')');
+    return;
+  }
+  $('#reviewTitle').textContent = L('붙여넣은 글에서 찾은 메뉴','Found in pasted text')+L(' ('+reviewCount+'개)', ' ('+reviewCount+')');
 }
-function startReview(list, kind){
+function startReview(list, kind, photoN){
   const st=store();
   cands=list.map(c=>{
     const dup=st.menus.some(m=> m.name.replace(/\s/g,'')===c.name.replace(/\s/g,'') && m.price===c.price);
     return {name:c.name, price:c.price, check:!dup, dup:dup};
   });
-  reviewKind=kind||'paste'; reviewCount=list.length;
+  reviewKind=kind||'paste'; reviewCount=list.length; reviewPhotoN=(photoN|0)||0;
   reviewTitleNow();
   renderCands();
   $('#review').hidden=false;
@@ -2132,7 +2138,7 @@ $('#candList').addEventListener('click', e=>{
 $('#candCancel').addEventListener('click', hideReview);
 function hideReview(){
   $('#review').hidden=true;
-  reviewKind=''; reviewCount=0;
+  reviewKind=''; reviewCount=0; reviewPhotoN=0;
   cands=[];
   $('#candList').innerHTML='';
 }
@@ -2216,59 +2222,128 @@ function withTimeout(p, ms, tag){
     p.then(function(v){ clearTimeout(t); res(v); }, function(e){ clearTimeout(t); rej(e); });
   });
 }
+/* 사진 여러 장 고르기 — 한 번에 최대 10장, 한 장씩 차례로 읽어 결과를 합칩니다 */
+var PHOTO_MAX=10;
 $('#photoInput').addEventListener('change', function(e){
-  var inp=e.target, f=inp.files && inp.files[0];
+  var inp=e.target;
+  var files=[];
+  try{ files=[].slice.call(inp.files||[]); }catch(_){ files=[]; }
   try{ inp.value=''; }catch(_){}
-  if(!f) return;
+  if(!files.length) return;
+  var capped=files.length>PHOTO_MAX;
+  if(capped) files=files.slice(0,PHOTO_MAX);
+  var capNote = capped
+    ? L(' (사진은 한 번에 '+PHOTO_MAX+'장까지라 앞 '+PHOTO_MAX+'장만 읽었어요)', ' (only the first '+PHOTO_MAX+' photos were read — up to '+PHOTO_MAX+' at once)')
+    : '';
+  var total=files.length;
   hideReview();
   photoShowFallback(false);
   var pv=$('#preview');
-  var settled=false, worker=null;
+  var settled=false, worker=null, active=1;
+  function curPct(){
+    var w=0;
+    try{ w=parseFloat(($('#progBar').style.width||'0').replace('%',''))||0; }catch(_){ w=0; }
+    return w;
+  }
   var hintT=setTimeout(function(){
-    if(!settled) setProg(10, L('사진을 읽는 중이에요… 오래 걸리면 아래 「직접 입력」으로 1초 만에 넣을 수 있어요',
-      'Still reading… if it takes long, the buttons below add items in a second'));
+    if(settled) return;
+    setProg(Math.max(curPct(),4), total>1
+      ? L('📷 사진 '+total+'장을 읽는 중이에요 ('+active+' / '+total+') — 여러 장이면 조금 걸려요. 급하면 아래 「직접 입력」으로 넣을 수 있어요',
+          '📷 Reading '+total+' photos ('+active+' / '+total+') — several take a moment. In a hurry, the buttons below add items in a second')
+      : L('사진을 읽는 중이에요… 오래 걸리면 아래 「직접 입력」으로 1초 만에 넣을 수 있어요',
+          'Still reading… if it takes long, the buttons below add items in a second'));
   }, 10000);
   function finish(msg, short){
     settled=true; clearTimeout(hintT);
-    if(worker){ try{ worker.terminate(); }catch(_){} }
+    if(worker){ try{ worker.terminate(); }catch(_){} worker=null; }
     setProg(100, msg);
     toast(short || msg);
     photoShowFallback(true);
   }
+  function countTag(i,n){ return ' ('+i+' / '+n+')'; }
+  function readingMsg(i,n,p){
+    var pc=Math.round((p||0)*100);
+    if(n>1) return L('📷 사진 읽는 중…'+countTag(i,n)+' '+pc+'%', '📷 Reading photos…'+countTag(i,n)+' '+pc+'%');
+    return L('📷 사진 읽는 중… ','📷 Reading the photo… ')+pc+'%';
+  }
+  function overall(i,n,p){ return ((i-1)+(p||0))*100/n; }
   (async function(){
+    var merged=[], readFail=0, engineFail=false;
     try{
-      setProg(3, L('📷 사진 읽는 중…','📷 Reading the photo…'));
-      var dataUrl=await withTimeout(downscale(f,1600), 15000, 'img');
-      pv.src=dataUrl; pv.hidden=false;
-      if(navigator.onLine===false){
-        finish(L('인터넷이 없어 글자 읽기를 못 해요. 사진은 위에 보이고, 직접 입력이나 붙여넣기로 1초 만에 넣을 수 있어요',
-          'No internet, so the text cannot be read. The photo is shown above — use Type In or Paste to add items in a second'),
-          L('인터넷이 없어 못 읽었어요','Offline — could not read'));
-        return;
+      setProg(2, total>1
+        ? L('📷 사진 '+total+'장을 한 장씩 읽을게요… (1 / '+total+')','📷 Reading '+total+' photos one by one… (1 / '+total+')')
+        : L('📷 사진 읽는 중…','📷 Reading the photo…'));
+      for(var i=0;i<total;i++){
+        if(settled) return;
+        active=i+1;
+        try{
+          setProg(Math.max(overall(active,total,0),1), readingMsg(active,total,0));
+          var dataUrl=await withTimeout(downscale(files[i],1600), 15000, 'img');
+          if(settled) return;
+          pv.src=dataUrl; pv.hidden=false;
+          pv.alt=L('고른 메뉴판 사진 '+active+' / '+total, 'Menu photo '+active+' of '+total);
+          if(navigator.onLine===false){
+            finish(L('인터넷이 없어 글자 읽기를 못 해요. 사진은 위에 보이고, 직접 입력이나 붙여넣기로 1초 만에 넣을 수 있어요',
+              'No internet, so the text cannot be read. The photo is shown above — use Type In or Paste to add items in a second'),
+              L('인터넷이 없어 못 읽었어요','Offline — could not read'));
+            return;
+          }
+          if(!worker){
+            setProg(Math.max(overall(active,total,0.02),2), L('글자 읽기 준비 중… (처음 한 번은 20초쯤 걸려요)','Getting ready to read… (the first time takes about 20 seconds)'));
+            var T=await withTimeout(loadTesseract(), 15000, 'load');
+            if(settled) return;
+            worker=await withTimeout(T.createWorker('kor+eng',1,{logger:function(m){
+              if(!m || settled) return;
+              var st=String(m.status||'');
+              if(st==='recognizing text'){
+                var p=Math.max(0,Math.min(1,m.progress||0));
+                setProg(Math.max(overall(active,total,p*0.95),2), readingMsg(active,total,p));
+              } else if(st.indexOf('loading')===0){
+                setProg(Math.max(overall(active,total,0.02),2), L('글자 읽기 준비 중… (처음 한 번은 20초쯤 걸려요)','Getting ready to read… (the first time takes about 20 seconds)'));
+              }
+            }}), 30000, 'worker');
+          }
+          if(settled) return;
+          setProg(Math.max(overall(active,total,0.05),2), readingMsg(active,total,0));
+          var r=await withTimeout(worker.recognize(dataUrl), 60000, 'ocr');
+          if(settled) return;
+          var list=parseMenuFromOCR(r && r.data ? r.data : {});
+          if(list.length) merged=menuDedupe(merged.concat(list));
+        }catch(err){
+          readFail++;
+          var tag=String((err && err.message) || '');
+          /* 한 장이 넘어져도 다음 사진은 계속 — 오래 멈춘 워커는 버리고 새로 만듭니다 */
+          if(worker){ try{ worker.terminate(); }catch(_){} worker=null; }
+          if(tag==='load' || tag==='net' || tag==='timeout'){ engineFail=true; break; }
+        }
       }
-      setProg(8, L('글자 읽기 준비 중… (처음 한 번은 20초쯤 걸려요)','Getting ready to read… (the first time takes about 20 seconds)'));
-      var T=await withTimeout(loadTesseract(), 15000, 'load');
       if(settled) return;
-      worker=await withTimeout(T.createWorker('kor+eng',1,{logger:function(m){
-        if(!m || settled) return;
-        if(m.status==='recognizing text') setProg(15+(m.progress||0)*80, L('메뉴판 글자 읽는 중… ','Reading the menu… ')+Math.round((m.progress||0)*100)+'%');
-        else if(String(m.status||'').indexOf('loading')===0) setProg(8, L('글자 읽기 준비 중… (처음 한 번은 20초쯤 걸려요)','Getting ready to read… (the first time takes about 20 seconds)'));
-      }}), 30000, 'worker');
-      if(settled) return;
-      var r=await withTimeout(worker.recognize(dataUrl), 60000, 'ocr');
-      try{ await worker.terminate(); worker=null; }catch(_){}
-      if(settled) return;
-      var list=parseMenuFromOCR(r && r.data ? r.data : {});
-      if(!list.length){
-        finish(L('사진에서 글자를 찾지 못했어요. 직접 입력이나 붙여넣기로 넣어 주세요',
-          'No text was found in the photo. Add items with Type In or Paste'),
-          L('글자를 찾지 못했어요','No text was found'));
+      if(worker){ try{ worker.terminate(); }catch(_){} worker=null; }
+      if(!merged.length){
+        if(engineFail){
+          finish(L('사진 읽기를 못 했어요. 사진은 위에 그대로 보여요 — 직접 입력이나 붙여넣기로 1초 만에 넣을 수 있어요',
+            'Could not read the photo. The photo is shown above — Type In or Paste adds items in a second'),
+            L('사진을 읽지 못했어요','Could not read the photo'));
+        }else{
+          finish((total>1
+            ? L('사진 '+total+'장에서 글자를 찾지 못했어요. 직접 입력이나 붙여넣기로 넣어 주세요',
+                'No text was found in the '+total+' photos. Add items with Type In or Paste')
+            : L('사진에서 글자를 찾지 못했어요. 직접 입력이나 붙여넣기로 넣어 주세요',
+                'No text was found in the photo. Add items with Type In or Paste'))+capNote,
+            L('글자를 찾지 못했어요','No text was found'));
+        }
         return;
       }
       settled=true; clearTimeout(hintT);
-      setProg(100, L(list.length+'개 후보를 찾았어요. 아래에서 확인해 주세요', list.length+' found. Check them below'));
+      var msg = total>1
+        ? L('사진 '+total+'장에서 '+merged.length+'개 후보를 찾았어요. 아래에서 확인해 주세요',
+            'Found '+merged.length+' items in '+total+' photos. Check them below')
+        : L(merged.length+'개 후보를 찾았어요. 아래에서 확인해 주세요', merged.length+' found. Check them below');
+      if(readFail) msg += L(' ('+readFail+'장은 읽지 못했어요)', ' ('+readFail+' could not be read)');
+      msg += capNote;
+      setProg(100, msg);
       photoShowFallback(false);
-      startReview(list, 'photo');
+      startReview(merged, 'photo', total);
     }catch(err){
       if(settled) return;
       finish(L('사진 읽기를 못 했어요. 사진은 위에 그대로 보여요 — 직접 입력이나 붙여넣기로 1초 만에 넣을 수 있어요',
