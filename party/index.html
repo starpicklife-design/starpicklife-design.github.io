@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#163A2D">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="Wagle Holiday Party — a free Christmas table party game for phones. Would You Rather, a 60-second guessing game, and a classic quotes quiz from public-domain books. No sign-up, no ads, no personal data.">
+<title>Wagle Holiday Party 🎄 Free Christmas Table Games</title>
+<style>
+  :root{
+    --pine:#163A2D;
+    --pine-deep:#0D2A1F;
+    --pine-2:#1F4E3B;
+    --cranberry:#B22234;
+    --cranberry-dark:#8B1727;
+    --cranberry-light:#C9304A;
+    --cream:#FFF9EE;
+    --cream-2:#F8EEDB;
+    --gold:#E6B34B;
+    --gold-deep:#C9932F;
+    --ink:#1E2B24;
+    --ink-soft:#5B6559;
+    --radius:1.3rem;
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none !important}
+  html{-webkit-text-size-adjust:100%}
+  html,body{margin:0;padding:0}
+  body{
+    min-height:100vh;
+    background:
+      radial-gradient(120% 70% at 50% -10%, #2A6550 0%, rgba(42,101,80,0) 60%),
+      radial-gradient(90% 50% at 100% 100%, #1C4A38 0%, rgba(28,74,56,0) 70%),
+      linear-gradient(180deg,#173F30 0%, #123327 45%, #0D2A1F 100%);
+    background-attachment:fixed;
+    color:var(--cream);
+    font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR","Segoe UI",Roboto,"Helvetica Neue","Liberation Sans",Arial,system-ui,-apple-system,sans-serif;
+    line-height:1.55;
+    word-break:keep-all;
+    overflow-x:hidden;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  /* ───────── 눈 내림 (순수 CSS) ───────── */
+  .snow{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+  .snow i{
+    position:absolute;top:-8vh;display:block;border-radius:50%;
+    background:#fff;opacity:.75;
+    animation:fall linear infinite;
+    will-change:transform;
+  }
+  @keyframes fall{
+    0%{transform:translate3d(0,-10vh,0)}
+    50%{transform:translate3d(1.5rem,50vh,0)}
+    100%{transform:translate3d(-.5rem,112vh,0)}
+  }
+  .snow i:nth-child(1){left:4%;width:5px;height:5px;animation-duration:14s;animation-delay:-1s;opacity:.65}
+  .snow i:nth-child(2){left:11%;width:3px;height:3px;animation-duration:18s;animation-delay:-6s;opacity:.5}
+  .snow i:nth-child(3){left:18%;width:6px;height:6px;animation-duration:12s;animation-delay:-3s;opacity:.8}
+  .snow i:nth-child(4){left:26%;width:4px;height:4px;animation-duration:16s;animation-delay:-9s;opacity:.55}
+  .snow i:nth-child(5){left:33%;width:3px;height:3px;animation-duration:21s;animation-delay:-2s;opacity:.6}
+  .snow i:nth-child(6){left:41%;width:5px;height:5px;animation-duration:13s;animation-delay:-12s;opacity:.7}
+  .snow i:nth-child(7){left:48%;width:4px;height:4px;animation-duration:19s;animation-delay:-5s;opacity:.5}
+  .snow i:nth-child(8){left:56%;width:6px;height:6px;animation-duration:15s;animation-delay:-8s;opacity:.75}
+  .snow i:nth-child(9){left:63%;width:3px;height:3px;animation-duration:17s;animation-delay:-14s;opacity:.55}
+  .snow i:nth-child(10){left:70%;width:5px;height:5px;animation-duration:11s;animation-delay:-4s;opacity:.8}
+  .snow i:nth-child(11){left:77%;width:4px;height:4px;animation-duration:20s;animation-delay:-10s;opacity:.5}
+  .snow i:nth-child(12){left:84%;width:3px;height:3px;animation-duration:16s;animation-delay:-7s;opacity:.6}
+  .snow i:nth-child(13){left:90%;width:6px;height:6px;animation-duration:13s;animation-delay:-11s;opacity:.7}
+  .snow i:nth-child(14){left:96%;width:4px;height:4px;animation-duration:18s;animation-delay:-13s;opacity:.55}
+  .snow i:nth-child(15){left:23%;width:7px;height:7px;animation-duration:22s;animation-delay:-16s;opacity:.45}
+  .snow i:nth-child(16){left:66%;width:2px;height:2px;animation-duration:23s;animation-delay:-15s;opacity:.65}
+  @media (prefers-reduced-motion:reduce){
+    .snow i{animation:none;top:auto;bottom:0}
+    .snow i:nth-child(n){opacity:.18}
+  }
+
+  /* ───────── 뼈대 ───────── */
+  .app{position:relative;z-index:1;max-width:34rem;margin:0 auto;
+    padding:calc(.9rem + env(safe-area-inset-top)) .85rem calc(2.2rem + env(safe-area-inset-bottom));}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.6rem}
+  .brand{display:flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:800;letter-spacing:.02em;color:#F6E7CB;opacity:.85}
+  .brand b{color:var(--gold)}
+  .toggles{display:flex;gap:.35rem}
+  .tgl{
+    border:1.5px solid rgba(230,179,75,.55);background:rgba(255,249,238,.08);
+    color:#FBEFD8;border-radius:999px;padding:.34rem .62rem;font-size:.74rem;font-weight:800;
+    font-family:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:.25rem;
+    min-height:2.1rem;
+  }
+  .tgl:active{transform:scale(.97)}
+
+  header.hero{text-align:center;margin:.2rem 0 .9rem}
+  .kicker{
+    display:inline-block;border:1.5px solid rgba(230,179,75,.45);color:#FBEBC9;background:rgba(230,179,75,.12);
+    border-radius:999px;padding:.2rem .7rem;font-size:.68rem;font-weight:800;letter-spacing:.04em;
+  }
+  h1{margin:.5rem 0 .15rem;font-size:1.62rem;line-height:1.18;letter-spacing:-.02em;font-weight:900;color:#FFF9EE}
+  h1 .red{color:#F2B7AE}
+  .sub{margin:.35rem auto 0;max-width:22rem;font-size:.84rem;color:#DFE9DE;opacity:.9}
+  .santa-scene{display:block;width:100%;height:auto;max-width:23rem;margin:.55rem auto 0}
+
+  /* ───────── 탭 ───────── */
+  .tabs{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:.25rem;
+    background:rgba(12,32,24,.55);border:1px solid rgba(230,179,75,.35);
+    padding:.28rem;border-radius:999px;margin:.9rem 0 .8rem;
+  }
+  .tab{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.05rem;
+    border:0;background:transparent;color:#EBDCC2;font-family:inherit;
+    font-size:.76rem;font-weight:800;line-height:1.15;padding:.5rem .15rem;border-radius:999px;
+    cursor:pointer;min-height:2.9rem;letter-spacing:-.01em;
+  }
+  .tab .em{font-size:1rem;line-height:1}
+  .tab[aria-selected="true"]{background:var(--cream);color:var(--pine);box-shadow:0 3px 10px rgba(0,0,0,.3)}
+  .tab[aria-selected="true"] .em{filter:none}
+
+  /* ───────── 카드 ───────── */
+  .card{
+    background:var(--cream);color:var(--ink);border:2px solid var(--gold);
+    border-radius:var(--radius);padding:1rem .9rem 1.05rem;
+    box-shadow:0 14px 32px rgba(0,0,0,.32), inset 0 1px 0 #fff;
+  }
+  .card + .card{margin-top:.7rem}
+  .panel{display:none}
+  .panel.on{display:block;animation:pop .22s ease-out}
+  @keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){.panel.on{animation:none}}
+
+  .rowline{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.55rem}
+  .pill{
+    display:inline-flex;align-items:center;gap:.3rem;background:#EFE3CA;color:#57440F;
+    border-radius:999px;padding:.2rem .62rem;font-size:.7rem;font-weight:900;letter-spacing:.01em;
+  }
+  .pill.gold{background:linear-gradient(180deg,#F6D98F,#E6B34B);color:#4A3405}
+  .tiny{font-size:.7rem;color:var(--ink-soft);font-weight:700}
+
+  h2.qt{margin:.15rem 0 .8rem;font-size:1.16rem;line-height:1.35;font-weight:900;letter-spacing:-.02em;color:#1C2A22}
+
+  /* WYR */
+  .wyr-btn{
+    position:relative;display:block;width:100%;text-align:left;border:0;border-radius:1rem;
+    padding:1.05rem 1rem 1.05rem 2.5rem;color:#fff;font-family:inherit;
+    font-size:1rem;font-weight:800;line-height:1.35;letter-spacing:-.01em;cursor:pointer;
+    box-shadow:0 6px 0 rgba(0,0,0,.18), 0 10px 20px rgba(0,0,0,.12);
+    transition:transform .12s ease, box-shadow .12s ease, filter .15s ease;
+  }
+  .wyr-btn .ab{
+    position:absolute;left:.72rem;top:50%;transform:translateY(-50%);
+    width:1.45rem;height:1.45rem;border-radius:50%;background:rgba(255,255,255,.22);
+    display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:900;
+  }
+  .wyr-btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.18)}
+  .wyr-btn.a{background:linear-gradient(165deg,#C42A3C,#8B1727)}
+  .wyr-btn.b{background:linear-gradient(165deg,#2C6E52,#14382A)}
+  .wyr-btn.dim{filter:saturate(.5) brightness(.94);opacity:.8;padding:.74rem .95rem .74rem 2.45rem;font-size:.94rem}
+  .wyr-btn.picked{outline:3px solid var(--gold);outline-offset:2px;filter:none;opacity:1}
+  .vs{display:flex;align-items:center;gap:.6rem;margin:.55rem 0;color:#8A7A5C}
+  .vs::before,.vs::after{content:"";flex:1;height:1px;background:#DDCFAF}
+  .vs span{font-size:.72rem;font-weight:900;letter-spacing:.08em}
+
+  .results{margin-top:.85rem;padding-top:.75rem;border-top:2px dashed #E2D3B4}
+  .results .res-t{font-size:.72rem;font-weight:900;color:#6B5A33;letter-spacing:.03em;margin-bottom:.5rem}
+  .barrow{margin-bottom:.5rem}
+  .barrow .lab{display:flex;justify-content:space-between;font-size:.74rem;font-weight:800;color:#3A4438;margin-bottom:.22rem;gap:.5rem}
+  .barrow .lab em{font-style:normal;color:var(--ink-soft);font-weight:700}
+  .bar{height:.78rem;background:#EBDFC6;border-radius:999px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:999px;transition:width .55s cubic-bezier(.2,.8,.2,1)}
+  .bar i.a{background:linear-gradient(90deg,#C42A3C,#8B1727)}
+  .bar i.b{background:linear-gradient(90deg,#2C6E52,#14382A)}
+
+  .btn{
+    display:flex;align-items:center;justify-content:center;gap:.4rem;width:100%;
+    border:0;border-radius:1rem;padding:.95rem 1rem;font-family:inherit;font-size:1rem;font-weight:900;
+    cursor:pointer;letter-spacing:-.01em;min-height:3.2rem;
+  }
+  .btn.primary{background:linear-gradient(180deg,#F0C567,#E6B34B);color:#3D2A02;box-shadow:0 5px 0 #B9862A,0 10px 22px rgba(0,0,0,.18)}
+  .btn.primary:active{transform:translateY(3px);box-shadow:0 2px 0 #B9862A}
+  .btn.red{background:linear-gradient(180deg,#C9304A,#95182A);color:#fff;box-shadow:0 5px 0 #6E101E,0 10px 20px rgba(0,0,0,.18)}
+  .btn.red:active{transform:translateY(3px);box-shadow:0 2px 0 #6E101E}
+  .btn.ghost{background:#F1E5CC;color:#3C4A3E;box-shadow:none;border:2px solid #DCCBA8}
+  .btn.ghost:active{transform:translateY(2px)}
+  .btn.sm{font-size:.82rem;padding:.6rem .8rem;min-height:2.6rem;border-radius:.8rem;box-shadow:none;background:#EFE3CA;color:#4A4025}
+  .spacer{height:.55rem}
+
+  /* Heads Up */
+  .chips{display:flex;flex-wrap:wrap;gap:.35rem;margin:.15rem 0 .8rem}
+  .chip{
+    border:2px solid #E0D0AE;background:#FBF3E1;color:#4A533F;border-radius:999px;
+    padding:.42rem .8rem;font-family:inherit;font-size:.78rem;font-weight:800;cursor:pointer;
+  }
+  .chip[aria-pressed="true"]{background:var(--pine);border-color:var(--pine);color:#FFF6E3}
+  .timerwrap{margin:.2rem 0 .7rem}
+  .timerbar{height:.7rem;background:#E9DCC0;border-radius:999px;overflow:hidden;border:1px solid #DFCFAB}
+  .timerbar i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#2C6E52,#4E9C79);transition:width .2s linear}
+  .timerbar.low i{background:linear-gradient(90deg,#C9304A,#8B1727)}
+  .clock{display:flex;align-items:baseline;justify-content:center;gap:.35rem;margin-top:.35rem}
+  .clock b{font-size:1.5rem;font-weight:900;color:#2A3B30;font-variant-numeric:tabular-nums}
+  .clock span{font-size:.72rem;font-weight:800;color:var(--ink-soft)}
+  .wordcard{
+    background:linear-gradient(170deg,#1F4E3B,#123327);color:#FFF7E8;
+    border-radius:1rem;padding:1.5rem .9rem;text-align:center;
+    border:2px solid var(--gold);box-shadow:inset 0 0 40px rgba(230,179,75,.16);
+    min-height:9.2rem;display:flex;flex-direction:column;justify-content:center;gap:.35rem;
+  }
+  .wordcard .w{font-size:2.05rem;font-weight:900;line-height:1.15;letter-spacing:-.02em;word-break:keep-all;overflow-wrap:anywhere}
+  .wordcard .cat{font-size:.66rem;font-weight:900;letter-spacing:.12em;color:#EFCB80;text-transform:uppercase}
+  .hu-actions{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-top:.75rem}
+  .hu-actions .btn{font-size:.95rem;padding:.9rem .4rem}
+  .scorebig{text-align:center;font-size:2.7rem;font-weight:900;color:var(--cranberry-dark);line-height:1}
+  .scorebig small{display:block;font-size:.72rem;color:var(--ink-soft);font-weight:800;letter-spacing:.06em;margin-top:.3rem}
+  .recap{display:flex;flex-wrap:wrap;gap:.3rem;margin:.7rem 0 .9rem;justify-content:center}
+  .recap span{font-size:.74rem;font-weight:800;padding:.24rem .55rem;border-radius:999px;background:#EFE3CA;color:#4E4A32}
+  .recap span.ok{background:#DDEBDD;color:#245740}
+  .recap span.no{background:#FBE3E0;color:#8B2A2A}
+
+  /* Quotes */
+  .quotebox{
+    background:#FBF0D8;border:1px solid #E8D4A8;border-left:5px solid var(--cranberry);border-radius:.55rem;
+    padding:.8rem .85rem;margin:.1rem 0 .75rem;box-shadow:0 2px 10px rgba(120,90,30,.10);
+  }
+  .quotebox blockquote{margin:0;font-size:1.08rem;line-height:1.5;font-weight:800;color:#2A2018;
+    font-family:Georgia,"Iowan Old Style","Times New Roman",serif;}
+  .q-choices{display:flex;flex-direction:column;gap:.45rem}
+  .q-choice{
+    display:flex;align-items:center;gap:.55rem;width:100%;text-align:left;
+    background:#FBF3E1;border:2px solid #E0D0AE;border-radius:.85rem;
+    padding:.8rem .8rem;font-family:inherit;font-size:.92rem;font-weight:800;color:#2E3A32;cursor:pointer;
+    line-height:1.3;min-height:3rem;
+  }
+  .q-choice .k{
+    flex:0 0 auto;width:1.5rem;height:1.5rem;border-radius:50%;background:#E7D9BC;color:#5C4A1C;
+    display:flex;align-items:center;justify-content:center;font-size:.76rem;font-weight:900;
+  }
+  .q-choice:active{transform:scale(.995)}
+  .q-choice.correct{background:#DCEEDC;border-color:#4E9C79;color:#1E4B33}
+  .q-choice.correct .k{background:#4E9C79;color:#fff}
+  .q-choice.wrong{background:#FBE1DE;border-color:#C9524A;color:#7E2620}
+  .q-choice.wrong .k{background:#C9524A;color:#fff}
+  .q-choice.dimmed{opacity:.55}
+  .q-note{
+    margin-top:.7rem;background:#F3ECDB;border-radius:.7rem;padding:.65rem .75rem;
+    font-size:.78rem;line-height:1.45;color:#3C4436;
+  }
+  .q-note b{color:#1E4B33}
+  .q-note .src{display:block;margin-top:.25rem;font-size:.72rem;color:#6B6450;font-style:italic}
+
+  footer{margin-top:1rem;text-align:center;font-size:.66rem;color:#CFDCCD;opacity:.8;line-height:1.6}
+  footer .seal{display:inline-flex;gap:.35rem;align-items:center;margin-top:.3rem}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+</style>
+</head>
+<body>
+<div class="snow" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+<div class="app">
+  <div class="topbar">
+    <div class="brand"><span aria-hidden="true">🎄</span> <b>WAGLE</b> HOLIDAY PARTY</div>
+    <div class="toggles">
+      <button class="tgl" id="langBtn" type="button" aria-label="Language">
+        <span aria-hidden="true">🌐</span><span id="langLabel">한</span>
+      </button>
+      <button class="tgl" id="soundBtn" type="button" aria-pressed="false" aria-label="Sound">
+        <span id="soundIcon" aria-hidden="true">🔕</span><span id="soundLabel" data-en="Sound Off" data-ko="무음">Sound Off</span>
+      </button>
+    </div>
+  </div>
+
+  <header class="hero">
+    <span class="kicker" data-en="FREE · NO SIGN-UP · NO ADS" data-ko="무료 · 가입 없음 · 광고 없음">FREE · NO SIGN-UP · NO ADS</span>
+    <h1><span data-en="Wagle Holiday Party" data-ko="와글 홀리데이 파티">Wagle Holiday Party</span> <span class="red" aria-hidden="true">🎄</span></h1>
+    <p class="sub" data-en="Three Christmas party games for your table. Open this page on any phone — that's it."
+       data-ko="식탁 위 크리스마스 파티게임 3종. 아무 폰에서나 이 페이지를 열면 끝.">Three Christmas party games for your table. Open this page on any phone — that's it.</p>
+
+    <!-- 와글가족(미미·테오·아기) + 니키(세희) 인라인 SVG : 외부 이미지 0개 -->
+    <svg class="santa-scene" viewBox="0 0 380 182" role="img" aria-labelledby="sceneTitle">
+      <title id="sceneTitle">The Wagle family and Niki in Santa hats and winter scarves</title>
+      <defs>
+        <radialGradient id="glow" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#3A7A5F" stop-opacity=".55"/>
+          <stop offset="100%" stop-color="#3A7A5F" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="snowG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#FFFBF1"/>
+          <stop offset="100%" stop-color="#E4DCC7"/>
+        </linearGradient>
+      </defs>
+
+      <ellipse cx="190" cy="120" rx="185" ry="62" fill="url(#glow)"/>
+
+      <!-- 전구 줄 -->
+      <path d="M-2 26 Q60 54 130 30 T262 34 T382 28" stroke="#8C7A4A" stroke-width="1.4" fill="none" opacity=".8"/>
+      <circle cx="34" cy="42" r="3.4" fill="#E6B34B"/><circle cx="34" cy="42" r="7" fill="#E6B34B" opacity=".22"/>
+      <circle cx="86" cy="45" r="3.4" fill="#C9304A"/><circle cx="86" cy="45" r="7" fill="#C9304A" opacity=".22"/>
+      <circle cx="138" cy="33" r="3.4" fill="#6FAF8B"/><circle cx="138" cy="33" r="7" fill="#6FAF8B" opacity=".22"/>
+      <circle cx="196" cy="32" r="3.4" fill="#E6B34B"/><circle cx="196" cy="32" r="7" fill="#E6B34B" opacity=".22"/>
+      <circle cx="250" cy="35" r="3.4" fill="#C9304A"/><circle cx="250" cy="35" r="7" fill="#C9304A" opacity=".22"/>
+      <circle cx="306" cy="33" r="3.4" fill="#6FAF8B"/><circle cx="306" cy="33" r="7" fill="#6FAF8B" opacity=".22"/>
+      <circle cx="356" cy="28" r="3.4" fill="#E6B34B"/><circle cx="356" cy="28" r="7" fill="#E6B34B" opacity=".22"/>
+
+      <!-- 왼쪽 나무 -->
+      <g opacity=".95">
+        <rect x="29" y="132" width="7" height="16" rx="2" fill="#5B4227"/>
+        <path d="M32 62 L13 108 H51 Z" fill="#25604A"/>
+        <path d="M32 84 L9 128 H55 Z" fill="#1E5240"/>
+        <path d="M22 128 H42 L38 136 H26 Z" fill="#1A4436"/>
+        <path d="M32 62 l2.6 5.4 5.9.6-4.4 4 1.2 5.8-5.3-3-5.3 3 1.2-5.8-4.4-4 5.9-.6z" fill="#E6B34B"/>
+      </g>
+
+      <!-- 오른쪽 선물 더미 -->
+      <g>
+        <rect x="322" y="128" width="30" height="24" rx="3" fill="#B22234"/>
+        <rect x="335" y="128" width="5" height="24" fill="#E6B34B" opacity=".9"/>
+        <rect x="330" y="123" width="14" height="6" rx="2" fill="#E6B34B"/>
+        <rect x="300" y="136" width="22" height="16" rx="3" fill="#1F4E3B"/>
+        <rect x="309" y="136" width="4" height="16" fill="#F2E3C2"/>
+      </g>
+
+      <!-- 눈 둔덕 -->
+      <path d="M0 151 Q50 141 100 150 T200 151 T300 150 T380 152 V182 H0 Z" fill="url(#snowG)"/>
+      <path d="M0 151 Q50 141 100 150 T200 151 T300 150 T380 152" stroke="#fff" stroke-width="2" fill="none" opacity=".8"/>
+
+      <!-- ══ 니키(세희) ══ -->
+      <g transform="translate(64,152)">
+        <ellipse cx="0" cy="1" rx="23" ry="4.5" fill="#0A2018" opacity=".28"/>
+        <path d="M-19 -48 v32 q0 7 7 7 h24 q7 0 7 -7 v-32 z" fill="#4A3226"/>
+        <path d="M-16 0 V-29 a16 16 0 0 1 32 0 V0 Z" fill="#7C3B4A"/>
+        <path d="M-16 0 V-29 a16 16 0 0 1 4 -10 l4 39 z" fill="#652F3C" opacity=".75"/>
+        <rect x="-17" y="-33" width="34" height="8" rx="4" fill="#F2E3C2"/>
+        <rect x="5" y="-27" width="8" height="16" rx="3.5" fill="#F2E3C2"/>
+        <circle cx="0" cy="-50" r="16" fill="#F6D9C0"/>
+        <path d="M-16 -50 a16 16 0 0 1 32 0 v5 q-7 -8 -16 -8 t-16 8 z" fill="#4A3226"/>
+        <path d="M-19 -52 q-2 14 2 26 l5 -2 q-3 -12 -2 -22 z" fill="#4A3226"/>
+        <path d="M19 -52 q2 14 -2 26 l-5 -2 q3 -12 2 -22 z" fill="#4A3226"/>
+        <circle cx="-5.6" cy="-49" r="1.9" fill="#2B2018"/><circle cx="5.6" cy="-49" r="1.9" fill="#2B2018"/>
+        <path d="M-4 -42.6 q4 4 8 0" stroke="#2B2018" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <ellipse cx="-11" cy="-44" rx="3" ry="2" fill="#E98B7B" opacity=".45"/>
+        <ellipse cx="11" cy="-44" rx="3" ry="2" fill="#E98B7B" opacity=".45"/>
+        <rect x="-17" y="-63" width="34" height="7.5" rx="3.6" fill="#FFF9EE"/>
+        <path d="M-15 -64 C-11 -79 -1 -86 9 -76 L14 -63 Z" fill="#B22234"/>
+        <path d="M-15 -64 C-11 -74 -6 -78 -1 -80 L-6 -63 Z" fill="#C9304A" opacity=".75"/>
+        <circle cx="10" cy="-77" r="5" fill="#FFF9EE"/>
+      </g>
+
+      <!-- ══ 아기 ══ -->
+      <g transform="translate(120,152) scale(.72)">
+        <ellipse cx="0" cy="1" rx="21" ry="4" fill="#0A2018" opacity=".26"/>
+        <path d="M-14 0 V-20 a14 14 0 0 1 28 0 V0 Z" fill="#E6B34B"/>
+        <rect x="-15" y="-23" width="30" height="7" rx="3.5" fill="#B22234"/>
+        <rect x="4" y="-18" width="7" height="12" rx="3" fill="#B22234"/>
+        <circle cx="0" cy="-38" r="14" fill="#F7DDC6"/>
+        <path d="M-14 -39 a14 14 0 0 1 28 0 v3 q-6 -7 -14 -7 t-14 7 z" fill="#3B2A22"/>
+        <path d="M-2 -52 q3 -6 6 0" stroke="#3B2A22" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <circle cx="-5" cy="-37.5" r="2.2" fill="#2B2018"/><circle cx="5" cy="-37.5" r="2.2" fill="#2B2018"/>
+        <circle cx="0" cy="-32" r="2" fill="#C4705E" opacity=".55"/>
+        <ellipse cx="-9.5" cy="-33" rx="2.6" ry="1.8" fill="#E98B7B" opacity=".5"/>
+        <ellipse cx="9.5" cy="-33" rx="2.6" ry="1.8" fill="#E98B7B" opacity=".5"/>
+        <rect x="-15" y="-50" width="30" height="7" rx="3.4" fill="#FFF9EE"/>
+        <path d="M-13 -51 C-9 -64 0 -70 8 -61 L12 -50 Z" fill="#B22234"/>
+        <circle cx="9" cy="-62" r="4.4" fill="#FFF9EE"/>
+      </g>
+
+      <!-- ══ 미미 ══ -->
+      <g transform="translate(186,152)">
+        <ellipse cx="0" cy="1" rx="23" ry="4.5" fill="#0A2018" opacity=".28"/>
+        <path d="M-18 -50 q-3 18 1 30 l6 -2 q-3 -14 -1 -26 z" fill="#3B2A22"/>
+        <path d="M18 -50 q3 18 -1 30 l-6 -2 q3 -14 1 -26 z" fill="#3B2A22"/>
+        <path d="M-16 0 V-30 a16 16 0 0 1 32 0 V0 Z" fill="#B22234"/>
+        <path d="M-16 0 V-30 a16 16 0 0 1 3 -9 l4 39 z" fill="#95182A" opacity=".8"/>
+        <rect x="-17" y="-34" width="34" height="8" rx="4" fill="#E6B34B"/>
+        <rect x="-6" y="-27" width="8" height="15" rx="3.5" fill="#E6B34B"/>
+        <circle cx="0" cy="-51" r="16.5" fill="#F6D9C0"/>
+        <path d="M-17 -51 a17 17 0 0 1 34 0 v5 q-8 -9 -17 -9 t-17 9 z" fill="#3B2A22"/>
+        <circle cx="-5.8" cy="-50" r="2" fill="#2B2018"/><circle cx="5.8" cy="-50" r="2" fill="#2B2018"/>
+        <path d="M-4.2 -43.4 q4.2 4.4 8.4 0" stroke="#2B2018" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+        <ellipse cx="-11.5" cy="-45" rx="3.2" ry="2.1" fill="#E98B7B" opacity=".5"/>
+        <ellipse cx="11.5" cy="-45" rx="3.2" ry="2.1" fill="#E98B7B" opacity=".5"/>
+        <rect x="-18" y="-64" width="36" height="8" rx="4" fill="#FFF9EE"/>
+        <path d="M-16 -65 C-12 -80 -2 -88 8 -78 L15 -64 Z" fill="#B22234"/>
+        <path d="M-16 -65 C-12 -75 -7 -79 -2 -81 L-7 -64 Z" fill="#C9304A" opacity=".75"/>
+        <circle cx="9" cy="-79" r="5.2" fill="#FFF9EE"/>
+      </g>
+
+      <!-- ══ 테오 ══ -->
+      <g transform="translate(252,152)">
+        <ellipse cx="0" cy="1" rx="23" ry="4.5" fill="#0A2018" opacity=".28"/>
+        <path d="M-16 0 V-31 a16 16 0 0 1 32 0 V0 Z" fill="#1F4E3B"/>
+        <path d="M-16 0 V-31 a16 16 0 0 1 3 -9 l4 40 z" fill="#163A2D" opacity=".85"/>
+        <rect x="-17" y="-35" width="34" height="8" rx="4" fill="#F2E3C2"/>
+        <rect x="5" y="-28" width="8" height="16" rx="3.5" fill="#F2E3C2"/>
+        <circle cx="0" cy="-52" r="16" fill="#F3D3B8"/>
+        <path d="M-16 -52 a16 16 0 0 1 32 0 q-6 -12 -16 -12 t-16 12 z" fill="#2E2119"/>
+        <path d="M-16 -54 q-1 6 2 9 l4 -1 q-2 -4 -2 -8 z" fill="#2E2119"/>
+        <path d="M16 -54 q1 6 -2 9 l-4 -1 q2 -4 2 -8 z" fill="#2E2119"/>
+        <circle cx="-5.6" cy="-50" r="2" fill="#2B2018"/><circle cx="5.6" cy="-50" r="2" fill="#2B2018"/>
+        <path d="M-4 -43.6 q4 4 8 0" stroke="#2B2018" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+        <ellipse cx="-11" cy="-45.5" rx="3" ry="2" fill="#E98B7B" opacity=".42"/>
+        <ellipse cx="11" cy="-45.5" rx="3" ry="2" fill="#E98B7B" opacity=".42"/>
+        <rect x="-17" y="-65" width="34" height="8" rx="4" fill="#FFF9EE"/>
+        <path d="M-15 -66 C-10 -82 2 -89 11 -78 L14 -65 Z" fill="#B22234"/>
+        <path d="M-15 -66 C-10 -76 -5 -81 0 -82 L-5 -65 Z" fill="#C9304A" opacity=".7"/>
+        <circle cx="11" cy="-79" r="5" fill="#FFF9EE"/>
+      </g>
+
+      <!-- 눈사람 -->
+      <g transform="translate(316,152)" opacity=".98">
+        <ellipse cx="0" cy="1" rx="18" ry="3.6" fill="#0A2018" opacity=".25"/>
+        <circle cx="0" cy="-11" r="12" fill="#FBF7EE"/>
+        <circle cx="0" cy="-31" r="9" fill="#FFFCF4"/>
+        <circle cx="-3.2" cy="-33" r="1.4" fill="#2B2018"/><circle cx="3.2" cy="-33" r="1.4" fill="#2B2018"/>
+        <path d="M0 -30 l8 -2 -8 4 z" fill="#E07A2A"/>
+        <path d="M-4 -25 q4 3 8 0" stroke="#2B2018" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <path d="M-9 -21 q4 -4 9 -4 q5 0 9 4 q-9 3 -18 0z" fill="#B22234"/>
+        <circle cx="0" cy="-41" r="9.6" fill="#B22234" opacity=".0"/>
+        <path d="M-10 -39 h20 v4 h-20z" fill="#FFF9EE" opacity=".0"/>
+      </g>
+    </svg>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Games">
+    <button class="tab" role="tab" id="tab-wyr" aria-controls="panel-wyr" aria-selected="true" data-tab="wyr" type="button">
+      <span class="em" aria-hidden="true">⚖️</span><span data-en="Would You Rather" data-ko="밸런스 게임">Would You Rather</span>
+    </button>
+    <button class="tab" role="tab" id="tab-hu" aria-controls="panel-hu" aria-selected="false" data-tab="hu" type="button">
+      <span class="em" aria-hidden="true">📱</span><span data-en="Heads Up!" data-ko="이마 게임">Heads Up!</span>
+    </button>
+    <button class="tab" role="tab" id="tab-q" aria-controls="panel-q" aria-selected="false" data-tab="q" type="button">
+      <span class="em" aria-hidden="true">📜</span><span data-en="Classic Quotes" data-ko="고전 명대사">Classic Quotes</span>
+    </button>
+  </div>
+
+  <!-- ══════ Would You Rather ══════ -->
+  <section class="panel on" id="panel-wyr" role="tabpanel" aria-labelledby="tab-wyr">
+    <div class="card">
+      <div class="rowline">
+        <span class="pill" id="wyrCount">1 / 24</span>
+        <span class="tiny" data-en="Tap A or B — no wrong answer" data-ko="A 또는 B를 탭 — 틀린 답은 없어요">Tap A or B — no wrong answer</span>
+      </div>
+      <h2 class="qt" id="wyrPrompt"></h2>
+      <button class="wyr-btn a" id="wyrA" type="button"><span class="ab" aria-hidden="true">A</span><span class="tx"></span></button>
+      <div class="vs"><span data-en="OR" data-ko="또는">OR</span></div>
+      <button class="wyr-btn b" id="wyrB" type="button"><span class="ab" aria-hidden="true">B</span><span class="tx"></span></button>
+      <div class="results" id="wyrResults" hidden>
+        <div class="res-t" data-en="THIS TABLE'S VOTES · saved on this device" data-ko="이 테이블의 표 · 이 기기에 저장">THIS TABLE'S VOTES · saved on this device</div>
+        <div class="barrow">
+          <div class="lab"><span id="wyrLblA">A</span><em id="wyrPctA">0%</em></div>
+          <div class="bar"><i class="a" id="wyrBarA" style="width:0%"></i></div>
+        </div>
+        <div class="barrow">
+          <div class="lab"><span id="wyrLblB">B</span><em id="wyrPctB">0%</em></div>
+          <div class="bar"><i class="b" id="wyrBarB" style="width:0%"></i></div>
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <button class="btn primary" id="wyrNext" type="button" hidden></button>
+      <div class="spacer"></div>
+      <button class="btn sm" id="wyrReset" type="button" data-en="↺ Reset this table's votes" data-ko="↺ 이 테이블 표 초기화">↺ Reset this table's votes</button>
+    </div>
+  </section>
+
+  <!-- ══════ Heads Up ══════ -->
+  <section class="panel" id="panel-hu" role="tabpanel" aria-labelledby="tab-hu" hidden>
+    <div class="card">
+      <div id="huIdle">
+        <div class="rowline">
+          <span class="pill gold" data-en="60 SECONDS" data-ko="60초">60 SECONDS</span>
+          <span class="tiny" data-en="Team game · 2+ players" data-ko="팀 게임 · 2명 이상">Team game · 2+ players</span>
+        </div>
+        <h2 class="qt" data-en="Describe the word. Don't say the word." data-ko="단어를 설명하세요. 단어는 말하지 마세요.">Describe the word. Don't say the word.</h2>
+        <p class="tiny" style="margin:-.5rem 0 .8rem;line-height:1.5" data-en="Hold the phone on your forehead or pass it around. Your team guesses out loud. Tap ✅ for each correct guess, ⏭️ to skip." data-ko="폰을 이마에 대거나 옆으로 돌려 가며, 팀이 소리 내어 맞힙니다. 맞히면 ✅, 넘어가려면 ⏭️를 누르세요.">Hold the phone on your forehead or pass it around. Your team guesses out loud. Tap ✅ for each correct guess, ⏭️ to skip.</p>
+        <div class="chips" id="huChips" role="group" aria-label="Word category">
+          <button class="chip" type="button" data-cat="all" aria-pressed="true"><span data-en="🎲 All" data-ko="🎲 전체">🎲 All</span></button>
+          <button class="chip" type="button" data-cat="winter" aria-pressed="false"><span data-en="🎄 Winter" data-ko="🎄 겨울">🎄 Winter</span></button>
+          <button class="chip" type="button" data-cat="party" aria-pressed="false"><span data-en="🎉 Party" data-ko="🎉 파티">🎉 Party</span></button>
+          <button class="chip" type="button" data-cat="everyday" aria-pressed="false"><span data-en="🏠 Everyday" data-ko="🏠 일상">🏠 Everyday</span></button>
+        </div>
+        <button class="btn red" id="huStart" type="button"><span aria-hidden="true">▶</span><span data-en="Start 60 seconds" data-ko="60초 시작">Start 60 seconds</span></button>
+        <p class="tiny" style="text-align:center;margin:.6rem 0 0;opacity:.75" data-en="An original word game by Wagle Family." data-ko="와글가족이 만든 자체 단어 게임입니다.">An original word game by Wagle Family.</p>
+      </div>
+
+      <div id="huPlay" hidden>
+        <div class="timerwrap">
+          <div class="timerbar" id="huBarWrap"><i id="huBar"></i></div>
+          <div class="clock"><b id="huClock">60</b><span data-en="sec left" data-ko="초 남음">sec left</span></div>
+        </div>
+        <div class="wordcard">
+          <div class="cat" id="huCat">WINTER</div>
+          <div class="w" id="huWord">—</div>
+        </div>
+        <div class="hu-actions">
+          <button class="btn primary" id="huGot" type="button"><span aria-hidden="true">✅</span><span data-en="Got it!" data-ko="정답!">Got it!</span></button>
+          <button class="btn ghost" id="huPass" type="button"><span aria-hidden="true">⏭️</span><span data-en="Pass" data-ko="패스">Pass</span></button>
+        </div>
+      </div>
+
+      <div id="huEnd" hidden>
+        <p class="tiny" style="text-align:center;letter-spacing:.1em;font-weight:900;color:#6B5A33;margin:.1rem 0 .2rem" data-en="TIME'S UP!" data-ko="시간 종료!">TIME'S UP!</p>
+        <div class="scorebig"><span id="huScore">0</span><small data-en="WORDS GUESSED" data-ko="맞힌 단어">WORDS GUESSED</small></div>
+        <div class="recap" id="huRecap"></div>
+        <button class="btn primary" id="huAgain" type="button" data-en="Play again" data-ko="다시 하기">Play again</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════ Classic Quotes ══════ -->
+  <section class="panel" id="panel-q" role="tabpanel" aria-labelledby="tab-q" hidden>
+    <div class="card">
+      <div id="qGame">
+        <div class="rowline">
+          <span class="pill" id="qCount">1 / 12</span>
+          <span class="tiny" id="qScore"></span>
+        </div>
+        <div class="quotebox" id="qQuoteBox"><blockquote id="qQuote"></blockquote></div>
+        <h2 class="qt" id="qPrompt" style="margin-top:0"></h2>
+        <div class="q-choices" id="qChoices"></div>
+        <div class="q-note" id="qNote" hidden></div>
+        <div class="spacer"></div>
+        <button class="btn primary" id="qNext" type="button" hidden></button>
+      </div>
+      <div id="qEnd" hidden>
+        <p class="tiny" style="text-align:center;letter-spacing:.1em;font-weight:900;color:#6B5A33;margin:.1rem 0 .2rem" data-en="ROUND COMPLETE" data-ko="라운드 완료">ROUND COMPLETE</p>
+        <div class="scorebig"><span id="qFinal">0</span><small id="qFinalSub">0 / 12</small></div>
+        <p class="tiny" style="text-align:center;margin:.5rem 0 .9rem" id="qVerdict"></p>
+        <button class="btn primary" id="qAgain" type="button" data-en="Play again" data-ko="다시 하기">Play again</button>
+      </div>
+      <p class="tiny" style="margin:.7rem 0 0;opacity:.8;line-height:1.45" data-en="Every quote here is from a public-domain classic (all published before 1930)." data-ko="모든 명대사는 저작권이 만료된 고전(1930년 이전 출간)에서만 골랐습니다.">Every quote here is from a public-domain classic (all published before 1930).</p>
+    </div>
+  </section>
+
+  <footer>
+    <div data-en="Free for everyone · No ads · No sign-up · No personal data collected" data-ko="누구나 무료 · 광고 없음 · 가입 없음 · 개인정보 수집 없음">Free for everyone · No ads · No sign-up · No personal data collected</div>
+    <div class="seal"><span aria-hidden="true">🎄</span><span data-en="Wagle Family · StarPick Life" data-ko="와글가족 · StarPick Life">Wagle Family · StarPick Life</span></div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ══════════════ 상태 / 언어 / 소리 ══════════════ */
+  var LS = {
+    get: function(k, d){ try{ var v = localStorage.getItem(k); return v===null? d : JSON.parse(v); }catch(e){ return d; } },
+    set: function(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+  };
+  var qs = new URLSearchParams(location.search).get("lang");
+  var lang = LS.get("waglePartyLang", null) || (qs === "ko" ? "ko" : "en");
+  var soundOn = LS.get("waglePartySound", false) === true;
+
+  function T(o){ return (o && (o[lang] || o.en)) || ""; }
+  function $(s, r){ return (r||document).querySelector(s); }
+  function $$(s, r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
+  function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+
+  var TXT = {
+    title: {en:"Wagle Holiday Party 🎄 Free Christmas Table Games", ko:"와글 홀리데이 파티 🎄 무료 크리스마스 테이블 게임"},
+    soundOff: {en:"Sound Off", ko:"무음"},
+    soundOn: {en:"Sound On", ko:"소리 켬"},
+    next: {en:"Next question →", ko:"다음 질문 →"},
+    seeResult: {en:"See my score →", ko:"점수 보기 →"},
+    correct: {en:"Correct!", ko:"정답!"},
+    notQuite: {en:"Not quite — the answer is", ko:"아쉬워요 — 정답은"},
+    catAll: {en:"ALL", ko:"전체"},
+    catWinter: {en:"WINTER", ko:"겨울"},
+    catParty: {en:"PARTY", ko:"파티"},
+    catEveryday: {en:"EVERYDAY", ko:"일상"},
+    scoreOf: function(a,b){ return lang==="ko" ? ("점수 "+a+" / "+b) : ("Score "+a+" / "+b); },
+    finalSub: function(s,n){ return s+" / "+n; },
+    verdictGood: {en:"A true classic reader. Pass the phone — your turn to host.", ko:"고전을 제대로 아시네요. 이제 다음 사람에게 폰을 넘겨 주세요."},
+    verdictMid: {en:"Solid! Half the table will want a rematch.", ko:"훌륭해요! 테이블 절반은 재대결을 원할 거예요."},
+    verdictLow: {en:"Now you have a reading list for the holidays.", ko:"이제 연휴 독서 목록이 생겼네요."},
+    secLeft: {en:"sec left", ko:"초 남음"}
+  };
+
+  /* ══════════════ 효과음 (짧은 합성음, 외부 파일 0개) ══════════════ */
+  var actx = null;
+  function ctx(){
+    if(!actx){ var C = window.AudioContext || window.webkitAudioContext; if(!C) return null; actx = new C(); }
+    if(actx.state === "suspended"){ actx.resume(); }
+    return actx;
+  }
+  function beep(freq, dur, type, vol, when){
+    if(!soundOn) return;
+    var c = ctx(); if(!c) return;
+    var t0 = c.currentTime + (when||0);
+    var o = c.createOscillator(), g = c.createGain();
+    o.type = type || "sine";
+    o.frequency.setValueAtTime(freq, t0);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(vol || 0.09, t0 + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(g); g.connect(c.destination);
+    o.start(t0); o.stop(t0 + dur + 0.02);
+  }
+  function sfx(name){
+    if(!soundOn) return;
+    if(name === "tap")   { beep(520, .07, "triangle", .06); }
+    if(name === "vote")  { beep(392, .09, "sine", .07); beep(587, .12, "sine", .06, .07); }
+    if(name === "got")   { beep(784, .09, "triangle", .08); beep(1046, .13, "triangle", .07, .08); }
+    if(name === "pass")  { beep(330, .12, "sine", .07); beep(247, .14, "sine", .06, .09); }
+    if(name === "right") { beep(659, .1, "triangle", .08); beep(880, .1, "triangle", .07, .1); beep(1174, .16, "triangle", .06, .2); }
+    if(name === "wrong") { beep(233, .16, "sawtooth", .05); beep(185, .2, "sawtooth", .045, .12); }
+    if(name === "tick")  { beep(880, .05, "square", .035); }
+    if(name === "end")   { beep(523, .12, "triangle", .08); beep(392, .16, "triangle", .07, .13); beep(261, .28, "triangle", .07, .3); }
+  }
+  function buzz(ms){ try{ if(navigator.vibrate) navigator.vibrate(ms||12); }catch(e){} }
+
+  /* ══════════════ 1) Would You Rather — 24개 자체 창작 질문 ══════════════ */
+  var WYR = [
+    {a:{en:"Open presents at midnight on Christmas Eve", ko:"크리스마스 이브 자정에 선물 열기"},
+     b:{en:"Wait until Christmas morning", ko:"크리스마스 아침까지 꾹 참고 기다리기"}},
+    {a:{en:"A mountain of whipped cream on your cocoa", ko:"코코아 위에 휘핑크림 산처럼 올리기"},
+     b:{en:"One perfectly toasted marshmallow", ko:"딱 하나, 노릇하게 구운 마시멜로"}},
+    {a:{en:"A real tree that smells like the forest", ko:"숲 냄새 나는 진짜 트리"},
+     b:{en:"A fake tree that never sheds", ko:"잎이 한 장도 안 떨어지는 가짜 트리"}},
+    {a:{en:"Sing carols in front of strangers", ko:"처음 보는 사람들 앞에서 캐럴 부르기"},
+     b:{en:"Dance alone in the middle of the party", ko:"파티 한가운데서 혼자 춤추기"}},
+    {a:{en:"Always be 10 minutes late", ko:"항상 10분 늦기"},
+     b:{en:"Always be 40 minutes early", ko:"항상 40분 일찍 도착하기"}},
+    {a:{en:"Only Christmas songs until January", ko:"1월까지 크리스마스 노래만 듣기"},
+     b:{en:"No music at all for a month", ko:"한 달 동안 음악 없이 살기"}},
+    {a:{en:"Warm socks fresh from the dryer", ko:"건조기에서 갓 나온 따끈한 양말"},
+     b:{en:"The cool side of the pillow on a hot night", ko:"더운 밤 베개의 시원한 뒤집개"}},
+    {a:{en:"Be the snowball fight champion", ko:"눈싸움 챔피언 되기"},
+     b:{en:"Build the most perfect snowman", ko:"완벽한 눈사람 만들기"}},
+    {a:{en:"A gift you love but never use", ko:"갖고 싶었지만 평생 안 쓸 선물"},
+     b:{en:"A gift you need but find boring", ko:"필요하지만 재미없는 선물"}},
+    {a:{en:"Christmas dinner with 30 relatives", ko:"친척 30명과 크리스마스 저녁"},
+     b:{en:"A quiet dinner for two and a movie", ko:"둘이 조용히 저녁 먹고 영화 보기"}},
+    {a:{en:"Give the perfect gift that nobody notices", ko:"아무도 모르게 완벽한 선물 주기"},
+     b:{en:"Receive a strange gift and smile anyway", ko:"이상한 선물 받고도 웃어 주기"}},
+    {a:{en:"Eat only cookies for a whole day", ko:"하루 종일 쿠키만 먹기"},
+     b:{en:"Eat only fruitcake for a whole day", ko:"하루 종일 과일 케이크만 먹기"}},
+    {a:{en:"A reindeer that talks too much", ko:"말이 너무 많은 순록"},
+     b:{en:"An elf who never says a word", ko:"한마디도 안 하는 요정"}},
+    {a:{en:"Every doorbell is a caroler", ko:"초인종이 울리면 늘 캐럴 부르는 사람"},
+     b:{en:"Every knock is a delivery", ko:"노크 소리는 늘 택배"}},
+    {a:{en:"Perfect wrapping, terrible gift", ko:"포장은 완벽, 선물은 별로"},
+     b:{en:"Newspaper wrapping, amazing gift", ko:"신문지 포장, 선물은 최고"}},
+    {a:{en:"Christmas in a cabin with no Wi-Fi", ko:"와이파이 없는 산속 오두막 크리스마스"},
+     b:{en:"Christmas in a city with no silence", ko:"조용할 틈 없는 도시의 크리스마스"}},
+    {a:{en:"Wear a holiday sweater every day of December", ko:"12월 내내 크리스마스 스웨터 입기"},
+     b:{en:"No sweets at all in December", ko:"12월 한 달 동안 단것 금지"}},
+    {a:{en:"Be Santa's chief cookie taster", ko:"산타의 쿠키 시식 담당 최고 책임자"},
+     b:{en:"Run the reindeer flight schedule", ko:"순록 비행 일정 관리자"}},
+    {a:{en:"One big gift", ko:"큰 선물 하나"},
+     b:{en:"Twelve small gifts, one a day", ko:"작은 선물 열둘, 하루에 하나씩"}},
+    {a:{en:"A holiday movie marathon", ko:"크리스마스 영화 정주행"},
+     b:{en:"Board games until 2 a.m.", ko:"새벽 2시까지 보드게임"}},
+    {a:{en:"Never lose at a card game again", ko:"카드게임에서 다시는 지지 않기"},
+     b:{en:"Never be bored at a party again", ko:"파티에서 다시는 심심하지 않기"}},
+    {a:{en:"Cook the whole Christmas dinner yourself", ko:"크리스마스 저녁 직접 다 차리기"},
+     b:{en:"Someone else cooks, you do the dishes", ko:"다른 사람이 요리, 내가 설거지"}},
+    {a:{en:"A pet penguin for one week", ko:"일주일 동안 펭귄 키우기"},
+     b:{en:"A snow machine for one month", ko:"한 달 동안 눈 내리는 기계 갖기"}},
+    {a:{en:"Speak only in carol lyrics for a day", ko:"하루 동안 캐럴 가사로만 말하기"},
+     b:{en:"Hum every sentence for a day", ko:"하루 동안 모든 문장을 흥얼거리기"}}
+  ];
+
+  var wyr = { i: 0, order: shuffle(WYR.map(function(_, k){ return k; })), voted: {} };
+
+  function votesAll(){ return LS.get("waglePartyVotes", {}) || {}; }
+  function voteOf(idx){
+    var all = votesAll();
+    var v = all[idx] || {a:0, b:0};
+    if(typeof v.a !== "number") v.a = 0;
+    if(typeof v.b !== "number") v.b = 0;
+    return v;
+  }
+  function saveVote(idx, v){ var all = votesAll(); all[idx] = v; LS.set("waglePartyVotes", all); }
+
+  function renderWyr(){
+    var qi = wyr.order[wyr.i];
+    var q = WYR[qi];
+    $("#wyrCount").textContent = (wyr.i + 1) + " / " + WYR.length;
+    $("#wyrPrompt").textContent = lang === "ko" ? "무엇을 고르시겠어요?" : "Which would you rather?";
+    $("#wyrA").querySelector(".tx").textContent = T(q.a);
+    $("#wyrB").querySelector(".tx").textContent = T(q.b);
+
+    var v = voteOf(qi);
+    var total = v.a + v.b;
+    var voted = !!wyr.voted[qi] || (v.a + v.b) > 0;
+    var res = $("#wyrResults"), next = $("#wyrNext"), reset = $("#wyrReset");
+
+    $$(".wyr-btn").forEach(function(b){ b.classList.remove("picked","dim"); });
+
+    if(voted){
+      res.hidden = false;
+      next.hidden = false;
+      next.textContent = (wyr.i === WYR.length - 1)
+        ? (lang === "ko" ? "처음부터 다시 →" : "Back to the start →")
+        : T(TXT.next);
+      var pa = total ? Math.round(v.a / total * 100) : 0;
+      var pb = total ? 100 - pa : 0;
+      if(total && v.a && !v.b) { pa = 100; pb = 0; }
+      if(total && v.b && !v.a) { pa = 0; pb = 100; }
+      $("#wyrBarA").style.width = pa + "%";
+      $("#wyrBarB").style.width = pb + "%";
+      $("#wyrLblA").innerHTML = "A · " + T(q.a) + " <em>(" + v.a + ")</em>";
+      $("#wyrLblB").innerHTML = "B · " + T(q.b) + " <em>(" + v.b + ")</em>";
+      $("#wyrPctA").textContent = pa + "%";
+      $("#wyrPctB").textContent = pb + "%";
+      $("#wyrA").classList.add("dim");
+      $("#wyrB").classList.add("dim");
+      $("#wyrA").classList.toggle("picked", v.last === "a");
+      $("#wyrB").classList.toggle("picked", v.last === "b");
+      reset.hidden = false;
+    } else {
+      res.hidden = true;
+      next.hidden = true;
+      reset.hidden = true;
+    }
+  }
+
+  function castVote(side){
+    var qi = wyr.order[wyr.i];
+    var v = voteOf(qi);
+    v[side] = (v[side] || 0) + 1;
+    v.last = side;
+    wyr.voted[qi] = true;
+    saveVote(qi, v);
+    sfx("vote"); buzz(10);
+    renderWyr();
+  }
+  $("#wyrA").addEventListener("click", function(){ castVote("a"); });
+  $("#wyrB").addEventListener("click", function(){ castVote("b"); });
+  $("#wyrNext").addEventListener("click", function(){
+    sfx("tap");
+    wyr.i = (wyr.i + 1) % WYR.length;
+    renderWyr();
+    $("#panel-wyr").scrollIntoView({block:"nearest", behavior:"smooth"});
+  });
+  $("#wyrReset").addEventListener("click", function(){
+    var all = votesAll();
+    wyr.order.forEach(function(qi){ delete all[qi]; });
+    LS.set("waglePartyVotes", all);
+    wyr.voted = {};
+    sfx("pass");
+    renderWyr();
+  });
+
+  /* ══════════════ 2) Heads Up! — 39개 단어 ══════════════ */
+  var WORDS = [
+    {en:"Snowman", ko:"눈사람", cat:"winter"},
+    {en:"Hot Cocoa", ko:"핫코코아", cat:"winter"},
+    {en:"Gingerbread", ko:"진저브레드", cat:"winter"},
+    {en:"Fireplace", ko:"벽난로", cat:"winter"},
+    {en:"Caroling", ko:"캐럴 부르기", cat:"winter"},
+    {en:"Sleigh", ko:"썰매", cat:"winter"},
+    {en:"Icicle", ko:"고드름", cat:"winter"},
+    {en:"Mittens", ko:"벙어리장갑", cat:"winter"},
+    {en:"Snowflake", ko:"눈송이", cat:"winter"},
+    {en:"Reindeer", ko:"순록", cat:"winter"},
+    {en:"Chimney", ko:"굴뚝", cat:"winter"},
+    {en:"Wreath", ko:"리스", cat:"winter"},
+    {en:"Eggnog", ko:"에그노그", cat:"winter"},
+    {en:"Stocking", ko:"크리스마스 양말", cat:"winter"},
+    {en:"Candy Cane", ko:"캔디케인", cat:"winter"},
+    {en:"Snowball", ko:"눈뭉치", cat:"winter"},
+    {en:"Ice Skating", ko:"스케이트 타기", cat:"winter"},
+    {en:"Mistletoe", ko:"겨우살이", cat:"winter"},
+    {en:"Snow Angel", ko:"눈천사", cat:"winter"},
+    {en:"Karaoke", ko:"노래방", cat:"party"},
+    {en:"Confetti", ko:"색종이 폭죽", cat:"party"},
+    {en:"Piñata", ko:"피냐타", cat:"party"},
+    {en:"Secret Santa", ko:"비밀 산타", cat:"party"},
+    {en:"Photo Booth", ko:"즉석사진 부스", cat:"party"},
+    {en:"Dance Floor", ko:"댄스 플로어", cat:"party"},
+    {en:"Toast", ko:"건배", cat:"party"},
+    {en:"Board Game", ko:"보드게임", cat:"party"},
+    {en:"Road Trip", ko:"드라이브 여행", cat:"everyday"},
+    {en:"Roller Coaster", ko:"롤러코스터", cat:"everyday"},
+    {en:"Popcorn", ko:"팝콘", cat:"everyday"},
+    {en:"Pillow Fight", ko:"베개 싸움", cat:"everyday"},
+    {en:"Sock Puppet", ko:"양말 인형", cat:"everyday"},
+    {en:"Alarm Clock", ko:"알람 시계", cat:"everyday"},
+    {en:"Umbrella", ko:"우산", cat:"everyday"},
+    {en:"Bubble Bath", ko:"거품 목욕", cat:"everyday"},
+    {en:"Camping Tent", ko:"캠핑 텐트", cat:"everyday"},
+    {en:"Birthday Cake", ko:"생일 케이크", cat:"everyday"},
+    {en:"Toothbrush", ko:"칫솔", cat:"everyday"},
+    {en:"Sneeze", ko:"재채기", cat:"everyday"}
+  ];
+  var HU_TOTAL = 60;
+  var hu = { state:"idle", cat:"all", deck:[], current:null, got:[], passed:[], left:HU_TOTAL, timer:null, t0:0, lastTick:-1 };
+
+  function catLabel(c){
+    if(c === "winter") return T(TXT.catWinter);
+    if(c === "party") return T(TXT.catParty);
+    if(c === "everyday") return T(TXT.catEveryday);
+    return T(TXT.catAll);
+  }
+  function poolFor(cat){ return WORDS.filter(function(w){ return cat === "all" || w.cat === cat; }); }
+  function nextWord(){
+    if(!hu.deck.length){ hu.deck = shuffle(poolFor(hu.cat).slice()); }
+    hu.current = hu.deck.pop();
+    var el = $("#huWord");
+    if(el) el.textContent = hu.current ? T(hu.current) : "—";
+    var c = $("#huCat");
+    if(c) c.textContent = hu.current ? catLabel(hu.current.cat) : "";
+  }
+  function huClockUI(){
+    var pct = Math.max(0, Math.min(100, hu.left / HU_TOTAL * 100));
+    var bar = $("#huBar"), wrap = $("#huBarWrap"), clk = $("#huClock");
+    if(bar) bar.style.width = pct + "%";
+    if(wrap) wrap.classList.toggle("low", hu.left <= 10);
+    if(clk) clk.textContent = Math.ceil(hu.left);
+  }
+  function huStart(){
+    hu.cat = $("#huChips [aria-pressed='true']").dataset.cat || "all";
+    hu.state = "play"; hu.got = []; hu.passed = []; hu.deck = shuffle(poolFor(hu.cat).slice());
+    hu.left = HU_TOTAL; hu.lastTick = -1; nextWord();
+    $("#huIdle").hidden = true; $("#huEnd").hidden = true; $("#huPlay").hidden = false;
+    huClockUI();
+    hu.t0 = Date.now();
+    clearInterval(hu.timer);
+    hu.timer = setInterval(function(){ huTimerStep(); }, 100);
+    sfx("tap"); buzz(15);
+  }
+  function huTimerStep(){
+    var el = (Date.now() - hu.t0) / 1000;
+    hu.left = Math.max(0, HU_TOTAL - el);
+    huClockUI();
+    var s = Math.ceil(hu.left);
+    if(s <= 5 && s > 0 && s !== hu.lastTick){ hu.lastTick = s; sfx("tick"); }
+    if(hu.left <= 0){ huFinish(); }
+  }
+  function huFinish(){
+    clearInterval(hu.timer); hu.timer = null;
+    hu.state = "end";
+    $("#huPlay").hidden = true; $("#huEnd").hidden = false;
+    $("#huScore").textContent = hu.got.length;
+    var recap = $("#huRecap");
+    recap.innerHTML = "";
+    hu.got.forEach(function(w){ var s = document.createElement("span"); s.className = "ok"; s.textContent = "✅ " + T(w); recap.appendChild(s); });
+    hu.passed.forEach(function(w){ var s = document.createElement("span"); s.className = "no"; s.textContent = "⏭️ " + T(w); recap.appendChild(s); });
+    if(!hu.got.length && !hu.passed.length){ var e = document.createElement("span"); e.textContent = lang === "ko" ? "이번엔 단어를 못 봤어요" : "No words this round"; recap.appendChild(e); }
+    sfx("end"); buzz([80,60,120]);
+  }
+  function huAdvance(kind){
+    if(hu.state !== "play") return;
+    if(kind === "got"){ hu.got.push(hu.current); sfx("got"); buzz(18); }
+    else { hu.passed.push(hu.current); sfx("pass"); buzz(10); }
+    nextWord();
+  }
+  $("#huStart").addEventListener("click", huStart);
+  $("#huGot").addEventListener("click", function(){ huAdvance("got"); });
+  $("#huPass").addEventListener("click", function(){ huAdvance("pass"); });
+  $("#huAgain").addEventListener("click", function(){
+    clearInterval(hu.timer); hu.timer = null; hu.state = "idle";
+    $("#huEnd").hidden = true; $("#huPlay").hidden = true; $("#huIdle").hidden = false;
+    sfx("tap");
+  });
+  $$("#huChips .chip").forEach(function(chip){
+    chip.addEventListener("click", function(){
+      $$("#huChips .chip").forEach(function(c){ c.setAttribute("aria-pressed", "false"); });
+      chip.setAttribute("aria-pressed", "true");
+      hu.cat = chip.dataset.cat;
+      sfx("tap");
+    });
+  });
+
+  /* ══════════════ 3) Classic Quotes — 퍼블릭 도메인 12문항 ══════════════ */
+  var K = {en:"A", ko:"가"}, K2 = {en:"B", ko:"나"}, K3 = {en:"C", ko:"다"};
+  var QUOTES = [
+    {
+      quote:{en:"“Bah! Humbug!”", ko:"“바! 험버그!”"},
+      prompt:{en:"Who says this famous Christmas line?", ko:"이 유명한 크리스마스 대사를 하는 인물은?"},
+      choices:[{en:"Ebenezer Scrooge", ko:"에비니저 스크루지"},{en:"Tiny Tim", ko:"티니 팀"},{en:"Bob Cratchit", ko:"밥 크래칫"}],
+      answer:0,
+      note:{en:"Scrooge's grumpy answer to “Merry Christmas!” — the line that opens the whole story.",
+            ko:"“메리 크리스마스!”에 대한 스크루지의 퉁명스러운 대답. 이야기 전체를 여는 한마디입니다."},
+      src:{en:"A Christmas Carol — Charles Dickens, 1843", ko:"《크리스마스 캐럴》 — 찰스 디킨스, 1843"}
+    },
+    {
+      quote:{en:"“God bless us, every one!”", ko:"“신이시여, 우리 모두를 축복하소서!”"},
+      prompt:{en:"Which small character says this at the end of A Christmas Carol?", ko:"《크리스마스 캐럴》 마지막에 이 말을 하는 작은 인물은?"},
+      choices:[{en:"Tiny Tim", ko:"티니 팀"},{en:"Martha Cratchit", ko:"마사 크래칫"},{en:"Scrooge's nephew Fred", ko:"스크루지의 조카 프레드"}],
+      answer:0,
+      note:{en:"Tiny Tim's toast, the last words of the story.", ko:"이야기의 마지막 문장, 티니 팀의 건배사입니다."},
+      src:{en:"A Christmas Carol — Charles Dickens, 1843", ko:"《크리스마스 캐럴》 — 찰스 디킨스, 1843"}
+    },
+    {
+      quote:{en:"“’Twas the night before Christmas, when all through the house / not a creature was stirring, not even a ___”", ko:"“크리스마스 전날 밤, 집 안에서는 / 생쥐 한 마리조차 꿈쩍하지 않았네”"},
+      prompt:{en:"What fills the blank in the 1823 poem?", ko:"1823년 시의 빈칸에 들어갈 말은?"},
+      choices:[{en:"mouse", ko:"생쥐"},{en:"reindeer", ko:"순록"},{en:"stocking", ko:"양말"}],
+      answer:0,
+      note:{en:"The quietest line in Christmas poetry. (Korean line above is a translation of the answer.)",
+            ko:"크리스마스 시에서 가장 조용한 한 줄. 정답은 ‘생쥐(mouse)’입니다."},
+      src:{en:"A Visit from St. Nicholas — Clement Clarke Moore, 1823", ko:"《성 니콜라스의 방문》 — 클레멘트 클라크 무어, 1823"}
+    },
+    {
+      quote:{en:"“Now, Dasher! now, Dancer! now, Prancer and Vixen!”", ko:"“다셔! 댄서! 프랜서와 빅슨!”"},
+      prompt:{en:"Which famous reindeer is NOT in this 1823 poem?", ko:"이 1823년 시에 나오지 않는 유명한 순록은?"},
+      choices:[{en:"Dasher", ko:"다셔"},{en:"Dancer", ko:"댄서"},{en:"Rudolph", ko:"루돌프"}],
+      answer:2,
+      note:{en:"Rudolph came much later, from a 1939 department-store giveaway book by Robert L. May.",
+            ko:"루돌프는 훨씬 뒤인 1939년, 로버트 L. 메이가 백화점 선물용으로 만든 책에서 처음 나왔습니다."},
+      src:{en:"A Visit from St. Nicholas — Clement Clarke Moore, 1823", ko:"《성 니콜라스의 방문》 — 클레멘트 클라크 무어, 1823"}
+    },
+    {
+      quote:{en:"“One dollar and eighty-seven cents. That was all.”", ko:"“1달러 87센트. 그게 전부였다.”"},
+      prompt:{en:"In The Gift of the Magi, what does Della sell to buy Jim a present?", ko:"《크리스마스 선물》에서 델라가 짐의 선물을 사려고 판 것은?"},
+      choices:[{en:"Her long hair", ko:"긴 머리카락"},{en:"Her gold watch", ko:"금시계"},{en:"Her winter coat", ko:"겨울 외투"}],
+      answer:0,
+      note:{en:"She sells her hair for a watch chain — while Jim sells his watch for combs. That's the twist.",
+            ko:"델라는 시계줄을 사려고 머리를 팔고, 짐은 빗을 사려고 시계를 팝니다. 이게 바로 이 이야기의 반전입니다."},
+      src:{en:"The Gift of the Magi — O. Henry, 1905", ko:"《크리스마스 선물》 — 오 헨리, 1905"}
+    },
+    {
+      quote:{en:"“Don't make any mistake about me… I don't think there's anything in the way of a haircut or a shave or a shampoo that could make me like my girl any less.”", ko:"“오해는 마세요. 이발을 하든 면도를 하든 머리를 감든… 내가 내 여자를 덜 사랑하게 될 일은 없습니다.”"},
+      prompt:{en:"In The Gift of the Magi, what does Jim sell to buy Della a present?", ko:"《크리스마스 선물》에서 짐이 델라의 선물을 사려고 판 것은?"},
+      choices:[{en:"His gold watch", ko:"금시계"},{en:"His best coat", ko:"제일 좋은 외투"},{en:"His pocket knife", ko:"주머니칼"}],
+      answer:0,
+      note:{en:"He sells the watch his father gave him — so Della's gift, a watch chain, has nothing left to hold.",
+            ko:"그는 아버지에게 물려받은 시계를 팝니다. 그래서 델라가 산 시계줄은 걸 시계가 없게 됩니다."},
+      src:{en:"The Gift of the Magi — O. Henry, 1905", ko:"《크리스마스 선물》 — 오 헨리, 1905"}
+    },
+    {
+      quote:{en:"“There is no place like home.”", ko:"“집 같은 곳은 없어.”"},
+      prompt:{en:"Who says it, and in which 1900 book?", ko:"누가, 어느 1900년 작품에서 한 말일까요?"},
+      choices:[{en:"Dorothy, The Wonderful Wizard of Oz", ko:"도로시, 《오즈의 마법사》"},{en:"Alice, Alice's Adventures in Wonderland", ko:"앨리스, 《이상한 나라의 앨리스》"},{en:"Wendy, Peter Pan", ko:"웬디, 《피터 팬》"}],
+      answer:0,
+      note:{en:"Dorothy's line on coming home to Kansas.", ko:"캔자스의 집으로 돌아온 도로시의 대사입니다."},
+      src:{en:"The Wonderful Wizard of Oz — L. Frank Baum, 1900", ko:"《오즈의 마법사》 — L. 프랭크 바움, 1900"}
+    },
+    {
+      quote:{en:"“If I only had a heart…”", ko:"“내게 마음만 있다면…”"},
+      prompt:{en:"Which traveler in Oz is looking for a heart?", ko:"《오즈의 마법사》에서 마음을 찾아 떠나는 인물은?"},
+      choices:[{en:"The Scarecrow", ko:"허수아비"},{en:"The Tin Woodman", ko:"양철 나무꾼"},{en:"The Cowardly Lion", ko:"겁쟁이 사자"}],
+      answer:1,
+      note:{en:"Scarecrow wants a brain, Lion wants courage, the Tin Woodman wants a heart.",
+            ko:"허수아비는 지혜, 사자는 용기, 양철 나무꾼은 마음을 원합니다."},
+      src:{en:"The Wonderful Wizard of Oz — L. Frank Baum, 1900", ko:"《오즈의 마법사》 — L. 프랭크 바움, 1900"}
+    },
+    {
+      quote:{en:"“We’re all mad here.”", ko:"“여긴 다들 미쳤어.”"},
+      prompt:{en:"Who says this to Alice?", ko:"앨리스에게 이렇게 말하는 인물은?"},
+      choices:[{en:"The Cheshire Cat", ko:"체셔 고양이"},{en:"The Mad Hatter", ko:"모자 장수"},{en:"The White Rabbit", ko:"흰 토끼"}],
+      answer:0,
+      note:{en:"“Oh, you can't help that,” said the Cat. “We're all mad here.”",
+            ko:"“그건 어쩔 수 없어. 여긴 다들 미쳤거든.” 고양이의 대답입니다."},
+      src:{en:"Alice's Adventures in Wonderland — Lewis Carroll, 1865", ko:"《이상한 나라의 앨리스》 — 루이스 캐럴, 1865"}
+    },
+    {
+      quote:{en:"“If music be the food of love, play on.”", ko:"“음악이 사랑의 양식이라면, 계속 연주하라.”"},
+      prompt:{en:"Which play opens with this line — and who speaks it?", ko:"이 대사로 시작하는 희곡과 그 화자는?"},
+      choices:[{en:"Twelfth Night — Duke Orsino", ko:"《십이야》 — 오시노 공작"},{en:"Romeo and Juliet — Romeo", ko:"《로미오와 줄리엣》 — 로미오"},{en:"A Midsummer Night's Dream — Bottom", ko:"《한여름 밤의 꿈》 — 보텀"}],
+      answer:0,
+      note:{en:"The very first line of Twelfth Night.", ko:"《십이야》의 첫 문장입니다."},
+      src:{en:"Twelfth Night — William Shakespeare, c.1601", ko:"《십이야》 — 윌리엄 셰익스피어, 1601년경"}
+    },
+    {
+      quote:{en:"“It is a truth universally acknowledged, that a single man in possession of a good fortune must be in want of a wife.”", ko:"“재산이 넉넉한 독신 남자라면 반드시 아내를 원하기 마련이라는 것은 만인이 인정하는 진리다.”"},
+      prompt:{en:"Which novel opens with this line?", ko:"이 문장으로 시작하는 소설은?"},
+      choices:[{en:"Pride and Prejudice", ko:"《오만과 편견》"},{en:"Jane Eyre", ko:"《제인 에어》"},{en:"Great Expectations", ko:"《위대한 유산》"}],
+      answer:0,
+      note:{en:"The most quoted opening in English fiction — Jane Austen's sharp little joke.",
+            ko:"영어 소설에서 가장 많이 인용되는 첫 문장. 제인 오스틴의 재치 있는 농담입니다."},
+      src:{en:"Pride and Prejudice — Jane Austen, 1813", ko:"《오만과 편견》 — 제인 오스틴, 1813"}
+    },
+    {
+      quote:{en:"“Christmas won’t be Christmas without any presents.”", ko:"“선물이 없으면 크리스마스도 크리스마스가 아니야.”"},
+      prompt:{en:"Which novel begins with these words?", ko:"이 말로 시작하는 소설은?"},
+      choices:[{en:"Little Women", ko:"《작은 아씨들》"},{en:"A Christmas Carol", ko:"《크리스마스 캐럴》"},{en:"Anne of Green Gables", ko:"《빨강머리 앤》"}],
+      answer:0,
+      note:{en:"Jo grumbles the first line of Little Women — money is tight, but the sisters still make Christmas warm.",
+            ko:"조가 투덜대며 여는 《작은 아씨들》의 첫 문장. 넉넉지 않아도 자매들은 크리스마스를 따뜻하게 만듭니다."},
+      src:{en:"Little Women — Louisa May Alcott, 1868", ko:"《작은 아씨들》 — 루이자 메이 올컷, 1868"}
+    }
+  ];
+
+  var qg = { i:0, score:0, order: shuffle(QUOTES.map(function(_, k){ return k; })), answered:false };
+
+  function renderQuote(){
+    var idx = qg.order[qg.i];
+    var item = QUOTES[idx];
+    $("#qCount").textContent = (qg.i + 1) + " / " + QUOTES.length;
+    $("#qScore").textContent = TXT.scoreOf(qg.score, QUOTES.length);
+    $("#qQuote").textContent = T(item.quote);
+    $("#qPrompt").textContent = T(item.prompt);
+    $("#qNote").hidden = true;
+    $("#qNote").innerHTML = "";
+    $("#qNext").hidden = true;
+    qg.answered = false;
+
+    var box = $("#qChoices");
+    box.innerHTML = "";
+    item.choices.forEach(function(c, k){
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "q-choice";
+      var key = document.createElement("span");
+      key.className = "k";
+      key.textContent = (lang === "ko" ? ["가","나","다"][k] : ["A","B","C"][k]);
+      var tx = document.createElement("span");
+      tx.textContent = T(c);
+      b.appendChild(key); b.appendChild(tx);
+      b.addEventListener("click", function(){ answerQuote(k, item, b); });
+      box.appendChild(b);
+    });
+  }
+
+  function answerQuote(k, item, btn){
+    if(qg.answered) return;
+    qg.answered = true;
+    item.chosen = k;
+    var all = $$("#qChoices .q-choice");
+    var ok = (k === item.answer);
+    if(ok){ qg.score++; }
+    all.forEach(function(b, n){
+      if(n === item.answer) b.classList.add("correct");
+      else if(n === k) b.classList.add("wrong");
+      else b.classList.add("dimmed");
+      b.disabled = false;
+    });
+    var note = $("#qNote");
+    note.hidden = false;
+    var head = ok ? "✅ " + T(TXT.correct) : "❌ " + T(TXT.notQuite);
+    note.innerHTML = "";
+    var p1 = document.createElement("div");
+    p1.innerHTML = "<b>" + head + "</b>" + (ok ? "" : ": " + escapeHtml(T(item.choices[item.answer])));
+    note.appendChild(p1);
+    var p2 = document.createElement("div");
+    p2.style.marginTop = ".3rem";
+    p2.textContent = T(item.note);
+    note.appendChild(p2);
+    var src = document.createElement("span");
+    src.className = "src";
+    src.textContent = "— " + T(item.src);
+    note.appendChild(src);
+
+    $("#qScore").textContent = TXT.scoreOf(qg.score, QUOTES.length);
+    var next = $("#qNext");
+    next.hidden = false;
+    next.textContent = (qg.i === QUOTES.length - 1) ? (lang === "ko" ? "점수 보기 →" : "See my score →") : T(TXT.next);
+    sfx(ok ? "right" : "wrong"); buzz(ok ? 15 : 25);
+  }
+
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"']/g, function(c){
+      return ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"})[c];
+    });
+  }
+
+  function quoteEnd(){
+    $("#qGame").hidden = true;
+    $("#qEnd").hidden = false;
+    $("#qFinal").textContent = qg.score;
+    $("#qFinalSub").textContent = TXT.finalSub(qg.score, QUOTES.length);
+    var v = qg.score >= 10 ? TXT.verdictGood : (qg.score >= 6 ? TXT.verdictMid : TXT.verdictLow);
+    $("#qVerdict").textContent = T(v);
+    sfx("end");
+  }
+  $("#qNext").addEventListener("click", function(){
+    sfx("tap");
+    if(qg.i === QUOTES.length - 1){ quoteEnd(); return; }
+    qg.i++;
+    renderQuote();
+    $("#panel-q").scrollIntoView({block:"nearest", behavior:"smooth"});
+  });
+  $("#qAgain").addEventListener("click", function(){
+    qg = { i:0, score:0, order: shuffle(QUOTES.map(function(_, k){ return k; })), answered:false };
+    $("#qEnd").hidden = true; $("#qGame").hidden = false;
+    renderQuote(); sfx("tap");
+  });
+
+  /* ══════════════ 탭 / 언어 / 소리 ══════════════ */
+  function selectTab(name){
+    $$(".tab").forEach(function(t){
+      var on = t.dataset.tab === name;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.tabIndex = on ? 0 : -1;
+    });
+    ["wyr","hu","q"].forEach(function(n){
+      var p = document.getElementById("panel-" + n);
+      var on = (n === name);
+      p.classList.toggle("on", on);
+      p.hidden = !on;
+    });
+    sfx("tap");
+  }
+  $$(".tab").forEach(function(t){
+    t.addEventListener("click", function(){ selectTab(t.dataset.tab); });
+    t.addEventListener("keydown", function(e){
+      var order = ["wyr","hu","q"], i = order.indexOf(t.dataset.tab);
+      if(e.key === "ArrowRight"){ e.preventDefault(); var n = order[(i+1)%3]; selectTab(n); document.getElementById("tab-"+n).focus(); }
+      if(e.key === "ArrowLeft"){ e.preventDefault(); var p = order[(i+2)%3]; selectTab(p); document.getElementById("tab-"+p).focus(); }
+    });
+  });
+
+  function applyStatic(){
+    document.documentElement.lang = (lang === "ko") ? "ko" : "en";
+    document.title = T(TXT.title);
+    $$("[data-en]").forEach(function(el){
+      var s = el.getAttribute("data-" + lang);
+      if(s !== null) el.textContent = s;
+    });
+    $("#langLabel").textContent = (lang === "ko") ? "EN" : "한";
+    $("#langBtn").setAttribute("aria-label", (lang === "ko") ? "Switch to English" : "한국어로 보기");
+    $("#soundLabel").textContent = T(soundOn ? TXT.soundOn : TXT.soundOff);
+    $("#soundIcon").textContent = soundOn ? "🔔" : "🔕";
+    $("#soundBtn").setAttribute("aria-pressed", soundOn ? "true" : "false");
+    var c = $("#huClock"); if(c) c.textContent = Math.ceil(hu.left);
+  }
+
+  function renderAll(){
+    applyStatic();
+    renderWyr();
+    if(hu.state === "play"){
+      if(hu.current) $("#huWord").textContent = T(hu.current);
+      $("#huCat").textContent = hu.current ? catLabel(hu.current.cat) : "";
+    } else if(hu.state === "end"){
+      huFinish();
+    }
+    if($("#qEnd").hidden === false){
+      $("#qFinal").textContent = qg.score;
+      $("#qFinalSub").textContent = TXT.finalSub(qg.score, QUOTES.length);
+      $("#qVerdict").textContent = T(qg.score >= 10 ? TXT.verdictGood : (qg.score >= 6 ? TXT.verdictMid : TXT.verdictLow));
+    } else {
+      $("#qScore").textContent = TXT.scoreOf(qg.score, QUOTES.length);
+      if(!qg.answered){ renderQuote(); }
+      else {
+        var idx = qg.order[qg.i], item = QUOTES[idx];
+        $("#qQuote").textContent = T(item.quote);
+        $("#qPrompt").textContent = T(item.prompt);
+        $$("#qChoices .q-choice").forEach(function(b, n){
+          var tx = b.querySelector("span:last-child");
+          if(tx) tx.textContent = T(item.choices[n]);
+          var key = b.querySelector(".k");
+          if(key) key.textContent = (lang === "ko" ? ["가","나","다"][n] : ["A","B","C"][n]);
+        });
+        var note = $("#qNote");
+        note.innerHTML = "";
+        var correctPick = (item.chosen === item.answer);
+        var p1 = document.createElement("div");
+        p1.innerHTML = "<b>" + (correctPick ? "✅ " + T(TXT.correct) : "❌ " + T(TXT.notQuite)) + "</b>" + (correctPick ? "" : ": " + escapeHtml(T(item.choices[item.answer])));
+        note.appendChild(p1);
+        var p2 = document.createElement("div");
+        p2.style.marginTop = ".3rem"; p2.textContent = T(item.note); note.appendChild(p2);
+        var src = document.createElement("span"); src.className = "src"; src.textContent = "— " + T(item.src); note.appendChild(src);
+        var nx = $("#qNext");
+        nx.textContent = (qg.i === QUOTES.length - 1) ? (lang === "ko" ? "점수 보기 →" : "See my score →") : T(TXT.next);
+      }
+    }
+  }
+
+  $("#langBtn").addEventListener("click", function(){
+    lang = (lang === "ko") ? "en" : "ko";
+    LS.set("waglePartyLang", lang);
+    renderAll();
+  });
+  $("#soundBtn").addEventListener("click", function(){
+    soundOn = !soundOn;
+    LS.set("waglePartySound", soundOn);
+    applyStatic();
+    if(soundOn){ sfx("tap"); }
+  });
+
+  /* 시작 */
+  applyStatic();
+  renderWyr();
+  renderQuote();
+  selectTabSilent("wyr");
+
+  function selectTabSilent(name){
+    $$(".tab").forEach(function(t){
+      var on = t.dataset.tab === name;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.tabIndex = on ? 0 : -1;
+    });
+    ["wyr","hu","q"].forEach(function(n){
+      var p = document.getElementById("panel-" + n);
+      var on = (n === name);
+      p.classList.toggle("on", on);
+      p.hidden = !on;
+    });
+  }
+
+  /* 탭 백그라운드 시 타이머 일시정지 느낌 방지: 화면 복귀 시 재계산 */
+  document.addEventListener("visibilitychange", function(){
+    if(!document.hidden && hu.state === "play" && hu.t0){ huTimerStep(); }
+  });
+})();
+</script>
+</body>
+</html>
