@@ -262,6 +262,88 @@ html.big .chkline{font-size:.86rem}
 #stickerModal .stickerTop{margin-bottom:.05rem}
 #stickerModal .fieldlabel{margin:.3rem 0 .18rem;font-size:.86rem}
 
+/* ══════ 🎲 와글가족 번호뽑기 상자 ══════ */
+.drawrow{max-width:34rem;margin:.45rem auto 0}
+.drawopen{width:100%;display:flex;align-items:center;justify-content:center;gap:.45rem;
+  min-height:3.15rem;border-radius:1rem;border:2px solid #A97318;
+  background:linear-gradient(180deg,#F3CA5B,#DCA62C);color:#3E2C12;
+  font-size:1.04rem;font-weight:900;letter-spacing:-.01em;
+  box-shadow:0 4px 12px rgba(217,162,39,.32);padding:.2rem .6rem}
+.drawopen:active{transform:translateY(1px)}
+.drawopen .dice{font-size:1.25rem;line-height:1}
+#drawModal{z-index:120}
+#confirmModal{z-index:130}
+#drawModal .sheet{max-height:calc(100vh - .4rem);padding-bottom:calc(.9rem + env(safe-area-inset-bottom))}
+#dTitle{word-break:keep-all}
+.dhead{display:flex;align-items:flex-start;gap:.4rem}
+.dhead h3{margin:0;flex:1;font-size:.96rem;line-height:1.32;letter-spacing:-.02em}
+.dhead .mini{flex:0 0 auto}
+.dsub{margin:.15rem 0 .1rem;font-size:.8rem;font-weight:800;color:#8B7A6B;line-height:1.35}
+.dpeople{display:flex;align-items:center;gap:.4rem;margin:.5rem 0 .35rem;background:#FBF3E2;
+  border:2px solid #EFE0C4;border-radius:1rem;padding:.35rem .5rem}
+.dlabel{font-size:.84rem;font-weight:900;color:var(--ink2);white-space:nowrap;flex:0 0 auto}
+.dstep{width:3.2rem;height:3.2rem;border-radius:.9rem;border:2px solid #DCC9A6;background:#fff;
+  font-size:1.6rem;font-weight:900;color:var(--coffee);line-height:1;padding:0;flex:0 0 auto}
+.dstep:disabled{opacity:.35}
+.dcount{flex:1;text-align:center;font-size:1.5rem;font-weight:900;color:var(--coffee);white-space:nowrap}
+.dquick{display:flex;gap:.32rem;overflow-x:auto;padding:.1rem 0 .25rem;scrollbar-width:none}
+.dquick::-webkit-scrollbar{display:none}
+.dq{flex:0 0 auto;border:2px solid #E4D5B8;background:#FFFDF7;border-radius:2rem;
+  padding:.3rem .68rem;font-size:.86rem;font-weight:900;color:#6B5A43;min-height:2.5rem}
+.dq.on{background:#F6E2B6;border-color:#C99A2E;color:#6B4A0B}
+.dstage{position:relative;display:block;width:100%;margin:.35rem 0 0;padding:0;border:2px solid #F0DFBF;
+  border-radius:1.1rem;overflow:hidden;background:linear-gradient(180deg,#FFFDF7 0%,#FFF3DF 100%);
+  cursor:pointer;-webkit-tap-highlight-color:transparent}
+.dstage svg{display:block;width:100%;height:auto}
+.dstage:focus-visible{outline:3px solid #F0C98E;outline-offset:2px}
+.dball{position:absolute;left:50%;top:13%;width:6.6rem;height:6.6rem;margin-left:-3.3rem;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 34% 26%,#ffffff 0%,var(--b1,#C9553D) 34%,var(--b2,#9E4430) 100%);
+  box-shadow:0 10px 22px rgba(60,30,10,.3),inset 0 -10px 20px rgba(0,0,0,.18);
+  color:#fff;font-size:2.75rem;font-weight:900;line-height:1;letter-spacing:-.02em;
+  text-shadow:0 2px 6px rgba(0,0,0,.3);pointer-events:none}
+.dball::after{content:"";position:absolute;left:1.05rem;top:.85rem;width:1.4rem;height:.95rem;
+  border-radius:50%;background:rgba(255,255,255,.5);transform:rotate(-24deg)}
+.dball[hidden]{display:none}
+.dball.pop{animation:ballPop .52s cubic-bezier(.2,1.35,.42,1) both}
+@keyframes ballPop{
+  0%{transform:translateY(34%) scale(.22);opacity:0}
+  58%{transform:translateY(-9%) scale(1.09);opacity:1}
+  78%{transform:translateY(0) scale(.96)}
+  100%{transform:translateY(0) scale(1)}
+}
+.dstage.shake #dBoxG{animation:boxShake .55s ease-in-out;transform-box:fill-box;transform-origin:50% 88%}
+@keyframes boxShake{
+  0%,100%{transform:rotate(0) translateY(0)}
+  14%{transform:rotate(-2.6deg) translateY(-2px)}
+  30%{transform:rotate(2.4deg) translateY(1px)}
+  46%{transform:rotate(-1.8deg)}
+  62%{transform:rotate(1.4deg)}
+  80%{transform:rotate(-.7deg)}
+}
+.dinfo{display:flex;align-items:baseline;gap:.5rem;margin:.45rem .1rem .1rem}
+.dremain{font-size:1.08rem;font-weight:900;color:var(--coffee);white-space:nowrap}
+.dseq{font-size:.86rem;font-weight:800;color:var(--ink2);line-height:1.45;margin:.1rem .1rem .2rem;
+  max-height:4.4rem;overflow:auto;word-break:keep-all}
+.done{margin:.3rem 0 .2rem}
+.done[hidden]{display:none}
+.dmsg{margin:.1rem 0 .5rem;text-align:center;font-size:1.04rem;font-weight:900;color:var(--accent)}
+.dresetbig{width:100%;min-height:3.3rem;border-radius:1rem;border:2px solid var(--coffee);
+  background:var(--coffee);color:#FFF7E9;font-size:1.08rem;font-weight:900}
+.dfoot{display:flex;gap:.45rem;margin-top:.5rem}
+.dfoot .btn{flex:1;min-height:3rem;font-size:.95rem}
+.dfoot .btn[hidden]{display:none}
+.dfoot .dsound{flex:0 0 auto;font-size:.78rem;font-weight:800;min-height:2.6rem;padding:.3rem .6rem;
+  color:#8B7A6B;background:#FBF7EE;border-width:1.5px}
+.dfoot .dsound[aria-pressed="true"]{color:#8A6210;background:#FFF1D8;border-color:var(--gold)}
+html.big .drawopen{font-size:.98rem;min-height:3.35rem}
+html.big .dcount{font-size:1.4rem}
+html.big .dhead h3{font-size:.94rem}
+html.big .dseq{font-size:.8rem}
+html.big .dball{width:6.1rem;height:6.1rem;margin-left:-3.05rem;font-size:2.45rem}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
 </style>
 </head>
 <body>
@@ -283,6 +365,12 @@ html.big .chkline{font-size:.86rem}
     <linearGradient id="coatMimi" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#FFFCF4"/><stop offset="1" stop-color="#F4E3C7"/>
     </linearGradient>
+    <linearGradient id="boxGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E5B471"/><stop offset="1" stop-color="#BE8038"/>
+    </linearGradient>
+    <radialGradient id="boxGlow" cx="50%" cy="30%" r="70%">
+      <stop offset="0" stop-color="#FFF3CF" stop-opacity=".85"/><stop offset="1" stop-color="#FFF3CF" stop-opacity="0"/>
+    </radialGradient>
   </defs>
 
   <symbol id="wg-theo" viewBox="0 0 120 120">
@@ -394,6 +482,122 @@ html.big .chkline{font-size:.86rem}
     <use href="#wg-baby" x="40" y="34" width="84" height="84"/>
   </symbol>
 
+
+  <symbol id="wg-sehee" viewBox="0 0 120 190">
+    <ellipse cx="60" cy="184" rx="27" ry="5" fill="#6B4A2C" opacity=".14"/>
+    <path d="M60 24 C34 24 24 44 24 66 C24 82 19 98 17 116 C15 138 22 158 34 167 C40 171 47 169 48 163 C39 149 35 130 36 110 C37 90 43 72 60 68 C77 72 83 90 84 110 C85 130 81 149 72 163 C73 169 80 171 86 167 C98 158 105 138 103 116 C101 98 96 82 96 66 C96 44 86 24 60 24 Z" fill="#3B2A26"/>
+    <g fill="#3B2A26">
+      <ellipse cx="28" cy="118" rx="9.5" ry="14"/>
+      <ellipse cx="26" cy="139" rx="8.5" ry="13"/>
+      <ellipse cx="31" cy="157" rx="8" ry="11"/>
+      <ellipse cx="92" cy="118" rx="9.5" ry="14"/>
+      <ellipse cx="94" cy="139" rx="8.5" ry="13"/>
+      <ellipse cx="89" cy="157" rx="8" ry="11"/>
+    </g>
+    <g fill="none" stroke="#5A4238" stroke-width="2.6" stroke-linecap="round" opacity=".6">
+      <path d="M40 86 C33 106 32 128 37 148"/>
+      <path d="M80 86 C87 106 88 128 83 148"/>
+      <path d="M52 80 C46 100 45 128 49 150" opacity=".5"/>
+      <path d="M68 80 C74 100 75 128 71 150" opacity=".5"/>
+    </g>
+    <rect x="48" y="136" width="9" height="32" rx="4.5" fill="#F7E1CC"/>
+    <rect x="63" y="136" width="9" height="32" rx="4.5" fill="#F7E1CC"/>
+    <rect x="43" y="163" width="17" height="12" rx="6" fill="#6E4C36"/>
+    <rect x="60" y="163" width="17" height="12" rx="6" fill="#6E4C36"/>
+    <path d="M40 122 L80 122 L87 148 Q87 153 81 153 L39 153 Q33 153 33 148 Z" fill="#F6EBD8"/>
+    <path d="M48 124 L50 151 M60 124 L60 151 M72 124 L70 151" stroke="#E7D6B9" stroke-width="1.5" stroke-linecap="round"/>
+    <rect x="54" y="74" width="12" height="14" rx="5" fill="#F1D8C0"/>
+    <path d="M38 98 Q38 86 52 84 L68 84 Q82 86 82 98 L84 122 Q84 127 78 127 L42 127 Q36 127 36 122 Z" fill="#D6C6EF"/>
+    <path d="M45 94 L45 120 M53 92 L53 120 M67 92 L67 120 M75 94 L75 120" stroke="#E6DAF8" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M36 118 L84 118" stroke="#C4AFE6" stroke-width="3"/>
+    <path d="M50 84 Q60 93 70 84" stroke="#C4AFE6" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+    <g transform="translate(60,105) scale(.4)">
+      <path d="M0 0 C-7 -4 -8 -14 0 -15 C8 -14 7 -4 0 0 Z" fill="#6FA87C"/>
+      <path d="M0 0 C-7 -4 -8 -14 0 -15 C8 -14 7 -4 0 0 Z" fill="#6FA87C" transform="rotate(118)"/>
+      <path d="M0 0 C-7 -4 -8 -14 0 -15 C8 -14 7 -4 0 0 Z" fill="#6FA87C" transform="rotate(238)"/>
+      <circle r="2.6" fill="#4E8A5C"/>
+    </g>
+    <path d="M40 96 C32 104 29 115 30 122" stroke="#D6C6EF" stroke-width="11" stroke-linecap="round" fill="none"/>
+    <path d="M80 96 C88 104 91 112 90 118" stroke="#D6C6EF" stroke-width="11" stroke-linecap="round" fill="none"/>
+    <circle cx="30" cy="125" r="5.4" fill="#FBE4CF"/>
+    <circle cx="90" cy="121" r="5.4" fill="#FBE4CF"/>
+    <g transform="translate(30,122)">
+      <path d="M0 -2 L0 9" stroke="#4E8A5C" stroke-width="1.8" stroke-linecap="round"/>
+      <g transform="translate(0,-2)">
+        <path d="M0 0 C-5 -3 -6 -11 0 -12 C6 -11 5 -3 0 0 Z" fill="#7EB98A"/>
+        <path d="M0 0 C-5 -3 -6 -11 0 -12 C6 -11 5 -3 0 0 Z" fill="#7EB98A" transform="rotate(120)"/>
+        <path d="M0 0 C-5 -3 -6 -11 0 -12 C6 -11 5 -3 0 0 Z" fill="#7EB98A" transform="rotate(240)"/>
+      </g>
+    </g>
+    <ellipse cx="60" cy="56" rx="26" ry="24" fill="#FBEDDF"/>
+    <ellipse cx="33.5" cy="58" rx="4.2" ry="5.4" fill="#F7DFC9"/>
+    <ellipse cx="86.5" cy="58" rx="4.2" ry="5.4" fill="#F7DFC9"/>
+    <path d="M34 50 C34 30 48 24 60 24 C73 24 86 31 86 50 C81 40 76 38 71 42 C67 34 60 36 57 42 C53 38 46 39 43 46 C40 42 36 44 34 50 Z" fill="#3B2A26"/>
+    <path d="M35 48 C30 60 30 72 33 82 C37 74 36 62 38 54 Z" fill="#3B2A26"/>
+    <path d="M85 48 C90 60 90 72 87 82 C83 74 84 62 82 54 Z" fill="#3B2A26"/>
+    <ellipse cx="50" cy="57" rx="4.6" ry="5.6" fill="#3A2A22"/>
+    <ellipse cx="70" cy="57" rx="4.6" ry="5.6" fill="#3A2A22"/>
+    <circle cx="51.6" cy="55" r="1.7" fill="#fff"/>
+    <circle cx="71.6" cy="55" r="1.7" fill="#fff"/>
+    <path d="M45 47 Q50 44.5 55 47" stroke="#5A4235" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+    <path d="M65 47 Q70 44.5 75 47" stroke="#5A4235" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+    <ellipse cx="42" cy="65" rx="5" ry="3" fill="#F3AFA5" opacity=".45"/>
+    <ellipse cx="78" cy="65" rx="5" ry="3" fill="#F3AFA5" opacity=".45"/>
+    <path d="M60 61 L60 63.6" stroke="#E0B79C" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M56 67 Q60 70.6 64 67" stroke="#C9553D" stroke-width="1.9" fill="none" stroke-linecap="round"/>
+    <g transform="translate(84,44)">
+      <circle cx="0" cy="-4.6" r="3" fill="#FFF8E8"/>
+      <circle cx="4.4" cy="-1.4" r="3" fill="#FFF8E8"/>
+      <circle cx="2.7" cy="3.7" r="3" fill="#FFF8E8"/>
+      <circle cx="-2.7" cy="3.7" r="3" fill="#FFF8E8"/>
+      <circle cx="-4.4" cy="-1.4" r="3" fill="#FFF8E8"/>
+      <circle r="2.1" fill="#E8B85A"/>
+    </g>
+  </symbol>
+
+  <symbol id="wg-drawscene" viewBox="0 0 360 270">
+    <ellipse cx="180" cy="250" rx="166" ry="13" fill="#F1E3CB"/>
+    <g fill="#EFC778">
+      <path d="M74 74 l3.2 7.4 7.4 3.2 -7.4 3.2 -3.2 7.4 -3.2 -7.4 -7.4 -3.2 7.4 -3.2z"/>
+      <path d="M300 88 l2.6 6 6 2.6 -6 2.6 -2.6 6 -2.6 -6 -6 -2.6 6 -2.6z"/>
+      <path d="M276 40 l2.2 5 5 2.2 -5 2.2 -2.2 5 -2.2 -5 -5 -2.2 5 -2.2z"/>
+      <path d="M56 150 l2 4.6 4.6 2 -4.6 2 -2 4.6 -2 -4.6 -4.6 -2 4.6 -2z"/>
+      <path d="M324 168 l2 4.6 4.6 2 -4.6 2 -2 4.6 -2 -4.6 -4.6 -2 4.6 -2z"/>
+    </g>
+    <use href="#wg-sehee" x="8" y="36" width="108" height="171"/>
+    <use href="#wg-mimi" x="246" y="130" width="108" height="108"/>
+    <g id="dBoxG">
+      <g transform="rotate(-17 182 190)">
+        <rect x="126" y="152" width="112" height="40" rx="8" fill="#C98A4B"/>
+        <rect x="133" y="159" width="98" height="26" rx="6" fill="#E3B77C"/>
+        <rect x="126" y="152" width="112" height="7" rx="3.5" fill="#EFC778"/>
+        <rect x="133" y="159" width="98" height="4" rx="2" fill="#F6D79B" opacity=".8"/>
+      </g>
+      <rect x="128" y="170" width="108" height="22" rx="7" fill="#6B4326"/>
+      <ellipse cx="182" cy="180" rx="42" ry="6.5" fill="#4B2C13" opacity=".7"/>
+      <rect x="122" y="184" width="120" height="56" rx="8" fill="url(#boxGrad)"/>
+      <rect x="122" y="184" width="120" height="7" rx="3.5" fill="#EFC778" opacity=".85"/>
+      <rect x="122" y="205" width="120" height="5" fill="#EFC778" opacity=".6"/>
+      <rect x="126" y="187" width="9" height="49" fill="#EFC778" opacity=".45"/>
+      <rect x="229" y="187" width="9" height="49" fill="#EFC778" opacity=".45"/>
+      <rect x="161" y="212" width="42" height="23" rx="8" fill="#FFF6E2"/>
+      <g transform="translate(182,223) scale(.5)">
+        <path d="M0 0 C-7 -4 -8 -14 0 -15 C8 -14 7 -4 0 0 Z" fill="#6FA87C"/>
+        <path d="M0 0 C-7 -4 -8 -14 0 -15 C8 -14 7 -4 0 0 Z" fill="#6FA87C" transform="rotate(118)"/>
+        <path d="M0 0 C-7 -4 -8 -14 0 -15 C8 -14 7 -4 0 0 Z" fill="#6FA87C" transform="rotate(238)"/>
+        <circle r="2.6" fill="#4E8A5C"/>
+      </g>
+      <rect x="130" y="237" width="22" height="9" rx="4.5" fill="#A9713A"/>
+      <rect x="212" y="237" width="22" height="9" rx="4.5" fill="#A9713A"/>
+      <g fill="#FFF3DA" opacity=".8">
+        <circle cx="145" cy="196" r="2.4"/><circle cx="219" cy="196" r="2.4"/>
+      </g>
+    </g>
+    <use href="#wg-theo" x="36" y="176" width="92" height="92"/>
+    <use href="#wg-baby" x="96" y="212" width="58" height="58"/>
+    <use href="#wg-baby" x="238" y="216" width="52" height="52"/>
+  </symbol>
+
   <symbol id="wg-paw" viewBox="0 0 40 40">
     <ellipse cx="20" cy="27" rx="9" ry="7.5" fill="#C99A63"/>
     <circle cx="10" cy="17" r="4.2" fill="#C99A63"/><circle cx="17" cy="12" r="4.4" fill="#C99A63"/>
@@ -498,6 +702,9 @@ html.big .chkline{font-size:.86rem}
     <button class="pstep" data-act="people" data-d="1" aria-label="한 명 늘리기">＋</button>
     <span class="per">1인당 <b id="perAmount">0</b>원</span>
   </div>
+  <div class="drawrow">
+    <button class="drawopen" id="openDraw"><span class="dice" aria-hidden="true">🎲</span><span>와글가족 번호뽑기 상자</span></button>
+  </div>
 </div>
 
 <!-- 주문 요약 (특대 글씨) -->
@@ -586,6 +793,55 @@ html.big .chkline{font-size:.86rem}
   </div>
 </div>
 
+
+<!-- 🎲 와글가족 번호뽑기 상자 -->
+<div class="modal" id="drawModal" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="dTitle">
+    <div class="dhead">
+      <h3 id="dTitle">🍀 니키(세희) &amp; 와글가족의<br>행운 번호뽑기!</h3>
+      <button class="mini" data-close="drawModal">닫기</button>
+    </div>
+    <p class="dsub">상자를 톡 누르면 번호 공이 톡 튀어나와요 · 1~N번이 겹치지 않게 한 번씩 나와요</p>
+
+    <div class="dpeople">
+      <span class="dlabel">총 인원수</span>
+      <button class="dstep" id="dpMinus" aria-label="한 명 줄이기">−</button>
+      <span class="dcount" id="dpCount" aria-live="polite">4명</span>
+      <button class="dstep" id="dpPlus" aria-label="한 명 늘리기">＋</button>
+    </div>
+    <div class="dquick" role="group" aria-label="인원수 빠른 선택">
+      <button class="dq" data-np="2">2명</button>
+      <button class="dq" data-np="3">3명</button>
+      <button class="dq" data-np="4">4명</button>
+      <button class="dq" data-np="5">5명</button>
+      <button class="dq" data-np="6">6명</button>
+      <button class="dq" data-np="8">8명</button>
+      <button class="dq" data-np="10">10명</button>
+    </div>
+
+    <div class="dstage" id="dStage" role="button" tabindex="0" aria-label="번호뽑기 상자 열기">
+      <svg viewBox="0 0 360 270" aria-hidden="true"><use href="#wg-drawscene"/></svg>
+      <div class="dball" id="dBall" hidden><span id="dBallNum">4</span></div>
+    </div>
+    <p class="sr" id="dLive" role="status" aria-live="polite"></p>
+
+    <div class="dinfo">
+      <span class="dremain" id="dRemain">남은 공 4개</span>
+    </div>
+    <p class="dseq" id="dSeq">뽑힌 순서: 아직 없어요</p>
+
+    <div class="done" id="dDone" hidden>
+      <p class="dmsg">🎉 모든 번호를 다 뽑았어요!</p>
+      <button class="dresetbig" id="dReset2">🔄 다시 섞기</button>
+    </div>
+
+    <div class="dfoot">
+      <button class="btn dsound" id="dSound" aria-pressed="false" aria-label="효과음 켜기">🔕 소리 꺼짐</button>
+      <button class="btn" id="dShuffle">🔄 다시 섞기</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -602,7 +858,7 @@ const esc=s=> String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt
 function sample(){
   const mk=(name,price,fav)=>({id:uid(),name:name,price:price,fav:!!fav,qty:0});
   return {
-    big:false, people:1, cur:'cafe', filterFav:false,
+    big:false, people:1, cur:'cafe', filterFav:false, draw:{n:4, picked:[], sound:false},
     stores:[
       {id:'cafe', name:'동네 단골 카페', unit:'잔', menus:[
         mk('따뜻한 아메리카노',4500), mk('아이스 아메리카노',4500),
@@ -628,6 +884,12 @@ function load(){
     d.big=!!d.big;
     d.people=Math.min(99,Math.max(1,parseInt(d.people,10)||1));
     d.filterFav=!!d.filterFav;
+    d.draw = (d.draw && typeof d.draw==='object')? d.draw : {};
+    d.draw.n = Math.min(50, Math.max(2, parseInt(d.draw.n,10)||4));
+    d.draw.sound = d.draw.sound===true;
+    d.draw.picked = (Array.isArray(d.draw.picked)? d.draw.picked : [])
+      .map(function(x){ return parseInt(x,10); })
+      .filter(function(x,i,a){ return x>=1 && x<=d.draw.n && a.indexOf(x)===i; });
     d.stores=d.stores.map(s=>({
       id:s.id||uid(), name:String(s.name||'메뉴판'), unit:s.unit||'개',
       menus:(s.menus||[]).map(m=>({
@@ -1817,6 +2079,141 @@ $('#stkMenu').addEventListener('change', function(){
   renderSticker();
 });
 
+
+
+/* ══════ 🎲 와글가족 번호뽑기 상자 ══════ */
+function dRemain(){
+  var out=[], i, d=S.draw;
+  for(i=1;i<=d.n;i++){ if(d.picked.indexOf(i)<0) out.push(i); }
+  return out;
+}
+function dPalette(n){
+  var P=[['#E06A4B','#B4402A'],['#4F9B72','#2F6B4F'],['#EBC047','#B07C10'],
+         ['#5A8FBF','#39628C'],['#A57BC4','#7A4E9C'],['#E08B5C','#B45A2E']];
+  return P[(Math.max(1,n)-1)%P.length];
+}
+function dPaintBall(n){
+  var p=dPalette(n), b=$('#dBall');
+  b.style.setProperty('--b1',p[0]);
+  b.style.setProperty('--b2',p[1]);
+  $('#dBallNum').textContent=String(n);
+}
+function dRender(){
+  var d=S.draw, rem=dRemain(), last=d.picked.length? d.picked[d.picked.length-1] : 0;
+  $('#dpCount').textContent=d.n+'명';
+  $$('#drawModal .dq').forEach(function(b){ b.classList.toggle('on', parseInt(b.dataset.np,10)===d.n); });
+  $('#dpMinus').disabled = d.n<=2;
+  $('#dpPlus').disabled = d.n>=50;
+  $('#dRemain').textContent='남은 공 '+rem.length+'개';
+  $('#dSeq').textContent = d.picked.length
+    ? '뽑힌 순서: '+d.picked.map(function(x){ return x+'번'; }).join(' → ')
+    : '뽑힌 순서: 아직 없어요';
+  var done = rem.length===0;
+  $('#dDone').hidden = !done;
+  $('#dShuffle').hidden = done;
+  $('#dSound').textContent = d.sound? '🔔 소리 켜짐' : '🔕 소리 꺼짐';
+  $('#dSound').setAttribute('aria-label', d.sound? '효과음 끄기' : '효과음 켜기');
+  $('#dSound').setAttribute('aria-pressed', d.sound?'true':'false');
+  if(last) dPaintBall(last);
+  else $('#dBall').hidden=true;
+}
+var dTimer=null;
+function dPop(n){
+  var b=$('#dBall');
+  dPaintBall(n);
+  b.hidden=false;
+  b.classList.remove('pop');
+  void b.offsetWidth;
+  b.classList.add('pop');
+  var st=$('#dStage');
+  st.classList.remove('shake');
+  void st.offsetWidth;
+  st.classList.add('shake');
+  clearTimeout(dTimer);
+  dTimer=setTimeout(function(){ st.classList.remove('shake'); }, 620);
+}
+function dDing(){
+  if(!S.draw.sound) return;
+  try{
+    var AC=window.AudioContext||window.webkitAudioContext;
+    if(!AC) return;
+    if(!window.__wgAC){ window.__wgAC=new AC(); }
+    var ac=window.__wgAC;
+    if(ac.state==='suspended' && ac.resume){ ac.resume(); }
+    var t0=ac.currentTime;
+    [784,1175].forEach(function(f,i){
+      var o=ac.createOscillator(), g=ac.createGain();
+      o.type='sine';
+      o.frequency.value=f;
+      var t=t0+i*0.09;
+      g.gain.setValueAtTime(0.0001,t);
+      g.gain.exponentialRampToValueAtTime(0.16,t+0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001,t+0.34);
+      o.connect(g); g.connect(ac.destination);
+      o.start(t); o.stop(t+0.36);
+    });
+  }catch(e){}
+}
+function dDrawBall(){
+  var d=S.draw, rem=dRemain(), pick, i;
+  if(!rem.length){ toast('모든 번호를 다 뽑았어요! 다시 섞기를 눌러 주세요 🎉'); return; }
+  pick=rem[Math.floor(Math.random()*rem.length)];
+  d.picked.push(pick);
+  save();
+  dPop(pick);
+  dDing();
+  dRender();
+  $('#dLive').textContent=pick+'번이 나왔어요. 남은 공 '+dRemain().length+'개';
+  if(rem.length===1) toast('마지막 공이에요! 🎉');
+}
+function dSetPeople(n){
+  n=Math.max(2, Math.min(50, parseInt(n,10)||4));
+  if(n===S.draw.n) return;
+  var apply=function(){
+    S.draw.n=n; S.draw.picked=[]; save();
+    $('#dBall').hidden=true;
+    dRender();
+    toast(n+'명으로 맞췄어요. 1~'+n+'번 공을 새로 채웠어요');
+  };
+  if(S.draw.picked.length){
+    askConfirm('인원을 '+n+'명으로 바꿀까요?',
+      '번호 공을 처음부터 다시 섞어요. 지금까지 뽑은 '+S.draw.picked.length+'개는 사라져요.',
+      '바꾸기', apply);
+  } else { apply(); }
+}
+function dShuffleNow(){
+  S.draw.picked=[]; save();
+  $('#dBall').hidden=true;
+  dRender();
+  toast('공을 새로 섞었어요. 상자를 눌러 뽑아 보세요 🎲');
+}
+function dShuffle(){
+  if(S.draw.picked.length){
+    askConfirm('공을 다시 섞을까요?',
+      '지금까지 뽑은 '+S.draw.picked.length+'개가 사라지고 1~'+S.draw.n+'번 공을 다시 채워요.',
+      '다시 섞기', dShuffleNow);
+  } else { dShuffleNow(); }
+}
+function openDraw(){
+  dRender();
+  showModal('drawModal');
+}
+$('#openDraw').addEventListener('click', openDraw);
+$('#dStage').addEventListener('click', dDrawBall);
+$('#dStage').addEventListener('keydown', function(e){
+  if(e.key==='Enter'||e.key===' '||e.key==='Spacebar'){ e.preventDefault(); dDrawBall(); }
+});
+$('#dpMinus').addEventListener('click', function(){ dSetPeople(S.draw.n-1); });
+$('#dpPlus').addEventListener('click', function(){ dSetPeople(S.draw.n+1); });
+$$('#drawModal .dq').forEach(function(b){
+  b.addEventListener('click', function(){ dSetPeople(parseInt(b.dataset.np,10)); });
+});
+$('#dShuffle').addEventListener('click', dShuffle);
+$('#dReset2').addEventListener('click', dShuffleNow);
+$('#dSound').addEventListener('click', function(){
+  S.draw.sound=!S.draw.sound; save(); dRender();
+  toast(S.draw.sound? '소리를 켰어요' : '소리를 껐어요');
+});
 
 /* ── 시작 ── */
 var qrStoreName=importFromHash();
