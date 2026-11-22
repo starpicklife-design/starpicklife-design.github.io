@@ -4,15 +4,15 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#1E4A36" />
-<!-- build: 2026-11-22 와글가족장바구니 v4 · 이름 통일 + 🏠 홈 헤더 이동 · 이름변경 제거 -->
+<!-- build: 2026-11-22 와글가족장바구니 v5 · 카드 안 즉시 조작(− 수량 + · 🍽️ 다 먹음) · 🧺 실온보관바구니 · 메모·용량 버튼 · 🧾 영수증(여러 장) -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="와글가족장바구니" />
-<meta name="description" content="와글가족장바구니 — 우리 집 냉장고 3대와 장바구니를 한눈에. 구매일·남은 수량, 다 먹음 정리, 장보기 체크리스트. 목록은 이 기기에만 저장. 광고 없음." />
-<title>와글가족장바구니 · 우리집 냉장고 · 장보기 체크리스트</title>
+<meta name="description" content="와글가족장바구니 — 우리 집 냉장고 3대와 실온보관바구니를 한눈에. 구매일·남은 수량, 다 먹음 정리, 영수증 사진으로 품목 넣기. 목록은 이 기기에만 저장. 광고 없음." />
+<title>와글가족장바구니 · 우리집 냉장고 · 실온보관바구니</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 120%27%3E%3Crect width=%27120%27 height=%27120%27 rx=%2726%27 fill=%27%23F6FAF4%27/%3E%3Cpath d=%27M30 48h60l-7 42a8 8 0 0 1-8 7H45a8 8 0 0 1-8-7z%27 fill=%27%23F3DCAE%27 stroke=%27%23C08A3E%27 stroke-width=%275%27/%3E%3Cpath d=%27M44 48q16-20 32 0%27 fill=%27none%27 stroke=%27%23C08A3E%27 stroke-width=%276%27 stroke-linecap=%27round%27/%3E%3Ccircle cx=%2750%27 cy=%2772%27 r=%276%27 fill=%27%232F6B4F%27/%3E%3Ccircle cx=%2770%27 cy=%2772%27 r=%276%27 fill=%27%23C9553D%27/%3E%3C/svg%3E">
 <style>
 :root{
@@ -168,8 +168,8 @@ html.big .fname{font-size:.64rem}
 .today{padding:.75rem .8rem .8rem}
 .todayhead{display:flex;align-items:center;gap:.4rem;margin-bottom:.4rem}
 .todayhead h2{flex:1 1 auto;min-width:0;margin:0;font-size:1rem}
-.todaycount{flex:0 0 auto;font-size:.76rem;font-weight:900;color:#8A2E22;background:#FFE8E2;
-  border:2px solid #E8BFB7;border-radius:2rem;padding:.1rem .5rem;white-space:nowrap}
+.todaycount{flex:0 0 auto;font-size:.76rem;font-weight:900;color:#2F6B4F;background:#EAF4EC;
+  border:2px solid #CFE0CC;border-radius:2rem;padding:.1rem .5rem;white-space:nowrap}
 .todaylist{list-style:none;margin:0 0 .45rem;padding:0;display:flex;flex-direction:column;gap:.3rem}
 .todaylist li{display:flex;align-items:baseline;gap:.4rem;font-size:.9rem;font-weight:800;line-height:1.3;
   border-top:1px dashed #E6EFE4;padding-top:.3rem}
@@ -193,10 +193,10 @@ html.big .fname{font-size:.64rem}
 .hintline{font-size:.8rem;font-weight:800;color:#6B7A6E;background:#F2F8F0;border:2px dashed #CFE0CC;
   border-radius:.8rem;padding:.45rem .6rem;margin-bottom:.55rem;line-height:1.45}
 .list{display:flex;flex-direction:column;gap:.5rem;margin-bottom:.9rem}
-.item{display:grid;grid-template-columns:minmax(0,1fr) 2.7rem;align-items:center;gap:.35rem;
-  background:var(--card);border:2px solid var(--line);border-radius:1rem;padding:.4rem .45rem;
+/* 카드 한 줄 안 즉시 조작: 이름·날짜(왼쪽) + − 수량 + · 다 먹음(오른쪽) */
+.item{display:flex;flex-wrap:wrap;align-items:center;gap:.34rem .3rem;
+  background:var(--card);border:2px solid var(--line);border-radius:1rem;padding:.42rem .5rem;
   box-shadow:var(--shadow);width:100%;text-align:left;font-family:inherit}
-.item.withchk{grid-template-columns:2.9rem minmax(0,1fr) 2.7rem}
 .item.done{background:#FBFDFB}
 .item.dim:not(.done){opacity:.42}
 .chk{width:2.9rem;height:2.9rem;border-radius:.8rem;border:2.5px solid #A9C3B0;background:#fff;
@@ -205,7 +205,7 @@ html.big .fname{font-size:.64rem}
 .chk:active{transform:scale(.96)}
 .item.done .chk{background:var(--green2);border-color:var(--green2);color:#fff}
 .info{display:flex;flex-direction:column;align-items:flex-start;gap:.06rem;background:none;border:none;
-  padding:.12rem 0;text-align:left;min-width:0;min-height:2.9rem;justify-content:center}
+  padding:.12rem 0;text-align:left;min-width:0;flex:1 1 5.6rem;min-height:2.5rem;justify-content:center}
 .iname{font-size:1.06rem;font-weight:800;line-height:1.25;overflow-wrap:anywhere;word-break:keep-all}
 .imemo{font-size:.8rem;font-weight:700;color:var(--ink2);line-height:1.3;overflow-wrap:anywhere}
 .item.done .iname{text-decoration:line-through;color:#7C8B80}
@@ -214,9 +214,24 @@ html.big .fname{font-size:.64rem}
   line-height:1;display:flex;align-items:center;justify-content:center;padding:0;flex:0 0 auto}
 .star[aria-pressed="true"]{color:#D9A227}
 .star:active{transform:scale(.94)}
-.eatbtn{width:2.7rem;height:2.7rem;border-radius:.8rem;border:2px solid #E8CFA6;background:#FFF8E8;
-  font-size:1.25rem;line-height:1;display:flex;align-items:center;justify-content:center;padding:0;flex:0 0 auto}
-.eatbtn:active{transform:scale(.95);background:#FFEFD2}
+.itemctl{display:flex;align-items:center;justify-content:flex-end;gap:.24rem .18rem;
+  flex:0 0 auto;margin-left:auto;flex-wrap:wrap;max-width:100%}
+.step{width:2.1rem;height:2.4rem;border-radius:.7rem;border:2px solid #A9C3B0;background:#F1F9F3;
+  color:#1F4C2D;font-size:1.25rem;font-weight:900;line-height:1;display:flex;align-items:center;
+  justify-content:center;padding:0;flex:0 0 auto;touch-action:manipulation}
+.step:active{background:#DDEEDF;transform:translateY(1px)}
+.stepnum{min-width:1.55rem;text-align:center;font-size:1rem;font-weight:900;color:#1F4C2D;
+  line-height:1;font-variant-numeric:tabular-nums;flex:0 0 auto}
+.eatpill{display:flex;align-items:center;gap:.16rem;min-height:2.4rem;padding:.1rem .44rem;
+  border-radius:.7rem;font-size:.76rem;font-weight:900;line-height:1.1;white-space:nowrap;flex:0 0 auto;
+  letter-spacing:-.02em;border:2px solid #E8CFA6;background:#FFF8E8;color:#7A4A10}
+.step.moveic{border-color:#9FC0D3;background:#EFF7FB;font-size:1.02rem}
+.eatpill:active{background:#FFEFD2;transform:translateY(1px)}
+.step.moveic:active{background:#E1EFF7;transform:translateY(1px)}
+.eatpill .pe{font-size:1.02rem;line-height:1}
+.itemctl .star{width:2.4rem;height:2.4rem;font-size:1.3rem;border-radius:.7rem}
+html.big .eatpill{font-size:.7rem}
+html.big .stepnum{font-size:.95rem}
 .item.flash{animation:itemflash 1.3s ease-out}
 @keyframes itemflash{0%{border-color:#3F8155;box-shadow:0 0 0 0 rgba(63,129,85,.5)}
   65%{box-shadow:0 0 0 .5rem rgba(63,129,85,0);border-color:#3F8155}
@@ -231,7 +246,8 @@ html.big .fname{font-size:.64rem}
 .seldel:disabled{opacity:.42}
 .seldel:active{transform:translateY(1px)}
 .seltool{flex:0 0 auto;font-size:.74rem;padding:.3rem .45rem;min-height:2.8rem}
-.list.selmode .item{grid-template-columns:2.9rem minmax(0,1fr);cursor:pointer}
+.list.selmode .item{cursor:pointer}
+.list.selmode .itemctl{display:none}
 .item.sel{border-color:#C4564A;background:#FFF5F3;box-shadow:0 3px 10px rgba(196,86,74,.18)}
 .cbox{width:1.9rem;height:1.9rem;border-radius:.55rem;border:2.5px solid #C8B29A;background:#fff;
   display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:900;line-height:1;
@@ -247,6 +263,28 @@ html.big .cbox{width:2.2rem;height:2.2rem;font-size:1.4rem;border-radius:.6rem}
 .empty .big{display:block;font-size:2.4rem;line-height:1;margin-bottom:.45rem}
 
 /* 카드 / 담기 */
+.recbox{background:#FFF9EE;border:2px dashed #E2C79A;border-radius:.9rem;padding:.5rem .55rem;margin:0 0 .65rem}
+.recbtn{display:flex;align-items:center;justify-content:center;gap:.3rem;flex-wrap:wrap;
+  width:100%;min-height:2.9rem;border-radius:.8rem;border:2px solid #C98A2E;background:#FFEFD2;
+  color:#7A4A10;font-size:.9rem;font-weight:900;line-height:1.15;text-align:center}
+.recbtn:active{background:#FFE3B0;transform:translateY(1px)}
+.recbtn[disabled]{opacity:.55}
+.recnote{margin:.42rem 0 0;font-size:.74rem;font-weight:700;color:#8A6A38;line-height:1.4;word-break:keep-all}
+.recprog{margin-top:.45rem}
+.rectrack{height:.62rem;border-radius:1rem;background:#F0E3CB;overflow:hidden}
+.recbar{height:100%;width:0;background:#C98A2E;transition:width .25s}
+.recmsg{display:block;margin-top:.32rem;font-size:.74rem;font-weight:800;color:#7A4A10;line-height:1.4}
+.reclist{display:flex;flex-direction:column;gap:.35rem;max-height:48vh;overflow:auto;margin:.1rem 0 .2rem;padding-right:.1rem}
+.recrow{display:flex;align-items:center;gap:.4rem;border:2px solid var(--line);border-radius:.8rem;
+  padding:.32rem .45rem;background:#fff;flex-wrap:wrap}
+.recrow .rchk{width:1.6rem;height:1.6rem;flex:0 0 auto;accent-color:#2F6B4F}
+.recrow .rname{flex:1 1 5rem;min-width:0;border:none;background:none;font-size:.98rem;font-weight:800;
+  color:var(--ink);padding:.15rem 0;line-height:1.2;font-family:inherit}
+.recrow .rqty{flex:0 0 auto;font-size:.82rem;font-weight:900;color:#2F6B4F}
+.recrow .rspace{flex:0 0 auto;border-radius:.6rem;border:2px solid #BFD9C6;background:#F3FAF4;
+  color:#234C33;font-size:.74rem;font-weight:900;line-height:1.1;padding:.32rem .45rem;white-space:nowrap}
+.recrow .rspace:active{background:#E4F3E7;transform:translateY(1px)}
+.recrow.off{opacity:.5}
 .card{background:#fff;border:2px solid var(--line);border-radius:1.1rem;padding:.8rem;
   margin-bottom:.9rem;box-shadow:var(--shadow)}
 .card h2{margin:0 0 .55rem;font-size:1.02rem;font-weight:900;color:var(--green)}
@@ -261,6 +299,14 @@ html.big .quick{grid-template-columns:repeat(3,minmax(0,1fr))}
 html.big .qbtn{font-size:.72rem}
 
 .field{margin-bottom:.5rem}
+.volrow{display:flex;gap:.3rem;margin-top:.32rem;flex-wrap:nowrap}
+.volbtn{flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:center;
+  min-height:2.5rem;padding:.2rem .2rem;border-radius:.7rem;border:2px solid #CFE0CC;background:#F7FBF6;
+  color:#234C33;font-size:.84rem;font-weight:900;line-height:1.1;white-space:nowrap;letter-spacing:-.02em}
+.volbtn:active{transform:translateY(1px);background:#E6F3E8}
+.volbtn[aria-pressed="true"]{background:#FFE8C6;border-color:#C98A2E;color:#7A4A10;
+  box-shadow:0 2px 6px rgba(201,138,46,.22)}
+html.big .volbtn{font-size:.76rem}
 .fl{display:block;font-size:.78rem;font-weight:900;color:var(--ink2);margin:0 0 .25rem}
 .input{width:100%;border:2px solid var(--line);border-radius:.8rem;padding:.65rem .75rem;
   min-height:2.9rem;background:#FDFEFA}
@@ -369,7 +415,12 @@ details.bulk[open] summary::before{content:"▾"}
   z-index:100;max-width:calc(100% - 1.6rem);background:#1E2A22;color:#F4FAF5;font-size:.88rem;
   font-weight:800;line-height:1.4;padding:.65rem .95rem;border-radius:.95rem;
   box-shadow:0 6px 20px rgba(10,25,15,.35);opacity:0;pointer-events:none;transition:.18s;text-align:center}
+#toast{display:flex;align-items:center;justify-content:center;gap:.45rem;flex-wrap:wrap}
 #toast.on{opacity:1;transform:translate(-50%,0)}
+#toast.undo{pointer-events:auto}
+#toastUndo{border:2px solid #8FCBA4;background:#F4FAF5;color:#14432E;border-radius:.6rem;
+  padding:.3rem .55rem;font-size:.82rem;font-weight:900;line-height:1.1;flex:0 0 auto}
+#toastUndo:active{background:#E2F3E7;transform:translateY(1px)}
 </style>
 </head>
 <body>
@@ -410,20 +461,20 @@ details.bulk[open] summary::before{content:"▾"}
         <div class="floor"></div>
       </div>
     </div>
-    <p class="househint" id="houseHint"><b>냉장고나 장바구니</b>를 누르면 안을 볼 수 있어요.<br>지붕을 누르면 <b>우리 집 전체 내역</b>이 열려요.</p>
+    <p class="househint" id="houseHint"><b>냉장고나 실온보관바구니</b>를 누르면 안을 볼 수 있어요.<br>지붕을 누르면 <b>우리 집 전체 내역</b>이 열려요.</p>
 
     <section class="card today" id="todayCard">
       <div class="todayhead">
-        <h2 id="todayTitle">🛒 오늘의 장보기</h2>
+        <h2 id="todayTitle">🧺 실온보관바구니</h2>
         <span class="todaycount" id="todayCount">3개 남음</span>
       </div>
       <ul class="todaylist" id="todayList"></ul>
       <p class="todayfoot" id="todayFoot"></p>
-      <button type="button" class="btn full" id="openCartBtn">장바구니 열기 →</button>
+      <button type="button" class="btn full" id="openCartBtn">실온보관바구니 열기 →</button>
     </section>
   </section>
 
-  <!-- 냉장고 · 장바구니 안 -->
+  <!-- 냉장고 · 실온보관바구니 안 -->
   <section id="spaceView" hidden>
     <div class="spacebar">
       <div class="spbarTop">
@@ -456,6 +507,15 @@ details.bulk[open] summary::before{content:"▾"}
 
     <section class="card" id="addCard">
       <h2 id="addTitle">➕ 품목 담기</h2>
+      <section class="recbox" id="recBox">
+        <button type="button" class="recbtn" id="recBtn"><span aria-hidden="true">🧾</span><span id="recBtnLab">영수증 사진 찍기 / 고르기</span></button>
+        <input type="file" id="recInput" accept="image/*" multiple hidden>
+        <p class="recnote" id="recNote">영수증을 찍으면 품목을 찾아 칸까지 나눠 드려요. 여러 장(최대 10장)도 한 번에. 사진은 이 폰 안에서만 읽고 밖으로 보내지 않아요.</p>
+        <div class="recprog" id="recProg" hidden>
+          <div class="rectrack"><div class="recbar" id="recBar"></div></div>
+          <span class="recmsg" id="recMsg"></span>
+        </div>
+      </section>
       <p class="quickhead" id="quickHead">자주 쓰는 장보기 — 한 번 누르면 바로 담겨요</p>
       <div class="quick" id="quick"></div>
       <form id="addForm" autocomplete="off">
@@ -464,8 +524,9 @@ details.bulk[open] summary::before{content:"▾"}
           <input class="input" id="addName" type="text" maxlength="40" placeholder="예: 우유" autocomplete="off">
         </div>
         <div class="field">
-          <label class="fl" for="addMemo" id="addMemoLab">메모 · 유통기한 (선택)</label>
+          <label class="fl" for="addMemo" id="addMemoLab">메모 · 용량 · 유통기한 (선택)</label>
           <input class="input" id="addMemo" type="text" maxlength="40" placeholder="예: 1L, 11/28" autocomplete="off">
+          <div class="volrow" id="addVol" role="group" aria-label="빠른 용량"></div>
         </div>
         <button type="submit" id="addBtn" class="btn primary full">➕ 담기</button>
       </form>
@@ -475,7 +536,7 @@ details.bulk[open] summary::before{content:"▾"}
         <textarea id="bulkText" placeholder="우유&#10;계란&#10;대파"></textarea>
         <button type="button" id="bulkBtn" class="btn full">한 번에 담기</button>
       </details>
-      <p class="hint" id="addHint">품목을 누르면 이름·메모·수량·날짜를 고칠 수 있어요.</p>
+      <p class="hint" id="addHint">위 카드에서 − +로 수량, 이름을 누르면 고치기 창이 열려요.</p>
     </section>
   </section>
 </main>
@@ -487,7 +548,7 @@ details.bulk[open] summary::before{content:"▾"}
       <h3 id="ovTitle">🏠 우리 집 전체 내역</h3>
       <button type="button" class="btn ovclose" data-close="overviewModal" id="ovClose">닫기</button>
     </div>
-    <p class="note" id="ovNote">냉장고 3대와 장바구니를 한눈에 볼 수 있어요. 칸 이름을 누르면 그 칸이 열려요.</p>
+    <p class="note" id="ovNote">냉장고 3대와 실온보관바구니를 한눈에 볼 수 있어요. 칸 이름을 누르면 그 칸이 열려요.</p>
     <div id="ovBody"></div>
   </div>
 </div>
@@ -499,8 +560,9 @@ details.bulk[open] summary::before{content:"▾"}
     <label class="fl" for="itemName" id="itemNameLab">품목 이름</label>
     <input class="input" id="itemName" type="text" maxlength="40" autocomplete="off">
     <div style="height:.5rem"></div>
-    <label class="fl" for="itemMemo" id="itemMemoLab">메모 · 유통기한 (선택)</label>
+    <label class="fl" for="itemMemo" id="itemMemoLab">메모 · 용량 · 유통기한 (선택)</label>
     <input class="input" id="itemMemo" type="text" maxlength="40" placeholder="예: 1L, 11/28" autocomplete="off">
+    <div class="volrow" id="itemVol" role="group" aria-label="빠른 용량"></div>
     <div style="height:.55rem"></div>
     <p class="fl" id="qtyLab">남은 수량</p>
     <div class="qtyrow">
@@ -526,6 +588,19 @@ details.bulk[open] summary::before{content:"▾"}
   </div>
 </div>
 
+<!-- 🧾 영수증에서 찾은 품목 확인 -->
+<div class="modal" id="recModal" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="recTitle">
+    <h3 id="recTitle">🧾 영수증에서 찾은 품목</h3>
+    <p class="note" id="recNote2">칸 배지를 누르면 넣을 칸을 바꿀 수 있어요. 넣을 것만 체크해 두세요.</p>
+    <div class="reclist" id="recList"></div>
+    <div class="mrow">
+      <button type="button" class="btn" data-close="recModal" id="recCancel">그만두기</button>
+      <button type="button" class="btn primary" id="recAdd">✓ 각 칸으로 한 번에 넣기</button>
+    </div>
+  </div>
+</div>
+
 <!-- 📲 홈 화면에 앱 설치 안내 -->
 <div class="modal" id="installModal" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="instTitle">
@@ -542,7 +617,7 @@ details.bulk[open] summary::before{content:"▾"}
   </div>
 </div>
 
-<div id="toast" role="status" aria-live="polite"></div>
+<div id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button type="button" id="toastUndo" hidden>↩ 되돌리기</button></div>
 
 <script>
 (function(){
@@ -570,14 +645,16 @@ function EN(){ return LANG==='en'; }
 function L(ko,en){ return LANG==='en'? en : ko; }
 function saveLang(){ try{ localStorage.setItem(LKEY, LANG); }catch(e){} }
 
-const SPACE_EN={'장바구니':'Cart','냉장실':'Fridge','냉동실':'Freezer','야채·김치칸':'Veg & kimchi'};
+const SPACE_EN={'실온보관바구니':'Pantry','실온보관':'Pantry','냉장실':'Fridge','냉동실':'Freezer','야채·김치칸':'Veg & kimchi'};
 const ITEM_EN={'우유':'Milk','계란':'Eggs','빵':'Bread','식빵':'Bread','두부':'Tofu','치즈':'Cheese',
   '고기':'Meat','생선':'Fish','만두/냉동':'Dumpling','라면/면':'Noodles','쌀/잡곡':'Rice',
   '양념/장':'Sauces','채소류':'Greens','과일류':'Fruit','생수':'Water','커피/차':'Coffee/tea',
   '대파':'Green onions','상추':'Lettuce','사과':'Apple','삼겹살':'Pork belly','만두':'Dumplings',
   '새우':'Shrimp','김치':'Kimchi','당근':'Carrots'};
-const MEMO_EN={'1L':'1L','한 판':'1 pack','한 단':'1 bunch','한 봉':'1 bag'};
+const MEMO_EN={'1L':'1L','한 판':'1 pack','한 단':'1 bunch','한 봉':'1 bag','1팩':'1 pack','1봉':'1 bag','500g':'500g'};
 function dnSpace(n){ return EN()? (SPACE_EN[n]||n) : n; }
+/* 집 그림 라벨은 좁아서 실온보관바구니만 짧게 */
+function shortSpace(n){ return (n==='실온보관바구니')? L('실온보관','Pantry') : dnSpace(n); }
 function dnItem(n){ return EN()? (ITEM_EN[n]||n) : n; }
 function dnMemo(m){ return EN()? (MEMO_EN[m]||m) : m; }
 
@@ -596,13 +673,13 @@ function fmtDate(iso){
 /* ══════ 저장 (이 기기의 브라우저에만 · 서버 없음) ══════ */
 const KEY='wagle_fridge_v2';
 /* 칸 이름·그림 고정 — 이름변경 기능 없음 */
-const SPACE_FIX={'cart':{icon:'🧺',name:'장바구니'},'cold':{icon:'❄️',name:'냉장실'},
+const SPACE_FIX={'cart':{icon:'🧺',name:'실온보관바구니'},'cold':{icon:'❄️',name:'냉장실'},
   'freeze':{icon:'🧊',name:'냉동실'},'veg':{icon:'🥬',name:'야채·김치칸'}};
 function sampleSpaces(){
   const it=(name,memo,qty,days,fav,done)=>({id:uid(),name:name,memo:memo||'',qty:qty||1,
     bought:dayStr(-(days||0)),fav:!!fav,done:!!done});
   return [
-    {id:'cart',kind:'cart',icon:'🧺',name:'장바구니',items:[
+    {id:'cart',kind:'cart',icon:'🧺',name:'실온보관바구니',items:[
       it('우유','1L',1,0,true,false), it('계란','한 판',1,0,true,false),
       it('대파','한 단',1,0,false,false), it('식빵','',1,0,false,true)
     ]},
@@ -660,13 +737,30 @@ function cart(){ return S.spaces.filter(function(s){ return s.kind==='cart'; })[
 function fridges(){ return S.spaces.filter(function(s){ return s.kind==='fridge'; }); }
 
 /* ══════ 도우미 ══════ */
-let toastT=null;
-function toast(msg){
-  const t=$('#toast');
-  t.textContent=msg; t.classList.add('on');
+let toastT=null, undoCb=null;
+function toast(msg, undo){
+  const t=$('#toast'), m=$('#toastMsg'), u=$('#toastUndo');
+  if(m) m.textContent=msg; else t.textContent=msg;
+  if(u){
+    undoCb=undo||null;
+    u.hidden=!undo;
+    if(undo) u.textContent=L('↩ 되돌리기','↩ Undo');
+    t.classList.toggle('undo', !!undo);
+  }
+  t.classList.add('on');
   clearTimeout(toastT);
-  toastT=setTimeout(function(){ t.classList.remove('on'); }, 2400);
+  toastT=setTimeout(function(){ t.classList.remove('on'); }, undo? 4600 : 2400);
 }
+function closeToastUndo(){
+  undoCb=null;
+  const t=$('#toast'), u=$('#toastUndo');
+  if(u) u.hidden=true;
+  if(t) t.classList.remove('on','undo');
+}
+$('#toastUndo').addEventListener('click', function(){
+  const cb=undoCb; closeToastUndo();
+  if(cb) cb();
+});
 let lastFocus=null;
 function showModal(id){
   lastFocus=document.activeElement;
@@ -723,8 +817,8 @@ function renderKitchen(){
   if(c){
     const b=document.createElement('button');
     b.type='button'; b.className='cartbtn'; b.dataset.id=c.id;
-    b.setAttribute('aria-label', L('장바구니 열기','Open the cart'));
-    const left=c.items.filter(function(i){ return !i.done; }).length;
+    b.setAttribute('aria-label', L('실온보관바구니 열기','Open the pantry'));
+    const cnt=c.items.length;
     b.innerHTML=
       '<span class="cartbox">'+
         '<svg viewBox="0 0 120 116" aria-hidden="true">'+
@@ -735,9 +829,9 @@ function renderKitchen(){
           '<path d="M38 60v46M60 60v46M82 60v46" stroke="#E0BE86" stroke-width="3" stroke-linecap="round"/>'+
           '<circle cx="76" cy="38" r="9" fill="#C9553D"/><circle cx="44" cy="40" r="7" fill="#3F8155"/>'+
         '</svg>'+
-        (left? '<span class="fbadge">'+left+'</span>':'')+
+        (cnt? '<span class="fbadge">'+cnt+'</span>':'')+
       '</span>'+
-      '<span class="fname">'+esc(dnSpace(c.name))+'</span>';
+      '<span class="fname">'+esc(shortSpace(c.name))+'</span>';
     box.appendChild(b);
   }
 }
@@ -751,29 +845,30 @@ function renderHome(){
 }
 function renderToday(){
   const c=cart(); if(!c) return;
-  const left=c.items.filter(function(i){ return !i.done; });
-  $('#todayCount').textContent=L(left.length+'개 남음', left.length+' left');
+  const all=c.items;
+  $('#todayCount').textContent=L(all.length+'개', all.length+' item'+(all.length===1?'':'s'));
   const ul=$('#todayList'); ul.innerHTML='';
-  if(!left.length){
+  if(!all.length){
     const li=document.createElement('li');
-    li.innerHTML='<span class="tnone">'+esc(L('장 볼 것이 없어요.','Nothing to buy.'))+'</span>';
+    li.innerHTML='<span class="tnone">'+esc(L('실온보관바구니가 비었어요.','The pantry is empty.'))+'</span>';
     ul.appendChild(li);
   }else{
-    left.slice(0,4).forEach(function(it){
+    all.slice(0,4).forEach(function(it){
       const li=document.createElement('li');
       const meta=[it.memo? dnMemo(it.memo):'', it.qty>1? L(it.qty+'개', it.qty+' pcs'):''].filter(Boolean).join(' · ');
       li.innerHTML='<span class="tname">'+esc(dnItem(it.name))+'</span>'+
         (meta? '<span class="tmeta">'+esc(meta)+'</span>':'');
       ul.appendChild(li);
     });
-    if(left.length>4){
+    if(all.length>4){
       const li=document.createElement('li');
-      li.innerHTML='<span class="tnone">'+esc(L('외 '+(left.length-4)+'개','+'+(left.length-4)+' more'))+'</span>';
+      li.innerHTML='<span class="tnone">'+esc(L('외 '+(all.length-4)+'개','+'+(all.length-4)+' more'))+'</span>';
       ul.appendChild(li);
     }
   }
   const total=fridges().reduce(function(n,sp){ return n+sp.items.length; }, 0);
-  $('#todayFoot').textContent=L('냉장고에는 '+total+'개가 있어요.','There are '+total+' items in the fridges.');
+  $('#todayFoot').textContent=L('우리 집에는 모두 '+(total+all.length)+'개가 있어요 · 냉장고 3대 '+total+'개 · 실온보관바구니 '+all.length+'개',
+    'Everything at home: '+(total+all.length)+' items · fridges '+total+' · pantry '+all.length);
 }
 function renderSpaceView(){
   $('#homeView').hidden=true;
@@ -788,18 +883,17 @@ function renderSpaceView(){
   $('#cartHint').hidden=!isCart;
   $('#fridgeHint').hidden=isCart;
   if(isCart){
-    $('#cartHint').textContent=L('품목을 누르면 냉장실·냉동실·야채칸으로 옮길 수 있어요. 산 것은 체크해 두세요!',
-      'Tap an item to move it into a fridge. Check off what you buy!');
+    $('#cartHint').textContent=L('카드 안 − +로 수량을 바꾸고, 🍽️ 다 먹음은 바로 빼요(↩ 되돌리기). ❄️를 누르면 냉장고로 옮겨요.',
+      'Use − + on a card for the count; 🍽️ takes it out right away (↩ undo). Tap ❄️ to move it into a fridge.');
   }else{
-    $('#fridgeHint').textContent=L('품목을 누르면 이름·수량·구매일을 고치고, 다 먹음으로 뺄 수 있어요.',
-      'Tap an item to edit it, or use Finished to take it out.');
+    $('#fridgeHint').textContent=L('카드 안 − +로 수량을 바꾸고, 🍽️ 다 먹음은 바로 빼요(↩ 되돌리기 가능). 이름을 누르면 이름·메모·구매일을 고쳐요.',
+      'Use − + on a card to change the count; 🍽️ takes it out right away (↩ undo). Tap a name to edit name, note and date.');
   }
-  $('#favBtn').hidden=!isCart;
-  $('#tidyBtn').hidden=!isCart;
+  $('#favBtn').hidden=true;
+  $('#tidyBtn').hidden=true;
   const done=sp.items.filter(function(i){ return i.done; }).length;
   $('#tidyBtn').disabled=!done;
   $('#toolbar').hidden=!n;
-  $('#favBtn').setAttribute('aria-pressed', S.filterFav?'true':'false');
   $('#selBtn').setAttribute('aria-pressed', S.selMode?'true':'false');
   $('#selBtn').disabled=!n;
   $('#selBar').hidden=!S.selMode;
@@ -808,10 +902,9 @@ function renderSpaceView(){
     $('#selDel').textContent=L('선택한 '+k+'개 지우기','Delete '+k+' selected');
     $('#selDel').disabled=!k;
   }
-  $('#addTitle').textContent=isCart? L('➕ 장바구니에 담기','➕ Add to the cart') : L('➕ 냉장고에 넣기','➕ Add to this fridge');
-  $('#addBtn').textContent=isCart? L('➕ 담기','➕ Add') : L('➕ 넣기','➕ Put in');
-  $('#quickHead').textContent=isCart? L('자주 쓰는 장보기 — 한 번 누르면 바로 담겨요','Quick add — one tap puts it on the list')
-    : L('자주 쓰는 식재료 — 한 번 누르면 바로 들어가요','Quick add — one tap puts it in');
+  $('#addTitle').textContent=isCart? L('➕ 실온보관바구니에 넣기','➕ Add to the pantry') : L('➕ 냉장고에 넣기','➕ Add to this fridge');
+  $('#addBtn').textContent=L('➕ 넣기','➕ Put in');
+  $('#quickHead').textContent=L('자주 쓰는 식재료 — 한 번 누르면 바로 들어가요','Quick add — one tap puts it in');
   $('#addCard').hidden=!sp;
   renderList();
   renderQuick();
@@ -834,9 +927,8 @@ function sortedItems(sp){
 }
 function metaText(it,kind){
   const parts=[];
-  if(it.bought) parts.push((kind==='cart'? L('담음','Added') : L('구매','Bought'))+' '+fmtDate(it.bought));
+  if(it.bought) parts.push(L('구매','Bought')+' '+fmtDate(it.bought));
   if(it.memo) parts.push(dnMemo(it.memo));
-  if(kind==='fridge' || it.qty>1) parts.push(L(it.qty+'개', it.qty+' pcs'));
   return parts.join(' · ');
 }
 function renderList(){
@@ -856,16 +948,15 @@ function renderList(){
   }
   if(!sp.items.length){
     box.innerHTML='<div class="empty"><span class="big" aria-hidden="true">'+(isCart?'🧺':'❄️')+'</span>'+
-      esc(isCart? L('장바구니가 비었어요.','The cart is empty.') : L('이 냉장고가 비었어요.','This fridge is empty.'))+'<br>'+
-      esc(isCart? L('아래 빠른 버튼이나 직접 입력으로 담아 보세요.','Use a quick button or type below to add.')
+      esc(isCart? L('실온보관바구니가 비었어요.','The pantry is empty.') : L('이 냉장고가 비었어요.','This fridge is empty.'))+'<br>'+
+      esc(isCart? L('아래 빠른 버튼이나 직접 입력으로 넣어 보세요.','Use a quick button or type below to add.')
                : L('아래에서 품목을 넣어 보세요.','Add something from below.'))+'</div>';
     return;
   }
   sortedItems(sp).forEach(function(it){
     const sel=S.selMode && S.sel.has(it.id);
     const row=document.createElement(S.selMode? 'button':'div');
-    row.className='item'+(!isCart?'':' withchk')+(it.done?' done':'')+
-      ((isCart && S.filterFav && !it.fav)?' dim':'')+(sel?' sel':'');
+    row.className='item'+(it.done?' done':'')+((isCart && S.filterFav && !it.fav)?' dim':'')+(sel?' sel':'');
     row.dataset.id=it.id;
     if(S.selMode){
       row.type='button';
@@ -879,19 +970,20 @@ function renderList(){
     if(S.selMode){
       row.innerHTML='<span class="cbox" aria-hidden="true">✓</span>'+
         '<span class="info"><span class="iname">'+name+'</span>'+memoLine+'</span>';
-    }else if(isCart){
-      row.innerHTML=
-        '<button type="button" class="chk" role="checkbox" aria-checked="'+(it.done?'true':'false')+'" '+
-          'aria-label="'+esc(L(it.name+(it.done?' 샀어요 표시 풀기':' 샀어요 표시'), it.name+(it.done?' uncheck bought':' mark as bought')))+'">✓</button>'+
-        '<button type="button" class="info" aria-label="'+esc(L(it.name+' 고치기','Edit '+dnItem(it.name)))+'">'+
-          '<span class="iname">'+name+'</span>'+memoLine+'</button>'+
-        '<button type="button" class="star" aria-pressed="'+(it.fav?'true':'false')+'" '+
-          'aria-label="'+esc(L(it.fav?'자주 사는 것에서 빼기':'자주 사는 것으로 표시', it.fav?'Remove from favorites':'Mark as favorite'))+'">★</button>';
     }else{
+      /* 냉장고 3대·실온보관바구니 모두 같은 카드: 이름·구매일(눌러 고치기) + − 수량 + + 🍽️ 다 먹음 */
       row.innerHTML=
-        '<button type="button" class="info" aria-label="'+esc(L(it.name+' 고치기·다 먹음','Edit or finish '+dnItem(it.name)))+'">'+
+        '<button type="button" class="info" aria-label="'+esc(L(it.name+' 이름·메모·날짜 고치기','Edit name, note and date of '+dnItem(it.name)))+'">'+
           '<span class="iname">'+name+'</span>'+memoLine+'</button>'+
-        '<button type="button" class="eatbtn" aria-label="'+esc(L(it.name+' 다 먹음·빼기','Finish / remove '+dnItem(it.name)))+'">🍽️</button>';
+        '<div class="itemctl">'+
+          '<button type="button" class="step" data-act="minus" aria-label="'+esc(L(it.name+' 수량 줄이기','One less '+dnItem(it.name)))+'">−</button>'+
+          '<span class="stepnum" aria-label="'+esc(L((it.qty||1)+'개',(it.qty||1)+' pcs'))+'">'+(it.qty||1)+'</span>'+
+          '<button type="button" class="step" data-act="plus" aria-label="'+esc(L(it.name+' 수량 늘리기','One more '+dnItem(it.name)))+'">+</button>'+
+          (isCart? '<button type="button" class="step moveic" data-act="move" aria-label="'+esc(L(it.name+' 냉장고로 옮기기','Move '+dnItem(it.name)+' into a fridge'))+'">❄️</button>':'')+
+          '<button type="button" class="eatpill" data-act="eat" aria-label="'+esc(L(it.name+' 다 먹음 — 바로 빼기','Finished '+dnItem(it.name)+' — remove now'))+'">'+
+            '<span class="pe" aria-hidden="true">🍽️</span><span class="plab"></span></button>'+
+        '</div>';
+      row.querySelector('.plab').textContent=L('다 먹음','Finished');
     }
     box.appendChild(row);
   });
@@ -904,17 +996,392 @@ function renderQuick(){
     b.innerHTML='<span class="qe" aria-hidden="true">'+q[0]+'</span><span class="ql"></span>';
     b.querySelector('.ql').textContent=L(q[1],q[2]);
     b.setAttribute('aria-label', L(q[1]+' 바로 담기','Add '+q[2]));
-    b.addEventListener('click', function(){ addItem(q[1],''); });
+    b.addEventListener('click', function(){ addItem(q[1], $('#addMemo').value.trim()); });
     box.appendChild(b);
   });
 }
+
+/* ══════ 빠른 용량 버튼 (1팩 · 1봉 · 500g · 1L) ══════ */
+const VOLS=[['1팩','1 pack'],['1봉','1 bag'],['500g','500g'],['1L','1L']];
+function volTok(v){ return [v[0], v[1]]; }
+const VOL_ALL=[].concat.apply([], VOLS.map(volTok));
+function memoParts(inp){
+  return String((inp&&inp.value)||'').split(/\s*·\s*/).map(function(s){ return s.trim(); }).filter(Boolean);
+}
+function syncVolRow(rowId, inputId){
+  const row=$('#'+rowId), inp=$('#'+inputId); if(!row||!inp) return;
+  const parts=memoParts(inp), btns=row.querySelectorAll('.volbtn');
+  for(var i=0;i<btns.length;i++){
+    const v=VOLS[i]; if(!v) continue;
+    const on=parts.some(function(p){ return volTok(v).indexOf(p)>=0; });
+    btns[i].setAttribute('aria-pressed', on? 'true':'false');
+  }
+}
+/* 누르면 입력 간에 채워지고, 한 번 더 누르면 빠져요. 한 번에 한 용량만 */
+function toggleVol(input, v){
+  const toks=volTok(v), label=L(v[0], v[1]);
+  const parts=memoParts(input);
+  let idx=-1;
+  parts.forEach(function(p,i){ if(toks.indexOf(p)>=0 && idx<0) idx=i; });
+  let on;
+  if(idx>=0){ parts.splice(idx,1); on=false; }
+  else{
+    for(var i=parts.length-1;i>=0;i--){ if(VOL_ALL.indexOf(parts[i])>=0) parts.splice(i,1); }
+    parts.push(label); on=true;
+  }
+  input.value=parts.join(' · ').slice(0,40);
+  try{ input.dispatchEvent(new Event('input',{bubbles:true})); }catch(e){}
+  return on;
+}
+function buildVolRow(rowId, inputId){
+  const row=$('#'+rowId), inp=$('#'+inputId); if(!row||!inp) return;
+  row.innerHTML='';
+  VOLS.forEach(function(v){
+    const b=document.createElement('button');
+    b.type='button'; b.className='volbtn';
+    b.textContent=L(v[0], v[1]);
+    b.setAttribute('aria-pressed','false');
+    b.setAttribute('aria-label', L(v[0]+' 용량 채우기', 'Use '+v[1]));
+    b.addEventListener('click', function(){
+      const on=toggleVol(inp, v);
+      syncVolRow(rowId, inputId);
+      if(inputId==='addMemo'){
+        toast(on? L(v[0]+' 골랐어요 — 이제 품목을 누르면 함께 담겨요', v[1]+' picked — now tap a food button')
+                : L('용량 선택을 풀었어요','Size cleared'));
+      }
+    });
+    row.appendChild(b);
+  });
+  syncVolRow(rowId, inputId);
+}
+$('#addMemo').addEventListener('input', function(){ syncVolRow('addVol','addMemo'); });
+$('#itemMemo').addEventListener('input', function(){ syncVolRow('itemVol','itemMemo'); });
+
+/* ══════ 🧾 영수증 사진 → 품목 (Tesseract.js kor+eng · 이 폰 안에서만 · 0원) ══════ */
+let tessP=null;
+function loadTesseract(){
+  if(window.Tesseract) return Promise.resolve(window.Tesseract);
+  if(tessP) return tessP;
+  tessP=new Promise(function(res,rej){
+    const s=document.createElement('script');
+    s.src='https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js';
+    s.onload=function(){ window.Tesseract? res(window.Tesseract) : rej(new Error('no-tesseract')); };
+    s.onerror=function(){ tessP=null; rej(new Error('net')); };
+    document.head.appendChild(s);
+    setTimeout(function(){ if(!window.Tesseract){ tessP=null; rej(new Error('timeout')); } }, 12000);
+  });
+  return tessP;
+}
+function withTimeout(p, ms, tag){
+  return new Promise(function(res,rej){
+    const t=setTimeout(function(){ rej(new Error(tag||'timeout')); }, ms);
+    p.then(function(v){ clearTimeout(t); res(v); }, function(e){ clearTimeout(t); rej(e); });
+  });
+}
+function downscale(file, max){
+  return new Promise(function(res,rej){
+    const url=URL.createObjectURL(file);
+    const img=new Image();
+    img.onload=function(){
+      const s=Math.min(1, max/Math.max(img.width,img.height));
+      const w=Math.max(1,Math.round(img.width*s)), h=Math.max(1,Math.round(img.height*s));
+      const c=document.createElement('canvas'); c.width=w; c.height=h;
+      const ctx=c.getContext('2d');
+      ctx.fillStyle='#fff'; ctx.fillRect(0,0,w,h);
+      ctx.drawImage(img,0,0,w,h);
+      URL.revokeObjectURL(url);
+      res(c.toDataURL('image/jpeg',0.92));
+    };
+    img.onerror=function(){ URL.revokeObjectURL(url); rej(new Error('img')); };
+    img.src=url;
+  });
+}
+function recSet(pct, msg){
+  $('#recProg').hidden=false;
+  $('#recBar').style.width=Math.max(0,Math.min(100,pct))+'%';
+  $('#recMsg').textContent=msg||'';
+}
+function recHideProg(){ $('#recProg').hidden=true; $('#recBar').style.width='0%'; }
+
+/* 영수증에서 상품이 아닌 줄 · 실제 상품명만 남기기 */
+const REC_SKIP=['사업자','대표','전화','tel','주소','매장','가맹','카드','승인','결제','현금','거스름','합계','총액','총구','부가세','과세','면세','할인','쿠폰','포인트','적립','바코드','일시','영수증','거래','번호','회원','감사','교환','환불','반품','세금','신용','일시불','할부','서명','상호','pos','매출','공급가','받을','잔액','복사','전표','단말','상품권','주문','직원','소계','카드사','은행','앱카드','비고','포장','배송','연락','팩스','fax','http','www','구분','금액','단가','품명','수량','일자','시각','포인트','주차','정산','입금','잔돈','받은','낸금','합계액','중간','마감','일보','정산서'];
+function parseReceiptItem(line){
+  let s=String(line||'').replace(/\s+/g,' ').trim();
+  if(!s) return null;
+  let guard=0, before='';
+  while(guard++<4 && s!==before){
+    before=s;
+    s=s.replace(/\s?[₩]?[\d,]{3,}\s?원?$/,'').trim();          /* 꼬리 금액 */
+    s=s.replace(/\s?\d+\s?[x×*]\s?[\d,]+\s?원?$/i,'').trim();   /* 2 x 1,850 */
+    s=s.replace(/\s?@\s?[\d,]+$/,'').trim();
+  }
+  s=s.replace(/^\d{2,6}\s+/,'').trim();                          /* 앞 품목코드 */
+  let qty=1;
+  const m=s.match(/(?:^|\s)(?:[x×*]\s?)?(\d{1,2})\s*$/i);
+  if(m){
+    const q=parseInt(m[1],10);
+    if(q>=1 && q<=99){ qty=q; s=s.slice(0, m.index).trim(); }
+  }
+  /* 글자가 깨져 붙은 숫자 덩어리(5008 같은 것)는 이름에서 떼기 */
+  const tail=s.match(/(?:^|\s)(\d{1,4})\s*$/);
+  if(tail && s.slice(0, tail.index).replace(/[^가-힣A-Za-z]/g,'').length>=2) s=s.slice(0, tail.index).trim();
+  s=s.replace(/^[\s\-–—·:;,.[\](){}<>«»*#|]+/,'').replace(/[\s\-–—·:;,./\\|]+$/,'').trim();
+  if(!s || s.length>40) return null;
+  if(!/[가-힣A-Za-z]/.test(s)) return null;
+  const letters=s.replace(/[^가-힣A-Za-z]/g,'').length, digits=(s.match(/\d/g)||[]).length;
+  if(letters<1) return null;
+  if(letters===1 && !/[₩]?[\d,]{3,}/.test(String(line||''))) return null;   /* 한 글자 이름은 가격이 함께 있을 때만 */
+  if(digits>Math.max(2, letters*1.5)) return null;
+  return {name:s, qty:qty};
+}
+function receiptCandidates(text){
+  const raw=String(text||'').split(/\r?\n/).map(function(x){ return x.replace(/\s+/g,' ').trim(); });
+  const hits=[];
+  raw.forEach(function(line,i){
+    if(!line) return;
+    const low=line.toLowerCase();
+    for(var k=0;k<REC_SKIP.length;k++){ if(low.indexOf(REC_SKIP[k])>=0) return; }
+    if(/\d{4}\s?[-./년]\s?\d{1,2}\s?[-./월]\s?\d{1,2}/.test(line)) return;
+    if(/\d{1,2}:\d{2}/.test(line)) return;
+    if(/\d{2,3}-\d{3,4}-\d{4}/.test(line)) return;                 /* 전화번호 */
+    if(/(특별시|광역시|번길)/.test(line)) return;                      /* 주소 */
+    if(/(마트|마켓|스토어|슈퍼|편의점|약국|정육점|청과|농협|하나로|이마트|홈플러스|코스트코|세븐일레븐|GS25)/.test(line)) return;  /* 가게 이름 */
+    if(/^(서울|부산|대구|인천|광주|대전|울산|세종|경기|강원|충북|충남|전북|전남|경북|경남|제주)\s/.test(line)) return;
+    if(/(^|\s)(시|군|구|로|길|동|읍|면)(\s|$)/.test(line)) return;     /* 주소(도로명) */
+    if(/^[\d\s,.\-—–*x×+\/()%₩]+$/i.test(line)) return;
+    if(/^[-=_~*·.\s]+$/.test(line)) return;
+    const letters=line.replace(/[^가-힣A-Za-z]/g,'');
+    if(letters.length<1) return;
+    const p=parseReceiptItem(line);
+    if(!p) return;
+    hits.push({name:p.name, qty:p.qty, i:i, line:line});
+  });
+  /* 맨 위 가게 이름 줄 제거 */
+  let guard2=0;
+  while(hits.length>1 && guard2++<2 && hits[0].i<=2 && !/\d/.test(hits[0].line) && hits[0].line.length<=20) hits.shift();
+  const seen={}, out=[];
+  hits.forEach(function(h){
+    const key=h.name.replace(/\s/g,'').toLowerCase();
+    if(seen[key]){ seen[key].qty=Math.min(99,(seen[key].qty||1)+(h.qty||1)); return; }
+    seen[key]=h; out.push(h);
+  });
+  return out.slice(0,40);
+}
+/* 이름 속 용량은 메모로 나누기: '서울우유 1L' → 서울우유 + 1L */
+function splitVolume(name){
+  const m=String(name||'').match(/^(.*\S)\s(\d+(?:\.\d+)?\s?(?:kg|g|ml|mL|ML|l|L|팩|봉|개|입|병|캔|포|장|매|봉지|컵|통|박스|세트))$/);
+  if(m && m[1].length>=1) return {name:m[1].slice(0,40), memo:m[2].replace(/\s/g,'').slice(0,20)};
+  return {name:String(name||'').slice(0,40), memo:''};
+}
+/* 품목 이름으로 알맞은 칸 자동 선택 */
+const REC_CLASS=[
+  ['freeze',['냉동','만두','아이스크림','빙수','새우','돈까스','돈가스','튀김','피자','핫도그','어묵','냉면','냉동밥','만두피','아이스바']],
+  ['veg',['김치','채소','야채','대파','쪽파','양파','사과','과일','버섯','콩나물','당근','배추','무우','오이','상추','시금치','감자','고구마','브로콜리','토마토','바나나','귤','딸기','포도','수박','참외','파프리카','깻잎','부추','미나리','양배추','호박','열무','숙주','청경채','샐러리','레몬','키위','복숭아','자두','감']],
+  ['cold',['우유','계란','달걀','두부','치즈','고기','생선','고등어','갈치','조기','명태','연어','오징어','낙지','요거트','요구르트','햄','소시지','베이컨','버터','마가린','주스','샐러드','삼겹','목살','갈비','안심','등심','가슴살','닭','오리','순대','어묵볶음','맛김']],
+  ['cart',['라면','쌀','생수','빵','커피','양념','간장','고추장','된장','소금','설탕','과자','통조림','캔','참치','참기름','식용유','기름','음료','콜라','사이다','맥주','소주','스팸','국수','파스타','당면','미역','다시마','멸치','견과','호두','아몬드','시리얼','잼','꿀','초콜릿','녹차','홍삼','비타민','세제','휴지','키친타올','봉지','스낵','김','떡','한과','조미']]
+];
+function guessSpaceId(name){
+  const n=String(name||'').toLowerCase();
+  for(var i=0;i<REC_CLASS.length;i++){
+    const c=REC_CLASS[i][1];
+    for(var k=0;k<c.length;k++){ if(n.indexOf(c[k])>=0) return REC_CLASS[i][0]; }
+  }
+  return space()? space().id : 'cold';
+}
+function spBadge(sp){
+  if(!sp) return '';
+  return (sp.icon||'')+' '+(sp.kind==='cart'? L('실온보관','Pantry') : dnSpace(sp.name));
+}
+/* 시험용(화면에는 영향 없음) */
+window.__wagleRec={parse:parseReceiptItem, cands:receiptCandidates, split:splitVolume, guess:guessSpaceId, open:recOpen};
+
+/* ── 미리보기 ── */
+let recItems=[];
+function recOpen(list, note){
+  if(note) $('#recNote2').textContent=note+' '+L('칸 배지를 누르면 넣을 칸을 바꿀 수 있어요. 넣을 것만 체크해 두세요.','Tap a space badge to change it. Tick only what to add.');
+  else $('#recNote2').textContent=L('칸 배지를 누르면 넣을 칸을 바꿀 수 있어요. 넣을 것만 체크해 두세요.','Tap a space badge to change it. Tick only what to add.');
+  recItems=list.map(function(x){
+    const spId=x.spId && spById(x.spId)? x.spId : guessSpaceId(x.name);
+    const sv=splitVolume(x.name);
+    const it={name:sv.name, memo:x.memo||sv.memo, qty:Math.max(1,Math.min(99,x.qty||1)), spId:spId, check:true, dup:false};
+    const sp=spById(it.spId);
+    if(sp && sp.items.some(function(i){ return i.name.toLowerCase()===it.name.toLowerCase(); })){ it.check=false; it.dup=true; }
+    return it;
+  });
+  recRender();
+  showModal('recModal');
+}
+function recRender(){
+  const box=$('#recList'); if(!box) return; box.innerHTML='';
+  const order=['cold','freeze','veg','cart'];
+  recItems.forEach(function(it,i){
+    const sp=spById(it.spId)||spById('cold');
+    const row=document.createElement('div');
+    row.className='recrow'+(it.check?'':' off');
+    row.dataset.i=i;
+    row.innerHTML='<input type="checkbox" class="rchk" '+(it.check?'checked':'')+' aria-label="'+esc(L(it.name+' 넣기','Add '+it.name))+'"'+(it.check?'':'')+'>'+
+      '<input class="rname" type="text" maxlength="40" aria-label="'+esc(L('품목 이름','Item name'))+'">'+
+      '<span class="rqty">'+it.qty+'개</span>'+
+      '<button type="button" class="rspace" aria-label="'+esc(L('넣을 칸 바꾸기','Change space'))+'">'+esc(spBadge(sp))+'</button>';
+    row.querySelector('.rname').value=it.name;
+    box.appendChild(row);
+  });
+  if(!recItems.length){
+    box.innerHTML='<div class="empty"><span class="big" aria-hidden="true">🧾</span>'+esc(L('넣을 품목이 없어요','Nothing to add'))+'</div>';
+  }
+}
+$('#recList').addEventListener('change', function(e){
+  const row=e.target.closest('.recrow'); if(!row) return;
+  const i=parseInt(row.dataset.i,10); if(isNaN(i)||!recItems[i]) return;
+  if(e.target.classList.contains('rchk')){
+    recItems[i].check=e.target.checked;
+    row.classList.toggle('off', !e.target.checked);
+  }
+});
+$('#recList').addEventListener('input', function(e){
+  const row=e.target.closest('.recrow'); if(!row) return;
+  const i=parseInt(row.dataset.i,10); if(isNaN(i)||!recItems[i]) return;
+  if(e.target.classList.contains('rname')) recItems[i].name=e.target.value;
+});
+const REC_ORDER=['cold','freeze','veg','cart'];
+$('#recList').addEventListener('click', function(e){
+  const b=e.target.closest('.rspace'); if(!b) return;
+  const row=b.closest('.recrow'); if(!row) return;
+  const i=parseInt(row.dataset.i,10); if(isNaN(i)||!recItems[i]) return;
+  const cur=REC_ORDER.indexOf(recItems[i].spId);
+  recItems[i].spId=REC_ORDER[(cur+1)%REC_ORDER.length];
+  const sp=spById(recItems[i].spId);
+  b.textContent=spBadge(sp);
+});
+$('#recAdd').addEventListener('click', function(){
+  const picked=recItems.filter(function(x){ return x.check; });
+  if(!picked.length){ toast(L('넣을 품목을 체크해 주세요','Tick the items to add')); return; }
+  const counts={}; let added=0;
+  picked.forEach(function(x){
+    const sp=spById(x.spId)||space(); if(!sp) return;
+    const nm=String(x.name||'').trim().replace(/\s+/g,' ').slice(0,40);
+    if(!nm) return;
+    const same=sp.items.filter(function(i2){ return i2.name.toLowerCase()===nm.toLowerCase(); })[0];
+    if(same){ same.qty=Math.min(99,(same.qty||1)+x.qty); }
+    else{
+      sp.items.unshift({id:uid(), name:nm, memo:String(x.memo||'').slice(0,40),
+        qty:Math.max(1,Math.min(99,x.qty||1)), bought:dayStr(0), fav:false, done:false});
+    }
+    counts[sp.id]=(counts[sp.id]||0)+1; added++;
+  });
+  if(!added){ toast(L('넣을 품목이 없어요','Nothing to add')); return; }
+  save(); hideModal('recModal'); renderAll(); recHideProg(); recItems=[];
+  const parts=['cold','freeze','veg','cart'].filter(function(id){ return counts[id]; })
+    .map(function(id){ return spBadge(spById(id))+' '+counts[id]; });
+  toast(L(added+'개를 칸에 맞춰 넣었어요 — '+parts.join(' · '), 'Added '+added+' — '+parts.join(' · ')));
+});
+$('#recBtn').addEventListener('click', function(){
+  const inp=$('#recInput'); if(!inp) return;
+  try{ inp.value=''; }catch(e){}
+  try{ inp.click(); }catch(e){}
+});
+let recBusy=false, recWorker=null;
+const REC_MAX=10;
+function recMerge(base, add){
+  const map={};
+  base.forEach(function(x){ const k=x.name.replace(/\s/g,'').toLowerCase(); if(!map[k]) map[k]=x; });
+  add.forEach(function(x){
+    const k=x.name.replace(/\s/g,'').toLowerCase();
+    if(map[k]) map[k].qty=Math.min(99,(map[k].qty||1)+(x.qty||1));
+    else { map[k]=x; base.push(x); }
+  });
+  return base;
+}
+$('#recInput').addEventListener('change', function(e){
+  const inp=e.target;
+  let files=[];
+  try{ files=[].slice.call(inp.files||[]); }catch(_){ files=[]; }
+  try{ inp.value=''; }catch(_){}
+  if(!files.length || recBusy) return;
+  const capped=files.length>REC_MAX;
+  files=files.slice(0,REC_MAX);
+  const total=files.length;
+  recBusy=true; $('#recBtn').disabled=true;
+  (async function(){
+    let merged=[], fail=0, engineFail=false;
+    try{
+      if(navigator.onLine===false){
+        recHideProg();
+        toast(L('인터넷이 없어 글자 읽기를 못 해요 — 아래 빠른 버튼이나 직접 입력으로 넣어 주세요',
+          'No internet, so the text cannot be read — use a quick button or type it below'));
+        return;
+      }
+      recSet(4, total>1? L('영수증 '+total+'장을 한 장씩 읽을게요…','Reading '+total+' receipts one by one…')
+                      : L('사진을 읽을 준비를 하는 중이에요…','Getting the photo ready…'));
+      let T=null;
+      for(let i=0;i<total;i++){
+        const nn=i+1;
+        try{
+          if(!T){
+            recSet(5, L('글자 읽기 준비 중… (처음 한 번은 20초쯤 걸려요)','Getting ready to read… (about 20 seconds the first time)'));
+            T=await withTimeout(loadTesseract(), 15000, 'load');
+          }
+          recSet(Math.max(((i+0.04)/total)*100, 5),
+            L('영수증 '+nn+'/'+total+' 사진 준비 중…','Receipt '+nn+'/'+total+' — getting the photo ready…'));
+          const dataUrl=await withTimeout(downscale(files[i],1600), 15000, 'img');
+          if(!recWorker){
+            recSet(6, L('글자 읽기 준비 중… (처음 한 번은 20초쯤 걸려요)','Getting ready to read… (about 20 seconds the first time)'));
+            recWorker=await withTimeout(T.createWorker('kor+eng',1,{logger:function(m){
+              if(!m) return;
+              const st=String(m.status||'');
+              if(st==='recognizing text'){
+                const p=Math.max(0,Math.min(1,m.progress||0));
+                recSet(Math.max(((i+p*0.95)/total)*100, 6),
+                  L('영수증 '+nn+'/'+total+' 읽는 중… '+Math.round(p*100)+'%',
+                    'Receipt '+nn+'/'+total+' — '+Math.round(p*100)+'%'));
+              }else if(st.indexOf('loading')===0){
+                recSet(6, L('글자 읽기 준비 중… (처음 한 번은 20초쯤 걸려요)','Getting ready to read… (about 20 seconds the first time)'));
+              }
+            }}), 30000, 'worker');
+          }
+          recSet(Math.max(((i+0.06)/total)*100, 6),
+            L('영수증 '+nn+'/'+total+' 읽는 중…','Reading receipt '+nn+'/'+total+'…'));
+          const r=await withTimeout(recWorker.recognize(dataUrl), 60000, 'ocr');
+          const list=receiptCandidates(r && r.data? r.data.text : '');
+          if(list.length) merged=recMerge(merged, list);
+        }catch(err){
+          fail++;
+          const tag=String((err&&err.message)||'');
+          if(recWorker){ try{ recWorker.terminate(); }catch(_){} recWorker=null; }
+          if(tag==='load' || tag==='net' || tag==='timeout'){ engineFail=true; break; }
+        }
+      }
+      if(recWorker){ try{ await recWorker.terminate(); }catch(_){} recWorker=null; }
+      recHideProg();
+      if(!merged.length){
+        toast(engineFail
+          ? L('사진 읽기를 못 했어요 — 직접 입력이나 빠른 버튼으로 넣어 주세요','Could not read the photo — type it or use a quick button')
+          : L('사진에서 품목을 찾지 못했어요 — 직접 입력이나 빠른 버튼으로 넣어 주세요','No items were found in the photo — type it or use a quick button'));
+        return;
+      }
+      const note=(total>1
+        ? L('영수증 '+total+'장에서 '+merged.length+'개를 찾았어요.','Found '+merged.length+' items in '+total+' receipts.')
+        : L('영수증에서 '+merged.length+'개를 찾았어요.','Found '+merged.length+' items in the receipt.'))
+        + (fail? L(' ('+fail+'장은 읽지 못했어요)',' ('+fail+' could not be read)') : '')
+        + (capped? L(' (한 번에 '+REC_MAX+'장까지라 앞 '+REC_MAX+'장만 읽었어요)',' (up to '+REC_MAX+' photos at once — only the first '+REC_MAX+' were read)') : '');
+      recOpen(merged.map(function(c){ return {name:c.name, qty:c.qty}; }), note);
+    }catch(err){
+      try{ if(recWorker) await recWorker.terminate(); }catch(_){}
+      recWorker=null;
+      recHideProg();
+      toast(L('사진 읽기를 못 했어요 — 직접 입력이나 빠른 버튼으로 넣어 주세요','Could not read the photo — type it or use a quick button'));
+    }finally{
+      recBusy=false; $('#recBtn').disabled=false;
+    }
+  })();
+});
 
 /* ══════ 화면의 고정 글자 ══════ */
 function applyStaticLang(){
   const en=EN();
   try{ document.documentElement.setAttribute('lang', en?'en':'ko'); }catch(e){}
   document.title = en? 'Wagle Cart · Our home fridge · shopping list'
-                     : '와글가족장바구니 · 우리집 냉장고 · 장보기 체크리스트';
+                     : '와글가족장바구니 · 우리집 냉장고 · 실온보관바구니';
   const at=document.querySelector('meta[name="apple-mobile-web-app-title"]');
   if(at) at.setAttribute('content', en?'Wagle Cart':'와글가족장바구니');
   $('#appTitle').textContent = en? 'Wagle Cart' : '와글가족장바구니';
@@ -932,7 +1399,7 @@ function applyStaticLang(){
   $('#installBtn').setAttribute('aria-label', L('앱 설치 안내','How to install the app'));
   $('#roofChip').textContent = L('🏠 우리 집 전체 내역','🏠 Everything at home');
   $('#roofBtn').setAttribute('aria-label', L('우리 집 전체 내역 보기','See everything in our home'));
-  $('#houseHint').innerHTML = L('<b>냉장고나 장바구니</b>를 누르면 안을 볼 수 있어요.<br>지붕을 누르면 <b>우리 집 전체 내역</b>이 열려요.',
+  $('#houseHint').innerHTML = L('<b>냉장고나 실온보관바구니</b>를 누르면 안을 볼 수 있어요.<br>지붕을 누르면 <b>우리 집 전체 내역</b>이 열려요.',
     'Tap a <b>fridge or the cart</b> to see inside.<br>Tap the <b>roof</b> to see everything at home.');
   $('#addJump').textContent = L('➕ 품목 추가','➕ Add item');
   $('#clearAll').textContent = L('🧹 올클리어','🧹 Clear all');
@@ -942,27 +1409,36 @@ function applyStaticLang(){
   $('#selCancel').textContent = L('그만두기','Done');
   $('#addNameLab').textContent = L('품목 이름','Item name');
   $('#addName').placeholder = L('예: 우유','e.g. Milk');
-  $('#addMemoLab').textContent = L('메모 · 유통기한 (선택)','Note · use-by (optional)');
+  $('#addMemoLab').textContent = L('메모 · 용량 · 유통기한 (선택)','Note · size · use-by (optional)');
   $('#addMemo').placeholder = L('예: 1L, 11/28','e.g. 1L, Nov 28');
   $('#addBtn').textContent = L('➕ 담기','➕ Add');
-  $('#todayTitle').textContent = L('🛒 오늘의 장보기','🛒 To buy today');
-  $('#openCartBtn').textContent = L('장바구니 열기 →','Open the cart →');
+  $('#recBtnLab').textContent = L('영수증 사진 찍기 / 고르기','Receipt photo — take or pick');
+  $('#recBtn').setAttribute('aria-label', L('영수증 사진 찍기 또는 고르기','Take or choose a receipt photo'));
+  $('#recNote').textContent = L('영수증을 찍으면 품목을 찾아 칸까지 나눠 드려요. 여러 장(최대 10장)도 한 번에. 사진은 이 폰 안에서만 읽고 밖으로 보내지 않아요.',
+    'Take the receipt and the items are found and sorted into the right spaces. Up to 10 photos at once. The photo is read on this phone only.');
+  $('#recTitle').textContent = L('🧾 영수증에서 찾은 품목','🧾 Items found on the receipt');
+  $('#recNote2').textContent = L('칸 배지를 누르면 넣을 칸을 바꿀 수 있어요. 넣을 것만 체크해 두세요.',
+    'Tap a space badge to change it. Tick only what to add.');
+  $('#recCancel').textContent = L('그만두기','Cancel');
+  $('#recAdd').textContent = L('✓ 각 칸으로 한 번에 넣기','✓ Add to each space');
+  $('#todayTitle').textContent = L('🧺 실온보관바구니','🧺 Pantry');
+  $('#openCartBtn').textContent = L('실온보관바구니 열기 →','Open the pantry →');
   $('#bulkSum').textContent = L('📋 여러 줄 붙여넣기','📋 Paste several lines');
   $('#bulkLab').textContent = L('한 줄에 하나씩 붙여넣으면 한 번에 담겨요','One item per line — added at once');
   $('#bulkText').placeholder = L('우유\n계란\n대파','Milk\nEggs\nGreen onions');
   $('#bulkBtn').textContent = L('한 번에 담기','Add all');
-  $('#addHint').textContent = L('품목을 누르면 이름·메모·수량·날짜를 고칠 수 있어요.','Tap an item to edit its name, note, quantity and date.');
+  $('#addHint').textContent = L('위 카드에서 − +로 수량, 이름을 누르면 고치기 창이 열려요.','Use − + on a card for the count; tap a name to edit it.');
 
   /* 전체 내역 */
   $('#ovTitle').textContent = L('🏠 우리 집 전체 내역','🏠 Everything at home');
-  $('#ovNote').textContent = L('냉장고 3대와 장바구니를 한눈에 볼 수 있어요. 칸 이름을 누르면 그 칸이 열려요.',
+  $('#ovNote').textContent = L('냉장고 3대와 실온보관바구니를 한눈에 볼 수 있어요. 칸 이름을 누르면 그 칸이 열려요.',
     'All three fridges and the cart at a glance. Tap a name to open that space.');
   $('#ovClose').textContent = L('닫기','Close');
 
   /* 품목 고치기 */
   $('#itemTitle').textContent = L('품목 고치기','Edit item');
   $('#itemNameLab').textContent = L('품목 이름','Item name');
-  $('#itemMemoLab').textContent = L('메모 · 유통기한 (선택)','Note · use-by (optional)');
+  $('#itemMemoLab').textContent = L('메모 · 용량 · 유통기한 (선택)','Note · size · use-by (optional)');
   $('#itemMemo').placeholder = L('예: 1L, 11/28','e.g. 1L, Nov 28');
   $('#itemDel').textContent = L('빼기','Remove');
   $('#itemSave').textContent = L('저장','Save');
@@ -980,6 +1456,8 @@ function applyStaticLang(){
   $('#instStep3').innerHTML = L('<b>아이폰 · 아이패드(사파리)</b><span>아래 <b>공유(□↑)</b> → <b>홈 화면에 추가</b>를 눌러 주세요</span>',
     '<b>iPhone · iPad (Safari)</b><span>Tap <b>Share (□↑)</b> → <b>Add to Home Screen</b></span>');
   $('#instOk').textContent = L('알겠어요','Got it');
+  buildVolRow('addVol','addMemo');
+  buildVolRow('itemVol','itemMemo');
 }
 function applyLang(){ saveLang(); renderAll(); }
 
@@ -1021,10 +1499,9 @@ function renderOverview(){
       sp.items.forEach(function(it){
         const li=document.createElement('li');
         const meta=[];
-        meta.push((sp.kind==='cart'? L('담음','Added') : L('구매','Bought'))+' '+fmtDate(it.bought));
+        meta.push(L('구매','Bought')+' '+fmtDate(it.bought));
         meta.push(L(it.qty+'개', it.qty+' pcs'));
         if(it.memo) meta.push(dnMemo(it.memo));
-        if(sp.kind==='cart' && it.done) meta.push(L('샀어요','Bought'));
         li.innerHTML='<span class="ovname">'+esc(dnItem(it.name))+'</span><span class="ovmeta">'+esc(meta.join(' · '))+'</span>';
         ul.appendChild(li);
       });
@@ -1066,7 +1543,7 @@ $('#addForm').addEventListener('submit', function(e){
   e.preventDefault();
   const nm=$('#addName').value;
   if(!nm.trim()){ toast(L('품목 이름을 넣어 주세요','Please type an item name')); $('#addName').focus(); return; }
-  if(addItem(nm, $('#addMemo').value)){ $('#addName').value=''; $('#addMemo').value=''; }
+  if(addItem(nm, $('#addMemo').value)){ $('#addName').value=''; $('#addMemo').value=''; syncVolRow('addVol','addMemo'); }
   $('#addName').focus();
 });
 $('#addJump').addEventListener('click', function(){
@@ -1121,10 +1598,46 @@ $('#list').addEventListener('click', function(e){
   const row=e.target.closest('.item'); if(!row) return;
   const id=row.dataset.id;
   if(S.selMode){ toggleSel(id); return; }
+  const act=e.target.closest('[data-act]');
+  if(act){
+    const a=act.dataset.act;
+    if(a==='minus'){ bumpQty(id,-1); return; }
+    if(a==='plus'){ bumpQty(id,1); return; }
+    if(a==='eat'){ finishItem(id); return; }
+    if(a==='move'){ openItem(id); return; }
+    return;
+  }
   if(e.target.closest('.star')){ toggleFav(id); return; }
   if(e.target.closest('.chk')){ toggleDone(id); return; }
-  if(e.target.closest('.info') || e.target.closest('.eatbtn')){ openItem(id); return; }
+  if(e.target.closest('.info')){ openItem(id); return; }
 });
+/* 카드 안 − + : 누르는 즉시 수량 증감 (1개에서 − 는 냉장고 품목이면 바로 다 먹음) */
+function bumpQty(id, d){
+  const f=findItem(id); if(!f) return;
+  const cur=Math.max(1, parseInt(f.it.qty,10)||1);
+  if(d<0 && cur<=1){ finishItem(id); return; }
+  const next=Math.min(99, cur+d);
+  if(next===cur){
+    if(d>0) toast(L('99개까지 넣을 수 있어요','Up to 99'));
+    return;
+  }
+  f.it.qty=next; save(); renderSpaceView();
+}
+/* 카드 안 🍽️ 다 먹음 : 시트 없이 바로 빼기 + 되돌리기 */
+function finishItem(id){
+  const f=findItem(id); if(!f) return;
+  const it=f.it, sp=f.sp;
+  const idx=sp.items.findIndex(function(x){ return x.id===it.id; });
+  if(idx<0) return;
+  const nm=dnItem(it.name);
+  sp.items.splice(idx,1);
+  save(); renderSpaceView();
+  toast(L(nm+' 다 먹어서 뺐어요', 'Finished and removed '+nm), function(){
+    sp.items.splice(Math.min(idx, sp.items.length), 0, it);
+    save(); renderSpaceView();
+    toast(L('되돌렸어요','Restored'));
+  });
+}
 
 /* 품목 고치기 모달 */
 let editId=null, editFav=false, editQty=1, editDate='';
@@ -1136,6 +1649,7 @@ function openItem(id){
   editId=id; editFav=!!it.fav; editQty=it.qty||1; editDate=it.bought||dayStr(0);
   $('#itemName').value=it.name;
   $('#itemMemo').value=it.memo||'';
+  syncVolRow('itemVol','itemMemo');
   $('#itemDate').value=editDate;
   $('#dateLab').textContent=isCart? L('담은 날','Added on') : L('구매일','Bought on');
   $('#qtyLab').textContent=isCart? L('살 수량','How many to buy') : L('남은 수량','How many left');
@@ -1192,7 +1706,7 @@ $('#itemDel').addEventListener('click', function(){
   const f=findItem(editId); if(!f) return;
   f.sp.items=f.sp.items.filter(function(x){ return x.id!==f.it.id; });
   save(); hideModal('itemModal'); renderAll();
-  toast(f.sp.kind==='cart'? L('장바구니에서 뺐어요','Removed from the cart') : L('다 먹어서 뺐어요','Finished and removed'));
+  toast(f.sp.kind==='cart'? L('실온보관바구니에서 뺐어요','Removed from the pantry') : L('다 먹어서 뺐어요','Finished and removed'));
 });
 
 /* ══════ 툴바 ══════ */
@@ -1276,7 +1790,7 @@ function applyChromeOpen(){
   if(btn){
     btn.hidden=!show;
     btn.textContent=L('🌐 크롬으로 바로 열기','🌐 Open in Chrome');
-    btn.setAttribute('aria-label', L('크롬 브라우저로 이 장바구니 열기','Open this cart in the Chrome browser'));
+    btn.setAttribute('aria-label', L('크롬 브라우저로 이 앱 열기','Open this app in the Chrome browser'));
     if(show) btn.setAttribute('href', chromeIntentUrl());
   }
   if(note){
@@ -1327,7 +1841,7 @@ function shareTargetUrl(){ return EN()? SHARE_BASE+'?lang=en' : SHARE_BASE; }
 function sharePayload(){
   return {
     title: L('와글가족장바구니 · 우리집 냉장고','Wagle Cart · our home fridge'),
-    text: L('🧺 와글가족장바구니 — 우리 집 냉장고 3대와 장바구니를 한눈에\n설치·회원가입 없이 링크만 누르면 바로 열려요. 구매일·남은 수량, 다 먹음 정리까지! 😊',
+    text: L('🧺 와글가족장바구니 — 우리 집 냉장고 3대와 실온보관바구니를 한눈에\n설치·회원가입 없이 링크만 누르면 바로 열려요. 구매일·남은 수량, 다 먹음 정리, 영수증 사진으로 품목 넣기까지! 😊',
            '🧺 Wagle Cart — three fridges and a shopping cart at a glance\nNo install, no sign-up. Purchase dates, how much is left, and easy clean-up.'),
     url: shareTargetUrl()
   };
