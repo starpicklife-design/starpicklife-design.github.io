@@ -56,12 +56,12 @@ input,textarea{font-family:inherit;font-size:1.05rem;color:var(--ink)}
 .chip.on{background:#FFF7E9;color:var(--coffee);border-color:#FFF7E9}
 .chip.add{border-style:dashed;color:#FFE9C7}
 /* 📲 홈 화면에 앱 설치 */
-/* 메뉴판 탭 줄: 탭 영역과 버튼을 완전히 분리(겹침 0) — 탭은 자기 영역 안에서만 스크롤 */
-.chipline{display:flex;align-items:center;gap:.5rem}
-.chipline .chips{flex:1 1 auto;min-width:0;padding-right:1.1rem;
-  -webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 1.1rem),rgba(0,0,0,0) 100%);
-  mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 1.1rem),rgba(0,0,0,0) 100%)}
+/* 메뉴판 탭 줄: 페이드·가로스크롤 없이 두 줄로 자연 배치 — 잘린 글자·잔상 0 */
+.chipline{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .45rem}
+.chipline .chips{flex:1 1 100%;min-width:0;display:flex;flex-wrap:wrap;gap:.45rem;
+  overflow:visible;padding:.2rem 0 0}
 .chipline .installbtn,.chipline .langtoggle,.chipline .chip.add{flex:0 0 auto}
+.chipline .installbtn{margin-left:auto}
 .brand .langtoggle{flex:0 0 auto}
 .installbtn{flex:0 0 auto;display:flex;align-items:center;gap:.3rem;white-space:nowrap;
   background:linear-gradient(180deg,#F8DDB2,#E9BC6E);color:#3E2C22;border:2px solid #FFE9C7;
