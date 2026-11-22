@@ -1,0 +1,38 @@
+{
+  "name": "와글 장바구니 · Wagle Cart",
+  "short_name": "와글 장바구니",
+  "description": "우리 집 냉장고 3대와 장바구니를 한눈에 — 구매일·남은 수량, 다 먹음 정리, 장보기 체크리스트. 가입 없음, 광고 없음.",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "id": "./",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "portrait",
+  "background_color": "#F6FAF4",
+  "theme_color": "#1E4A36",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
