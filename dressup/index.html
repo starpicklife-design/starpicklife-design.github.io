@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FFFBF3">
+<meta name="description" content="와글 옷입히기 — 설치 없이 브라우저에서 바로 즐기는 무료 가상 인형 옷입히기. 데일리·계절 코디와 동화 속 드레스 두 가지 테마, 색상 바꾸기·랜덤 코디·코디 카드 저장(PNG). 회원가입 없이 바로, 광고 없음.">
+<title>와글 옷입히기 · 가상 인형 옷입히기 (무료)</title>
+<style>
+  :root{
+    --bg:#FFFBF3; --bg2:#FFF4E6;
+    --ink:#2E2420; --ink-soft:#6E5C50;
+    --card:#FFFFFF; --line:#EEDFC8;
+    --rose:#D2685B; --rose-d:#AF4B40; --rose-l:#FBE7E2;
+    --sage:#3F7C61; --sage-l:#E8F1EA;
+    --gold:#D9A94C; --lav:#8E62A6; --lav-l:#F2E9F8;
+    --shadow:0 10px 26px rgba(96,72,42,.11);
+    --shadow-sm:0 3px 10px rgba(96,72,42,.10);
+    --r:1.05rem;
+  }
+  body[data-theme="fairy"]{
+    --bg:#FBF6FF; --bg2:#F6ECFF;
+    --line:#E7DAF2;
+    --rose:#8B5CA8; --rose-d:#6D4488; --rose-l:#F1E7F8;
+    --sage:#4E6FA6; --sage-l:#E9EEF8;
+    --gold:#C99A3E;
+    --shadow:0 10px 26px rgba(96,70,120,.13);
+  }
+  *{box-sizing:border-box}
+  [hidden]{display:none !important}
+  html{-webkit-text-size-adjust:100%;font-size:16px}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    line-height:1.5;word-break:keep-all;overflow-wrap:break-word;
+    min-height:100vh;overflow-x:hidden;-webkit-tap-highlight-color:transparent;
+    transition:background-color .25s ease;
+  }
+  .wrap{max-width:31rem;margin:0 auto;
+    padding:calc(.4rem + env(safe-area-inset-top)) .6rem calc(2rem + env(safe-area-inset-bottom));}
+
+  /* ── 위쪽 바 ─────────────── */
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:.4rem;margin-bottom:.15rem}
+  .brand{display:flex;align-items:center;gap:.3rem;font-size:.66rem;font-weight:800;letter-spacing:.01em;color:var(--ink-soft);opacity:.9}
+  .brand b{color:var(--rose-d)}
+  .tgs{display:flex;gap:.28rem}
+  .tg{border:1.5px solid var(--line);background:#fff;color:var(--ink-soft);border-radius:999px;
+      padding:.26rem .5rem;font-family:inherit;font-size:.66rem;font-weight:800;line-height:1;
+      display:inline-flex;align-items:center;gap:.2rem;min-height:1.9rem;cursor:pointer}
+  .tg:active{transform:scale(.97)}
+
+  /* ── 제목 ────────────────── */
+  .hero{text-align:center;margin:.15rem 0 .45rem}
+  h1{margin:0;font-size:1.3rem;line-height:1.15;letter-spacing:-.03em;font-weight:900;color:var(--ink)}
+  h1 .c{color:var(--rose-d)}
+  .hero p{margin:.15rem auto 0;max-width:20rem;font-size:.72rem;color:var(--ink-soft);line-height:1.4}
+
+  /* ── 테마 탭 ─────────────── */
+  .themes{display:grid;grid-template-columns:1fr 1fr;gap:.3rem;margin:.3rem 0 .45rem}
+  .thm{
+    display:flex;align-items:center;justify-content:center;gap:.25rem;
+    border:1.6px solid var(--line);background:#fff;color:var(--ink-soft);
+    border-radius:999px;padding:.42rem .2rem;font-family:inherit;font-size:.72rem;font-weight:800;
+    min-height:2.35rem;cursor:pointer;letter-spacing:-.02em;line-height:1.1;
+    transition:background .15s ease,color .15s ease,border-color .15s ease;
+  }
+  .thm .em{font-size:.95rem}
+  .thm[aria-selected="true"]{background:var(--rose);border-color:var(--rose);color:#fff;box-shadow:var(--shadow-sm)}
+  body[data-theme="fairy"] .thm[aria-selected="true"]{background:linear-gradient(180deg,#9A6CB8,#7E5299)}
+
+  /* ── 무대(인형) ───────────── */
+  .stage{position:sticky;top:0;z-index:30;background:var(--bg);
+    padding:.1rem 0 .3rem;margin:0 -.1rem;box-shadow:0 10px 10px -12px rgba(90,66,40,.45);
+    transition:background-color .25s ease}
+  .scene{position:relative;border-radius:var(--r);overflow:hidden;border:2px solid var(--line);
+    background:var(--bg2);box-shadow:var(--shadow);display:flex;justify-content:center}
+  .scene svg{display:block;width:100%;max-width:21rem;height:auto}
+  .acts{display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:.32rem;margin-top:.32rem}
+  .act{
+    display:flex;align-items:center;justify-content:center;gap:.22rem;
+    border:1.6px solid var(--line);background:#fff;color:var(--ink);
+    border-radius:.7rem;padding:.42rem .1rem;font-family:inherit;font-size:.72rem;font-weight:800;
+    min-height:2.3rem;cursor:pointer;line-height:1.1;letter-spacing:-.02em;
+  }
+  .act .em{font-size:.9rem}
+  .act:active{transform:scale(.98)}
+  .act.primary{background:var(--sage);border-color:var(--sage);color:#fff}
+  body[data-theme="fairy"] .act.primary{background:var(--gold);border-color:var(--gold);color:#3B2A08}
+
+  /* ── 옷장 ─────────────────── */
+  .cats{display:grid;grid-template-columns:repeat(4,1fr);gap:.28rem;margin:.6rem 0 .1rem}
+  .cat{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.08rem;
+    border:1.5px solid var(--line);background:#fff;color:var(--ink-soft);
+    border-radius:.7rem;padding:.3rem .05rem;font-family:inherit;font-size:.6rem;font-weight:800;
+    min-height:2.9rem;cursor:pointer;line-height:1.1;letter-spacing:-.03em;
+  }
+  .cat .em{font-size:.95rem;line-height:1}
+  .cat[aria-selected="true"]{background:var(--sage-l);border-color:var(--sage);color:#25543E}
+  body[data-theme="fairy"] .cat[aria-selected="true"]{background:var(--lav-l);border-color:var(--lav);color:#5B3672}
+
+  .pan{margin-top:.5rem}
+  .pal{display:flex;align-items:center;gap:.34rem;margin:0 0 .5rem;flex-wrap:wrap}
+  .pal .lbl{font-size:.66rem;font-weight:800;color:var(--ink-soft);margin-right:.05rem}
+  .dot{width:1.7rem;height:1.7rem;border-radius:50%;border:2px solid #fff;cursor:pointer;padding:0;
+    box-shadow:0 0 0 1.4px var(--line),0 2px 5px rgba(0,0,0,.10);position:relative}
+  .dot.on{box-shadow:0 0 0 2.4px var(--rose)}
+  .dot.on::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:.7rem;font-weight:900;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+
+  .items{display:grid;grid-template-columns:repeat(3,1fr);gap:.32rem}
+  .it{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;
+    border:1.5px solid var(--line);background:#fff;color:var(--ink);
+    border-radius:.7rem;padding:.4rem .15rem;font-family:inherit;font-size:.62rem;font-weight:700;
+    min-height:3.6rem;cursor:pointer;line-height:1.15;letter-spacing:-.03em;text-align:center;
+    word-break:keep-all;
+  }
+  .it .em{font-size:1.05rem;line-height:1}
+  .it[aria-selected="true"]{border-color:var(--rose);background:var(--rose-l);color:var(--rose-d);box-shadow:inset 0 0 0 1px var(--rose)}
+  .it.dim{opacity:.5}
+  .it:active{transform:scale(.98)}
+  .hint{margin:.5rem 0 0;font-size:.66rem;color:var(--ink-soft);line-height:1.4;
+    background:var(--bg2);border-radius:.6rem;padding:.4rem .55rem;border:1px dashed var(--line)}
+
+  footer{margin-top:1.1rem;text-align:center;font-size:.63rem;color:var(--ink-soft);opacity:.85;line-height:1.6}
+  footer .sep{opacity:.5;margin:0 .18rem}
+
+  /* ── 알림 ─────────────────── */
+  .toast{
+    position:fixed;left:50%;bottom:calc(1.2rem + env(safe-area-inset-bottom));transform:translate(-50%,1.2rem);
+    background:rgba(46,36,32,.94);color:#FFF8F0;font-size:.74rem;font-weight:800;
+    padding:.55rem .9rem;border-radius:999px;z-index:60;opacity:0;pointer-events:none;
+    transition:opacity .2s ease,transform .2s ease;max-width:88vw;text-align:center;
+  }
+  .toast.on{opacity:1;transform:translate(-50%,0)}
+
+  @media (min-width:34rem){
+    html{font-size:17px}
+    .items{grid-template-columns:repeat(4,1fr)}
+    .cats{grid-template-columns:repeat(4,1fr)}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;animation:none !important}
+  }
+</style>
+</head>
+<body data-theme="daily">
+<div class="wrap">
+
+  <div class="topbar">
+    <span class="brand">🌙 <b>별의별 살림</b> · Wagle</span>
+    <div class="tgs">
+      <button class="tg" id="soundBtn" aria-pressed="false"><span id="soundIcon">🔇</span><span id="soundTxt" data-i18n="soundOff">소리 꺼짐</span></button>
+      <button class="tg" id="langBtn"><span>🌐</span><span id="langTxt">EN</span></button>
+    </div>
+  </div>
+
+  <header class="hero">
+    <h1><span data-i18n="title1">와글</span> <span class="c" data-i18n="title2">옷입히기</span></h1>
+    <p data-i18n="sub">코디를 갈아입히고, 예쁜 코디 카드로 저장하세요.</p>
+  </header>
+
+  <div class="themes" role="tablist" aria-label="테마">
+    <button class="thm" role="tab" aria-selected="true" data-theme-btn="daily"><span class="em">👗</span><span data-i18n="themeDaily">데일리·계절 코디</span></button>
+    <button class="thm" role="tab" aria-selected="false" data-theme-btn="fairy"><span class="em">🧸</span><span data-i18n="themeFairy">동화·와글 옷입히기</span></button>
+  </div>
+
+  <section class="stage" id="stage" aria-label="인형 무대">
+    <div class="scene">
+      <svg id="doll" viewBox="0 0 420 560" role="img" aria-label="옷을 입히는 인형" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="irisG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#6D4B60"/><stop offset="1" stop-color="#2A1B24"/>
+          </linearGradient>
+          <radialGradient id="blushG">
+            <stop offset="0" stop-color="#F58F94" stop-opacity=".55"/>
+            <stop offset="1" stop-color="#F58F94" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="skinG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FDDDC8"/><stop offset="1" stop-color="#F6C7B0"/>
+          </linearGradient>
+          <linearGradient id="glassG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#DCF2FF" stop-opacity=".95"/>
+            <stop offset="1" stop-color="#9BD3F0" stop-opacity=".75"/>
+          </linearGradient>
+          <radialGradient id="glowG">
+            <stop offset="0" stop-color="#FFF6C9" stop-opacity=".95"/>
+            <stop offset="1" stop-color="#FFF6C9" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <g id="L_bg"></g>
+        <g id="L_behind"></g>
+        <g id="L_hairBack"></g>
+        <g id="L_friend"></g>
+
+        <!-- ── 기본 몸 ── -->
+        <g id="L_body">
+          <!-- 다리 -->
+          <path d="M189,298 L209,298 L210,432 C210,457 209,470 208,478 C207,484 202,487 197,487 C191,487 187,484 186,478 C184,470 183,457 184,432 Z" fill="url(#skinG)"/>
+          <path d="M211,298 L231,298 L236,432 C237,457 236,470 235,478 C234,484 229,487 223,487 C218,487 214,484 213,478 C212,470 211,457 211,432 Z" fill="url(#skinG)"/>
+          <!-- 발 -->
+          <path d="M186,466 C183,477 184,489 189,494 C195,499 205,498 208,491 C209,485 208,475 208,466 Z" fill="#F9CFB8"/>
+          <path d="M234,466 C237,477 236,489 231,494 C225,499 215,498 212,491 C211,485 212,475 212,466 Z" fill="#F9CFB8"/>
+          <!-- 팔 -->
+          <path d="M184,216 C174,223 167,238 166,254 C165,272 167,290 169,302 C170,310 178,311 180,304 C182,296 180,284 180,270 C180,252 183,236 190,226 Z" fill="url(#skinG)"/>
+          <path d="M236,216 C246,223 253,238 254,254 C255,272 253,290 251,302 C250,310 242,311 240,304 C238,296 240,284 240,270 C240,252 237,236 230,226 Z" fill="url(#skinG)"/>
+          <!-- 몸통 -->
+          <path d="M188,212 C176,218 170,230 171,244 L176,268 L172,300 C170,314 178,322 190,322 L230,322 C242,322 250,314 248,300 L244,268 L249,244 C250,230 244,218 232,212 Z" fill="url(#skinG)"/>
+          <!-- 목 -->
+          <path d="M199,172 h22 v28 c0,9 -22,9 -22,0 z" fill="#F5C4AC"/>
+          <path d="M199,172 h22 v9 c-7,5 -15,5 -22,1 z" fill="#E3A78E" opacity=".5"/>
+          <!-- 머리 -->
+          <path d="M210,88 C243,88 263,112 263,145 C263,170 252,188 232,196 C223,200 197,200 188,196 C168,188 157,170 157,145 C157,112 177,88 210,88 Z" fill="url(#skinG)"/>
+          <!-- 볼터치 -->
+          <ellipse cx="176" cy="168" rx="13" ry="8" fill="url(#blushG)"/>
+          <ellipse cx="244" cy="168" rx="13" ry="8" fill="url(#blushG)"/>
+          <!-- 눈 -->
+          <g>
+            <ellipse cx="191" cy="151" rx="12" ry="13.4" fill="#FFFDF9"/>
+            <ellipse cx="191" cy="152.5" rx="9.4" ry="10.9" fill="url(#irisG)"/>
+            <ellipse cx="191" cy="153.8" rx="4.6" ry="5.6" fill="#1C1318"/>
+            <circle cx="187.4" cy="146.4" r="3.5" fill="#fff"/>
+            <circle cx="195" cy="158" r="1.8" fill="#fff" opacity=".85"/>
+            <path d="M178.5,144.5 C183,135 200,134 204.5,142" stroke="#38262F" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+            <path d="M181,161 C186,165 197,165 202,161" stroke="#CE9096" stroke-width="1.3" fill="none" stroke-linecap="round" opacity=".6"/>
+          </g>
+          <g>
+            <ellipse cx="229" cy="151" rx="12" ry="13.4" fill="#FFFDF9"/>
+            <ellipse cx="229" cy="152.5" rx="9.4" ry="10.9" fill="url(#irisG)"/>
+            <ellipse cx="229" cy="153.8" rx="4.6" ry="5.6" fill="#1C1318"/>
+            <circle cx="232.6" cy="146.4" r="3.5" fill="#fff"/>
+            <circle cx="225" cy="158" r="1.8" fill="#fff" opacity=".85"/>
+            <path d="M241.5,144.5 C237,135 220,134 215.5,142" stroke="#38262F" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+            <path d="M239,161 C234,165 223,165 218,161" stroke="#CE9096" stroke-width="1.3" fill="none" stroke-linecap="round" opacity=".6"/>
+          </g>
+          <!-- 눈썹 -->
+          <path d="M181,127 Q191.5,120.5 202,126" stroke="#C08C79" stroke-width="2.3" fill="none" stroke-linecap="round" opacity=".55"/>
+          <path d="M239,127 Q228.5,120.5 218,126" stroke="#C08C79" stroke-width="2.3" fill="none" stroke-linecap="round" opacity=".55"/>
+          <!-- 코 · 입 -->
+          <path d="M208.6,168 q2.4,2.8 0,4.4" stroke="#DD9B83" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M201,178.5 Q210,187.5 219,178.5" stroke="#D1737B" stroke-width="2.7" fill="none" stroke-linecap="round"/>
+          <path d="M203.5,178.8 Q210,183.6 216.5,178.8 Q210,181.2 203.5,178.8 Z" fill="#EC939A" opacity=".9"/>
+        </g>
+
+        <g id="L_shoes"></g>
+        <g id="L_bottom"></g>
+        <g id="L_top"></g>
+        <g id="L_outer"></g>
+        <g id="L_hands"><ellipse cx="170" cy="312" rx="7.2" ry="8.6" fill="#F9CFB8"/><ellipse cx="250" cy="312" rx="7.2" ry="8.6" fill="#F9CFB8"/><path d="M166,305 q4,3 8,0" stroke="#EFB69C" stroke-width="1.2" fill="none" opacity=".55"/><path d="M246,305 q4,3 8,0" stroke="#EFB69C" stroke-width="1.2" fill="none" opacity=".55"/></g>
+        <g id="L_hairFront"></g>
+        <g id="L_acc"></g>
+      </svg>
+    </div>
+    <div class="acts">
+      <button class="act" id="randomBtn"><span class="em">🎲</span><span data-i18n="random">랜덤</span></button>
+      <button class="act" id="resetBtn"><span class="em">🔄</span><span data-i18n="reset">초기화</span></button>
+      <button class="act primary" id="saveBtn"><span class="em">📸</span><span data-i18n="save">코디 저장</span></button>
+    </div>
+  </section>
+
+  <nav class="cats" id="cats" role="tablist" aria-label="옷장 분류"></nav>
+
+  <section class="pan" id="pan">
+    <div class="pal" id="pal"></div>
+    <div class="items" id="items"></div>
+    <p class="hint" id="hint" hidden></p>
+  </section>
+
+  <footer>
+    <div><span data-i18n="foot1">회원가입 없이 바로 · 광고 없음 · 개인정보를 받지 않습니다</span></div>
+    <div style="margin-top:.18rem"><span data-i18n="foot2">별의별 살림 Wagle</span><span class="sep">·</span><span>@starpick_life</span></div>
+  </footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+/* ── 팔레트 ───────────────────────────────────────── */
+const HAIR_PAL = [
+  {ko:'흑갈색', en:'Dark brown', c1:'#3A2A28', c2:'#6B4B45', c3:'#221716'},
+  {ko:'밤색',   en:'Chestnut',   c1:'#6E4326', c2:'#9A653C', c3:'#482A16'},
+  {ko:'금발',   en:'Golden',     c1:'#E5BE6F', c2:'#F7E3AB', c3:'#C2964A'},
+  {ko:'애쉬',   en:'Ash brown',  c1:'#8B6F63', c2:'#B5988A', c3:'#6A5249'},
+  {ko:'로즈',   en:'Rose brown', c1:'#A55C5C', c2:'#C98282', c3:'#7C3E3E'},
+  {ko:'은발',   en:'Silver',     c1:'#C6C3CF', c2:'#EFEDF5', c3:'#9E9AAA'}
+];
+
+const CLOTH_PAL = [
+  {ko:'크림',   en:'Cream',    c1:'#F5E9D8', c2:'#FFFDF7', c3:'#DFCAB0'},
+  {ko:'로즈',   en:'Rose',     c1:'#E28C86', c2:'#F8C5C0', c3:'#B96A66'},
+  {ko:'세이지', en:'Sage',     c1:'#93B69E', c2:'#C8DFCE', c3:'#6E927A'},
+  {ko:'네이비', en:'Navy',     c1:'#4A5E85', c2:'#7C8FB4', c3:'#31405C'},
+  {ko:'라벤더', en:'Lavender', c1:'#B4A1CF', c2:'#DED2EE', c3:'#8B78A8'},
+  {ko:'버터',   en:'Butter',   c1:'#EECD7C', c2:'#F8E7B5', c3:'#C9A957'}
+];
+/* ── 👗 데일리·계절 코디 ───────────────────────────── */
+const DAILY = {
+
+hair:{pal:HAIR_PAL, items:[
+ {id:'bob', ko:'단발', en:'Bob', em:'✂️', d:0,
+  back:`<path d="M210,84 C264,84 280,120 277,160 C275,178 271,194 267,208 L153,208 C149,194 145,178 143,160 C140,120 156,84 210,84 Z" fill="var(--c1)"/>
+   <path d="M170,140 C164,170 166,192 170,206" stroke="var(--c3)" stroke-width="8" fill="none" opacity=".22" stroke-linecap="round"/>`,
+  front:`<path d="M150,138 C150,100 176,80 210,80 C244,80 270,100 270,138 C256,122 236,113 210,113 C184,113 164,122 150,138 Z" fill="var(--c1)"/>
+   <path d="M162,110 C148,150 150,192 153,218 C154,228 165,230 168,221 C172,200 168,160 176,116 Z" fill="var(--c1)"/>
+   <path d="M260,110 C272,150 270,192 267,218 C266,228 255,230 252,221 C248,200 252,160 244,116 Z" fill="var(--c1)"/>
+   <path d="M192,98 C202,92 216,91 228,95" stroke="var(--c2)" stroke-width="3" fill="none" opacity=".32" stroke-linecap="round"/>`},
+
+ {id:'long', ko:'긴 생머리', en:'Long & straight', em:'💇', d:1,
+  back:`<path d="M210,84 C268,84 285,122 282,162 C280,208 289,284 295,332 C297,345 281,351 273,344 C265,300 261,250 259,212 L161,212 C159,250 155,300 147,344 C139,351 123,345 125,332 C131,284 140,208 138,162 C135,122 152,84 210,84 Z" fill="var(--c1)"/>
+   <path d="M261,220 C264,262 268,302 273,340" stroke="var(--c3)" stroke-width="3" fill="none" opacity=".35"/>
+   <path d="M159,220 C156,262 152,302 147,340" stroke="var(--c3)" stroke-width="3" fill="none" opacity=".35"/>`,
+  front:`<path d="M150,138 C150,100 176,80 210,80 C244,80 270,100 270,138 C256,122 236,113 210,113 C184,113 164,122 150,138 Z" fill="var(--c1)"/><path d="M162,110 C148,180 154,270 150,310 C149,322 165,324 167,312 C171,270 167,200 176,116 Z" fill="var(--c1)"/>
+   <path d="M260,110 C272,180 266,270 270,310 C271,322 255,324 253,312 C249,270 253,200 244,116 Z" fill="var(--c1)"/>
+   <path d="M180,110 C194,99 218,97 234,106" stroke="var(--c2)" stroke-width="6" fill="none" opacity=".5" stroke-linecap="round"/>`},
+
+ {id:'pony', ko:'포니테일', en:'Ponytail', em:'🎀', d:0,
+  back:`<path d="M210,84 C264,84 281,120 278,160 C276,178 272,192 269,204 L151,204 C148,192 143,178 141,160 C138,120 156,84 210,84 Z" fill="var(--c1)"/>
+   <path d="M258,100 C286,116 296,154 294,192 C292,228 283,260 272,284 C268,294 253,288 257,276 C267,250 276,220 274,192 C272,164 264,138 250,120 Z" fill="var(--c1)"/>
+   <path d="M268,120 C284,140 288,168 285,196" stroke="var(--c2)" stroke-width="5" fill="none" opacity=".5" stroke-linecap="round"/>`,
+  front:`<path d="M150,138 C150,100 176,80 210,80 C244,80 270,100 270,138 C256,122 236,113 210,113 C184,113 164,122 150,138 Z" fill="var(--c1)"/><ellipse cx="262" cy="112" rx="9" ry="10" fill="var(--c3)"/>
+   <path d="M182,112 C196,100 220,98 236,108" stroke="var(--c2)" stroke-width="6" fill="none" opacity=".5" stroke-linecap="round"/>`},
+
+ {id:'wave', ko:'물결 파마', en:'Soft waves', em:'🌊', d:2,
+  back:`<path d="M210,84 C270,84 288,122 284,162 C282,192 288,216 282,242 C277,260 261,262 257,247 C251,226 257,200 255,178 L165,178 C163,200 169,226 163,247 C159,262 143,260 138,242 C132,216 138,192 136,162 C132,122 150,84 210,84 Z" fill="var(--c1)"/>
+   <circle cx="147" cy="256" r="12" fill="var(--c1)"/><circle cx="273" cy="256" r="12" fill="var(--c1)"/>
+   <circle cx="153" cy="274" r="9" fill="var(--c1)"/><circle cx="267" cy="274" r="9" fill="var(--c1)"/>`,
+  front:`<path d="M150,138 C150,100 176,80 210,80 C244,80 270,100 270,138 C256,122 236,113 210,113 C184,113 164,122 150,138 Z" fill="var(--c1)"/><path d="M162,110 C150,150 154,196 152,218 C151,228 164,230 166,220 C168,198 166,168 176,116 Z" fill="var(--c1)"/>
+   <path d="M260,110 C270,150 266,196 268,218 C269,228 256,230 254,220 C252,198 254,168 244,116 Z" fill="var(--c1)"/>
+   <path d="M182,112 C196,101 220,99 236,108" stroke="var(--c2)" stroke-width="6" fill="none" opacity=".5" stroke-linecap="round"/>`},
+
+ {id:'updo', ko:'올림머리', en:'Updo', em:'🌸', d:0,
+  back:`<ellipse cx="210" cy="82" rx="37" ry="28" fill="var(--c1)"/>
+   <path d="M210,92 C260,92 277,124 275,158 C273,176 267,188 264,196 L156,196 C153,188 147,176 145,158 C143,124 160,92 210,92 Z" fill="var(--c1)"/>
+   <ellipse cx="210" cy="80" rx="24" ry="15" fill="var(--c2)" opacity=".45"/>`,
+  front:`<path d="M150,138 C150,100 176,80 210,80 C244,80 270,100 270,138 C256,122 236,113 210,113 C184,113 164,122 150,138 Z" fill="var(--c1)"/><path d="M210,96 C230,96 248,106 258,124" stroke="var(--c2)" stroke-width="4" fill="none" opacity=".45" stroke-linecap="round"/>`}
+]},
+
+top:{pal:CLOTH_PAL, items:[
+ {id:'knit', ko:'니트 스웨터', en:'Knit sweater', em:'🧶', d:1,
+  svg:`<path d="M180,218 C170,226 165,242 165,260 C165,280 168,298 170,307 C171,315 181,316 182,308 C183,297 180,281 180,265 C180,248 184,234 189,226 Z" fill="var(--c1)"/>
+   <path d="M240,218 C250,226 255,242 255,260 C255,280 252,298 250,307 C249,315 239,316 238,308 C237,297 240,281 240,265 C240,248 236,234 231,226 Z" fill="var(--c1)"/>
+   <path d="M186,211 C176,217 171,229 172,243 C173,258 177,268 176,278 C175,290 172,296 174,301 C178,307 186,308 194,308 L226,308 C234,308 242,307 246,301 C248,296 245,290 244,278 C243,268 247,258 248,243 C249,229 244,217 234,211 Z" fill="var(--c1)"/>
+   <path d="M189,211 C196,219 224,219 231,211 C228,205 221,202 210,202 C199,202 192,205 189,211 Z" fill="var(--c2)"/>
+   <path d="M174,298 C183,304 237,304 246,298 L246,307 C238,313 182,313 174,307 Z" fill="var(--c2)"/>
+   <path d="M192,228 V296 M210,228 V296 M228,228 V296" stroke="var(--c3)" stroke-width="1.6" opacity=".3"/>
+   <path d="M186,214 C184,240 183,270 184,296" stroke="var(--c2)" stroke-width="2" opacity=".35" fill="none"/>`},
+
+ {id:'blouse', ko:'셔츠 블라우스', en:'Blouse', em:'👔', d:0,
+  svg:`<path d="M180,218 C171,226 166,242 166,260 C166,280 168,298 170,306 C171,313 180,314 181,306 C182,296 180,281 180,265 C180,249 184,235 189,227 Z" fill="var(--c1)"/>
+   <path d="M240,218 C249,226 254,242 254,260 C254,280 252,298 250,306 C249,313 240,314 239,306 C238,296 240,281 240,265 C240,249 236,235 231,227 Z" fill="var(--c1)"/>
+   <path d="M186,211 C176,217 171,229 172,243 L176,270 L173,300 C172,308 178,312 185,312 L235,312 C242,312 248,308 247,300 L244,270 L248,243 C249,229 244,217 234,211 Z" fill="var(--c1)"/>
+   <path d="M197,205 L210,223 L205,229 L191,213 Z" fill="var(--c2)"/>
+   <path d="M223,205 L210,223 L215,229 L229,213 Z" fill="var(--c2)"/>
+   <path d="M210,223 V311" stroke="var(--c3)" stroke-width="1.2" opacity=".45"/>
+   <circle cx="210" cy="238" r="2" fill="var(--c3)" opacity=".8"/>
+   <circle cx="210" cy="258" r="2" fill="var(--c3)" opacity=".8"/>
+   <circle cx="210" cy="278" r="2" fill="var(--c3)" opacity=".8"/>
+   <circle cx="210" cy="298" r="2" fill="var(--c3)" opacity=".8"/>
+   <path d="M166,292 C170,296 174,297 178,296" stroke="var(--c3)" stroke-width="2" fill="none" opacity=".5"/>
+   <path d="M254,292 C250,296 246,297 242,296" stroke="var(--c3)" stroke-width="2" fill="none" opacity=".5"/>`},
+
+ {id:'tee', ko:'스트라이프 티', en:'Striped tee', em:'👕', d:3,
+  svg:`<path d="M181,216 C171,222 166,234 166,246 C166,253 170,257 177,257 L183,243 Z" fill="var(--c1)"/>
+   <path d="M239,216 C249,222 254,234 254,246 C254,253 250,257 243,257 L237,243 Z" fill="var(--c1)"/>
+   <path d="M186,211 C176,217 171,229 172,243 L175,296 C175,304 181,308 188,308 L232,308 C239,308 245,304 245,296 L248,243 C249,229 244,217 234,211 Z" fill="var(--c1)"/>
+   <path d="M175,230 H245" stroke="var(--c2)" stroke-width="6.5" opacity=".85"/>
+   <path d="M174,245 H246" stroke="var(--c2)" stroke-width="6.5" opacity=".85"/>
+   <path d="M174,260 H246" stroke="var(--c2)" stroke-width="6.5" opacity=".85"/>
+   <path d="M175,275 H245" stroke="var(--c2)" stroke-width="6.5" opacity=".85"/>
+   <path d="M175,290 H245" stroke="var(--c2)" stroke-width="6.5" opacity=".85"/>
+   <path d="M190,210 C196,217 224,217 230,210 C227,205 221,203 210,203 C199,203 193,205 190,210 Z" fill="var(--c2)"/>`},
+
+ {id:'dress', ko:'플레어 원피스', en:'Flare dress', em:'👗', d:1, dress:true,
+  svg:`<path d="M182,214 C173,220 168,231 169,243 L171,262 C171,268 175,271 180,271 C184,271 187,268 187,263 L184,240 Z" fill="var(--c1)"/>
+   <path d="M238,214 C247,220 252,231 251,243 L249,262 C249,268 245,271 240,271 C236,271 233,268 233,263 L236,240 Z" fill="var(--c1)"/>
+   <path d="M188,211 C178,217 173,229 174,243 L177,266 L175,286 C196,294 224,294 245,286 L243,266 L246,243 C247,229 242,217 232,211 Z" fill="var(--c1)"/>
+   <path d="M175,282 C160,322 143,392 137,428 C160,443 260,443 283,428 C277,392 260,322 245,282 C226,291 194,291 175,282 Z" fill="var(--c1)"/>
+   <path d="M175,281 C194,290 226,290 245,281 L246,292 C226,301 194,301 174,292 Z" fill="var(--c3)"/>
+   <path d="M194,300 C188,336 180,384 176,424" stroke="var(--c2)" stroke-width="2.4" fill="none" opacity=".45"/>
+   <path d="M226,300 C232,336 240,384 244,424" stroke="var(--c2)" stroke-width="2.4" fill="none" opacity=".45"/>
+   <path d="M141,424 C168,438 252,438 279,424" stroke="var(--c2)" stroke-width="3.4" fill="none" opacity=".55"/>
+   <path d="M204,289 C196,282 194,272 200,268 C206,264 212,270 210,277 C212,270 218,264 224,268 C230,272 228,282 220,289 C214,294 210,296 210,296 C210,296 206,294 204,289 Z" fill="var(--c2)"/>`},
+
+ {id:'knitdress', ko:'니트 원피스', en:'Knit dress', em:'🥻', d:5, dress:true,
+  svg:`<path d="M180,218 C170,226 165,242 165,260 C165,280 168,298 170,307 C171,315 181,316 182,308 C183,297 180,281 180,265 C180,248 184,234 189,226 Z" fill="var(--c1)"/>
+   <path d="M240,218 C250,226 255,242 255,260 C255,280 252,298 250,307 C249,315 239,316 238,308 C237,297 240,281 240,265 C240,248 236,234 231,226 Z" fill="var(--c1)"/>
+   <path d="M187,211 C177,217 172,229 173,243 L176,268 L172,292 L168,400 C190,412 230,412 252,400 L248,292 L244,268 L247,243 C248,229 243,217 233,211 Z" fill="var(--c1)"/>
+   <path d="M189,211 C196,219 224,219 231,211 C228,205 221,202 210,202 C199,202 192,205 189,211 Z" fill="var(--c2)"/>
+   <path d="M190,228 V396 M210,228 V404 M230,228 V396" stroke="var(--c3)" stroke-width="1.6" opacity=".3"/>
+   <path d="M173,290 C194,298 226,298 247,290" stroke="var(--c3)" stroke-width="4" fill="none" opacity=".35"/>`}
+]},
+
+bottom:{pal:CLOTH_PAL, items:[
+ {id:'jeans', ko:'데님 팬츠', en:'Jeans', em:'👖', d:3,
+  svg:`<path d="M175,294 L245,294 L246,316 C246,330 243,340 242,352 L240,470 C240,477 212,477 212,470 L212,352 L208,352 L208,470 C206,477 180,477 180,470 L178,352 C177,340 174,330 174,316 Z" fill="var(--c1)"/>
+   <path d="M175,294 L245,294 L245,305 L175,305 Z" fill="var(--c3)"/>
+   <path d="M188,300 h-8 M232,300 h8" stroke="var(--c2)" stroke-width="1.6" opacity=".7"/>
+   <path d="M182,320 C186,322 191,322 194,320" stroke="var(--c2)" stroke-width="1.4" fill="none" stroke-dasharray="3 3" opacity=".8"/>
+   <path d="M226,320 C229,322 234,322 238,320" stroke="var(--c2)" stroke-width="1.4" fill="none" stroke-dasharray="3 3" opacity=".8"/>
+   <path d="M207,305 V350 M213,305 V350" stroke="var(--c3)" stroke-width="1.4" opacity=".5"/>
+   <path d="M184,466 C190,471 196,471 198,466" stroke="var(--c3)" stroke-width="2" fill="none" opacity=".55"/>
+   <path d="M236,466 C230,471 224,471 222,466" stroke="var(--c3)" stroke-width="2" fill="none" opacity=".55"/>`},
+
+ {id:'pleat', ko:'플리츠 스커트', en:'Pleated skirt', em:'🌀', d:2,
+  svg:`<path d="M177,294 L243,294 C250,320 258,352 263,374 C240,385 180,385 157,374 C162,352 170,320 177,294 Z" fill="var(--c1)"/>
+   <path d="M177,294 L243,294 L243,303 L177,303 Z" fill="var(--c3)"/>
+   <path d="M193,303 L187,378 M210,304 L210,381 M227,303 L233,378" stroke="var(--c3)" stroke-width="2" opacity=".45"/>
+   <path d="M160,370 C190,381 230,381 260,370" stroke="var(--c2)" stroke-width="2.4" fill="none" opacity=".6"/>`},
+
+ {id:'longskirt', ko:'롱 스커트', en:'Long skirt', em:'🌾', d:0,
+  svg:`<path d="M176,294 L244,294 C252,330 260,392 266,428 C240,440 180,440 154,428 C160,392 168,330 176,294 Z" fill="var(--c1)"/>
+   <path d="M176,294 L244,294 L244,304 L176,304 Z" fill="var(--c3)"/>
+   <path d="M190,306 C186,344 180,394 176,428" stroke="var(--c2)" stroke-width="2.2" fill="none" opacity=".45"/>
+   <path d="M210,307 C210,348 210,394 210,434" stroke="var(--c2)" stroke-width="2.2" fill="none" opacity=".45"/>
+   <path d="M230,306 C234,344 240,394 244,428" stroke="var(--c2)" stroke-width="2.2" fill="none" opacity=".45"/>
+   <path d="M157,425 C184,437 236,437 263,425" stroke="var(--c2)" stroke-width="3" fill="none" opacity=".6"/>`},
+
+ {id:'slacks', ko:'코튼 팬츠', en:'Cotton pants', em:'🧵', d:0,
+  svg:`<path d="M175,294 L245,294 L246,314 C246,328 243,338 242,350 L240,438 C240,445 212,445 212,438 L212,350 L208,350 L208,438 C206,445 180,445 180,438 L178,350 C177,338 174,328 174,314 Z" fill="var(--c1)"/>
+   <path d="M175,294 L245,294 L245,304 L175,304 Z" fill="var(--c3)"/>
+   <path d="M182,428 C188,433 195,433 197,428 L197,442 C190,447 184,447 182,442 Z" fill="var(--c2)"/>
+   <path d="M238,428 C232,433 225,433 223,428 L223,442 C230,447 236,447 238,442 Z" fill="var(--c2)"/>
+   <path d="M207,304 V348 M213,304 V348" stroke="var(--c3)" stroke-width="1.3" opacity=".45"/>`}
+]},
+
+outer:{pal:CLOTH_PAL, items:[
+ {id:'none', ko:'맨몸', en:'None', em:'🚫', d:0, svg:``},
+
+ {id:'trench', ko:'트렌치코트', en:'Trench coat', em:'🧥', d:0,
+  svg:`<path d="M182,216 C172,224 166,240 166,258 C166,278 169,296 171,305 C172,313 182,314 183,306 C184,295 181,280 181,264 C181,248 185,232 191,224 Z" fill="var(--c1)"/>
+   <path d="M238,216 C248,224 254,240 254,258 C254,278 251,296 249,305 C248,313 238,314 237,306 C236,295 239,280 239,264 C239,248 235,232 229,224 Z" fill="var(--c1)"/>
+   <path d="M188,210 C178,217 172,230 173,245 L178,270 L174,300 L169,404 C183,412 197,412 204,405 L204,300 L200,270 L204,245 C205,230 198,217 190,210 Z" fill="var(--c1)"/>
+   <path d="M232,210 C242,217 248,230 247,245 L242,270 L246,300 L251,404 C237,412 223,412 216,405 L216,300 L220,270 L216,245 C215,230 222,217 230,210 Z" fill="var(--c1)"/>
+   <path d="M191,207 L210,240 L197,235 L183,213 Z" fill="var(--c2)"/>
+   <path d="M229,207 L210,240 L223,235 L237,213 Z" fill="var(--c2)"/>
+   <path d="M174,272 L246,272 L246,286 L174,286 Z" fill="var(--c3)"/>
+   <rect x="201" y="270" width="18" height="18" rx="3.5" fill="var(--c2)" stroke="var(--c3)" stroke-width="1.2"/>
+   <circle cx="196" cy="246" r="2.2" fill="var(--c3)" opacity=".8"/>
+   <circle cx="196" cy="260" r="2.2" fill="var(--c3)" opacity=".8"/>
+   <circle cx="224" cy="246" r="2.2" fill="var(--c3)" opacity=".8"/>
+   <circle cx="224" cy="260" r="2.2" fill="var(--c3)" opacity=".8"/>
+   <path d="M188,242 L193,402 M232,242 L227,402" stroke="var(--c3)" stroke-width="1.4" opacity=".4"/>
+   <path d="M181,340 h16 M223,340 h16" stroke="var(--c3)" stroke-width="2" opacity=".4"/>`},
+
+ {id:'wool', ko:'겨울 울코트', en:'Wool coat', em:'❄️', d:5,
+  svg:`<path d="M180,216 C170,224 164,240 164,258 C164,278 167,296 169,305 C170,313 180,314 181,306 C182,295 179,280 179,264 C179,248 183,232 189,224 Z" fill="var(--c1)"/>
+   <path d="M240,216 C250,224 256,240 256,258 C256,278 253,296 251,305 C250,313 240,314 239,306 C238,295 241,280 241,264 C241,248 237,232 231,224 Z" fill="var(--c1)"/>
+   <path d="M188,207 C176,214 169,228 170,244 L175,272 L170,302 L166,400 C191,412 229,412 254,400 L250,302 L245,272 L250,244 C251,228 244,214 232,207 Z" fill="var(--c1)"/>
+   <path d="M210,204 C196,212 184,221 181,237 C192,244 205,240 210,231 C215,240 228,244 239,237 C236,221 224,212 210,204 Z" fill="var(--c2)"/>
+   <path d="M210,233 V400" stroke="var(--c3)" stroke-width="1.6" opacity=".45"/>
+   <circle cx="210" cy="252" r="2.6" fill="var(--c3)" opacity=".75"/>
+   <circle cx="210" cy="274" r="2.6" fill="var(--c3)" opacity=".75"/>
+   <circle cx="210" cy="296" r="2.6" fill="var(--c3)" opacity=".75"/>
+   <path d="M178,290 C196,298 224,298 242,290" stroke="var(--c3)" stroke-width="3.6" fill="none" opacity=".4"/>
+   <path d="M176,338 h18 M226,338 h18" stroke="var(--c3)" stroke-width="2.2" opacity=".38"/>
+   <path d="M170,398 C192,408 228,408 250,398" stroke="var(--c2)" stroke-width="2.4" fill="none" opacity=".5"/>`},
+
+ {id:'cardigan', ko:'가디건', en:'Cardigan', em:'🧶', d:4,
+  svg:`<path d="M182,216 C172,224 167,240 167,258 C167,278 170,296 172,305 C173,313 183,314 184,306 C185,295 182,280 182,264 C182,248 186,232 191,224 Z" fill="var(--c1)"/>
+   <path d="M238,216 C248,224 253,240 253,258 C253,278 250,296 248,305 C247,313 237,314 236,306 C235,295 238,280 238,264 C238,248 234,232 229,224 Z" fill="var(--c1)"/>
+   <path d="M188,210 C178,217 172,230 173,245 L177,268 L173,296 L171,340 C186,347 200,347 206,341 L206,296 L202,268 L206,245 C207,230 199,217 190,210 Z" fill="var(--c1)"/>
+   <path d="M232,210 C242,217 248,230 247,245 L243,268 L247,296 L249,340 C234,347 220,347 214,341 L214,296 L218,268 L214,245 C213,230 221,217 230,210 Z" fill="var(--c1)"/>
+   <path d="M205,244 L202,268 L206,296 L206,341" stroke="var(--c2)" stroke-width="5" fill="none" opacity=".7"/>
+   <path d="M215,244 L218,268 L214,296 L214,341" stroke="var(--c2)" stroke-width="5" fill="none" opacity=".7"/>
+   <circle cx="204" cy="262" r="2" fill="var(--c3)"/>
+   <circle cx="204" cy="282" r="2" fill="var(--c3)"/>
+   <path d="M188,214 C186,250 185,300 186,338" stroke="var(--c3)" stroke-width="1.4" opacity=".3"/>`},
+
+ {id:'denim', ko:'데님 재킷', en:'Denim jacket', em:'🧵', d:3,
+  svg:`<path d="M182,216 C172,224 167,240 167,258 C167,276 170,292 172,300 C173,308 183,309 184,301 C185,291 182,278 182,262 C182,248 186,232 191,224 Z" fill="var(--c1)"/>
+   <path d="M238,216 C248,224 253,240 253,258 C253,276 250,292 248,300 C247,308 237,309 236,301 C235,291 238,278 238,262 C238,248 234,232 229,224 Z" fill="var(--c1)"/>
+   <path d="M188,210 C178,217 172,230 173,245 L177,268 L174,296 L173,330 C188,337 232,337 247,330 L246,296 L243,268 L247,245 C248,230 242,217 232,210 Z" fill="var(--c1)"/>
+   <path d="M194,206 L210,228 L203,232 L189,212 Z" fill="var(--c2)"/>
+   <path d="M226,206 L210,228 L217,232 L231,212 Z" fill="var(--c2)"/>
+   <path d="M210,228 V332" stroke="var(--c3)" stroke-width="1.6" opacity=".55"/>
+   <path d="M182,248 h18 v16 h-18 z" fill="var(--c2)" stroke="var(--c3)" stroke-width="1" opacity=".9"/>
+   <path d="M220,248 h18 v16 h-18 z" fill="var(--c2)" stroke="var(--c3)" stroke-width="1" opacity=".9"/>
+   <path d="M174,328 C190,335 230,335 246,328" stroke="var(--c3)" stroke-width="4" fill="none" opacity=".5"/>
+   <circle cx="210" cy="244" r="2" fill="var(--c2)"/>
+   <circle cx="210" cy="264" r="2" fill="var(--c2)"/>
+   <circle cx="210" cy="284" r="2" fill="var(--c2)"/>`}
+]},
+
+shoes:{pal:CLOTH_PAL, items:[
+ {id:'loafer', ko:'로퍼', en:'Loafers', em:'🥿', d:4,
+  svg:`<path d="M183,470 C180,479 181,491 187,495 C195,500 207,498 208,490 L208,470 Z" fill="var(--c1)"/>
+   <path d="M237,470 C240,479 239,491 233,495 C225,500 213,498 212,490 L212,470 Z" fill="var(--c1)"/>
+   <path d="M181,487 C188,496 201,496 208,489" stroke="var(--c3)" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+   <path d="M239,487 C232,496 219,496 212,489" stroke="var(--c3)" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+   <path d="M185,478 C192,482 201,482 207,478" stroke="var(--c3)" stroke-width="2.6" fill="none" stroke-linecap="round" opacity=".8"/>
+   <path d="M235,478 C228,482 219,482 213,478" stroke="var(--c3)" stroke-width="2.6" fill="none" stroke-linecap="round" opacity=".8"/>`},
+
+ {id:'boots', ko:'앵클부츠', en:'Ankle boots', em:'👢', d:6,
+  svg:`<path d="M184,424 L208,424 L208,470 C206,480 181,482 182,470 Z" fill="var(--c1)"/>
+   <path d="M236,424 L212,424 L212,470 C214,480 239,482 238,470 Z" fill="var(--c1)"/>
+   <path d="M181,468 C178,478 179,490 186,494 C194,499 207,497 208,489 L208,468 Z" fill="var(--c1)"/>
+   <path d="M239,468 C242,478 241,490 234,494 C226,499 213,497 212,489 L212,468 Z" fill="var(--c1)"/>
+   <path d="M182,486 C189,495 202,495 208,488" stroke="var(--c3)" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+   <path d="M238,486 C231,495 218,495 212,488" stroke="var(--c3)" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+   <path d="M184,424 h24 M236,424 h-24" stroke="var(--c2)" stroke-width="4" opacity=".8"/>
+   <circle cx="196" cy="444" r="2.2" fill="var(--c2)"/><circle cx="224" cy="444" r="2.2" fill="var(--c2)"/>`},
+
+ {id:'sneaker', ko:'스니커즈', en:'Sneakers', em:'👟', d:0,
+  svg:`<path d="M182,470 C179,479 180,490 187,494 C195,499 207,497 208,489 L208,470 Z" fill="var(--c1)"/>
+   <path d="M238,470 C241,479 240,490 233,494 C225,499 213,497 212,489 L212,470 Z" fill="var(--c1)"/>
+   <path d="M180,485 C187,494 202,494 208,486 L208,497 C199,503 184,501 180,493 Z" fill="#FFFDF8"/>
+   <path d="M240,485 C233,494 218,494 212,486 L212,497 C221,503 236,501 240,493 Z" fill="#FFFDF8"/>
+   <path d="M186,476 h10 M186,482 h12 M234,476 h-10 M234,482 h-12" stroke="var(--c3)" stroke-width="1.8" opacity=".8"/>
+   <circle cx="200" cy="478" r="1.6" fill="var(--c2)"/><circle cx="220" cy="478" r="1.6" fill="var(--c2)"/>`},
+
+ {id:'flats', ko:'플랫슈즈', en:'Flats', em:'🩰', d:1,
+  svg:`<path d="M182,472 C179,482 181,492 188,495 C196,499 207,497 208,489 L208,472 Z" fill="var(--c1)"/>
+   <path d="M238,472 C241,482 239,492 232,495 C224,499 213,497 212,489 L212,472 Z" fill="var(--c1)"/>
+   <path d="M181,489 C188,497 202,497 208,490" stroke="var(--c3)" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+   <path d="M239,489 C232,497 218,497 212,490" stroke="var(--c3)" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+   <path d="M198,474 C193,470 191,474 194,477 C197,480 199,477 199,477 C199,477 202,480 205,477 C208,474 206,470 201,474 Z" fill="var(--c2)"/>
+   <path d="M222,474 C217,470 215,474 218,477 C221,480 223,477 223,477 C223,477 226,480 229,477 C232,474 230,470 225,474 Z" fill="var(--c2)"/>`},
+
+ {id:'heels', ko:'힐', en:'Heels', em:'👠', d:5,
+  svg:`<path d="M183,470 C180,480 181,489 188,492 C196,496 207,494 208,486 L208,470 Z" fill="var(--c1)"/>
+   <path d="M237,470 C240,480 239,489 232,492 C224,496 213,494 212,486 L212,470 Z" fill="var(--c1)"/>
+   <path d="M207,484 L209,506 L213,506 L212,484 Z" fill="var(--c3)"/>
+   <path d="M213,484 L211,506 L207,506 L208,484 Z" fill="var(--c3)"/>
+   <path d="M181,486 C188,494 202,494 208,487" stroke="var(--c2)" stroke-width="2" fill="none" opacity=".75"/>
+   <path d="M239,486 C232,494 218,494 212,487" stroke="var(--c2)" stroke-width="2" fill="none" opacity=".75"/>
+   <path d="M186,476 C192,470 200,470 206,476" stroke="var(--c2)" stroke-width="2" fill="none" opacity=".6"/>
+   <path d="M234,476 C228,470 220,470 214,476" stroke="var(--c2)" stroke-width="2" fill="none" opacity=".6"/>`}
+]},
+
+acc:{pal:CLOTH_PAL, items:[
+ {id:'none', ko:'없음', en:'None', em:'🚫', d:0, svg:``},
+
+ {id:'beret', ko:'베레모', en:'Beret', em:'🎨', d:1,
+  svg:`<g transform="rotate(-8 210 100)">
+   <path d="M210,72 C245,72 265,87 265,100 C265,113 242,121 210,121 C178,121 155,113 155,100 C155,87 175,72 210,72 Z" fill="var(--c1)"/>
+   <path d="M155,98 C178,111 242,111 265,98" stroke="var(--c3)" stroke-width="5" fill="none" opacity=".5"/>
+   <circle cx="209" cy="70" r="4.6" fill="var(--c3)"/>
+   <path d="M176,86 C192,78 216,77 232,83" stroke="var(--c2)" stroke-width="3.4" fill="none" opacity=".55" stroke-linecap="round"/>
+  </g>`},
+
+  {id:'bag', ko:'크로스백', en:'Crossbody bag', em:'👜', d:6,
+  svg:`<path d="M251,220 L183,300" stroke="var(--c1)" stroke-width="7" stroke-linecap="round"/>
+   <rect x="163" y="296" width="37" height="31" rx="6" fill="var(--c1)"/>
+   <path d="M163,308 h37" stroke="var(--c3)" stroke-width="2.4" opacity=".7"/>
+   <rect x="177" y="302" width="9" height="9" rx="2" fill="var(--c2)" stroke="var(--c3)" stroke-width="1"/>
+   <path d="M168,296 C176,290 187,290 195,296" stroke="var(--c3)" stroke-width="2" fill="none" opacity=".6"/>`},
+
+ {id:'scarf', ko:'목도리', en:'Scarf', em:'🧣', d:1,
+  svg:`<path d="M190,196 C196,216 224,216 230,196 C238,200 245,210 245,220 C241,233 228,240 210,240 C192,240 179,233 175,220 C175,210 182,200 190,196 Z" fill="var(--c1)"/>
+   <path d="M221,234 L236,302 C238,310 227,314 223,306 L209,242 Z" fill="var(--c1)"/>
+   <path d="M179,218 C190,228 230,228 241,218" stroke="var(--c2)" stroke-width="3" fill="none" opacity=".7"/>
+   <path d="M182,228 C193,238 227,238 238,228" stroke="var(--c2)" stroke-width="3" fill="none" opacity=".7"/>
+   <path d="M213,296 l10,6 M216,285 l10,6" stroke="var(--c3)" stroke-width="2" opacity=".6"/>`},
+
+ {id:'beanie', ko:'비니', en:'Beanie', em:'🧢', d:3,
+  svg:`<path d="M210,56 C252,56 272,82 272,112 L272,124 C272,130 264,132 260,126 L160,126 C156,132 148,130 148,124 L148,112 C148,82 168,56 210,56 Z" fill="var(--c1)"/>
+   <path d="M148,110 C170,124 250,124 272,110 L272,124 C250,136 170,136 148,124 Z" fill="var(--c2)"/>
+   <path d="M166,76 C180,64 240,64 254,76" stroke="var(--c3)" stroke-width="2" fill="none" opacity=".4"/>
+   <circle cx="210" cy="52" r="9" fill="var(--c2)"/>`}
+]},
+
+friend:{pal:CLOTH_PAL, items:[
+ {id:'none', ko:'혼자', en:'Alone', em:'🚫', d:0, svg:``},
+
+ {id:'ham', ko:'와글 햄스터', en:'Wagle hamster', em:'🐹', d:0,
+  svg:`<ellipse cx="96" cy="500" rx="34" ry="8" fill="#4A3222" opacity=".12"/>
+   <ellipse cx="96" cy="474" rx="31" ry="27" fill="var(--c1)"/>
+   <ellipse cx="96" cy="482" rx="18" ry="15" fill="#FFF8EE"/>
+   <circle cx="77" cy="458" r="8.5" fill="var(--c1)"/><circle cx="77" cy="458" r="4.6" fill="#F3B4B9"/>
+   <circle cx="115" cy="458" r="8.5" fill="var(--c1)"/><circle cx="115" cy="458" r="4.6" fill="#F3B4B9"/>
+   <ellipse cx="96" cy="466" rx="21" ry="7" fill="var(--c2)" opacity=".45"/>
+   <circle cx="87" cy="470" r="3.6" fill="#2B1D1A"/><circle cx="105" cy="470" r="3.6" fill="#2B1D1A"/>
+   <circle cx="85.6" cy="468.6" r="1.3" fill="#fff"/><circle cx="103.6" cy="468.6" r="1.3" fill="#fff"/>
+   <ellipse cx="96" cy="478" rx="3.2" ry="2.3" fill="#DF8E93"/>
+   <path d="M92,482 q4,3.5 8,0" stroke="#C97A80" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+   <ellipse cx="79" cy="480" rx="6" ry="4" fill="#F5A8AE" opacity=".6"/>
+   <ellipse cx="113" cy="480" rx="6" ry="4" fill="#F5A8AE" opacity=".6"/>
+   <ellipse cx="89" cy="496" rx="6.5" ry="4.4" fill="#EFB79B"/>
+   <ellipse cx="103" cy="496" rx="6.5" ry="4.4" fill="#EFB79B"/>`},
+
+ {id:'hamflower', ko:'꽃 햄스터', en:'Flower hamster', em:'🌼', d:5,
+  svg:`<ellipse cx="96" cy="500" rx="34" ry="8" fill="#4A3222" opacity=".12"/>
+   <ellipse cx="96" cy="474" rx="31" ry="27" fill="var(--c1)"/>
+   <ellipse cx="96" cy="482" rx="18" ry="15" fill="#FFF8EE"/>
+   <circle cx="77" cy="458" r="8.5" fill="var(--c1)"/><circle cx="77" cy="458" r="4.6" fill="#F3B4B9"/>
+   <circle cx="115" cy="458" r="8.5" fill="var(--c1)"/><circle cx="115" cy="458" r="4.6" fill="#F3B4B9"/>
+   <circle cx="87" cy="470" r="3.6" fill="#2B1D1A"/><circle cx="105" cy="470" r="3.6" fill="#2B1D1A"/>
+   <circle cx="85.6" cy="468.6" r="1.3" fill="#fff"/><circle cx="103.6" cy="468.6" r="1.3" fill="#fff"/>
+   <ellipse cx="96" cy="478" rx="3.2" ry="2.3" fill="#DF8E93"/>
+   <path d="M92,482 q4,3.5 8,0" stroke="#C97A80" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+   <ellipse cx="79" cy="480" rx="6" ry="4" fill="#F5A8AE" opacity=".6"/>
+   <ellipse cx="113" cy="480" rx="6" ry="4" fill="#F5A8AE" opacity=".6"/>
+   <ellipse cx="89" cy="496" rx="6.5" ry="4.4" fill="#EFB79B"/>
+   <ellipse cx="103" cy="496" rx="6.5" ry="4.4" fill="#EFB79B"/>
+   <path d="M112,466 C120,458 122,446 118,438" stroke="#7FA974" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+   <g><circle cx="118" cy="432" r="4.4" fill="#F6C9D8"/><circle cx="112" cy="437" r="4.4" fill="#F6C9D8"/><circle cx="124" cy="437" r="4.4" fill="#F6C9D8"/><circle cx="118" cy="436" r="2.6" fill="#F5D27A"/></g>`}
+]},
+
+bg:{pal:null, items:[
+ {id:'cafe', ko:'카페', en:'Cafe', em:'☕',
+  svg:`<rect width="420" height="560" fill="#F8EAD5"/>
+   <rect width="420" height="330" fill="#FDF2E1"/>
+   <rect x="238" y="26" width="160" height="200" rx="12" fill="#CFE5ED"/>
+   <path d="M318,26 V226 M238,126 H398" stroke="#FDF2E1" stroke-width="7"/>
+   <circle cx="366" cy="72" r="15" fill="#FFF4C6" opacity=".85"/>
+   <path d="M252,196 q22,-32 44,0 q22,-40 44,0 v18 h-88 z" fill="#BBD8BE" opacity=".75"/>
+   <rect x="238" y="26" width="160" height="200" rx="12" fill="none" stroke="#EBD5B6" stroke-width="6"/>
+   <path d="M0,34 Q120,74 240,38" stroke="#DCC09A" stroke-width="2" fill="none"/>
+   <circle cx="52" cy="47" r="5.5" fill="#F8D98C"/><circle cx="110" cy="57" r="5.5" fill="#F8D98C"/>
+   <circle cx="168" cy="55" r="5.5" fill="#F8D98C"/><circle cx="222" cy="44" r="5.5" fill="#F8D98C"/>
+   <rect x="30" y="128" width="150" height="7" rx="3.5" fill="#CFA47A"/>
+   <path d="M50,110 h20 v18 h-20 z" fill="#E8A08E"/><path d="M70,114 q8,0 8,7 q-8,0 -8,-7" fill="#E8A08E"/>
+   <path d="M84,112 h16 v16 h-16 z" fill="#9DB7C9"/>
+   <path d="M110,114 h14 v14 h-14 z" fill="#F2CE86"/>
+   <path d="M134,108 h10 v20 h-10 z" fill="#C79AAE"/><path d="M146,112 h10 v16 h-10 z" fill="#C79AAE"/>
+   <path d="M40,262 h40 l-6,34 h-28 z" fill="#CE8A62"/>
+   <circle cx="60" cy="252" r="20" fill="#8FB48C"/><circle cx="42" cy="240" r="13" fill="#A5C79E"/>
+   <circle cx="78" cy="242" r="12" fill="#A5C79E"/>
+   <rect y="462" width="420" height="98" fill="#DEB992"/>
+   <rect y="462" width="420" height="6" fill="#EDD0B2"/>
+   <path d="M0,540 H420" stroke="#CFA57E" stroke-width="2" opacity=".5"/>
+   <rect x="-10" y="392" width="132" height="12" rx="5" fill="#C99B75"/>
+   <path d="M20,392 V404 M96,392 V404" stroke="#B98A66" stroke-width="5"/>
+   <path d="M40,372 h26 v20 h-26 z" fill="#FFFDF8"/><path d="M66,376 q9,0 9,8 q-9,0 -9,-8" fill="#FFFDF8"/>
+   <ellipse cx="53" cy="372" rx="13" ry="3.5" fill="#E7D2B8"/>`},
+
+ {id:'autumn', ko:'가을 거리', en:'Autumn street', em:'🍂',
+  svg:`<rect width="420" height="560" fill="#FCE3C4"/>
+   <rect width="420" height="480" fill="#FAD3A8"/>
+   <circle cx="318" cy="118" r="58" fill="#FFE9BF" opacity=".65"/>
+   <rect x="0" y="236" width="86" height="150" fill="#E7C2A2"/>
+   <rect x="352" y="212" width="80" height="180" fill="#E7C2A2"/>
+   <path d="M14,258 h22 v26 h-22 z M46,258 h22 v26 h-22 z M14,296 h22 v26 h-22 z" fill="#F6DCC0" opacity=".8"/>
+   <circle cx="76" cy="300" r="58" fill="#E9975A"/>
+   <circle cx="124" cy="336" r="44" fill="#D9814A"/>
+   <circle cx="40" cy="336" r="36" fill="#F2AE6C"/>
+   <rect x="66" y="352" width="12" height="60" fill="#A9744C"/>
+   <circle cx="352" cy="286" r="46" fill="#E58E52"/>
+   <circle cx="392" cy="320" r="34" fill="#D9814A"/>
+   <rect x="368" y="320" width="10" height="80" fill="#A9744C"/>
+   <path d="M0,404 H420 V560 H0 Z" fill="#D8B694"/>
+   <path d="M0,404 q70,14 140,0 q70,-14 140,0 q70,14 140,0 v10 H0 Z" fill="#E4C6A6"/>
+   <path d="M148,470 h124" stroke="#CBA982" stroke-width="3" stroke-dasharray="14 12" opacity=".8"/>
+   <g fill="#E4874C" opacity=".9">
+    <path d="M96,140 q10,-10 18,0 q-10,10 -18,0"/><path d="M236,96 q10,-10 18,0 q-10,10 -18,0"/>
+    <path d="M286,196 q10,-10 18,0 q-10,10 -18,0"/><path d="M170,60 q10,-10 18,0 q-10,10 -18,0"/>
+   </g>
+   <g fill="#C96B3C" opacity=".8">
+    <path d="M118,196 q8,-8 15,0 q-8,8 -15,0"/><path d="M330,150 q8,-8 15,0 q-8,8 -15,0"/>
+   </g>`},
+
+ {id:'snowstreet', ko:'눈 오는 거리', en:'Snowy street', em:'❄️',
+  svg:`<rect width="420" height="560" fill="#33456B"/>
+   <rect width="420" height="470" fill="#41567F"/>
+   <circle cx="336" cy="82" r="27" fill="#FFF7DE" opacity=".95"/>
+   <circle cx="326" cy="72" r="24" fill="#41567F" opacity=".35"/>
+   <rect x="6" y="238" width="104" height="212" fill="#2B3A5C"/>
+   <rect x="296" y="212" width="118" height="238" fill="#293754"/>
+   <g fill="#FFE7A6" opacity=".9">
+    <rect x="22" y="256" width="16" height="16" rx="2"/><rect x="52" y="256" width="16" height="16" rx="2"/>
+    <rect x="82" y="256" width="16" height="16" rx="2"/><rect x="22" y="292" width="16" height="16" rx="2"/>
+    <rect x="82" y="292" width="16" height="16" rx="2"/><rect x="52" y="328" width="16" height="16" rx="2"/>
+    <rect x="316" y="236" width="18" height="18" rx="2"/><rect x="350" y="236" width="18" height="18" rx="2"/>
+    <rect x="384" y="236" width="18" height="18" rx="2"/><rect x="316" y="276" width="18" height="18" rx="2"/>
+    <rect x="384" y="276" width="18" height="18" rx="2"/><rect x="350" y="316" width="18" height="18" rx="2"/>
+   </g>
+   <rect x="126" y="286" width="7" height="176" fill="#22304C"/>
+   <path d="M129,286 v-14" stroke="#22304C" stroke-width="5"/>
+   <circle cx="129" cy="266" r="16" fill="url(#glowG)"/>
+   <circle cx="129" cy="266" r="7" fill="#FFEDB4"/>
+   <path d="M0,458 q60,-22 120,0 q60,22 120,0 q60,-22 120,0 q30,10 60,4 V560 H0 Z" fill="#EDF3FB"/>
+   <path d="M0,486 q80,16 160,0 q80,-16 160,0 q50,10 100,2 V560 H0 Z" fill="#F7FAFE"/>
+   <g fill="#FFFFFF" opacity=".9">
+    <circle cx="60" cy="90" r="3.4"/><circle cx="120" cy="150" r="2.6"/><circle cx="190" cy="70" r="3"/>
+    <circle cx="250" cy="140" r="2.4"/><circle cx="300" cy="50" r="3.2"/><circle cx="360" cy="170" r="2.8"/>
+    <circle cx="40" cy="200" r="2.2"/><circle cx="220" cy="220" r="2.6"/><circle cx="150" cy="240" r="2"/>
+    <circle cx="396" cy="120" r="2.4"/><circle cx="86" cy="330" r="2.6"/><circle cx="268" cy="300" r="2.2"/>
+   </g>`},
+
+ {id:'spring', ko:'봄 창가', en:'Spring window', em:'🌷',
+  svg:`<rect width="420" height="560" fill="#FFF7F0"/>
+   <rect width="420" height="100" fill="#FDEFF2"/>
+   <rect x="58" y="18" width="304" height="292" rx="14" fill="#DFF1F7"/>
+   <path d="M210,18 V310 M58,164 H362" stroke="#FFF7F0" stroke-width="9"/>
+   <rect x="58" y="18" width="304" height="292" rx="14" fill="none" stroke="#F2DCE0" stroke-width="8"/>
+   <circle cx="316" cy="72" r="20" fill="#FFF6CE" opacity=".8"/>
+   <path d="M70,260 q26,-38 52,0 q26,-46 52,0 v22 h-104 z" fill="#B9DCBB" opacity=".7"/>
+   <path d="M20,10 C58,110 46,220 36,330 L-10,330 L-10,10 Z" fill="#F8DCE2" opacity=".92"/>
+   <path d="M400,10 C362,110 374,220 384,330 L430,330 L430,10 Z" fill="#F8DCE2" opacity=".92"/>
+   <path d="M20,10 C40,110 34,220 28,330" stroke="#EFC4CF" stroke-width="2" fill="none" opacity=".7"/>
+   <rect x="0" y="436" width="420" height="124" fill="#EFD9C6"/>
+   <rect x="0" y="436" width="420" height="7" fill="#F8E7D8"/>
+   <g>
+    <path d="M320,380 h44 l-6,54 h-32 z" fill="#C9DCE7"/>
+    <path d="M342,380 V330" stroke="#8FB48C" stroke-width="3"/>
+    <path d="M342,352 q-16,-10 -20,-24 q16,2 20,20" fill="#9DC49A"/>
+    <path d="M342,340 q16,-12 20,-26 q-16,4 -20,22" fill="#8FB48C"/>
+    <circle cx="330" cy="330" r="7" fill="#F3A8B8"/><circle cx="352" cy="322" r="7" fill="#F7C3CE"/>
+    <circle cx="341" cy="314" r="6" fill="#F3A8B8"/>
+   </g>
+   <g>
+    <rect x="44" y="360" width="72" height="10" rx="4" fill="#E3C6AE"/>
+    <path d="M56,360 v-34 h10 v34 z" fill="#D9B79C"/><path d="M94,360 v-34 h10 v34 z" fill="#D9B79C"/>
+    <rect x="52" y="316" width="56" height="12" rx="3" fill="#F6E3D2" stroke="#E6CDB8" stroke-width="1.5"/>
+    <rect x="58" y="300" width="44" height="8" rx="3" fill="#F8D6C4"/>
+   </g>`}
+]}
+};
+/* ── 🧸 동화·와글 옷입히기 ────────────────────────── */
+const FAIRY = {
+
+hair:{pal:HAIR_PAL, items:[
+ {id:'princess', ko:'공주 웨이브', en:'Princess waves', em:'👑', d:1,
+  back:`<path d="M210,84 C272,84 290,124 286,166 C284,200 292,244 288,286 C285,316 276,342 266,358 C258,370 244,364 248,350 C260,320 268,286 264,250 L156,250 C152,286 160,320 172,350 C176,364 162,370 154,358 C144,342 135,316 132,286 C128,244 136,200 134,166 C130,124 148,84 210,84 Z" fill="var(--c1)"/>
+   <circle cx="146" cy="300" r="15" fill="var(--c1)"/><circle cx="274" cy="300" r="15" fill="var(--c1)"/>
+   <circle cx="152" cy="326" r="12" fill="var(--c1)"/><circle cx="268" cy="326" r="12" fill="var(--c1)"/>
+   <circle cx="140" cy="270" r="13" fill="var(--c1)"/><circle cx="280" cy="270" r="13" fill="var(--c1)"/>
+   <path d="M252,140 C266,180 266,230 258,270" stroke="var(--c3)" stroke-width="4" fill="none" opacity=".3"/>`,
+  front:`<path d="M150,138 C150,100 176,80 210,80 C244,80 270,100 270,138 C256,122 236,113 210,113 C184,113 164,122 150,138 Z" fill="var(--c1)"/><path d="M162,110 C150,180 154,240 148,272 C147,284 163,286 165,274 C171,240 167,186 176,116 Z" fill="var(--c1)"/>
+   <path d="M260,110 C270,180 266,240 272,272 C273,284 257,286 255,274 C249,240 253,186 244,116 Z" fill="var(--c1)"/>
+   <path d="M180,110 C194,99 218,97 234,106" stroke="var(--c2)" stroke-width="6" fill="none" opacity=".55" stroke-linecap="round"/>`},
+
+ {id:'twin', ko:'트윈테일', en:'Twin tails', em:'🎀', d:2,
+  back:`<path d="M210,84 C264,84 281,120 278,160 C276,178 272,192 269,204 L151,204 C148,192 143,178 141,160 C138,120 156,84 210,84 Z" fill="var(--c1)"/>
+   <path d="M150,116 C120,132 106,176 112,216 C117,250 132,272 146,286 C154,294 166,284 158,272 C142,250 132,222 134,198 C136,172 146,146 160,132 Z" fill="var(--c1)"/>
+   <path d="M270,116 C300,132 314,176 308,216 C303,250 288,272 274,286 C266,294 254,284 262,272 C278,250 288,222 286,198 C284,172 274,146 260,132 Z" fill="var(--c1)"/>
+   <path d="M126,206 C118,232 122,258 132,278" stroke="var(--c2)" stroke-width="4" opacity=".4" fill="none"/>
+   <path d="M294,206 C302,232 298,258 288,278" stroke="var(--c2)" stroke-width="4" opacity=".4" fill="none"/>`,
+  front:`<path d="M150,138 C150,100 176,80 210,80 C244,80 270,100 270,138 C256,122 236,113 210,113 C184,113 164,122 150,138 Z" fill="var(--c1)"/><g transform="translate(138,118)"><path d="M0,0 C-16,-16 -30,-4 -22,10 C-14,22 2,12 0,0 Z" fill="var(--c3)"/><path d="M0,0 C16,-16 30,-4 22,10 C14,22 -2,12 0,0 Z" fill="var(--c3)"/><circle cx="0" cy="3" r="5" fill="var(--c2)"/></g>
+   <g transform="translate(282,118)"><path d="M0,0 C-16,-16 -30,-4 -22,10 C-14,22 2,12 0,0 Z" fill="var(--c3)"/><path d="M0,0 C16,-16 30,-4 22,10 C14,22 -2,12 0,0 Z" fill="var(--c3)"/><circle cx="0" cy="3" r="5" fill="var(--c2)"/></g>
+   <path d="M184,112 C198,101 222,99 238,108" stroke="var(--c2)" stroke-width="6" fill="none" opacity=".5" stroke-linecap="round"/>`},
+
+ {id:'ribbonbob', ko:'리본 단발', en:'Ribbon bob', em:'🎀', d:3,
+  back:`<path d="M210,84 C266,84 283,120 280,160 C278,184 273,202 269,216 C268,226 255,230 251,220 C247,208 250,192 248,178 L172,178 C170,192 173,208 169,220 C165,230 152,226 151,216 C147,202 142,184 140,160 C137,120 154,84 210,84 Z" fill="var(--c1)"/>`,
+  front:`<path d="M150,138 C150,100 176,80 210,80 C244,80 270,100 270,138 C256,122 236,113 210,113 C184,113 164,122 150,138 Z" fill="var(--c1)"/><path d="M162,110 C148,150 151,198 153,222 C154,231 168,233 170,223 C172,204 168,170 176,116 Z" fill="var(--c1)"/>
+   <path d="M265,133 C270,166 269,198 267,222 C266,231 252,233 250,223 C248,204 252,170 248,139 Z" fill="var(--c1)"/>
+   <g transform="translate(268,116) rotate(14)"><path d="M0,0 C-15,-15 -28,-4 -21,9 C-14,21 2,11 0,0 Z" fill="var(--c2)"/><path d="M0,0 C15,-15 28,-4 21,9 C14,21 -2,11 0,0 Z" fill="var(--c2)"/><circle cx="0" cy="3" r="4.5" fill="var(--c3)"/></g>
+   <path d="M180,110 C194,99 218,97 234,106" stroke="var(--c2)" stroke-width="6" fill="none" opacity=".5" stroke-linecap="round"/>`},
+
+ {id:'braid', ko:'옆 땋은머리', en:'Side braid', em:'🌾', d:4,
+  back:`<path d="M210,84 C266,84 284,122 281,162 C279,196 284,230 280,254 C277,270 262,272 258,258 C252,236 256,206 254,180 L166,180 C164,206 168,236 162,258 C158,272 143,270 140,254 C136,230 141,196 139,162 C136,122 154,84 210,84 Z" fill="var(--c1)"/>
+   <g fill="none" stroke="var(--c2)" stroke-width="3" opacity=".45">
+    <path d="M150,168 q10,10 2,20 q-8,10 2,20"/><path d="M270,168 q-10,10 -2,20 q8,10 -2,20"/>
+   </g>`,
+  front:`<path d="M150,138 C150,100 176,80 210,80 C244,80 270,100 270,138 C256,122 236,113 210,113 C184,113 164,122 150,138 Z" fill="var(--c1)"/><g>
+    <circle cx="262" cy="150" r="9" fill="var(--c1)"/><circle cx="266" cy="168" r="8" fill="var(--c1)"/>
+    <circle cx="262" cy="184" r="7.5" fill="var(--c1)"/><circle cx="266" cy="200" r="7" fill="var(--c1)"/>
+    <circle cx="262" cy="214" r="6.5" fill="var(--c1)"/>
+    <path d="M258,226 q6,10 0,18 M266,226 q-4,10 2,16" stroke="var(--c2)" stroke-width="2.4" fill="none" opacity=".7"/>
+   </g>
+   <path d="M180,110 C194,99 218,97 234,106" stroke="var(--c2)" stroke-width="6" fill="none" opacity=".5" stroke-linecap="round"/>`},
+
+ {id:'moonup', ko:'달빛 올림머리', en:'Moon updo', em:'🌙', d:5,
+  back:`<ellipse cx="210" cy="80" rx="40" ry="30" fill="var(--c1)"/>
+   <path d="M210,92 C260,92 277,124 275,158 C273,176 267,188 264,196 L156,196 C153,188 147,176 145,158 C143,124 160,92 210,92 Z" fill="var(--c1)"/>
+   <ellipse cx="210" cy="78" rx="26" ry="16" fill="var(--c2)" opacity=".5"/>
+   <path d="M186,74 C196,58 224,58 234,74" stroke="var(--c3)" stroke-width="3" fill="none" opacity=".5"/>`,
+  front:`<path d="M150,138 C150,100 176,80 210,80 C244,80 270,100 270,138 C256,122 236,113 210,113 C184,113 164,122 150,138 Z" fill="var(--c1)"/><path d="M210,96 C232,96 250,108 259,126" stroke="var(--c2)" stroke-width="4" fill="none" opacity=".5" stroke-linecap="round"/>`}
+]},
+
+top:{pal:CLOTH_PAL, items:[
+ {id:'gown', ko:'공주 드레스', en:'Princess gown', em:'👸', d:4, dress:true,
+  svg:`<path d="M188,212 C174,214 164,226 164,240 C164,251 172,258 181,254 C189,250 192,238 191,222 Z" fill="var(--c1)"/>
+   <path d="M232,212 C246,214 256,226 256,240 C256,251 248,258 239,254 C231,250 228,238 229,222 Z" fill="var(--c1)"/>
+   <path d="M188,210 C178,216 173,228 174,242 L177,266 C186,288 234,288 243,266 L246,242 C247,228 242,216 232,210 Z" fill="var(--c1)"/>
+   <path d="M176,262 C160,318 140,398 132,442 C160,458 260,458 288,442 C280,398 260,318 244,262 C226,276 194,276 176,262 Z" fill="var(--c1)"/>
+   <path d="M177,262 C195,275 225,275 243,262 L244,272 C226,285 194,285 176,272 Z" fill="var(--c3)" opacity=".8"/>
+   <path d="M190,246 C194,258 196,266 196,274" stroke="var(--c3)" stroke-width="1.8" fill="none" opacity=".45"/>
+   <path d="M230,246 C226,258 224,266 224,274" stroke="var(--c3)" stroke-width="1.8" fill="none" opacity=".45"/>
+   <path d="M196,282 C186,330 176,390 172,436" stroke="var(--c2)" stroke-width="2.6" fill="none" opacity=".45"/>
+   <path d="M224,282 C234,330 244,390 248,436" stroke="var(--c2)" stroke-width="2.6" fill="none" opacity=".45"/>
+   <path d="M135,438 q9,11 18,0 q9,11 18,0 q9,11 18,0 q9,11 18,0 q9,11 18,0 q9,11 18,0 q9,11 18,0 q9,11 18,0" stroke="var(--c2)" stroke-width="3.2" fill="none" opacity=".8"/>
+   <path d="M208,270 C200,262 198,252 204,249 C209,246 213,251 210,257 C213,251 217,246 222,249 C228,252 226,262 218,270 C214,275 212,277 212,277 C212,277 210,275 208,270 Z" fill="var(--c2)"/>`},
+
+ {id:'fairy', ko:'요정 드레스', en:'Fairy dress', em:'🧚', d:2, dress:true,
+  svg:`<path d="M188,212 C178,218 172,228 174,240 C176,250 186,254 192,248 C198,242 196,230 192,218 Z" fill="var(--c1)" opacity=".92"/>
+   <path d="M232,212 C242,218 248,228 246,240 C244,250 234,254 228,248 C222,242 224,230 228,218 Z" fill="var(--c1)" opacity=".92"/>
+   <path d="M190,210 C180,216 175,228 176,242 L178,262 C188,274 232,274 242,262 L244,242 C245,228 240,216 230,210 Z" fill="var(--c1)"/>
+   <path d="M177,258 C158,300 146,350 140,384 L162,376 L176,392 L196,378 L210,396 L224,378 L244,392 L258,376 L280,384 C274,350 262,300 243,258 C226,270 194,270 177,258 Z" fill="var(--c1)"/>
+   <path d="M177,258 C194,270 226,270 243,258 L244,268 C226,280 194,280 176,268 Z" fill="var(--c2)"/>
+   <path d="M210,300 L210,390" stroke="var(--c2)" stroke-width="2.2" opacity=".5"/>
+   <path d="M188,290 C180,320 172,350 166,374" stroke="var(--c2)" stroke-width="2.2" opacity=".45"/>
+   <path d="M232,290 C240,320 248,350 254,374" stroke="var(--c2)" stroke-width="2.2" opacity=".45"/>
+   <circle cx="210" cy="286" r="3.4" fill="var(--c2)"/>
+   <path d="M204,306 l6,-6 l6,6 l-6,6 z" fill="var(--c2)" opacity=".8"/>
+   <path d="M258,282 C272,276 284,280 288,290 C280,296 268,294 260,288 Z" fill="var(--c2)" opacity=".75"/>`},
+
+ {id:'santa', ko:'산타 원피스', en:'Santa dress', em:'🎅', d:1, dress:true,
+  svg:`<path d="M188,212 C174,214 164,226 164,240 C164,251 172,258 181,254 C189,250 192,238 191,222 Z" fill="var(--c1)"/>
+   <path d="M232,212 C246,214 256,226 256,240 C256,251 248,258 239,254 C231,250 228,238 229,222 Z" fill="var(--c1)"/>
+   <path d="M188,210 C178,216 173,228 174,242 L177,264 C186,286 234,286 243,264 L246,242 C247,228 242,216 232,210 Z" fill="var(--c1)"/>
+   <path d="M176,262 C160,314 146,382 142,414 C168,428 252,428 278,414 C274,382 260,314 244,262 C226,274 194,274 176,262 Z" fill="var(--c1)"/>
+   <path d="M190,209 C198,223 222,223 230,209 C226,222 218,229 210,229 C202,229 194,222 190,209 Z" fill="#FFFDF7"/>
+   <path d="M176,260 C194,272 226,272 244,260 L245,272 C226,284 194,284 175,272 Z" fill="#FFFDF7"/>
+   <path d="M144,410 C168,424 252,424 276,410 L277,422 C252,436 168,436 143,422 Z" fill="#FFFDF7"/>
+   <path d="M140,434 q9,10 18,0 q9,10 18,0 q9,10 18,0 q9,10 18,0 q9,10 18,0" stroke="var(--c2)" stroke-width="2.2" fill="none" opacity=".45"/>
+   <path d="M208,266 C200,258 198,248 204,245 C209,242 213,247 210,253 C213,247 217,242 222,245 C228,248 226,258 218,266 C214,271 212,273 212,273 C212,273 210,271 208,266 Z" fill="#FFFDF7"/>
+   <circle cx="210" cy="248" r="2" fill="var(--c2)"/>`},
+
+  {id:'star', ko:'별빛 드레스', en:'Starlight dress', em:'✨', d:3, dress:true,
+  svg:`<path d="M188,212 C178,218 173,228 174,240 L177,264 C186,286 234,286 243,264 L246,240 C247,228 242,218 232,212 Z" fill="var(--c1)"/>
+   <path d="M177,260 C158,318 140,404 133,444 C160,460 260,460 287,444 C280,404 262,318 243,260 C226,272 194,272 177,260 Z" fill="var(--c1)"/>
+   <path d="M180,216 C190,208 200,206 210,210 C220,206 230,208 240,216" stroke="var(--c2)" stroke-width="2.6" fill="none" opacity=".7"/>
+   <path d="M176,258 C194,270 226,270 244,258" stroke="var(--c2)" stroke-width="2.6" fill="none" opacity=".6"/>
+   <g fill="var(--c2)">
+    <path d="M170,330 l2.6,6 l6,2.6 l-6,2.6 l-2.6,6 l-2.6,-6 l-6,-2.6 l6,-2.6 z"/>
+    <path d="M244,368 l3,7 l7,3 l-7,3 l-3,7 l-3,-7 l-7,-3 l7,-3 z"/>
+    <path d="M196,402 l2.4,5.6 l5.6,2.4 l-5.6,2.4 l-2.4,5.6 l-2.4,-5.6 l-5.6,-2.4 l5.6,-2.4 z"/>
+    <path d="M236,304 l2,4.6 l4.6,2 l-4.6,2 l-2,4.6 l-2,-4.6 l-4.6,-2 l4.6,-2 z"/>
+    <path d="M188,300 l1.8,4.2 l4.2,1.8 l-4.2,1.8 l-1.8,4.2 l-1.8,-4.2 l-4.2,-1.8 l4.2,-1.8 z"/>
+    <circle cx="160" cy="382" r="1.8"/><circle cx="258" cy="418" r="1.8"/><circle cx="212" cy="350" r="1.6"/>
+   </g>
+   <path d="M136,440 C160,454 260,454 284,440" stroke="var(--c2)" stroke-width="2.4" fill="none" opacity=".6"/>`},
+
+ {id:'hanbok', ko:'달빛 한복', en:'Moonlight hanbok', em:'🌕', d:4, dress:true,
+  svg:`<path d="M188,212 C174,218 166,232 164,250 C162,266 166,278 172,281 C178,284 183,278 182,270 C179,254 184,234 192,220 Z" fill="var(--c1)"/>
+   <path d="M232,212 C246,218 254,232 256,250 C258,266 254,278 248,281 C242,284 237,278 238,270 C241,254 236,234 228,220 Z" fill="var(--c1)"/>
+   <path d="M166,262 C170,270 178,272 182,268" stroke="#FFFDF7" stroke-width="4" fill="none" opacity=".9"/>
+   <path d="M254,262 C250,270 242,272 238,268" stroke="#FFFDF7" stroke-width="4" fill="none" opacity=".9"/>
+   <path d="M188,210 C177,216 171,229 172,244 L174,266 C182,290 238,290 246,266 L248,244 C249,229 243,216 232,210 Z" fill="var(--c1)"/>
+   <path d="M172,268 C158,320 146,398 141,436 C168,452 252,452 279,436 C274,398 262,320 248,268 C226,280 194,280 172,268 Z" fill="var(--c2)"/>
+   <path d="M190,207 C199,221 221,221 230,207 C226,203 219,201 210,201 C201,201 194,203 190,207 Z" fill="#FFFDF7"/>
+   <path d="M198,203 L210,238 L196,234 L188,209 Z" fill="#FFFDF7"/>
+   <path d="M222,203 L210,238 L224,234 L232,209 Z" fill="#FFFDF7"/>
+   <path d="M196,234 C200,244 201,252 201,258" stroke="var(--c3)" stroke-width="2.6" fill="none"/>
+   <path d="M224,234 C220,244 219,252 219,258" stroke="var(--c3)" stroke-width="2.6" fill="none"/>
+   <path d="M209,240 C203,244 201,250 204,254 C207,257 211,254 210,250 C211,254 215,257 218,254 C221,250 217,242 211,240 Z" fill="var(--c3)"/>
+   <path d="M210,254 C207,262 206,270 207,276" stroke="var(--c3)" stroke-width="2.4" fill="none"/>
+   <path d="M196,300 C190,340 184,392 182,430" stroke="var(--c3)" stroke-width="2.2" fill="none" opacity=".3"/>
+   <path d="M224,300 C230,340 236,392 238,430" stroke="var(--c3)" stroke-width="2.2" fill="none" opacity=".3"/>
+   <path d="M144,434 C170,448 250,448 276,434" stroke="var(--c3)" stroke-width="2.6" fill="none" opacity=".4"/>`},
+]},
+
+bottom:{pal:CLOTH_PAL, items:[
+ {id:'tulle', ko:'퍼프 치마', en:'Tulle skirt', em:'🩰', d:4,
+  svg:`<path d="M176,292 L244,292 C254,320 266,356 272,378 C244,394 176,394 148,378 C154,356 166,320 176,292 Z" fill="var(--c1)" opacity=".85"/>
+   <path d="M176,316 L244,316 C250,336 258,358 262,372 C240,384 180,384 158,372 C162,358 170,336 176,316 Z" fill="var(--c2)" opacity=".75"/>
+   <path d="M176,292 L244,292 L244,301 L176,301 Z" fill="var(--c3)"/>
+   <path d="M151,376 C180,390 240,390 269,376" stroke="#FFFDF7" stroke-width="3" fill="none" opacity=".7"/>`},
+
+ {id:'starskirt', ko:'별빛 치마', en:'Star skirt', em:'⭐', d:3,
+  svg:`<path d="M176,294 L244,294 C252,330 262,382 268,414 C240,428 180,428 152,414 C158,382 168,330 176,294 Z" fill="var(--c1)"/>
+   <path d="M176,294 L244,294 L244,303 L176,303 Z" fill="var(--c2)"/>
+   <g fill="var(--c2)" opacity=".9">
+    <path d="M164,350 l2.2,5 l5,2.2 l-5,2.2 l-2.2,5 l-2.2,-5 l-5,-2.2 l5,-2.2 z"/>
+    <path d="M248,376 l2.4,5.4 l5.4,2.4 l-5.4,2.4 l-2.4,5.4 l-2.4,-5.4 l-5.4,-2.4 l5.4,-2.4 z"/>
+    <path d="M206,396 l2,4.4 l4.4,2 l-4.4,2 l-2,4.4 l-2,-4.4 l-4.4,-2 l4.4,-2 z"/>
+    <circle cx="230" cy="340" r="1.8"/><circle cx="184" cy="372" r="1.6"/>
+   </g>
+   <path d="M155,412 C184,424 236,424 265,412" stroke="var(--c2)" stroke-width="2.6" fill="none" opacity=".6"/>`},
+
+ {id:'petal', ko:'꽃잎 치마', en:'Petal skirt', em:'🌸', d:1,
+  svg:`<path d="M175,292 C166,320 156,352 148,376 L168,368 L178,384 L196,370 L210,388 L224,370 L242,384 L252,368 L272,376 C264,352 254,320 245,292 Z" fill="var(--c1)"/>
+   <path d="M175,292 L245,292 L245,300 L175,300 Z" fill="var(--c2)"/>
+   <path d="M192,300 C186,330 178,356 172,374" stroke="var(--c2)" stroke-width="2.2" fill="none" opacity=".5"/>
+   <path d="M228,300 C234,330 242,356 248,374" stroke="var(--c2)" stroke-width="2.2" fill="none" opacity=".5"/>
+   <circle cx="210" cy="340" r="2.6" fill="var(--c2)"/>`}
+]},
+
+outer:{pal:CLOTH_PAL, items:[
+ {id:'none', ko:'없음', en:'None', em:'🚫', d:0, svg:``},
+
+ {id:'wings', ko:'요정 날개', en:'Fairy wings', em:'🦋', d:4, behind:true,
+  svg:`<path d="M190,236 C152,192 100,192 82,232 C66,272 98,314 154,332 C150,300 162,266 190,236 Z" fill="var(--c1)" opacity=".82"/>
+   <path d="M230,236 C268,192 320,192 338,232 C354,272 322,314 266,332 C270,300 258,266 230,236 Z" fill="var(--c1)" opacity=".82"/>
+   <path d="M186,258 C150,270 122,298 124,326 C152,340 178,322 190,296 Z" fill="var(--c1)" opacity=".62"/>
+   <path d="M234,258 C270,270 298,298 296,326 C268,340 242,322 230,296 Z" fill="var(--c1)" opacity=".62"/>
+   <path d="M188,240 C162,226 128,220 104,226" stroke="var(--c2)" stroke-width="2.6" fill="none" opacity=".9"/>
+   <path d="M232,240 C258,226 292,220 316,226" stroke="var(--c2)" stroke-width="2.6" fill="none" opacity=".9"/>
+   <path d="M186,252 C158,252 126,262 108,280" stroke="var(--c2)" stroke-width="2.2" fill="none" opacity=".75"/>
+   <path d="M234,252 C262,252 294,262 312,280" stroke="var(--c2)" stroke-width="2.2" fill="none" opacity=".75"/>
+   <path d="M184,276 C162,288 144,306 140,320" stroke="var(--c2)" stroke-width="2" fill="none" opacity=".6"/>
+   <path d="M236,276 C258,288 276,306 280,320" stroke="var(--c2)" stroke-width="2" fill="none" opacity=".6"/>
+   <g fill="#FFF6C9" opacity=".95">
+    <circle cx="104" cy="212" r="3"/><circle cx="316" cy="208" r="3"/><circle cx="148" cy="186" r="2.2"/>
+    <circle cx="272" cy="188" r="2.2"/><circle cx="86" cy="306" r="2.4"/><circle cx="334" cy="302" r="2.4"/>
+   </g>`},
+
+  {id:'santacape', ko:'산타 망토', en:'Santa cape', em:'🎄', d:1, behind:true,
+  svg:`<path d="M188,204 C154,240 138,324 142,410 C170,428 250,428 278,410 C282,324 266,240 232,204 Z" fill="var(--c1)"/>
+   <path d="M186,202 C196,214 224,214 234,202 C234,216 226,226 210,226 C194,226 186,216 186,202 Z" fill="#FFFDF7"/>
+   <path d="M144,404 C172,420 248,420 276,404 L276,418 C248,434 172,434 144,418 Z" fill="#FFFDF7"/>
+   <circle cx="210" cy="216" r="4.5" fill="#FFFDF7"/>
+   <circle cx="160" cy="250" r="3" fill="#FFFDF7" opacity=".85"/>
+   <circle cx="262" cy="306" r="3" fill="#FFFDF7" opacity=".85"/>
+   <circle cx="172" cy="356" r="2.6" fill="#FFFDF7" opacity=".8"/>`},
+
+  {id:'starcape', ko:'별 망토', en:'Star cape', em:'🌟', d:3, behind:true,
+  svg:`<path d="M188,206 C162,236 148,300 150,370 C174,386 246,386 270,370 C272,300 258,236 232,206 Z" fill="var(--c1)"/>
+   <path d="M188,208 C198,220 222,220 232,208" stroke="var(--c2)" stroke-width="3.4" fill="none" opacity=".8"/>
+   <g fill="var(--c2)" opacity=".9">
+    <path d="M168,268 l2.4,5.4 l5.4,2.4 l-5.4,2.4 l-2.4,5.4 l-2.4,-5.4 l-5.4,-2.4 l5.4,-2.4 z"/>
+    <path d="M252,296 l2.6,5.8 l5.8,2.6 l-5.8,2.6 l-2.6,5.8 l-2.6,-5.8 l-5.8,-2.6 l5.8,-2.6 z"/>
+    <path d="M200,330 l2,4.6 l4.6,2 l-4.6,2 l-2,4.6 l-2,-4.6 l-4.6,-2 l4.6,-2 z"/>
+    <circle cx="188" cy="240" r="1.8"/><circle cx="236" cy="252" r="1.6"/>
+   </g>
+   <path d="M154,364 C178,378 242,378 266,364" stroke="var(--c2)" stroke-width="2.4" fill="none" opacity=".6"/>`}
+]},
+
+shoes:{pal:CLOTH_PAL, items:[
+ {id:'glass', ko:'유리 구두', en:'Glass slippers', em:'✨', d:0,
+  svg:`<path d="M181,470 C178,480 180,492 187,496 C196,501 207,499 208,490 L208,470 Z" fill="url(#glassG)" stroke="#8CC9E8" stroke-width="2"/>
+   <path d="M239,470 C242,480 240,492 233,496 C224,501 213,499 212,490 L212,470 Z" fill="url(#glassG)" stroke="#8CC9E8" stroke-width="2"/>
+   <path d="M183,472 C190,466 200,466 207,472" stroke="#FFFDFF" stroke-width="2.4" fill="none" opacity=".9"/>
+   <path d="M237,472 C230,466 220,466 213,472" stroke="#FFFDFF" stroke-width="2.4" fill="none" opacity=".9"/>
+   <circle cx="204" cy="472" r="3" fill="#FFFDFF" opacity=".85"/><circle cx="218" cy="472" r="3" fill="#FFFDFF" opacity=".85"/>`},
+
+ {id:'santaboots', ko:'산타 부츠', en:'Santa boots', em:'🎅', d:1,
+  svg:`<path d="M184,420 L208,420 L208,470 C206,480 181,482 182,470 Z" fill="var(--c1)"/>
+   <path d="M236,420 L212,420 L212,470 C214,480 239,482 238,470 Z" fill="var(--c1)"/>
+   <path d="M181,468 C178,478 179,490 186,494 C194,499 207,497 208,489 L208,468 Z" fill="var(--c1)"/>
+   <path d="M239,468 C242,478 241,490 234,494 C226,499 213,497 212,489 L212,468 Z" fill="var(--c1)"/>
+   <path d="M182,414 C188,420 202,420 208,414 L208,426 C202,432 188,432 182,426 Z" fill="#FFFDF7"/>
+   <path d="M238,414 C232,420 218,420 212,414 L212,426 C218,432 232,432 238,426 Z" fill="#FFFDF7"/>
+   <path d="M182,486 C189,495 202,495 208,488" stroke="#2C2028" stroke-width="3" fill="none" stroke-linecap="round"/>
+   <path d="M238,486 C231,495 218,495 212,488" stroke="#2C2028" stroke-width="3" fill="none" stroke-linecap="round"/>
+   <circle cx="196" cy="440" r="2.4" fill="#FFFDF7"/><circle cx="224" cy="440" r="2.4" fill="#FFFDF7"/>`},
+
+ {id:'sandals', ko:'리본 샌들', en:'Ribbon sandals', em:'🎀', d:4,
+  svg:`<path d="M182,482 C179,488 181,494 188,496 C196,498 207,497 208,492 L208,482 Z" fill="var(--c1)"/>
+   <path d="M238,482 C241,488 239,494 232,496 C224,498 213,497 212,492 L212,482 Z" fill="var(--c1)"/>
+   <path d="M186,478 C186,470 196,468 198,474 M234,478 C234,470 224,468 222,474" stroke="var(--c2)" stroke-width="3" fill="none" stroke-linecap="round"/>
+   <g transform="translate(197,466)"><path d="M0,0 C-9,-10 -18,-3 -12,5 C-7,11 1,6 0,0 Z" fill="var(--c2)"/><path d="M0,0 C9,-10 18,-3 12,5 C7,11 -1,6 0,0 Z" fill="var(--c2)"/><circle cx="0" cy="2" r="2.6" fill="var(--c3)"/></g>
+   <g transform="translate(223,466)"><path d="M0,0 C-9,-10 -18,-3 -12,5 C-7,11 1,6 0,0 Z" fill="var(--c2)"/><path d="M0,0 C9,-10 18,-3 12,5 C7,11 -1,6 0,0 Z" fill="var(--c2)"/><circle cx="0" cy="2" r="2.6" fill="var(--c3)"/></g>`}
+]},
+
+acc:{pal:CLOTH_PAL, items:[
+ {id:'none', ko:'없음', en:'None', em:'🚫', d:0, svg:``},
+
+ {id:'santahat', ko:'산타모자', en:'Santa hat', em:'🎅', d:1,
+  svg:`<path d="M164,106 C164,78 184,52 210,52 C236,52 256,78 256,106 Z" fill="var(--c1)"/>
+   <path d="M210,52 C238,48 256,62 268,80 C276,90 288,86 292,74 C294,90 286,102 271,104 C258,106 247,96 239,86 C231,74 221,60 210,52 Z" fill="var(--c1)"/>
+   <path d="M158,102 C182,116 238,116 262,102 L263,116 C238,130 182,130 157,116 Z" fill="#FFFDF7"/>
+   <circle cx="294" cy="72" r="9" fill="#FFFDF7"/>
+   <circle cx="210" cy="74" r="2.6" fill="#FFFDF7" opacity=".55"/>`},
+
+  {id:'bunnyband', ko:'토끼 머리띠', en:'Bunny ears', em:'🐰', d:0,
+  svg:`<ellipse cx="176" cy="58" rx="13" ry="35" transform="rotate(-11 176 58)" fill="var(--c1)"/>
+   <ellipse cx="176" cy="58" rx="6" ry="25" transform="rotate(-11 176 58)" fill="#F8C3CF"/>
+   <ellipse cx="244" cy="58" rx="13" ry="35" transform="rotate(11 244 58)" fill="var(--c1)"/>
+   <ellipse cx="244" cy="58" rx="6" ry="25" transform="rotate(11 244 58)" fill="#F8C3CF"/>
+   <path d="M168,94 C190,82 230,82 252,94" stroke="var(--c1)" stroke-width="5.5" fill="none" stroke-linecap="round"/>`},
+
+ {id:'bearband', ko:'곰돌이 머리띠', en:'Bear ears', em:'🐻', d:3,
+  svg:`<circle cx="172" cy="70" r="18" fill="var(--c1)"/>
+   <circle cx="172" cy="70" r="9" fill="#F0C3AE"/>
+   <circle cx="248" cy="70" r="18" fill="var(--c1)"/>
+   <circle cx="248" cy="70" r="9" fill="#F0C3AE"/>
+   <path d="M170,96 C192,86 228,86 250,96" stroke="var(--c1)" stroke-width="5.5" fill="none" stroke-linecap="round"/>`},
+
+ {id:'crown', ko:'왕관', en:'Crown', em:'👑', d:5,
+  svg:`<path d="M178,104 L186,66 L201,88 L210,58 L219,88 L234,66 L242,104 Z" fill="var(--c1)" stroke="var(--c3)" stroke-width="2" stroke-linejoin="round"/>
+   <circle cx="210" cy="70" r="4.4" fill="var(--c2)"/>
+   <circle cx="187" cy="72" r="3" fill="var(--c2)"/><circle cx="233" cy="72" r="3" fill="var(--c2)"/>
+   <path d="M178,104 H242" stroke="var(--c3)" stroke-width="4"/>
+   <circle cx="197" cy="94" r="2" fill="var(--c2)"/><circle cx="223" cy="94" r="2" fill="var(--c2)"/>`},
+
+  {id:'basket', ko:'꽃바구니', en:'Flower basket', em:'💐', d:2,
+  svg:`<path d="M226,300 h44 l-7,32 h-30 z" fill="var(--c1)"/>
+   <path d="M230,300 C230,282 266,282 266,300" stroke="var(--c1)" stroke-width="4" fill="none"/>
+   <path d="M226,310 h44" stroke="var(--c3)" stroke-width="2" opacity=".6"/>
+   <g>
+    <circle cx="236" cy="292" r="6" fill="#F3A8B8"/><circle cx="248" cy="286" r="6.5" fill="#F7C3CE"/>
+    <circle cx="260" cy="292" r="6" fill="#F3A8B8"/><circle cx="248" cy="296" r="4.4" fill="#F8DFA6"/>
+    <path d="M232,300 q-6,-8 -12,-6" stroke="#8FB48C" stroke-width="2" fill="none"/>
+    <path d="M264,300 q6,-8 12,-6" stroke="#8FB48C" stroke-width="2" fill="none"/>
+   </g>`},
+
+ {id:'wand', ko:'마법 지팡이', en:'Magic wand', em:'🪄', d:5,
+  svg:`<path d="M247,310 L272,266" stroke="var(--c1)" stroke-width="5" stroke-linecap="round"/>
+   <path d="M274,246 l4.5,11 l11.5,2 l-8.5,8.5 l2,11.5 l-9.5,-6 l-9.5,6 l2,-11.5 l-8.5,-8.5 l11.5,-2 z" fill="var(--c2)" stroke="var(--c3)" stroke-width="1.4" stroke-linejoin="round"/>
+   <g fill="#FFF6C9" opacity=".9"><circle cx="292" cy="240" r="2.4"/><circle cx="258" cy="240" r="2"/><circle cx="286" cy="272" r="2"/></g>`},
+
+ {id:'hairbow', ko:'리본', en:'Hair ribbon', em:'🎀', d:1,
+  svg:`<g transform="translate(252,112) rotate(12)">
+    <path d="M0,0 C-15,-15 -28,-4 -21,9 C-14,21 2,11 0,0 Z" fill="var(--c1)"/>
+    <path d="M0,0 C15,-15 28,-4 21,9 C14,21 -2,11 0,0 Z" fill="var(--c1)"/>
+    <circle cx="0" cy="3" r="4.6" fill="var(--c2)"/>
+    <path d="M-4,7 C-10,18 -8,28 -2,32 C0,26 2,18 2,10 Z" fill="var(--c1)" opacity=".9"/>
+    <path d="M4,7 C10,16 12,26 8,30 C4,26 2,18 2,10 Z" fill="var(--c1)" opacity=".9"/>
+   </g>`}
+]},
+
+friend:null, /* 데일리와 같은 친구를 씁니다 */
+
+bg:{pal:null, items:[
+ {id:'forest', ko:'동화 숲', en:'Enchanted forest', em:'🌳',
+  svg:`<rect width="420" height="560" fill="#DCF1E2"/>
+   <rect width="420" height="300" fill="#E9F7E4"/>
+   <circle cx="322" cy="86" r="62" fill="#F6FBCF" opacity=".75"/>
+   <path d="M0,520 V300 q40,-90 90,-90 q50,0 60,90 V520 Z" fill="#8FBF98" opacity=".55"/>
+   <path d="M420,520 V286 q-46,-96 -96,-96 q-52,0 -62,96 V520 Z" fill="#7FB489" opacity=".6"/>
+   <rect x="18" y="230" width="18" height="290" fill="#8A6A4E"/>
+   <circle cx="27" cy="196" r="66" fill="#5E9A72"/>
+   <circle cx="-6" cy="252" r="44" fill="#6FAA81"/>
+   <rect x="384" y="210" width="18" height="310" fill="#8A6A4E"/>
+   <circle cx="393" cy="176" r="70" fill="#538C67"/>
+   <circle cx="420" cy="240" r="46" fill="#66A177"/>
+   <path d="M0,470 q60,-18 120,0 q60,18 120,0 q60,-18 120,0 q30,10 60,2 V560 H0 Z" fill="#CBE6C9"/>
+   <path d="M150,560 C160,520 190,500 210,470 C230,500 260,520 270,560 Z" fill="#E3D5B8" opacity=".85"/>
+   <g>
+    <path d="M60,470 h26 l-4,-16 h-18 z" fill="#E8B7A0"/><path d="M56,454 q17,-16 34,0 z" fill="#D98F7A"/>
+    <path d="M330,486 h22 l-3,-13 h-16 z" fill="#E8B7A0"/><path d="M327,473 q14,-14 28,0 z" fill="#D98F7A"/>
+   </g>
+   <g fill="#FFF8C8">
+    <circle cx="108" cy="180" r="3.4"/><circle cx="168" cy="120" r="2.4"/><circle cx="252" cy="160" r="3"/>
+    <circle cx="300" cy="228" r="2.6"/><circle cx="96" cy="330" r="2.8"/><circle cx="330" cy="330" r="2.2"/>
+    <circle cx="206" cy="90" r="2.2"/><circle cx="46" cy="120" r="2"/>
+   </g>`},
+
+ {id:'starnight', ko:'별빛 밤', en:'Starry night', em:'🌙',
+  svg:`<rect width="420" height="560" fill="#2B3559"/>
+   <rect width="420" height="380" fill="#3A4670"/>
+   <circle cx="330" cy="88" r="34" fill="#FFF3CE"/>
+   <circle cx="318" cy="78" r="30" fill="#3A4670" opacity=".55"/>
+   <g fill="#FFFFFF" opacity=".9">
+    <circle cx="60" cy="70" r="2.6"/><circle cx="120" cy="130" r="2"/><circle cx="180" cy="60" r="2.8"/>
+    <circle cx="240" cy="110" r="2.2"/><circle cx="280" cy="40" r="2"/><circle cx="80" cy="200" r="2.2"/>
+    <circle cx="150" cy="180" r="1.8"/><circle cx="360" cy="170" r="2.4"/><circle cx="40" cy="280" r="2"/>
+    <circle cx="250" cy="230" r="1.8"/><circle cx="300" cy="270" r="2.2"/><circle cx="196" cy="286" r="1.6"/>
+   </g>
+   <g fill="#FFF3CE">
+    <path d="M96,120 l2.4,5.6 l5.6,2.4 l-5.6,2.4 l-2.4,5.6 l-2.4,-5.6 l-5.6,-2.4 l5.6,-2.4 z"/>
+    <path d="M282,180 l2,4.6 l4.6,2 l-4.6,2 l-2,4.6 l-2,-4.6 l-4.6,-2 l4.6,-2 z"/>
+   </g>
+   <path d="M0,452 q90,-66 200,-16 q100,50 220,-6 V560 H0 Z" fill="#25304F"/>
+   <path d="M0,500 q110,-46 220,4 q110,50 200,-10 V560 H0 Z" fill="#1D2742"/>
+   <g fill="#C9D4F0" opacity=".5">
+    <circle cx="60" cy="470" r="2"/><circle cx="120" cy="486" r="1.6"/><circle cx="330" cy="492" r="1.8"/>
+   </g>`},
+
+ {id:'snowvillage', ko:'눈 내리는 마을', en:'Snow village', em:'🏘️',
+  svg:`<rect width="420" height="560" fill="#3C4A6E"/>
+   <rect width="420" height="420" fill="#52618A"/>
+   <circle cx="326" cy="80" r="30" fill="#FFF6DC" opacity=".95"/>
+   <path d="M0,430 V300 h70 v-40 h60 v40 h50 v-70 h70 v70 h60 v-30 h50 v30 V430 Z" fill="#46527A" opacity=".9"/>
+   <g fill="#FFE7A6" opacity=".85">
+    <rect x="26" y="330" width="14" height="14" rx="2"/><rect x="94" y="336" width="14" height="14" rx="2"/>
+    <rect x="150" y="266" width="14" height="14" rx="2"/><rect x="240" y="276" width="14" height="14" rx="2"/>
+    <rect x="330" y="330" width="14" height="14" rx="2"/>
+   </g>
+   <g>
+    <path d="M120,430 v-70 l34,-30 l34,30 v70 z" fill="#C98C74"/>
+    <path d="M112,362 l42,-38 l42,38 z" fill="#F2F7FF"/>
+    <path d="M136,430 v-44 h22 v44 z" fill="#8E5F4C"/>
+    <path d="M264,436 v-60 l30,-26 l30,26 v60 z" fill="#C98C74"/>
+    <path d="M256,378 l38,-34 l38,34 z" fill="#F2F7FF"/>
+    <path d="M278,436 v-38 h20 v38 z" fill="#8E5F4C"/>
+   </g>
+   <rect x="56" y="330" width="10" height="110" fill="#3A3F58"/>
+   <circle cx="61" cy="322" r="16" fill="#FFF0B8" opacity=".55"/>
+   <circle cx="61" cy="322" r="7" fill="#FFEAA0"/>
+   <path d="M0,452 q60,-26 120,0 q60,26 120,0 q60,-26 120,0 q30,12 60,4 V560 H0 Z" fill="#EFF5FF"/>
+   <path d="M0,492 q80,18 160,0 q80,-18 160,0 q50,12 100,2 V560 H0 Z" fill="#FAFCFF"/>
+   <g fill="#FFFFFF" opacity=".9">
+    <circle cx="70" cy="120" r="3"/><circle cx="150" cy="90" r="2.2"/><circle cx="210" cy="150" r="2.6"/>
+    <circle cx="280" cy="200" r="2"/><circle cx="366" cy="140" r="3.2"/><circle cx="40" cy="240" r="2.4"/>
+    <circle cx="120" cy="250" r="2"/><circle cx="330" cy="250" r="2.6"/><circle cx="196" cy="330" r="2.2"/>
+   </g>`},
+
+ {id:'clouds', ko:'구름 위', en:'Above the clouds', em:'☁️',
+  svg:`<rect width="420" height="560" fill="#DDEBFB"/>
+   <rect width="420" height="300" fill="#EAF4FE"/>
+   <rect y="300" width="420" height="260" fill="#F4E9F8"/>
+   <g fill="none" stroke-width="14" stroke-linecap="round" opacity=".55">
+    <path d="M60,320 C130,220 290,220 360,320" stroke="#F6C7D2"/>
+    <path d="M60,320 C130,236 290,236 360,320" stroke="#F8DCA8"/>
+    <path d="M60,320 C130,252 290,252 360,320" stroke="#CFE7C0"/>
+   </g>
+   <circle cx="340" cy="90" r="40" fill="#FFF6D6" opacity=".8"/>
+   <g fill="#FFFFFF">
+    <ellipse cx="86" cy="420" rx="82" ry="46"/><ellipse cx="180" cy="446" rx="70" ry="40"/>
+    <ellipse cx="320" cy="424" rx="92" ry="50"/><ellipse cx="250" cy="470" rx="96" ry="46"/>
+    <ellipse cx="80" cy="500" rx="90" ry="44"/><ellipse cx="380" cy="510" rx="80" ry="44"/>
+   </g>
+   <g fill="#F7D9E4" opacity=".7">
+    <ellipse cx="96" cy="440" rx="60" ry="26"/><ellipse cx="330" cy="446" rx="62" ry="26"/>
+   </g>
+   <g fill="#FFF3C4">
+    <path d="M120,180 l2.6,6 l6,2.6 l-6,2.6 l-2.6,6 l-2.6,-6 l-6,-2.6 l6,-2.6 z"/>
+    <path d="M300,150 l2,4.6 l4.6,2 l-4.6,2 l-2,4.6 l-2,-4.6 l-4.6,-2 l4.6,-2 z"/>
+    <circle cx="210" cy="130" r="2.4"/><circle cx="256" cy="210" r="2"/><circle cx="86" cy="240" r="2.2"/>
+   </g>`}
+]}
+};
+FAIRY.friend = DAILY.friend;
+/* ── 앱 엔진 ───────────────────────────────────────── */
+const CATS = [
+  {key:'hair',   em:'💇', ko:'헤어',        en:'Hair'},
+  {key:'top',    em:'👗', ko:'상의·원피스', en:'Tops'},
+  {key:'bottom', em:'👖', ko:'하의',        en:'Bottoms'},
+  {key:'outer',  em:'🧥', ko:'아우터',      en:'Outer'},
+  {key:'shoes',  em:'👟', ko:'신발',        en:'Shoes'},
+  {key:'acc',    em:'🎀', ko:'모자·소품',   en:'Hats & props'},
+  {key:'friend', em:'🐹', ko:'친구',        en:'Friends'},
+  {key:'bg',     em:'🖼️', ko:'배경',        en:'Scene'}
+];
+
+const T = {
+  ko:{soundOn:'소리 켜짐', soundOff:'소리 꺼짐',
+      title1:'와글', title2:'옷입히기',
+      sub:'코디를 갈아입히고, 예쁜 코디 카드로 저장하세요.',
+      themeDaily:'데일리·계절 코디', themeFairy:'동화·와글 옷입히기',
+      random:'랜덤', reset:'초기화', save:'코디 저장',
+      foot1:'회원가입 없이 바로 · 광고 없음 · 개인정보를 받지 않습니다',
+      foot2:'별의별 살림 Wagle',
+      color:'색상', hintDress:'원피스를 입고 있어요. 하의를 고르면 어울리는 상의로 바꿔 드려요.',
+      pickBottom:'하의를 골라 상의를 바꿨어요.',
+      saved:'코디 카드를 저장했어요. 사진첩의 다운로드를 확인해 보세요.',
+      saveFail:'저장이 잠시 안 됐어요. 한 번 더 눌러 주세요.',
+      resetDone:'처음 코디로 돌아왔어요.', randomDone:'랜덤 코디를 골랐어요.',
+      cardTitle:'와글 옷입히기', cardSub:'오늘의 코디',
+      themeName:'데일리 · 계절 코디', themeNameFairy:'동화 · 와글 옷입히기'},
+  en:{soundOn:'Sound on', soundOff:'Muted',
+      title1:'Wagle', title2:'Dress-Up',
+      sub:'Dress her up and save a pretty look card.',
+      themeDaily:'Daily & season', themeFairy:'Fairy tale & Wagle',
+      random:'Random', reset:'Reset', save:'Save card',
+      foot1:'No sign-up · No ads · We don’t collect personal data',
+      foot2:'Byeol’s Byeol Salim · Wagle',
+      color:'Color', hintDress:'A dress is on. Pick a bottom and she will change into a matching top.',
+      pickBottom:'Switched to a matching top for the bottom.',
+      saved:'Look card saved. Check your Downloads.',
+      saveFail:'Could not save just now. Please tap again.',
+      resetDone:'Back to the first look.', randomDone:'A random look was picked.',
+      cardTitle:'Wagle Dress-Up', cardSub:'Today’s look',
+      themeName:'Daily & season', themeNameFairy:'Fairy tale & Wagle'}
+};
+const t = k => (T[app.lang][k] || k);
+
+const app = {
+  theme:'daily', lang:'ko', cat:'hair', sound:false, busy:false,
+  state:{
+    daily:{
+      hair:{id:'bob',ci:0}, top:{id:'knit',ci:1}, bottom:{id:'jeans',ci:3},
+      outer:{id:'none',ci:0}, shoes:{id:'loafer',ci:4}, acc:{id:'none',ci:0},
+      friend:{id:'none',ci:5}, bg:{id:'cafe',ci:0}
+    },
+    fairy:{
+      hair:{id:'princess',ci:1}, top:{id:'gown',ci:4}, bottom:{id:'tulle',ci:4},
+      outer:{id:'wings',ci:4}, shoes:{id:'glass',ci:0}, acc:{id:'crown',ci:5},
+      friend:{id:'none',ci:5}, bg:{id:'forest',ci:0}
+    }
+  }
+};
+const D = () => (app.theme === 'daily' ? DAILY : FAIRY);
+const $ = id => document.getElementById(id);
+
+function itemOf(cat, id){
+  const box = D()[cat];
+  return box.items.find(i => i.id === id) || box.items[0];
+}
+function paletteOf(cat){ return D()[cat].pal; }
+
+/* 색을 실제 값으로 박아 넣어(브라우저·캔버스 모두 동일하게 렌더) */
+function paint(groupId, svg, pal, ci){
+  const g = $(groupId);
+  g.innerHTML = svg || '';
+  if(!pal || !svg) return;
+  const c = pal[ci] || pal[0];
+  const map = {'var(--c1)':c.c1, 'var(--c2)':c.c2, 'var(--c3)':c.c3};
+  g.querySelectorAll('*').forEach(n => {
+    ['fill','stroke','stop-color'].forEach(a => {
+      const v = n.getAttribute && n.getAttribute(a);
+      if(v && map[v]) n.setAttribute(a, map[v]);
+    });
+  });
+}
+
+function draw(){
+  const st = app.state[app.theme];
+  const hair = itemOf('hair', st.hair.id);
+  const top  = itemOf('top',  st.top.id);
+  const dress = !!top.dress;
+
+  paint('L_bg', itemOf('bg', st.bg.id).svg + '<ellipse cx="210" cy="500" rx="72" ry="11" fill="#4A3222" opacity=".10"/>', null, 0);
+  paint('L_friend', itemOf('friend', st.friend.id).svg, D().friend.pal, st.friend.ci);
+  paint('L_hairBack', hair.back, D().hair.pal, st.hair.ci);
+  paint('L_shoes', itemOf('shoes', st.shoes.id).svg, D().shoes.pal, st.shoes.ci);
+  paint('L_bottom', dress ? '' : itemOf('bottom', st.bottom.id).svg, D().bottom.pal, st.bottom.ci);
+  paint('L_top', top.svg, D().top.pal, st.top.ci);
+
+  const outer = itemOf('outer', st.outer.id);
+  if(outer.behind){
+    paint('L_outer', '', null, 0);
+    paint('L_behind', outer.svg, D().outer.pal, st.outer.ci);
+  }else{
+    paint('L_behind', '', null, 0);
+    paint('L_outer', outer.svg, D().outer.pal, st.outer.ci);
+  }
+  paint('L_hairFront', hair.front, D().hair.pal, st.hair.ci);
+  paint('L_acc', itemOf('acc', st.acc.id).svg, D().acc.pal, st.acc.ci);
+
+  $('doll').setAttribute('aria-label', app.lang === 'ko'
+    ? '옷을 입히는 인형 — ' + (hair[app.lang] || '') + ', ' + (top[app.lang] || '')
+    : 'Dress-up doll — ' + (hair[app.lang] || '') + ', ' + (top[app.lang] || ''));
+}
+
+function renderCats(){
+  $('cats').innerHTML = CATS.map(c =>
+    `<button class="cat" role="tab" aria-selected="${c.key === app.cat}" data-cat="${c.key}">` +
+    `<span class="em">${c.em}</span><span>${c[app.lang]}</span></button>`).join('');
+}
+
+function renderPal(){
+  const box = $('pal');
+  const pal = paletteOf(app.cat);
+  if(!pal){ box.innerHTML = ''; box.hidden = true; return; }
+  box.hidden = false;
+  const ci = app.state[app.theme][app.cat].ci;
+  box.innerHTML = `<span class="lbl">${t('color')}</span>` + pal.map((c, i) =>
+    `<button class="dot${i === ci ? ' on' : ''}" data-ci="${i}" aria-label="${c[app.lang]}" ` +
+    `aria-pressed="${i === ci}" style="background:linear-gradient(150deg, ${c.c2}, ${c.c1} 62%, ${c.c3})"></button>`
+  ).join('');
+}
+
+function renderItems(){
+  const box = $('items');
+  const st = app.state[app.theme];
+  const data = D()[app.cat];
+  const cur = st[app.cat];
+  const dressNow = !!itemOf('top', st.top.id).dress;
+
+  box.innerHTML = data.items.map(it => {
+    const on = it.id === cur.id;
+    const dim = (app.cat === 'bottom' && dressNow);
+    return `<button class="it${on ? ' on' : ''}${dim ? ' dim' : ''}" data-item="${it.id}" ` +
+      `aria-selected="${on}" aria-pressed="${on}"><span class="em">${it.em}</span>` +
+      `<span>${it[app.lang]}</span></button>`;
+  }).join('');
+
+  const hint = $('hint');
+  if(app.cat === 'bottom' && dressNow){
+    hint.hidden = false; hint.textContent = t('hintDress');
+  }else{
+    hint.hidden = true; hint.textContent = '';
+  }
+}
+
+function renderUI(){
+  renderCats(); renderPal(); renderItems();
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if(T[app.lang][k]) el.textContent = T[app.lang][k];
+  });
+  $('langTxt').textContent = app.lang === 'ko' ? 'EN' : '한';
+  $('soundTxt').textContent = app.sound ? t('soundOn') : t('soundOff');
+  $('soundIcon').textContent = app.sound ? '🔈' : '🔇';
+  $('soundBtn').setAttribute('aria-pressed', String(app.sound));
+  document.querySelectorAll('[data-theme-btn]').forEach(b =>
+    b.setAttribute('aria-selected', String(b.dataset.themeBtn === app.theme)));
+  document.documentElement.lang = app.lang;
+  document.title = app.lang === 'ko'
+    ? '와글 옷입히기 · 가상 인형 옷입히기 (무료)'
+    : 'Wagle Dress-Up · Free virtual paper doll';
+}
+
+/* ── 소리 (기본 무음, 켤 때만) ── */
+let actx = null;
+function sfx(freq){
+  if(!app.sound) return;
+  try{
+    actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+    const o = actx.createOscillator(), g = actx.createGain();
+    o.type = 'sine'; o.frequency.value = freq || 660;
+    g.gain.value = .05;
+    o.connect(g); g.connect(actx.destination);
+    o.start();
+    g.gain.exponentialRampToValueAtTime(.0001, actx.currentTime + .16);
+    o.stop(actx.currentTime + .18);
+  }catch(e){}
+}
+
+let toastTimer = null;
+function toast(msg){
+  const el = $('toast');
+  el.textContent = msg;
+  el.classList.add('on');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('on'), 2600);
+}
+
+/* ── 동작 ── */
+function pickItem(cat, id){
+  const st = app.state[app.theme];
+  if(cat === 'bottom' && itemOf('top', st.top.id).dress){
+    const plain = D().top.items.find(i => !i.dress);
+    st.top.id = plain.id;
+    st.top.ci = plain.d;
+    toast(t('pickBottom'));
+  }
+  st[cat].id = id;
+  sfx(720);
+  draw(); renderItems();
+}
+function pickColor(ci){
+  app.state[app.theme][app.cat].ci = ci;
+  sfx(880);
+  draw(); renderPal();
+}
+function switchTheme(theme){
+  if(app.theme === theme) return;
+  app.theme = theme;
+  document.body.dataset.theme = theme;
+  document.querySelector('meta[name="theme-color"]').setAttribute('content', theme === 'daily' ? '#FFFBF3' : '#FBF6FF');
+  sfx(560);
+  renderUI(); draw();
+}
+function randomLook(){
+  const st = app.state[app.theme], d = D();
+  const rnd = a => a[Math.floor(Math.random() * a.length)];
+  const rndPal = cat => { const p = d[cat].pal; return p ? Math.floor(Math.random() * p.length) : 0; };
+
+  const hair = rnd(d.hair.items);        st.hair.id = hair.id; st.hair.ci = rndPal('hair');
+  const wantDress = Math.random() < .55;
+  const tops = d.top.items.filter(i => !!i.dress === wantDress);
+  const top = rnd(tops.length ? tops : d.top.items);
+  st.top.id = top.id; st.top.ci = rndPal('top');
+  if(!top.dress){ const b = rnd(d.bottom.items); st.bottom.id = b.id; st.bottom.ci = rndPal('bottom'); }
+  const outer = Math.random() < .6 ? rnd(d.outer.items.filter(i => i.id !== 'none')) : itemOf('outer', 'none');
+  st.outer.id = outer.id; st.outer.ci = rndPal('outer');
+  const sh = rnd(d.shoes.items); st.shoes.id = sh.id; st.shoes.ci = rndPal('shoes');
+  const ac = Math.random() < .7 ? rnd(d.acc.items.filter(i => i.id !== 'none')) : itemOf('acc', 'none');
+  st.acc.id = ac.id; st.acc.ci = rndPal('acc');
+  const fr = Math.random() < .45 ? rnd(d.friend.items.filter(i => i.id !== 'none')) : itemOf('friend', 'none');
+  st.friend.id = fr.id; st.friend.ci = rndPal('friend');
+  const bg = rnd(d.bg.items); st.bg.id = bg.id;
+
+  sfx(940);
+  draw(); renderItems(); renderPal();
+  toast(t('randomDone'));
+}
+function resetLook(){
+  const fresh = {
+    daily:{hair:{id:'bob',ci:0}, top:{id:'knit',ci:1}, bottom:{id:'jeans',ci:3},
+           outer:{id:'none',ci:0}, shoes:{id:'loafer',ci:4}, acc:{id:'none',ci:0},
+           friend:{id:'none',ci:5}, bg:{id:'cafe',ci:0}},
+    fairy:{hair:{id:'princess',ci:1}, top:{id:'gown',ci:4}, bottom:{id:'tulle',ci:4},
+           outer:{id:'wings',ci:4}, shoes:{id:'glass',ci:0}, acc:{id:'crown',ci:5},
+           friend:{id:'none',ci:5}, bg:{id:'forest',ci:0}}
+  };
+  app.state[app.theme] = JSON.parse(JSON.stringify(fresh[app.theme]));
+  app.cat = 'hair';
+  sfx(420);
+  renderUI(); draw();
+  toast(t('resetDone'));
+}
+
+/* ── 코디 카드 PNG 저장 ── */
+function roundRect(ctx, x, y, w, h, r){
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+function stamp(d){
+  const p = n => String(n).padStart(2, '0');
+  return d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate()) + '-' + p(d.getHours()) + p(d.getMinutes());
+}
+
+async function saveCard(){
+  if(app.busy) return;
+  app.busy = true;
+  const btn = $('saveBtn');
+  const label = btn.innerHTML;
+  btn.disabled = true;
+  try{
+    const svg = $('doll').cloneNode(true);
+    svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    svg.setAttribute('width', '420');
+    svg.setAttribute('height', '560');
+    const src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(svg));
+    const img = new Image();
+    await new Promise((res, rej) => { img.onload = res; img.onerror = rej; img.src = src; });
+
+    const W = 1080, H = 1350;
+    const cv = document.createElement('canvas');
+    cv.width = W; cv.height = H;
+    const ctx = cv.getContext('2d');
+    const fairy = app.theme === 'fairy';
+
+    const bg = ctx.createLinearGradient(0, 0, W, H);
+    if(fairy){ bg.addColorStop(0, '#FBF6FF'); bg.addColorStop(.55, '#F4EBFB'); bg.addColorStop(1, '#EDE2F6'); }
+    else{ bg.addColorStop(0, '#FFFBF3'); bg.addColorStop(.55, '#FDEFE0'); bg.addColorStop(1, '#F8E7D2'); }
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+
+    ctx.fillStyle = fairy ? 'rgba(139,92,168,.07)' : 'rgba(210,104,91,.07)';
+    for(let i = 0; i < 26; i++){
+      ctx.beginPath();
+      ctx.arc(60 + (i * 137) % 980, 60 + (i * 219) % 1230, 12 + (i % 3) * 6, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = fairy ? '#6D4488' : '#2E2420';
+    ctx.font = '900 60px "Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif';
+    ctx.fillText(t('cardTitle'), W / 2, 96);
+    ctx.font = '700 27px "Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif';
+    ctx.fillStyle = fairy ? '#8C6FA3' : '#8A7364';
+    ctx.fillText((fairy ? t('themeNameFairy') : t('themeName')) + '  ·  ' + t('cardSub'), W / 2, 138);
+
+    const pw = 840, ph = 1120, px = (W - pw) / 2, py = 168;
+    ctx.save();
+    ctx.shadowColor = 'rgba(70,50,30,.22)';
+    ctx.shadowBlur = 30;
+    ctx.shadowOffsetY = 12;
+    roundRect(ctx, px, py, pw, ph, 34);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fill();
+    ctx.restore();
+    ctx.save();
+    roundRect(ctx, px, py, pw, ph, 34);
+    ctx.clip();
+    ctx.drawImage(img, px, py, pw, ph);
+    ctx.restore();
+    ctx.save();
+    roundRect(ctx, px + 1.5, py + 1.5, pw - 3, ph - 3, 32);
+    ctx.strokeStyle = fairy ? 'rgba(201,154,62,.55)' : 'rgba(210,104,91,.35)';
+    ctx.lineWidth = 5;
+    ctx.stroke();
+    ctx.restore();
+
+    const now = new Date();
+    const date = now.getFullYear() + '.' + String(now.getMonth() + 1).padStart(2, '0') + '.' + String(now.getDate()).padStart(2, '0');
+    ctx.textAlign = 'left';
+    ctx.fillStyle = fairy ? '#6D4488' : '#6E5C50';
+    ctx.font = '800 26px "Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif';
+    ctx.fillText(date, px + 8, 1326);
+    ctx.textAlign = 'right';
+    ctx.fillStyle = fairy ? '#8C6FA3' : '#8A7364';
+    ctx.font = '700 24px "Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif';
+    ctx.fillText('@starpick_life  ·  Wagle Dress-Up', px + pw - 8, 1326);
+
+    const blob = await new Promise(res => cv.toBlob(res, 'image/png'));
+    if(!blob) throw new Error('toBlob failed');
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'wagle-dressup-' + stamp(now) + '.png';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 6000);
+    sfx(1040);
+    toast(t('saved'));
+  }catch(e){
+    toast(t('saveFail'));
+  }finally{
+    app.busy = false;
+    btn.disabled = false;
+    btn.innerHTML = label;
+  }
+}
+
+/* ── 이벤트 ── */
+$('cats').addEventListener('click', e => {
+  const b = e.target.closest('[data-cat]');
+  if(!b) return;
+  app.cat = b.dataset.cat;
+  sfx(620);
+  renderCats(); renderPal(); renderItems();
+  window.scrollBy({top: 1, behavior: 'auto'});
+});
+$('items').addEventListener('click', e => {
+  const b = e.target.closest('[data-item]');
+  if(!b) return;
+  pickItem(app.cat, b.dataset.item);
+});
+$('pal').addEventListener('click', e => {
+  const b = e.target.closest('[data-ci]');
+  if(!b) return;
+  pickColor(Number(b.dataset.ci));
+});
+document.querySelectorAll('[data-theme-btn]').forEach(b =>
+  b.addEventListener('click', () => switchTheme(b.dataset.themeBtn)));
+
+$('randomBtn').addEventListener('click', randomLook);
+$('resetBtn').addEventListener('click', resetLook);
+$('saveBtn').addEventListener('click', saveCard);
+$('soundBtn').addEventListener('click', () => {
+  app.sound = !app.sound;
+  $('soundTxt').textContent = app.sound ? t('soundOn') : t('soundOff');
+  $('soundIcon').textContent = app.sound ? '🔈' : '🔇';
+  $('soundBtn').setAttribute('aria-pressed', String(app.sound));
+  if(app.sound) sfx(700);
+});
+$('langBtn').addEventListener('click', () => {
+  app.lang = app.lang === 'ko' ? 'en' : 'ko';
+  sfx(660);
+  renderUI();
+});
+
+/* ── 시작 ── */
+renderUI();
+draw();
+</script>
+</body>
+</html>
