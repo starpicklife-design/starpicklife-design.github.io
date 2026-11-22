@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#1E4A36" />
-<!-- build: 2026-11-22 와글가족장바구니 v5 · 카드 안 즉시 조작(− 수량 + · 🍽️ 다 먹음) · 🧺 실온보관바구니 · 메모·용량 버튼 · 🧾 영수증(여러 장) -->
+<!-- build: 2026-11-22 와글가족장바구니 v5 · 품목 버튼 컴팩트(4열·높이 약 49px·글자 13px) · 카드 안 즉시 조작(− 수량 + · 🍽️ 다 먹음) · 🧺 실온보관바구니 · 메모·용량 버튼 · 🧾 영수증(여러 장) -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -289,14 +289,16 @@ html.big .cbox{width:2.2rem;height:2.2rem;font-size:1.4rem;border-radius:.6rem}
   margin-bottom:.9rem;box-shadow:var(--shadow)}
 .card h2{margin:0 0 .55rem;font-size:1.02rem;font-weight:900;color:var(--green)}
 .quickhead{font-size:.78rem;font-weight:900;color:var(--ink2);margin:0 0 .35rem}
-.quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.4rem;margin-bottom:.75rem}
-.qbtn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;
-  background:#F3FAF4;border:2px solid #BFD9C6;border-radius:.9rem;padding:.42rem .1rem;min-height:3.6rem;
-  font-size:.78rem;font-weight:900;color:#234C33;line-height:1.12;overflow-wrap:anywhere}
-.qbtn .qe{font-size:1.3rem;line-height:1}
+/* 빠른 품목 버튼 — 한눈에 들어오게 작고 가지런한 칩 형태(4열) */
+.quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.26rem;margin-bottom:.6rem}
+.qbtn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.04rem;
+  background:#F3FAF4;border:2px solid #BFD9C6;border-radius:.6rem;padding:.2rem .08rem;min-height:2.7rem;
+  font-size:.72rem;font-weight:900;color:#234C33;line-height:1.08;overflow-wrap:anywhere;letter-spacing:-.02em}
+.qbtn .qe{font-size:.98rem;line-height:1}
 .qbtn:active{transform:translateY(1px);background:#E4F3E7}
-html.big .quick{grid-template-columns:repeat(3,minmax(0,1fr))}
-html.big .qbtn{font-size:.72rem}
+html.big .quick{grid-template-columns:repeat(3,minmax(0,1fr));gap:.3rem}
+html.big .qbtn{font-size:.72rem;min-height:2.9rem}
+html.big .qbtn .qe{font-size:1.1rem}
 
 .field{margin-bottom:.5rem}
 .volrow{display:flex;gap:.3rem;margin-top:.32rem;flex-wrap:nowrap}
