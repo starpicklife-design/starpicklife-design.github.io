@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#3E2C22" />
-<!-- build: 2026-11-23 wagle-table v19 · 가게 지우기 문구 구분 · 메뉴 지우기 줄 상단 고정 · 하단 바 슬림 -->
+<!-- build: 2026-11-23 wagle-table v21 · 글씨 입력 중 하단 요약 바 자동 숨김(입력칸·가격칸·추가 버튼 안 가리게) -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
@@ -254,7 +254,12 @@ html.big .addhead .tab{font-size:.74rem;padding:.28rem .45rem}
 
 /* ── 하단 고정 요약 (v19: 상하 여백·줄 간격·버튼 높이를 슬림하게 — 세로 높이 축소) ── */
 .bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-top:3px solid var(--coffee);
-  padding:.3rem .8rem calc(.3rem + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(40,26,16,.13)}
+  padding:.3rem .8rem calc(.3rem + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(40,26,16,.13);
+  transition:transform .18s ease, opacity .16s ease}
+/* v21 · ⌨️ 글씨를 넣는 동안(자판 올라옴·입력칸 포커스) 하단 바를 잠깐 아래로 내린다 —
+   입력칸·가격칸·'＋ 메뉴 넣기' 버튼을 가리지 않게. 내려간 동안엔 눌리지도 않는다 */
+.bar.down{transform:translateY(calc(100% + 2rem));opacity:0;pointer-events:none}
+@media (prefers-reduced-motion:reduce){.bar{transition:none}}
 .barTop{display:flex;align-items:center;gap:.36rem;max-width:34rem;margin:0 auto}
 .totals{flex:1 1 auto;min-width:0}
 .tcount{font-size:.82rem;font-weight:800;color:var(--ink2);line-height:1.1}
@@ -2077,6 +2082,7 @@ function syncVV(){
   st.setProperty('--kb', Math.round(kb)+'px');
   /* 자판이 올라왔거나 화면이 납작하면 글씨 입력 팝업 속을 알차게 (내용이 화면 밖으로 나가지 않게) */
   document.documentElement.classList.toggle('kb', kb>120 || h<560);
+  syncBar();
 }
 function keepFieldVisible(el){
   const m=el && el.closest ? el.closest('.modal') : null;
@@ -2109,6 +2115,74 @@ document.addEventListener('focusin', function(e){
   if(!m) return;
   setTimeout(function(){ syncVV(); keepFieldVisible(el); }, 60);
   setTimeout(function(){ syncVV(); keepFieldVisible(el); }, 280);
+});
+
+/* ── v21 · ⌨️ 글씨를 넣는 동안 하단 요약 바 잠깐 숨기기 ──
+   · 자판이 올라왔거나(html.kb) 페이지 안 입력칸(input/textarea)에 포커스가 있으면
+     '총 N개 / 원 / 🎲 번호뽑기 / N빵' 바를 아래로 내려 입력칸·가격칸·'＋ 메뉴 넣기'를 가리지 않게
+   · 포커스가 풀리면 150ms 뒤 다시 올린다 (같은 카드 안에서 다른 칸으로 옮길 땐 깜빡이지 않게)
+   · 체크박스·파일 고르기처럼 자판이 안 뜨는 칸은 그대로 둔다 */
+var barHideT=null;
+var NOKBTYPE={checkbox:1,radio:1,button:1,submit:1,reset:1,file:1,range:1,color:1};
+function isTypeField(el){
+  if(!el || !el.matches) return false;
+  if(el.matches('textarea,[contenteditable="true"],[contenteditable=""]')) return true;
+  if(!el.matches('input')) return false;
+  var t=(el.getAttribute('type')||'text').toLowerCase();
+  return !NOKBTYPE[t];
+}
+function syncBar(){
+  var bar=$('#bar');
+  if(!bar) return;
+  var hide = isTypeField(document.activeElement) || document.documentElement.classList.contains('kb');
+  bar.classList.toggle('down', hide);
+  /* 자판이 올라온 동안에는 페이지 아래 여백을 자판 높이만큼 더 두어
+     입력칸을('자판 위 가운데'까지) 끌어올릴 수 있게 한다 */
+  var kb=parseFloat(document.documentElement.style.getPropertyValue('--kb'))||0;
+  var extra = hide ? Math.round(kb) : 0;
+  document.body.style.paddingBottom = (bar.offsetHeight + 24 + extra) + 'px';
+}
+/* 입력칸이 상단 헤더 아래 ~ 자판 위 사이에 오도록 보이는 화면(자판 뺀 영역) 가운데로 정리 */
+function revealField(el){
+  if(!el || !el.getBoundingClientRect || !el.closest) return;
+  if(el.closest('.modal')) return;            /* 팝업 안 입력칸은 keepFieldVisible 이 맡는다 */
+  var r=el.getBoundingClientRect();
+  var vv=window.visualViewport;
+  var vTop=vv?vv.offsetTop:0;
+  var vBottom=vTop+(vv?vv.height:window.innerHeight);
+  /* 위쪽은 붙어 있는 갈색 헤더 + '★ 즐겨찾기만 | 🗑️ 메뉴 지우기 | 주문 비우기' 줄 아래부터 */
+  var topPad=24;
+  var hd=document.querySelector('header.top');
+  if(hd) topPad+=hd.getBoundingClientRect().height;
+  var lh=$('#listHead');
+  if(lh && !lh.hidden) topPad+=lh.getBoundingClientRect().height;
+  var freeTop=vTop+topPad, freeBottom=vBottom-16, freeH=freeBottom-freeTop;
+  if(freeH<80) return;
+  if(r.top>=freeTop && r.bottom<=vBottom-24) return;   /* 이미 다 보임 */
+  var box=el.closest('form, .panel') || el;
+  var br=box.getBoundingClientRect();
+  var dy;
+  if(br.height<=freeH){ dy=Math.round(br.bottom-freeBottom); }         /* 입력 한 벌이 자판 위에 다 들어가면 그 아래를 자판에 맞춤 */
+  else { dy=Math.round((r.top+r.height/2)-(freeTop+freeBottom)/2); }    /* 아니면 입력칸을 가운데로 */
+  if(!dy) return;
+  try{ window.scrollBy({top:dy, behavior:'smooth'}); }catch(err){ try{ window.scrollBy(0, dy); }catch(err2){} }
+}
+document.addEventListener('focusin', function(e){
+  if(!isTypeField(e.target)) return;
+  clearTimeout(barHideT); barHideT=null;         /* 앞 칸에서 넘어온 경우 — 바로 숨김 유지 */
+  syncBar();
+  var el=e.target;
+  setTimeout(function(){ revealField(el); }, 80);
+  setTimeout(function(){ revealField(el); }, 320);
+  setTimeout(function(){ revealField(el); }, 620);
+});
+document.addEventListener('focusout', function(e){
+  if(!isTypeField(e.target)) return;
+  clearTimeout(barHideT);
+  barHideT=setTimeout(function(){
+    if(isTypeField(document.activeElement)) return;   /* 같은 카드의 다른 칸으로 옮김 */
+    syncBar();
+  }, 150);
 });
 
 /* ── 토스트 ── */
