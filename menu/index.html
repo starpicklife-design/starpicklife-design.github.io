@@ -111,13 +111,37 @@ body.athome .top{box-shadow:0 3px 10px rgba(40,26,16,.10)}
 #homeView{display:none;max-width:34rem;margin:0 auto;padding:0 .75rem}
 body.athome #homeView{display:block}
 .homeLead{margin:.75rem .2rem .5rem;font-size:.9rem;font-weight:900;color:var(--coffee);letter-spacing:-.02em;line-height:1.25}
-.homeLead span{display:block;font-size:.76rem;font-weight:700;color:#8B7A6B;margin-top:.1rem}
+.homeLead span{display:block}
+.homeLead #homeLeadSub{font-size:.76rem;font-weight:700;color:#8B7A6B;margin-top:.1rem}
 /* 테이블에 모여 차 마시는 와글가족 + 클로벨 세 자매 */
 .heroCard{position:relative;margin:0;border-radius:1.15rem;overflow:hidden;background:#F5E4C8;
   border:2px solid #E6CFA6;box-shadow:0 6px 18px rgba(62,44,34,.16)}
 .heroCard picture,.heroCard img{display:block;width:100%}
 .heroCard img{height:auto;aspect-ratio:3/2;object-fit:cover;object-position:center 42%}
 html.big .heroCard img{aspect-ratio:16/9}
+/* v25 · 그림 카드 위 오른쪽 모서리 — 📤 공유하기 · 🔔 소리 (설치 가능·인앱이면 📲 설치 · 🌐 크롬으로 열기)
+   · 메인 화면 높이를 하나도 늘리지 않으려고 그림 위에 띄운다 (3개 큰 버튼·내 카페가 한 화면에 그대로) */
+.heroTools{position:absolute;top:.5rem;right:.5rem;z-index:2;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:.32rem;
+  max-width:calc(100% - 1rem)}
+.homepill{display:inline-flex;align-items:center;justify-content:center;gap:.18rem;white-space:nowrap;flex:0 0 auto;
+  background:rgba(255,250,240,.94);border:2px solid #E0C79B;color:#4A3423;border-radius:2rem;
+  padding:0 .58rem;min-height:2.3rem;font-size:.8rem;font-weight:900;letter-spacing:-.02em;line-height:1.1;
+  box-shadow:0 2px 8px rgba(60,40,20,.24);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.homepill:active{transform:translateY(1px);background:#FFF3DA}
+.homepill[hidden]{display:none}
+.homepill:focus-visible{outline:3px solid #2E8A82;outline-offset:2px}
+/* 📤 공유하기 — 메뉴판 화면의 📤 공유와 같은 소프트 틸 */
+.homepill.share{background:rgba(207,237,234,.96);border-color:#2E8A82;color:#14524C}
+/* 🔔 소리 / 🔇 무음 — 켜짐은 따뜻한 골드, 꺼짐은 차분한 회갈색 */
+.homepill.snd{background:rgba(255,243,218,.96);border-color:#C98A2E;color:#5E3E0C}
+.homepill.snd[aria-pressed="false"]{background:rgba(246,238,225,.95);border-color:#B9A48C;color:#6B5B4C}
+.homepill.install{background:linear-gradient(180deg,#FFD873,#F2B33B);border-color:#A9690A;color:#3E2C22}
+.homepill.chrome{background:rgba(255,250,240,.96);border-color:#8B9BA8;color:#2F4B5C;text-decoration:none}
+@media (max-width:389px){ .homepill{font-size:.76rem;padding:0 .5rem;min-height:2.2rem} }
+html.big .homepill{font-size:.76rem;padding:0 .48rem;min-height:2.5rem}
+html.big .heroTools{top:.4rem;right:.4rem;gap:.24rem}
+/* 큰 글씨 + 인앱(카톡·인스타): 한 줄에 들어가도록 크롬 알약 이름을 짧게 */
+html.big .homepill.chrome .cx{display:none}
 
 /* 3개 큰 버튼 — 색으로 역할 구분 (초록 추가 / 주황 주문 / 금색 이벤트) */
 .homebtns{display:flex;flex-direction:column;gap:.5rem;margin:.7rem 0 .2rem}
@@ -165,7 +189,7 @@ html.big .homebtn{font-size:1.02rem;padding:0 .5rem}
 html.big .homebtn .hbl{display:none}
 /* 큰 글씨: 메인 화면이 한 화면에 들어오도록 높이를 조금씩 아낀다 */
 html.big .homeLead{margin:.6rem .15rem .38rem}
-html.big .homeLead span{display:none}
+html.big .homeLead #homeLeadSub{display:none}
 html.big .homebtns{gap:.38rem}
 html.big .hbtn{min-height:3rem;padding:.4rem .7rem}
 html.big .homeList{margin:.7rem 0 0}
@@ -1240,13 +1264,20 @@ html.big .isteps li>span{font-size:1rem}
 
 <!-- ══ v24 · ☕ 카페 메인 화면 (첫 화면) — 테이블에 모인 와글가족 · 클로벨이 차를 마시는 그림 ══ -->
 <section id="homeView" aria-label="카페 메인">
-  <p class="homeLead" id="homeLead">☕ 와글가족 카페에 오셨네요!<span id="homeLeadSub">하고 싶은 일을 콕 눌러 주세요</span></p>
+  <p class="homeLead"><span id="homeLead">☕ 와글가족 카페에 오셨네요!</span><span id="homeLeadSub">하고 싶은 일을 콕 눌러 주세요</span></p>
   <div class="heroCard">
     <picture>
       <source srcset="./home-cafe.webp" type="image/webp">
       <img id="homeArt" src="./home-cafe.jpg" width="1200" height="800"
            alt="테이블에 모여 함께 차를 마시는 와글가족 햄스터 가족과 클로벨 세 자매" />
     </picture>
+    <!-- v25 · 📤 공유하기 · 🔔 소리 — 그림 위에 띄워 메인 화면 높이를 늘리지 않는다 -->
+    <div class="heroTools" role="group" aria-label="앱 도구">
+      <button type="button" id="homeShareBtn" class="homepill share" aria-label="이 앱 공유하기">📤 공유하기</button>
+      <button type="button" id="homeSoundBtn" class="homepill snd" aria-pressed="true" aria-label="소리 끄기">🔔 소리</button>
+      <button type="button" id="homeInstallBtn" class="homepill install" hidden>📲 설치</button>
+      <a id="homeChromeOpen" class="homepill chrome" href="#" hidden>🌐 크롬<span class="cx">으로 열기</span></a>
+    </div>
   </div>
   <div class="homebtns">
     <button type="button" class="hbtn add" data-home="add">
@@ -1849,6 +1880,15 @@ function applyLang(){
   setAttr('#homeBtn','aria-label','카페 메인 화면으로','Back to the cafe home');
   setTxt('#homeLead','☕ 와글가족 카페에 오셨네요!','☕ Welcome to the Wagle family cafe!');
   setTxt('#homeLeadSub','하고 싶은 일을 콕 눌러 주세요','Tap what you would like to do');
+  /* v25 · 메인 화면 도구 — 📤 공유하기 · 🔔 소리 · 📲 설치 · 🌐 크롬으로 열기 */
+  setTxt('#homeShareBtn','📤 공유하기','📤 Share');
+  setAttr('#homeShareBtn','aria-label','이 앱 공유하기','Share this app');
+  setAttr('.heroTools','aria-label','앱 도구','App tools');
+  try{ sndLabel(); }catch(e){}
+  setTxt('#homeInstallBtn','📲 설치','📲 Install');
+  setAttr('#homeInstallBtn','aria-label','앱 설치 안내','How to install the app');
+  setHTML('#homeChromeOpen','🌐 크롬<span class="cx">으로 열기</span>','🌐 Open in Chrome');
+  setAttr('#homeChromeOpen','aria-label','크롬 브라우저로 이 앱 열기','Open this app in the Chrome browser');
   setTxt('#hbAdd','카페 추가하기','Add a Cafe');
   setTxt('#hbAddS','새 카페 이름을 넣고 시작','Name a new cafe to start');
   setTxt('#hbOrder','주문하기','Order');
@@ -5159,8 +5199,21 @@ function standaloneNow(){
   return false;
 }
 function syncInstallBtn(){
-  if(!installBtn) return;
-  installBtn.hidden = installedApp || standaloneNow();
+  var hide = installedApp || standaloneNow();
+  if(installBtn) installBtn.hidden = hide;
+  /* v25 · 메인 화면 📲 설치 — 설치를 바로 할 수 있거나(설치 안내가 실제로 필요한) 안드로이드에서만 보인다
+     · 카톡·인스타 인앱 브라우저에서는 설치 대신 🌐 크롬으로 열기를 띄우므로 설치 알약은 숨긴다 */
+  var hb=$('#homeInstallBtn');
+  if(hb) hb.hidden = hide || inAppBrowser() || !(deferredPrompt || isAndroid());
+  syncHomeChrome();
+}
+/* v25 · 메인 화면 🌐 크롬으로 열기 — 카톡·인스타 인앱 브라우저(안드로이드)에서만 띄운다 */
+function syncHomeChrome(){
+  var a=$('#homeChromeOpen');
+  if(!a) return;
+  var show = isAndroid() && inAppBrowser() && !installedApp && !standaloneNow();
+  a.hidden = !show;
+  if(show) a.setAttribute('href', chromeIntentUrl());
 }
 /* ── 🌐 크롬으로 바로 열기 (안드로이드 전용) ──
    카톡·인스타 인앱 브라우저에서는 설치가 막혀서, Chrome 패키지를 지정한 intent:// 로 넘긴다.
@@ -5189,6 +5242,7 @@ function applyChromeOpen(){
     note.innerHTML = L('카톡·인스타 안에서는 바로 설치가 안 돼요. 아래 <b>🌐 크롬으로 바로 열기</b>를 누르면 크롬에서 열려 바로 설치할 수 있어요!',
       'You cannot install from inside KakaoTalk or Instagram. Tap <b>🌐 Open in Chrome</b> below to open it in Chrome and install right away!');
   }
+  try{ syncHomeChrome(); }catch(e){}
 }
 applyChromeOpen();
 if(installBtn){
@@ -5263,6 +5317,81 @@ function shareApp(){
 }
 var shareBtn=$('#shareBtn');
 if(shareBtn) shareBtn.addEventListener('click', shareApp);
+
+/* ── v25 · 📤 메인 화면 공유하기 — 메뉴판 화면의 #shareBtn과 똑같이 (공유 시트 → 안 되면 복사 토스트) ── */
+var homeShareBtn=$('#homeShareBtn');
+if(homeShareBtn) homeShareBtn.addEventListener('click', shareApp);
+
+/* ── v25 · 🔔 작은 카페 종소리 (Web Audio · 외부 파일 없이 0원 · 오프라인 OK) ──
+   · 메인 화면의 버튼·가게 칩·그림을 톡 누를 때만 아주 작게 두 음(차임)이 울린다
+   · 브라우저 자동재생 정책: 첫 터치(클릭) 안에서 AudioContext를 만들고 resume한다 */
+var SND_KEY='menu_sound_v1', sndOn=true;
+try{ sndOn = localStorage.getItem(SND_KEY)!=='off'; }catch(e){}
+var sndCtx=null, sndLast=-1;
+function sndAudio(){
+  if(sndCtx) return sndCtx;
+  var AC=window.AudioContext||window.webkitAudioContext;
+  if(!AC) return null;
+  try{ sndCtx=new AC(); }catch(e){ sndCtx=null; }
+  return sndCtx;
+}
+/* 종 하나 — 사인파 + 아주 살짝 높은 배음 = 부드러운 카페 종소리 */
+function sndBell(c, freq, at, dur, vol){
+  try{
+    var o=c.createOscillator(), o2=c.createOscillator(), g=c.createGain(), g2=c.createGain();
+    o.type='sine';  o.frequency.setValueAtTime(freq, at);
+    o2.type='sine'; o2.frequency.setValueAtTime(freq*2.004, at);
+    g2.gain.value=0.22;
+    o.connect(g); o2.connect(g2); g2.connect(g); g.connect(c.destination);
+    g.gain.setValueAtTime(0.0001, at);
+    g.gain.exponentialRampToValueAtTime(vol, at+0.015);
+    g.gain.exponentialRampToValueAtTime(0.0001, at+dur);
+    o.start(at); o2.start(at);
+    o.stop(at+dur+0.03); o2.stop(at+dur+0.03);
+  }catch(e){}
+}
+function chime(kind){
+  if(!sndOn) return;
+  var c=sndAudio(); if(!c) return;
+  try{ if(c.state==='suspended') c.resume(); }catch(e){}
+  var t=c.currentTime;
+  if(sndLast>=0 && t-sndLast<0.09) return;    /* 빠르게 여러 번 눌러도 소리가 겹치지 않게 */
+  sndLast=t;
+  if(kind==='soft'){                            /* 그림 톡 — D5 → A5, 조금 더 낮고 여리게 */
+    sndBell(c,587.33,t+0.005,0.34,0.10);
+    sndBell(c,880.00,t+0.10,0.42,0.072);
+  } else {                                      /* 버튼·칩 톡 — E5 → B5, 따뜻한 딱딱 */
+    sndBell(c,659.25,t+0.005,0.32,0.12);
+    sndBell(c,987.77,t+0.105,0.40,0.085);
+  }
+}
+function sndLabel(){
+  var b=$('#homeSoundBtn'); if(!b) return;
+  b.textContent = sndOn? L('🔔 소리','🔔 Sound') : L('🔇 무음','🔇 Muted');
+  b.setAttribute('aria-pressed', sndOn? 'true':'false');
+  b.setAttribute('aria-label', sndOn? L('소리 끄기','Turn sound off') : L('소리 켜기','Turn sound on'));
+}
+function setSnd(on, preview){
+  sndOn=!!on;
+  try{ localStorage.setItem(SND_KEY, sndOn? 'on':'off'); }catch(e){}
+  sndLabel();
+  if(sndOn && preview){ sndLast=-1; chime('tap'); }
+}
+var homeSoundBtn=$('#homeSoundBtn');
+if(homeSoundBtn) homeSoundBtn.addEventListener('click', function(){ setSnd(!sndOn, true); });
+/* 메인 화면 버튼·가게 칩·그림을 누를 때 — 캡처 단계에서 울려 버튼이 바로 넘어가도 소리는 남는다 */
+document.addEventListener('click', function(e){
+  if(!sndOn) return;
+  var t=e.target;
+  if(!t || !t.closest) return;
+  try{ if(!document.body.classList.contains('athome')) return; }catch(err){ return; }
+  if(t.closest('.heroTools')) return;
+  var hit=t.closest('.hbtn, .hchip, .heroCard');
+  if(!hit) return;
+  chime(hit.classList.contains('heroCard')? 'soft':'tap');
+}, true);
+var homeInstallBtn=$('#homeInstallBtn');
+if(homeInstallBtn) homeInstallBtn.addEventListener('click', function(){ if(installBtn) installBtn.click(); });
 
 /* 인터넷이 끊겨도 열리도록 Service Worker 등록 (파일로 직접 열었을 땐 건너뜀) */
 if('serviceWorker' in navigator && location.protocol!=='file:'){
