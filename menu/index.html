@@ -149,8 +149,6 @@ html.big .clearall{font-size:.78rem;padding:.32rem .54rem;min-height:2.8rem}
 .qbtn.plus{background:var(--coffee);color:#FFF7E9;border-color:var(--coffee)}
 .qbtn:disabled{opacity:.32}
 .num{min-width:1.9rem;text-align:center;font-size:1.3rem;font-weight:900}
-.empty{background:#fff;border:2px dashed var(--line);border-radius:1rem;padding:1.4rem .9rem;
-  text-align:center;color:var(--ink2);font-size:1rem;font-weight:700;line-height:1.5}
 .hint{font-size:.82rem;color:#8B7A6B;margin:.55rem .2rem .9rem;font-weight:700;line-height:1.4}
 
 /* ★ 즐겨찾기만 — ★ 메뉴는 선명하게 위로, 나머지는 연하게(누르면 그대로 동작) */
@@ -203,6 +201,15 @@ html.big .seltool{font-size:.66rem;min-height:2.9rem}
 .tabs{display:flex;gap:.35rem;margin-bottom:.7rem}
 .tab{flex:1;border:2px solid var(--line);background:#FFFBF2;border-radius:.8rem;padding:.45rem .2rem;
   font-size:.85rem;font-weight:800;color:var(--ink2);min-height:2.8rem}
+/* '메뉴 추가' 제목 줄 + 오른쪽에 '직접 입력 · 📷 사진으로' 두 버튼 */
+.addhead{display:flex;align-items:center;gap:.45rem;margin:0 0 .55rem}
+.addhead h2{margin:0;flex:1 1 auto;font-size:1.02rem;line-height:1.2;word-break:keep-all}
+.addhead .tabs{margin:0;flex:0 0 auto;gap:.28rem}
+.addhead .tab{flex:0 0 auto;min-height:2.3rem;padding:.28rem .55rem;font-size:.79rem;border-radius:.7rem;letter-spacing:-.02em}
+html.big .addhead{flex-wrap:wrap}
+html.big .addhead h2{font-size:1rem}
+html.big .addhead .tab{font-size:.74rem;padding:.28rem .45rem}
+@media (max-width:359px){.addhead{flex-wrap:wrap}.addhead .tabs{width:100%}.addhead .tab{flex:1 1 0}}
 .tab.on{background:var(--cream2);border-color:var(--coffee);color:var(--coffee)}
 .panel form{display:flex;flex-direction:column;gap:.5rem}
 .panel input[type=text],.panel input:not([type]),.panel textarea{width:100%;border:2px solid var(--line);
@@ -400,10 +407,20 @@ html[lang="en"] .brand .sub{letter-spacing:-.025em}
 
 .top{padding-top:.68rem}
 /* 빈 상태 일러스트 */
-.empty{padding:1rem .8rem 1.15rem;display:flex;flex-direction:column;align-items:center;gap:.35rem}
+/* 빈 메뉴 — 얇고 컴팩트한 1~2줄 배너(왼쪽 미니 와글가족 · 오른쪽 한 줄 안내) */
+.empty{display:flex;align-items:center;gap:.5rem;background:#fff;border:2px dashed var(--line);
+  border-radius:.8rem;padding:.4rem .55rem;text-align:left;color:var(--ink2);
+  font-size:.84rem;font-weight:800;line-height:1.28}
+.empty .emini{flex:0 0 auto;width:2.6rem;height:2.1rem;display:flex;align-items:center;justify-content:center;
+  background:#FFF6E4;border:1.5px solid #EBD8B6;border-radius:.6rem;overflow:hidden}
+.empty .emini svg{width:2.15rem;height:1.75rem;display:block}
+.empty .etxt{flex:1 1 auto;min-width:0;word-break:keep-all;overflow-wrap:break-word}
 .emptyArt{width:9.6rem;height:auto;display:block;margin:0 auto .1rem}
 .emptyArt svg{width:100%;height:auto;display:block}
 .empty b{color:var(--accent)}
+html.big .empty{font-size:.92rem;padding:.45rem .6rem}
+html.big .empty .emini{width:2.9rem;height:2.35rem}
+html.big .empty .emini svg{width:2.4rem;height:1.95rem}
 /* 가게 0개 기본 화면 */
 .nostore{padding:1.05rem .9rem 1.15rem;text-align:center;border-style:dashed;
   background:linear-gradient(170deg,#FFFDF6 0%,#FFF4E2 100%)}
@@ -423,8 +440,9 @@ html.big .nostore .nsnew{min-height:3.9rem;font-size:1.16rem}
 .qrcard{position:relative;overflow:hidden;border:2px dashed #E3C489;
   background:linear-gradient(165deg,#FFFDF6 0%,#FFF5E5 100%)}
 .qrcard .qrpeek{position:absolute;right:-.5rem;top:-.7rem;width:4.9rem;height:4.9rem;opacity:.95;pointer-events:none;transform:rotate(6deg)}
-.qrcard h2{margin-right:3.4rem}
-.qrcard .note{margin:.1rem 0 .7rem;padding-right:2.9rem}
+.qrcard{padding:.62rem .72rem}
+.qrcard h2{margin:0 0 .32rem;margin-right:3.4rem;font-size:1rem}
+.qrcard .note{margin:0 0 .5rem;padding-right:2.9rem;font-size:.86rem;line-height:1.33}
 .qrbtn{width:100%;min-height:3.5rem;border-radius:1rem;border:2px solid #A9451F;
   background:linear-gradient(180deg,#D4683A,#B9542B);color:#fff;font-size:1.04rem;font-weight:900;
   display:flex;align-items:center;justify-content:center;gap:.4rem;letter-spacing:-.01em;
@@ -1032,16 +1050,17 @@ html.big .isteps li>span{font-size:1rem}
   <section class="card qrcard" id="qrCard">
     <svg class="qrpeek" viewBox="0 0 120 120" aria-hidden="true"><use href="#wg-baby"/></svg>
     <h2>🏷️ 매장용 QR 스티커</h2>
-    <p class="note">가게 이름만 넣으면 <b>와글테이블 QR 스티커</b>가 뚝딱! 테이블에 붙여 두면 손님이 카메라로 찍어 큰 글씨 메뉴판을 열 수 있어요.</p>
-    <button class="qrbtn" id="openSticker">와글테이블 QR 스티커 만들기</button>
+    <p class="note">가게 이름만 넣으면 <b>QR 스티커</b>가 뚝딱! 테이블에 붙여 두면 손님이 카메라로 찍어 큰 글씨 메뉴판을 열 수 있어요.</p>
+    <button class="qrbtn" id="openSticker">QR 스티커 만들기</button>
   </section>
 
   <section class="card" id="addCard">
-    <h2 id="addTitle">메뉴 추가</h2>
-    <div class="tabs" role="tablist">
-      <button class="tab on" data-tab="manual" role="tab">직접 입력</button>
-      <button class="tab" data-tab="photo" role="tab">📷 사진으로 (여러 장 가능)</button>
-      <button class="tab" data-tab="paste" role="tab">글 붙여넣기</button>
+    <div class="addhead">
+      <h2 id="addTitle">메뉴 추가</h2>
+      <div class="tabs" role="tablist" aria-label="메뉴 넣는 방법">
+        <button class="tab on" data-tab="manual" role="tab" aria-selected="true">직접 입력</button>
+        <button class="tab" data-tab="photo" role="tab" aria-selected="false">📷 사진으로</button>
+      </div>
     </div>
 
     <div class="panel" data-panel="manual">
@@ -1571,14 +1590,13 @@ function applyLang(){
 
   setTxt('#qrCard h2','🏷️ 매장용 QR 스티커','🏷️ Store QR Sticker');
   setHTML('#qrCard .note',
-    '가게 이름만 넣으면 <b>와글테이블 QR 스티커</b>가 뚝딱! 테이블에 붙여 두면 손님이 카메라로 찍어 큰 글씨 메뉴판을 열 수 있어요.',
-    'Just add your shop name and your <b>Wagle Table QR sticker</b> is ready. Put it on the table and guests can scan it with their camera to open the large-print menu.');
-  setTxt('#openSticker','와글테이블 QR 스티커 만들기','Make a Wagle Table QR Sticker');
+    '가게 이름만 넣으면 <b>QR 스티커</b>가 뚝딱! 테이블에 붙여 두면 손님이 카메라로 찍어 큰 글씨 메뉴판을 열 수 있어요.',
+    'Just add your shop name and your <b>QR sticker</b> is ready. Put it on the table and guests can scan it with their camera to open the large-print menu.');
+  setTxt('#openSticker','QR 스티커 만들기','Make QR Sticker');
 
   setTxt('#addTitle','메뉴 추가','Add Menu');
-  setTxt('[data-tab="manual"]','직접 입력','Type In');
-  setTxt('[data-tab="photo"]','📷 사진으로 (여러 장 가능)','📷 From Photo (Multi)');
-  setTxt('[data-tab="paste"]','글 붙여넣기','Paste');
+  setTxt('#addCard [data-tab="manual"]','직접 입력','Type In');
+  setTxt('#addCard [data-tab="photo"]','📷 사진으로','📷 Photo');
   setTxt('#addSubmit','＋ 메뉴 넣기','＋ Add Menu');
   setAttr('#newName','placeholder','메뉴 이름 (예: 대추차)','Menu name (e.g. Latte)');
   setAttr('#newName','aria-label','메뉴 이름','Menu name');
@@ -1752,7 +1770,10 @@ function renderMenu(){
   box.classList.toggle('selmode', selMode);
   renderSelBar();
   if(!st.menus.length){
-    box.innerHTML='<div class="empty">'+EMPTY_ART()+'<div>'+L('아직 메뉴가 없어요.<br>아래 <b>메뉴 추가</b>에서 하나씩 넣어 주세요.','No menu items yet.<br>Add them one by one under <b>Add Menu</b> below.')+'</div></div>';
+    box.innerHTML='<div class="empty">'
+      +'<span class="emini" aria-hidden="true"><svg viewBox="0 0 160 130"><use href="#wg-trio"/></svg></span>'
+      +'<span class="etxt">'+L('아직 메뉴가 없어요. <b>메뉴 추가</b>에서 하나씩 넣어 주세요.','No items yet — add them one by one in <b>Add Menu</b>.')+'</span>'
+      +'</div>';
     return;
   }
   /* ★ 즐겨찾기만 — 숨기지 않고 ★ 메뉴는 위로 모아 선명하게, 나머지는 연하게(눌러도 그대로 동작) */
@@ -2325,9 +2346,9 @@ function jumpToAdd(){
   sec.classList.add('flash');
   setTimeout(()=>{ sec.classList.remove('flash'); }, 1500);
   setTimeout(()=>{
-    const on=$('.tab.on');
+    const on=$('#addCard .tab.on');
     const tab=on? on.dataset.tab : 'manual';
-    const el=$(tab==='paste'? '#pasteArea' : (tab==='photo'? '.tab.on' : '#newName'));
+    const el=$(tab==='paste'? '#pasteArea' : (tab==='photo'? '#addCard .tab.on' : '#newName'));
     if(!el) return;
     try{ el.focus({preventScroll:true}); }catch(e){ try{ el.focus(); }catch(_){} }
   }, reduce? 60 : 460);
@@ -2354,10 +2375,14 @@ window.addEventListener('resize', fitTotal);
 
 /* ── 탭 ── */
 function switchTab(name){
-  $$('.tab').forEach(t=> t.classList.toggle('on', t.dataset.tab===name));
-  $$('[data-panel]').forEach(p=>{ p.hidden = p.dataset.panel!==name; });
+  $$('#addCard .tab').forEach(t=>{
+    const on = t.dataset.tab===name;
+    t.classList.toggle('on', on);
+    t.setAttribute('aria-selected', on? 'true':'false');
+  });
+  $$('#addCard [data-panel]').forEach(p=>{ p.hidden = p.dataset.panel!==name; });
 }
-$$('.tab').forEach(t=>{ t.addEventListener('click', ()=> switchTab(t.dataset.tab)); });
+$$('#addCard .tab').forEach(t=>{ t.addEventListener('click', ()=> switchTab(t.dataset.tab)); });
 
 /* ── 메뉴 직접 추가 ── */
 $('#addForm').addEventListener('submit', e=>{
