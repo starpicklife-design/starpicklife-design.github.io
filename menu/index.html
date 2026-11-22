@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#3E2C22" />
-<!-- build: 2026-11-22 wagle-table ocr-v5 · header-v9 (메뉴 지우기 체크박스 일괄삭제) -->
+<!-- build: 2026-11-22 wagle-table ocr-v5 · header-v10 (➕ 메뉴 추가 바로가기) -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
@@ -95,7 +95,23 @@ input,textarea{font-family:inherit;font-size:1.05rem;color:var(--ink)}
 /* ── 본문 ── */
 main{padding:.7rem .75rem 0;max-width:34rem;margin:0 auto}
 .storebar{display:flex;align-items:center;gap:.4rem;padding:.05rem .1rem .5rem}
-.count{font-weight:800;font-size:.95rem;color:var(--coffee);flex:1;white-space:nowrap}
+.count{font-weight:800;font-size:.95rem;color:var(--coffee);flex:1;white-space:nowrap;min-width:0}
+/* ➕ 메뉴 추가 — '메뉴 N개' 줄 오른쪽. '추가'는 ＋ 새 가게와 같은 초록 계열로 한눈에 */
+.addjump{display:flex;align-items:center;justify-content:center;gap:.18rem;flex:0 0 auto;margin-left:auto;white-space:nowrap;
+  background:#D9EBDD;border:2px solid #3F8155;color:#1F4C2D;border-radius:.9rem;
+  padding:.34rem .66rem;font-size:.84rem;font-weight:900;letter-spacing:-.01em;min-height:2.6rem;
+  box-shadow:0 2px 6px rgba(46,110,70,.15);line-height:1.15}
+.addjump:active{transform:translateY(1px);background:#C7E2CE}
+.addjump:focus-visible{outline:3px solid #2E8A82;outline-offset:2px}
+@media (max-width:389px){
+  .addjump{font-size:.78rem;padding:.34rem .5rem;min-height:2.5rem}
+}
+/* 눌렀을 때 '메뉴 추가' 카드가 살짝 빛나 어디로 왔는지 알려 준다 */
+.card.flash{animation:cardflash 1.2s ease-out}
+@keyframes cardflash{0%{box-shadow:0 0 0 0 rgba(63,129,85,.5);border-color:#3F8155}
+  70%{box-shadow:0 0 0 .5rem rgba(63,129,85,0);border-color:#3F8155}
+  100%{box-shadow:var(--shadow);border-color:var(--line)}}
+@media (prefers-reduced-motion: reduce){.card.flash{animation:none;border-color:#3F8155}}
 .mini{background:#fff;border:2px solid var(--line);border-radius:.8rem;padding:.35rem .6rem;
   font-size:.82rem;font-weight:800;color:var(--ink2);min-height:2.8rem;white-space:nowrap}
 .mini[aria-pressed="true"]{background:#FFF1D8;border-color:var(--gold);color:#8A6210}
@@ -295,6 +311,8 @@ html.big .count{font-size:.82rem;flex:1 1 auto}
 html.big .mini{font-size:.72rem;padding:.3rem .45rem;min-height:2.7rem}
 html.big .storebar{flex-wrap:wrap;row-gap:.35rem}
 html.big .count{flex:1 0 100%}
+html.big .storebar .count{flex:1 1 auto}
+html.big .addjump{font-size:.78rem;padding:.34rem .6rem;min-height:2.8rem}
 html.big .listhead .mini{flex:1 1 auto}
 html.big .item{grid-template-columns:2.3rem 1fr;grid-template-areas:"star info" "qty qty";row-gap:.4rem}
 html.big .star{grid-area:star;width:2.3rem;height:2.6rem}
@@ -359,7 +377,7 @@ html[lang="en"] .brand .sub{letter-spacing:-.025em}
 @media (max-width:389px){
   html[lang="en"] .brand .sub{font-size:.55rem}
   .storebar{flex-wrap:wrap;row-gap:.35rem}
-  .storebar .count{flex:1 0 100%}
+  .storebar .count{flex:1 1 auto}
   .listhead .mini{flex:1 1 auto}
   .name{overflow-wrap:break-word}
 }
@@ -930,6 +948,7 @@ html.big .isteps li>span{font-size:1rem}
 <main>
   <div class="storebar">
     <span id="menuCount" class="count">메뉴 0개</span>
+    <button type="button" id="addJump" class="addjump" aria-label="메뉴 추가 칸으로 바로 가기">➕ 메뉴 추가</button>
   </div>
 
   <div class="listhead" id="listHead">
@@ -1421,6 +1440,8 @@ function applyLang(){
   setAttr('#installBtn','aria-label','앱 설치 안내','How to install the app');
   setTxt('#shareBtn','📤 공유','📤 Share');
   setAttr('#shareBtn','aria-label','이 앱 공유하기','Share this app');
+  setTxt('#addJump','➕ 메뉴 추가','➕ Add Menu');
+  setAttr('#addJump','aria-label','메뉴 추가 칸으로 바로 가기','Jump to the Add Menu box');
 
   setTxt('[data-act="renamestore"]','✏️ 이름변경','✏️ Rename');
   setAttr('[data-act="renamestore"]','aria-label','이 가게 이름 바꾸기','Rename this shop');
@@ -2087,6 +2108,30 @@ document.addEventListener('click', e=>{
 $('#starFilter').addEventListener('click', ()=>{
   S.filterFav=!S.filterFav; save(); renderMenu();
 });
+
+/* ➕ 메뉴 추가 — 아래 '메뉴 추가' 카드로 부드럽게 내려가 이름 칸에 바로 커서 */
+$('#addJump').addEventListener('click', jumpToAdd);
+function jumpToAdd(){
+  if(typeof selMode!=='undefined' && selMode) finishSel();
+  const title=$('#addTitle');
+  const sec=title && title.closest('.card');
+  if(!sec) return;
+  const hdr=document.querySelector('.top');
+  const off=(hdr? hdr.getBoundingClientRect().height : 0)+12;
+  const y=Math.max(0, sec.getBoundingClientRect().top + window.pageYOffset - off);
+  const reduce=!!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  try{ window.scrollTo({top:y, behavior: reduce? 'auto':'smooth'}); }
+  catch(e){ window.scrollTo(0,y); }
+  sec.classList.add('flash');
+  setTimeout(()=>{ sec.classList.remove('flash'); }, 1500);
+  setTimeout(()=>{
+    const on=$('.tab.on');
+    const tab=on? on.dataset.tab : 'manual';
+    const el=$(tab==='paste'? '#pasteArea' : (tab==='photo'? '.tab.on' : '#newName'));
+    if(!el) return;
+    try{ el.focus({preventScroll:true}); }catch(e){ try{ el.focus(); }catch(_){} }
+  }, reduce? 60 : 460);
+}
 
 $('#bigBtn').addEventListener('click', ()=>{
   S.big=!S.big; save(); render();
