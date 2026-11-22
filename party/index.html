@@ -93,6 +93,20 @@
     min-height:2.1rem;
   }
   .tgl:active{transform:scale(.97)}
+  .tgl.share{border-color:rgba(230,179,75,.85);background:rgba(230,179,75,.18);color:#FFF6E2}
+  /* 일반폰(≤430px): 브랜드·공유·언어·소리가 한 줄에 깔끔하게 — 글자 겹침·넘침 0 */
+  @media (max-width:430px){
+    .topbar{gap:.35rem;flex-wrap:wrap}
+    .brand{font-size:.66rem;gap:.3rem;letter-spacing:0;flex:0 0 auto}
+    .toggles{gap:.25rem;margin-left:auto}
+    .tgl{padding:.3rem .4rem;font-size:.68rem;gap:.18rem}
+  }
+  /* 📤 공유 알림 */
+  #toast{position:fixed;left:50%;bottom:calc(1.6rem + env(safe-area-inset-bottom));transform:translate(-50%,.8rem);
+    background:rgba(255,249,238,.97);color:#163A2D;border:1.5px solid rgba(230,179,75,.75);border-radius:1rem;
+    padding:.6rem .9rem;font-size:.82rem;font-weight:800;max-width:88vw;text-align:center;line-height:1.35;
+    box-shadow:0 8px 22px rgba(0,0,0,.32);opacity:0;pointer-events:none;transition:.2s;z-index:60}
+  #toast.on{opacity:1;transform:translate(-50%,0)}
 
   header.hero{text-align:center;margin:.2rem 0 .9rem}
   .kicker{
@@ -262,6 +276,9 @@
   <div class="topbar">
     <div class="brand"><span aria-hidden="true">🎄</span> <b>WAGLE</b> HOLIDAY PARTY</div>
     <div class="toggles">
+      <button class="tgl share" id="shareBtn" type="button" aria-label="Share this page">
+        <span aria-hidden="true">📤</span><span id="shareLabel" data-en="Share" data-ko="공유">Share</span>
+      </button>
       <button class="tgl" id="langBtn" type="button" aria-label="Language">
         <span aria-hidden="true">🌐</span><span id="langLabel">한</span>
       </button>
@@ -538,6 +555,8 @@
   </footer>
 </div>
 
+<div id="toast" role="status" aria-live="polite"></div>
+
 <script>
 (function(){
   "use strict";
@@ -573,7 +592,12 @@
     verdictGood: {en:"A true classic reader. Pass the phone — your turn to host.", ko:"고전을 제대로 아시네요. 이제 다음 사람에게 폰을 넘겨 주세요."},
     verdictMid: {en:"Solid! Half the table will want a rematch.", ko:"훌륭해요! 테이블 절반은 재대결을 원할 거예요."},
     verdictLow: {en:"Now you have a reading list for the holidays.", ko:"이제 연휴 독서 목록이 생겼네요."},
-    secLeft: {en:"sec left", ko:"초 남음"}
+    secLeft: {en:"sec left", ko:"초 남음"},
+    shareTitle: {en:"Wagle Holiday Party 🎄 Free Christmas Table Games", ko:"와글 홀리데이 파티 🎄 무료 크리스마스 테이블 게임"},
+    shareText: {en:"🎄 Wagle Holiday Party — three Christmas party games for your table (Would You Rather, 60-second guessing, classic quotes). No sign-up, no ads. Open the link on any phone!",
+                ko:"🎄 와글 홀리데이 파티 — 식탁 위 크리스마스 파티게임 3종(밸런스 게임·60초 초성 퀴즈·고전 명대사). 가입 없음, 광고 없음. 아무 폰에서나 링크를 열면 끝!"},
+    shareCopied: {en:"Share text and link copied. Paste it into KakaoTalk", ko:"공유 문구와 링크를 복사했어요! 카톡에 붙여넣기 하세요"},
+    shareCopyFail: {en:"If copying fails, copy the link from the address bar", ko:"복사가 안 되면 주소창의 링크를 복사해 보내 주세요"}
   };
 
   /* ══════════════ 효과음 (짧은 합성음, 외부 파일 0개) ══════════════ */
@@ -1116,6 +1140,7 @@
     $("#soundLabel").textContent = T(soundOn ? TXT.soundOn : TXT.soundOff);
     $("#soundIcon").textContent = soundOn ? "🔔" : "🔕";
     $("#soundBtn").setAttribute("aria-pressed", soundOn ? "true" : "false");
+    $("#shareBtn").setAttribute("aria-label", (lang === "ko") ? "이 페이지 공유하기" : "Share this page");
     var c = $("#huClock"); if(c) c.textContent = Math.ceil(hu.left);
   }
 
@@ -1172,6 +1197,57 @@
     applyStatic();
     if(soundOn){ sfx("tap"); }
   });
+
+  /* ══════════════ 📤 공유하기 (카톡·문자로 바로 보내기) ══════════════ */
+  var toastEl = $("#toast"), toastT = null;
+  function toast(msg){
+    if(!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add("on");
+    clearTimeout(toastT);
+    toastT = setTimeout(function(){ toastEl.classList.remove("on"); }, 2600);
+  }
+  function shareUrl(){
+    return "https://starpicklife-design.github.io/party/" + (lang === "ko" ? "?lang=ko" : "");
+  }
+  function sharePayload(){
+    return { title: T(TXT.shareTitle), text: T(TXT.shareText), url: shareUrl() };
+  }
+  function legacyCopy(text, done, fail){
+    try{
+      var ta = document.createElement("textarea");
+      ta.value = text; ta.setAttribute("readonly", "");
+      ta.style.position = "fixed"; ta.style.top = "0"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select(); ta.setSelectionRange(0, text.length);
+      var ok = document.execCommand("copy");
+      document.body.removeChild(ta);
+      ok ? done() : fail();
+    }catch(e){ fail(); }
+  }
+  function copyShare(payload){
+    var full = payload.text + "\n\n" + payload.url;
+    var done = function(){ toast(T(TXT.shareCopied)); };
+    var fail = function(){ toast(T(TXT.shareCopyFail)); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(full).then(done, function(){ legacyCopy(full, done, fail); });
+    } else { legacyCopy(full, done, fail); }
+  }
+  function doShare(){
+    var payload = sharePayload(), usable = true;
+    try{ if(navigator.canShare && !navigator.canShare(payload)) usable = false; }catch(e){}
+    if(navigator.share && usable){
+      try{
+        var r = navigator.share(payload);
+        if(r && r.then) r.then(function(){}, function(err){
+          if(err && err.name === "AbortError") return;  /* 사장님이 취소 — 조용히 */
+          copyShare(payload);
+        });
+        return;
+      }catch(e){ /* 공유 시트가 안 열리면 복사로 */ }
+    }
+    copyShare(payload);
+  }
+  $("#shareBtn").addEventListener("click", doShare);
 
   /* 시작 */
   applyStatic();

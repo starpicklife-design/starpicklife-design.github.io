@@ -63,7 +63,8 @@ input,textarea{font-family:inherit;font-size:1.05rem;color:var(--ink)}
 .chipline .chips{flex:1 1 100%;min-width:0;display:flex;flex-wrap:wrap;gap:.45rem;
   overflow:visible;padding:.2rem 0 0}
 .chipline .installbtn,.chipline .langtoggle,.chipline .chip.add{flex:0 0 auto}
-.chipline .installbtn{margin-left:auto}
+/* 설치·공유는 한 덩어리로 오른쪽에 — 좁은 폰에서 둘이 같이 다음 줄로 내려가 글자 겹침 0 */
+.chipline .actions{display:flex;align-items:center;gap:.45rem;margin-left:auto;flex:0 0 auto}
 .brand .langtoggle{flex:0 0 auto}
 .installbtn{flex:0 0 auto;display:flex;align-items:center;gap:.3rem;white-space:nowrap;
   background:linear-gradient(180deg,#F8DDB2,#E9BC6E);color:#3E2C22;border:2px solid #FFE9C7;
@@ -72,6 +73,24 @@ input,textarea{font-family:inherit;font-size:1.05rem;color:var(--ink)}
 .installbtn[hidden]{display:none}
 .installbtn:active{transform:translateY(1px)}
 html.big .installbtn{font-size:.76rem;padding:.3rem .55rem;min-height:2.7rem}
+/* 📤 공유하기 */
+.chipline .sharebtn{flex:0 0 auto}
+.sharebtn{display:flex;align-items:center;gap:.3rem;white-space:nowrap;
+  background:rgba(255,247,233,.14);color:#FFF7E9;border:2px solid rgba(255,247,233,.4);
+  border-radius:2rem;padding:.32rem .7rem;font-size:.82rem;font-weight:900;min-height:2.8rem;
+  letter-spacing:-.01em}
+.sharebtn:active{transform:translateY(1px)}
+.sharebtn[hidden]{display:none}
+html.big .sharebtn{font-size:.76rem;padding:.3rem .55rem;min-height:2.7rem}
+html.big .chipline .actions{gap:.35rem}
+html.big .installbtn,html.big .sharebtn{padding:.3rem .5rem}
+/* 일반폰(≤430px): 새 메뉴판·앱 설치·공유 세 버튼이 한 줄에 들어가게 폭을 조금씩 아킨다 */
+@media (max-width:430px){
+  .chipline{gap:.5rem .4rem}
+  .chipline .actions{gap:.4rem}
+  .chipline .chip.add{padding:.4rem .7rem}
+  .installbtn,.sharebtn{padding:.32rem .6rem;font-size:.8rem}
+}
 
 /* ── 본문 ── */
 main{padding:.7rem .75rem 0;max-width:34rem;margin:0 auto}
@@ -822,7 +841,10 @@ html.big .isteps li>span{font-size:1rem}
   <div class="chipline">
     <div class="chips" id="chips" role="tablist" aria-label="메뉴판 고르기"></div>
     <button type="button" id="addStoreChip" class="chip add" data-act="newstore">＋ 새 메뉴판</button>
-    <button type="button" id="installBtn" class="installbtn" aria-haspopup="dialog">📲 앱 설치</button>
+    <div class="actions">
+      <button type="button" id="installBtn" class="installbtn" aria-haspopup="dialog">📲 앱 설치</button>
+      <button type="button" id="shareBtn" class="sharebtn" aria-label="이 앱 공유하기">📤 공유하기</button>
+    </div>
   </div>
 </header>
 
@@ -1289,6 +1311,8 @@ function applyLang(){
   setAttr('#chips','aria-label','메뉴판 고르기','Choose a menu board');
   setTxt('#installBtn','📲 앱 설치','📲 Install App');
   setAttr('#installBtn','aria-label','앱 설치 안내','How to install the app');
+  setTxt('#shareBtn','📤 공유하기','📤 Share');
+  setAttr('#shareBtn','aria-label','이 앱 공유하기','Share this app');
 
   setTxt('[data-act="renamestore"]','✏️ 이름 바꾸기','✏️ Rename');
   setTxt('[data-act="delstore"]','🗑 메뉴판 지우기','🗑 Delete');
@@ -3702,6 +3726,43 @@ window.addEventListener('appinstalled', function(){
   installedApp=true; deferredPrompt=null; syncInstallBtn();
   toast(L('홈 화면에 앱을 꺼내 두었어요 📲','Added to your home screen 📲'));
 });
+/* ── 📤 공유하기 (카톡·문자로 바로 보내기) ── */
+var SHARE_BASE='https://starpicklife-design.github.io/menu/';
+function shareTargetUrl(){ return EN()? SHARE_BASE+'?lang=en' : SHARE_BASE; }
+function sharePayload(){
+  return {
+    title: L('와글가족 테이블 · 큰 글씨 메뉴판','Wagle Table · Large-Print Menu'),
+    text: L('☕ 큰 글씨 메뉴판 & 모임 게임 《와글가족 테이블》\n설치·회원가입 없이 링크만 누르면 바로 열려요. 번호뽑기·당첨/꽝·사다리타기까지 한 번에 😊',
+           '☕ Wagle Table — a large-print menu plus party games\nNo install, no sign-up. Tap the link and it opens: menu, number draw, winner/lucky draw and the ladder game.'),
+    url: shareTargetUrl()
+  };
+}
+function copyShareText(payload){
+  var full=payload.text+'\n\n'+payload.url;
+  var done=function(){ toast(L('공유 문구와 링크를 복사했어요! 카톡에 붙여넣기 하세요','Share text and link copied. Paste it into KakaoTalk')); };
+  var fail=function(){ toast(L('복사가 안 되면 주소창의 링크를 복사해 보내 주세요','If copying fails, copy the link from the address bar instead')); };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(full).then(done, function(){ legacyCopy(full, done, fail); });
+  } else { legacyCopy(full, done, fail); }
+}
+function shareApp(){
+  var payload=sharePayload(), nav=navigator, usable=true;
+  try{ if(nav.canShare && !nav.canShare(payload)) usable=false; }catch(e){}
+  if(nav.share && usable){
+    try{
+      var r=nav.share(payload);
+      if(r && r.then) r.then(function(){}, function(err){
+        if(err && err.name==='AbortError') return; /* 사용자가 취소 — 조용히 */
+        copyShareText(payload);
+      });
+      return;
+    }catch(e){ /* 공유 시트가 안 열리면 복사로 */ }
+  }
+  copyShareText(payload);
+}
+var shareBtn=$('#shareBtn');
+if(shareBtn) shareBtn.addEventListener('click', shareApp);
+
 /* 인터넷이 끊겨도 열리도록 Service Worker 등록 (파일로 직접 열었을 땐 건너뜀) */
 if('serviceWorker' in navigator && location.protocol!=='file:'){
   window.addEventListener('load', function(){
