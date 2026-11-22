@@ -148,6 +148,10 @@ html.big .heroCard img{aspect-ratio:16/9}
 .hchip .hcnt{font-size:.72rem;font-weight:800;color:#8B7A6B;background:#F6EEDD;border-radius:1rem;padding:.06rem .34rem}
 .hchip.new{border-style:dashed;border-color:#4E8A5C;color:#23552F;background:#EAF4EC;box-shadow:none}
 .hlistnote{margin:.1rem .2rem 0;font-size:.82rem;font-weight:700;color:#8B7A6B;line-height:1.45}
+.homeHint{margin:.9rem .3rem 0;font-size:.74rem;font-weight:700;color:#A08E7E;line-height:1.5;letter-spacing:-.01em}
+.homeHint b{color:#7A6656}
+/* 화면이 납작한 작은 폰에서는 안내 한 줄을 잠깐 숨겨 3개 버튼·내 카페가 한 화면에 들어오게 */
+@media (max-height:760px){ .homeHint{display:none} }
 @media (max-width:389px){
   .heroCard{border-radius:1rem}
   .hbtn{padding:.46rem .68rem;min-height:3.2rem}
@@ -1259,6 +1263,7 @@ html.big .isteps li>span{font-size:1rem}
     </button>
   </div>
   <div class="homeList" id="homeList"></div>
+  <p class="homeHint" id="homeHint">💡 카페를 누르면 메뉴판이 열리고, 폰 뒤로가기(◀)나 <b>🏠 홈</b>으로 언제든 이 화면에 와요.</p>
 </section>
 
 <main>
@@ -1850,6 +1855,9 @@ function applyLang(){
   setTxt('#hbOrderS','메뉴 넣고 바로 주문 담기','Add items and take the order');
   setTxt('#hbEvent','이벤트하기','Play an Event');
   setTxt('#hbEventS','번호뽑기 · 당첨·꽝 · 사다리타기','Draw · Winner/blank · Ladder');
+  setHTML('#homeHint',
+    '💡 카페를 누르면 메뉴판이 열리고, 폰 뒤로가기(◀)나 <b>🏠 홈</b>으로 언제든 이 화면에 와요.',
+    '💡 Tap a cafe to open its menu — phone Back (◀) or <b>🏠 Home</b> brings you back here anytime.');
   setAttr('#homeArt','alt',
     '테이블에 모여 함께 차를 마시는 와글가족 햄스터 가족과 클로벨 세 자매',
     'The Wagle hamster family and the three Clovelle sisters sharing tea around a table');
