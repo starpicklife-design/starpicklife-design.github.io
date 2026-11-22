@@ -110,6 +110,12 @@ html.big .brand h1{letter-spacing:-.045em;font-size:.96rem}
 /* ── 본문 ─────────────────────────────── */
 main{padding:.42rem .7rem 0;max-width:34rem;margin:0 auto}
 .spacebar{padding:0 .1rem .34rem}
+/* 좌우로 밀어 칸 이동할 때 살짝 미끄러지는 느낌 */
+@keyframes swipeInL{from{opacity:.3;transform:translateX(22px)}to{opacity:1;transform:none}}
+@keyframes swipeInR{from{opacity:.3;transform:translateX(-22px)}to{opacity:1;transform:none}}
+#spaceView.swipeL,#homeView.swipeL{animation:swipeInL .24s ease-out}
+#spaceView.swipeR,#homeView.swipeR{animation:swipeInR .24s ease-out}
+@media (prefers-reduced-motion:reduce){#spaceView.swipeL,#spaceView.swipeR,#homeView.swipeL,#homeView.swipeR{animation:none}}
 .spbarTop{display:flex;flex-wrap:wrap;align-items:center;gap:.3rem;margin-bottom:.3rem}
 .spbarBottom{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem}
 .spname{flex:1 1 auto;min-width:0;font-size:1.02rem;font-weight:900;color:var(--green);
@@ -732,7 +738,7 @@ html.big .dpdishes{font-size:.86rem}
       </div>
       <span class="housepeek" aria-hidden="true"><svg viewBox="0 0 120 190"><use href="#wg-sehee"/></svg></span>
     </div>
-    <p class="househint" id="houseHint"><b>냉장고나 실온보관바구니</b>를 누르면 안을 볼 수 있어요.<br>지붕을 누르면 <b>우리 집 전체 내역</b>이 열려요.</p>
+    <p class="househint" id="houseHint"><b>냉장고나 실온보관바구니</b>를 누르면 안을 볼 수 있어요.<br>지붕을 누르면 <b>우리 집 전체 내역</b>이 열려요. <b>좌우로 밀면</b> 다음 칸으로 넘어가요.</p>
     <button type="button" class="homerec" id="homeRecBtn"><span class="paw" aria-hidden="true"><svg viewBox="0 0 40 40"><use href="#wg-paw"/></svg></span><span aria-hidden="true">🧾</span><span id="homeRecLab">영수증 찍기 / 고르기</span><span class="paw r" aria-hidden="true"><svg viewBox="0 0 40 40"><use href="#wg-paw"/></svg></span></button>
 
     <section class="card today" id="todayCard">
@@ -1788,8 +1794,8 @@ function applyStaticLang(){
   $('#installBtn').setAttribute('aria-label', L('앱 설치 안내','How to install the app'));
   $('#roofChip').textContent = L('🏠 우리 집 전체 내역','🏠 Everything at home');
   $('#roofBtn').setAttribute('aria-label', L('우리 집 전체 내역 보기','See everything in our home'));
-  $('#houseHint').innerHTML = L('<b>냉장고나 실온보관바구니</b>를 누르면 안을 볼 수 있어요.<br>지붕을 누르면 <b>우리 집 전체 내역</b>이 열려요.',
-    'Tap a <b>fridge or the cart</b> to see inside.<br>Tap the <b>roof</b> to see everything at home.');
+  $('#houseHint').innerHTML = L('<b>냉장고나 실온보관바구니</b>를 누르면 안을 볼 수 있어요.<br>지붕을 누르면 <b>우리 집 전체 내역</b>이 열려요. <b>좌우로 밀면</b> 다음 칸으로 넘어가요.',
+    'Tap a <b>fridge or the cart</b> to see inside.<br>Tap the <b>roof</b> to see everything at home. <b>Swipe left or right</b> to move on.');
   $('#addJump').textContent = L('➕ 품목 추가','➕ Add item');
   $('#clearAll').textContent = L('🧹 올클리어','🧹 Clear all');
   $('#favBtn').textContent = L('★ 자주 사는 것만','★ Favorites only');
@@ -1874,6 +1880,54 @@ $('#kitchen').addEventListener('click', function(e){
   const b=e.target.closest('[data-id]'); if(!b) return;
   openSpace(b.dataset.id);
 });
+
+/* ══════ 👈👉 좌우로 밀어 칸 이동 (홈 → 냉장실 → 냉동실 → 야채·김치칸 → 실온보관바구니) ══════
+   - 세로 스크롤을 방해하지 않게: 가로로 충분히(65px) 밀고, 세로보다 1.6배 이상 길 때만
+   - 입력칸·모달·골라 지우기 중에는 동작하지 않음 */
+function spaceSeq(){
+  return ['home'].concat(fridges().map(function(s){ return s.id; })).concat(cart()? [cart().id] : []);
+}
+function swipeSlide(dir){
+  const v=(S.view==='space')? $('#spaceView') : $('#homeView'); if(!v) return;
+  v.classList.remove('swipeL','swipeR'); void v.offsetWidth;
+  v.classList.add(dir>0? 'swipeL':'swipeR');
+  setTimeout(function(){ v.classList.remove('swipeL','swipeR'); }, 280);
+}
+function swipeNav(dir){
+  if($$('.modal').some(function(m){ return !m.hidden; })) return;
+  if(S.selMode) return;
+  /* 회전문처럼 한 바퀴 순환: 홈 → 냉장실 → 냉동실 → 야채·김치칸 → 실온보관바구니 → 홈 … */
+  const seq=spaceSeq();
+  const cur=(S.view==='space' && seq.indexOf(S.cur)>=0)? S.cur : 'home';
+  const i=seq.indexOf(cur);
+  const j=(i + dir + seq.length) % seq.length;
+  const id=seq[j];
+  if(id==='home'){
+    if(navDepth>0) navStepBack();
+    goHomeView();
+    swipeSlide(dir);
+    return;
+  }
+  openSpace(id);
+  swipeSlide(dir);
+}
+let swX=0, swY=0, swT=0, swOn=false;
+document.addEventListener('touchstart', function(e){
+  swOn=false;
+  if(e.touches.length!==1) return;
+  const t=e.target;
+  if(t && t.closest && t.closest('input,textarea,select,[contenteditable="true"],.modal')) return;
+  swX=e.touches[0].clientX; swY=e.touches[0].clientY; swT=Date.now(); swOn=true;
+}, {passive:true});
+document.addEventListener('touchend', function(e){
+  if(!swOn) return; swOn=false;
+  const t=e.changedTouches && e.changedTouches[0]; if(!t) return;
+  const dx=t.clientX-swX, dy=t.clientY-swY, dt=Date.now()-swT;
+  if(dt>1000) return;                       /* 천천히 끈 것은 스크롤로 본다 */
+  if(Math.abs(dx)<65) return;
+  if(Math.abs(dx)<Math.abs(dy)*1.6) return;
+  swipeNav(dx<0? 1 : -1);
+}, {passive:true});
 
 /* ══════ 🏠 전체 내역 ══════ */
 function renderOverview(){
