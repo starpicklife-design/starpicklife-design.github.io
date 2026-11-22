@@ -437,12 +437,13 @@ html.big .nostore .nsnew{min-height:3.9rem;font-size:1.16rem}
 .empty>div{width:100%;word-break:keep-all;overflow-wrap:break-word}
 
 /* QR 스티커 카드 */
-.qrcard{position:relative;overflow:hidden;border:2px dashed #E3C489;
+.qrcard{position:relative;overflow:hidden;border:2px dashed #E3C489;padding:.62rem .72rem;
   background:linear-gradient(165deg,#FFFDF6 0%,#FFF5E5 100%)}
-.qrcard .qrpeek{position:absolute;right:-.5rem;top:-.7rem;width:4.9rem;height:4.9rem;opacity:.95;pointer-events:none;transform:rotate(6deg)}
-.qrcard{padding:.62rem .72rem}
-.qrcard h2{margin:0 0 .32rem;margin-right:3.4rem;font-size:1rem}
-.qrcard .note{margin:0 0 .5rem;padding-right:2.9rem;font-size:.86rem;line-height:1.33}
+.qrhead{display:flex;align-items:center;gap:.35rem;margin:0 0 .28rem}
+.qrhead h2{margin:0;flex:1 1 auto;font-size:1rem;line-height:1.2;word-break:keep-all}
+.qrcard .qrpeek{flex:0 0 auto;width:2.7rem;height:2.7rem;display:block;margin:-.32rem -.1rem -.26rem 0;
+  opacity:.98;pointer-events:none;transform-origin:50% 90%}
+.qrcard .note{margin:0 0 .5rem;font-size:.86rem;line-height:1.34}
 .qrbtn{width:100%;min-height:3.5rem;border-radius:1rem;border:2px solid #A9451F;
   background:linear-gradient(180deg,#D4683A,#B9542B);color:#fff;font-size:1.04rem;font-weight:900;
   display:flex;align-items:center;justify-content:center;gap:.4rem;letter-spacing:-.01em;
@@ -472,7 +473,7 @@ html.big .nostore .nsnew{min-height:3.9rem;font-size:1.16rem}
 html.big .brand .hamsvg{display:none}
 html.big .brand h1{font-size:.9rem;white-space:normal;word-break:keep-all}
 html.big .brand .sub{display:none}
-html.big .qrcard h2{margin-right:0}
+html.big .qrhead h2{font-size:1.05rem}
 html.big .qrcard .qrpeek{display:none}
 html.big .qrbtn{font-size:.98rem;min-height:3.7rem}
 html.big #stickerCanvas{max-height:40vh}
@@ -1048,8 +1049,10 @@ html.big .isteps li>span{font-size:1rem}
   <p class="hint" id="menuHint">💡 메뉴 이름을 누르면 이름·가격 고치기와 지우기가 열려요.</p>
 
   <section class="card qrcard" id="qrCard">
-    <svg class="qrpeek" viewBox="0 0 120 120" aria-hidden="true"><use href="#wg-baby"/></svg>
-    <h2>🏷️ 매장용 QR 스티커</h2>
+    <div class="qrhead">
+      <h2>🏷️ 매장용 QR 스티커</h2>
+      <svg class="qrpeek" viewBox="0 0 120 120" aria-hidden="true"><use href="#wg-baby"/></svg>
+    </div>
     <p class="note">가게 이름만 넣으면 <b>QR 스티커</b>가 뚝딱! 테이블에 붙여 두면 손님이 카메라로 찍어 큰 글씨 메뉴판을 열 수 있어요.</p>
     <button class="qrbtn" id="openSticker">QR 스티커 만들기</button>
   </section>
@@ -4274,6 +4277,52 @@ $('#dSound').addEventListener('click', function(){
   S.draw.sound=!S.draw.sound; save(); dRender();
   toast(S.draw.sound? L('소리를 켰어요','Sound on') : L('소리를 껐어요','Sound off'));
 });
+
+/* ══════ 👈👉 좌우로 밀어 화면 넘기기 ══════
+   · 메뉴판에서 왼쪽으로 밀면 → 🎲 번호뽑기 이벤트가 바로 열림
+   · 이벤트 안에서 왼쪽 = 다음(🔢 번호뽑기 → 🎁 당첨·꽝 → 🪜 사다리타기 → 메뉴판)
+     오른쪽 = 이전(🪜 사다리타기 → 🎁 당첨·꽝 → 🔢 번호뽑기 → 메뉴판)
+   · 세로 스크롤을 방해하지 않게 |dx|>65 이고 |dx|>|dy|*1.6 일 때만
+   · 입력칸에 글씨를 쓰는 중이거나 메뉴 지우기 모드일 때는 꺼 둔다 */
+var swX=0, swY=0, swOn=false, swJust=false;
+function swTyping(el){
+  try{ return !!(el && el.closest && el.closest('input,textarea,select,[contenteditable]')); }catch(e){ return false; }
+}
+function swBusy(){
+  if(typeof selMode!=='undefined' && selMode) return true;
+  var open=$$('.modal').filter(function(m){ return !m.hidden; });
+  if(open.length>1) return true;                       /* 확인창이 겹쳐 있으면 끔 */
+  if(open.length===1 && open[0].id!=='drawModal') return true;
+  return false;
+}
+document.addEventListener('touchstart', function(e){
+  if(e.touches.length!==1 || swBusy() || swTyping(e.target)){ swOn=false; return; }
+  swX=e.touches[0].clientX; swY=e.touches[0].clientY; swOn=true;
+}, {passive:true});
+document.addEventListener('touchend', function(e){
+  if(!swOn) return;
+  swOn=false;
+  var t=e.changedTouches && e.changedTouches[0]; if(!t) return;
+  var dx=t.clientX-swX, dy=t.clientY-swY, adx=Math.abs(dx), ady=Math.abs(dy);
+  if(adx<=65 || adx<=ady*1.6) return;
+  if(swBusy()) return;
+  swJust=true;
+  try{ e.preventDefault(); }catch(_){}
+  setTimeout(function(){ swJust=false; }, 420);
+  if($('#drawModal').hidden){                            /* 메뉴판 → 이벤트 */
+    if(dx<0) openDraw();
+    return;
+  }
+  var order=['num','win','lad'], i=order.indexOf(dMode());
+  if(dx<0){ if(i<order.length-1) dSetMode(order[i+1]); else hideModal('drawModal'); }  /* 왼쪽 = 다음 */
+  else    { if(i>0) dSetMode(order[i-1]); else hideModal('drawModal'); }              /* 오른쪽 = 이전 */
+}, {passive:false});
+/* 밀기 직후에 따라오는 탭(클릭)은 한 번 무시 — 공이 잘못 뽑히지 않게 */
+document.addEventListener('click', function(e){
+  if(!swJust) return;
+  swJust=false;
+  e.preventDefault(); e.stopPropagation();
+}, true);
 
 /* ── 📲 홈 화면에 앱 설치 (PWA) ── */
 var installBtn=$('#installBtn'), deferredPrompt=null, installedApp=false;
