@@ -988,9 +988,13 @@
     $("#qNext").hidden = true;
     qg.answered = false;
 
+    // 선택지 순서를 문항마다 섞는다 (정답이 늘 A에 오지 않도록)
+    var perm = shuffle(item.choices.map(function(_, k){ return k; }));
+    qg.perm = perm;
+
     var box = $("#qChoices");
     box.innerHTML = "";
-    item.choices.forEach(function(c, k){
+    perm.forEach(function(orig, k){
       var b = document.createElement("button");
       b.type = "button";
       b.className = "q-choice";
@@ -998,7 +1002,7 @@
       key.className = "k";
       key.textContent = (lang === "ko" ? ["가","나","다"][k] : ["A","B","C"][k]);
       var tx = document.createElement("span");
-      tx.textContent = T(c);
+      tx.textContent = T(item.choices[orig]);
       b.appendChild(key); b.appendChild(tx);
       b.addEventListener("click", function(){ answerQuote(k, item, b); });
       box.appendChild(b);
@@ -1008,12 +1012,13 @@
   function answerQuote(k, item, btn){
     if(qg.answered) return;
     qg.answered = true;
-    item.chosen = k;
+    var perm = qg.perm || item.choices.map(function(_, n){ return n; });
+    item.chosen = perm[k];
     var all = $$("#qChoices .q-choice");
-    var ok = (k === item.answer);
+    var ok = (item.chosen === item.answer);
     if(ok){ qg.score++; }
     all.forEach(function(b, n){
-      if(n === item.answer) b.classList.add("correct");
+      if(perm[n] === item.answer) b.classList.add("correct");
       else if(n === k) b.classList.add("wrong");
       else b.classList.add("dimmed");
       b.disabled = false;
@@ -1128,9 +1133,10 @@
         var idx = qg.order[qg.i], item = QUOTES[idx];
         $("#qQuote").textContent = T(item.quote);
         $("#qPrompt").textContent = T(item.prompt);
+        var perm = qg.perm || item.choices.map(function(_, n){ return n; });
         $$("#qChoices .q-choice").forEach(function(b, n){
           var tx = b.querySelector("span:last-child");
-          if(tx) tx.textContent = T(item.choices[n]);
+          if(tx) tx.textContent = T(item.choices[perm[n]]);
           var key = b.querySelector(".k");
           if(key) key.textContent = (lang === "ko" ? ["가","나","다"][n] : ["A","B","C"][n]);
         });
