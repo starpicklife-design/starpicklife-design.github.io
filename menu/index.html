@@ -1974,7 +1974,7 @@ $('#photoInput').addEventListener('change', function(e){
       if(navigator.onLine===false){
         finish(L('인터넷이 없어 글자 읽기를 못 해요. 사진은 위에 보이고, 직접 입력이나 붙여넣기로 1초 만에 넣을 수 있어요',
           'No internet, so the text cannot be read. The photo is shown above — use Type In or Paste to add items in a second'),
-          L('인터넷이 없아 글자 읽기를 못 했어요','Offline — could not read the photo'));
+          L('인터넷이 없어 못 읽었어요','Offline — could not read'));
         return;
       }
       setProg(8, L('글자 읽기 준비 중… (처음 한 번은 20초쯤 걸려요)','Getting ready to read… (the first time takes about 20 seconds)'));
@@ -1994,7 +1994,7 @@ $('#photoInput').addEventListener('change', function(e){
       if(!list.length){
         finish(L('사진에서 글자를 찾지 못했어요. 직접 입력이나 붙여넣기로 넣어 주세요',
           'No text was found in the photo. Add items with Type In or Paste'),
-          L('사진에서 글자를 찾지 못했어요','No text was found in the photo'));
+          L('글자를 찾지 못했어요','No text was found'));
         return;
       }
       settled=true; clearTimeout(hintT);
@@ -2005,7 +2005,7 @@ $('#photoInput').addEventListener('change', function(e){
       if(settled) return;
       finish(L('사진 읽기를 못 했어요. 사진은 위에 그대로 보여요 — 직접 입력이나 붙여넣기로 1초 만에 넣을 수 있어요',
         'Could not read the photo. The photo is shown above — Type In or Paste adds items in a second'),
-        L('사진 읽기를 못 했어요 · 직접 입력으로 넣어 주세요','Could not read the photo · use Type In instead'));
+        L('사진을 읽지 못했어요','Could not read the photo'));
     }
   })();
 });
