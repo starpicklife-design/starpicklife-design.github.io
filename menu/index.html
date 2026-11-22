@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#3E2C22" />
-<!-- build: 2026-11-22 wagle-table ocr-v5 · header-v10 (➕ 메뉴 추가 바로가기) -->
+<!-- build: 2026-11-22 wagle-table v11 ocr-v5 · header-v11 (🧹 올클리어 · 가게 0개 지원) -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
@@ -95,7 +95,8 @@ input,textarea{font-family:inherit;font-size:1.05rem;color:var(--ink)}
 /* ── 본문 ── */
 main{padding:.7rem .75rem 0;max-width:34rem;margin:0 auto}
 .storebar{display:flex;align-items:center;gap:.4rem;padding:.05rem .1rem .5rem}
-.count{font-weight:800;font-size:.95rem;color:var(--coffee);flex:1;white-space:nowrap;min-width:0}
+.count{font-weight:800;font-size:.95rem;color:var(--coffee);flex:1;white-space:nowrap;min-width:0;
+  overflow:hidden;text-overflow:ellipsis}
 /* ➕ 메뉴 추가 — '메뉴 N개' 줄 오른쪽. '추가'는 ＋ 새 가게와 같은 초록 계열로 한눈에 */
 .addjump{display:flex;align-items:center;justify-content:center;gap:.18rem;flex:0 0 auto;margin-left:auto;white-space:nowrap;
   background:#D9EBDD;border:2px solid #3F8155;color:#1F4C2D;border-radius:.9rem;
@@ -106,6 +107,20 @@ main{padding:.7rem .75rem 0;max-width:34rem;margin:0 auto}
 @media (max-width:389px){
   .addjump{font-size:.78rem;padding:.34rem .5rem;min-height:2.5rem}
 }
+/* 메뉴 줄 오른쪽 — ➕ 메뉴 추가 옆에 🧹 올클리어를 나란히 */
+.menutools{display:flex;align-items:center;gap:.35rem;flex:0 0 auto;margin-left:auto}
+/* 🧹 올클리어 — 한 번에 전부 지우기(되돌릴 수 없음)는 로즈 계열, 🗑️ 지우기보다 진하게 */
+.clearall{display:flex;align-items:center;justify-content:center;gap:.18rem;flex:0 0 auto;white-space:nowrap;
+  background:#FFE0D8;border:2px solid #C4564A;color:#8A2E22;border-radius:.9rem;
+  padding:.34rem .6rem;font-size:.84rem;font-weight:900;letter-spacing:-.01em;min-height:2.6rem;
+  box-shadow:0 2px 6px rgba(196,86,74,.16);line-height:1.15}
+.clearall:active{transform:translateY(1px);background:#FFD1C6}
+.clearall:focus-visible{outline:3px solid #2E8A82;outline-offset:2px}
+.clearall:disabled{opacity:.4;box-shadow:none}
+@media (max-width:389px){
+  .clearall{font-size:.78rem;padding:.34rem .46rem;min-height:2.5rem}
+}
+html.big .clearall{font-size:.78rem;padding:.32rem .54rem;min-height:2.8rem}
 /* 눌렀을 때 '메뉴 추가' 카드가 살짝 빛나 어디로 왔는지 알려 준다 */
 .card.flash{animation:cardflash 1.2s ease-out}
 @keyframes cardflash{0%{box-shadow:0 0 0 0 rgba(63,129,85,.5);border-color:#3F8155}
@@ -228,12 +243,12 @@ html.big .seltool{font-size:.66rem;min-height:2.9rem}
 .tamount .won{font-size:1.05rem;margin-left:.1rem}
 .show{font-size:.92rem;line-height:1.16;padding:.45rem .75rem;text-align:center;border-radius:.9rem;flex:0 0 auto}
 .split{display:flex;align-items:center;gap:.35rem;margin-top:.4rem;border-top:2px dashed var(--line);
-  padding-top:.4rem;max-width:34rem;margin-left:auto;margin-right:auto}
+  padding-top:.4rem;max-width:34rem;margin-left:auto;margin-right:auto;flex-wrap:wrap;row-gap:.3rem}
 .splitlabel{font-size:.82rem;font-weight:900;color:var(--accent);background:#FDEEE4;border-radius:.5rem;padding:.12rem .5rem;white-space:nowrap;flex:0 0 auto}
 .pstep{width:2.9rem;height:2.9rem;border-radius:.8rem;border:2px solid var(--line);background:#fff;
   font-size:1.4rem;font-weight:800;color:var(--coffee);line-height:1}
 .pcount{font-size:1.08rem;font-weight:900;min-width:2.6rem;text-align:center}
-.per{margin-left:auto;font-size:.92rem;font-weight:800;color:var(--ink2);white-space:nowrap}
+.per{margin-left:auto;font-size:.92rem;font-weight:800;color:var(--ink2);white-space:nowrap;flex:0 0 auto}
 .per b{font-size:1.18rem;color:var(--coffee)}
 
 /* ── 모달 ── */
@@ -388,6 +403,19 @@ html[lang="en"] .brand .sub{letter-spacing:-.025em}
 .emptyArt{width:9.6rem;height:auto;display:block;margin:0 auto .1rem}
 .emptyArt svg{width:100%;height:auto;display:block}
 .empty b{color:var(--accent)}
+/* 가게 0개 기본 화면 */
+.nostore{padding:1.05rem .9rem 1.15rem;text-align:center;border-style:dashed;
+  background:linear-gradient(170deg,#FFFDF6 0%,#FFF4E2 100%)}
+.nostore .nsart{width:10.6rem;max-width:74%;margin:0 auto .1rem}
+.nostore .nsart svg{width:100%;height:auto;display:block}
+.nostore h2{font-size:1.16rem;margin:.1rem 0 .3rem;word-break:keep-all}
+.nostore .note{margin:0 auto .85rem;max-width:21rem;color:var(--ink2);font-weight:700;line-height:1.5;word-break:keep-all}
+.nostore .nsnew{width:100%;min-height:3.5rem;font-size:1.1rem;background:#3F8155;border-color:#3F8155;color:#FFF7E9;
+  box-shadow:0 3px 10px rgba(63,129,85,.22)}
+.nostore .nsnew:active{transform:translateY(1px);background:#357048}
+html.big .nostore h2{font-size:1.3rem}
+html.big .nostore .note{font-size:.86rem}
+html.big .nostore .nsnew{min-height:3.9rem;font-size:1.16rem}
 .empty>div{width:100%;word-break:keep-all;overflow-wrap:break-word}
 
 /* QR 스티커 카드 */
@@ -946,10 +974,30 @@ html.big .isteps li>span{font-size:1rem}
 </header>
 
 <main>
-  <div class="storebar">
+  <div class="storebar" id="storebar">
     <span id="menuCount" class="count">메뉴 0개</span>
-    <button type="button" id="addJump" class="addjump" aria-label="메뉴 추가 칸으로 바로 가기">➕ 메뉴 추가</button>
+    <div class="menutools">
+      <button type="button" id="addJump" class="addjump" aria-label="메뉴 추가 칸으로 바로 가기">➕ 메뉴 추가</button>
+      <button type="button" id="clearAll" class="clearall" aria-label="메뉴와 주문 수량 전부 지우기">🧹 올클리어</button>
+    </div>
   </div>
+
+  <!-- 등록된 가게가 0개일 때의 기본 화면 -->
+  <section class="card nostore" id="noStore" hidden>
+    <div class="nsart" aria-hidden="true">
+      <svg viewBox="0 0 300 168" role="img">
+        <ellipse cx="150" cy="152" rx="112" ry="12" fill="#F1E3CB"/>
+        <use href="#wg-baby" x="96" y="60" width="108" height="108"/>
+        <g transform="translate(150 44)">
+          <rect x="-48" y="-24" width="96" height="44" rx="11" fill="#FFF9EE" stroke="#C98A2E" stroke-width="3" stroke-dasharray="8 5"/>
+          <path d="M0 -11 v22 M-11 0 h22" stroke="#3F8155" stroke-width="7" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
+    <h2 id="nsTitle">등록된 가게가 없어요</h2>
+    <p class="note" id="nsNote">새 가게를 만들면 메뉴를 넣고 주문을 담을 수 있어요. 위의 <b>＋ 새 가게</b>로도 언제든 만들 수 있어요.</p>
+    <button type="button" class="btn primary nsnew" id="noStoreNew">➕ 새 가게 만들기</button>
+  </section>
 
   <div class="listhead" id="listHead">
     <button id="starFilter" class="mini" aria-pressed="false">★ 즐겨찾기만</button>
@@ -965,7 +1013,7 @@ html.big .isteps li>span{font-size:1rem}
   </div>
 
   <div id="menuList" class="list"></div>
-  <p class="hint">💡 메뉴 이름을 누르면 이름·가격 고치기와 지우기가 열려요.</p>
+  <p class="hint" id="menuHint">💡 메뉴 이름을 누르면 이름·가격 고치기와 지우기가 열려요.</p>
 
   <section class="card qrcard" id="qrCard">
     <svg class="qrpeek" viewBox="0 0 120 120" aria-hidden="true"><use href="#wg-baby"/></svg>
@@ -974,7 +1022,7 @@ html.big .isteps li>span{font-size:1rem}
     <button class="qrbtn" id="openSticker">와글가족 테이블 QR 스티커 만들기</button>
   </section>
 
-  <section class="card">
+  <section class="card" id="addCard">
     <h2 id="addTitle">메뉴 추가</h2>
     <div class="tabs" role="tablist">
       <button class="tab on" data-tab="manual" role="tab">직접 입력</button>
@@ -1381,7 +1429,7 @@ function load(){
     const raw=localStorage.getItem(KEY);
     if(!raw) return sample();
     const d=JSON.parse(raw);
-    if(!d||!Array.isArray(d.stores)||!d.stores.length) return sample();
+    if(!d||!Array.isArray(d.stores)) return sample();
     d.big=!!d.big;
     d.people=Math.min(99,Math.max(1,parseInt(d.people,10)||1));
     d.filterFav=!!d.filterFav;
@@ -1403,14 +1451,16 @@ function load(){
         fav:!!m.fav, qty:Math.max(0,Math.min(99,parseInt(m.qty,10)||0))
       }))
     }));
-    if(!d.stores.some(s=>s.id===d.cur)) d.cur=d.stores[0].id;
+    if(!d.stores.length) { d.cur=''; }
+    else if(!d.stores.some(s=>s.id===d.cur)) d.cur=d.stores[0].id;
     return d;
   }catch(e){ return sample(); }
 }
 let S=load();
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
-function store(){ return S.stores.filter(s=>s.id===S.cur)[0] || S.stores[0]; }
-function unit(){ return store().unit||'개'; }
+/* 고른 가게 — 가게가 0개면 null (모든 화면은 null을 견더야 한다) */
+function store(){ return S.stores.filter(s=>s.id===S.cur)[0] || S.stores[0] || null; }
+function unit(){ const st=store(); return (st&&st.unit)||'개'; }
 
 /* ── 화면의 고정 글자를 지금 언어로 (한 ↔ EN) ── */
 function setTxt(sel,ko,en){ var el=$(sel); if(el) el.textContent=EN()? en:ko; }
@@ -1442,6 +1492,10 @@ function applyLang(){
   setAttr('#shareBtn','aria-label','이 앱 공유하기','Share this app');
   setTxt('#addJump','➕ 메뉴 추가','➕ Add Menu');
   setAttr('#addJump','aria-label','메뉴 추가 칸으로 바로 가기','Jump to the Add Menu box');
+  setTxt('#clearAll','🧹 올클리어','🧹 Clear All');
+  setAttr('#clearAll','aria-label','메뉴와 주문 수량 전부 지우기','Clear all items and quantities');
+  setTxt('#nsTitle','등록된 가게가 없어요','No shop yet');
+  setTxt('#noStoreNew','＋ 새 가게 만들기','＋ Create New Shop');
 
   setTxt('[data-act="renamestore"]','✏️ 이름변경','✏️ Rename');
   setAttr('[data-act="renamestore"]','aria-label','이 가게 이름 바꾸기','Rename this shop');
@@ -1609,10 +1663,21 @@ function renderChips(){
 }
 function renderMenu(){
   const st=store();
+  if(!st){ renderNoStore(); return; }
+  $('#noStore').hidden=true;
+  showStoreUI(true);
   $('#menuCount').textContent = EN()
     ? (st.menus.length+(st.menus.length===1?' item':' items'))
     : ('메뉴 '+st.menus.length+'개');
+  const ca=$('#clearAll');
+  if(ca){
+    ca.disabled = !st.menus.length;
+    ca.textContent = L('🧹 올클리어','🧹 Clear All');
+    ca.setAttribute('aria-label', L('메뉴와 주문 수량 전부 지우기','Clear all items and quantities'));
+  }
+  const aj=$('#addJump'); if(aj) aj.disabled=false;
   const sf=$('#starFilter');
+  if(sf) sf.disabled=false;
   sf.setAttribute('aria-pressed', S.filterFav?'true':'false');
   sf.textContent = S.filterFav? L('★ 즐겨찾기만 (켜짐)','Favorites ★ (on)') : L('★ 즐겨찾기만','Favorites ★');
   const bulk=$('#bulkBtn');
@@ -1674,10 +1739,38 @@ function renderMenu(){
 /* ── 🗑️ 메뉴 지우기 (체크박스 일괄 삭제) ── */
 let selMode=false;
 const selIds=new Set();
-function visibleMenus(st){ return st.menus; }
+/* 본문 요소 중 가게가 있어야 뜻이 있는 것들 — 0개면 숨긴다(실수로 눌러 에러가 나지 않게) */
+function showStoreUI(on){
+  ['#storebar','#listHead','#menuHint','#qrCard','#addCard'].forEach(function(sel){
+    const el=$(sel); if(el) el.hidden=!on;
+  });
+  ['renamestore','delstore'].forEach(function(a){
+    const b=document.querySelector('[data-act="'+a+'"]'); if(b) b.hidden=!on;
+  });
+  if(!on){ const sb=$('#selBar'); if(sb) sb.hidden=true; }
+}
+/* 등록된 가게가 0개일 때의 기본 화면 */
+function renderNoStore(){
+  showStoreUI(false);
+  const box=$('#noStore');
+  if(box) box.hidden=false;
+  const mc=$('#menuCount'); if(mc) mc.textContent = L('메뉴 0개','0 items');
+  ['#starFilter','#bulkBtn','#clearAll','#addJump','#summaryBtn'].forEach(function(sel){
+    const el=$(sel); if(el) el.disabled=true;
+  });
+  const list=$('#menuList');
+  if(list){ list.classList.remove('selmode'); list.innerHTML=''; }
+  const t=$('#nsTitle'), n=$('#nsNote'), b=$('#noStoreNew');
+  if(t) t.textContent=L('등록된 가게가 없어요','No shop yet');
+  if(n) n.innerHTML=L('새 가게를 만들면 메뉴를 넣고 주문을 담을 수 있어요. 위의 <b>＋ 새 가게</b>로도 언제든 만들 수 있어요.',
+    'Create a shop to add menu items and take orders. You can also use <b>＋ New Shop</b> at the top.');
+  if(b) b.textContent=L('＋ 새 가게 만들기','＋ Create New Shop');
+}
+function visibleMenus(st){ return st && st.menus ? st.menus : []; }
 function clearSel(){ selMode=false; selIds.clear(); }
 function startSel(){
   const st=store();
+  if(!st) return;
   if(!st.menus.length){ toast(L('지울 메뉴가 없어요','There are no items to delete')); return; }
   selMode=true; selIds.clear();
   renderMenu();
@@ -1687,6 +1780,7 @@ function startSel(){
 function renderSelBar(){
   const bar=$('#selBar'), head=$('#listHead');
   if(!bar || !head) return;
+  if(!store()){ bar.hidden=true; head.hidden=true; return; }
   bar.hidden=!selMode;
   head.hidden=selMode;
   if(!selMode){
@@ -1730,6 +1824,7 @@ function finishSel(){ clearSel(); renderMenu(); }
 function bulkDelete(){
   if(!selMode) return;
   const st=store();
+  if(!st) return;
   const names=st.menus.filter(m=>selIds.has(m.id)).map(m=>dn(m.name));
   if(!names.length){ toast(L('지울 메뉴를 먼저 체크해 주세요','Check the items to delete first')); return; }
   const n=names.length, one=(n===1);
@@ -1749,6 +1844,7 @@ $('#selAll').addEventListener('click', toggleSelAll);
 $('#selDone').addEventListener('click', finishSel);
 function calc(){
   const st=store();
+  if(!st) return {items:[],merged:[],count:0,total:0,per:0};
   const items=st.menus.filter(m=>m.qty>0);
   const count=items.reduce((a,m)=>a+m.qty,0);
   const total=items.reduce((a,m)=>a+m.qty*m.price,0);
@@ -1836,7 +1932,9 @@ function toast(msg){
 
 /* ── 주문 요약 ── */
 function summaryText(){
-  const st=store(), c=calc();
+  const st=store();
+  if(!st) return '';
+  const c=calc();
   const list=c.merged;
   let t;
   if(EN()){
@@ -1854,7 +1952,9 @@ function summaryText(){
   return t;
 }
 function fillSummary(){
-  const st=store(), c=calc();
+  const st=store();
+  if(!st) return;
+  const c=calc();
   const list=c.merged;
   $('#sumStore').textContent=dn(st.name);
   $('#sumItems').innerHTML=list.map(m=>
@@ -1902,16 +2002,17 @@ $('#copyBtn').addEventListener('click', copySummary);
 /* ── 이름 입력 / 확인 ── */
 let nameMode='new';
 function askName(mode){
+  if(mode!=='new' && !store()) mode='new';
   nameMode=mode;
   $('#nameTitle').textContent = mode==='new'? L('새 가게 만들기','New Shop') : L('가게 이름 바꾸기','Rename Shop');
-  $('#nameInput').value = mode==='new'? '' : dn(store().name||'');
+  $('#nameInput').value = mode==='new'? '' : dn((store()||{}).name||'');
   showModal('nameModal');
   setTimeout(()=>{ try{ $('#nameInput').focus(); }catch(e){} }, 80);
 }
 function doName(){
   const v=$('#nameInput').value.trim();
   if(!v){ toast(L('이름을 적어 주세요','Please enter a name')); return; }
-  if(nameMode==='new'){
+  if(nameMode==='new' || !store()){
     const s={id:uid(), name:v, unit:'개', sym:'₩', menus:[]};
     S.stores.push(s); S.cur=s.id;
     clearSel();
@@ -1919,7 +2020,8 @@ function doName(){
     toast(L('새 가게를 만들었어요. 메뉴를 넣어 보세요 🙂','New shop created. Add some items 🙂'));
     return;
   }
-  store().name=v;
+  const st=store();
+  st.name=v;
   hideModal('nameModal'); save(); render();
   toast(L('이름을 바꿨어요','Name updated'));
 }
@@ -1941,47 +2043,50 @@ $('#confOk').addEventListener('click', ()=>{
 });
 
 function delStore(id){
-  const st=S.stores.filter(s=>s.id===id)[0] || store();
-  if(S.stores.length<2){
-    toast(L('가게가 하나뿐이라 지울 수 없어요. ＋ 새 가게로 먼저 하나 더 만들어 주세요.','You have only one shop. Add another with ＋ New Shop first.'));
-    return;
-  }
-  askConfirm(L('이 가게를 지울까요?','Delete this shop?'),
-    st.menus.length
-      ? L('"'+st.name+'" 의 메뉴 '+st.menus.length+'개도 함께 지워집니다. 되돌릴 수 없어요.',
-          '"'+dn(st.name)+'" and its '+st.menus.length+' items will be deleted. This cannot be undone.')
-      : L('"'+st.name+'" 가게를 지웁니다. 되돌릴 수 없어요.',
-          'The "'+dn(st.name)+'" shop will be deleted. This cannot be undone.'),
+  const st=S.stores.filter(s=>s.id===id)[0];
+  if(!st) return;
+  const last = S.stores.length<2;
+  let msg = st.menus.length
+    ? L('"'+st.name+'" 의 메뉴 '+st.menus.length+'개도 함께 지워집니다.',
+        '"'+dn(st.name)+'" and its '+st.menus.length+' items will be deleted.')
+    : L('"'+st.name+'" 가게를 지웁니다.',
+        'The "'+dn(st.name)+'" shop will be deleted.');
+  if(last) msg += L(' 마지막 가게라 지우면 등록된 가게가 0개가 돼요. ＋ 새 가게로 다시 만들 수 있어요.',
+                    ' This is your last shop — you can always make a new one with ＋ New Shop.');
+  msg += L(' 되돌릴 수 없어요.', ' This cannot be undone.');
+  askConfirm(L('이 가게를 지울까요?','Delete this shop?'), msg,
     L('지우기','Delete'), ()=>{
     const wasCur = st.id===S.cur;
     S.stores=S.stores.filter(s=>s.id!==st.id);
-    if(wasCur && S.stores.length) S.cur=S.stores[0].id;
+    if(!S.stores.length) S.cur='';
+    else if(wasCur) S.cur=S.stores[0].id;
     clearSel();
     save(); render();
     if($('#delStoreModal') && !$('#delStoreModal').hidden) hideModal('delStoreModal');
-    toast(L('"'+st.name+'" 가게를 지웠어요','Deleted the "'+dn(st.name)+'" shop'));
+    if(last) toast(L('"'+st.name+'" 가게를 지웠어요','Deleted "'+dn(st.name)+'"'));
+    else toast(L('"'+st.name+'" 가게를 지웠어요','Deleted the "'+dn(st.name)+'" shop'));
   });
 }
-/* 🗑️ 지우기 — 지울 가게를 목록에서 골라 삭제 */
+/* 🗑️ 지우기 — 지울 가게를 목록에서 골라 삭제 (마지막 1개까지 지울 수 있음) */
 function renderDelPicker(){
   const box=$('#dsList'), note=$('#dsNote');
   if(!box) return;
-  const only=S.stores.length<2;
+  const last=S.stores.length<2;
   box.innerHTML=S.stores.map(s=>
-    `<button type="button" class="pick${s.id===S.cur?' on':''}" data-delshop="${s.id}" ${only?'disabled':''}>
+    `<button type="button" class="pick${s.id===S.cur?' on':''}" data-delshop="${s.id}">
       <span class="pn">${esc(dn(s.name))}</span>
       <span class="pc">${EN()? (s.menus.length+(s.menus.length===1?' item':' items')) : ('메뉴 '+s.menus.length+'개')}</span>
       <span class="pd" aria-hidden="true">🗑️</span>
     </button>`).join('');
   if(note){
-    note.textContent = only
-      ? L('가게가 하나뿐이라 지울 수 없어요. ＋ 새 가게로 먼저 하나 더 만들어 주세요.','You have only one shop, so it cannot be deleted. Add another with ＋ New Shop first.')
+    note.textContent = last
+      ? L('지울 가게를 누르면 한 번 더 물어보고 지워요. 마지막 가게까지 지우면 \'등록된 가게가 없어요\' 화면이 되고, ＋ 새 가게로 다시 만들 수 있어요.','Tap the shop to delete. You will be asked once more. This is the last shop, so the screen will show "No shop yet" — ＋ New Shop brings one back.')
       : L('지울 가게를 누르면 한 번 더 물어보고 지워요.','Tap the shop to delete. You will be asked once more.');
-    note.classList.toggle('warn', only);
+    note.classList.toggle('warn', last);
   }
 }
 function openDelPicker(){
-  if(!S.stores.length) return;
+  if(!S.stores.length){ askName('new'); return; }
   renderDelPicker();
   showModal('delStoreModal');
 }
@@ -1991,13 +2096,16 @@ document.addEventListener('click', e=>{
   delStore(b.dataset.delshop);
 });
 function resetOrder(){
+  const st=store();
+  if(!st) return;
   const c=calc();
   if(!c.count){ toast(L('비울 주문이 없어요','There is no order to clear')); return; }
   askConfirm(L('주문을 비울까요?','Clear the order?'),
     L('담은 '+c.count+unit()+'의 수량이 모두 0이 됩니다. 메뉴는 그대로 남아요.',
       'All '+qtyUnit(c.count,store())+' will be set to 0. Menu items stay.'),
     L('비우기','Clear'), ()=>{
-    store().menus.forEach(m=>{ m.qty=0; });
+    const s2=store();
+    if(s2) s2.menus.forEach(m=>{ m.qty=0; });
     save(); render(); toast(L('주문을 비웠어요','Order cleared'));
   });
 }
@@ -2049,7 +2157,9 @@ document.addEventListener('click', e=>{
   try{ el.focus({preventScroll:true}); el.setSelectionRange(el.value.length, el.value.length); }catch(err){}
 });
 function openEdit(id){
-  const m=store().menus.filter(x=>x.id===id)[0];
+  const st=store();
+  if(!st) return;
+  const m=st.menus.filter(x=>x.id===id)[0];
   if(!m) return;
   editId=id;
   $('#editName').value=m.name;
@@ -2058,7 +2168,9 @@ function openEdit(id){
   showModal('editModal');
 }
 $('#editSave').addEventListener('click', ()=>{
-  const m=store().menus.filter(x=>x.id===editId)[0];
+  const st=store();
+  if(!st) return;
+  const m=st.menus.filter(x=>x.id===editId)[0];
   if(!m) return;
   const n=$('#editName').value.trim();
   if(!n){ toast(L('메뉴 이름을 적어 주세요','Please enter a menu name')); return; }
@@ -2068,6 +2180,7 @@ $('#editSave').addEventListener('click', ()=>{
 });
 $('#editDel').addEventListener('click', ()=>{
   const st=store();
+  if(!st) return;
   st.menus=st.menus.filter(x=>x.id!==editId);
   hideModal('editModal'); save(); render(); toast(L('메뉴를 지웠어요','Item deleted'));
 });
@@ -2085,12 +2198,14 @@ document.addEventListener('click', e=>{
   else if(act==='delstore'){ openDelPicker(); }
   else if(act==='reset'){ resetOrder(); }
   else if(act==='plus'||act==='minus'){
+    if(!st) return;
     const m=st.menus.filter(x=>x.id===id)[0];
     if(!m) return;
     m.qty = act==='plus' ? Math.min(99,m.qty+1) : Math.max(0,m.qty-1);
     save(); renderMenu(); renderBar();
   }
   else if(act==='star'){
+    if(!st) return;
     const m=st.menus.filter(x=>x.id===id)[0];
     if(!m) return;
     m.fav=!m.fav; save(); renderMenu();
@@ -2109,9 +2224,22 @@ $('#starFilter').addEventListener('click', ()=>{
   S.filterFav=!S.filterFav; save(); renderMenu();
 });
 
-/* ➕ 메뉴 추가 — 아래 '메뉴 추가' 카드로 부드럽게 내려가 이름 칸에 바로 커서 */
+/* ── 🧹 올클리어 — 물어보지 않고 지금 가게의 메뉴·주문 수량을 바로 전부 지운다 ── */
+function clearAllMenus(){
+  const st=store();
+  if(!st){ toast(L('먼저 가게를 만들어 주세요','Make a shop first')); return; }
+  if(!st.menus.length){ toast(L('지울 메뉴가 없어요','There are no items to delete')); return; }
+  st.menus=[];
+  clearSel();
+  save(); render();
+  toast(L('메뉴를 모두 지웠어요','Cleared all menu items'));
+}
+/* ── 아래 '메뉴 추가' 카드로 부드럽게 내려가 이름 칸에 바로 커서 */
 $('#addJump').addEventListener('click', jumpToAdd);
+$('#clearAll').addEventListener('click', clearAllMenus);
+$('#noStoreNew').addEventListener('click', ()=>askName('new'));
 function jumpToAdd(){
+  if(!store()){ askName('new'); return; }
   if(typeof selMode!=='undefined' && selMode) finishSel();
   const title=$('#addTitle');
   const sec=title && title.closest('.card');
@@ -2167,6 +2295,7 @@ $('#addForm').addEventListener('submit', e=>{
   if(!name){ toast(L('메뉴 이름을 적어 주세요','Please enter a menu name')); nEl.focus(); return; }
   const price=Math.max(0, parseInt(String(pEl.value).replace(/[^0-9]/g,''),10)||0);
   const st=store();
+  if(!st){ toast(L('먼저 가게를 만들어 주세요','Make a shop first')); return; }
   st.menus.push({id:uid(), name:name, price:price, fav:false, qty:1});
   nEl.value=''; pEl.value='';
   save(); render(); nEl.focus();
@@ -2490,7 +2619,7 @@ function reviewTitleNow(){
   $('#reviewTitle').textContent = L('붙여넣은 글에서 찾은 메뉴','Found in pasted text')+L(' ('+reviewCount+'개)', ' ('+reviewCount+')');
 }
 function startReview(list, kind, photoN){
-  const st=store();
+  const st=store()||{menus:[]};
   cands=list.map(c=>{
     const dup=st.menus.some(m=> m.name.replace(/\s/g,'')===c.name.replace(/\s/g,'') && m.price===c.price);
     return {name:c.name, price:c.price, check:!dup, dup:dup};
@@ -2539,6 +2668,7 @@ function hideReview(){
 }
 function addCandidates(){
   const st=store();
+  if(!st) return;
   let n=0;
   cands.forEach(c=>{
     if(!c.check) return;
@@ -3339,7 +3469,7 @@ function stkToast(msg){ toast(msg); }
 function stkValues(){
   var name=($('#stkName').value||'').trim();
   var base=($('#stkUrl').value||'').trim();
-  if(!name) name=dn(store().name)||L('우리 가게','Our Shop');
+  if(!name) name=dn((store()||{}).name)||L('우리 가게','Our Shop');
   return {name:name, base:base};
 }
 /* QR 링크에 지금 언어를 붙여 둡니다 (?lang=en) — 찍은 사람도 영어 메뉴판을 봐요 */
@@ -3360,7 +3490,7 @@ function buildPayload(){
   var fell=false;
   if(STK.menu){
     var st=store();
-    if(st.menus.length){
+    if(st && st.menus.length){
       var token=menuToken(st, v.name);
       var url=clean+'#m='+token;
       var qr=WGQR.encode(url);
@@ -3385,7 +3515,7 @@ function renderSticker(){
   len.className=p.fell? 'qrlen warn':'qrlen';
   var urlLen=p.url.length;
   var dense=p.qr.ver>18;
-  var st0=store();
+  var st0=store()||{menus:[]};
   var v=stkValues();
   len.textContent = EN()
     ? ((p.fell? '⚠️ Too many items, so only the link is included · ':'')
@@ -3402,6 +3532,7 @@ function renderSticker(){
 }
 function openSticker(){
   var st=store();
+  if(!st){ toast(L('먼저 가게를 만들어 주세요','Make a shop first')); return; }
   $('#stkName').value=dn(st.name);
   var u=pageUrl();
   $('#stkUrl').value=u||'';
