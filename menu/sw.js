@@ -3,7 +3,7 @@
    - 외부(다른 사이트) 요청은 절대 건드리지 않음 · 개인정보 0%
    - 메뉴판(index.html)은 항상 네트워크 우선 → 새 버전이 바로 반영됨 */
 
-const CACHE = 'wagle-table-v1';
+const CACHE = 'wagle-table-v2';
 const SHELL = [
   './',
   './index.html',
@@ -53,7 +53,7 @@ self.addEventListener('fetch', (event) => {
         const cache = await caches.open(CACHE);
         return (await cache.match('./index.html')) ||
                (await cache.match('./')) ||
-               new Response('와글가족 테이블 · 인터넷이 없어 메뉴판을 열지 못했어요.', {
+               new Response('와글가족 테이블 · 인터넷이 없어 메뉴판을 열지 못했어요. / Wagle Table · offline, the menu could not be opened.', {
                  status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' }
                });
       }

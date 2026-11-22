@@ -41,6 +41,13 @@ input,textarea{font-family:inherit;font-size:1.05rem;color:var(--ink)}
 .bigtoggle .sw::after{content:"";position:absolute;top:.125rem;left:.125rem;width:1rem;height:1rem;border-radius:50%;background:#FFF7E9;transition:.15s}
 .bigtoggle[aria-pressed="true"] .sw{background:var(--gold)}
 .bigtoggle[aria-pressed="true"] .sw::after{left:1.075rem}
+/* 🌐 언어 전환 (한 / EN) */
+.langtoggle{display:flex;align-items:center;justify-content:center;white-space:nowrap;flex:0 0 auto;
+  background:rgba(255,247,233,.17);border:2px solid rgba(255,247,233,.45);color:#FFF7E9;
+  border-radius:2rem;padding:0 .5rem;font-size:.74rem;font-weight:900;letter-spacing:-.02em;
+  min-height:2.7rem}
+.langtoggle[aria-pressed="true"]{background:rgba(217,162,39,.42);border-color:#F3D391;color:#FFFDF4}
+.langtoggle:active{transform:translateY(1px)}
 .chips{display:flex;gap:.45rem;overflow-x:auto;padding:.55rem 0 .05rem;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
 .chip{flex:0 0 auto;background:rgba(255,247,233,.12);color:#FFF7E9;border:2px solid rgba(255,247,233,.3);
@@ -178,6 +185,7 @@ main{padding:.7rem .75rem 0;max-width:34rem;margin:0 auto}
 html.big .brand h1{font-size:1rem}
 html.big .logo{display:none}
 html.big .bigtoggle{font-size:.7rem;padding:.22rem .4rem .22rem .5rem;min-height:2.6rem}
+html.big .langtoggle{font-size:.66rem;padding:0 .36rem;min-height:2.6rem}
 html.big .chip{font-size:.78rem;padding:.35rem .7rem;min-height:2.7rem}
 html.big .count{font-size:.82rem;flex:1 1 auto}
 html.big .mini{font-size:.72rem;padding:.3rem .45rem;min-height:2.7rem}
@@ -222,6 +230,28 @@ html.big .sprice{min-width:4.6rem}
 .brand .titles{flex:1;min-width:0}
 .brand h1{font-size:1.04rem;margin:0;font-weight:900;letter-spacing:-.02em;white-space:nowrap;line-height:1.16}
 .brand .sub{display:block;font-size:.63rem;font-weight:800;color:#F7D9A0;letter-spacing:-.01em;white-space:nowrap;margin-top:.06rem}
+html[lang="en"] .brand h1{font-size:.97rem;letter-spacing:-.01em}
+html[lang="en"] .brand .sub{white-space:normal;line-height:1.12;letter-spacing:-.02em;max-width:9.6rem}
+html[lang="en"] .titles{overflow:hidden}
+/* 아주 좁은 폰(≤359px)에서도 머리말·하단 바가 뭉개지지 않게 */
+@media (max-width:389px){
+  .brand{gap:.32rem;flex-wrap:wrap;row-gap:.3rem}
+  .brand .titles{order:1;flex:1 1 auto}
+  .brand .langtoggle{order:2}
+  .brand .bigtoggle{order:3;flex:1 1 100%;justify-content:center}
+  .brand .hamsvg{width:2.5rem;height:2.2rem}
+  .brand h1{font-size:.92rem}
+  .langtoggle{padding:0 .36rem;font-size:.7rem;min-height:2.5rem}
+  .bigtoggle{font-size:.7rem;padding:.2rem .38rem .2rem .45rem;min-height:2.5rem}
+  .bar .tcount{font-size:.7rem;line-height:1.15}
+  .bar .per{font-size:.76rem}
+  .bar .per b{font-size:.98rem}
+  .bar .pcount{font-size:.95rem;white-space:nowrap;min-width:3.2rem}
+  .bar .splitlabel{font-size:.72rem}
+}
+@media (max-width:389px) and (max-height:900px){
+  html[lang="en"] .brand .sub{display:none}
+}
 
 .top{padding-top:.68rem}
 /* 빈 상태 일러스트 */
@@ -761,10 +791,11 @@ html.big .isteps li>span{font-size:1rem}
   <div class="brand">
     <span class="hamsvg" aria-hidden="true"><svg viewBox="0 0 160 130"><use href="#wg-trio"/></svg></span>
     <div class="titles">
-      <h1>와글가족 테이블</h1>
-      <span class="sub">큰 글씨 메뉴판 · 테이블 이벤트</span>
+      <h1 id="appTitle">와글가족 테이블</h1>
+      <span class="sub" id="appSub">큰 글씨 메뉴판 · 테이블 이벤트</span>
     </div>
-    <button id="bigBtn" class="bigtoggle" aria-pressed="false">큰 글씨<span class="sw" aria-hidden="true"></span></button>
+    <button type="button" id="langBtn" class="langtoggle" aria-pressed="false">🌐 EN</button>
+    <button id="bigBtn" class="bigtoggle" aria-pressed="false"><span class="bglab">큰 글씨</span><span class="sw" aria-hidden="true"></span></button>
   </div>
   <div class="chipline">
     <div class="chips" id="chips" role="tablist" aria-label="메뉴판 고르기"></div>
@@ -781,6 +812,7 @@ html.big .isteps li>span{font-size:1rem}
 
   <div class="listhead">
     <button id="starFilter" class="mini" aria-pressed="false">★ 즐겨찾기만</button>
+    <button id="curBtn" class="mini" title="통화 바꾸기" aria-label="통화 바꾸기">₩</button>
     <button class="mini" data-act="reset">주문 비우기</button>
   </div>
 
@@ -795,7 +827,7 @@ html.big .isteps li>span{font-size:1rem}
   </section>
 
   <section class="card">
-    <h2>메뉴 추가</h2>
+    <h2 id="addTitle">메뉴 추가</h2>
     <div class="tabs" role="tablist">
       <button class="tab on" data-tab="manual" role="tab">직접 입력</button>
       <button class="tab" data-tab="photo" role="tab">📷 사진으로</button>
@@ -806,13 +838,13 @@ html.big .isteps li>span{font-size:1rem}
       <form id="addForm" autocomplete="off">
         <input id="newName" placeholder="메뉴 이름 (예: 대추차)" aria-label="메뉴 이름">
         <input id="newPrice" placeholder="가격 (예: 6000)" inputmode="numeric" aria-label="가격">
-        <button type="submit" class="btn primary">＋ 메뉴 넣기</button>
+        <button type="submit" class="btn primary" id="addSubmit">＋ 메뉴 넣기</button>
       </form>
     </div>
 
     <div class="panel" data-panel="photo" hidden>
-      <p class="note">메뉴판을 찍으면 글자를 읽어서 메뉴와 가격을 찾아 드려요. <b>사진은 이 폰 안에서만 처리되고 어디로도 보내지 않아요(0원).</b></p>
-      <label class="btn primary filebtn">📷 사진 찍기 / 앨범에서 고르기
+      <p class="note" id="photoNote1">메뉴판을 찍으면 글자를 읽어서 메뉴와 가격을 찾아 드려요. <b>사진은 이 폰 안에서만 처리되고 어디로도 보내지 않아요(0원).</b></p>
+      <label class="btn primary filebtn" id="photoLabel">📷 사진 찍기 / 앨범에서 고르기
         <input id="photoInput" type="file" accept="image/*" capture="environment" hidden>
       </label>
       <div id="progWrap" hidden>
@@ -820,11 +852,11 @@ html.big .isteps li>span{font-size:1rem}
         <p id="progMsg" class="note" aria-live="polite"></p>
       </div>
       <img id="preview" alt="고른 메뉴판 사진" hidden>
-      <p class="note">글자가 잘 안 읽히면 <b>직접 입력</b>이나 <b>글 붙여넣기</b>로 1초 만에 넣을 수 있어요.</p>
+      <p class="note" id="photoNote2">글자가 잘 안 읽히면 <b>직접 입력</b>이나 <b>글 붙여넣기</b>로 1초 만에 넣을 수 있어요.</p>
     </div>
 
     <div class="panel" data-panel="paste" hidden>
-      <p class="note">메뉴판 글씨를 복사해 붙여 넣으면 줄마다 메뉴와 가격을 나눠 드려요.</p>
+      <p class="note" id="pasteNote">메뉴판 글씨를 복사해 붙여 넣으면 줄마다 메뉴와 가격을 나눠 드려요.</p>
       <textarea id="pasteArea" rows="5" placeholder="아메리카노 4,500&#10;카페라떼 5,000&#10;대추차 6,000" aria-label="메뉴판 글 붙여넣기"></textarea>
       <div class="row2"><button id="pasteBtn" class="btn primary">읽어서 확인하기</button></div>
     </div>
@@ -832,7 +864,7 @@ html.big .isteps li>span{font-size:1rem}
 
   <section class="card" id="review" hidden>
     <h2 id="reviewTitle">찾은 메뉴</h2>
-    <p class="note">틀린 글자는 여기서 바로 고치세요. 넣을 것만 체크하고 아래 버튼을 누르면 돼요.</p>
+    <p class="note" id="reviewNote">틀린 글자는 여기서 바로 고치세요. 넣을 것만 체크하고 아래 버튼을 누르면 돼요.</p>
     <div id="candList" class="cands"></div>
     <div class="row2">
       <button id="candAdd" class="btn primary">선택한 메뉴 넣기</button>
@@ -844,10 +876,10 @@ html.big .isteps li>span{font-size:1rem}
 <div class="bar" id="bar">
   <div class="barTop">
     <div class="totals">
-      <div class="tcount">총 <span id="totCount">0개</span></div>
-      <div class="tamount"><span id="totAmount">0</span><span class="won">원</span></div>
+      <div class="tcount"><span id="totLabel">총</span> <span id="totCount">0개</span></div>
+      <div class="tamount"><span id="curPre" class="won"></span><span id="totAmount">0</span><span id="curSuf" class="won">원</span></div>
     </div>
-    <button class="drawbtn" id="openDraw"><span class="dice" aria-hidden="true">🎲</span><span>번호뽑기 이벤트</span></button>
+    <button class="drawbtn" id="openDraw"><span class="dice" aria-hidden="true">🎲</span><span id="drawBtnTxt">번호뽑기 이벤트</span></button>
     <button id="summaryBtn" class="btn primary show">주문 요약<br>크게 보기</button>
   </div>
   <div class="split">
@@ -855,7 +887,7 @@ html.big .isteps li>span{font-size:1rem}
     <button class="pstep" data-act="people" data-d="-1" aria-label="한 명 줄이기">−</button>
     <span id="pcount" class="pcount">1명</span>
     <button class="pstep" data-act="people" data-d="1" aria-label="한 명 늘리기">＋</button>
-    <span class="per">1인당 <b id="perAmount">0</b>원</span>
+    <span class="per" id="perText">1인당 <b>0</b>원</span>
   </div>
 </div>
 
@@ -864,7 +896,7 @@ html.big .isteps li>span{font-size:1rem}
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sumStore">
     <div class="sumStore" id="sumStore"></div>
     <div id="sumItems"></div>
-    <div class="sumTotal">총 <span class="n" id="sumTotal">0원</span></div>
+    <div class="sumTotal"><span id="sumLabel">총</span> <span class="n" id="sumTotal">0원</span></div>
     <div class="sumSplit" id="sumSplit" hidden></div>
     <div class="mrow">
       <button class="btn primary" id="copyBtn">📋 복사해서 카톡에 보내기</button>
@@ -877,7 +909,7 @@ html.big .isteps li>span{font-size:1rem}
 <div class="modal center" id="nameModal" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="nameTitle">
     <h3 id="nameTitle">새 메뉴판 이름</h3>
-    <p>가게 이름을 적어 주세요. (예: 동네 단골 카페)</p>
+    <p id="nameDesc">가게 이름을 적어 주세요. (예: 동네 단골 카페)</p>
     <input id="nameInput" type="text" placeholder="메뉴판 이름" aria-label="메뉴판 이름">
     <div class="row2b">
       <button class="btn primary" id="nameOk">저장</button>
@@ -890,9 +922,9 @@ html.big .isteps li>span{font-size:1rem}
 <div class="modal center" id="editModal" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="editTitle">
     <h3 id="editTitle">메뉴 고치기</h3>
-    <label class="fieldlabel" for="editName">메뉴 이름</label>
+    <label class="fieldlabel" for="editName" id="edNameLab">메뉴 이름</label>
     <input id="editName" type="text">
-    <label class="fieldlabel" for="editPrice">가격(원)</label>
+    <label class="fieldlabel" for="editPrice" id="edPriceLab">가격(원)</label>
     <input id="editPrice" type="text" inputmode="numeric">
     <div class="row2b">
       <button class="btn primary" id="editSave">저장</button>
@@ -920,11 +952,11 @@ html.big .isteps li>span{font-size:1rem}
 <div class="modal center" id="installModal" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="instTitle">
     <h3 id="instTitle">📲 홈 화면에 앱처럼 꺼내 두기</h3>
-    <p class="note">한 번 꺼내 두면 <b>아이콘만 눌러</b> 바로 열려요. 인터넷이 느리거나 끊겨도 메뉴판이 열립니다.</p>
+    <p class="note" id="instNote">한 번 꺼내 두면 <b>아이콘만 눌러</b> 바로 열려요. 인터넷이 느리거나 끊겨도 메뉴판이 열립니다.</p>
     <ol class="isteps">
-      <li><b>크롬 · 삼성 인터넷</b><span>오른쪽 위 <b>⋮</b> → <b>홈 화면에 추가</b>(또는 앱 설치)를 눌러 주세요</span></li>
-      <li><b>카톡 같은 인앱 브라우저</b><span>먼저 <b>⋮</b> → <b>다른 브라우저(Chrome)로 열기</b>를 눌러 주세요</span></li>
-      <li><b>아이폰 · 아이패드(사파리)</b><span>아래 <b>공유(□↑)</b> → <b>홈 화면에 추가</b>를 눌러 주세요</span></li>
+      <li id="instStep1"><b>크롬 · 삼성 인터넷</b><span>오른쪽 위 <b>⋮</b> → <b>홈 화면에 추가</b>(또는 앱 설치)를 눌러 주세요</span></li>
+      <li id="instStep2"><b>카톡 같은 인앱 브라우저</b><span>먼저 <b>⋮</b> → <b>다른 브라우저(Chrome)로 열기</b>를 눌러 주세요</span></li>
+      <li id="instStep3"><b>아이폰 · 아이패드(사파리)</b><span>아래 <b>공유(□↑)</b> → <b>홈 화면에 추가</b>를 눌러 주세요</span></li>
     </ol>
     <div class="mrow"><button class="btn primary" data-close="installModal">알겠어요</button></div>
   </div>
@@ -937,13 +969,13 @@ html.big .isteps li>span{font-size:1rem}
       <h3 id="stkTitle">🏷️ 와글가족 테이블 QR 스티커</h3>
       <button class="mini" data-close="stickerModal">닫기</button>
     </div>
-    <p class="note">QR은 <b>이 폰 안에서 직접</b> 그려요 · 인터넷 없이 OK</p>
-    <label class="fieldlabel" for="stkName">가게 이름</label>
+    <p class="note" id="stkNote">QR은 <b>이 폰 안에서 직접</b> 그려요 · 인터넷 없이 OK</p>
+    <label class="fieldlabel" for="stkName" id="stkNameLab">가게 이름</label>
     <input id="stkName" type="text" placeholder="예: 행복카페" maxlength="24" autocomplete="off">
-    <label class="fieldlabel" for="stkUrl">메뉴판 주소</label>
+    <label class="fieldlabel" for="stkUrl" id="stkUrlLab">메뉴판 주소</label>
     <input id="stkUrl" type="text" inputmode="url" placeholder="https://..." autocomplete="off">
     <p class="qrlen" id="stkLen"></p>
-    <label class="chkline" for="stkMenu"><input type="checkbox" id="stkMenu" checked><span>메뉴 내용도 QR에 함께 담기</span></label>
+    <label class="chkline" for="stkMenu"><input type="checkbox" id="stkMenu" checked><span id="stkMenuTxt">메뉴 내용도 QR에 함께 담기</span></label>
     <div class="shapeRow" role="group" aria-label="스티커 모양">
       <button type="button" class="tab on" data-shape="square">정사각형</button>
       <button type="button" class="tab" data-shape="tall">세로형(인쇄용)</button>
@@ -964,7 +996,7 @@ html.big .isteps li>span{font-size:1rem}
 <div class="modal" id="drawModal" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="dTitle">
     <div class="dhead">
-      <h3 id="dTitle">🍀 니키(세희) &amp; 와글가족의<br>행운 번호뽑기!</h3>
+      <h3 id="dTitle">🍀 니키(세희) &amp; 와글가족의<br>행운 번호뽑기!</h3><!-- i18n:dTitle -->
       <button class="mini" data-close="drawModal">닫기</button>
     </div>
     <p class="dsub" id="dSub">상자를 톡 누르면 공이 튀어나왔다가 잠시 뒤 사라져요 · 1~4번이 겹치지 않게 한 번씩 나와요</p>
@@ -975,7 +1007,7 @@ html.big .isteps li>span{font-size:1rem}
     </div>
 
     <div class="dpeople">
-      <span class="dlabel">총 인원수</span>
+      <span class="dlabel" id="dpLabel">총 인원수</span>
       <button class="dstep" id="dpMinus" aria-label="한 명 줄이기">−</button>
       <span class="dcount" id="dpCount" aria-live="polite">4명</span>
       <button class="dstep" id="dpPlus" aria-label="한 명 늘리기">＋</button>
@@ -990,7 +1022,7 @@ html.big .isteps li>span{font-size:1rem}
       <button class="dq" data-np="10">10명</button>
     </div>
     <div class="dpeople" id="dWinRow" hidden>
-      <span class="dlabel">당첨 수</span>
+      <span class="dlabel" id="dWinLabel">당첨 수</span>
       <button class="dstep" id="dwinMinus" aria-label="당첨 하나 줄이기">−</button>
       <span class="dcount" id="dWinCount" aria-live="polite">1명</span>
       <button class="dstep" id="dwinPlus" aria-label="당첨 하나 늘리기">＋</button>
@@ -1059,7 +1091,7 @@ html.big .isteps li>span{font-size:1rem}
 
     <div id="dLad" hidden>
       <div class="dladbar">
-        <span class="dladtipline">번호를 누르면 그 사람 사다리만 타요</span>
+        <span class="dladtipline" id="dLadTip">번호를 누르면 그 사람 사다리만 타요</span>
         <button type="button" class="dladedit" id="dLadEditBtn" aria-pressed="false">✏️ 이름·결과 수정</button>
       </div>
       <div class="dladwrap">
@@ -1090,8 +1122,64 @@ const KEY='menu_calc_v1';
 const $=(s,r)=> (r||document).querySelector(s);
 const $$=(s,r)=> Array.prototype.slice.call((r||document).querySelectorAll(s));
 const uid=()=> Math.random().toString(36).slice(2,9);
-const won=n=> (n||0).toLocaleString('ko-KR');
 const esc=s=> String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+/* ══════ 🌐 언어 (한국어 / English) ══════ */
+const LKEY='menu_lang_v1';
+const CUR_SYMS=['₩','$','€','¥'];
+function qLang(){
+  try{
+    var m=/[?&]lang=([A-Za-z_-]+)/.exec(location.search||'');
+    if(m){ if(/^en/i.test(m[1])) return 'en'; if(/^ko/i.test(m[1])) return 'ko'; }
+  }catch(e){}
+  return null;
+}
+let LANG = qLang() || (function(){
+  try{ return localStorage.getItem(LKEY)==='en'? 'en':'ko'; }catch(e){ return 'ko'; }
+})();
+function EN(){ return LANG==='en'; }
+/* L('한국어','English') — 지금 언어의 글자를 고름 */
+function L(ko,en){ return LANG==='en'? en : ko; }
+function saveLang(){ try{ localStorage.setItem(LKEY, LANG); }catch(e){} }
+const won=n=> (n||0).toLocaleString(EN()?'en-US':'ko-KR');
+
+/* 기본 샘플 메뉴판의 영어 표기 (직접 넣은 이름은 그대로 둡니다) */
+var SAMPLE_EN={
+  '동네 단골 카페':'Neighborhood Café','정겨운 분식집':'Cozy Snack Bar',
+  '내 메뉴판':'My Menu Board','메뉴판':'Menu Board','QR 메뉴판':'QR Menu Board','우리 가게':'Our Shop',
+  '따뜻한 아메리카노':'Hot Americano','아이스 아메리카노':'Iced Americano',
+  '카페라떼':'Café Latte','바닐라라떼':'Vanilla Latte','대추차':'Jujube Tea','유자차':'Citrus Tea',
+  '생강차':'Ginger Tea','크루아상':'Croissant','김밥':'Gimbap','참치김밥':'Tuna Gimbap',
+  '라면':'Ramen','떡볶이':'Tteokbokki','순대':'Sundae','모둠튀김':'Mixed Fritters',
+  '어묵':'Fish Cake','공기밥':'Steamed Rice',
+  '☕ 커피쏘기':'☕ Buys Coffee','😊 통과':'😊 Pass'
+};
+function dn(s){
+  s=String(s==null? '':s);
+  if(!EN()) return s;
+  if(SAMPLE_EN[s]) return SAMPLE_EN[s];
+  var m=/^(\d+)번$/.exec(s);
+  if(m) return 'P'+m[1];
+  return s;
+}
+function unitOf(st){
+  var u=(st&&st.unit)||'개';
+  if(!EN()) return u;
+  if(u==='잔') return 'cup';
+  if(u==='개') return 'item';
+  if(u==='명') return 'person';
+  return u;
+}
+function qtyUnit(n,st){
+  if(!EN()) return n+unitOf(st);
+  var u=unitOf(st);
+  return n+' '+u+(n===1? '':'s');
+}
+function sym(st){ st=st||store(); return st.sym||'₩'; }
+function money(n,st){
+  n=Math.max(0,parseInt(n,10)||0); var s=sym(st);
+  return EN()? s+won(n) : won(n)+(s==='₩'?'원':s);
+}
 
 /* ── 기본 메뉴판 ── */
 function sample(){
@@ -1099,13 +1187,13 @@ function sample(){
   return {
     big:false, people:1, cur:'cafe', filterFav:false, draw:{n:4, picked:[], sound:false, mode:'num', win:1, wpicked:[], ladder:{names:[], results:[]}},
     stores:[
-      {id:'cafe', name:'동네 단골 카페', unit:'잔', menus:[
+      {id:'cafe', name:'동네 단골 카페', unit:'잔', sym:'₩', menus:[
         mk('따뜻한 아메리카노',4500), mk('아이스 아메리카노',4500),
         mk('카페라떼',5000), mk('바닐라라떼',5500),
         mk('대추차',6000,true), mk('유자차',6000), mk('생강차',6000),
         mk('크루아상',4000)
       ]},
-      {id:'snack', name:'정겨운 분식집', unit:'개', menus:[
+      {id:'snack', name:'정겨운 분식집', unit:'개', sym:'₩', menus:[
         mk('김밥',3500,true), mk('참치김밥',4500), mk('라면',4000),
         mk('떡볶이',4500), mk('순대',4500), mk('모둠튀김',5000),
         mk('어묵',2000), mk('공기밥',1000)
@@ -1134,6 +1222,7 @@ function load(){
       .filter(function(x,i,a){ return x>=1 && x<=d.draw.n && a.indexOf(x)===i; });
     d.stores=d.stores.map(s=>({
       id:s.id||uid(), name:String(s.name||'메뉴판'), unit:s.unit||'개',
+      sym:(CUR_SYMS.indexOf(s.sym)>=0? s.sym : '₩'),
       menus:(s.menus||[]).map(m=>({
         id:m.id||uid(), name:String(m.name||''),
         price:Math.max(0,parseInt(m.price,10)||0),
@@ -1149,12 +1238,156 @@ function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} 
 function store(){ return S.stores.filter(s=>s.id===S.cur)[0] || S.stores[0]; }
 function unit(){ return store().unit||'개'; }
 
+/* ── 화면의 고정 글자를 지금 언어로 (한 ↔ EN) ── */
+function setTxt(sel,ko,en){ var el=$(sel); if(el) el.textContent=EN()? en:ko; }
+function setHTML(sel,ko,en){ var el=$(sel); if(el) el.innerHTML=EN()? en:ko; }
+function setAttr(sel,attr,ko,en){ var el=$(sel); if(el) el.setAttribute(attr, EN()? en:ko); }
+function applyLang(){
+  var en=EN();
+  try{ document.documentElement.setAttribute('lang', en? 'en':'ko'); }catch(e){}
+  document.title = en? 'Wagle Table · Large-Print Menu · Table Events'
+                     : '와글가족 테이블 · 큰 글씨 메뉴판 · 테이블 이벤트';
+  var at=document.querySelector('meta[name="apple-mobile-web-app-title"]');
+  if(at) at.setAttribute('content', en? 'Wagle Table':'와글가족 테이블');
+
+  var lb=$('#langBtn');
+  if(lb){
+    lb.textContent = en? '🌐 한' : '🌐 EN';
+    lb.setAttribute('aria-pressed', en? 'true':'false');
+    lb.setAttribute('aria-label', L('영어로 보기','View in Korean'));
+    lb.setAttribute('title', L('영어로 보기 / View in English','View in Korean / 한국어로 보기'));
+  }
+
+  setTxt('#appTitle','와글가족 테이블','Wagle Table');
+  setTxt('#appSub','큰 글씨 메뉴판 · 테이블 이벤트','Large-Print Menu · Table Events');
+  setAttr('#chips','aria-label','메뉴판 고르기','Choose a menu board');
+  setTxt('#installBtn','📲 앱 설치','📲 Install App');
+  setAttr('#installBtn','aria-label','앱 설치 안내','How to install the app');
+
+  setTxt('[data-act="renamestore"]','✏️ 이름 바꾸기','✏️ Rename');
+  setTxt('[data-act="delstore"]','🗑 메뉴판 지우기','🗑 Delete');
+  setTxt('[data-act="reset"]','주문 비우기','Clear');
+  setTxt('.hint','💡 메뉴 이름을 누르면 이름·가격 고치기와 지우기가 열려요.','💡 Tap a menu name to edit its name and price, or delete it.');
+
+  setTxt('#qrCard h2','🏷️ 매장용 QR 스티커','🏷️ Store QR Sticker');
+  setHTML('#qrCard .note',
+    '가게 이름만 넣으면 <b>와글가족 테이블 QR 스티커</b>가 뚝딱! 테이블에 붙여 두면 손님이 카메라로 찍어 큰 글씨 메뉴판을 열 수 있어요.',
+    'Just add your shop name and your <b>Wagle Table QR sticker</b> is ready. Put it on the table and guests can scan it with their camera to open the large-print menu.');
+  setTxt('#openSticker','와글가족 테이블 QR 스티커 만들기','Make a Wagle Table QR Sticker');
+
+  setTxt('#addTitle','메뉴 추가','Add Menu');
+  setTxt('[data-tab="manual"]','직접 입력','Type In');
+  setTxt('[data-tab="photo"]','📷 사진으로','📷 Photo');
+  setTxt('[data-tab="paste"]','글 붙여넣기','Paste');
+  setTxt('#addSubmit','＋ 메뉴 넣기','＋ Add Menu');
+  setAttr('#newName','placeholder','메뉴 이름 (예: 대추차)','Menu name (e.g. Latte)');
+  setAttr('#newName','aria-label','메뉴 이름','Menu name');
+  setAttr('#newPrice','placeholder','가격 (예: 6000)','Price (e.g. 6000)');
+  setAttr('#newPrice','aria-label','가격','Price');
+  setHTML('#photoNote1',
+    '메뉴판을 찍으면 글자를 읽어서 메뉴와 가격을 찾아 드려요. <b>사진은 이 폰 안에서만 처리되고 어디로도 보내지 않아요(0원).</b>',
+    'Take a photo of the menu and the text is read to find items and prices. <b>The photo is handled only on this phone and is never sent anywhere (free).</b>');
+  setTxt('#photoLabel','📷 사진 찍기 / 앨범에서 고르기','📷 Take a photo / Pick from album');
+  setHTML('#photoNote2','글자가 잘 안 읽히면 <b>직접 입력</b>이나 <b>글 붙여넣기</b>로 1초 만에 넣을 수 있어요.',
+    'If the text is hard to read, add items in a second with <b>Type In</b> or <b>Paste</b>.');
+  setHTML('#pasteNote','메뉴판 글씨를 복사해 붙여 넣으면 줄마다 메뉴와 가격을 나눠 드려요.',
+    'Copy the menu text and paste it here — each line is split into an item and a price.');
+  setAttr('#pasteArea','placeholder','아메리카노 4,500\n카페라떼 5,000\n대추차 6,000','Americano 4,500\nCafé Latte 5,000\nJujube Tea 6,000');
+  setAttr('#pasteArea','aria-label','메뉴판 글 붙여넣기','Paste menu text');
+  setTxt('#pasteBtn','읽어서 확인하기','Read and Check');
+  setHTML('#reviewNote','틀린 글자는 여기서 바로 고치세요. 넣을 것만 체크하고 아래 버튼을 누르면 돼요.',
+    'Fix any misread text here. Check only what to add, then press the button below.');
+  setTxt('#candAdd','선택한 메뉴 넣기','Add Checked Items');
+  setTxt('#candCancel','그만두기','Cancel');
+
+  setTxt('#drawBtnTxt','번호뽑기 이벤트','Number Draw');
+  setHTML('#summaryBtn','주문 요약<br>크게 보기','View Order<br>Summary');
+  setTxt('.splitlabel','N빵','Split');
+  setAttr('[data-act="people"][data-d="-1"]','aria-label','한 명 줄이기','One fewer person');
+  setAttr('[data-act="people"][data-d="1"]','aria-label','한 명 늘리기','One more person');
+
+  setTxt('#sumLabel','총','Total');
+  setTxt('#copyBtn','📋 복사해서 카톡에 보내기','📋 Copy Summary');
+  setTxt('[data-close="summaryModal"]','닫기','Close');
+
+  setTxt('#nameDesc','가게 이름을 적어 주세요. (예: 동네 단골 카페)','Enter your shop or menu board name. (e.g. Neighborhood Café)');
+  setAttr('#nameInput','placeholder','메뉴판 이름','Menu board name');
+  setAttr('#nameInput','aria-label','메뉴판 이름','Menu board name');
+  setTxt('#nameOk','저장','Save');
+  setTxt('[data-close="nameModal"]','취소','Cancel');
+
+  setTxt('#editTitle','메뉴 고치기','Edit Menu');
+  setTxt('#edNameLab','메뉴 이름','Menu name');
+  setTxt('#edPriceLab','가격(원)','Price');
+  setTxt('#editSave','저장','Save');
+  setTxt('[data-close="editModal"]','취소','Cancel');
+  setTxt('#editDel','이 메뉴 지우기','Delete Item');
+  setTxt('[data-close="confirmModal"]','아니요','No');
+
+  setTxt('#instTitle','📲 홈 화면에 앱처럼 꺼내 두기','📲 Keep It on Your Home Screen');
+  setHTML('#instNote','한 번 꺼내 두면 <b>아이콘만 눌러</b> 바로 열려요. 인터넷이 느리거나 끊겨도 메뉴판이 열립니다.',
+    'Once it is on your home screen, <b>one tap on the icon</b> opens it. The menu still opens when the connection is slow or offline.');
+  setHTML('#instStep1','<b>크롬 · 삼성 인터넷</b><span>오른쪽 위 <b>⋮</b> → <b>홈 화면에 추가</b>(또는 앱 설치)를 눌러 주세요</span>',
+    '<b>Chrome · Samsung Internet</b><span>Tap <b>⋮</b> at the top right → <b>Add to Home screen</b> (or Install app)</span>');
+  setHTML('#instStep2','<b>카톡 같은 인앱 브라우저</b><span>먼저 <b>⋮</b> → <b>다른 브라우저(Chrome)로 열기</b>를 눌러 주세요</span>',
+    '<b>In-app browser (KakaoTalk etc.)</b><span>First tap <b>⋮</b> → <b>Open in another browser (Chrome)</b></span>');
+  setHTML('#instStep3','<b>아이폰 · 아이패드(사파리)</b><span>아래 <b>공유(□↑)</b> → <b>홈 화면에 추가</b>를 눌러 주세요</span>',
+    '<b>iPhone · iPad (Safari)</b><span>Tap <b>Share (□↑)</b> below → <b>Add to Home Screen</b></span>');
+  setTxt('[data-close="installModal"]','알겠어요','Got it');
+
+  setTxt('#stkTitle','🏷️ 와글가족 테이블 QR 스티커','🏷️ Wagle Table QR Sticker');
+  setHTML('#stkNote','QR은 <b>이 폰 안에서 직접</b> 그려요 · 인터넷 없이 OK',
+    'The QR is drawn <b>right on this phone</b> · works offline');
+  setTxt('#stkNameLab','가게 이름','Shop name');
+  setTxt('#stkUrlLab','메뉴판 주소','Menu link');
+  setTxt('#stkMenuTxt','메뉴 내용도 QR에 함께 담기','Include menu items in the QR');
+  setTxt('[data-shape="square"]','정사각형','Square');
+  setTxt('[data-shape="tall"]','세로형(인쇄용)','Tall (for print)');
+  setAttr('#stickerCanvas','aria-label','와글가족 테이블 QR 스티커 미리보기','Wagle Table QR sticker preview');
+  setTxt('#stkSave','🖼 이미지로 저장 (PNG)','🖼 Save as Image (PNG)');
+  setTxt('#stkPrint','🖨 인쇄하기','🖨 Print');
+  $$('[data-close="stickerModal"]').forEach(function(b){ b.textContent = en? 'Close':'닫기'; });
+
+  setTxt('#dmNum','🔢 번호뽑기','🔢 Number Draw');
+  setTxt('#dmWin','🎁 당첨 · 꽝','🎁 Winner / Blank');
+  setTxt('#dmLad','🪜 사다리타기','🪜 Ladder Game');
+  setTxt('#dpLabel','총 인원수','People');
+  setTxt('#dWinLabel','당첨 수','Winners');
+  setAttr('#dQuickRow','aria-label','인원수 빠른 선택','Quick pick — number of people');
+  setAttr('#dStage','aria-label','번호뽑기 상자 누르기','Tap the draw box');
+  setAttr('#dLadNames','aria-label','참가자 이름','Player names');
+  setAttr('#dLadSvg','aria-label','사다리타기 그림','Ladder diagram');
+  setAttr('#dLadRes','aria-label','결과 칸','Result boxes');
+  setTxt('#dLadBtn','🪜 사다리 시작!','🪜 Start Ladder!');
+  setTxt('#dLadTip','번호를 누르면 그 사람 사다리만 타요','Tap a number to run only that ladder');
+  setTxt('#dShuffle','🔄 다시 섞기','🔄 Reshuffle');
+  setTxt('#dReset2','🔄 다시 섞기','🔄 Reshuffle');
+  setTxt('[data-close="drawModal"]','닫기','Close');
+  $$('#drawModal .dq').forEach(function(b){
+    b.textContent = en? (b.dataset.np+' people') : (b.dataset.np+'명');
+  });
+
+  setAttr('#dpMinus','aria-label','한 명 줄이기','One fewer person');
+  setAttr('#dpPlus','aria-label','한 명 늘리기','One more person');
+  setAttr('#dwinMinus','aria-label','당첨 하나 줄이기','One fewer winner');
+  setAttr('#dwinPlus','aria-label','당첨 하나 늘리기','One more winner');
+  setAttr('.dmodes','aria-label','이벤트 종류','Event type');
+  setAttr('.shapeRow','aria-label','스티커 모양','Sticker shape');
+  setAttr('#stkName','placeholder','예: 행복카페','e.g. Happy Café');
+  setAttr('#preview','alt','고른 메뉴판 사진','The menu photo you picked');
+  setTxt('#reviewTitle','찾은 메뉴','Found Menu');
+  setTxt('#confTitle','확인','Confirm');
+  setTxt('#confOk','예','Yes');
+  setTxt('#nameTitle','새 메뉴판 이름','New Menu Board Name');
+}
+
 /* ── 화면 그리기 ── */
 function render(){
   document.documentElement.classList.toggle('big', !!S.big);
+  applyLang();
   const bb=$('#bigBtn');
   bb.setAttribute('aria-pressed', S.big?'true':'false');
-  bb.firstChild.nodeValue = S.big? '글씨 작게' : '큰 글씨';
+  bb.querySelector('.bglab').textContent = S.big? L('글씨 작게','Normal Text') : L('큰 글씨','Large Text');
   renderChips(); renderMenu(); renderBar();
   requestAnimationFrame(fitPad);
   requestAnimationFrame(fitTotal);
@@ -1167,36 +1400,44 @@ function fitPad(){
 function renderChips(){
   const box=$('#chips');
   box.innerHTML=S.stores.map(s=>
-    `<button class="chip${s.id===S.cur?' on':''}" data-act="store" data-id="${s.id}" role="tab" aria-selected="${s.id===S.cur}">${esc(s.name)}</button>`
-  ).join('')+`<button class="chip add" data-act="newstore">＋ 새 메뉴판</button>`;
+    `<button class="chip${s.id===S.cur?' on':''}" data-act="store" data-id="${s.id}" role="tab" aria-selected="${s.id===S.cur}">${esc(dn(s.name))}</button>`
+  ).join('')+`<button class="chip add" data-act="newstore">${L('＋ 새 메뉴판','＋ New Menu')}</button>`;
 }
 function renderMenu(){
   const st=store();
-  $('#menuCount').textContent='메뉴 '+st.menus.length+'개';
+  $('#menuCount').textContent = EN()
+    ? (st.menus.length+(st.menus.length===1?' item':' items'))
+    : ('메뉴 '+st.menus.length+'개');
   const sf=$('#starFilter');
   sf.setAttribute('aria-pressed', S.filterFav?'true':'false');
-  sf.textContent = S.filterFav? '★ 즐겨찾기만 (켜짐)' : '★ 즐겨찾기만';
+  sf.textContent = S.filterFav? L('★ 즐겨찾기만 (켜짐)','Favorites ★ (on)') : L('★ 즐겨찾기만','Favorites ★');
+  const cb=$('#curBtn');
+  if(cb){
+    cb.textContent=sym(st);
+    cb.setAttribute('aria-label', L('통화 바꾸기','Change currency'));
+    cb.setAttribute('title', L('통화 바꾸기','Change currency'));
+  }
   const box=$('#menuList');
   if(!st.menus.length){
-    box.innerHTML='<div class="empty">'+EMPTY_ART+'<div>아직 메뉴가 없어요.<br>아래 <b>메뉴 추가</b>에서 하나씩 넣어 주세요.</div></div>';
+    box.innerHTML='<div class="empty">'+EMPTY_ART()+'<div>'+L('아직 메뉴가 없어요.<br>아래 <b>메뉴 추가</b>에서 하나씩 넣어 주세요.','No menu items yet.<br>Add them one by one under <b>Add Menu</b> below.')+'</div></div>';
     return;
   }
   const list = S.filterFav? st.menus.filter(m=>m.fav) : st.menus;
   if(!list.length){
-    box.innerHTML='<div class="empty">'+EMPTY_ART_STAR+'<div>★ 표시한 메뉴가 없어요.<br>메뉴 옆 ☆를 눌러 표시해 보세요.</div></div>';
+    box.innerHTML='<div class="empty">'+EMPTY_ART_STAR()+'<div>'+L('★ 표시한 메뉴가 없어요.<br>메뉴 옆 ☆를 눌러 표시해 보세요.','No favorites yet.<br>Tap ☆ next to an item to mark it.')+'</div></div>';
     return;
   }
   box.innerHTML=list.map(m=>
     `<div class="item${m.qty>0?' on':''}">
-      <button class="star" data-act="star" data-id="${m.id}" aria-pressed="${m.fav}" aria-label="${esc(m.name)} 즐겨찾기 표시">${m.fav?'★':'☆'}</button>
-      <button class="info" data-act="edit" data-id="${m.id}" aria-label="${esc(m.name)} 고치기">
-        <span class="name">${esc(m.name)}</span>
-        <span class="price">${won(m.price)}원</span>
+      <button class="star" data-act="star" data-id="${m.id}" aria-pressed="${m.fav}" aria-label="${esc(dn(m.name))} ${L('즐겨찾기 표시','favorite')}">${m.fav?'★':'☆'}</button>
+      <button class="info" data-act="edit" data-id="${m.id}" aria-label="${esc(dn(m.name))} ${L('고치기','edit')}">
+        <span class="name">${esc(dn(m.name))}</span>
+        <span class="price">${esc(money(m.price,st))}</span>
       </button>
       <div class="qty">
-        <button class="qbtn minus" data-act="minus" data-id="${m.id}" aria-label="${esc(m.name)} 하나 빼기" ${m.qty?'':'disabled'}>−</button>
+        <button class="qbtn minus" data-act="minus" data-id="${m.id}" aria-label="${esc(dn(m.name))} ${L('하나 빼기','minus one')}" ${m.qty?'':'disabled'}>−</button>
         <div class="num">${m.qty}</div>
-        <button class="qbtn plus" data-act="plus" data-id="${m.id}" aria-label="${esc(m.name)} 하나 더">＋</button>
+        <button class="qbtn plus" data-act="plus" data-id="${m.id}" aria-label="${esc(dn(m.name))} ${L('하나 더','plus one')}">＋</button>
       </div>
     </div>`
   ).join('');
@@ -1210,11 +1451,16 @@ function calc(){
   return {items:items,count:count,total:total,per:per};
 }
 function renderBar(){
-  const c=calc();
-  $('#totCount').textContent=c.count+unit();
+  const st=store(), c=calc();
+  $('#totLabel').textContent = L('총','Total');
+  $('#totCount').textContent=qtyUnit(c.count, st);
+  $('#curPre').textContent = EN()? sym(st) : '';
+  $('#curSuf').textContent = EN()? '' : (sym(st)==='₩'? '원' : sym(st));
   $('#totAmount').textContent=won(c.total);
-  $('#pcount').textContent=S.people+'명';
-  $('#perAmount').textContent=won(c.per);
+  $('#pcount').textContent = EN()? (S.people+(S.people===1?' person':' people')) : (S.people+'명');
+  $('#perText').innerHTML = EN()
+    ? 'Per Person <b>'+esc(money(c.per,st))+'</b>'
+    : '1인당 <b>'+won(c.per)+'</b>'+esc(sym(st)==='₩'? '원' : sym(st));
   $('#summaryBtn').disabled=(c.count===0);
   requestAnimationFrame(fitTotal);
 }
@@ -1271,32 +1517,50 @@ function toast(msg){
 
 /* ── 주문 요약 ── */
 function summaryText(){
-  const st=store(), u=st.unit||'개', c=calc();
-  let t='['+st.name+'] 주문\n';
+  const st=store(), c=calc();
+  let t;
+  if(EN()){
+    t='['+dn(st.name)+'] Order\n';
+    c.items.forEach(m=>{ t+='· '+dn(m.name)+' '+qtyUnit(m.qty,st)+' '+money(m.qty*m.price,st)+'\n'; });
+    t+='Total '+qtyUnit(c.count,st)+' · '+money(c.total,st);
+    if(S.people>1) t+='\nSplit '+S.people+' ways · '+money(c.per,st)+' each';
+    return t;
+  }
+  const u=unitOf(st);
+  t='['+st.name+'] 주문\n';
   c.items.forEach(m=>{ t+='· '+m.name+' '+m.qty+u+' '+won(m.qty*m.price)+'원\n'; });
   t+='총 '+c.count+u+' · '+won(c.total)+'원';
   if(S.people>1) t+='\n'+S.people+'명이서 1인당 '+won(c.per)+'원';
   return t;
 }
-function openSummary(){
-  const st=store(), u=st.unit||'개', c=calc();
-  if(!c.count){ toast('메뉴를 먼저 ＋로 골라 주세요'); return; }
-  $('#sumStore').textContent=st.name;
+function fillSummary(){
+  const st=store(), c=calc();
+  $('#sumStore').textContent=dn(st.name);
   $('#sumItems').innerHTML=c.items.map(m=>
-    `<div class="srow"><span class="sname">${esc(m.name)}</span><span class="sqty">${m.qty}${u}</span><span class="sprice">${won(m.qty*m.price)}원</span></div>`
+    `<div class="srow"><span class="sname">${esc(dn(m.name))}</span><span class="sqty">${EN()? qtyUnit(m.qty,st) : m.qty+unitOf(st)}</span><span class="sprice">${esc(money(m.qty*m.price,st))}</span></div>`
   ).join('');
-  $('#sumTotal').textContent=c.count+u+' · '+won(c.total)+'원';
+  $('#sumTotal').textContent = EN()
+    ? (qtyUnit(c.count,st)+' · '+money(c.total,st))
+    : (c.count+unitOf(st)+' · '+won(c.total)+'원');
   const sp=$('#sumSplit');
-  if(S.people>1){ sp.hidden=false; sp.textContent='👥 '+S.people+'명이서 1인당 '+won(c.per)+'원'; }
-  else { sp.hidden=true; sp.textContent=''; }
+  if(S.people>1){
+    sp.hidden=false;
+    sp.textContent = EN()? '👥 Split '+S.people+' ways · '+money(c.per,st)+' each'
+                         : '👥 '+S.people+'명이서 1인당 '+won(c.per)+'원';
+  } else { sp.hidden=true; sp.textContent=''; }
+}
+function openSummary(){
+  const c=calc();
+  if(!c.count){ toast(L('메뉴를 먼저 ＋로 골라 주세요','Tap ＋ to add items first')); return; }
+  fillSummary();
   showModal('summaryModal');
 }
 $('#summaryBtn').addEventListener('click', openSummary);
 
 function copySummary(){
   const text=summaryText();
-  const done=()=> toast('복사했어요. 카톡에 붙여넣기 하세요 👍');
-  const fail=()=> toast('복사가 안 되면 화면을 캡처해 보내 주세요');
+  const done=()=> toast(L('복사했어요. 카톡에 붙여넣기 하세요 👍','Copied. Paste it into your message 👍'));
+  const fail=()=> toast(L('복사가 안 되면 화면을 캡처해 보내 주세요','If copying fails, take a screenshot instead'));
   if(navigator.clipboard && navigator.clipboard.writeText){
     navigator.clipboard.writeText(text).then(done, ()=>legacyCopy(text, done, fail));
   } else { legacyCopy(text, done, fail); }
@@ -1318,24 +1582,24 @@ $('#copyBtn').addEventListener('click', copySummary);
 let nameMode='new';
 function askName(mode){
   nameMode=mode;
-  $('#nameTitle').textContent = mode==='new'? '새 메뉴판 만들기' : '메뉴판 이름 바꾸기';
-  $('#nameInput').value = mode==='new'? '' : (store().name||'');
+  $('#nameTitle').textContent = mode==='new'? L('새 메뉴판 만들기','New Menu Board') : L('메뉴판 이름 바꾸기','Rename Menu Board');
+  $('#nameInput').value = mode==='new'? '' : dn(store().name||'');
   showModal('nameModal');
   setTimeout(()=>{ try{ $('#nameInput').focus(); }catch(e){} }, 80);
 }
 function doName(){
   const v=$('#nameInput').value.trim();
-  if(!v){ toast('이름을 적어 주세요'); return; }
+  if(!v){ toast(L('이름을 적어 주세요','Please enter a name')); return; }
   if(nameMode==='new'){
-    const s={id:uid(), name:v, unit:'개', menus:[]};
+    const s={id:uid(), name:v, unit:'개', sym:'₩', menus:[]};
     S.stores.push(s); S.cur=s.id;
     hideModal('nameModal'); save(); render();
-    toast('새 메뉴판을 만들었어요. 메뉴를 넣어 보세요 🙂');
+    toast(L('새 메뉴판을 만들었어요. 메뉴를 넣어 보세요 🙂','New menu board created. Add some items 🙂'));
     return;
   }
   store().name=v;
   hideModal('nameModal'); save(); render();
-  toast('이름을 바꿨어요');
+  toast(L('이름을 바꿨어요','Name updated'));
 }
 $('#nameOk').addEventListener('click', doName);
 $('#nameInput').addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); doName(); } });
@@ -1356,13 +1620,16 @@ $('#confOk').addEventListener('click', ()=>{
 
 function delStore(){
   const st=store();
-  askConfirm('메뉴판을 지울까요?', '"'+st.name+'" 메뉴 '+st.menus.length+'개도 함께 지워집니다. 되돌릴 수 없어요.', '지우기', ()=>{
+  askConfirm(L('메뉴판을 지울까요?','Delete this menu board?'),
+    L('"'+st.name+'" 메뉴 '+st.menus.length+'개도 함께 지워집니다. 되돌릴 수 없어요.',
+      '"'+dn(st.name)+'" and its '+st.menus.length+' items will be deleted. This cannot be undone.'),
+    L('지우기','Delete'), ()=>{
     S.stores=S.stores.filter(s=>s.id!==st.id);
     if(!S.stores.length){
-      S.stores=[{id:uid(), name:'내 메뉴판', unit:'개', menus:[]}];
-      toast('메뉴판을 새로 하나 만들었어요');
+      S.stores=[{id:uid(), name:'내 메뉴판', unit:'개', sym:'₩', menus:[]}];
+      toast(L('메뉴판을 새로 하나 만들었어요','Created a fresh menu board'));
     } else {
-      toast('메뉴판을 지웠어요');
+      toast(L('메뉴판을 지웠어요','Menu board deleted'));
     }
     S.cur=S.stores[0].id;
     save(); render();
@@ -1370,10 +1637,13 @@ function delStore(){
 }
 function resetOrder(){
   const c=calc();
-  if(!c.count){ toast('비울 주문이 없어요'); return; }
-  askConfirm('주문을 비울까요?', '담은 '+c.count+unit()+'의 수량이 모두 0이 됩니다. 메뉴는 그대로 남아요.', '비우기', ()=>{
+  if(!c.count){ toast(L('비울 주문이 없어요','There is no order to clear')); return; }
+  askConfirm(L('주문을 비울까요?','Clear the order?'),
+    L('담은 '+c.count+unit()+'의 수량이 모두 0이 됩니다. 메뉴는 그대로 남아요.',
+      'All '+qtyUnit(c.count,store())+' will be set to 0. Menu items stay.'),
+    L('비우기','Clear'), ()=>{
     store().menus.forEach(m=>{ m.qty=0; });
-    save(); render(); toast('주문을 비웠어요');
+    save(); render(); toast(L('주문을 비웠어요','Order cleared'));
   });
 }
 
@@ -1391,15 +1661,15 @@ $('#editSave').addEventListener('click', ()=>{
   const m=store().menus.filter(x=>x.id===editId)[0];
   if(!m) return;
   const n=$('#editName').value.trim();
-  if(!n){ toast('메뉴 이름을 적어 주세요'); return; }
+  if(!n){ toast(L('메뉴 이름을 적어 주세요','Please enter a menu name')); return; }
   m.name=n;
   m.price=Math.max(0, parseInt(String($('#editPrice').value).replace(/[^0-9]/g,''),10)||0);
-  hideModal('editModal'); save(); render(); toast('고쳤어요');
+  hideModal('editModal'); save(); render(); toast(L('고쳤어요','Saved'));
 });
 $('#editDel').addEventListener('click', ()=>{
   const st=store();
   st.menus=st.menus.filter(x=>x.id!==editId);
-  hideModal('editModal'); save(); render(); toast('메뉴를 지웠어요');
+  hideModal('editModal'); save(); render(); toast(L('메뉴를 지웠어요','Item deleted'));
 });
 
 /* ── 전역 버튼 ── */
@@ -1422,7 +1692,8 @@ document.addEventListener('click', e=>{
     const m=st.menus.filter(x=>x.id===id)[0];
     if(!m) return;
     m.fav=!m.fav; save(); renderMenu();
-    toast(m.fav? '★ '+m.name+' 즐겨찾기로 표시했어요' : '즐겨찾기를 풀었어요');
+    toast(m.fav? L('★ '+dn(m.name)+' 즐겨찾기로 표시했어요','★ '+dn(m.name)+' added to favorites')
+                : L('즐겨찾기를 풀었어요','Removed from favorites'));
   }
   else if(act==='edit'){ openEdit(id); }
   else if(act==='people'){
@@ -1438,7 +1709,27 @@ $('#starFilter').addEventListener('click', ()=>{
 
 $('#bigBtn').addEventListener('click', ()=>{
   S.big=!S.big; save(); render();
-  toast(S.big? '글씨를 크게 했어요' : '글씨를 보통 크기로 했어요');
+  toast(S.big? L('글씨를 크게 했어요','Large text on') : L('글씨를 보통 크기로 했어요','Normal text'));
+});
+
+/* 🌐 언어 바꾸기 (한 ↔ EN) */
+$('#langBtn').addEventListener('click', ()=>{
+  LANG = EN()? 'ko' : 'en';
+  saveLang();
+  render();
+  if(!$('#drawModal').hidden) dRender();
+  if(!$('#stickerModal').hidden) renderSticker();
+  if(!$('#summaryModal').hidden) fillSummary();
+  toast(L('한국어로 바꿨어요 🌐','Switched to English 🌐'));
+});
+
+/* 통화 기호 바꾸기 (₩ → $ → € → ¥) */
+$('#curBtn').addEventListener('click', ()=>{
+  const st=store();
+  const i=CUR_SYMS.indexOf(sym(st));
+  st.sym=CUR_SYMS[(i+1)%CUR_SYMS.length];
+  save(); renderMenu(); renderBar();
+  toast(L('통화를 '+sym(st)+' 로 바꿨어요','Currency set to '+sym(st)));
 });
 window.addEventListener('resize', fitPad);
 window.addEventListener('resize', fitTotal);
@@ -1455,13 +1746,14 @@ $('#addForm').addEventListener('submit', e=>{
   e.preventDefault();
   const nEl=$('#newName'), pEl=$('#newPrice');
   const name=nEl.value.trim();
-  if(!name){ toast('메뉴 이름을 적어 주세요'); nEl.focus(); return; }
+  if(!name){ toast(L('메뉴 이름을 적어 주세요','Please enter a menu name')); nEl.focus(); return; }
   const price=Math.max(0, parseInt(String(pEl.value).replace(/[^0-9]/g,''),10)||0);
   const st=store();
   st.menus.push({id:uid(), name:name, price:price, fav:false, qty:1});
   nEl.value=''; pEl.value='';
   save(); render(); nEl.focus();
-  toast('"'+name+'" 넣었어요'+(price? ' ('+won(price)+'원)':''));
+  toast(L('"'+name+'" 넣었어요'+(price? ' ('+won(price)+'원)':''),
+          '"'+name+'" added'+(price? ' ('+money(price)+')':'')));
 });
 
 /* ── 글 붙여넣기 ── */
@@ -1486,7 +1778,7 @@ function parseMenuText(text){
               .trim();
     const letters=name.replace(/[^가-힣a-zA-Z0-9()\s]/g,'').replace(/\s/g,'');
     if(letters.length<2) continue;
-    if(/^(menu|price|total|가격|메뉴|합계|금액|원)$/i.test(letters)) continue;
+    if(/^(menu|menus|price|prices|total|subtotal|tax|vat|items?|가격|메뉴|합계|금액|원)$/i.test(letters)) continue;
     if(name.length>40) name=name.slice(0,40);
     out.push({name:name, price:last.v});
   }
@@ -1494,8 +1786,8 @@ function parseMenuText(text){
 }
 $('#pasteBtn').addEventListener('click', ()=>{
   const list=parseMenuText($('#pasteArea').value);
-  if(!list.length){ toast('가격이 있는 줄을 찾지 못했어요. "대추차 6000" 처럼 적어 주세요'); return; }
-  startReview(list, '붙여넣은 글에서 찾은 메뉴');
+  if(!list.length){ toast(L('가격이 있는 줄을 찾지 못했어요. "대추차 6000" 처럼 적어 주세요','No line with a price was found. Write it like "Jujube Tea 6000"')); return; }
+  startReview(list, L('붙여넣은 글에서 찾은 메뉴','Found in pasted text'));
 });
 
 /* ── 후보 확인 ── */
@@ -1506,7 +1798,7 @@ function startReview(list, title){
     const dup=st.menus.some(m=> m.name.replace(/\s/g,'')===c.name.replace(/\s/g,'') && m.price===c.price);
     return {name:c.name, price:c.price, check:!dup, dup:dup};
   });
-  $('#reviewTitle').textContent=title+' ('+list.length+'개)';
+  $('#reviewTitle').textContent=title+L(' ('+list.length+'개)',' ('+list.length+')');
   renderCands();
   $('#review').hidden=false;
   try{ $('#review').scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
@@ -1514,12 +1806,12 @@ function startReview(list, title){
 function renderCands(){
   $('#candList').innerHTML=cands.map((c,i)=>
     `<div class="cand">
-       <input type="checkbox" class="cchk" data-i="${i}" ${c.check?'checked':''} aria-label="${esc(c.name)} 넣기">
-       <input class="cname" data-i="${i}" value="${esc(c.name)}" aria-label="메뉴 이름 고치기">
-       <input class="cprice" data-i="${i}" value="${c.price||''}" inputmode="numeric" aria-label="가격 고치기">
-       <button class="cdel" data-i="${i}" aria-label="이 후보 빼기">✕</button>
+       <input type="checkbox" class="cchk" data-i="${i}" ${c.check?'checked':''} aria-label="${esc(c.name)} ${L('넣기','add')}">
+       <input class="cname" data-i="${i}" value="${esc(c.name)}" aria-label="${L('메뉴 이름 고치기','edit item name')}">
+       <input class="cprice" data-i="${i}" value="${c.price||''}" inputmode="numeric" aria-label="${L('가격 고치기','edit price')}">
+       <button class="cdel" data-i="${i}" aria-label="${L('이 후보 빼기','remove this candidate')}">✕</button>
      </div>
-     ${c.dup? '<div class="cdub">이미 같은 메뉴가 있어요 (체크를 풀어 두었어요)</div>':''}`
+     ${c.dup? '<div class="cdub">'+L('이미 같은 메뉴가 있어요 (체크를 풀어 두었어요)','This item already exists (left unchecked)')+'</div>':''}`
   ).join('');
 }
 $('#candList').addEventListener('input', e=>{
@@ -1557,9 +1849,9 @@ function addCandidates(){
     st.menus.push({id:uid(), name:name, price:price, fav:false, qty:0});
     n++;
   });
-  if(!n){ toast('넣을 메뉴를 체크해 주세요'); return; }
+  if(!n){ toast(L('넣을 메뉴를 체크해 주세요','Check the items to add')); return; }
   hideReview(); save(); render();
-  toast(n+'개 메뉴를 넣었어요. ＋를 눌러 수량을 세어 보세요 🙂');
+  toast(L(n+'개 메뉴를 넣었어요. ＋를 눌러 수량을 세어 보세요 🙂', n+' items added. Tap ＋ to count them 🙂'));
 }
 $('#candAdd').addEventListener('click', addCandidates);
 
@@ -1607,47 +1899,51 @@ $('#photoInput').addEventListener('change', async e=>{
   if(!f) return;
   hideReview();
   try{
-    setProg(2,'사진을 준비하고 있어요…');
+    setProg(2, L('사진을 준비하고 있어요…','Preparing the photo…'));
     const dataUrl=await downscale(f,1600);
     const pv=$('#preview'); pv.src=dataUrl; pv.hidden=false;
-    setProg(6,'글자 읽기 준비 중… (처음 한 번은 30초쯤 걸려요)');
+    setProg(6, L('글자 읽기 준비 중… (처음 한 번은 30초쯤 걸려요)','Getting ready to read… (the first time takes about 30 seconds)'));
     const T=await loadTesseract();
     const worker=await T.createWorker('kor+eng',1,{logger:m=>{
       if(!m) return;
-      if(m.status==='recognizing text') setProg(10+(m.progress||0)*85, '메뉴판 글자 읽는 중… '+Math.round((m.progress||0)*100)+'%');
-      else if(String(m.status||'').indexOf('loading')===0) setProg(6,'글자 읽기 준비 중… (처음 한 번은 30초쯤 걸려요)');
+      if(m.status==='recognizing text') setProg(10+(m.progress||0)*85, L('메뉴판 글자 읽는 중… ','Reading the menu… ')+Math.round((m.progress||0)*100)+'%');
+      else if(String(m.status||'').indexOf('loading')===0) setProg(6, L('글자 읽기 준비 중… (처음 한 번은 30초쯤 걸려요)','Getting ready to read… (the first time takes about 30 seconds)'));
     }});
     const r=await worker.recognize(dataUrl);
     try{ await worker.terminate(); }catch(_){}
     const text=(r && r.data && r.data.text) || '';
     const list=parseMenuText(text);
     if(!list.length){
-      setProg(100,'글자를 찾지 못했어요');
-      toast('글자를 찾지 못했어요. 직접 입력이나 붙여넣기로 넣어 주세요');
+      setProg(100, L('글자를 찾지 못했어요','No text was found'));
+      toast(L('글자를 찾지 못했어요. 직접 입력이나 붙여넣기로 넣어 주세요','No text was found. Add items with Type In or Paste'));
       switchTab('manual');
       return;
     }
-    setProg(100, list.length+'개 후보를 찾았어요. 아래에서 확인해 주세요');
-    startReview(list, '사진에서 찾은 메뉴');
+    setProg(100, L(list.length+'개 후보를 찾았어요. 아래에서 확인해 주세요', list.length+' found. Check them below'));
+    startReview(list, L('사진에서 찾은 메뉴','Found in photo'));
   }catch(err){
-    setProg(100,'사진 읽기를 못 했어요');
-    toast('사진 읽기를 못 했어요. 직접 입력이나 붙여넣기로 1초 만에 넣을 수 있어요');
+    setProg(100, L('사진 읽기를 못 했어요','Could not read the photo'));
+    toast(L('사진 읽기를 못 했어요. 직접 입력이나 붙여넣기로 1초 만에 넣을 수 있어요','Could not read the photo. Add items in a second with Type In or Paste'));
     switchTab('manual');
   }
 });
 
 
 /* ── 빈 화면 와글가족 일러스트 ── */
-var EMPTY_ART='<svg class="emptyArt" viewBox="0 0 300 168" role="img" aria-label="와글가족 햄스터">'
+function EMPTY_ART(){
+  return '<svg class="emptyArt" viewBox="0 0 300 168" role="img" aria-label="'+L('와글가족 햄스터','Wagle family hamsters')+'">'
   +'<ellipse cx="150" cy="152" rx="118" ry="12" fill="#F1E3CB"/>'
   +'<use href="#wg-mimi" x="4" y="32" width="124" height="124"/>'
   +'<use href="#wg-theo" x="172" y="32" width="124" height="124"/>'
   +'<use href="#wg-baby" x="98" y="70" width="104" height="104"/>'
   +'</svg>';
-var EMPTY_ART_STAR='<svg class="emptyArt" viewBox="0 0 200 140" role="img" aria-label="와글가족 아기 햄스터">'
+}
+function EMPTY_ART_STAR(){
+  return '<svg class="emptyArt" viewBox="0 0 200 140" role="img" aria-label="'+L('와글가족 아기 햄스터','Wagle family baby hamster')+'">'
   +'<ellipse cx="100" cy="126" rx="76" ry="10" fill="#F1E3CB"/>'
   +'<use href="#wg-baby" x="30" y="10" width="140" height="140"/>'
   +'</svg>';
+}
 
 /* ══════ 와글 QR (오프라인 순수 JS) ══════ */
 /* ── 와글 QR: 외부 API 없이 이 폰 안에서 QR을 직접 그리는 생성기 ── */
@@ -1930,8 +2226,8 @@ function unb64url(s){
   return new TextDecoder().decode(bytes);
 }
 function menuToken(st,shownName){
-  var payload={n:String(shownName||st.name||'메뉴판'), u:st.unit||'개',
-               m:st.menus.map(function(x){ return [String(x.name), x.price|0]; })};
+  var payload={n:String(shownName||dn(st.name)||'메뉴판'), u:st.unit||'개',
+               m:st.menus.map(function(x){ return [String(dn(x.name)), x.price|0]; })};
   return b64url(JSON.stringify(payload));
 }
 /* QR에 담긴 메뉴판으로 바로 열기 */
@@ -1944,7 +2240,7 @@ function importFromHash(){
     if(!d || !Array.isArray(d.m)) return null;
     var id='qr_'+token.slice(0,12);
     var st=S.stores.filter(function(x){ return x.id===id; })[0];
-    if(!st){ st={id:id, name:'QR 메뉴판', unit:'개', menus:[]}; S.stores.push(st); }
+    if(!st){ st={id:id, name:'QR 메뉴판', unit:'개', sym:'₩', menus:[]}; S.stores.push(st); }
     st.name=String(d.n||st.name);
     st.unit=String(d.u||'개');
     st.menus=d.m.map(function(p){
@@ -2151,10 +2447,10 @@ function drawSticker(cv,opt){
   /* 리본 */
   var ribY=tall?98:86;
   rr(ctx,W/2-232,ribY-40,464,80,40); ctx.fillStyle='#C25A2E'; ctx.fill();
-  txt(ctx,'🐹 와글가족',W/2,ribY,font(800,42),'#FFF7E9');
+  txt(ctx, L('🐹 와글가족','🐹 Wagle Table'), W/2, ribY, font(800,42),'#FFF7E9');
   /* 가게 이름 */
   var nameY=tall?235:196;
-  var name=opt.name||'우리 가게';
+  var name=opt.name||L('우리 가게','Our Shop');
   ctx.textAlign='center';
   var nf=font(900, tall?92:84);
   ctx.font=nf;
@@ -2165,7 +2461,7 @@ function drawSticker(cv,opt){
   /* 밑줄 하이라이트 */
   var nw=Math.min(ctx.measureText(name).width+60,W-160);
   rr(ctx,W/2-nw/2,nameY+ (tall?46:42),nw,tall?16:14,8); ctx.fillStyle='rgba(217,162,39,.45)'; ctx.fill();
-  txt(ctx,'큰 글씨 메뉴판 · 테이블 이벤트',W/2,nameY+(tall?86:76),font(700,tall?36:32),'#8B6A4B');
+  txt(ctx, L('큰 글씨 메뉴판 · 테이블 이벤트','Large-Print Menu · Table Events'), W/2, nameY+(tall?86:76), font(700,tall?36:32),'#8B6A4B');
   /* QR 패널 */
   var px,py,pw,ph;
   if(tall){ pw=680; ph=680; px=(W-pw)/2; py=350; }
@@ -2195,16 +2491,16 @@ function drawSticker(cv,opt){
   rr(ctx,W/2-capW/2,capY-52,capW,tall?150:126,32);
   ctx.fillStyle='#FFF3E1'; ctx.fill();
   ctx.strokeStyle='#F0D6AE'; ctx.lineWidth=3; ctx.stroke();
-  txt(ctx,'📷 휴대폰 카메라로 찍으면',W/2,capY-(tall?14:10),font(800,tall?48:42),'#6A4630');
-  txt(ctx,'큰 글씨 메뉴판이 바로 열려요!',W/2,capY+(tall?50:44),font(900,tall?52:46),'#B4502A');
+  txt(ctx, L('📷 휴대폰 카메라로 찍으면','📷 Scan with phone camera'), W/2, capY-(tall?14:10), font(800,tall?48:42),'#6A4630');
+  txt(ctx, L('큰 글씨 메뉴판이 바로 열려요!','for a large-print menu!'), W/2, capY+(tall?50:44), font(900,tall?52:46),'#B4502A');
   /* 아기 햄스터들 */
   if(tall){
     drawHam(ctx,318,1258,146,'baby',false);
     drawHam(ctx,540,1268,156,'baby',true);
     drawHam(ctx,772,1258,146,'baby',false);
-    txt(ctx,'와글가족 · 별의별 살림',W/2,1352,font(700,26),'#A98A66');
+    txt(ctx, L('와글가족 · 별의별 살림','Wagle Table · StarPick Life'), W/2, 1352, font(700,26),'#A98A66');
   } else {
-    txt(ctx,'와글가족 · 별의별 살림',W/2,1036,font(700,26),'#A98A66');
+    txt(ctx, L('와글가족 · 별의별 살림','Wagle Table · StarPick Life'), W/2, 1036, font(700,26),'#A98A66');
   }
   /* 작은 하트 */
   [[120,tall?250:230],[960,tall?250:230]].forEach(function(p){
@@ -2218,14 +2514,24 @@ function stkToast(msg){ toast(msg); }
 function stkValues(){
   var name=($('#stkName').value||'').trim();
   var base=($('#stkUrl').value||'').trim();
-  if(!name) name=store().name||'우리 가게';
+  if(!name) name=dn(store().name)||L('우리 가게','Our Shop');
   return {name:name, base:base};
+}
+/* QR 링크에 지금 언어를 붙여 둡니다 (?lang=en) — 찍은 사람도 영어 메뉴판을 봐요 */
+function withLang(u){
+  var s=String(u||'');
+  try{
+    var x=new URL(s, location.href);
+    if(EN()){ x.searchParams.set('lang','en'); } else { x.searchParams.delete('lang'); }
+    if(x.origin && /^https?:$/.test(x.protocol)) return x.origin+x.pathname+(x.search||'');
+  }catch(e){}
+  return s;
 }
 function buildPayload(){
   var v=stkValues();
-  if(!v.base){ return {err:'주소를 넣어 주세요'}; }
-  if(!/^https?:\/\//i.test(v.base)){ return {err:'http:// 또는 https:// 로 시작하는 주소를 넣어 주세요'}; }
-  var clean=v.base.split('#')[0];
+  if(!v.base){ return {err:L('주소를 넣어 주세요','Please enter the menu link')}; }
+  if(!/^https?:\/\//i.test(v.base)){ return {err:L('http:// 또는 https:// 로 시작하는 주소를 넣어 주세요','The link must start with http:// or https://')}; }
+  var clean=withLang(v.base.split('#')[0]);
   var fell=false;
   if(STK.menu){
     var st=store();
@@ -2238,7 +2544,7 @@ function buildPayload(){
     }
   }
   var qr2=WGQR.encode(clean);
-  if(!qr2) return {err:'주소가 너무 길어 QR로 만들 수 없어요'};
+  if(!qr2) return {err:L('주소가 너무 길어 QR로 만들 수 없어요','This link is too long to fit in a QR code')};
   return {url:clean, qr:qr2, menu:false, fell:fell};
 }
 function renderSticker(){
@@ -2256,19 +2562,25 @@ function renderSticker(){
   var dense=p.qr.ver>18;
   var st0=store();
   var v=stkValues();
-  len.textContent=(p.fell? '⚠️ 메뉴가 너무 많아 주소만 담았어요 · ' : '')+
-    'QR 버전 '+p.qr.ver+' · '+urlLen+'자 · '+
-    (p.menu? '메뉴 '+st0.menus.length+'개 담김' : (p.fell?'주소만':'주소만 담김'))+
-    (dense? ' · 촘촘하니 크게 인쇄하세요' : '');
+  len.textContent = EN()
+    ? ((p.fell? '⚠️ Too many items, so only the link is included · ':'')
+        +'QR version '+p.qr.ver+' · '+urlLen+' chars · '
+        +(p.menu? (st0.menus.length+(st0.menus.length===1?' item':' items')+' included') : 'link only')
+        +(dense? ' · dense — print it large':''))
+    : ((p.fell? '⚠️ 메뉴가 너무 많아 주소만 담았어요 · ':'')
+        +'QR 버전 '+p.qr.ver+' · '+urlLen+'자 · '
+        +(p.menu? ('메뉴 '+st0.menus.length+'개 담김') : (p.fell?'주소만':'주소만 담김'))
+        +(dense? ' · 촘촘하니 크게 인쇄하세요':''));
   drawSticker(cv,{shape:STK.shape, name:v.name, qr:p.qr});
+  cv.setAttribute('data-qr-url', p.url);
   STK.qr=p.qr; STK.payload=p.url;
 }
 function openSticker(){
   var st=store();
-  $('#stkName').value=st.name||'';
+  $('#stkName').value=dn(st.name);
   var u=pageUrl();
   $('#stkUrl').value=u||'';
-  $('#stkUrl').setAttribute('placeholder', u?'https://...':'인터넷 주소로 올린 뒤 그 주소를 넣어 주세요');
+  $('#stkUrl').setAttribute('placeholder', u?'https://...':L('인터넷 주소로 올린 뒤 그 주소를 넣어 주세요','Upload it online first, then paste that address here'));
   var box=$('#stkMenu');
   box.checked=!!st.menus.length;
   if(!st.menus.length) box.disabled=true;
@@ -2283,18 +2595,18 @@ function stkShapeButtons(){
 }
 function saveSticker(){
   var cv=$('#stickerCanvas');
-  if(!STK.qr){ stkToast('먼저 가게 이름과 주소를 넣어 주세요'); return; }
+  if(!STK.qr){ stkToast(L('먼저 가게 이름과 주소를 넣어 주세요','Add the shop name and link first')); return; }
   var v=stkValues();
-  var safe=String(v.name||'가게').replace(/[\\/:*?"<>|\s]+/g,'_').slice(0,24);
+  var safe=String(v.name||L('가게','shop')).replace(/[\\/:*?"<>|\s]+/g,'_').slice(0,24);
   var a=document.createElement('a');
   a.href=cv.toDataURL('image/png');
-  a.download='와글가족_QR스티커_'+safe+'.png';
+  a.download=(EN()? 'WagleTable_QR_sticker_' : '와글가족_QR스티커_')+safe+'.png';
   document.body.appendChild(a); a.click(); a.remove();
-  stkToast('스티커 이미지를 저장했어요. 인쇄소에 그대로 보내면 돼요 🙂');
+  stkToast(L('스티커 이미지를 저장했어요. 인쇄소에 그대로 보내면 돼요 🙂','Sticker image saved. Send the file straight to a print shop 🙂'));
 }
 function printSticker(){
   var cv=$('#stickerCanvas');
-  if(!STK.qr){ stkToast('먼저 가게 이름과 주소를 넣어 주세요'); return; }
+  if(!STK.qr){ stkToast(L('먼저 가게 이름과 주소를 넣어 주세요','Add the shop name and link first')); return; }
   var data=cv.toDataURL('image/png');
   var fr=document.createElement('iframe');
   fr.setAttribute('aria-hidden','true');
@@ -2302,9 +2614,9 @@ function printSticker(){
   document.body.appendChild(fr);
   var doc=fr.contentDocument;
   doc.open();
-  doc.write('<!doctype html><html><head><meta charset="utf-8"><title>와글가족 테이블 QR 스티커</title>'+
+  doc.write('<!doctype html><html><head><meta charset="utf-8"><title>'+L('와글가족 테이블 QR 스티커','Wagle Table QR Sticker')+'</title>'+
     '<style>@page{margin:10mm}html,body{margin:0;padding:0}img{width:100%;max-width:170mm;display:block;margin:0 auto}</style>'+
-    '</head><body><img src="'+data+'" alt="와글가족 테이블 QR 스티커"></body></html>');
+    '</head><body><img src="'+data+'" alt="'+L('와글가족 테이블 QR 스티커','Wagle Table QR sticker')+'"></body></html>');
   doc.close();
   var go=function(){
     try{ fr.contentWindow.focus(); fr.contentWindow.print(); }catch(e){}
@@ -2375,6 +2687,8 @@ function dPaintBall(kind, text){
   b.style.setProperty('--b1',p[0]);
   b.style.setProperty('--b2',p[1]);
   $('#dBallNum').textContent=text;
+  var len=String(text||'').length;
+  b.style.fontSize = len>3? '1.85rem' : (len>2? '2.3rem' : '');
 }
 /* 결과 확인 접기/펼치기 (기본은 접힘 = 앞사람 결과 스포일러 방지) */
 var dPeekOpen=false;
@@ -2383,25 +2697,27 @@ function dSetPeek(open){
   dPeekOpen = !!open && has && m!=='lad';
   $('#dPeek').hidden = m==='lad' || !has;
   $('#dSeq').hidden = m==='lad' || !dPeekOpen;
-  $('#dPeek').textContent = dPeekOpen? '결과 숨기기' : '결과 확인';
+  $('#dPeek').textContent = dPeekOpen? L('결과 숨기기','Hide Results') : L('결과 확인','Show Results');
   $('#dPeek').setAttribute('aria-expanded', dPeekOpen?'true':'false');
   $('#dPeek').classList.toggle('on', dPeekOpen);
 }
 function dSeqText(){
-  var d=S.draw;
+  var d=S.draw, en=EN();
   if(dMode()==='win'){
     return d.wpicked.length
-      ? '뽑힌 순서: '+d.wpicked.map(function(x,i){ return (i+1)+'번째 '+(x==='w'?'당첨!':'꽝'); }).join(' → ')
-      : '아직 뽑은 공이 없어요';
+      ? (en? 'Order: ' : '뽑힌 순서: ')+d.wpicked.map(function(x,i){
+          return en? ((i+1)+(x==='w'? ' Winner!':' Blank')) : ((i+1)+'번째 '+(x==='w'?'당첨!':'꽝'));
+        }).join(' → ')
+      : L('아직 뽑은 공이 없어요','No balls drawn yet');
   }
   return d.picked.length
-    ? '뽑힌 순서: '+d.picked.map(function(x){ return x+'번'; }).join(' → ')
-    : '아직 뽑은 번호가 없어요';
+    ? (en? 'Order: ' : '뽑힌 순서: ')+d.picked.map(function(x){ return en? ('#'+x) : (x+'번'); }).join(' → ')
+    : L('아직 뽑은 번호가 없어요','No numbers drawn yet');
 }
 function dGuide(){
   var g=$('#dGuide');
   if(dMode()==='lad' || !dLeft() || !$('#dBall').hidden){ g.hidden=true; return; }
-  g.textContent = dTaken()? '다음 분이 상자를 눌러 주세요!' : '상자를 톡 눌러 주세요!';
+  g.textContent = dTaken()? L('다음 분이 상자를 눌러 주세요!','Next person, tap the box!') : L('상자를 톡 눌러 주세요!','Tap the box!');
   g.hidden=false;
 }
 function dRender(){
@@ -2413,35 +2729,40 @@ function dRender(){
   $('#dmWin').setAttribute('aria-selected', win?'true':'false');
   $('#dmLad').setAttribute('aria-selected', lad?'true':'false');
   $('#dTitle').innerHTML = win
-    ? '🍀 니키(세희) &amp; 와글가족의<br>당첨 공 뽑기!'
-    : (lad ? '🍀 니키(세희) &amp; 와글가족<br>사다리타기!'
-           : '🍀 니키(세희) &amp; 와글가족의<br>행운 번호뽑기!');
+    ? L('🍀 니키(세희) &amp; 와글가족의<br>당첨 공 뽑기!', '🍀 Winner / Blank Draw!')
+    : (lad ? L('🍀 니키(세희) &amp; 와글가족<br>사다리타기!', '🍀 Ladder Game!')
+           : L('🍀 니키(세희) &amp; 와글가족의<br>행운 번호뽑기!', '🍀 Lucky Number Draw!'));
   $('#dSub').textContent = win
-    ? '상자를 톡 누르면 당첨·꽝 공이 튀어나왔다가 잠시 뒤 사라져요 · 인원수만큼 공이 한 번씩 나와요'
-    : (lad ? '번호를 톡 누르면 그 사람 사다리만 타요 · 이름·결과는 ✏️ 수정에서 · 인원은 2~6명까지'
-           : '상자를 톡 누르면 공이 튀어나왔다가 잠시 뒤 사라져요 · 1~'+d.n+'번이 겹치지 않게 한 번씩 나와요');
+    ? L('상자를 톡 누르면 당첨·꽝 공이 튀어나왔다가 잠시 뒤 사라져요 · 인원수만큼 공이 한 번씩 나와요',
+        'Tap the box and a winner or blank ball pops out, then fades · One ball per person, each drawn once')
+    : (lad ? L('번호를 톡 누르면 그 사람 사다리만 타요 · 이름·결과는 ✏️ 수정에서 · 인원은 2~6명까지',
+               "Tap a number to run that person's ladder only · Edit names and results with ✏️ · 2–6 people")
+           : L('상자를 톡 누르면 공이 튀어나왔다가 잠시 뒤 사라져요 · 1~'+d.n+'번이 겹치지 않게 한 번씩 나와요',
+               'Tap the box and a ball pops out, then fades · Numbers 1–'+d.n+' come out once each, no repeats'));
   $('#dQuickRow').hidden = lad;
   $('#dWinRow').hidden = !win;
-  $('#dpCount').textContent=d.n+'명';
+  $('#dpCount').textContent = EN()? (d.n+(d.n===1?' person':' people')) : (d.n+'명');
   $$('#drawModal .dq').forEach(function(b){ b.classList.toggle('on', parseInt(b.dataset.np,10)===d.n); });
   $('#dpMinus').disabled = d.n<=2;
   $('#dpPlus').disabled = d.n>=(lad?6:50);
-  $('#dWinCount').textContent=d.win+'명';
+  $('#dWinCount').textContent = EN()? (d.win+(d.win===1?' winner':' winners')) : (d.win+'명');
   $('#dwinMinus').disabled = d.win<=1;
   $('#dwinPlus').disabled = d.win>=d.n-1;
   $('#dStage').hidden = lad;
   $('#dBag').hidden = lad;
   $('#dLad').hidden = !lad;
+  var le=$('#dLadEditBtn');
+  if(le) le.textContent = dLadEdit? L('✅ 수정 끝내기','✅ Done Editing') : L('✏️ 이름·결과 수정','✏️ Edit Names');
   if(lad) dLadEnsure();
-  $('#dRemain').textContent='남은 공 '+left+'개';
+  $('#dRemain').textContent = EN()? ('Remaining: '+left) : ('남은 공 '+left+'개');
   $('#dSeq').textContent = dSeqText();
   var done = (!lad) && left===0;
   $('#dDone').hidden = !done;
-  $('#dDoneMsg').textContent = win? '🎉 모든 공을 다 뽑았어요!' : '🎉 모든 번호를 다 뽑았어요!';
-  $('#dShuffle').textContent = '🔄 다시 섞기';
+  $('#dDoneMsg').textContent = win? L('🎉 모든 공을 다 뽑았어요!','🎉 All the balls are drawn!') : L('🎉 모든 번호를 다 뽑았어요!','🎉 All the numbers are drawn!');
+  $('#dShuffle').textContent = L('🔄 다시 섞기','🔄 Reshuffle');
   $('#dShuffle').hidden = done;
-  $('#dSound').textContent = d.sound? '🔔 소리 켜짐' : '🔕 소리 꺼짐';
-  $('#dSound').setAttribute('aria-label', d.sound? '효과음 끄기' : '효과음 켜기');
+  $('#dSound').textContent = d.sound? L('🔔 소리 켜짐','🔔 Sound On') : L('🔕 소리 꺼짐','🔕 Sound Off');
+  $('#dSound').setAttribute('aria-label', d.sound? L('효과음 끄기','Turn sound off') : L('효과음 켜기','Turn sound on'));
   $('#dSound').setAttribute('aria-pressed', d.sound?'true':'false');
   dSetPeek(dPeekOpen);
   dGuide();
@@ -2511,7 +2832,7 @@ function dDing(big){
 }
 function dDrawNum(){
   var d=S.draw, rem=dRemain(), pick;
-  if(!rem.length){ toast('모든 번호를 다 뽑았어요! 다시 섞기를 눌러 주세요 🎉'); return; }
+  if(!rem.length){ toast(L('모든 번호를 다 뽑았어요! 다시 섞기를 눌러 주세요 🎉','All numbers are drawn! Tap Reshuffle 🎉')); return; }
   pick=rem[Math.floor(Math.random()*rem.length)];
   d.picked.push(pick);
   save();
@@ -2519,21 +2840,23 @@ function dDrawNum(){
   dPop('n', String(pick));
   dDing(false);
   dRender();
-  $('#dLive').textContent=pick+'번이 나왔어요. 남은 공 '+dRemain().length+'개';
-  if(rem.length===1) toast('마지막 공이에요! 🎉');
+  $('#dLive').textContent = EN()? ('Number '+pick+' drawn. Remaining: '+dRemain().length) : (pick+'번이 나왔어요. 남은 공 '+dRemain().length+'개');
+  if(rem.length===1) toast(L('마지막 공이에요! 🎉','That is the last ball! 🎉'));
 }
 function dDrawWin(){
   var d=S.draw, w=dWinLeft(), l=dLoseLeft(), total=w+l, res;
-  if(!total){ toast('모든 공을 다 뽑았어요! 다시 섞기를 눌러 주세요 🎉'); return; }
+  if(!total){ toast(L('모든 공을 다 뽑았어요! 다시 섞기를 눌러 주세요 🎉','All balls are drawn! Tap Reshuffle 🎉')); return; }
   res = (Math.random()*total < w)? 'w' : 'l';
   d.wpicked.push(res);
   save();
   dPeekOpen = (total===1);
-  dPop(res, res==='w'? '당첨!' : '꽝');
+  dPop(res, res==='w'? L('당첨!','WIN') : L('꽝','LOSE'));
   dDing(res==='w');
   dRender();
-  $('#dLive').textContent=(res==='w'? '당첨' : '꽝')+'이 나왔어요. 남은 공 '+(total-1)+'개';
-  if(total===1) toast('마지막 공이에요! 🎉');
+  $('#dLive').textContent = EN()
+    ? ((res==='w'? 'Winner' : 'Blank')+' drawn. Remaining: '+(total-1))
+    : ((res==='w'? '당첨' : '꽝')+'이 나왔어요. 남은 공 '+(total-1)+'개');
+  if(total===1) toast(L('마지막 공이에요! 🎉','That is the last ball! 🎉'));
 }
 function dDrawBall(){
   var m=dMode();
@@ -2606,13 +2929,13 @@ function dLadCells(){
   var d=dLadSync(), n=d.names.length, i, cellN='', cellR='';
   if(dLadEdit){
     for(i=0;i<n;i++){
-      cellN+='<input class="dladin" data-lad="name" data-i="'+i+'" value="'+esc(d.names[i])+'" maxlength="8" title="'+esc(d.names[i])+'" aria-label="'+(i+1)+'번 참가자 이름">';
-      cellR+='<input class="dladin res" data-lad="res" data-i="'+i+'" value="'+esc(d.results[i])+'" maxlength="16" title="'+esc(d.results[i])+'" aria-label="'+(i+1)+'번 결과 칸">';
+      cellN+='<input class="dladin" data-lad="name" data-i="'+i+'" value="'+esc(dn(d.names[i]))+'" maxlength="8" title="'+esc(dn(d.names[i]))+'" aria-label="'+L((i+1)+'번 참가자 이름','Player name '+(i+1))+'">';
+      cellR+='<input class="dladin res" data-lad="res" data-i="'+i+'" value="'+esc(dn(d.results[i]))+'" maxlength="16" title="'+esc(dn(d.results[i]))+'" aria-label="'+L((i+1)+'번 결과 칸','Result '+(i+1))+'">';
     }
   }else{
     for(i=0;i<n;i++){
-      cellN+='<button type="button" class="dladcell nm" data-lad="name" data-i="'+i+'" aria-label="'+esc(d.names[i])+' · 사다리 타기">'+esc(d.names[i])+'</button>';
-      cellR+='<button type="button" class="dladcell res" data-lad="res" data-i="'+i+'" aria-label="'+(i+1)+'번 결과 '+esc(d.results[i])+'">'+esc(d.results[i])+'</button>';
+      cellN+='<button type="button" class="dladcell nm" data-lad="name" data-i="'+i+'" aria-label="'+esc(dn(d.names[i]))+' · '+L('사다리 타기','run ladder')+'">'+esc(dn(d.names[i]))+'</button>';
+      cellR+='<button type="button" class="dladcell res" data-lad="res" data-i="'+i+'" aria-label="'+L((i+1)+'번 결과 ','result '+(i+1)+': ')+esc(dn(d.results[i]))+'">'+esc(dn(d.results[i]))+'</button>';
     }
   }
   $('#dLadNames').innerHTML=cellN;
@@ -2629,7 +2952,7 @@ function dLadCells(){
   $$('#dLad button.dladcell').forEach(function(b){
     b.addEventListener('click', function(){
       if(b.dataset.lad==='name') dLadRunFrom(+b.dataset.i);
-      else toast('결과를 바꾸려면 ✏️ 이름·결과 수정을 눌러 주세요');
+      else toast(L('결과를 바꾸려면 ✏️ 이름·결과 수정을 눌러 주세요','To change a result, tap ✏️ Edit Names'));
     });
   });
   requestAnimationFrame(dLadFitCells);
@@ -2639,15 +2962,15 @@ function dLadSetEdit(on){
   var b=$('#dLadEditBtn');
   if(b){
     b.setAttribute('aria-pressed', dLadEdit? 'true':'false');
-    b.textContent=dLadEdit? '✅ 수정 끝내기' : '✏️ 이름·결과 수정';
+    b.textContent=dLadEdit? L('✅ 수정 끝내기','✅ Done Editing') : L('✏️ 이름·결과 수정','✏️ Edit Names');
   }
   if(!dLadGeo || dLadGeo.n!==S.draw.n) dLadBuild();
   else dLadCells();
   if(!dLadEdit){
     try{ var ae=document.activeElement; if(ae && ae.blur) ae.blur(); }catch(e){}
-    toast('이제 번호를 누르면 그 사람 사다리를 바로 타요 🪜');
+    toast(L('이제 번호를 누르면 그 사람 사다리를 바로 타요 🪜','Now tap a number to run that ladder 🪜'));
   }else{
-    toast('칸을 눌러 이름·결과를 고쳐 주세요. 다 고치면 ✅ 수정 끝내기');
+    toast(L('칸을 눌러 이름·결과를 고쳐 주세요. 다 고치면 ✅ 수정 끝내기','Tap a cell to edit a name or result, then press ✅ Done Editing'));
   }
 }
 /* 이름·결과 칸이 좁아도 글자가 잘리지 않게 살짝씩 줄여 맞춤 */
@@ -2716,8 +3039,9 @@ function dLadShowResult(start, end){
   var name=d.names[start]||dLadDefaultName(start), res=d.results[end]||'';
   var box=$('#dLadRes').children[end];
   if(box) box.classList.add('hit');
+  name=dn(name); res=dn(res);
   $('#dLadSum').textContent='🪜 '+name+' → '+res;
-  $('#dLive').textContent=name+' 결과는 '+res;
+  $('#dLive').textContent = EN()? (name+' → '+res) : (name+' 결과는 '+res);
   var strip=$('#dLadCheer');
   if(strip){
     strip.classList.add('cheer');
@@ -2731,7 +3055,7 @@ function dLadRun(){
   if(!dLadGeo) dLadBuild();
   var n=S.draw.n, idx=-1, j;
   for(j=0;j<n;j++){ if(dLadMap[j]===undefined){ idx=j; break; } }
-  if(idx<0){ toast('모두 다 탔어요! 다시 섞기를 눌러 새 사다리를 만들어 보세요 🪜'); return; }
+  if(idx<0){ toast(L('모두 다 탔어요! 다시 섞기를 눌러 새 사다리를 만들어 보세요 🪜','Everyone has played! Tap Reshuffle for a new ladder 🪜')); return; }
   dLadBusy=true;
   var tok=++dLadToken;
   $('#dLadBtn').disabled=true;
@@ -2771,7 +3095,7 @@ function dLadNew(){
   dLadCancel();
   dLadGeo=null; dLadMap={};
   dLadBuild();
-  toast('새 사다리를 만들었어요. 사다리 시작! 을 눌러 보세요 🪜');
+  toast(L('새 사다리를 만들었어요. 사다리 시작! 을 눌러 보세요 🪜','New ladder ready. Tap Start Ladder! 🪜'));
 }
 function dSetMode(m){
   if(m!=='num' && m!=='win' && m!=='lad') return;
@@ -2786,16 +3110,18 @@ function dSetMode(m){
     }
     S.draw.win=Math.max(1, Math.min(S.draw.win, S.draw.n-1));
     dPeekOpen=false; save();
+    $('#dLive').textContent='';
     dHideBall(true);
     dRender();
-    toast(m==='win'? '🎁 당첨 · 꽝 모드로 바꿨어요'
-      : (m==='lad'? '🪜 사다리타기 모드로 바꿨어요' : '🔢 번호뽑기 모드로 바꿨어요'));
+    toast(m==='win'? L('🎁 당첨 · 꽝 모드로 바꿨어요','🎁 Switched to Winner / Blank')
+      : (m==='lad'? L('🪜 사다리타기 모드로 바꿨어요','🪜 Switched to Ladder Game') : L('🔢 번호뽑기 모드로 바꿨어요','🔢 Switched to Number Draw')));
   };
   var picks=dAnyPicks();
   if(picks){
-    askConfirm('모드를 바꿀까요?',
-      '지금까지 뽑은 '+picks+'개 기록이 사라지고 공을 처음부터 다시 채워요.',
-      '바꾸기', apply);
+    askConfirm(L('모드를 바꿀까요?','Change the mode?'),
+      L('지금까지 뽑은 '+picks+'개 기록이 사라지고 공을 처음부터 다시 채워요.',
+        'The '+picks+' drawn so far will be cleared and the balls refilled.'),
+      L('바꾸기','Change'), apply);
   } else { apply(); }
 }
 function dSetWin(k){
@@ -2805,12 +3131,13 @@ function dSetWin(k){
   var apply=function(){
     d.win=k; d.wpicked=[]; dPeekOpen=false; save();
     dHideBall(true); dRender();
-    toast('당첨 '+k+'개 · 꽝 '+(d.n-k)+'개로 맞췄어요');
+    toast(L('당첨 '+k+'개 · 꽝 '+(d.n-k)+'개로 맞췄어요', k+' winners · '+(d.n-k)+' blanks'));
   };
   if(d.wpicked.length){
-    askConfirm('당첨 수를 '+k+'개로 바꿀까요?',
-      '지금까지 뽑은 '+d.wpicked.length+'개 기록이 사라지고 공을 다시 채워요.',
-      '바꾸기', apply);
+    askConfirm(L('당첨 수를 '+k+'개로 바꿀까요?','Set winners to '+k+'?'),
+      L('지금까지 뽑은 '+d.wpicked.length+'개 기록이 사라지고 공을 다시 채워요.',
+        'The '+d.wpicked.length+' drawn so far will be cleared and the balls refilled.'),
+      L('바꾸기','Change'), apply);
   } else { apply(); }
 }
 function dSetPeople(tot){
@@ -2825,29 +3152,32 @@ function dSetPeople(tot){
     save();
     dHideBall(true);
     dRender();
-    toast(tot+'명으로 맞췄어요');
+    toast(EN()? ('Set to '+tot+' people') : (tot+'명으로 맞췄어요'));
   };
   var picks=dAnyPicks();
   if(picks){
-    askConfirm('인원을 '+tot+'명으로 바꿀까요?',
-      '공을 처음부터 다시 섞어요. 지금까지 뽑은 '+picks+'개는 사라져요.',
-      '바꾸기', apply);
+    askConfirm(L('인원을 '+tot+'명으로 바꿀까요?','Change to '+tot+' people?'),
+      L('공을 처음부터 다시 섞어요. 지금까지 뽑은 '+picks+'개는 사라져요.',
+        'The balls are reshuffled from the start. The '+picks+' drawn so far are cleared.'),
+      L('바꾸기','Change'), apply);
   } else { apply(); }
 }
 function dShuffleNow(){
   if(dMode()==='lad'){ dLadNew(); return; }
   S.draw.picked=[]; S.draw.wpicked=[]; dPeekOpen=false; save();
+  $('#dLive').textContent='';
   dHideBall(true);
   dRender();
-  toast('공을 새로 섞었어요. 상자를 눌러 뽑아 보세요 🎲');
+  toast(L('공을 새로 섞었어요. 상자를 눌러 뽑아 보세요 🎲','Balls reshuffled. Tap the box to draw 🎲'));
 }
 function dShuffle(){
   if(dMode()==='lad'){ dLadNew(); return; }
   var picks=dAnyPicks();
   if(picks){
-    askConfirm('공을 다시 섞을까요?',
-      '지금까지 뽑은 '+picks+'개가 사라지고 공을 다시 채워요.',
-      '다시 섞기', dShuffleNow);
+    askConfirm(L('공을 다시 섞을까요?','Reshuffle?'),
+      L('지금까지 뽑은 '+picks+'개가 사라지고 공을 다시 채워요.',
+        'The '+picks+' drawn so far will be cleared and the balls refilled.'),
+      L('다시 섞기','Reshuffle'), dShuffleNow);
   } else { dShuffleNow(); }
 }
 function openDraw(){
@@ -2865,7 +3195,7 @@ $('#dBall').addEventListener('click', function(e){
 });
 $('#dPeek').addEventListener('click', function(){
   dSetPeek(!dPeekOpen);
-  if(dPeekOpen) toast('지금까지 뽑힌 결과를 펼쳤어요. 확인 후 다시 눌러 숨겨 주세요');
+  if(dPeekOpen) toast(L('지금까지 뽑힌 결과를 펼쳤어요. 확인 후 다시 눌러 숨겨 주세요','Results shown. Tap again to hide them'));
 });
 $('#dStage').addEventListener('keydown', function(e){
   if(e.key==='Enter'||e.key===' '||e.key==='Spacebar'){ e.preventDefault(); dStageTap(); }
@@ -2886,7 +3216,7 @@ $('#dShuffle').addEventListener('click', dShuffle);
 $('#dReset2').addEventListener('click', dShuffleNow);
 $('#dSound').addEventListener('click', function(){
   S.draw.sound=!S.draw.sound; save(); dRender();
-  toast(S.draw.sound? '소리를 켰어요' : '소리를 껐어요');
+  toast(S.draw.sound? L('소리를 켰어요','Sound on') : L('소리를 껐어요','Sound off'));
 });
 
 /* ── 📲 홈 화면에 앱 설치 (PWA) ── */
@@ -2922,8 +3252,8 @@ if(installBtn){
         dp.prompt();
         if(dp.userChoice && dp.userChoice.then){
           dp.userChoice.then(function(r){
-            if(r && r.outcome==='accepted') toast('설치를 시작했어요 📲');
-            else toast('언제든 📲 앱 설치를 다시 누르면 안내해 드려요');
+            if(r && r.outcome==='accepted') toast(L('설치를 시작했어요 📲','Installation started 📲'));
+            else toast(L('언제든 📲 앱 설치를 다시 누르면 안내해 드려요','Tap 📲 Install App anytime for the steps'));
             syncInstallBtn();
           }).catch(function(){});
         }
@@ -2940,7 +3270,7 @@ window.addEventListener('beforeinstallprompt', function(e){
 });
 window.addEventListener('appinstalled', function(){
   installedApp=true; deferredPrompt=null; syncInstallBtn();
-  toast('홈 화면에 앱을 꺼내 두었어요 📲');
+  toast(L('홈 화면에 앱을 꺼내 두었어요 📲','Added to your home screen 📲'));
 });
 /* 인터넷이 끊겨도 열리도록 Service Worker 등록 (파일로 직접 열었을 땐 건너뜀) */
 if('serviceWorker' in navigator && location.protocol!=='file:'){
@@ -2952,7 +3282,7 @@ if('serviceWorker' in navigator && location.protocol!=='file:'){
 /* ── 시작 ── */
 var qrStoreName=importFromHash();
 render();
-if(qrStoreName){ setTimeout(function(){ toast('QR로 받은 "'+qrStoreName+'" 메뉴판을 열었어요 🙂'); }, 500); }
+if(qrStoreName){ setTimeout(function(){ toast(L('QR로 받은 "'+qrStoreName+'" 메뉴판을 열었어요 🙂','Opened the "'+qrStoreName+'" menu board from the QR 🙂')); }, 500); }
 })();
 </script>
 </body>
