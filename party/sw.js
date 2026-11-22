@@ -1,10 +1,10 @@
-/* 와글 홀리데이 파티 · 가벼운 Service Worker (v3: 이마 게임 단어 100개)
+/* 와글 홀리데이 파티 · 가벼운 Service Worker (v4: 이마 게임 100단어·내 단어 추가·고전 명대사 30문항)
    - 홈 화면 설치 요건(매니페스트 + 아이콘 + fetch 핸들러) 충족
    - 화면(index.html)은 항상 네트워크 우선 → 새 버전이 바로 반영됨
    - 인터넷이 끊겨도 마지막으로 열었던 화면이 뜨도록 껍데기만 캐시
    - 외부(다른 사이트) 요청은 절대 건드리지 않음 · 개인정보 0% */
 
-const CACHE = 'wagle-party-v3';
+const CACHE = 'wagle-party-v4';
 const SHELL = [
   './',
   './index.html',
