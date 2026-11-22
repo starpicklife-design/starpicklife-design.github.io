@@ -243,8 +243,10 @@ html.big .homerec{font-size:.8rem;min-height:2.35rem}
 html.big .selinline{font-size:.68rem;min-height:2rem;padding:.1rem .34rem}
 
 /* 목록 */
-.hintline{font-size:.78rem;font-weight:800;color:#6B7A6E;background:#F2F8F0;border:2px dashed #CFE0CC;
-  border-radius:.7rem;padding:.34rem .5rem;margin-bottom:.4rem;line-height:1.4}
+/* 안내 상자: 큰 글씨 모드에서도 작게(11~12px) — 자주 쓰는 기능이라 설명은 짧고 납작하게, 품목 카드가 위로 올라오게 */
+.hintline{font-size:11.5px;font-weight:700;color:#6B7A6E;background:#F2F8F0;border:2px dashed #CFE0CC;
+  border-radius:.55rem;padding:4px 7px;margin-bottom:.3rem;line-height:1.35;letter-spacing:-.01em}
+html.big .hintline{font-size:12px;padding:4px 7px;line-height:1.35}
 .list{display:flex;flex-direction:column;gap:.32rem;margin-bottom:.6rem}
 /* 카드 한 줄 안 즉시 조작: 이름·날짜(왼쪽) + − 수량 + · 다 먹음(오른쪽) */
 .item{display:flex;flex-wrap:wrap;align-items:center;gap:.2rem .26rem;
@@ -787,7 +789,7 @@ html.big .dpdishes{font-size:.86rem}
         <button type="button" class="recbtn recmini" id="recBtn"><span aria-hidden="true">🧾</span><span id="recBtnLab">영수증 찍기</span></button>
       </div>
       <div class="spbarBottom">
-        <button type="button" id="selBtn" class="mini selbtn selinline" aria-pressed="false">🗑️ 골라 지우기</button>
+        <button type="button" id="selBtn" class="mini selbtn selinline" aria-pressed="false" aria-label="골라 지우기">🗑️ 지우기</button>
         <button type="button" id="addJump" class="addjump" aria-label="품목 추가 칸으로 바로 가기">➕ 품목 추가</button>
         <button type="button" id="clearAll" class="clearall" aria-label="이 칸의 품목을 전부 지우기">🧹 올클리어</button>
       </div>
@@ -1302,11 +1304,11 @@ function renderSpaceView(){
   $('#cartHint').hidden=!isCart;
   $('#fridgeHint').hidden=isCart;
   if(isCart){
-    $('#cartHint').textContent=L('카드 안 − +로 수량을 바꾸고, 🍽️ 다 먹음은 바로 빼요(↩ 되돌리기). ❄️를 누르면 냉장고로 옮겨요.',
-      'Use − + on a card for the count; 🍽️ takes it out right away (↩ undo). Tap ❄️ to move it into a fridge.');
+    $('#cartHint').textContent=L('카드에서 − +로 수량, 🍽️ 다 먹음(↩ 되돌리기), ❄️ 누르면 냉장고로 옮겨요.',
+      '− + on a card to change the count, 🍽️ takes it out (↩ undo), ❄️ moves it into a fridge.');
   }else{
-    $('#fridgeHint').textContent=L('카드 안 − +로 수량을 바꾸고, 🍽️ 다 먹음은 바로 빼요(↩ 되돌리기 가능). 이름을 누르면 이름·메모·구매일을 고쳐요.',
-      'Use − + on a card to change the count; 🍽️ takes it out right away (↩ undo). Tap a name to edit name, note and date.');
+    $('#fridgeHint').textContent=L('카드에서 − +로 수량, 🍽️ 다 먹음(↩ 되돌리기), 이름을 누르면 고쳐요.',
+      '− + on a card to change the count, 🍽️ takes it out (↩ undo), tap a name to edit.');
   }
   $('#favBtn').hidden=true;
   $('#tidyBtn').hidden=true;
@@ -1840,7 +1842,8 @@ function applyStaticLang(){
   $('#addJump').textContent = L('➕ 품목 추가','➕ Add item');
   $('#clearAll').textContent = L('🧹 올클리어','🧹 Clear all');
   $('#favBtn').textContent = L('★ 자주 사는 것만','★ Favorites only');
-  $('#selBtn').textContent = L('🗑️ 골라 지우기','🗑️ Select to delete');
+  $('#selBtn').textContent = L('🗑️ 지우기','🗑️ Delete');
+  $('#selBtn').setAttribute('aria-label', L('골라 지우기','Select items to delete'));
   $('#tidyBtn').textContent = L('✓ 산 것 정리','✓ Clear bought');
   $('#selCancel').textContent = L('그만두기','Done');
   $('#addNameLab').textContent = L('품목 이름','Item name');

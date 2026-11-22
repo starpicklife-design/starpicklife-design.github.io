@@ -4,7 +4,7 @@
    - 인터넷이 끊겨도 마지막으로 열었던 화면이 뜨도록 껍데기만 캐시
    - 외부(다른 사이트) 요청은 절대 건드리지 않음 · 개인정보 0% */
 
-const CACHE = 'wagle-fridge-v11';
+const CACHE = 'wagle-fridge-v12';
 const SHELL = [
   './',
   './index.html',
