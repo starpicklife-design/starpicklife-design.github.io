@@ -4,15 +4,15 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#3E2C22" />
-<!-- build: 2026-11-22 wagle-table v11 ocr-v5 · header-v11 (🧹 올클리어 · 가게 0개 · 🌐 크롬으로 열기) -->
+<!-- build: 2026-11-22 wagle-table v13 · 이름 통일: 와글테이블 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-<meta name="apple-mobile-web-app-title" content="와글가족 테이블" />
-<title>와글가족 테이블 · 큰 글씨 메뉴판 · 테이블 이벤트</title>
+<meta name="apple-mobile-web-app-title" content="와글테이블" />
+<title>와글테이블 · 큰 글씨 메뉴판 · 테이블 이벤트</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 120%27%3E%3Cellipse cx=%2760%27 cy=%2760%27 rx=%2756%27 ry=%2756%27 fill=%27%23FBE4C1%27/%3E%3Cellipse cx=%2740%27 cy=%2750%27 rx=%2722%27 ry=%2720%27 fill=%27%23F2D9B4%27/%3E%3Cellipse cx=%2780%27 cy=%2750%27 rx=%2722%27 ry=%2720%27 fill=%27%23F2D9B4%27/%3E%3Cellipse cx=%2760%27 cy=%2766%27 rx=%2734%27 ry=%2732%27 fill=%27%23F7E3C2%27/%3E%3Ccircle cx=%2747%27 cy=%2762%27 r=%275%27 fill=%27%232C1F18%27/%3E%3Ccircle cx=%2773%27 cy=%2762%27 r=%275%27 fill=%27%232C1F18%27/%3E%3Cellipse cx=%2760%27 cy=%2774%27 rx=%275%27 ry=%274%27 fill=%27%23E8857C%27/%3E%3Cellipse cx=%2759%27 cy=%2732%27 rx=%2728%27 ry=%2712%27 fill=%27%23C0392B%27/%3E%3C/svg%3E">
 <style>
 :root{
@@ -351,7 +351,7 @@ html.big .note{font-size:.78rem}
 html.big .sname{font-size:1.35rem}
 html.big .srow{gap:.3rem}
 html.big .sprice{min-width:4.6rem}
-/* ══════════════ 와글가족 v2 ══════════════ */
+/* ══════════════ 와글테이블 v2 ══════════════ */
 .svgdefs{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
 .top{
   background-color:#4B3527;
@@ -467,7 +467,7 @@ html.big .chkline{font-size:.86rem}
 #stickerModal .stickerTop{margin-bottom:.05rem}
 #stickerModal .fieldlabel{margin:.3rem 0 .18rem;font-size:.86rem}
 
-/* ══════ 🎲 와글가족 테이블 이벤트 ══════ */
+/* ══════ 🎲 와글테이블 이벤트 ══════ */
 /* 🎲 이벤트 버튼 — 둥근 알약이 아니라 메뉴 카드처럼 반듯한 사각 박스 */
 .drawbtn{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:.2rem;
   min-height:2.9rem;padding:.28rem .56rem;border-radius:.7rem;border:2px solid #A9690A;
@@ -968,7 +968,7 @@ html.big .isteps li>span{font-size:1rem}
   <div class="brand">
     <span class="hamsvg" aria-hidden="true"><svg viewBox="0 0 160 130"><use href="#wg-trio"/></svg></span>
     <div class="titles">
-      <h1 id="appTitle">와글가족 테이블</h1>
+      <h1 id="appTitle">와글테이블</h1>
       <span class="sub" id="appSub">큰 글씨 메뉴판 · 이벤트</span>
     </div>
     <button type="button" id="langBtn" class="langtoggle" aria-pressed="false">🌐 EN</button>
@@ -1032,8 +1032,8 @@ html.big .isteps li>span{font-size:1rem}
   <section class="card qrcard" id="qrCard">
     <svg class="qrpeek" viewBox="0 0 120 120" aria-hidden="true"><use href="#wg-baby"/></svg>
     <h2>🏷️ 매장용 QR 스티커</h2>
-    <p class="note">가게 이름만 넣으면 <b>와글가족 테이블 QR 스티커</b>가 뚝딱! 테이블에 붙여 두면 손님이 카메라로 찍어 큰 글씨 메뉴판을 열 수 있어요.</p>
-    <button class="qrbtn" id="openSticker">와글가족 테이블 QR 스티커 만들기</button>
+    <p class="note">가게 이름만 넣으면 <b>와글테이블 QR 스티커</b>가 뚝딱! 테이블에 붙여 두면 손님이 카메라로 찍어 큰 글씨 메뉴판을 열 수 있어요.</p>
+    <button class="qrbtn" id="openSticker">와글테이블 QR 스티커 만들기</button>
   </section>
 
   <section class="card" id="addCard">
@@ -1200,11 +1200,11 @@ html.big .isteps li>span{font-size:1rem}
   </div>
 </div>
 
-<!-- 와글가족 QR 스티커 -->
+<!-- 와글테이블 QR 스티커 -->
 <div class="modal" id="stickerModal" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="stkTitle">
     <div class="stickerTop">
-      <h3 id="stkTitle">🏷️ 와글가족 테이블 QR 스티커</h3>
+      <h3 id="stkTitle">🏷️ 와글테이블 QR 스티커</h3>
       <button class="mini" data-close="stickerModal">닫기</button>
     </div>
     <p class="note" id="stkNote">QR은 <b>이 폰 안에서 직접</b> 그려요 · 인터넷 없이 OK</p>
@@ -1218,7 +1218,7 @@ html.big .isteps li>span{font-size:1rem}
       <button type="button" class="tab on" data-shape="square">정사각형</button>
       <button type="button" class="tab" data-shape="tall">세로형(인쇄용)</button>
     </div>
-    <div class="canvasWrap"><canvas id="stickerCanvas" width="1080" height="1080" aria-label="와글가족 테이블 QR 스티커 미리보기"></canvas></div>
+    <div class="canvasWrap"><canvas id="stickerCanvas" width="1080" height="1080" aria-label="와글테이블 QR 스티커 미리보기"></canvas></div>
     <div class="mrow">
       <button class="btn primary" id="stkSave">🖼 이미지로 저장 (PNG)</button>
       <div class="row2b">
@@ -1230,7 +1230,7 @@ html.big .isteps li>span{font-size:1rem}
 </div>
 
 
-<!-- 🎲 와글가족 테이블 이벤트 -->
+<!-- 🎲 와글테이블 이벤트 -->
 <div class="modal" id="drawModal" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="dTitle">
     <div class="dhead">
@@ -1487,9 +1487,9 @@ function applyLang(){
   var en=EN();
   try{ document.documentElement.setAttribute('lang', en? 'en':'ko'); }catch(e){}
   document.title = en? 'Wagle Table · Large-Print Menu · Table Events'
-                     : '와글가족 테이블 · 큰 글씨 메뉴판 · 테이블 이벤트';
+                     : '와글테이블 · 큰 글씨 메뉴판 · 테이블 이벤트';
   var at=document.querySelector('meta[name="apple-mobile-web-app-title"]');
-  if(at) at.setAttribute('content', en? 'Wagle Table':'와글가족 테이블');
+  if(at) at.setAttribute('content', en? 'Wagle Table':'와글테이블');
 
   var lb=$('#langBtn');
   if(lb){
@@ -1499,7 +1499,7 @@ function applyLang(){
     lb.setAttribute('title', L('영어로 보기 / View in English','View in Korean / 한국어로 보기'));
   }
 
-  setTxt('#appTitle','와글가족 테이블','Wagle Table');
+  setTxt('#appTitle','와글테이블','Wagle Table');
   setTxt('#appSub','큰 글씨 메뉴판 · 이벤트','Large-Print Menu · Events');
   setAttr('#chips','aria-label','가게 고르기','Choose a shop');
   setTxt('#installBtn','📲 설치','📲 Install');
@@ -1526,9 +1526,9 @@ function applyLang(){
 
   setTxt('#qrCard h2','🏷️ 매장용 QR 스티커','🏷️ Store QR Sticker');
   setHTML('#qrCard .note',
-    '가게 이름만 넣으면 <b>와글가족 테이블 QR 스티커</b>가 뚝딱! 테이블에 붙여 두면 손님이 카메라로 찍어 큰 글씨 메뉴판을 열 수 있어요.',
+    '가게 이름만 넣으면 <b>와글테이블 QR 스티커</b>가 뚝딱! 테이블에 붙여 두면 손님이 카메라로 찍어 큰 글씨 메뉴판을 열 수 있어요.',
     'Just add your shop name and your <b>Wagle Table QR sticker</b> is ready. Put it on the table and guests can scan it with their camera to open the large-print menu.');
-  setTxt('#openSticker','와글가족 테이블 QR 스티커 만들기','Make a Wagle Table QR Sticker');
+  setTxt('#openSticker','와글테이블 QR 스티커 만들기','Make a Wagle Table QR Sticker');
 
   setTxt('#addTitle','메뉴 추가','Add Menu');
   setTxt('[data-tab="manual"]','직접 입력','Type In');
@@ -1600,7 +1600,7 @@ function applyLang(){
     '<b>iPhone · iPad (Safari)</b><span>Tap <b>Share (□↑)</b> below → <b>Add to Home Screen</b></span>');
   setTxt('[data-close="installModal"]','알겠어요','Got it');
 
-  setTxt('#stkTitle','🏷️ 와글가족 테이블 QR 스티커','🏷️ Wagle Table QR Sticker');
+  setTxt('#stkTitle','🏷️ 와글테이블 QR 스티커','🏷️ Wagle Table QR Sticker');
   setHTML('#stkNote','QR은 <b>이 폰 안에서 직접</b> 그려요 · 인터넷 없이 OK',
     'The QR is drawn <b>right on this phone</b> · works offline');
   setTxt('#stkNameLab','가게 이름','Shop name');
@@ -1608,7 +1608,7 @@ function applyLang(){
   setTxt('#stkMenuTxt','메뉴 내용도 QR에 함께 담기','Include menu items in the QR');
   setTxt('[data-shape="square"]','정사각형','Square');
   setTxt('[data-shape="tall"]','세로형(인쇄용)','Tall (for print)');
-  setAttr('#stickerCanvas','aria-label','와글가족 테이블 QR 스티커 미리보기','Wagle Table QR sticker preview');
+  setAttr('#stickerCanvas','aria-label','와글테이블 QR 스티커 미리보기','Wagle Table QR sticker preview');
   setTxt('#stkSave','🖼 이미지로 저장 (PNG)','🖼 Save as Image (PNG)');
   setTxt('#stkPrint','🖨 인쇄하기','🖨 Print');
   $$('[data-close="stickerModal"]').forEach(function(b){ b.textContent = en? 'Close':'닫기'; });
@@ -3178,8 +3178,8 @@ return {encode:encode, utf8bytes:utf8bytes};
 })();
 
 
-/* ══════ 와글가족 QR 스티커 ══════ */
-/* ══════════ 와글가족 QR 스티커 (매장용) ══════════ */
+/* ══════ 와글테이블 QR 스티커 ══════ */
+/* ══════════ 와글테이블 QR 스티커 (매장용) ══════════ */
 var STK={shape:'square', menu:true, qr:null, payload:''};
 
 function pageUrl(){
@@ -3420,7 +3420,7 @@ function drawSticker(cv,opt){
   /* 리본 */
   var ribY=tall?98:86;
   rr(ctx,W/2-232,ribY-40,464,80,40); ctx.fillStyle='#C25A2E'; ctx.fill();
-  txt(ctx, L('🐹 와글가족','🐹 Wagle Table'), W/2, ribY, font(800,42),'#FFF7E9');
+  txt(ctx, L('🐹 와글테이블','🐹 Wagle Table'), W/2, ribY, font(800,42),'#FFF7E9');
   /* 가게 이름 */
   var nameY=tall?235:196;
   var name=opt.name||L('우리 가게','Our Shop');
@@ -3471,9 +3471,9 @@ function drawSticker(cv,opt){
     drawHam(ctx,318,1258,146,'baby',false);
     drawHam(ctx,540,1268,156,'baby',true);
     drawHam(ctx,772,1258,146,'baby',false);
-    txt(ctx, L('와글가족 · 별의별 살림','Wagle Table · StarPick Life'), W/2, 1352, font(700,26),'#A98A66');
+    txt(ctx, L('와글테이블 · 별의별 살림','Wagle Table · StarPick Life'), W/2, 1352, font(700,26),'#A98A66');
   } else {
-    txt(ctx, L('와글가족 · 별의별 살림','Wagle Table · StarPick Life'), W/2, 1036, font(700,26),'#A98A66');
+    txt(ctx, L('와글테이블 · 별의별 살림','Wagle Table · StarPick Life'), W/2, 1036, font(700,26),'#A98A66');
   }
   /* 작은 하트 */
   [[120,tall?250:230],[960,tall?250:230]].forEach(function(p){
@@ -3574,7 +3574,7 @@ function saveSticker(){
   var safe=String(v.name||L('가게','shop')).replace(/[\\/:*?"<>|\s]+/g,'_').slice(0,24);
   var a=document.createElement('a');
   a.href=cv.toDataURL('image/png');
-  a.download=(EN()? 'WagleTable_QR_sticker_' : '와글가족_QR스티커_')+safe+'.png';
+  a.download=(EN()? 'WagleTable_QR_sticker_' : '와글테이블_QR스티커_')+safe+'.png';
   document.body.appendChild(a); a.click(); a.remove();
   stkToast(L('스티커 이미지를 저장했어요. 인쇄소에 그대로 보내면 돼요 🙂','Sticker image saved. Send the file straight to a print shop 🙂'));
 }
@@ -3588,9 +3588,9 @@ function printSticker(){
   document.body.appendChild(fr);
   var doc=fr.contentDocument;
   doc.open();
-  doc.write('<!doctype html><html><head><meta charset="utf-8"><title>'+L('와글가족 테이블 QR 스티커','Wagle Table QR Sticker')+'</title>'+
+  doc.write('<!doctype html><html><head><meta charset="utf-8"><title>'+L('와글테이블 QR 스티커','Wagle Table QR Sticker')+'</title>'+
     '<style>@page{margin:10mm}html,body{margin:0;padding:0}img{width:100%;max-width:170mm;display:block;margin:0 auto}</style>'+
-    '</head><body><img src="'+data+'" alt="'+L('와글가족 테이블 QR 스티커','Wagle Table QR sticker')+'"></body></html>');
+    '</head><body><img src="'+data+'" alt="'+L('와글테이블 QR 스티커','Wagle Table QR sticker')+'"></body></html>');
   doc.close();
   var go=function(){
     try{ fr.contentWindow.focus(); fr.contentWindow.print(); }catch(e){}
@@ -3625,7 +3625,7 @@ $('#stkMenu').addEventListener('change', function(){
 
 
 
-/* ══════ 🎲 와글가족 이벤트 상자 (번호뽑기 · 당첨/꽝 · 사다리타기) ══════ */
+/* ══════ 🎲 와글테이블 이벤트 상자 (번호뽑기 · 당첨/꽝 · 사다리타기) ══════ */
 function dMode(){ return S.draw.mode==='win'? 'win' : (S.draw.mode==='lad'? 'lad' : 'num'); }
 function dRemain(){
   var out=[], i, d=S.draw;
@@ -4280,8 +4280,8 @@ var SHARE_BASE='https://starpicklife-design.github.io/menu/';
 function shareTargetUrl(){ return EN()? SHARE_BASE+'?lang=en' : SHARE_BASE; }
 function sharePayload(){
   return {
-    title: L('와글가족 테이블 · 큰 글씨 메뉴판','Wagle Table · Large-Print Menu'),
-    text: L('☕ 큰 글씨 메뉴판 & 모임 게임 《와글가족 테이블》\n설치·회원가입 없이 링크만 누르면 바로 열려요. 번호뽑기·당첨/꽝·사다리타기까지 한 번에 😊',
+    title: L('와글테이블 · 큰 글씨 메뉴판','Wagle Table · Large-Print Menu'),
+    text: L('☕ 큰 글씨 메뉴판 & 모임 게임 《와글테이블》\n설치·회원가입 없이 링크만 누르면 바로 열려요. 번호뽑기·당첨/꽝·사다리타기까지 한 번에 😊',
            '☕ Wagle Table — a large-print menu plus party games\nNo install, no sign-up. Tap the link and it opens: menu, number draw, winner/lucky draw and the ladder game.'),
     url: shareTargetUrl()
   };
