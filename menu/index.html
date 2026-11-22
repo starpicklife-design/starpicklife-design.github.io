@@ -4,6 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#3E2C22" />
+<!-- build: 2026-11-22 wagle-table en-v2 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
@@ -44,8 +45,8 @@ input,textarea{font-family:inherit;font-size:1.05rem;color:var(--ink)}
 /* 🌐 언어 전환 (한 / EN) */
 .langtoggle{display:flex;align-items:center;justify-content:center;white-space:nowrap;flex:0 0 auto;
   background:rgba(255,247,233,.17);border:2px solid rgba(255,247,233,.45);color:#FFF7E9;
-  border-radius:2rem;padding:0 .5rem;font-size:.74rem;font-weight:900;letter-spacing:-.02em;
-  min-height:2.7rem}
+  border-radius:2rem;padding:0 .55rem;font-size:.8rem;font-weight:900;letter-spacing:-.02em;
+  min-height:2.8rem}
 .langtoggle[aria-pressed="true"]{background:rgba(217,162,39,.42);border-color:#F3D391;color:#FFFDF4}
 .langtoggle:active{transform:translateY(1px)}
 .chips{display:flex;gap:.45rem;overflow-x:auto;padding:.55rem 0 .05rem;scrollbar-width:none}
@@ -185,7 +186,7 @@ main{padding:.7rem .75rem 0;max-width:34rem;margin:0 auto}
 html.big .brand h1{font-size:1rem}
 html.big .logo{display:none}
 html.big .bigtoggle{font-size:.7rem;padding:.22rem .4rem .22rem .5rem;min-height:2.6rem}
-html.big .langtoggle{font-size:.66rem;padding:0 .36rem;min-height:2.6rem}
+html.big .langtoggle{font-size:.72rem;padding:0 .42rem;min-height:2.7rem}
 html.big .chip{font-size:.78rem;padding:.35rem .7rem;min-height:2.7rem}
 html.big .count{font-size:.82rem;flex:1 1 auto}
 html.big .mini{font-size:.72rem;padding:.3rem .45rem;min-height:2.7rem}
@@ -228,20 +229,19 @@ html.big .sprice{min-width:4.6rem}
   box-shadow:0 3px 9px rgba(0,0,0,.3),0 0 0 2px rgba(255,247,233,.22);padding:.1rem;overflow:hidden}
 .brand .hamsvg svg{width:100%;height:100%;display:block}
 .brand .titles{flex:1;min-width:0}
-.brand h1{font-size:1.04rem;margin:0;font-weight:900;letter-spacing:-.02em;white-space:nowrap;line-height:1.16}
-.brand .sub{display:block;font-size:.63rem;font-weight:800;color:#F7D9A0;letter-spacing:-.01em;white-space:nowrap;margin-top:.06rem}
-html[lang="en"] .brand h1{font-size:.97rem;letter-spacing:-.01em}
-html[lang="en"] .brand .sub{white-space:normal;line-height:1.12;letter-spacing:-.02em;max-width:9.6rem}
-html[lang="en"] .titles{overflow:hidden}
+.brand h1{font-size:.98rem;margin:0;font-weight:900;letter-spacing:-.025em;white-space:nowrap;line-height:1.16}
+.brand .sub{display:block;font-size:.58rem;font-weight:800;color:#F7D9A0;letter-spacing:-.02em;white-space:nowrap;margin-top:.06rem;overflow:hidden;text-overflow:ellipsis}
+html[lang="en"] .brand h1{font-size:.95rem;letter-spacing:-.015em}
+html[lang="en"] .brand .sub{letter-spacing:-.025em}
+.brand .titles{overflow:hidden}
 /* 아주 좁은 폰(≤359px)에서도 머리말·하단 바가 뭉개지지 않게 */
 @media (max-width:389px){
   .brand{gap:.32rem;flex-wrap:wrap;row-gap:.3rem}
   .brand .titles{order:1;flex:1 1 auto}
-  .brand .langtoggle{order:2}
   .brand .bigtoggle{order:3;flex:1 1 100%;justify-content:center}
   .brand .hamsvg{width:2.5rem;height:2.2rem}
-  .brand h1{font-size:.92rem}
-  .langtoggle{padding:0 .36rem;font-size:.7rem;min-height:2.5rem}
+  .brand h1{font-size:.94rem}
+  .langtoggle{padding:0 .4rem;font-size:.74rem;min-height:2.6rem}
   .bigtoggle{font-size:.7rem;padding:.2rem .38rem .2rem .45rem;min-height:2.5rem}
   .bar .tcount{font-size:.7rem;line-height:1.15}
   .bar .per{font-size:.76rem}
@@ -249,8 +249,12 @@ html[lang="en"] .titles{overflow:hidden}
   .bar .pcount{font-size:.95rem;white-space:nowrap;min-width:3.2rem}
   .bar .splitlabel{font-size:.72rem}
 }
-@media (max-width:389px) and (max-height:900px){
-  html[lang="en"] .brand .sub{display:none}
+@media (max-width:389px){
+  html[lang="en"] .brand .sub{font-size:.55rem}
+  .storebar{flex-wrap:wrap;row-gap:.35rem}
+  .storebar .count{flex:1 0 100%}
+  .listhead .mini{flex:1 1 auto}
+  .name{overflow-wrap:break-word}
 }
 
 .top{padding-top:.68rem}
@@ -794,11 +798,11 @@ html.big .isteps li>span{font-size:1rem}
       <h1 id="appTitle">와글가족 테이블</h1>
       <span class="sub" id="appSub">큰 글씨 메뉴판 · 테이블 이벤트</span>
     </div>
-    <button type="button" id="langBtn" class="langtoggle" aria-pressed="false">🌐 EN</button>
     <button id="bigBtn" class="bigtoggle" aria-pressed="false"><span class="bglab">큰 글씨</span><span class="sw" aria-hidden="true"></span></button>
   </div>
   <div class="chipline">
     <div class="chips" id="chips" role="tablist" aria-label="메뉴판 고르기"></div>
+    <button type="button" id="langBtn" class="langtoggle" aria-pressed="false">🌐 EN</button>
     <button type="button" id="installBtn" class="installbtn" aria-haspopup="dialog">📲 앱 설치</button>
   </div>
 </header>
