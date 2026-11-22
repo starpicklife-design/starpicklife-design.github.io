@@ -4,6 +4,13 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#3E2C22" />
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="와글가족 테이블" />
 <title>와글가족 테이블 · 큰 글씨 메뉴판 · 테이블 이벤트</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 120%27%3E%3Cellipse cx=%2760%27 cy=%2760%27 rx=%2756%27 ry=%2756%27 fill=%27%23FBE4C1%27/%3E%3Cellipse cx=%2740%27 cy=%2750%27 rx=%2722%27 ry=%2720%27 fill=%27%23F2D9B4%27/%3E%3Cellipse cx=%2780%27 cy=%2750%27 rx=%2722%27 ry=%2720%27 fill=%27%23F2D9B4%27/%3E%3Cellipse cx=%2760%27 cy=%2766%27 rx=%2734%27 ry=%2732%27 fill=%27%23F7E3C2%27/%3E%3Ccircle cx=%2747%27 cy=%2762%27 r=%275%27 fill=%27%232C1F18%27/%3E%3Ccircle cx=%2773%27 cy=%2762%27 r=%275%27 fill=%27%232C1F18%27/%3E%3Cellipse cx=%2760%27 cy=%2774%27 rx=%275%27 ry=%274%27 fill=%27%23E8857C%27/%3E%3Cellipse cx=%2759%27 cy=%2732%27 rx=%2728%27 ry=%2712%27 fill=%27%23C0392B%27/%3E%3C/svg%3E">
 <style>
@@ -40,6 +47,16 @@ input,textarea{font-family:inherit;font-size:1.05rem;color:var(--ink)}
   border-radius:2rem;padding:.4rem .85rem;font-size:.92rem;font-weight:800;min-height:2.8rem;white-space:nowrap}
 .chip.on{background:#FFF7E9;color:var(--coffee);border-color:#FFF7E9}
 .chip.add{border-style:dashed;color:#FFE9C7}
+/* 📲 홈 화면에 앱 설치 */
+.chipline{display:flex;align-items:center;gap:.45rem}
+.chipline .chips{flex:1;min-width:0}
+.installbtn{flex:0 0 auto;display:flex;align-items:center;gap:.3rem;white-space:nowrap;
+  background:linear-gradient(180deg,#F8DDB2,#E9BC6E);color:#3E2C22;border:2px solid #FFE9C7;
+  border-radius:2rem;padding:.32rem .7rem;font-size:.82rem;font-weight:900;min-height:2.8rem;
+  letter-spacing:-.01em;box-shadow:0 3px 10px rgba(0,0,0,.22)}
+.installbtn[hidden]{display:none}
+.installbtn:active{transform:translateY(1px)}
+html.big .installbtn{font-size:.76rem;padding:.3rem .55rem;min-height:2.7rem}
 
 /* ── 본문 ── */
 main{padding:.7rem .75rem 0;max-width:34rem;margin:0 auto}
@@ -381,6 +398,23 @@ html.big .dpeek{font-size:.74rem}
 #dLad input.dladin.res{background:#FBF3E2}
 #dLad input.dladin:focus{outline:2px solid #F0C98E;outline-offset:1px;background:#fff}
 #dLad input.dladin.hit{border-color:var(--accent);background:#FFF1E7;color:#8A3A16;box-shadow:0 0 0 .16rem rgba(240,180,41,.3)}
+/* 평소 게임 칸: 입력창이 아니라 버튼 → 눌러도 글자판이 절대 안 뜸 */
+#dLad button.dladcell{flex:1 1 0;min-width:0;width:100%;text-align:center;border:2px solid #E4D5B8;
+  border-radius:.6rem;background:#FFFDF7;padding:.28rem .04rem;font-size:.66rem;font-weight:900;
+  color:var(--coffee);min-height:2.35rem;line-height:1.2;display:flex;align-items:center;justify-content:center;
+  overflow:hidden;white-space:nowrap;letter-spacing:-.02em;-webkit-user-select:none;user-select:none;
+  -webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+#dLad button.dladcell.res{background:#FBF3E2}
+#dLad button.dladcell.nm{border-color:#CDAE76;background:linear-gradient(180deg,#FFF8E8,#F7E8C8)}
+#dLad button.dladcell:active{transform:translateY(1px)}
+#dLad button.dladcell.hit{border-color:var(--accent);background:#FFF1E7;color:#8A3A16;box-shadow:0 0 0 .16rem rgba(240,180,41,.3)}
+.dladbar{display:flex;align-items:center;gap:.4rem;margin:.1rem 0 .35rem}
+.dladtipline{flex:1;min-width:0;font-size:.72rem;font-weight:800;color:#8A7255;line-height:1.25;word-break:keep-all}
+.dladedit{flex:0 0 auto;background:#FFF8E8;border:2px solid #CDAE76;border-radius:2rem;
+  padding:.25rem .6rem;font-size:.74rem;font-weight:900;color:#7A5A20;min-height:2.4rem;white-space:nowrap}
+.dladedit[aria-pressed="true"]{background:#FFF1D8;border-color:var(--gold);color:#8A6210}
+html.big .dladtipline{display:none}
+html.big .dladedit{flex:1;font-size:.76rem}
 .dlsvg{display:block;width:100%;height:15rem;margin:.2rem 0}
 .colline{stroke:#D8C6A6;stroke-width:3;stroke-linecap:round}
 .rung{stroke:#C2A782;stroke-width:3;stroke-linecap:round}
@@ -445,6 +479,21 @@ html.big #dLad input.dladin{font-size:.6rem}
 html.big .dball{width:6.1rem;height:6.1rem;margin-left:-3.05rem;font-size:2.45rem}
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
   clip:rect(0 0 0 0);white-space:nowrap;border:0}
+/* 📲 앱 설치 안내 */
+#installModal h3{font-size:1.12rem;margin:.1rem 0 .3rem}
+#installModal .note{margin:.1rem 0 .7rem}
+.isteps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.5rem;counter-reset:ist}
+.isteps li{position:relative;background:#FFFBF2;border:2px solid var(--line);border-radius:1rem;
+  padding:.65rem .8rem .7rem 3rem;font-size:1rem;font-weight:800;line-height:1.35;word-break:keep-all}
+.isteps li::before{counter-increment:ist;content:counter(ist);position:absolute;left:.55rem;top:.7rem;
+  width:1.85rem;height:1.85rem;border-radius:50%;background:var(--coffee);color:#FFF7E9;
+  font-size:.95rem;font-weight:900;display:flex;align-items:center;justify-content:center}
+.isteps li>b{display:block;font-size:1.04rem;color:var(--coffee);margin-bottom:.12rem}
+.isteps li>span{display:block;font-size:.95rem;font-weight:800;color:var(--ink2)}
+.isteps li>span b{display:inline;font-size:inherit;color:var(--accent);margin:0;font-weight:900}
+html.big .isteps li{font-size:1.02rem;padding-left:3.1rem}
+html.big .isteps li>b{font-size:1.06rem}
+html.big .isteps li>span{font-size:1rem}
 
 </style>
 </head>
@@ -717,7 +766,10 @@ html.big .dball{width:6.1rem;height:6.1rem;margin-left:-3.05rem;font-size:2.45re
     </div>
     <button id="bigBtn" class="bigtoggle" aria-pressed="false">큰 글씨<span class="sw" aria-hidden="true"></span></button>
   </div>
-  <div class="chips" id="chips" role="tablist" aria-label="메뉴판 고르기"></div>
+  <div class="chipline">
+    <div class="chips" id="chips" role="tablist" aria-label="메뉴판 고르기"></div>
+    <button type="button" id="installBtn" class="installbtn" aria-haspopup="dialog">📲 앱 설치</button>
+  </div>
 </header>
 
 <main>
@@ -864,6 +916,20 @@ html.big .dball{width:6.1rem;height:6.1rem;margin-left:-3.05rem;font-size:2.45re
   </div>
 </div>
 
+<!-- 📲 홈 화면에 앱 설치 안내 -->
+<div class="modal center" id="installModal" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="instTitle">
+    <h3 id="instTitle">📲 홈 화면에 앱처럼 꺼내 두기</h3>
+    <p class="note">한 번 꺼내 두면 <b>아이콘만 눌러</b> 바로 열려요. 인터넷이 느리거나 끊겨도 메뉴판이 열립니다.</p>
+    <ol class="isteps">
+      <li><b>크롬 · 삼성 인터넷</b><span>오른쪽 위 <b>⋮</b> → <b>홈 화면에 추가</b>(또는 앱 설치)를 눌러 주세요</span></li>
+      <li><b>카톡 같은 인앱 브라우저</b><span>먼저 <b>⋮</b> → <b>다른 브라우저(Chrome)로 열기</b>를 눌러 주세요</span></li>
+      <li><b>아이폰 · 아이패드(사파리)</b><span>아래 <b>공유(□↑)</b> → <b>홈 화면에 추가</b>를 눌러 주세요</span></li>
+    </ol>
+    <div class="mrow"><button class="btn primary" data-close="installModal">알겠어요</button></div>
+  </div>
+</div>
+
 <!-- 와글가족 QR 스티커 -->
 <div class="modal" id="stickerModal" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="stkTitle">
@@ -992,6 +1058,10 @@ html.big .dball{width:6.1rem;height:6.1rem;margin-left:-3.05rem;font-size:2.45re
     </div>
 
     <div id="dLad" hidden>
+      <div class="dladbar">
+        <span class="dladtipline">번호를 누르면 그 사람 사다리만 타요</span>
+        <button type="button" class="dladedit" id="dLadEditBtn" aria-pressed="false">✏️ 이름·결과 수정</button>
+      </div>
       <div class="dladwrap">
         <div class="dladnames" id="dLadNames" aria-label="참가자 이름"></div>
         <svg class="dlsvg" id="dLadSvg" viewBox="0 0 360 250" preserveAspectRatio="none" role="img" aria-label="사다리타기 그림"></svg>
@@ -2348,7 +2418,7 @@ function dRender(){
            : '🍀 니키(세희) &amp; 와글가족의<br>행운 번호뽑기!');
   $('#dSub').textContent = win
     ? '상자를 톡 누르면 당첨·꽝 공이 튀어나왔다가 잠시 뒤 사라져요 · 인원수만큼 공이 한 번씩 나와요'
-    : (lad ? '이름과 결과 칸은 눌러서 직접 고칠 수 있어요 · 인원은 2~6명까지'
+    : (lad ? '번호를 톡 누르면 그 사람 사다리만 타요 · 이름·결과는 ✏️ 수정에서 · 인원은 2~6명까지'
            : '상자를 톡 누르면 공이 튀어나왔다가 잠시 뒤 사라져요 · 1~'+d.n+'번이 겹치지 않게 한 번씩 나와요');
   $('#dQuickRow').hidden = lad;
   $('#dWinRow').hidden = !win;
@@ -2476,7 +2546,7 @@ function dStageTap(){
   dDrawBall();
 }
 /* ── 사다리타기 ── */
-var dLadGeo=null, dLadMap={}, dLadBusy=false, dLadToken=0;
+var dLadGeo=null, dLadMap={}, dLadBusy=false, dLadToken=0, dLadEdit=false;
 function dLadCancel(){ dLadToken++; dLadBusy=false; }
 function dLadData(){
   var d=S.draw;
@@ -2527,34 +2597,67 @@ function dLadPaint(){
   html+='<g id="dLadTrails"></g>';
   html+='<circle class="dldot" id="dLadDot" r="8" cx="-20" cy="-20" hidden/>';
   $('#dLadSvg').innerHTML=html;
-  var inN='', inR='';
-  for(i=0;i<n;i++){
-    inN+='<input class="dladin" data-lad="name" data-i="'+i+'" value="'+esc(d.names[i])+'" maxlength="8" title="'+esc(d.names[i])+'" aria-label="'+(i+1)+'번 참가자 이름">';
-    inR+='<input class="dladin res" data-lad="res" data-i="'+i+'" value="'+esc(d.results[i])+'" maxlength="16" title="'+esc(d.results[i])+'" aria-label="'+(i+1)+'번 결과 칸">';
-  }
-  $('#dLadNames').innerHTML=inN;
-  $('#dLadRes').innerHTML=inR;
   $('#dLadSum').textContent='';
   $('#dLadBtn').disabled=false;
-  $$('#dLad input').forEach(function(inp){
+  dLadCells();
+}
+/* 평소에는 글자판이 뜨지 않는 버튼 칸 · ✏️ 수정을 눌렀을 때만 입력창 */
+function dLadCells(){
+  var d=dLadSync(), n=d.names.length, i, cellN='', cellR='';
+  if(dLadEdit){
+    for(i=0;i<n;i++){
+      cellN+='<input class="dladin" data-lad="name" data-i="'+i+'" value="'+esc(d.names[i])+'" maxlength="8" title="'+esc(d.names[i])+'" aria-label="'+(i+1)+'번 참가자 이름">';
+      cellR+='<input class="dladin res" data-lad="res" data-i="'+i+'" value="'+esc(d.results[i])+'" maxlength="16" title="'+esc(d.results[i])+'" aria-label="'+(i+1)+'번 결과 칸">';
+    }
+  }else{
+    for(i=0;i<n;i++){
+      cellN+='<button type="button" class="dladcell nm" data-lad="name" data-i="'+i+'" aria-label="'+(i+1)+'번 '+esc(d.names[i])+' · 이 사람 사다리 타기">'+esc(d.names[i])+'</button>';
+      cellR+='<button type="button" class="dladcell res" data-lad="res" data-i="'+i+'" aria-label="'+(i+1)+'번 결과 '+esc(d.results[i])+'">'+esc(d.results[i])+'</button>';
+    }
+  }
+  $('#dLadNames').innerHTML=cellN;
+  $('#dLadRes').innerHTML=cellR;
+  $$('#dLad input.dladin').forEach(function(inp){
     inp.addEventListener('input', function(){
       var dd=dLadSync(), arr=(inp.dataset.lad==='name')? dd.names : dd.results;
       arr[+inp.dataset.i]=inp.value;
       inp.title=inp.value;
-      dLadFitInputs();
+      dLadFitCells();
       save();
     });
   });
-  requestAnimationFrame(dLadFitInputs);
+  $$('#dLad button.dladcell').forEach(function(b){
+    b.addEventListener('click', function(){
+      if(b.dataset.lad==='name') dLadRunFrom(+b.dataset.i);
+      else toast('결과를 바꾸려면 ✏️ 이름·결과 수정을 눌러 주세요');
+    });
+  });
+  requestAnimationFrame(dLadFitCells);
 }
-/* 칸이 좁아도 글자가 잘리지 않게 살짝씩 줄여 맞춤 */
-function dLadFitInputs(){
-  $$('#dLad input').forEach(function(inp){
-    inp.style.fontSize='';
-    var size=parseFloat(getComputedStyle(inp).fontSize)||11, guard=0;
-    while(guard++<10 && inp.scrollWidth>inp.clientWidth && size>8){
+function dLadSetEdit(on){
+  dLadEdit=!!on;
+  var b=$('#dLadEditBtn');
+  if(b){
+    b.setAttribute('aria-pressed', dLadEdit? 'true':'false');
+    b.textContent=dLadEdit? '✅ 수정 끝내기' : '✏️ 이름·결과 수정';
+  }
+  if(!dLadGeo || dLadGeo.n!==S.draw.n) dLadBuild();
+  else dLadCells();
+  if(!dLadEdit){
+    try{ var ae=document.activeElement; if(ae && ae.blur) ae.blur(); }catch(e){}
+    toast('이제 번호를 누르면 그 사람 사다리를 바로 타요 🪜');
+  }else{
+    toast('칸을 눌러 이름·결과를 고쳐 주세요. 다 고치면 ✅ 수정 끝내기');
+  }
+}
+/* 이름·결과 칸이 좁아도 글자가 잘리지 않게 살짝씩 줄여 맞춤 */
+function dLadFitCells(){
+  $$('#dLad .dladin, #dLad .dladcell').forEach(function(el){
+    el.style.fontSize='';
+    var size=parseFloat(getComputedStyle(el).fontSize)||11, guard=0;
+    while(guard++<12 && el.scrollWidth>el.clientWidth && size>7){
       size-=0.5;
-      inp.style.fontSize=size+'px';
+      el.style.fontSize=size+'px';
     }
   });
 }
@@ -2578,6 +2681,7 @@ function dLadAnimate(start){
     var NS='http://www.w3.org/2000/svg';
     var poly=document.createElementNS(NS,'polyline');
     poly.setAttribute('class','dltrail on');
+    poly.dataset.start=String(start);
     poly.style.stroke=LAD_COLORS[start % LAD_COLORS.length];
     poly.setAttribute('points', path.pts.map(function(p){ return p.x+','+p.y; }).join(' '));
     $('#dLadTrails').appendChild(poly);
@@ -2643,6 +2747,25 @@ function dLadRun(){
       setTimeout(step, 340);
     });
   })();
+}
+/* 위쪽 번호를 톡 누르면 그 사람 사다리만 바로 타기 */
+function dLadRunFrom(start){
+  if(dLadEdit || dLadBusy) return;
+  if(!dLadGeo || dLadGeo.n!==S.draw.n) dLadBuild();
+  var n=S.draw.n;
+  if(!(start>=0 && start<n)) return;
+  dLadBusy=true;
+  var tok=++dLadToken;
+  $('#dLadBtn').disabled=true;
+  var old=$('#dLadTrails').querySelector('polyline[data-start="'+start+'"]');
+  if(old && old.parentNode) old.parentNode.removeChild(old);
+  dLadAnimate(start).then(function(end){
+    if(tok!==dLadToken){ return; }
+    dLadMap[start]=end;
+    dLadShowResult(start, end);
+    dLadBusy=false;
+    $('#dLadBtn').disabled=false;
+  });
 }
 function dLadNew(){
   dLadCancel();
@@ -2751,6 +2874,7 @@ $('#dmNum').addEventListener('click', function(){ dSetMode('num'); });
 $('#dmWin').addEventListener('click', function(){ dSetMode('win'); });
 $('#dmLad').addEventListener('click', function(){ dSetMode('lad'); });
 $('#dLadBtn').addEventListener('click', dLadRun);
+$('#dLadEditBtn').addEventListener('click', function(){ dLadSetEdit(!dLadEdit); });
 $('#dpMinus').addEventListener('click', function(){ dSetPeople(S.draw.n-1); });
 $('#dpPlus').addEventListener('click', function(){ dSetPeople(S.draw.n+1); });
 $$('#drawModal .dq').forEach(function(b){
@@ -2764,6 +2888,66 @@ $('#dSound').addEventListener('click', function(){
   S.draw.sound=!S.draw.sound; save(); dRender();
   toast(S.draw.sound? '소리를 켰어요' : '소리를 껐어요');
 });
+
+/* ── 📲 홈 화면에 앱 설치 (PWA) ── */
+var installBtn=$('#installBtn'), deferredPrompt=null, installedApp=false;
+function standaloneNow(){
+  try{
+    if(window.matchMedia){
+      if(window.matchMedia('(display-mode: standalone)').matches) return true;
+      if(window.matchMedia('(display-mode: minimal-ui)').matches) return true;
+    }
+  }catch(e){}
+  if(navigator.standalone===true) return true;
+  if(/^android-app:\/\//i.test(document.referrer||'')) return true;
+  return false;
+}
+function syncInstallBtn(){
+  if(!installBtn) return;
+  installBtn.hidden = installedApp || standaloneNow();
+}
+if(installBtn){
+  syncInstallBtn();
+  try{
+    var mq=window.matchMedia && window.matchMedia('(display-mode: standalone)');
+    if(mq){
+      if(mq.addEventListener) mq.addEventListener('change', syncInstallBtn);
+      else if(mq.addListener) mq.addListener(syncInstallBtn);
+    }
+  }catch(e){}
+  installBtn.addEventListener('click', function(){
+    if(deferredPrompt){
+      var dp=deferredPrompt; deferredPrompt=null;
+      try{
+        dp.prompt();
+        if(dp.userChoice && dp.userChoice.then){
+          dp.userChoice.then(function(r){
+            if(r && r.outcome==='accepted') toast('설치를 시작했어요 📲');
+            else toast('언제든 📲 앱 설치를 다시 누르면 안내해 드려요');
+            syncInstallBtn();
+          }).catch(function(){});
+        }
+      }catch(e){ showModal('installModal'); }
+      return;
+    }
+    showModal('installModal');
+  });
+}
+window.addEventListener('beforeinstallprompt', function(e){
+  if(e && e.preventDefault) e.preventDefault();
+  deferredPrompt=e;
+  syncInstallBtn();
+});
+window.addEventListener('appinstalled', function(){
+  installedApp=true; deferredPrompt=null; syncInstallBtn();
+  toast('홈 화면에 앱을 꺼내 두었어요 📲');
+});
+/* 인터넷이 끊겨도 열리도록 Service Worker 등록 (파일로 직접 열었을 땐 건너뜀) */
+if('serviceWorker' in navigator && location.protocol!=='file:'){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('./sw.js').catch(function(){});
+  });
+}
 
 /* ── 시작 ── */
 var qrStoreName=importFromHash();
