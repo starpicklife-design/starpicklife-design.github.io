@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#3E2C22" />
-<!-- build: 2026-11-23 wagle-table v23 · ⚡ 빠른 메뉴를 터치 조합 빌더로 (🔥핫/🧊아이스 + 재료 + 라떼·티·에이드·뱅쇼 → '아이스 바닐라라떼') · 조합 버튼은 자판을 띄우지 않음 -->
+<!-- build: 2026-11-23 wagle-table v24 · ☕ 카페 메인 화면(테이블에 모인 와글가족·클로벨 일러스트 + 🏪 카페 추가·🛒 주문·🎲 이벤트 + 내 카페 칩) · 폰 뒤로가기(◀)=메뉴판→카페 메인 · 3화면 회전문·v23 빠른 메뉴 그대로 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
@@ -92,6 +92,80 @@ input,textarea{font-family:inherit;font-size:1.05rem;color:var(--ink)}
   .chip{font-size:.7rem;padding-left:.46rem;padding-right:.46rem}
   .bigtoggle{font-size:.66rem;padding:.16rem .3rem .16rem .4rem}
 }
+
+/* ══ v24 · ☕ 카페 메인 화면 (첫 화면) ══
+   · 첫 접속 = 테이블에 모여 차 마시는 일러스트 + 3개 큰 버튼(카페 추가·주문·이벤트) + 내 카페 칩
+   · 메인에서는 가게 탭·이름변경·가게지우기 줄과 하단 합계 바를 숨겨 깔끔하게 */
+body.athome{padding-bottom:1.2rem}
+body.athome main{display:none}
+body.athome .chipline,body.athome .storerow{display:none}
+body.athome #bar{display:none}
+body.athome #homeBtn{display:none}
+body.athome .top{box-shadow:0 3px 10px rgba(40,26,16,.10)}
+/* 상단 🏠 홈 — 메뉴판 화면에서만 보임 */
+.homebtn{display:flex;align-items:center;justify-content:center;gap:.18rem;white-space:nowrap;flex:0 0 auto;
+  background:rgba(255,247,233,.17);border:2px solid rgba(255,247,233,.45);color:#FFF7E9;
+  border-radius:2rem;padding:0 .5rem;font-size:.74rem;font-weight:900;min-height:2.1rem;letter-spacing:-.02em}
+.homebtn:active{transform:translateY(1px)}
+
+#homeView{display:none;max-width:34rem;margin:0 auto;padding:0 .75rem}
+body.athome #homeView{display:block}
+.homeLead{margin:.75rem .2rem .5rem;font-size:.9rem;font-weight:900;color:var(--coffee);letter-spacing:-.02em;line-height:1.25}
+.homeLead span{display:block;font-size:.76rem;font-weight:700;color:#8B7A6B;margin-top:.1rem}
+/* 테이블에 모여 차 마시는 와글가족 + 클로벨 세 자매 */
+.heroCard{position:relative;margin:0;border-radius:1.15rem;overflow:hidden;background:#F5E4C8;
+  border:2px solid #E6CFA6;box-shadow:0 6px 18px rgba(62,44,34,.16)}
+.heroCard picture,.heroCard img{display:block;width:100%}
+.heroCard img{height:auto;aspect-ratio:3/2;object-fit:cover;object-position:center 42%}
+html.big .heroCard img{aspect-ratio:16/9}
+
+/* 3개 큰 버튼 — 색으로 역할 구분 (초록 추가 / 주황 주문 / 금색 이벤트) */
+.homebtns{display:flex;flex-direction:column;gap:.5rem;margin:.7rem 0 .2rem}
+.hbtn{display:flex;align-items:center;gap:.6rem;width:100%;text-align:left;
+  border:2px solid;border-radius:1rem;padding:.5rem .8rem;min-height:3.4rem;font-weight:900;
+  transition:transform .08s ease}
+.hbtn:active{transform:translateY(2px)}
+.hbtn .hi{font-size:1.5rem;line-height:1;flex:0 0 auto}
+.hbtn .hx{display:flex;flex-direction:column;min-width:0}
+.hbtn .ht{font-size:1.02rem;line-height:1.15;letter-spacing:-.02em}
+.hbtn .hs{font-size:.74rem;font-weight:700;opacity:.82;margin-top:.14rem;line-height:1.2}
+.hbtn.add{background:#D9EBDD;border-color:#3F8155;color:#1F4C2D;box-shadow:0 3px 0 #2F6B45}
+.hbtn.add:active{box-shadow:none}
+.hbtn.order{background:linear-gradient(180deg,#E2703F,#C0562B);border-color:#8F3C1C;color:#FFF8EC;box-shadow:0 3px 0 #8F3C1C}
+.hbtn.order:active{box-shadow:none}
+.hbtn.event{background:linear-gradient(180deg,#FFE3A8,#F2C05B);border-color:#B0730E;color:#4A2C05;box-shadow:0 3px 0 #B0730E}
+.hbtn.event:active{box-shadow:none}
+
+/* 등록된 내 카페 목록 — 톡 누르면 그 카페 메뉴판으로 */
+.homeList{margin:.85rem 0 0}
+.hlisthead{font-size:.78rem;font-weight:900;color:#8B7A6B;margin:0 .15rem .38rem;letter-spacing:-.01em}
+.hchips{display:flex;flex-wrap:wrap;gap:.4rem}
+.hchip{display:flex;align-items:center;gap:.32rem;background:#fff;border:2px solid var(--line);
+  border-radius:2rem;padding:.4rem .72rem;font-size:.86rem;font-weight:900;color:var(--coffee);
+  min-height:2.8rem;box-shadow:var(--shadow);line-height:1.15}
+.hchip:active{transform:translateY(1px)}
+.hchip.on{border-color:var(--coffee);background:var(--cream2)}
+.hchip .hcnt{font-size:.72rem;font-weight:800;color:#8B7A6B;background:#F6EEDD;border-radius:1rem;padding:.06rem .34rem}
+.hchip.new{border-style:dashed;border-color:#4E8A5C;color:#23552F;background:#EAF4EC;box-shadow:none}
+.hlistnote{margin:.1rem .2rem 0;font-size:.82rem;font-weight:700;color:#8B7A6B;line-height:1.45}
+@media (max-width:389px){
+  .heroCard{border-radius:1rem}
+  .hbtn{padding:.46rem .68rem;min-height:3.2rem}
+  .hbtn .ht{font-size:.98rem}
+  .hbtn .hs{font-size:.7rem}
+  .homebtn{font-size:.7rem;padding:0 .42rem}
+}
+/* 큰 글씨·좁은 폰: 상단 🏠 홈은 아이콘만(글자는 읽기 낭독기용으로 남김) — 제목 자리를 지킨다 */
+@media (max-width:374px){ .homebtn .hbl{display:none} }
+html.big .homebtn{font-size:1.02rem;padding:0 .5rem}
+html.big .homebtn .hbl{display:none}
+/* 큰 글씨: 메인 화면이 한 화면에 들어오도록 높이를 조금씩 아낀다 */
+html.big .homeLead{margin:.6rem .15rem .38rem}
+html.big .homeLead span{display:none}
+html.big .homebtns{gap:.38rem}
+html.big .hbtn{min-height:3rem;padding:.4rem .7rem}
+html.big .homeList{margin:.7rem 0 0}
+html.big .hchip{min-height:2.6rem;padding:.34rem .62rem}
 
 /* ── 본문 ── */
 main{padding:.7rem .75rem 0;max-width:34rem;margin:0 auto}
@@ -1143,6 +1217,7 @@ html.big .isteps li>span{font-size:1rem}
       <h1 id="appTitle">와글테이블</h1>
       <span class="sub" id="appSub">큰 글씨 메뉴판 · 이벤트</span>
     </div>
+    <button type="button" id="homeBtn" class="homebtn" aria-label="카페 메인 화면으로"><span class="hbicon" aria-hidden="true">🏠</span><span class="hbl">홈</span></button>
     <button type="button" id="langBtn" class="langtoggle" aria-pressed="false">🌐 EN</button>
     <button id="bigBtn" class="bigtoggle" aria-pressed="false"><span class="bglab">큰 글씨</span><span class="sw" aria-hidden="true"></span></button>
   </div>
@@ -1158,6 +1233,33 @@ html.big .isteps li>span{font-size:1rem}
     </div>
   </div>
 </header>
+
+<!-- ══ v24 · ☕ 카페 메인 화면 (첫 화면) — 테이블에 모인 와글가족 · 클로벨이 차를 마시는 그림 ══ -->
+<section id="homeView" aria-label="카페 메인">
+  <p class="homeLead" id="homeLead">☕ 와글가족 카페에 오셨네요!<span id="homeLeadSub">하고 싶은 일을 콕 눌러 주세요</span></p>
+  <div class="heroCard">
+    <picture>
+      <source srcset="./home-cafe.webp" type="image/webp">
+      <img id="homeArt" src="./home-cafe.jpg" width="1200" height="800"
+           alt="테이블에 모여 함께 차를 마시는 와글가족 햄스터 가족과 클로벨 세 자매" />
+    </picture>
+  </div>
+  <div class="homebtns">
+    <button type="button" class="hbtn add" data-home="add">
+      <span class="hi" aria-hidden="true">🏪</span>
+      <span class="hx"><span class="ht" id="hbAdd">카페 추가하기</span><span class="hs" id="hbAddS">새 카페 이름을 넣고 시작</span></span>
+    </button>
+    <button type="button" class="hbtn order" data-home="order">
+      <span class="hi" aria-hidden="true">🛒</span>
+      <span class="hx"><span class="ht" id="hbOrder">주문하기</span><span class="hs" id="hbOrderS">메뉴 넣고 바로 주문 담기</span></span>
+    </button>
+    <button type="button" class="hbtn event" data-home="event">
+      <span class="hi" aria-hidden="true">🎲</span>
+      <span class="hx"><span class="ht" id="hbEvent">이벤트하기</span><span class="hs" id="hbEventS">번호뽑기 · 당첨·꽝 · 사다리타기</span></span>
+    </button>
+  </div>
+  <div class="homeList" id="homeList"></div>
+</section>
 
 <main>
   <div class="storebar" id="storebar">
@@ -1618,6 +1720,7 @@ const won=n=> (n||0).toLocaleString(EN()?'en-US':'ko-KR');
 /* 기본 샘플 메뉴판의 영어 표기 (직접 넣은 이름은 그대로 둡니다) */
 var SAMPLE_EN={
   '동네 단골 카페':'Neighborhood Café','정겨운 분식집':'Cozy Snack Bar',
+  '내 카페':'My Cafe',
   '내 메뉴판':'My Menu Board','내 가게':'My Shop','메뉴판':'Menu Board','QR 메뉴판':'QR Menu Board','우리 가게':'Our Shop',
   '따뜻한 아메리카노':'Hot Americano','아이스 아메리카노':'Iced Americano',
   '카페라떼':'Café Latte','바닐라라떼':'Vanilla Latte','대추차':'Jujube Tea','유자차':'Citrus Tea',
@@ -1736,6 +1839,20 @@ function applyLang(){
 
   setTxt('#appTitle','와글테이블','Wagle Table');
   setTxt('#appSub','큰 글씨 메뉴판 · 이벤트','Large-Print Menu · Events');
+  /* ☕ v24 · 카페 메인 화면 */
+  setTxt('#homeBtn .hbl','홈','Home');
+  setAttr('#homeBtn','aria-label','카페 메인 화면으로','Back to the cafe home');
+  setTxt('#homeLead','☕ 와글가족 카페에 오셨네요!','☕ Welcome to the Wagle family cafe!');
+  setTxt('#homeLeadSub','하고 싶은 일을 콕 눌러 주세요','Tap what you would like to do');
+  setTxt('#hbAdd','카페 추가하기','Add a Cafe');
+  setTxt('#hbAddS','새 카페 이름을 넣고 시작','Name a new cafe to start');
+  setTxt('#hbOrder','주문하기','Order');
+  setTxt('#hbOrderS','메뉴 넣고 바로 주문 담기','Add items and take the order');
+  setTxt('#hbEvent','이벤트하기','Play an Event');
+  setTxt('#hbEventS','번호뽑기 · 당첨·꽝 · 사다리타기','Draw · Winner/blank · Ladder');
+  setAttr('#homeArt','alt',
+    '테이블에 모여 함께 차를 마시는 와글가족 햄스터 가족과 클로벨 세 자매',
+    'The Wagle hamster family and the three Clovelle sisters sharing tea around a table');
   setAttr('#chips','aria-label','가게 고르기','Choose a shop');
   setTxt('#installBtn','📲 설치','📲 Install');
   setAttr('#installBtn','aria-label','앱 설치 안내','How to install the app');
@@ -1903,6 +2020,7 @@ function render(){
     if(bl) bl.textContent = S.big? L('글씨 작게','Normal Text') : L('큰 글씨','Large Text');
   }
   try{ renderChips(); }catch(e){}
+  try{ if(atHome) renderHome(); }catch(e){}
   try{ renderMenu(); }catch(e){}
   try{ renderBar(); }catch(e){}
   requestAnimationFrame(function(){ try{ fitPad(); }catch(e){} });
@@ -1911,7 +2029,7 @@ function render(){
 function fitPad(){
   const bar=$('#bar');
   if(!bar) return;
-  document.body.style.paddingBottom=(bar.offsetHeight+24)+'px';
+  document.body.style.paddingBottom = atHome? '1.2rem' : (bar.offsetHeight+24)+'px';
   placeToast();
 }
 /* 토스트는 하단 바 위에 → 입력 중(자판 올라옴)엔 자판 바로 위로 — 자판에 가리지 않게 */
@@ -2038,6 +2156,97 @@ function renderNoStore(){
     'Create a shop to add menu items and take orders. You can also use <b>＋ New Shop</b> at the top.');
   if(b) b.textContent=L('＋ 새 가게 만들기','＋ Create New Shop');
 }
+
+/* ══════ ☕ v24 · 카페 메인 화면(첫 화면) ↔ 메뉴판 화면 ══════
+   · 첫 접속은 언제나 카페 메인(일러스트 + 3개 버튼 + 내 카페 칩)
+   · 카페를 고르거나 새로 만들면 메뉴판 화면으로 한 단계 들어간다(history 1층)
+   · 폰 뒤로가기(◀)·상단 🏠 홈 = 메뉴판에서 카페 메인으로 (기록을 쌓지 않고 1층만 소비)
+   · QR로 온 손님(#m=…)은 카페 메인을 건너뛰고 바로 그 가게 메뉴판 */
+var atHome=true;
+/* 열려 있던 팝업 기록 1층의 주인만 바꿔 달기 — 새 기록을 쌓지 않음 (회전문 swRetitle과 같은 방식) */
+function navRetitleModal(modalId, key, close){
+  for(var i=navLayers.length-1;i>=0;i--){
+    if(navLayers[i].key==='modal:'+modalId){
+      navLayers[i].key=key;
+      navLayers[i].close=close;
+      return true;
+    }
+  }
+  return false;
+}
+function renderHome(){
+  const box=$('#homeList');
+  if(!box) return;
+  if(!S.stores.length){
+    box.innerHTML='<div class="hlisthead">'+L('내 카페','My cafes')+'</div>'
+      +'<p class="hlistnote">'+L('아직 카페가 없어요. 위의 <b>🏪 카페 추가하기</b>로 첫 카페를 만들어 보세요.',
+        'No cafes yet — tap <b>🏪 Add a Cafe</b> above to make your first one.')+'</p>';
+    return;
+  }
+  box.innerHTML='<div class="hlisthead">'+L('내 카페 목록 — 누르면 메뉴판이 열려요','My cafes — tap to open a menu')+'</div>'
+    +'<div class="hchips">'
+    + S.stores.map(function(s){
+        return '<button type="button" class="hchip'+(s.id===S.cur?' on':'')+'" data-hshop="'+s.id+'">'
+          + esc(dn(s.name))
+          + '<span class="hcnt">'+(EN()? String(s.menus.length) : (s.menus.length+'개'))+'</span>'
+          + '</button>';
+      }).join('')
+    + '<button type="button" class="hchip new" data-home="add">'+L('＋ 새 카페','＋ New Cafe')+'</button>'
+    + '</div>';
+}
+function goHome(){
+  atHome=true;
+  try{ document.body.classList.add('athome'); }catch(e){}
+  try{ document.documentElement.classList.remove('kbdock'); }catch(e){}
+  renderHome();
+  try{ window.scrollTo(0,0); }catch(e){}
+  try{ fitPad(); }catch(e){}
+}
+/* 카페 메인 → 메뉴판 화면 (뒤로가기 1층 쌓기) */
+function openMenuView(){
+  atHome=false;
+  try{ document.body.classList.remove('athome'); }catch(e){}
+  navPushLayer('menuv', function(){ goHome(); });
+  render();
+  try{ window.scrollTo(0,0); }catch(e){}
+}
+/* 내 카페가 없으면 만들어서 고른다 (있으면 그 카페를 고른다) */
+function ensureMyCafe(){
+  var names=['내 카페','My Cafe','My Café'];
+  var st=S.stores.filter(function(s){ return names.indexOf(String(s.name||''))>=0; })[0];
+  if(!st){
+    st={id:uid(), name:'내 카페', unit:'잔', sym:'₩', menus:[]};
+    S.stores.push(st);
+  }
+  S.cur=st.id;
+  save();
+  return st;
+}
+function homeAction(kind){
+  if(kind==='add'){ askName('new'); return; }        /* 이름 팝업 → 저장하면 그 카페 메뉴판 */
+  if(kind==='order'){                                 /* 내 카페 자동 선택 + 메뉴 입력으로 */
+    ensureMyCafe();
+    openMenuView();
+    setTimeout(function(){ try{ jumpToAdd(); }catch(e){} }, 120);
+    return;
+  }
+  if(kind==='event'){ openDraw(); return; }            /* 이벤트 화면 바로 */
+}
+document.addEventListener('click', function(e){
+  var hb=e.target.closest('[data-home]');
+  if(hb){ homeAction(hb.dataset.home); return; }
+  var hc=e.target.closest('[data-hshop]');
+  if(!hc) return;
+  var id=hc.dataset.hshop;
+  if(!S.stores.some(function(s){ return s.id===id; })) return;
+  S.cur=id; save();
+  openMenuView();                                      /* 그 카페 메뉴판으로 */
+});
+$('#homeBtn').addEventListener('click', function(){
+  if(atHome) return;
+  goHome();
+  try{ navConsume('menuv'); }catch(e){}
+});
 function visibleMenus(st){ return st && st.menus ? st.menus : []; }
 function clearSel(){
   const was=selMode;
@@ -2470,6 +2679,19 @@ function doName(){
     const s={id:uid(), name:v, unit:'개', sym:'₩', menus:[]};
     S.stores.push(s); S.cur=s.id;
     clearSel();
+    if(atHome){
+      /* ☕ 카페 메인에서 만든 카페 — 이름 팝업을 닫고, 그 기록 1층을 그대로 '메뉴판' 단계로 넘겨받는다
+         (새 기록을 쌓지 않아 뒤로가기 = 카페 메인) */
+      const m=$('#nameModal');
+      if(m){ m.hidden=true; if(!$$('.modal').some(x=>!x.hidden)) document.body.style.overflow=''; }
+      atHome=false;
+      try{ document.body.classList.remove('athome'); }catch(e){}
+      if(!navRetitleModal('nameModal','menuv',function(){ goHome(); })) navPushLayer('menuv', function(){ goHome(); });
+      save(); render();
+      try{ window.scrollTo(0,0); }catch(e){}
+      toast(L('새 카페를 만들었어요. 메뉴를 넣어 보세요 🙂','New cafe created. Add some items 🙂'));
+      return;
+    }
     hideModal('nameModal'); save(); render();
     toast(L('새 가게를 만들었어요. 메뉴를 넣어 보세요 🙂','New shop created. Add some items 🙂'));
     return;
@@ -5072,7 +5294,15 @@ var qrStoreName=importFromHash();
 render();
 syncHdrH();
 syncStuck();
-if(qrStoreName){ setTimeout(function(){ toast(L('QR로 받은 "'+qrStoreName+'" 가게를 열었어요 🙂','Opened the "'+qrStoreName+'" shop from the QR 🙂')); }, 500); }
+if(qrStoreName){
+  /* QR로 온 손님 — 카페 메인을 건너뛰고 바로 그 가게 메뉴판 (뒤로가기 = 앱 종료) */
+  atHome=false;
+  try{ document.body.classList.remove('athome'); }catch(e){}
+  renderHome();
+  setTimeout(function(){ toast(L('QR로 받은 "'+qrStoreName+'" 가게를 열었어요 🙂','Opened the "'+qrStoreName+'" shop from the QR 🙂')); }, 500);
+} else {
+  goHome();   /* 첫 접속 = 카페 메인 화면 */
+}
 })();
 </script>
 </body>
