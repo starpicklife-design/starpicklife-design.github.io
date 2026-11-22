@@ -268,6 +268,11 @@ html[lang="en"] .qchip .ql{white-space:normal;overflow-wrap:break-word;text-over
 .qmore .qchip .qe{font-size:.92rem}
 .qmore .qchip[aria-pressed="true"]{background:#8A5A12;border-color:#6B4610;color:#FFF6E6}
 html.big .qline,html.big .qgrid,html.big .qmore{grid-template-columns:repeat(3,minmax(0,1fr));gap:.26rem}
+/* 종류(라떼·티·에이드·뱅쇼)는 이름이 짧아 큰 글씨에서도 4칸이면 넉넉하다 */
+html.big .qline{grid-template-columns:repeat(4,minmax(0,1fr))}
+html.big .qline .qchip{font-size:.72rem;min-height:2.5rem}
+html.big .qline .qchip .qe{font-size:.85rem}
+html.big .qline .qchip{gap:.04rem}
 html.big .qchip{font-size:.76rem;min-height:2.7rem}
 html.big .qmore .qchip{font-size:.7rem;min-height:2.3rem}
 html.big .qhead{flex-wrap:wrap;row-gap:.2rem}
@@ -344,6 +349,7 @@ html.kbdock .kbdockcard .qsplit{margin:.02rem 0}
 html.big.kbdock .kbdockcard .qline,
 html.big.kbdock .kbdockcard .qgrid,
 html.big.kbdock .kbdockcard .qmore{grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:2rem}
+html.big.kbdock .kbdockcard .qline{grid-template-columns:repeat(4,minmax(0,1fr))}
 html.big.kbdock .kbdockcard .qmore{grid-auto-rows:1.8rem}
 html.big.kbdock .kbdockcard .qchip{font-size:.64rem}
 html.kbdock .kbdockcard .addhead{margin:0 0 .3rem;flex-wrap:nowrap}
