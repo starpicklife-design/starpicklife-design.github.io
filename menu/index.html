@@ -300,6 +300,7 @@ html.big[lang="en"] .qname{font-size:.72rem}
 /* 🗑️ 지울 가게 고르기 */
 #delStoreModal .note{font-size:.88rem;margin:.1rem 0 .5rem}
 #delStoreModal .note.warn{color:#A63A2A}
+#delStoreModal .note b{color:#A63A2A}
 .picklist{display:flex;flex-direction:column;gap:.45rem;margin:.1rem 0 .2rem;max-height:52vh;overflow:auto}
 .pick{display:flex;align-items:center;gap:.5rem;width:100%;text-align:left;background:#FFFDF8;
   border:2px solid var(--line);border-radius:.9rem;padding:.55rem .7rem;min-height:3rem}
@@ -2095,10 +2096,11 @@ function renderDelPicker(){
       <span class="pd" aria-hidden="true">🗑️</span>
     </button>`).join('');
   if(note){
-    note.textContent = last
-      ? L('지울 가게를 누르면 한 번 더 물어보고 지워요. 마지막 가게까지 지우면 \'등록된 가게가 없어요\' 화면이 되고, ＋ 새 가게로 다시 만들 수 있어요.','Tap the shop to delete. You will be asked once more. This is the last shop, so the screen will show "No shop yet" — ＋ New Shop brings one back.')
+    note.innerHTML = last
+      ? L('지울 가게를 누르면 한 번 더 물어보고 지워요.<br><b>마지막 가게까지 지우면 ‘등록된 가게가 없어요’ 화면</b>이 되고, ＋ 새 가게로 다시 만들 수 있어요.',
+          'Tap the shop to delete. You will be asked once more.<br><b>This is your last shop</b> — the screen will show “No shop yet”, and ＋ New Shop brings one back.')
       : L('지울 가게를 누르면 한 번 더 물어보고 지워요.','Tap the shop to delete. You will be asked once more.');
-    note.classList.toggle('warn', last);
+    note.classList.remove('warn');
   }
 }
 function openDelPicker(){
