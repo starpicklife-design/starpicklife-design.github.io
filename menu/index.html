@@ -4295,6 +4295,16 @@ function swBusy(){
   if(open.length===1 && open[0].id!=='drawModal') return true;
   return false;
 }
+/* 메뉴판에서 밀어 열 때는 늘 첫 탭(🔢 번호뽑기)부터 — 지난번에 보던 탭이 남아 있어도 되돌린다 */
+function swOpenNum(){
+  if(dMode()!=='num'){
+    S.draw.mode='num';
+    S.draw.win=Math.max(1, Math.min(S.draw.win, S.draw.n-1));
+    try{ dPeekOpen=false; }catch(e){}
+    try{ save(); }catch(e){}
+  }
+  openDraw();
+}
 document.addEventListener('touchstart', function(e){
   if(e.touches.length!==1 || swBusy() || swTyping(e.target)){ swOn=false; return; }
   swX=e.touches[0].clientX; swY=e.touches[0].clientY; swOn=true;
@@ -4309,8 +4319,8 @@ document.addEventListener('touchend', function(e){
   swJust=true;
   try{ e.preventDefault(); }catch(_){}
   setTimeout(function(){ swJust=false; }, 420);
-  if($('#drawModal').hidden){                            /* 메뉴판 → 이벤트 */
-    if(dx<0) openDraw();
+  if($('#drawModal').hidden){                            /* 메뉴판 → 이벤트(첫 탭 🔢 번호뽑기) */
+    if(dx<0) swOpenNum();
     return;
   }
   var order=['num','win','lad'], i=order.indexOf(dMode());
