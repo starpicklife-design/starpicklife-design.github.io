@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#3E2C22" />
-<!-- build: 2026-11-22 wagle-table v11 ocr-v5 · header-v11 (🧹 올클리어 · 가게 0개 지원) -->
+<!-- build: 2026-11-22 wagle-table v11 ocr-v5 · header-v11 (🧹 올클리어 · 가게 0개 · 🌐 크롬으로 열기) -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
@@ -675,6 +675,19 @@ html.big .dball{width:6.1rem;height:6.1rem;margin-left:-3.05rem;font-size:2.45re
 /* 📲 앱 설치 안내 */
 #installModal h3{font-size:1.12rem;margin:.1rem 0 .3rem}
 #installModal .note{margin:.1rem 0 .7rem}
+/* 🌐 크롬으로 바로 열기 — 안드로이드 인앱 브라우저에서 한 번에 크롬으로 */
+.chromeopen{display:flex;align-items:center;justify-content:center;gap:.4rem;text-decoration:none;
+  min-height:3.3rem;border-radius:.9rem;font-weight:900;font-size:1.05rem;letter-spacing:-.01em;
+  background:linear-gradient(180deg,#4C8DF6,#1A73E8);color:#fff;border:2px solid #185ABC;
+  box-shadow:0 3px 10px rgba(26,115,232,.28);margin:.1rem 0 .7rem}
+.chromeopen:active{transform:translateY(1px)}
+.chromeopen[hidden]{display:none}
+.iappnote{background:#FFF3D6;border:2px solid #D9A036;border-radius:.9rem;padding:.6rem .7rem;
+  font-size:.92rem;font-weight:800;color:#6B4A07;line-height:1.45;margin:.1rem 0 .6rem;word-break:keep-all}
+.iappnote b{color:#8A3B0B}
+.iappnote[hidden]{display:none}
+html.big .chromeopen{font-size:1.05rem;min-height:3.7rem}
+html.big .iappnote{font-size:.95rem}
 .isteps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.5rem;counter-reset:ist}
 .isteps li{position:relative;background:#FFFBF2;border:2px solid var(--line);border-radius:1rem;
   padding:.65rem .8rem .7rem 3rem;font-size:1rem;font-weight:800;line-height:1.35;word-break:keep-all}
@@ -1173,6 +1186,8 @@ html.big .isteps li>span{font-size:1rem}
 <!-- 📲 홈 화면에 앱 설치 안내 -->
 <div class="modal center" id="installModal" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="instTitle">
+    <p class="iappnote" id="inappNote" hidden>카톡·인스타 안에서는 바로 설치가 안 돼요. 아래 <b>🌐 크롬으로 바로 열기</b>를 누르면 크롬에서 열려 바로 설치할 수 있어요!</p>
+    <a class="chromeopen" id="chromeOpen" href="#" hidden>🌐 크롬으로 바로 열기</a>
     <h3 id="instTitle">📲 홈 화면에 앱처럼 꺼내 두기</h3>
     <p class="note" id="instNote">한 번 꺼내 두면 <b>아이콘만 눌러</b> 바로 열려요. 인터넷이 느리거나 끊겨도 메뉴판이 열립니다.</p>
     <ol class="isteps">
@@ -1488,6 +1503,7 @@ function applyLang(){
   setAttr('#chips','aria-label','가게 고르기','Choose a shop');
   setTxt('#installBtn','📲 설치','📲 Install');
   setAttr('#installBtn','aria-label','앱 설치 안내','How to install the app');
+  try{ applyChromeOpen(); }catch(e){}
   setTxt('#shareBtn','📤 공유','📤 Share');
   setAttr('#shareBtn','aria-label','이 앱 공유하기','Share this app');
   setTxt('#addJump','➕ 메뉴 추가','➕ Add Menu');
@@ -4192,6 +4208,35 @@ function syncInstallBtn(){
   if(!installBtn) return;
   installBtn.hidden = installedApp || standaloneNow();
 }
+/* ── 🌐 크롬으로 바로 열기 (안드로이드 전용) ──
+   카톡·인스타 인앱 브라우저에서는 설치가 막혀서, Chrome 패키지를 지정한 intent:// 로 넘긴다.
+   지금 보고 있는 언어(?lang=en)는 그대로 이어지고, 해시(#m=…)는 넘기지 않는다(이미 폰에 저장됨). */
+function isAndroid(){ return /Android/i.test(navigator.userAgent||''); }
+function inAppBrowser(){ return /KAKAOTALK|Instagram|NAVER|FBAN|FBAV|Line\//i.test(navigator.userAgent||''); }
+function chromeIntentUrl(){
+  var live = !!(location.host);
+  var host = live? location.host : 'starpicklife-design.github.io';
+  var path = live? (location.pathname||'/menu/') : '/menu/';
+  var q = live? (location.search||'') : '';
+  if(!/[?&]lang=/i.test(q) && EN()) q='?lang=en';
+  return 'intent://'+host+path+q+'#Intent;scheme=https;package=com.android.chrome;end';
+}
+function applyChromeOpen(){
+  var btn=$('#chromeOpen'), note=$('#inappNote');
+  var show = isAndroid() && !standaloneNow();
+  if(btn){
+    btn.hidden = !show;
+    btn.textContent = L('🌐 크롬으로 바로 열기','🌐 Open in Chrome');
+    btn.setAttribute('aria-label', L('크롬 브라우저로 이 메뉴판 열기','Open this menu in the Chrome browser'));
+    if(show) btn.setAttribute('href', chromeIntentUrl());
+  }
+  if(note){
+    note.hidden = !(show && inAppBrowser());
+    note.innerHTML = L('카톡·인스타 안에서는 바로 설치가 안 돼요. 아래 <b>🌐 크롬으로 바로 열기</b>를 누르면 크롬에서 열려 바로 설치할 수 있어요!',
+      'You cannot install from inside KakaoTalk or Instagram. Tap <b>🌐 Open in Chrome</b> below to open it in Chrome and install right away!');
+  }
+}
+applyChromeOpen();
 if(installBtn){
   syncInstallBtn();
   try{
