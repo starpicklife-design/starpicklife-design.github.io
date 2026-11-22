@@ -1362,6 +1362,51 @@ const $$=(s,r)=> Array.prototype.slice.call((r||document).querySelectorAll(s));
 const uid=()=> Math.random().toString(36).slice(2,9);
 const esc=s=> String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
+/* ══════ 📱 폰 뒤로가기(◀) — 앱이 꺼지지 않고 한 단계씩 되돌아가기 ══════
+   · 화면이 한 단계 깊어질 때만 history.pushState (1단계 = 1기록)
+     예) 모달 열기 · 메뉴 지우기 선택 · 사진 인식 후보 화면 · 메뉴 추가 탭 바꾸기
+   · 뒤로가기 = 맨 위 단계 하나만 닫음 (모달 위에 확인창이 겹쳐 있으면 확인창부터)
+   · 앱 안에서 ✕·취소로 닫을 때는 그 기록을 history.back()으로 소비 → 기록이 무한히 쌓이지 않음
+   · 첫 화면(=쌓인 기록 0)에서 뒤로가기를 누르면 브라우저/앱이 그대로 빠져나감 */
+var navLayers=[], navQuiet=0, navBackBusy=false, navBackQueue=0, navPopping=false;
+function navPushLayer(key, close){
+  if(navPopping) return;
+  try{ history.pushState({wagleTable:navLayers.length+1}, '', location.href); }
+  catch(e){ return; }
+  navLayers.push({key:key, close:close});
+}
+function navPumpBack(){
+  if(navBackBusy || navBackQueue<=0) return;
+  navBackBusy=true; navQuiet++; navBackQueue--;
+  try{ history.back(); }
+  catch(e){ navQuiet=Math.max(0,navQuiet-1); navBackBusy=false; navPumpBack(); return; }
+  /* 기록이 실제로 없어 popstate가 오지 않는 경우에도 다음 뒤로가기를 막지 않게 */
+  setTimeout(function(){ if(navBackBusy){ navBackBusy=false; navQuiet=Math.max(0,navQuiet-1); navPumpBack(); } }, 900);
+}
+function navBackOnce(){ navBackQueue++; navPumpBack(); }
+function navDropLayers(test){
+  var removed=0;
+  for(var i=navLayers.length-1;i>=0;i--){
+    if(test(navLayers[i])){ navLayers.splice(i,1); removed++; }
+  }
+  for(var k=0;k<removed;k++) navBackOnce();
+  return removed;
+}
+/* 앱 안에서 닫았을 때 — 그 단계의 기록을 함께 소비 */
+function navConsume(key){
+  if(navPopping) return 0;
+  return navDropLayers(function(l){ return l.key===key; });
+}
+window.addEventListener('popstate', function(){
+  if(navQuiet>0){ navQuiet--; navBackBusy=false; navPumpBack(); return; }
+  var top=navLayers.pop();
+  if(!top) return;              /* 첫 화면 — 브라우저가 알아서 뒤로 감 */
+  navPopping=true;
+  try{ if(typeof top.close==='function') top.close(); }
+  catch(e){}
+  finally{ navPopping=false; }
+});
+
 /* ══════ 🌐 언어 (한국어 / English) ══════ */
 const LKEY='menu_lang_v1';
 function qLang(){
@@ -1784,12 +1829,17 @@ function renderNoStore(){
   if(b) b.textContent=L('＋ 새 가게 만들기','＋ Create New Shop');
 }
 function visibleMenus(st){ return st && st.menus ? st.menus : []; }
-function clearSel(){ selMode=false; selIds.clear(); }
+function clearSel(){
+  const was=selMode;
+  selMode=false; selIds.clear();
+  if(was) navConsume('sel');   /* 선택 모드 종료 = 뒤로가기 기록도 함께 소비 */
+}
 function startSel(){
   const st=store();
   if(!st) return;
   if(!st.menus.length){ toast(L('지울 메뉴가 없어요','There are no items to delete')); return; }
   selMode=true; selIds.clear();
+  navPushLayer('sel', function(){ if(selMode) finishSel(); });   /* 뒤로가기 = 선택 모드 끝내기 */
   renderMenu();
   const d=$('#selDone');
   if(d && d.focus) try{ d.focus({preventScroll:true}); }catch(e){}
@@ -1912,10 +1962,13 @@ let lastFocus=null;
 function showModal(id){
   lastFocus=document.activeElement;
   const m=document.getElementById(id);
+  if(!m) return;
+  const wasOpen=!m.hidden;
   m.hidden=false;
   document.body.style.overflow='hidden';
   const f=m.querySelector('button,input,textarea');
   if(f && f.focus) try{ f.focus({preventScroll:true}); }catch(e){}
+  if(!wasOpen) navPushLayer('modal:'+id, function(){ hideModal(id); });   /* 폰 뒤로가기 = 이 모달 닫기 */
 }
 function hideModal(id){
   const m=document.getElementById(id);
@@ -1923,6 +1976,7 @@ function hideModal(id){
   m.hidden=true;
   if(!$$('.modal').some(x=>!x.hidden)) document.body.style.overflow='';
   if(lastFocus && lastFocus.focus) try{ lastFocus.focus({preventScroll:true}); }catch(e){}
+  navConsume('modal:'+id);   /* ✕·취소로 닫았을 때는 그 기록을 소비 (뒤로가기 때는 이미 소비됨) */
 }
 $$('.modal').forEach(m=>{
   m.addEventListener('click', e=>{ if(e.target===m) hideModal(m.id); });
@@ -2638,6 +2692,7 @@ function reviewTitleNow(){
 }
 function startReview(list, kind, photoN){
   const st=store()||{menus:[]};
+  const wasOpen=!$('#review').hidden;
   cands=list.map(c=>{
     const dup=st.menus.some(m=> m.name.replace(/\s/g,'')===c.name.replace(/\s/g,'') && m.price===c.price);
     return {name:c.name, price:c.price, check:!dup, dup:dup};
@@ -2646,6 +2701,7 @@ function startReview(list, kind, photoN){
   reviewTitleNow();
   renderCands();
   $('#review').hidden=false;
+  if(!wasOpen) navPushLayer('review', hideReview);   /* 뒤로가기 = 후보 화면 닫기 */
   try{ $('#review').scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
 }
 function renderCands(){
@@ -2683,6 +2739,7 @@ function hideReview(){
   reviewKind=''; reviewCount=0; reviewPhotoN=0;
   cands=[];
   $('#candList').innerHTML='';
+  navConsume('review');   /* ✕·취소로 닫을 때 그 기록을 소비 */
 }
 function addCandidates(){
   const st=store();

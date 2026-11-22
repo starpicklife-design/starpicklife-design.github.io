@@ -1,10 +1,10 @@
-/* 와글 홀리데이 파티 · 가벼운 Service Worker (v5: 히어로 일러스트 슬림화 — 게임 카드가 첫 화면 위로 올라옴)
+/* 와글 홀리데이 파티 · 가벼운 Service Worker (v6: 폰 뒤로가기(◀) — 모달·게임 화면·탭을 한 단계씩 되돌림)
    - 홈 화면 설치 요건(매니페스트 + 아이콘 + fetch 핸들러) 충족
    - 화면(index.html)은 항상 네트워크 우선 → 새 버전이 바로 반영됨
    - 인터넷이 끊겨도 마지막으로 열었던 화면이 뜨도록 껍데기만 캐시
    - 외부(다른 사이트) 요청은 절대 건드리지 않음 · 개인정보 0% */
 
-const CACHE = 'wagle-party-v5';
+const CACHE = 'wagle-party-v6';
 const SHELL = [
   './',
   './index.html',
