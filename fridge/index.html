@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#1E4A36" />
-<!-- build: 2026-11-23 와글가족장바구니 v9 · 영수증 버튼을 '냉장고에 넣기' 제목 줄 오른쪽으로(점선 박스 제거) · 빠른 식품 영양소 순서(단백질→탄수화물→채소 5종+채소류→과일→양념·음료) · 와글가족 캐릭터 · 첫 화면 영수증 버튼 · 품목 카드 한 줄 · 같은 품목 자동 +1 · 용량/유통기한 두 칸 · 폰 뒤로가기 -->
+<!-- build: 2026-11-23 와글가족장바구니 v9 · 🧾 영수증 버튼을 칸 화면 맨 위(냉장실 줄 오른쪽)로 · 빠른 식품 22종을 영양소 순서로(단백질: 소고기·돼지고기·닭·생선·계란·두부·우유·치즈 → 탄수화물 → 채소 5종+채소류 → 과일 → 양념·음료) · 품목을 담으면 '만들 수 있는 요리' 6가지가 4초 떴다가 사라짐(한/영, 한식 표준 로마자) · 와글가족 캐릭터 · 첫 화면 영수증 버튼 · 품목 카드 한 줄 · 같은 품목 자동 +1 · 용량/유통기한 두 칸 · 폰 뒤로가기 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -304,19 +304,16 @@ html.big .cbox{width:2.2rem;height:2.2rem;font-size:1.4rem;border-radius:.6rem}
 .empty .big svg{width:auto;height:2.1rem;display:block}
 html.big .empty .big svg{height:2.3rem}
 
-/* 카드 / 담기 — 🧾 영수증 버튼은 제목 줄 오른쪽(점선 박스 없이 세로 공간 절약) */
-.addhead{display:flex;align-items:center;justify-content:space-between;gap:.36rem;flex-wrap:wrap;margin:0 0 .22rem}
-.addhead h2{margin:0;flex:0 1 auto;min-width:0}
+/* 카드 / 담기 — 🧾 영수증 버튼은 칸 화면 맨 위(냉장실 이름 줄 오른쪽)에 */
 .recbtn{display:flex;align-items:center;justify-content:center;gap:.3rem;flex-wrap:nowrap;
   width:100%;min-height:2.6rem;border-radius:.7rem;border:2px solid #C98A2E;background:#FFEFD2;
   color:#7A4A10;font-size:.88rem;font-weight:900;line-height:1.15;text-align:center}
 .recbtn:active{background:#FFE3B0;transform:translateY(1px)}
 .recbtn[disabled]{opacity:.55}
-.recbtn.recmini{width:auto;flex:0 0 auto;min-height:2.1rem;padding:.14rem .48rem;border-radius:.6rem;
-  font-size:.78rem;gap:.22rem;white-space:nowrap;letter-spacing:-.01em}
+.recbtn.recmini{width:auto;flex:0 0 auto;min-height:2.1rem;padding:.14rem .48rem;border-radius:.66rem;
+  font-size:.78rem;gap:.22rem;white-space:nowrap;letter-spacing:-.01em;box-shadow:0 1px 4px rgba(201,138,46,.2)}
 html.big .recbtn.recmini{font-size:.72rem;padding:.12rem .42rem;min-height:2.05rem}
-.recnote{margin:0 0 .32rem;font-size:.72rem;font-weight:800;color:#8A6A38;line-height:1.3;word-break:keep-all}
-.recprog{margin:0 0 .38rem}
+.recprog{margin:0 .1rem .36rem}
 .rectrack{height:.62rem;border-radius:1rem;background:#F0E3CB;overflow:hidden}
 .recbar{height:100%;width:0;background:#C98A2E;transition:width .25s}
 .recmsg{display:block;margin-top:.32rem;font-size:.74rem;font-weight:800;color:#7A4A10;line-height:1.4}
@@ -471,6 +468,23 @@ details.bulk[open] summary::before{content:"▾"}
 #toastUndo{border:2px solid #8FCBA4;background:#F4FAF5;color:#14432E;border-radius:.6rem;
   padding:.3rem .55rem;font-size:.82rem;font-weight:900;line-height:1.1;flex:0 0 auto}
 #toastUndo:active{background:#E2F3E7;transform:translateY(1px)}
+
+/* 🍳 품목을 담으면 '만들 수 있는 요리'를 큼직하게 잠깐 (4초 뒤 저절로 사라짐 · 탭하면 바로 닫힘) */
+.dishpop{position:fixed;left:.5rem;right:.5rem;bottom:calc(1rem + env(safe-area-inset-bottom));z-index:101;
+  max-width:32rem;margin:0 auto;background:#FFFCF2;border:3px solid #2F6B4F;border-radius:1.05rem;
+  padding:.6rem .7rem .66rem;box-shadow:0 12px 34px rgba(12,35,22,.34);text-align:center;
+  opacity:0;transform:translateY(1.1rem);transition:opacity .18s ease,transform .18s ease;pointer-events:none}
+.dishpop.on{opacity:1;transform:translateY(0)}
+/* 안내 칸은 화면 아래에 떠 있어도 손가락을 막지 않게 그대로 통과시키고, ✕만 눌린다 */
+.dpclose{position:absolute;top:.26rem;right:.3rem;width:1.7rem;height:1.7rem;border-radius:.55rem;
+  border:2px solid #CFE0CC;background:#F3FAF4;color:#4B5F52;font-size:.72rem;font-weight:900;
+  display:flex;align-items:center;justify-content:center;padding:0;pointer-events:auto;line-height:1}
+.dpclose:active{background:#E4F3E7}
+.dphead{margin:0 0 .24rem;font-size:1.02rem;font-weight:900;color:#1E4A36;line-height:1.22;word-break:keep-all}
+html.big .dphead{font-size:1rem}
+.dpdishes{margin:0;font-size:.9rem;font-weight:900;color:#234C33;line-height:1.32;word-break:keep-all}
+.dpdishes .dlab{color:#8A6A38}
+html.big .dpdishes{font-size:.86rem}
 </style>
 </head>
 <body>
@@ -737,6 +751,7 @@ details.bulk[open] summary::before{content:"▾"}
     <div class="spacebar">
       <div class="spbarTop">
         <span class="spname" id="spName">❄️ 냉장실</span>
+        <button type="button" class="recbtn recmini" id="recBtn"><span aria-hidden="true">🧾</span><span id="recBtnLab">영수증 찍기</span></button>
       </div>
       <div class="spbarBottom">
         <span class="count" id="count">품목 0개</span>
@@ -746,6 +761,11 @@ details.bulk[open] summary::before{content:"▾"}
           <button type="button" id="clearAll" class="clearall" aria-label="이 칸의 품목을 전부 지우기">🧹 올클리어</button>
         </div>
       </div>
+    </div>
+
+    <div class="recprog" id="recProg" hidden>
+      <div class="rectrack"><div class="recbar" id="recBar"></div></div>
+      <span class="recmsg" id="recMsg"></span>
     </div>
 
     <div class="hintline" id="cartHint" hidden></div>
@@ -764,15 +784,7 @@ details.bulk[open] summary::before{content:"▾"}
     <div class="list" id="list"></div>
 
     <section class="card" id="addCard">
-      <div class="addhead">
-        <h2 id="addTitle">➕ 품목 담기</h2>
-        <button type="button" class="recbtn recmini" id="recBtn"><span aria-hidden="true">🧾</span><span id="recBtnLab">영수증 찍기</span></button>
-      </div>
-      <p class="recnote" id="recNote">찍으면 칸까지 나눠 담아요 · 사진은 폰 안에서만</p>
-      <div class="recprog" id="recProg" hidden>
-        <div class="rectrack"><div class="recbar" id="recBar"></div></div>
-        <span class="recmsg" id="recMsg"></span>
-      </div>
+      <h2 id="addTitle">➕ 품목 담기</h2>
       <p class="quickhead" id="quickHead">자주 쓰는 식재료 — 영양소 순서</p>
       <div class="quick" id="quick"></div>
       <form id="addForm" autocomplete="off">
@@ -892,6 +904,8 @@ details.bulk[open] summary::before{content:"▾"}
 
 <input type="file" id="recInput" accept="image/*" multiple hidden>
 
+<div class="dishpop" id="dishPop" hidden aria-live="polite"><button type="button" class="dpclose" id="dpClose" aria-label="닫기">✕</button><p class="dphead" id="dpHead"></p><p class="dpdishes" id="dpDishes"></p></div>
+
 <div id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button type="button" id="toastUndo" hidden>↩ 되돌리기</button></div>
 
 <script>
@@ -926,7 +940,7 @@ const ITEM_EN={'우유':'Milk','계란':'Eggs','빵':'Bread','식빵':'Bread','�
   '양념/장':'Sauces','채소류':'Greens','과일류':'Fruit','생수':'Water','커피/차':'Coffee/tea',
   '대파':'Green onions','상추':'Lettuce','사과':'Apple','삼겹살':'Pork belly','만두':'Dumplings',
   '새우':'Shrimp','김치':'Kimchi','당근':'Carrots','양파':'Onion','무':'Radish','호박':'Pumpkin',
-  '감자':'Potatoes','애호박':'Zucchini','단호박':'Pumpkin'};
+  '감자':'Potatoes','애호박':'Zucchini','단호박':'Pumpkin','소고기':'Beef','돼지고기':'Pork','닭':'Chicken','닭고기':'Chicken'};
 const MEMO_EN={'1L':'1L','한 판':'1 pack','한 단':'1 bunch','한 봉':'1 bag','1팩':'1 pack','1봉':'1 bag','500g':'500g'};
 function dnSpace(n){ return EN()? (SPACE_EN[n]||n) : n; }
 /* 집 그림 라벨은 좁아서 실온보관바구니만 짧게 */
@@ -1103,12 +1117,56 @@ document.addEventListener('click', function(e){
 /* ══════ 뼈대 그리기 ══════ */
 /* 자주 쓰는 식재료 — 영양소 순서: 단백질 → 탄수화물 → 채소(자주 쓰는 5종 + 나머지) → 과일 → 양념·음료 */
 const QUICK=[
-  ['🥩','고기','Meat'],['🐟','생선','Fish'],['🥚','계란','Eggs'],['🧈','두부','Tofu'],['🥛','우유','Milk'],['🧀','치즈','Cheese'],
+  ['🥩','소고기','Beef'],['🥓','돼지고기','Pork'],['🍗','닭','Chicken'],['🐟','생선','Fish'],['🥚','계란','Eggs'],['🧈','두부','Tofu'],['🥛','우유','Milk'],['🧀','치즈','Cheese'],
   ['🍚','쌀/잡곡','Rice'],['🍞','빵','Bread'],['🍜','라면/면','Noodles'],['🥟','만두/냉동','Dumpling'],
   ['🧅','양파','Onion'],['🥬','무','Radish'],['🎃','호박','Pumpkin'],['🥕','당근','Carrots'],['🥔','감자','Potatoes'],['🥬','채소류','Greens'],
   ['🍎','과일류','Fruit'],
   ['🧂','양념/장','Sauces'],['💧','생수','Water'],['☕','커피/차','Coffee/tea']
 ];
+
+/* ══════ 🍳 만들 수 있는 요리 (0원 내장 사전 · 이 폰에서만 · 인터넷 필요 없음) ══════ */
+const DISHES={
+  '소고기':[['불고기','갈비찜','미역국','소고기무국','육개장','소고기장조림'],['Bulgogi','Galbi-jjim','Miyeok-guk','Sogogi-muguk','Yukgaejang','Sogogi-jangjorim']],
+  '돼지고기':[['제육볶음','김치찌개','수육','돈까스','돼지갈비찜','감자탕'],['Jeyuk-bokkeum','Kimchi-jjigae','Suyuk','Donkkaseu','Dwaeji-galbi-jjim','Gamjatang']],
+  '닭':[['닭갈비','삼계탕','찜닭','닭볶음탕','치킨마요','닭개장'],['Dak-galbi','Samgyetang','Jjimdak','Dak-bokkeumtang','Chicken-mayo bowl','Dak-gaejang']],
+  '생선':[['생선구이','고등어조림','매운탕','생선전','명란볶음밥','갈치조림'],['Saengseon-gui','Godeungeo-jorim','Maeuntang','Saengseon-jeon','Myeongnan-bokkeumbap','Galchi-jorim']],
+  '계란':[['계란말이','계란찜','김치볶음밥','계란탕','계란장조림','프렌치토스트'],['Gyeran-mari','Gyeran-jjim','Kimchi-bokkeumbap','Gyeran-tang','Gyeran-jangjorim','French Toast']],
+  '두부':[['두부김치','순두부찌개','두부조림','두부부침','두부두루치기','두부전골'],['Dubu-kimchi','Sundubu-jjigae','Dubu-jorim','Dubu-buchim','Dubu-duruchigi','Dubu-jeongol']],
+  '우유':[['크림파스타','우유계란찜','프렌치토스트','감자수프','밀크티','우유죽'],['Cream Pasta','Milk Gyeran-jjim','French Toast','Potato Soup','Milk Tea','Milk Porridge']],
+  '치즈':[['치즈라면','치즈토스트','감자치즈구이','치즈계란말이','치즈김밥','치즈피자'],['Cheese Ramyeon','Cheese Toast','Gamja-chijeu-gui','Cheese Gyeran-mari','Cheese Gimbap','Cheese Pizza']],
+  '쌀/잡곡':[['비빔밥','야채죽','김치볶음밥','잡곡밥','주먹밥','돌솥비빔밥'],['Bibimbap','Yachae-juk','Kimchi-bokkeumbap','Japgok-bap','Jumeok-bap','Dolsot-bibimbap']],
+  '빵':[['토스트','샌드위치','프렌치토스트','브루스케타','빵푸딩','크루통샐러드'],['Toast','Sandwich','French Toast','Bruschetta','Bread Pudding','Crouton Salad']],
+  '라면/면':[['라면','잔치국수','비빔국수','짜장라면','콩국수','짜파구리'],['Ramyeon','Janchi-guksu','Bibim-guksu','Jjajang-ramyeon','Kong-guksu','Jjapaguri']],
+  '만두/냉동':[['군만두','만두국','찐만두','만두전골','물만두','만두피자'],['Gun-mandu','Mandu-guk','Jjin-mandu','Mandu-jeongol','Mul-mandu','Mandu Pizza']],
+  '양파':[['양파장아찌','카레','불고기','양파수프','양파링','양파볶음'],['Yangpa-jangajji','Curry','Bulgogi','Onion Soup','Onion Rings','Yangpa-bokkeum']],
+  '무':[['소고기무국','무생채','깍두기','무조림','무국','무전'],['Sogogi-muguk','Mu-saengchae','Kkakdugi','Mu-jorim','Mu-guk','Mu-jeon']],
+  '호박':[['애호박전','호박볶음','된장찌개','호박죽','애호박찌개','호박범벅'],['Hobak-jeon','Hobak-bokkeum','Doenjang-jjigae','Hobak-juk','Hobak-jjigae','Hobak-beombeok']],
+  '당근':[['당근라페','카레','잡채','당근주스','당근볶음','당근케이크'],['Carrot Salad','Curry','Japchae','Carrot Juice','Danggeun-bokkeum','Carrot Cake']],
+  '감자':[['감자조림','감자수프','감자전','카레','감자샐러드','감자탕'],['Gamja-jorim','Potato Soup','Gamja-jeon','Curry','Potato Salad','Gamjatang']],
+  '채소류':[['야채볶음','샐러드','된장찌개','잡채','야채죽','야채전'],['Yachae-bokkeum','Salad','Doenjang-jjigae','Japchae','Yachae-juk','Yachae-jeon']],
+  '과일류':[['과일샐러드','요거트볼','과일주스','프루트파르페','과일화채','과일탕'],['Fruit Salad','Yogurt Bowl','Fruit Juice','Fruit Parfait','Hwachae','Fruit Punch']],
+  '양념/장':[['된장찌개','간장불고기','고추장비빔밥','양념치킨','장아찌','고추장찌개'],['Doenjang-jjigae','Ganjang-bulgogi','Gochujang-bibimbap','Yangnyeom-chicken','Jangajji','Gochujang-jjigae']],
+  '생수':[['미역국','콩나물국','야채수프','보리차','냉면육수','떡국'],['Miyeok-guk','Kongnamul-guk','Vegetable Soup','Boricha','Naengmyeon-broth','Tteokguk']],
+  '커피/차':[['커피우유','아포가토','홍차푸딩','커피젤리','밀크티','커피빵'],['Coffee Milk','Affogato','Tea Pudding','Coffee Jelly','Milk Tea','Coffee Bread']]
+};
+let dishTimer=0;
+function hideDishPop(){ const p=$('#dishPop'); if(!p) return; p.hidden=true; p.classList.remove('on'); }
+function showDishPop(name, qty){
+  const d=DISHES[name]; if(!d) return false;
+  const q=QUICK.filter(function(x){ return x[1]===name; })[0];
+  $('#dpHead').textContent=(q? q[0]+' ':'')+(EN()? dnItem(name) : name)+(qty>1
+    ? L(' '+qty+'개로 늘었어요.',' — now '+qty+' pcs.')
+    : L(' 담았어요.',' added.'));
+  $('#dpDishes').innerHTML='<span class="dlab">'+esc(L('🍳 만들 수 있는 요리: ','🍳 You can make: '))+'</span>'+
+    esc((EN()? d[1]:d[0]).join(', '));
+  const pop=$('#dishPop');
+  pop.hidden=false;
+  requestAnimationFrame(function(){ pop.classList.add('on'); });
+  clearTimeout(dishTimer);
+  dishTimer=setTimeout(function(){ pop.classList.remove('on'); setTimeout(hideDishPop, 200); }, 4000);
+  return true;
+}
+$('#dpClose').addEventListener('click', function(){ clearTimeout(dishTimer); hideDishPop(); });
 
 function renderKitchen(){
   const box=$('#kitchen'); box.innerHTML='';
@@ -1310,7 +1368,7 @@ function renderQuick(){
     b.innerHTML='<span class="qe" aria-hidden="true">'+q[0]+'</span><span class="ql"></span>';
     b.querySelector('.ql').textContent=L(q[1],q[2]);
     b.setAttribute('aria-label', L(q[1]+' 바로 담기','Add '+q[2]));
-    b.addEventListener('click', function(){ addItem(q[1], joinMemo($('#addVolIn').value, $('#addMemo').value)); });
+    b.addEventListener('click', function(){ addItem(q[1], joinMemo($('#addVolIn').value, $('#addMemo').value), true); });
     box.appendChild(b);
   });
 }
@@ -1748,11 +1806,9 @@ function applyStaticLang(){
   $('#recBtnLab').textContent = L('영수증 찍기','Receipt');
   $('#homeRecLab').textContent = L('영수증 찍기 / 고르기','Receipt — take or pick');
   $('#homeRecBtn').setAttribute('aria-label', L('영수증 사진을 찍거나 골라서 품목 한 번에 넣기','Take or pick a receipt photo to add items at once'));
-  $('#recBtn').setAttribute('aria-label', L('영수증 사진 찍기 또는 고르기','Take or choose a receipt photo'));
-  $('#recNote').textContent = L('찍으면 칸까지 나눠 담아요 · 사진은 폰 안에서만',
-    'Sorted into spaces · photo stays on this phone');
+  $('#recBtn').setAttribute('aria-label', L('영수증 사진을 찍거나 골라서 품목 한 번에 넣기(사진은 이 폰 안에서만 읽아요)','Take or pick a receipt photo to add items at once (photo is read on this phone only)'));
   $('#recTitle').textContent = L('🧾 영수증에서 찾은 품목','🧾 Items found on the receipt');
-  $('#recNote2').textContent = L('칸 배지를 누르면 넣을 칸을 바꿀 수 있어요. 넣을 것만 체크해 두세요.',
+  $('#recNote2').textContent = L('칸 배지를 누르면 넣을 칸을 바꿀 수 있어요. 넣을 것만 체크해 두세요. 사진은 이 폰 안에서만 읽고 밖으로 보내지 않았어요.',
     'Tap a space badge to change it. Tick only what to add.');
   $('#recCancel').textContent = L('그만두기','Cancel');
   $('#recAdd').textContent = L('✓ 각 칸으로 한 번에 넣기','✓ Add to each space');
@@ -1863,7 +1919,7 @@ function flashItem(id){
   el.classList.add('flash');
   setTimeout(function(){ el.classList.remove('flash'); }, 1400);
 }
-function addItem(name, memo){
+function addItem(name, memo, dish){
   const sp=space(); if(!sp) return false;
   const nm=String(name||'').trim().replace(/\s+/g,' ').slice(0,40);
   if(!nm) return false;
@@ -1876,7 +1932,7 @@ function addItem(name, memo){
       hit.qty=Math.min(99,(hit.qty||1)+1);
       hit.done=false;
       save(); renderSpaceView(); flashItem(hit.id);
-      toast(L(nm+' 수량 '+(hit.qty)+'개로 늘었어요', nm+' is now '+hit.qty+' pcs'));
+      if(!dish || !showDishPop(nm, hit.qty)) toast(L(nm+' 수량 '+(hit.qty)+'개로 늘었어요', nm+' is now '+hit.qty+' pcs'));
       return true;
     }
   }
@@ -1884,7 +1940,7 @@ function addItem(name, memo){
   sp.items.unshift(it);
   save(); renderSpaceView();
   flashItem(it.id);
-  toast(L(withJosa(nm,'을','를')+' 담았어요','Added '+dnItem(nm)));
+  if(!dish || !showDishPop(nm,1)) toast(L(withJosa(nm,'을','를')+' 담았어요','Added '+dnItem(nm)));
   return true;
 }
 $('#addForm').addEventListener('submit', function(e){
