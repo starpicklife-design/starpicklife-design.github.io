@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#1E4A36" />
-<!-- build: 2026-11-23 와글가족장바구니 v9 · 🧾 영수증 버튼을 칸 화면 맨 위(냉장실 줄 오른쪽)로 · 빠른 식품 22종을 영양소 순서로(단백질: 소고기·돼지고기·닭·생선·계란·두부·우유·치즈 → 탄수화물 → 채소 5종+채소류 → 과일 → 양념·음료) · 품목을 담으면 '만들 수 있는 요리' 6가지가 4초 떴다가 사라짐(한/영, 한식 표준 로마자) · 와글가족 캐릭터 · 첫 화면 영수증 버튼 · 품목 카드 한 줄 · 같은 품목 자동 +1 · 용량/유통기한 두 칸 · 폰 뒤로가기 -->
+<!-- build: 2026-11-23 와글가족장바구니 v10 · 와글가족 캐릭터(집 옆 세희·미미·테오·아기햄스터) 살랑살랑·까딱까딱 움직임 강화(발끝 축, prefers-reduced-motion 유지) · 🧾 영수증 버튼을 칸 화면 맨 위(냉장실 줄 오른쪽)로 · 빠른 식품 22종을 영양소 순서로(단백질: 소고기·돼지고기·닭·생선·계란·두부·우유·치즈 → 탄수화물 → 채소 5종+채소류 → 과일 → 양념·음료) · 품목을 담으면 '만들 수 있는 요리' 6가지가 4초 떴다가 사라짐(한/영, 한식 표준 로마자) · 와글가족 캐릭터 · 첫 화면 영수증 버튼 · 품목 카드 한 줄 · 같은 품목 자동 +1 · 용량/유통기한 두 칸 · 폰 뒤로가기 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -28,15 +28,28 @@
 /* ── 와글가족 미니 캐릭터 (화면 높이를 키우지 않고 곁에 인사) ───────── */
 .famstrip{display:flex;align-items:center;gap:.12rem;flex:0 1 auto;min-width:0;height:2.05rem;margin-left:.05rem}
 .famstrip svg{display:block;height:100%;width:auto;max-width:100%;transform-origin:50% 92%;animation:famwave 3.6s ease-in-out infinite}
+/* 미미·테오·아기햄스터가 서로 조금씩 늦게 까딱 — 묶음 흔들림과 겹쳐 살아 있는 느낌 */
+.famstrip svg use{transform-box:fill-box;transform-origin:50% 100%;animation:famsway 3.4s ease-in-out infinite}
+.famstrip svg use:nth-of-type(2){animation-delay:.45s}
+.famstrip svg use:nth-of-type(3){animation-delay:.9s}
 .housepeek{position:absolute;right:-.34rem;bottom:.02rem;width:1.9rem;height:auto;pointer-events:none;
   filter:drop-shadow(0 2px 3px rgba(90,60,30,.18))}
-.housepeek svg{display:block;width:100%;height:auto;transform-origin:50% 96%;animation:famhop 2.8s ease-in-out infinite}
+/* 집 옆 세희 — 발끝을 축으로 살랑살랑 좌우로 + 가볍게 방긋(상하) */
+.housepeek svg{display:block;width:100%;height:auto;transform-origin:50% 97%;animation:famgreet 3.4s ease-in-out infinite;will-change:transform}
 .paw{display:inline-flex;align-items:center;opacity:.85}
 .paw svg{display:block;width:.95rem;height:.95rem;transform:rotate(-12deg);animation:famwave 4.4s ease-in-out infinite;transform-origin:50% 100%}
 .paw.r svg{transform:rotate(12deg)}
-@keyframes famwave{0%,100%{transform:rotate(-3.5deg)}50%{transform:rotate(3.5deg)}}
-@keyframes famhop{0%,100%{transform:translateY(0)}45%{transform:translateY(-2.5px)}}
-@media (prefers-reduced-motion:reduce){.famstrip svg,.housepeek svg,.paw svg{animation:none}}
+@keyframes famwave{0%,100%{transform:rotate(-2.6deg) translateY(0)}50%{transform:rotate(2.6deg) translateY(-1.4px)}}
+@keyframes famsway{0%,100%{transform:rotate(-3.4deg)}35%{transform:rotate(0deg) translateY(-1.6px)}70%{transform:rotate(3.4deg)}}
+@keyframes famgreet{
+  0%,100%{transform:rotate(-4deg) translateY(0)}
+  18%{transform:rotate(-1.2deg) translateY(-4.2px)}
+  38%{transform:rotate(3.6deg) translateY(0)}
+  54%{transform:rotate(4.2deg) translateY(-3px)}
+  74%{transform:rotate(1.4deg) translateY(0)}
+  88%{transform:rotate(-3.2deg) translateY(-2.2px)}
+}
+@media (prefers-reduced-motion:reduce){.famstrip svg,.famstrip svg use,.housepeek svg,.paw svg{animation:none}}
 html{font-size:18px}
 html.big{font-size:22px}
 body{margin:0;background:var(--cream);color:var(--ink);
