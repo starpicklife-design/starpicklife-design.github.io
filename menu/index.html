@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#3E2C22" />
-<title>와글가족 메뉴판 계산기</title>
+<title>와글가족 테이블 · 큰 글씨 메뉴판 · 테이블 이벤트</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 120%27%3E%3Cellipse cx=%2760%27 cy=%2760%27 rx=%2756%27 ry=%2756%27 fill=%27%23FBE4C1%27/%3E%3Cellipse cx=%2740%27 cy=%2750%27 rx=%2722%27 ry=%2720%27 fill=%27%23F2D9B4%27/%3E%3Cellipse cx=%2780%27 cy=%2750%27 rx=%2722%27 ry=%2720%27 fill=%27%23F2D9B4%27/%3E%3Cellipse cx=%2760%27 cy=%2766%27 rx=%2734%27 ry=%2732%27 fill=%27%23F7E3C2%27/%3E%3Ccircle cx=%2747%27 cy=%2762%27 r=%275%27 fill=%27%232C1F18%27/%3E%3Ccircle cx=%2773%27 cy=%2762%27 r=%275%27 fill=%27%232C1F18%27/%3E%3Cellipse cx=%2760%27 cy=%2774%27 rx=%275%27 ry=%274%27 fill=%27%23E8857C%27/%3E%3Cellipse cx=%2759%27 cy=%2732%27 rx=%2728%27 ry=%2712%27 fill=%27%23C0392B%27/%3E%3C/svg%3E">
 <style>
 :root{
@@ -108,8 +108,8 @@ main{padding:.7rem .75rem 0;max-width:34rem;margin:0 auto}
 /* ── 하단 고정 요약 ── */
 .bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-top:3px solid var(--coffee);
   padding:.5rem .8rem calc(.5rem + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(40,26,16,.13)}
-.barTop{display:flex;align-items:center;gap:.6rem;max-width:34rem;margin:0 auto}
-.totals{flex:1;min-width:0}
+.barTop{display:flex;align-items:center;gap:.42rem;max-width:34rem;margin:0 auto}
+.totals{flex:1 1 auto;min-width:0}
 .tcount{font-size:.88rem;font-weight:800;color:var(--ink2)}
 .tamount{font-size:2rem;font-weight:900;color:var(--coffee);line-height:1.03;letter-spacing:-.02em;white-space:nowrap}
 .tamount .won{font-size:1.05rem;margin-left:.1rem}
@@ -262,15 +262,15 @@ html.big .chkline{font-size:.86rem}
 #stickerModal .stickerTop{margin-bottom:.05rem}
 #stickerModal .fieldlabel{margin:.3rem 0 .18rem;font-size:.86rem}
 
-/* ══════ 🎲 와글가족 번호뽑기 상자 ══════ */
-.drawrow{max-width:34rem;margin:.45rem auto 0}
-.drawopen{width:100%;display:flex;align-items:center;justify-content:center;gap:.45rem;
-  min-height:3.15rem;border-radius:1rem;border:2px solid #A97318;
-  background:linear-gradient(180deg,#F3CA5B,#DCA62C);color:#3E2C12;
-  font-size:1.04rem;font-weight:900;letter-spacing:-.01em;
-  box-shadow:0 4px 12px rgba(217,162,39,.32);padding:.2rem .6rem}
-.drawopen:active{transform:translateY(1px)}
-.drawopen .dice{font-size:1.25rem;line-height:1}
+/* ══════ 🎲 와글가족 테이블 이벤트 ══════ */
+.drawbtn{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:.2rem;
+  min-height:2.9rem;padding:.28rem .56rem;border-radius:.9rem;border:2px solid #B0730E;
+  background:linear-gradient(180deg,#FFCE55 0%,#F0A31C 100%);color:#4A2C05;
+  font-size:.75rem;font-weight:900;letter-spacing:-.04em;line-height:1.15;
+  white-space:nowrap;text-shadow:0 1px 0 rgba(255,255,255,.35);
+  box-shadow:0 3px 10px rgba(200,140,20,.34),inset 0 1px 0 rgba(255,255,255,.55)}
+.drawbtn:active{transform:translateY(1px);filter:brightness(.96)}
+.drawbtn .dice{font-size:.9rem;line-height:1}
 #drawModal{z-index:120}
 #confirmModal{z-index:130}
 #drawModal .sheet{max-height:calc(100vh - .4rem);padding-bottom:calc(.9rem + env(safe-area-inset-bottom))}
@@ -301,7 +301,8 @@ html.big .chkline{font-size:.86rem}
   background:radial-gradient(circle at 34% 26%,#ffffff 0%,var(--b1,#C9553D) 34%,var(--b2,#9E4430) 100%);
   box-shadow:0 10px 22px rgba(60,30,10,.3),inset 0 -10px 20px rgba(0,0,0,.18);
   color:#fff;font-size:2.75rem;font-weight:900;line-height:1;letter-spacing:-.02em;
-  text-shadow:0 2px 6px rgba(0,0,0,.3);pointer-events:none}
+  text-shadow:0 2px 6px rgba(0,0,0,.3);pointer-events:auto;cursor:pointer;
+  -webkit-tap-highlight-color:transparent}
 .dball::after{content:"";position:absolute;left:1.05rem;top:.85rem;width:1.4rem;height:.95rem;
   border-radius:50%;background:rgba(255,255,255,.5);transform:rotate(-24deg)}
 .dball[hidden]{display:none}
@@ -312,6 +313,12 @@ html.big .chkline{font-size:.86rem}
   78%{transform:translateY(0) scale(.96)}
   100%{transform:translateY(0) scale(1)}
 }
+.dball.drop{animation:ballDrop .46s cubic-bezier(.45,0,.7,.45) both}
+@keyframes ballDrop{
+  0%{transform:translateY(0) scale(1);opacity:1}
+  30%{transform:translateY(-5%) scale(1.02);opacity:1}
+  100%{transform:translateY(70%) scale(.34);opacity:0}
+}
 .dstage.shake #dBoxG{animation:boxShake .55s ease-in-out;transform-box:fill-box;transform-origin:50% 88%}
 @keyframes boxShake{
   0%,100%{transform:rotate(0) translateY(0)}
@@ -321,10 +328,19 @@ html.big .chkline{font-size:.86rem}
   62%{transform:rotate(1.4deg)}
   80%{transform:rotate(-.7deg)}
 }
-.dinfo{display:flex;align-items:baseline;gap:.5rem;margin:.45rem .1rem .1rem}
+.dinfo{display:flex;align-items:center;gap:.5rem;margin:.45rem .1rem .1rem}
 .dremain{font-size:1.08rem;font-weight:900;color:var(--coffee);white-space:nowrap}
+.dpeek{margin-left:auto;flex:0 0 auto;border:1.5px solid #E4D5B8;background:#FFFDF7;border-radius:2rem;
+  padding:.3rem .72rem;font-size:.78rem;font-weight:900;color:#8B7A6B;line-height:1.25;
+  min-height:2.2rem}
+.dpeek[hidden]{display:none}
+.dpeek.on{background:#F6E2B6;border-color:#C99A2E;color:#6B4A0B}
+.dguide{margin:.32rem .1rem .1rem;text-align:center;font-size:.94rem;font-weight:900;
+  color:#7A6446;line-height:1.35;word-break:keep-all}
+.dguide[hidden]{display:none}
 .dseq{font-size:.86rem;font-weight:800;color:var(--ink2);line-height:1.45;margin:.1rem .1rem .2rem;
   max-height:4.4rem;overflow:auto;word-break:keep-all}
+.dseq[hidden]{display:none}
 .done{margin:.3rem 0 .2rem}
 .done[hidden]{display:none}
 .dmsg{margin:.1rem 0 .5rem;text-align:center;font-size:1.04rem;font-weight:900;color:var(--accent)}
@@ -336,10 +352,49 @@ html.big .chkline{font-size:.86rem}
 .dfoot .dsound{flex:0 0 auto;font-size:.78rem;font-weight:800;min-height:2.6rem;padding:.3rem .6rem;
   color:#8B7A6B;background:#FBF7EE;border-width:1.5px}
 .dfoot .dsound[aria-pressed="true"]{color:#8A6210;background:#FFF1D8;border-color:var(--gold)}
-html.big .drawopen{font-size:.98rem;min-height:3.35rem}
+html.big .drawbtn{font-size:.6rem;min-height:3.1rem;padding:.24rem .46rem;letter-spacing:-.05em}
+html.big .drawbtn .dice{font-size:.78rem}
 html.big .dcount{font-size:1.4rem}
 html.big .dhead h3{font-size:.94rem}
 html.big .dseq{font-size:.8rem}
+html.big .dguide{font-size:.88rem}
+html.big .dpeek{font-size:.74rem}
+#dBag[hidden]{display:none}
+#dStage[hidden]{display:none}
+.dpeople[hidden]{display:none}
+.dquick[hidden]{display:none}
+/* ── 모드 탭 ── */
+.dmodes{display:flex;gap:.28rem;margin:.42rem 0 .35rem;background:#FBF3E2;border:2px solid #EFE0C4;
+  border-radius:1rem;padding:.22rem}
+.dmode{flex:1;min-height:2.85rem;border-radius:.78rem;border:2px solid transparent;background:transparent;
+  font-size:.82rem;font-weight:900;color:#7A6446;letter-spacing:-.045em;line-height:1.15;padding:.2rem .16rem;
+  white-space:nowrap}
+.dmode.on{background:#fff;border-color:var(--gold);color:#6B4A0B;box-shadow:0 2px 6px rgba(160,120,40,.18)}
+.dmode:active{transform:translateY(1px)}
+/* ── 사다리타기 모드 ── */
+#dLad[hidden]{display:none}
+.dladwrap{margin:.45rem 0 .1rem}
+.dladnames,.dladres{display:flex;gap:.16rem}
+#dLad input.dladin{flex:1 1 0;min-width:0;width:100%;text-align:center;border:2px solid #E4D5B8;border-radius:.6rem;
+  background:#FFFDF7;padding:.28rem .04rem;font-size:.66rem;font-weight:900;color:var(--coffee);
+  min-height:2.35rem;line-height:1.2}
+#dLad input.dladin.res{background:#FBF3E2}
+#dLad input.dladin:focus{outline:2px solid #F0C98E;outline-offset:1px;background:#fff}
+#dLad input.dladin.hit{border-color:var(--accent);background:#FFF1E7;color:#8A3A16;box-shadow:0 0 0 .16rem rgba(240,180,41,.3)}
+.dlsvg{display:block;width:100%;height:15rem;margin:.2rem 0}
+.colline{stroke:#D8C6A6;stroke-width:3;stroke-linecap:round}
+.rung{stroke:#C2A782;stroke-width:3;stroke-linecap:round}
+.dltrail{fill:none;stroke:#C0562B;stroke-width:3.6;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .18s}
+.dltrail.on{opacity:.88}
+.dldot{fill:#F0B429;stroke:#FFF7E9;stroke-width:2.8}
+.dldot[hidden]{display:none}
+.dladbtn{width:100%;min-height:3.2rem;border-radius:1rem;border:2px solid var(--coffee);
+  background:var(--coffee);color:#FFF7E9;font-size:1.06rem;font-weight:900;margin:.2rem 0 .1rem}
+.dladbtn:disabled{opacity:.45}
+.dladsum{margin:.35rem .1rem .1rem;text-align:center;font-size:.95rem;font-weight:900;color:#7A6446;
+  min-height:1.3rem;word-break:keep-all}
+html.big .dmode{font-size:.74rem}
+html.big #dLad input.dladin{font-size:.6rem}
 html.big .dball{width:6.1rem;height:6.1rem;margin-left:-3.05rem;font-size:2.45rem}
 .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
   clip:rect(0 0 0 0);white-space:nowrap;border:0}
@@ -610,8 +665,8 @@ html.big .dball{width:6.1rem;height:6.1rem;margin-left:-3.05rem;font-size:2.45re
   <div class="brand">
     <span class="hamsvg" aria-hidden="true"><svg viewBox="0 0 160 130"><use href="#wg-trio"/></svg></span>
     <div class="titles">
-      <h1>와글가족 메뉴판</h1>
-      <span class="sub">큰 글씨 메뉴 계산기</span>
+      <h1>와글가족 테이블</h1>
+      <span class="sub">큰 글씨 메뉴판 · 테이블 이벤트</span>
     </div>
     <button id="bigBtn" class="bigtoggle" aria-pressed="false">큰 글씨<span class="sw" aria-hidden="true"></span></button>
   </div>
@@ -693,6 +748,7 @@ html.big .dball{width:6.1rem;height:6.1rem;margin-left:-3.05rem;font-size:2.45re
       <div class="tcount">총 <span id="totCount">0개</span></div>
       <div class="tamount"><span id="totAmount">0</span><span class="won">원</span></div>
     </div>
+    <button class="drawbtn" id="openDraw"><span class="dice" aria-hidden="true">🎲</span><span>번호뽑기 이벤트</span></button>
     <button id="summaryBtn" class="btn primary show">주문 요약<br>크게 보기</button>
   </div>
   <div class="split">
@@ -701,9 +757,6 @@ html.big .dball{width:6.1rem;height:6.1rem;margin-left:-3.05rem;font-size:2.45re
     <span id="pcount" class="pcount">1명</span>
     <button class="pstep" data-act="people" data-d="1" aria-label="한 명 늘리기">＋</button>
     <span class="per">1인당 <b id="perAmount">0</b>원</span>
-  </div>
-  <div class="drawrow">
-    <button class="drawopen" id="openDraw"><span class="dice" aria-hidden="true">🎲</span><span>와글가족 번호뽑기 상자</span></button>
   </div>
 </div>
 
@@ -794,14 +847,19 @@ html.big .dball{width:6.1rem;height:6.1rem;margin-left:-3.05rem;font-size:2.45re
 </div>
 
 
-<!-- 🎲 와글가족 번호뽑기 상자 -->
+<!-- 🎲 와글가족 테이블 이벤트 -->
 <div class="modal" id="drawModal" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="dTitle">
     <div class="dhead">
       <h3 id="dTitle">🍀 니키(세희) &amp; 와글가족의<br>행운 번호뽑기!</h3>
       <button class="mini" data-close="drawModal">닫기</button>
     </div>
-    <p class="dsub">상자를 톡 누르면 번호 공이 톡 튀어나와요 · 1~N번이 겹치지 않게 한 번씩 나와요</p>
+    <p class="dsub" id="dSub">상자를 톡 누르면 공이 튀어나왔다가 잠시 뒤 사라져요 · 1~4번이 겹치지 않게 한 번씩 나와요</p>
+    <div class="dmodes" role="tablist" aria-label="이벤트 종류">
+      <button class="dmode on" id="dmNum" role="tab" aria-selected="true">🔢 번호뽑기</button>
+      <button class="dmode" id="dmWin" role="tab" aria-selected="false">🎁 당첨 · 꽝</button>
+      <button class="dmode" id="dmLad" role="tab" aria-selected="false">🪜 사다리타기</button>
+    </div>
 
     <div class="dpeople">
       <span class="dlabel">총 인원수</span>
@@ -809,7 +867,7 @@ html.big .dball{width:6.1rem;height:6.1rem;margin-left:-3.05rem;font-size:2.45re
       <span class="dcount" id="dpCount" aria-live="polite">4명</span>
       <button class="dstep" id="dpPlus" aria-label="한 명 늘리기">＋</button>
     </div>
-    <div class="dquick" role="group" aria-label="인원수 빠른 선택">
+    <div class="dquick" id="dQuickRow" role="group" aria-label="인원수 빠른 선택">
       <button class="dq" data-np="2">2명</button>
       <button class="dq" data-np="3">3명</button>
       <button class="dq" data-np="4">4명</button>
@@ -818,21 +876,41 @@ html.big .dball{width:6.1rem;height:6.1rem;margin-left:-3.05rem;font-size:2.45re
       <button class="dq" data-np="8">8명</button>
       <button class="dq" data-np="10">10명</button>
     </div>
+    <div class="dpeople" id="dWinRow" hidden>
+      <span class="dlabel">당첨 수</span>
+      <button class="dstep" id="dwinMinus" aria-label="당첨 하나 줄이기">−</button>
+      <span class="dcount" id="dWinCount" aria-live="polite">1명</span>
+      <button class="dstep" id="dwinPlus" aria-label="당첨 하나 늘리기">＋</button>
+    </div>
 
-    <div class="dstage" id="dStage" role="button" tabindex="0" aria-label="번호뽑기 상자 열기">
+    <div class="dstage" id="dStage" role="button" tabindex="0" aria-label="번호뽑기 상자 누르기">
       <svg viewBox="0 0 360 270" aria-hidden="true"><use href="#wg-drawscene"/></svg>
-      <div class="dball" id="dBall" hidden><span id="dBallNum">4</span></div>
+      <div class="dball" id="dBall" hidden><span class="btxt" id="dBallNum">4</span></div>
     </div>
     <p class="sr" id="dLive" role="status" aria-live="polite"></p>
 
-    <div class="dinfo">
-      <span class="dremain" id="dRemain">남은 공 4개</span>
-    </div>
-    <p class="dseq" id="dSeq">뽑힌 순서: 아직 없어요</p>
+    <div id="dBag">
+      <div class="dinfo">
+        <span class="dremain" id="dRemain">남은 공 4개</span>
+        <button class="dpeek" id="dPeek" aria-expanded="false" aria-controls="dSeq" hidden>결과 확인</button>
+      </div>
+      <p class="dguide" id="dGuide">상자를 톡 눌러 주세요!</p>
+      <p class="dseq" id="dSeq" hidden>아직 뽑은 번호가 없어요</p>
 
-    <div class="done" id="dDone" hidden>
-      <p class="dmsg">🎉 모든 번호를 다 뽑았어요!</p>
-      <button class="dresetbig" id="dReset2">🔄 다시 섞기</button>
+      <div class="done" id="dDone" hidden>
+        <p class="dmsg" id="dDoneMsg">🎉 모든 번호를 다 뽑았어요!</p>
+        <button class="dresetbig" id="dReset2">🔄 다시 섞기</button>
+      </div>
+    </div>
+
+    <div id="dLad" hidden>
+      <div class="dladwrap">
+        <div class="dladnames" id="dLadNames" aria-label="참가자 이름"></div>
+        <svg class="dlsvg" id="dLadSvg" viewBox="0 0 360 250" preserveAspectRatio="none" role="img" aria-label="사다리타기 그림"></svg>
+        <div class="dladres" id="dLadRes" aria-label="결과 칸"></div>
+      </div>
+      <button class="dladbtn" id="dLadBtn">🪜 사다리 시작!</button>
+      <p class="dladsum" id="dLadSum" aria-live="polite"></p>
     </div>
 
     <div class="dfoot">
@@ -858,7 +936,7 @@ const esc=s=> String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt
 function sample(){
   const mk=(name,price,fav)=>({id:uid(),name:name,price:price,fav:!!fav,qty:0});
   return {
-    big:false, people:1, cur:'cafe', filterFav:false, draw:{n:4, picked:[], sound:false},
+    big:false, people:1, cur:'cafe', filterFav:false, draw:{n:4, picked:[], sound:false, mode:'num', win:1, wpicked:[], ladder:{names:[], results:[]}},
     stores:[
       {id:'cafe', name:'동네 단골 카페', unit:'잔', menus:[
         mk('따뜻한 아메리카노',4500), mk('아이스 아메리카노',4500),
@@ -887,6 +965,9 @@ function load(){
     d.draw = (d.draw && typeof d.draw==='object')? d.draw : {};
     d.draw.n = Math.min(50, Math.max(2, parseInt(d.draw.n,10)||4));
     d.draw.sound = d.draw.sound===true;
+    d.draw.mode = (d.draw.mode==='win'||d.draw.mode==='lad')? d.draw.mode : 'num';
+    d.draw.win = Math.min(d.draw.n-1, Math.max(1, parseInt(d.draw.win,10)||1));
+    d.draw.wpicked = (function(arr){ var w=0,l=0,o=[]; arr.forEach(function(x){ if(x==='w'&&w<d.draw.win){w++;o.push('w');} else if(x==='l'&&l<(d.draw.n-d.draw.win)){l++;o.push('l');} }); return o; })((Array.isArray(d.draw.wpicked)? d.draw.wpicked : []).filter(function(x){ return x==='w'||x==='l'; }));
     d.draw.picked = (Array.isArray(d.draw.picked)? d.draw.picked : [])
       .map(function(x){ return parseInt(x,10); })
       .filter(function(x,i,a){ return x>=1 && x<=d.draw.n && a.indexOf(x)===i; });
@@ -915,6 +996,7 @@ function render(){
   bb.firstChild.nodeValue = S.big? '글씨 작게' : '큰 글씨';
   renderChips(); renderMenu(); renderBar();
   requestAnimationFrame(fitPad);
+  requestAnimationFrame(fitTotal);
 }
 function fitPad(){
   const bar=$('#bar');
@@ -973,6 +1055,20 @@ function renderBar(){
   $('#pcount').textContent=S.people+'명';
   $('#perAmount').textContent=won(c.per);
   $('#summaryBtn').disabled=(c.count===0);
+  requestAnimationFrame(fitTotal);
+}
+/* 하단 바 첫 줄의 금액이 길어도 번호뽑기 버튼과 겹치지 않게 글자를 미세하게 줄여 맞춤 */
+function fitTotal(){
+  const box=$('.totals'), tam=box && box.querySelector('.tamount');
+  if(!tam) return;
+  tam.style.fontSize='';
+  const avail=box.clientWidth;
+  if(!avail) return;
+  let size=parseFloat(getComputedStyle(tam).fontSize)||32, guard=0;
+  while(guard++<26 && tam.scrollWidth>avail && size>16){
+    size-=1;
+    tam.style.fontSize=size+'px';
+  }
 }
 
 /* ── 모달 ── */
@@ -1184,6 +1280,7 @@ $('#bigBtn').addEventListener('click', ()=>{
   toast(S.big? '글씨를 크게 했어요' : '글씨를 보통 크기로 했어요');
 });
 window.addEventListener('resize', fitPad);
+window.addEventListener('resize', fitTotal);
 
 /* ── 탭 ── */
 function switchTab(name){
@@ -1907,7 +2004,7 @@ function drawSticker(cv,opt){
   /* 밑줄 하이라이트 */
   var nw=Math.min(ctx.measureText(name).width+60,W-160);
   rr(ctx,W/2-nw/2,nameY+ (tall?46:42),nw,tall?16:14,8); ctx.fillStyle='rgba(217,162,39,.45)'; ctx.fill();
-  txt(ctx,'큰 글씨 메뉴판 · 메뉴판 계산기',W/2,nameY+(tall?86:76),font(700,tall?36:32),'#8B6A4B');
+  txt(ctx,'큰 글씨 메뉴판 · 테이블 이벤트',W/2,nameY+(tall?86:76),font(700,tall?36:32),'#8B6A4B');
   /* QR 패널 */
   var px,py,pw,ph;
   if(tall){ pw=680; ph=680; px=(W-pw)/2; py=350; }
@@ -2081,47 +2178,139 @@ $('#stkMenu').addEventListener('change', function(){
 
 
 
-/* ══════ 🎲 와글가족 번호뽑기 상자 ══════ */
+/* ══════ 🎲 와글가족 이벤트 상자 (번호뽑기 · 당첨/꽝 · 사다리타기) ══════ */
+function dMode(){ return S.draw.mode==='win'? 'win' : (S.draw.mode==='lad'? 'lad' : 'num'); }
 function dRemain(){
   var out=[], i, d=S.draw;
   for(i=1;i<=d.n;i++){ if(d.picked.indexOf(i)<0) out.push(i); }
   return out;
 }
-function dPalette(n){
-  var P=[['#E06A4B','#B4402A'],['#4F9B72','#2F6B4F'],['#EBC047','#B07C10'],
-         ['#5A8FBF','#39628C'],['#A57BC4','#7A4E9C'],['#E08B5C','#B45A2E']];
-  return P[(Math.max(1,n)-1)%P.length];
+function dWinLeft(){
+  var c=0; S.draw.wpicked.forEach(function(x){ if(x==='w') c++; });
+  return Math.max(0, S.draw.win-c);
 }
-function dPaintBall(n){
-  var p=dPalette(n), b=$('#dBall');
+function dLoseLeft(){
+  var c=0; S.draw.wpicked.forEach(function(x){ if(x==='l') c++; });
+  return Math.max(0, (S.draw.n-S.draw.win)-c);
+}
+function dLeft(){
+  var m=dMode();
+  return m==='win'? dWinLeft()+dLoseLeft() : (m==='num'? dRemain().length : 0);
+}
+function dTaken(){ return dMode()==='win'? S.draw.wpicked.length : (dMode()==='num'? S.draw.picked.length : 0); }
+function dAnyPicks(){ return S.draw.picked.length + S.draw.wpicked.length; }
+function dPalette(){
+  var P=[['#E06A4B','#B4402A'],['#4F9B72','#2F6B4F'],['#EBC047','#B07C10'],
+         ['#5A8FBF','#39628C'],['#A57BC4','#7A4E9C'],['#E08B5C','#B45A2E'],['#4FA9A0','#2E746E']];
+  /* 색을 번호에 엮지 않고 매번 무작위로 골라 공 색만 보고 결과를 짐작할 수 없게 함 */
+  return P[Math.floor(Math.random()*P.length)];
+}
+function dPaintBall(kind, text){
+  var b=$('#dBall'), p;
+  b.classList.remove('winball','loseball');
+  if(kind==='w'){ p=['#F8C94A','#D9820F']; b.classList.add('winball'); }
+  else if(kind==='l'){ p=['#B3C6BD','#6C8A80']; b.classList.add('loseball'); }
+  else { p=dPalette(); }
   b.style.setProperty('--b1',p[0]);
   b.style.setProperty('--b2',p[1]);
-  $('#dBallNum').textContent=String(n);
+  $('#dBallNum').textContent=text;
+}
+/* 결과 확인 접기/펼치기 (기본은 접힘 = 앞사람 결과 스포일러 방지) */
+var dPeekOpen=false;
+function dSetPeek(open){
+  var m=dMode(), has=dTaken()>0;
+  dPeekOpen = !!open && has && m!=='lad';
+  $('#dPeek').hidden = m==='lad' || !has;
+  $('#dSeq').hidden = m==='lad' || !dPeekOpen;
+  $('#dPeek').textContent = dPeekOpen? '결과 숨기기' : '결과 확인';
+  $('#dPeek').setAttribute('aria-expanded', dPeekOpen?'true':'false');
+  $('#dPeek').classList.toggle('on', dPeekOpen);
+}
+function dSeqText(){
+  var d=S.draw;
+  if(dMode()==='win'){
+    return d.wpicked.length
+      ? '뽑힌 순서: '+d.wpicked.map(function(x,i){ return (i+1)+'번째 '+(x==='w'?'당첨!':'꽝'); }).join(' → ')
+      : '아직 뽑은 공이 없어요';
+  }
+  return d.picked.length
+    ? '뽑힌 순서: '+d.picked.map(function(x){ return x+'번'; }).join(' → ')
+    : '아직 뽑은 번호가 없어요';
+}
+function dGuide(){
+  var g=$('#dGuide');
+  if(dMode()==='lad' || !dLeft() || !$('#dBall').hidden){ g.hidden=true; return; }
+  g.textContent = dTaken()? '다음 분이 상자를 눌러 주세요!' : '상자를 톡 눌러 주세요!';
+  g.hidden=false;
 }
 function dRender(){
-  var d=S.draw, rem=dRemain(), last=d.picked.length? d.picked[d.picked.length-1] : 0;
+  var d=S.draw, m=dMode(), lad=(m==='lad'), left=dLeft(), win=(m==='win');
+  $('#dmNum').classList.toggle('on', m==='num');
+  $('#dmWin').classList.toggle('on', win);
+  $('#dmLad').classList.toggle('on', lad);
+  $('#dmNum').setAttribute('aria-selected', m==='num'?'true':'false');
+  $('#dmWin').setAttribute('aria-selected', win?'true':'false');
+  $('#dmLad').setAttribute('aria-selected', lad?'true':'false');
+  $('#dTitle').innerHTML = win
+    ? '🍀 니키(세희) &amp; 와글가족의<br>당첨 공 뽑기!'
+    : (lad ? '🍀 니키(세희) &amp; 와글가족<br>사다리타기!'
+           : '🍀 니키(세희) &amp; 와글가족의<br>행운 번호뽑기!');
+  $('#dSub').textContent = win
+    ? '상자를 톡 누르면 당첨·꽝 공이 튀어나왔다가 잠시 뒤 사라져요 · 인원수만큼 공이 한 번씩 나와요'
+    : (lad ? '이름과 결과 칸은 눌러서 직접 고칠 수 있어요 · 인원은 2~6명까지'
+           : '상자를 톡 누르면 공이 튀어나왔다가 잠시 뒤 사라져요 · 1~'+d.n+'번이 겹치지 않게 한 번씩 나와요');
+  $('#dQuickRow').hidden = lad;
+  $('#dWinRow').hidden = !win;
   $('#dpCount').textContent=d.n+'명';
   $$('#drawModal .dq').forEach(function(b){ b.classList.toggle('on', parseInt(b.dataset.np,10)===d.n); });
   $('#dpMinus').disabled = d.n<=2;
-  $('#dpPlus').disabled = d.n>=50;
-  $('#dRemain').textContent='남은 공 '+rem.length+'개';
-  $('#dSeq').textContent = d.picked.length
-    ? '뽑힌 순서: '+d.picked.map(function(x){ return x+'번'; }).join(' → ')
-    : '뽑힌 순서: 아직 없어요';
-  var done = rem.length===0;
+  $('#dpPlus').disabled = d.n>=(lad?6:50);
+  $('#dWinCount').textContent=d.win+'명';
+  $('#dwinMinus').disabled = d.win<=1;
+  $('#dwinPlus').disabled = d.win>=d.n-1;
+  $('#dStage').hidden = lad;
+  $('#dBag').hidden = lad;
+  $('#dLad').hidden = !lad;
+  if(lad) dLadEnsure();
+  $('#dRemain').textContent='남은 공 '+left+'개';
+  $('#dSeq').textContent = dSeqText();
+  var done = (!lad) && left===0;
   $('#dDone').hidden = !done;
+  $('#dDoneMsg').textContent = win? '🎉 모든 공을 다 뽑았어요!' : '🎉 모든 번호를 다 뽑았어요!';
+  $('#dShuffle').textContent = '🔄 다시 섞기';
   $('#dShuffle').hidden = done;
   $('#dSound').textContent = d.sound? '🔔 소리 켜짐' : '🔕 소리 꺼짐';
   $('#dSound').setAttribute('aria-label', d.sound? '효과음 끄기' : '효과음 켜기');
   $('#dSound').setAttribute('aria-pressed', d.sound?'true':'false');
-  if(last) dPaintBall(last);
-  else $('#dBall').hidden=true;
+  dSetPeek(dPeekOpen);
+  dGuide();
 }
-var dTimer=null;
-function dPop(n){
+var dTimer=null, dBallHide=null, dBallOut=null;
+var DBALL_MS=2500;
+function dHideBall(instant){
   var b=$('#dBall');
-  dPaintBall(n);
+  clearTimeout(dBallHide); clearTimeout(dBallOut);
+  if(b.hidden){ b.classList.remove('drop','pop','winball','loseball'); dGuide(); return; }
+  if(instant){
+    b.hidden=true; b.classList.remove('drop','pop','winball','loseball');
+    dGuide();
+    return;
+  }
+  b.classList.remove('pop','drop');
+  void b.offsetWidth;
+  b.classList.add('drop');
+  dBallOut=setTimeout(function(){
+    b.hidden=true;
+    b.classList.remove('drop','pop','winball','loseball');
+    dGuide();
+  }, 470);
+}
+function dPop(kind, text){
+  var b=$('#dBall');
+  clearTimeout(dBallHide); clearTimeout(dBallOut);
+  b.classList.remove('drop');
   b.hidden=false;
+  dPaintBall(kind, text);
   b.classList.remove('pop');
   void b.offsetWidth;
   b.classList.add('pop');
@@ -2131,8 +2320,10 @@ function dPop(n){
   st.classList.add('shake');
   clearTimeout(dTimer);
   dTimer=setTimeout(function(){ st.classList.remove('shake'); }, 620);
+  dGuide();
+  dBallHide=setTimeout(function(){ dHideBall(); }, DBALL_MS);
 }
-function dDing(){
+function dDing(big){
   if(!S.draw.sound) return;
   try{
     var AC=window.AudioContext||window.webkitAudioContext;
@@ -2141,7 +2332,7 @@ function dDing(){
     var ac=window.__wgAC;
     if(ac.state==='suspended' && ac.resume){ ac.resume(); }
     var t0=ac.currentTime;
-    [784,1175].forEach(function(f,i){
+    (big? [784,1047,1319] : [784,1175]).forEach(function(f,i){
       var o=ac.createOscillator(), g=ac.createGain();
       o.type='sine';
       o.frequency.value=f;
@@ -2154,60 +2345,319 @@ function dDing(){
     });
   }catch(e){}
 }
-function dDrawBall(){
-  var d=S.draw, rem=dRemain(), pick, i;
+function dDrawNum(){
+  var d=S.draw, rem=dRemain(), pick;
   if(!rem.length){ toast('모든 번호를 다 뽑았어요! 다시 섞기를 눌러 주세요 🎉'); return; }
   pick=rem[Math.floor(Math.random()*rem.length)];
   d.picked.push(pick);
   save();
-  dPop(pick);
-  dDing();
+  dPeekOpen = (rem.length===1);   /* 다 뽑았을 때만 결과를 펼쳐 보여 줌 */
+  dPop('n', String(pick));
+  dDing(false);
   dRender();
   $('#dLive').textContent=pick+'번이 나왔어요. 남은 공 '+dRemain().length+'개';
   if(rem.length===1) toast('마지막 공이에요! 🎉');
 }
-function dSetPeople(n){
-  n=Math.max(2, Math.min(50, parseInt(n,10)||4));
-  if(n===S.draw.n) return;
+function dDrawWin(){
+  var d=S.draw, w=dWinLeft(), l=dLoseLeft(), total=w+l, res;
+  if(!total){ toast('모든 공을 다 뽑았어요! 다시 섞기를 눌러 주세요 🎉'); return; }
+  res = (Math.random()*total < w)? 'w' : 'l';
+  d.wpicked.push(res);
+  save();
+  dPeekOpen = (total===1);
+  dPop(res, res==='w'? '당첨!' : '꽝');
+  dDing(res==='w');
+  dRender();
+  $('#dLive').textContent=(res==='w'? '당첨' : '꽝')+'이 나왔어요. 남은 공 '+(total-1)+'개';
+  if(total===1) toast('마지막 공이에요! 🎉');
+}
+function dDrawBall(){
+  var m=dMode();
+  if(m==='lad') return;
+  if(m==='win') return dDrawWin();
+  return dDrawNum();
+}
+function dStageTap(){
+  if(dMode()==='lad') return;
+  dDrawBall();
+}
+/* ── 사다리타기 ── */
+var dLadGeo=null, dLadMap={}, dLadBusy=false, dLadToken=0;
+function dLadCancel(){ dLadToken++; dLadBusy=false; }
+function dLadData(){
+  var d=S.draw;
+  d.ladder = (d.ladder && typeof d.ladder==='object')? d.ladder : {};
+  if(!Array.isArray(d.ladder.names)) d.ladder.names=[];
+  if(!Array.isArray(d.ladder.results)) d.ladder.results=[];
+  return d.ladder;
+}
+function dLadDefaultName(i){ return (i+1)+'번'; }
+function dLadDefaultRes(i){ return i===0? '☕ 커피쏘기' : '😊 통과'; }
+function dLadSync(){
+  var d=dLadData(), n=S.draw.n, i;
+  d.names = d.names||[]; d.results = d.results||[];
+  for(i=0;i<n;i++){
+    if(typeof d.names[i]!=='string' || !d.names[i]) d.names[i]=dLadDefaultName(i);
+    if(typeof d.results[i]!=='string' || !d.results[i]) d.results[i]=dLadDefaultRes(i);
+  }
+  d.names.length=n; d.results.length=n;
+  return d;
+}
+function dLadBuild(){
+  var n=S.draw.n, W=360, H=250, top=24, bot=H-24, R=9, rows=[], x=[], i, r;
+  for(i=0;i<n;i++) x.push(W*(i+0.5)/n);
+  for(r=0;r<R;r++){
+    var rungs=[], used={};
+    for(i=0;i<n-1;i++){
+      if(used[i-1]) continue;
+      if(Math.random()<0.52){ rungs.push(i); used[i]=1; }
+    }
+    if(!rungs.length && n>1){ var g0=Math.floor(Math.random()*(n-1)); rungs.push(g0); }
+    rows.push(rungs);
+  }
+  dLadGeo={n:n, W:W, H:H, top:top, bot:bot, x:x, rows:rows,
+    rowY:rows.map(function(_,ri){ return top+(bot-top)*(ri+1)/(R+1); })};
+  dLadMap={};
+  dLadPaint();
+}
+function dLadPaint(){
+  var g=dLadGeo, n=g.n, i, html='', d=dLadSync();
+  for(i=0;i<n;i++){
+    html+='<line class="colline" x1="'+g.x[i]+'" y1="'+g.top+'" x2="'+g.x[i]+'" y2="'+g.bot+'"/>';
+  }
+  g.rows.forEach(function(rungs, ri){
+    rungs.forEach(function(c){
+      html+='<line class="rung" x1="'+g.x[c]+'" y1="'+g.rowY[ri]+'" x2="'+g.x[c+1]+'" y2="'+g.rowY[ri]+'"/>';
+    });
+  });
+  html+='<g id="dLadTrails"></g>';
+  html+='<circle class="dldot" id="dLadDot" r="8" cx="-20" cy="-20" hidden/>';
+  $('#dLadSvg').innerHTML=html;
+  var inN='', inR='';
+  for(i=0;i<n;i++){
+    inN+='<input class="dladin" data-lad="name" data-i="'+i+'" value="'+esc(d.names[i])+'" maxlength="8" title="'+esc(d.names[i])+'" aria-label="'+(i+1)+'번 참가자 이름">';
+    inR+='<input class="dladin res" data-lad="res" data-i="'+i+'" value="'+esc(d.results[i])+'" maxlength="16" title="'+esc(d.results[i])+'" aria-label="'+(i+1)+'번 결과 칸">';
+  }
+  $('#dLadNames').innerHTML=inN;
+  $('#dLadRes').innerHTML=inR;
+  $('#dLadSum').textContent='';
+  $('#dLadBtn').disabled=false;
+  $$('#dLad input').forEach(function(inp){
+    inp.addEventListener('input', function(){
+      var dd=dLadSync(), arr=(inp.dataset.lad==='name')? dd.names : dd.results;
+      arr[+inp.dataset.i]=inp.value;
+      inp.title=inp.value;
+      dLadFitInputs();
+      save();
+    });
+  });
+  requestAnimationFrame(dLadFitInputs);
+}
+/* 칸이 좁아도 글자가 잘리지 않게 살짝씩 줄여 맞춤 */
+function dLadFitInputs(){
+  $$('#dLad input').forEach(function(inp){
+    inp.style.fontSize='';
+    var size=parseFloat(getComputedStyle(inp).fontSize)||11, guard=0;
+    while(guard++<10 && inp.scrollWidth>inp.clientWidth && size>8){
+      size-=0.5;
+      inp.style.fontSize=size+'px';
+    }
+  });
+}
+function dLadEnsure(){
+  if(!dLadGeo || dLadGeo.n!==S.draw.n) dLadBuild();
+}
+function dLadPath(start){
+  var g=dLadGeo, col=start, pts=[{x:g.x[col], y:g.top}];
+  g.rows.forEach(function(rungs, ri){
+    var y=g.rowY[ri];
+    if(rungs.indexOf(col)>=0){ pts.push({x:g.x[col], y:y}, {x:g.x[col+1], y:y}); col=col+1; }
+    else if(rungs.indexOf(col-1)>=0){ pts.push({x:g.x[col], y:y}, {x:g.x[col-1], y:y}); col=col-1; }
+  });
+  pts.push({x:g.x[col], y:g.bot});
+  return {pts:pts, end:col};
+}
+var LAD_COLORS=['#C0562B','#2E7D5B','#B07C10','#39628C','#7A4E9C','#2E746E'];
+function dLadAnimate(start){
+  return new Promise(function(resolve){
+    var path=dLadPath(start);
+    var NS='http://www.w3.org/2000/svg';
+    var poly=document.createElementNS(NS,'polyline');
+    poly.setAttribute('class','dltrail on');
+    poly.style.stroke=LAD_COLORS[start % LAD_COLORS.length];
+    poly.setAttribute('points', path.pts.map(function(p){ return p.x+','+p.y; }).join(' '));
+    $('#dLadTrails').appendChild(poly);
+    var dot=$('#dLadDot');
+    dot.removeAttribute('hidden');
+    var segs=[], total=0, i;
+    for(i=1;i<path.pts.length;i++){
+      var a=path.pts[i-1], b=path.pts[i];
+      var L=Math.hypot(b.x-a.x, b.y-a.y);
+      segs.push({a:a, b:b, L:L}); total+=L;
+    }
+    var DUR=Math.max(600, Math.min(1000, total*1.1)), t0=performance.now();
+    function frame(now){
+      var k=Math.min(1,(now-t0)/DUR), dist=k*total, acc=0, pos=path.pts[path.pts.length-1], j;
+      for(j=0;j<segs.length;j++){
+        if(dist<=acc+segs[j].L){
+          var f=segs[j].L? (dist-acc)/segs[j].L : 1;
+          pos={x:segs[j].a.x+(segs[j].b.x-segs[j].a.x)*f, y:segs[j].a.y+(segs[j].b.y-segs[j].a.y)*f};
+          break;
+        }
+        acc+=segs[j].L;
+      }
+      dot.setAttribute('cx', pos.x); dot.setAttribute('cy', pos.y);
+      if(k<1) requestAnimationFrame(frame);
+      else { dot.setAttribute('hidden',''); resolve(path.end); }
+    }
+    requestAnimationFrame(frame);
+  });
+}
+function dLadShowResult(start, end){
+  var d=dLadSync();
+  var name=d.names[start]||dLadDefaultName(start), res=d.results[end]||'';
+  var box=$('#dLadRes').children[end];
+  if(box) box.classList.add('hit');
+  $('#dLadSum').textContent='🪜 '+name+' → '+res;
+  $('#dLive').textContent=name+' 결과는 '+res;
+  dDing(false);
+}
+function dLadRun(){
+  if(dLadBusy) return;
+  if(!dLadGeo) dLadBuild();
+  var n=S.draw.n, idx=-1, j;
+  for(j=0;j<n;j++){ if(dLadMap[j]===undefined){ idx=j; break; } }
+  if(idx<0){ toast('모두 다 탔어요! 다시 섞기를 눌러 새 사다리를 만들어 보세요 🪜'); return; }
+  dLadBusy=true;
+  var tok=++dLadToken;
+  $('#dLadBtn').disabled=true;
+  (function step(){
+    if(tok!==dLadToken || dMode()!=='lad' || !dLadGeo){ dLadBusy=false; return; }
+    var k=-1, i;
+    for(i=0;i<S.draw.n;i++){ if(dLadMap[i]===undefined){ k=i; break; } }
+    if(k<0){ dLadBusy=false; $('#dLadBtn').disabled=false; return; }
+    dLadAnimate(k).then(function(end){
+      if(tok!==dLadToken){ return; }
+      dLadMap[k]=end;
+      dLadShowResult(k, end);
+      setTimeout(step, 340);
+    });
+  })();
+}
+function dLadNew(){
+  dLadCancel();
+  dLadGeo=null; dLadMap={};
+  dLadBuild();
+  toast('새 사다리를 만들었어요. 사다리 시작! 을 눌러 보세요 🪜');
+}
+function dSetMode(m){
+  if(m!=='num' && m!=='win' && m!=='lad') return;
+  if(m===dMode()) return;
   var apply=function(){
-    S.draw.n=n; S.draw.picked=[]; save();
-    $('#dBall').hidden=true;
+    S.draw.mode=m;
+    S.draw.picked=[]; S.draw.wpicked=[];
+    dLadCancel();
+    if(m==='lad'){
+      S.draw.n=Math.min(6, Math.max(2, S.draw.n));
+      dLadGeo=null; dLadMap={};
+    }
+    S.draw.win=Math.max(1, Math.min(S.draw.win, S.draw.n-1));
+    dPeekOpen=false; save();
+    dHideBall(true);
     dRender();
-    toast(n+'명으로 맞췄어요. 1~'+n+'번 공을 새로 채웠어요');
+    toast(m==='win'? '🎁 당첨 · 꽝 모드로 바꿨어요'
+      : (m==='lad'? '🪜 사다리타기 모드로 바꿨어요' : '🔢 번호뽑기 모드로 바꿨어요'));
   };
-  if(S.draw.picked.length){
-    askConfirm('인원을 '+n+'명으로 바꿀까요?',
-      '번호 공을 처음부터 다시 섞어요. 지금까지 뽑은 '+S.draw.picked.length+'개는 사라져요.',
+  var picks=dAnyPicks();
+  if(picks){
+    askConfirm('모드를 바꿀까요?',
+      '지금까지 뽑은 '+picks+'개 기록이 사라지고 공을 처음부터 다시 채워요.',
+      '바꾸기', apply);
+  } else { apply(); }
+}
+function dSetWin(k){
+  var d=S.draw;
+  k=Math.max(1, Math.min(d.n-1, parseInt(k,10)||1));
+  if(k===d.win) return;
+  var apply=function(){
+    d.win=k; d.wpicked=[]; dPeekOpen=false; save();
+    dHideBall(true); dRender();
+    toast('당첨 '+k+'개 · 꽝 '+(d.n-k)+'개로 맞췄어요');
+  };
+  if(d.wpicked.length){
+    askConfirm('당첨 수를 '+k+'개로 바꿀까요?',
+      '지금까지 뽑은 '+d.wpicked.length+'개 기록이 사라지고 공을 다시 채워요.',
+      '바꾸기', apply);
+  } else { apply(); }
+}
+function dSetPeople(tot){
+  tot=Math.max(2, Math.min(dMode()==='lad'? 6:50, parseInt(tot,10)||4));
+  if(tot===S.draw.n) return;
+  var apply=function(){
+    S.draw.n=tot;
+    S.draw.win=Math.max(1, Math.min(S.draw.win, tot-1));
+    S.draw.picked=[]; S.draw.wpicked=[]; dPeekOpen=false;
+    dLadCancel();
+    if(dMode()==='lad'){ dLadGeo=null; dLadMap={}; }
+    save();
+    dHideBall(true);
+    dRender();
+    toast(tot+'명으로 맞췄어요');
+  };
+  var picks=dAnyPicks();
+  if(picks){
+    askConfirm('인원을 '+tot+'명으로 바꿀까요?',
+      '공을 처음부터 다시 섞어요. 지금까지 뽑은 '+picks+'개는 사라져요.',
       '바꾸기', apply);
   } else { apply(); }
 }
 function dShuffleNow(){
-  S.draw.picked=[]; save();
-  $('#dBall').hidden=true;
+  if(dMode()==='lad'){ dLadNew(); return; }
+  S.draw.picked=[]; S.draw.wpicked=[]; dPeekOpen=false; save();
+  dHideBall(true);
   dRender();
   toast('공을 새로 섞었어요. 상자를 눌러 뽑아 보세요 🎲');
 }
 function dShuffle(){
-  if(S.draw.picked.length){
+  if(dMode()==='lad'){ dLadNew(); return; }
+  var picks=dAnyPicks();
+  if(picks){
     askConfirm('공을 다시 섞을까요?',
-      '지금까지 뽑은 '+S.draw.picked.length+'개가 사라지고 1~'+S.draw.n+'번 공을 다시 채워요.',
+      '지금까지 뽑은 '+picks+'개가 사라지고 공을 다시 채워요.',
       '다시 섞기', dShuffleNow);
   } else { dShuffleNow(); }
 }
 function openDraw(){
+  dHideBall(true);   /* 다시 열 때 앞사람 결과가 남아 있지 않게 */
+  dLadCancel();
+  dLadGeo=null; dLadMap={};
   dRender();
   showModal('drawModal');
 }
 $('#openDraw').addEventListener('click', openDraw);
-$('#dStage').addEventListener('click', dDrawBall);
-$('#dStage').addEventListener('keydown', function(e){
-  if(e.key==='Enter'||e.key===' '||e.key==='Spacebar'){ e.preventDefault(); dDrawBall(); }
+$('#dStage').addEventListener('click', dStageTap);
+$('#dBall').addEventListener('click', function(e){
+  e.stopPropagation();
+  dHideBall();
 });
+$('#dPeek').addEventListener('click', function(){
+  dSetPeek(!dPeekOpen);
+  if(dPeekOpen) toast('지금까지 뽑힌 결과를 펼쳤어요. 확인 후 다시 눌러 숨겨 주세요');
+});
+$('#dStage').addEventListener('keydown', function(e){
+  if(e.key==='Enter'||e.key===' '||e.key==='Spacebar'){ e.preventDefault(); dStageTap(); }
+});
+$('#dmNum').addEventListener('click', function(){ dSetMode('num'); });
+$('#dmWin').addEventListener('click', function(){ dSetMode('win'); });
+$('#dmLad').addEventListener('click', function(){ dSetMode('lad'); });
+$('#dLadBtn').addEventListener('click', dLadRun);
 $('#dpMinus').addEventListener('click', function(){ dSetPeople(S.draw.n-1); });
 $('#dpPlus').addEventListener('click', function(){ dSetPeople(S.draw.n+1); });
 $$('#drawModal .dq').forEach(function(b){
   b.addEventListener('click', function(){ dSetPeople(parseInt(b.dataset.np,10)); });
 });
+$('#dwinMinus').addEventListener('click', function(){ dSetWin(S.draw.win-1); });
+$('#dwinPlus').addEventListener('click', function(){ dSetWin(S.draw.win+1); });
 $('#dShuffle').addEventListener('click', dShuffle);
 $('#dReset2').addEventListener('click', dShuffleNow);
 $('#dSound').addEventListener('click', function(){
