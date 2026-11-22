@@ -4278,13 +4278,15 @@ $('#dSound').addEventListener('click', function(){
   toast(S.draw.sound? L('소리를 켰어요','Sound on') : L('소리를 껐어요','Sound off'));
 });
 
-/* ══════ 👈👉 좌우로 밀어 화면 넘기기 ══════
-   · 메뉴판에서 왼쪽으로 밀면 → 🎲 번호뽑기 이벤트가 바로 열림
-   · 이벤트 안에서 왼쪽 = 다음(🔢 번호뽑기 → 🎁 당첨·꽝 → 🪜 사다리타기 → 메뉴판)
-     오른쪽 = 이전(🪜 사다리타기 → 🎁 당첨·꽝 → 🔢 번호뽑기 → 메뉴판)
+/* ══════ 👈👉 좌우로 밀어 3화면 회전문처럼 돌리기 ══════
+   · 0 = 첫화면(메뉴판) → 1 = 🎲 번호뽑기 이벤트 → 2 = 📋 주문 요약(크게 보기) → 첫화면 → …
+   · 왼쪽으로 계속 밀면 0 → 1 → 2 → 0, 오른쪽으로 계속 밀면 0 → 2 → 1 → 0 (끝없이 순환)
    · 세로 스크롤을 방해하지 않게 |dx|>65 이고 |dx|>|dy|*1.6 일 때만
-   · 입력칸에 글씨를 쓰는 중이거나 메뉴 지우기 모드일 때는 꺼 둔다 */
+   · 입력칸에 글씨를 쓰는 중·메뉴 지우기 선택 모드·다른 모달(QR 스티커/가게 지우기/이름 변경 등)이
+     열려 있을 때는 꺼 둔다
+   · 이벤트 ↔ 주문 요약은 모달만 갈아 끼우고 뒤로가기 기록 1층을 그대로 옮겨 씀 → 기록이 쌓이지 않음 */
 var swX=0, swY=0, swOn=false, swJust=false;
+var SW_DECK={'drawModal':1,'summaryModal':2};   /* 회전문에 포함되는 화면 */
 function swTyping(el){
   try{ return !!(el && el.closest && el.closest('input,textarea,select,[contenteditable]')); }catch(e){ return false; }
 }
@@ -4292,18 +4294,71 @@ function swBusy(){
   if(typeof selMode!=='undefined' && selMode) return true;
   var open=$$('.modal').filter(function(m){ return !m.hidden; });
   if(open.length>1) return true;                       /* 확인창이 겹쳐 있으면 끔 */
-  if(open.length===1 && open[0].id!=='drawModal') return true;
+  if(open.length===1 && !SW_DECK[open[0].id]) return true;  /* 회전문 3화면이 아니면 끔 */
   return false;
 }
-/* 메뉴판에서 밀어 열 때는 늘 첫 탭(🔢 번호뽑기)부터 — 지난번에 보던 탭이 남아 있어도 되돌린다 */
-function swOpenNum(){
+/* 지금 화면 번호 — 0 첫화면 / 1 이벤트 / 2 주문 요약 */
+function swScreen(){
+  if(!$('#summaryModal').hidden) return 2;
+  if(!$('#drawModal').hidden) return 1;
+  return 0;
+}
+/* 번호뽑기 이벤트를 첫 탭(🔢 번호뽑기)부터 보이게 준비 */
+function swPrepDraw(){
   if(dMode()!=='num'){
     S.draw.mode='num';
     S.draw.win=Math.max(1, Math.min(S.draw.win, S.draw.n-1));
     try{ dPeekOpen=false; }catch(e){}
     try{ save(); }catch(e){}
   }
-  openDraw();
+  dHideBall(true); dLadCancel(); dLadGeo=null; dLadMap={}; dRender();
+}
+function swOpenNum(){ swPrepDraw(); showModal('drawModal'); }
+/* 회전문 안에서 화면만 갈아 끼움 (뒤로가기 기록은 swRetitle이 그대로 이어 씀) */
+function swShowOnly(id){
+  Object.keys(SW_DECK).forEach(function(x){
+    var m=document.getElementById(x); if(!m) return;
+    m.hidden = (x!==id);
+  });
+  if(id){ document.body.style.overflow='hidden'; }
+  else if(!$$('.modal').some(function(m){ return !m.hidden; })){ document.body.style.overflow=''; }
+}
+/* 열려 있던 뒤로가기 1층의 주인만 바꿔 달기 — 기록을 새로 쌓지 않음 */
+function swRetitle(id){
+  var key='modal:'+id;
+  for(var i=navLayers.length-1;i>=0;i--){
+    var l=navLayers[i];
+    if(l.key==='modal:drawModal'||l.key==='modal:summaryModal'){
+      l.key=key;
+      l.close=function(){ hideModal(id); };
+      return true;
+    }
+  }
+  return false;
+}
+/* n번 화면으로 이동 — 밀어 온 방향과 상관없이 언제나 "그 화면"으로 */
+function swGo(n){
+  var cur=swScreen();
+  if(n===cur) return false;
+  if(n===2 && !calc().count){                     /* 담긴 메뉴가 없으면 주문 요약은 못 엶 */
+    toast(L('메뉴를 먼저 ＋로 골라 주세요','Tap ＋ to add items first'));
+    return false;
+  }
+  if(n===0){                                      /* → 첫화면 */
+    if(cur===2) hideModal('summaryModal');
+    else if(cur===1) hideModal('drawModal');
+    return true;
+  }
+  if(cur===0){                                    /* 첫화면 → 이벤트/주문 요약: 새 기록 1층 */
+    if(n===1) swOpenNum();
+    else { fillSummary(); showModal('summaryModal'); }
+    return true;
+  }
+  /* 이벤트 ↔ 주문 요약: 모달만 갈아 끼우고 기록 1층은 그대로 */
+  if(n===1) swPrepDraw(); else fillSummary();
+  swShowOnly(n===1? 'drawModal' : 'summaryModal');
+  swRetitle(n===1? 'drawModal' : 'summaryModal');
+  return true;
 }
 document.addEventListener('touchstart', function(e){
   if(e.touches.length!==1 || swBusy() || swTyping(e.target)){ swOn=false; return; }
@@ -4317,15 +4372,10 @@ document.addEventListener('touchend', function(e){
   if(adx<=65 || adx<=ady*1.6) return;
   if(swBusy()) return;
   swJust=true;
-  try{ e.preventDefault(); }catch(_){}
   setTimeout(function(){ swJust=false; }, 420);
-  if($('#drawModal').hidden){                            /* 메뉴판 → 이벤트(첫 탭 🔢 번호뽑기) */
-    if(dx<0) swOpenNum();
-    return;
-  }
-  var order=['num','win','lad'], i=order.indexOf(dMode());
-  if(dx<0){ if(i<order.length-1) dSetMode(order[i+1]); else hideModal('drawModal'); }  /* 왼쪽 = 다음 */
-  else    { if(i>0) dSetMode(order[i-1]); else hideModal('drawModal'); }              /* 오른쪽 = 이전 */
+  /* 왼쪽 = 다음 화면(0→1→2→0), 오른쪽 = 이전 화면(0→2→1→0) */
+  var cur=swScreen();
+  swGo(dx<0 ? (cur+1)%3 : (cur+2)%3);
 }, {passive:false});
 /* 밀기 직후에 따라오는 탭(클릭)은 한 번 무시 — 공이 잘못 뽑히지 않게 */
 document.addEventListener('click', function(e){
