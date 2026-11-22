@@ -28,6 +28,8 @@ body{margin:0;background:var(--cream);color:var(--ink);
   line-height:1.4;padding-bottom:15rem;-webkit-text-size-adjust:100%}
 button{font-family:inherit;cursor:pointer;color:inherit}
 input,textarea{font-family:inherit;font-size:1.05rem;color:var(--ink)}
+/* hidden 속성은 어떤 클래스의 display보다 우선 — 숨길 것이 확실히 숨겨지게 */
+[hidden]{display:none !important}
 
 /* ── 상단 ── */
 .top{position:sticky;top:0;z-index:20;background:var(--coffee);color:#FFF7E9;
@@ -118,6 +120,8 @@ main{padding:.7rem .75rem 0;max-width:34rem;margin:0 auto}
 .btn.primary{background:var(--coffee);border-color:var(--coffee);color:#FFF7E9}
 .btn:disabled{opacity:.45}
 .filebtn{display:flex;align-items:center;justify-content:center;gap:.4rem;width:100%;font-size:1.05rem;min-height:3.4rem;margin:.2rem 0 .5rem;cursor:pointer}
+/* 사진 고르기 input — display:none이면 일부 안드로이드/인앱 웹뷰가 선택창을 막아서, 화면 밖 1px로만 숨김 */
+.photoinput{position:fixed;left:0;top:0;width:1px;height:1px;opacity:.001;border:0;padding:0;margin:0;pointer-events:none;z-index:-1}
 .note{font-size:.84rem;color:var(--ink2);line-height:1.45;margin:.35rem 0 .6rem;font-weight:700}
 .prog{height:.75rem;background:#F3E8D6;border-radius:1rem;overflow:hidden;margin-top:.3rem}
 .prog #progBar{height:100%;width:0;background:var(--accent);transition:width .25s}
@@ -862,14 +866,17 @@ html.big .isteps li>span{font-size:1rem}
 
     <div class="panel" data-panel="photo" hidden>
       <p class="note" id="photoNote1">메뉴판을 찍으면 글자를 읽어서 메뉴와 가격을 찾아 드려요. <b>사진은 이 폰 안에서만 처리되고 어디로도 보내지 않아요(0원).</b></p>
-      <label class="btn primary filebtn" id="photoLabel">📷 사진 찍기 / 앨범에서 고르기
-        <input id="photoInput" type="file" accept="image/*" capture="environment" hidden>
-      </label>
+      <input id="photoInput" class="photoinput" type="file" accept="image/*" aria-label="메뉴판 사진 고르기">
+      <label class="btn primary filebtn" id="photoLabel" for="photoInput"><span id="photoLabelTxt">📷 사진 찍기 / 앨범에서 고르기</span></label>
       <div id="progWrap" hidden>
         <div class="prog"><div id="progBar"></div></div>
         <p id="progMsg" class="note" aria-live="polite"></p>
       </div>
       <img id="preview" alt="고른 메뉴판 사진" hidden>
+      <div class="row2" id="photoFallback" hidden>
+        <button type="button" class="btn" id="photoToManual">✍️ 직접 입력으로 넣기</button>
+        <button type="button" class="btn" id="photoToPaste">📋 글 붙여넣기로 넣기</button>
+      </div>
       <p class="note" id="photoNote2">글자가 잘 안 읽히면 <b>직접 입력</b>이나 <b>글 붙여넣기</b>로 1초 만에 넣을 수 있어요.</p>
     </div>
 
@@ -1261,6 +1268,7 @@ function setTxt(sel,ko,en){ var el=$(sel); if(el) el.textContent=EN()? en:ko; }
 function setHTML(sel,ko,en){ var el=$(sel); if(el) el.innerHTML=EN()? en:ko; }
 function setAttr(sel,attr,ko,en){ var el=$(sel); if(el) el.setAttribute(attr, EN()? en:ko); }
 function applyLang(){
+  try{
   var en=EN();
   try{ document.documentElement.setAttribute('lang', en? 'en':'ko'); }catch(e){}
   document.title = en? 'Wagle Table · Large-Print Menu · Table Events'
@@ -1306,7 +1314,9 @@ function applyLang(){
   setHTML('#photoNote1',
     '메뉴판을 찍으면 글자를 읽어서 메뉴와 가격을 찾아 드려요. <b>사진은 이 폰 안에서만 처리되고 어디로도 보내지 않아요(0원).</b>',
     'Take a photo of the menu and the text is read to find items and prices. <b>The photo is handled only on this phone and is never sent anywhere (free).</b>');
-  setTxt('#photoLabel','📷 사진 찍기 / 앨범에서 고르기','📷 Take a photo / Pick from album');
+  setTxt('#photoLabelTxt','📷 사진 찍기 / 앨범에서 고르기','📷 Take a photo / Pick from album');
+  setTxt('#photoToManual','✍️ 직접 입력으로 넣기','✍️ Type In Instead');
+  setTxt('#photoToPaste','📋 글 붙여넣기로 넣기','📋 Paste Instead');
   setHTML('#photoNote2','글자가 잘 안 읽히면 <b>직접 입력</b>이나 <b>글 붙여넣기</b>로 1초 만에 넣을 수 있어요.',
     'If the text is hard to read, add items in a second with <b>Type In</b> or <b>Paste</b>.');
   setHTML('#pasteNote','메뉴판 글씨를 복사해 붙여 넣으면 줄마다 메뉴와 가격을 나눠 드려요.',
@@ -1394,26 +1404,34 @@ function applyLang(){
   setAttr('.shapeRow','aria-label','스티커 모양','Sticker shape');
   setAttr('#stkName','placeholder','예: 행복카페','e.g. Happy Café');
   setAttr('#preview','alt','고른 메뉴판 사진','The menu photo you picked');
-  if($('#review').hidden) setTxt('#reviewTitle','찾은 메뉴','Found Menu'); else reviewTitleNow();
-  if($('#confirmModal').hidden){ setTxt('#confTitle','확인','Confirm'); setTxt('#confOk','예','Yes'); }
-  if($('#nameModal').hidden) setTxt('#nameTitle','새 메뉴판 이름','New Menu Board Name');
+  if($('#review') && $('#review').hidden) setTxt('#reviewTitle','찾은 메뉴','Found Menu'); else if($('#review')) reviewTitleNow();
+  if($('#confirmModal') && $('#confirmModal').hidden){ setTxt('#confTitle','확인','Confirm'); setTxt('#confOk','예','Yes'); }
+  if($('#nameModal') && $('#nameModal').hidden) setTxt('#nameTitle','새 메뉴판 이름','New Menu Board Name');
+  }catch(e){ /* 화면 글자 하나가 없어도 앱 전체가 멈추지 않게 */ }
 }
 
 /* ── 화면 그리기 ── */
 function render(){
-  document.documentElement.classList.toggle('big', !!S.big);
-  applyLang();
+  try{ document.documentElement.classList.toggle('big', !!S.big); }catch(e){}
+  try{ applyLang(); }catch(e){}
   const bb=$('#bigBtn');
-  bb.setAttribute('aria-pressed', S.big?'true':'false');
-  bb.querySelector('.bglab').textContent = S.big? L('글씨 작게','Normal Text') : L('큰 글씨','Large Text');
-  renderChips(); renderMenu(); renderBar();
-  requestAnimationFrame(fitPad);
-  requestAnimationFrame(fitTotal);
+  if(bb){
+    bb.setAttribute('aria-pressed', S.big?'true':'false');
+    const bl=bb.querySelector('.bglab');
+    if(bl) bl.textContent = S.big? L('글씨 작게','Normal Text') : L('큰 글씨','Large Text');
+  }
+  try{ renderChips(); }catch(e){}
+  try{ renderMenu(); }catch(e){}
+  try{ renderBar(); }catch(e){}
+  requestAnimationFrame(function(){ try{ fitPad(); }catch(e){} });
+  requestAnimationFrame(function(){ try{ fitTotal(); }catch(e){} });
 }
 function fitPad(){
   const bar=$('#bar');
+  const toastEl=$('#toast');
+  if(!bar) return;
   document.body.style.paddingBottom=(bar.offsetHeight+24)+'px';
-  $('#toast').style.bottom=(bar.offsetHeight+16)+'px';
+  if(toastEl) toastEl.style.bottom=(bar.offsetHeight+16)+'px';
 }
 function renderChips(){
   const box=$('#chips');
@@ -1877,7 +1895,7 @@ function loadTesseract(){
     s.onload=()=> window.Tesseract? res(window.Tesseract) : rej(new Error('no-tesseract'));
     s.onerror=()=>{ tessP=null; rej(new Error('net')); };
     document.head.appendChild(s);
-    setTimeout(()=>{ if(!window.Tesseract){ tessP=null; rej(new Error('timeout')); } }, 20000);
+    setTimeout(()=>{ if(!window.Tesseract){ tessP=null; rej(new Error('timeout')); } }, 12000);
   });
   return tessP;
 }
@@ -1904,39 +1922,89 @@ function downscale(file, max){
     img.src=url;
   });
 }
-$('#photoInput').addEventListener('change', async e=>{
-  const f=e.target.files && e.target.files[0];
-  e.target.value='';
+/* 사진 고르기 버튼 — label 기본 동작 대신 직접 input.click()
+   (안드로이드·삼성 인터넷·카톡 인앱 웹뷰에서도 선택창이 확실히 열리도록) */
+(function(){
+  var lab=$('#photoLabel'), inp=$('#photoInput');
+  if(!lab || !inp) return;
+  lab.addEventListener('click', function(e){
+    e.preventDefault();
+    try{ inp.value=''; }catch(_){}
+    try{ inp.click(); }
+    catch(err){ try{ inp.style.zIndex='9999'; inp.style.pointerEvents='auto'; inp.click(); }catch(_){} }
+  });
+})();
+function photoShowFallback(show){ var f=$('#photoFallback'); if(f) f.hidden=!show; }
+(function(){
+  var a=$('#photoToManual'), b=$('#photoToPaste');
+  if(a) a.addEventListener('click', function(){ switchTab('manual'); var n=$('#newName'); if(n) try{ n.focus(); }catch(_){} });
+  if(b) b.addEventListener('click', function(){ switchTab('paste'); var p=$('#pasteArea'); if(p) try{ p.focus(); }catch(_){} });
+})();
+/* 시간 제한을 두고 기다리기 — 어떤 경우에도 무반응으로 끝나지 않게 */
+function withTimeout(p, ms, tag){
+  return new Promise(function(res,rej){
+    var t=setTimeout(function(){ rej(new Error(tag||'timeout')); }, ms);
+    p.then(function(v){ clearTimeout(t); res(v); }, function(e){ clearTimeout(t); rej(e); });
+  });
+}
+$('#photoInput').addEventListener('change', function(e){
+  var inp=e.target, f=inp.files && inp.files[0];
+  try{ inp.value=''; }catch(_){}
   if(!f) return;
   hideReview();
-  try{
-    setProg(2, L('사진을 준비하고 있어요…','Preparing the photo…'));
-    const dataUrl=await downscale(f,1600);
-    const pv=$('#preview'); pv.src=dataUrl; pv.hidden=false;
-    setProg(6, L('글자 읽기 준비 중… (처음 한 번은 30초쯤 걸려요)','Getting ready to read… (the first time takes about 30 seconds)'));
-    const T=await loadTesseract();
-    const worker=await T.createWorker('kor+eng',1,{logger:m=>{
-      if(!m) return;
-      if(m.status==='recognizing text') setProg(10+(m.progress||0)*85, L('메뉴판 글자 읽는 중… ','Reading the menu… ')+Math.round((m.progress||0)*100)+'%');
-      else if(String(m.status||'').indexOf('loading')===0) setProg(6, L('글자 읽기 준비 중… (처음 한 번은 30초쯤 걸려요)','Getting ready to read… (the first time takes about 30 seconds)'));
-    }});
-    const r=await worker.recognize(dataUrl);
-    try{ await worker.terminate(); }catch(_){}
-    const text=(r && r.data && r.data.text) || '';
-    const list=parseMenuText(text);
-    if(!list.length){
-      setProg(100, L('글자를 찾지 못했어요','No text was found'));
-      toast(L('글자를 찾지 못했어요. 직접 입력이나 붙여넣기로 넣어 주세요','No text was found. Add items with Type In or Paste'));
-      switchTab('manual');
-      return;
-    }
-    setProg(100, L(list.length+'개 후보를 찾았어요. 아래에서 확인해 주세요', list.length+' found. Check them below'));
-    startReview(list, 'photo');
-  }catch(err){
-    setProg(100, L('사진 읽기를 못 했어요','Could not read the photo'));
-    toast(L('사진 읽기를 못 했어요. 직접 입력이나 붙여넣기로 1초 만에 넣을 수 있어요','Could not read the photo. Add items in a second with Type In or Paste'));
-    switchTab('manual');
+  photoShowFallback(false);
+  var pv=$('#preview');
+  var settled=false, worker=null;
+  var hintT=setTimeout(function(){
+    if(!settled) setProg(10, L('사진을 읽는 중이에요… 오래 걸리면 아래 「직접 입력」으로 1초 만에 넣을 수 있어요',
+      'Still reading… if it takes long, the buttons below add items in a second'));
+  }, 10000);
+  function finish(msg){
+    settled=true; clearTimeout(hintT);
+    if(worker){ try{ worker.terminate(); }catch(_){} }
+    setProg(100, msg);
+    toast(msg);
+    photoShowFallback(true);
   }
+  (async function(){
+    try{
+      setProg(3, L('📷 사진 읽는 중…','📷 Reading the photo…'));
+      var dataUrl=await withTimeout(downscale(f,1600), 15000, 'img');
+      pv.src=dataUrl; pv.hidden=false;
+      if(navigator.onLine===false){
+        finish(L('인터넷이 없어 글자 읽기를 못 해요. 사진은 위에 보이고, 직접 입력이나 붙여넣기로 1초 만에 넣을 수 있어요',
+          'No internet, so the text cannot be read. The photo is shown above — use Type In or Paste to add items in a second'));
+        return;
+      }
+      setProg(8, L('글자 읽기 준비 중… (처음 한 번은 20초쯤 걸려요)','Getting ready to read… (the first time takes about 20 seconds)'));
+      var T=await withTimeout(loadTesseract(), 15000, 'load');
+      if(settled) return;
+      worker=await withTimeout(T.createWorker('kor+eng',1,{logger:function(m){
+        if(!m || settled) return;
+        if(m.status==='recognizing text') setProg(15+(m.progress||0)*80, L('메뉴판 글자 읽는 중… ','Reading the menu… ')+Math.round((m.progress||0)*100)+'%');
+        else if(String(m.status||'').indexOf('loading')===0) setProg(8, L('글자 읽기 준비 중… (처음 한 번은 20초쯤 걸려요)','Getting ready to read… (the first time takes about 20 seconds)'));
+      }}), 30000, 'worker');
+      if(settled) return;
+      var r=await withTimeout(worker.recognize(dataUrl), 60000, 'ocr');
+      try{ await worker.terminate(); worker=null; }catch(_){}
+      if(settled) return;
+      var text=(r && r.data && r.data.text) || '';
+      var list=parseMenuText(text);
+      if(!list.length){
+        finish(L('사진에서 글자를 찾지 못했어요. 직접 입력이나 붙여넣기로 넣어 주세요',
+          'No text was found in the photo. Add items with Type In or Paste'));
+        return;
+      }
+      settled=true; clearTimeout(hintT);
+      setProg(100, L(list.length+'개 후보를 찾았어요. 아래에서 확인해 주세요', list.length+' found. Check them below'));
+      photoShowFallback(false);
+      startReview(list, 'photo');
+    }catch(err){
+      if(settled) return;
+      finish(L('사진 읽기를 못 했어요. 사진은 위에 그대로 보여요 — 직접 입력이나 붙여넣기로 1초 만에 넣을 수 있어요',
+        'Could not read the photo. The photo is shown above — Type In or Paste adds items in a second'));
+    }
+  })();
 });
 
 
