@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#1E4A36" />
-<!-- build: 2026-11-23 와글가족장바구니 v14 · 집 그림을 넓고 낮게(가로 4칸) — 집 폭을 폰 화면 폭에 가깝게 넓히고 냉장고 4대를 작게 줄여 왼쪽 한 줄에 냉장고·냉동실·야채·과일 3칸 + 오른쪽 4번째 칸은 위 김치냉장고·아래 실온보관바구니(실온보관 바로 위에 김치냉장고) · 지붕은 더 낮고 넓게(400×92) · 오른쪽 위로 올라간 김치냉장고 대신 부엌창은 왼쪽 위로 · 집 옆 세희 캐릭터는 겹치지 않게 유지 · 390/360px 기본·큰 글씨에서 라벨·배지 겹침·잘림 없음 · 보관 공간 5칸·영수증·요리 안내·회전문 스와이프 그대로 · 캐시 v14 -->
+<!-- build: 2026-11-23 와글가족장바구니 v15 · 첫 화면 아래 카드를 '🏠 우리 집 전체 내역'으로 — 실온보관바구니만 보이던 미리보기 대신 보관 공간 5칸(냉장고·냉동실·야채·과일·김치냉장고·실온보관바구니)의 품목을 칸별 알약으로 한눈에 · 칸 줄을 누르면 그 칸이 바로 열림 · 빈 칸은 '비어 있어요' 1줄 · 지붕 🏠 우리 집 전체 내역 모달은 그대로 · 한국어/영어·큰 글씨 겹침·잘림 없음 · 캐시 v15 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -243,14 +243,36 @@ html.big .homerec{font-size:.76rem;min-height:2.4rem;padding:.3rem .22rem}
 .todayhead h2{flex:1 1 auto;min-width:0;margin:0;font-size:1rem}
 .todaycount{flex:0 0 auto;font-size:.76rem;font-weight:900;color:#2F6B4F;background:#EAF4EC;
   border:2px solid #CFE0CC;border-radius:2rem;padding:.1rem .5rem;white-space:nowrap}
-.todaylist{list-style:none;margin:0 0 .3rem;padding:0;display:flex;flex-direction:column;gap:.18rem}
-.todaylist li{display:flex;align-items:baseline;gap:.4rem;font-size:.88rem;font-weight:800;line-height:1.25;
-  border-top:1px dashed #E6EFE4;padding-top:.22rem}
-.todaylist li:first-child{border-top:0;padding-top:0}
-.todaylist .tname{min-width:0;overflow-wrap:anywhere}
-.todaylist .tmeta{font-size:.78rem;font-weight:700;color:#6B7A6E;margin-left:auto;text-align:right}
-.todaylist .tnone{color:#8B9A8E;font-weight:700;font-size:.86rem}
-.todayfoot{margin:0 0 .34rem;font-size:.76rem;font-weight:700;color:#7C8B80;line-height:1.35}
+/* 🏠 홈 아래 '우리 집 전체 내역' — 5칸 품목을 한눈에(칸 줄을 누르면 그 칸이 열려요 · 빈 칸은 1줄) */
+.ovgroups{display:flex;flex-direction:column;gap:.28rem;margin:.02rem 0 .36rem}
+.ovgrp{border:2px solid #E3EDE1;border-radius:.72rem;overflow:hidden;background:#FCFDF9}
+.ovgrp.noitems{background:#FBFAF4;border-color:#EAE6DC}
+.ovghead{display:flex;align-items:center;gap:.26rem;width:100%;border:0;background:#F1F8F0;
+  padding:.26rem .42rem;font-size:.86rem;font-weight:900;color:#24361F;text-align:left;
+  line-height:1.2;min-height:2.1rem}
+.ovgrp.noitems .ovghead{background:#F7F5EE;color:#5C6B5A}
+.ovgi{flex:0 0 auto;font-size:.92rem;line-height:1}
+.ovgn{min-width:0;overflow-wrap:anywhere;word-break:keep-all}
+.ovgc{margin-left:auto;flex:0 0 auto;font-size:.74rem;font-weight:900;color:#2F6B4F;
+  background:#EAF4EC;border:1.5px solid #CFE0CC;border-radius:2rem;padding:.02rem .36rem;white-space:nowrap}
+.ovgempty{margin-left:auto;flex:0 0 auto;font-size:.74rem;font-weight:800;color:#8B9A8E;white-space:nowrap}
+.ovggo{flex:0 0 auto;font-size:.68rem;font-weight:900;color:#2F6B4F;border:2px solid #BFD9C6;
+  border-radius:2rem;background:#fff;padding:.02rem .34rem;white-space:nowrap}
+.ovgitems{display:flex;flex-wrap:wrap;gap:.16rem .22rem;width:100%;border:0;background:none;
+  padding:.24rem .42rem .28rem;text-align:left;font:inherit;color:inherit}
+.ovchip{display:inline-block;max-width:100%;overflow-wrap:anywhere;
+  font-size:.8rem;font-weight:800;line-height:1.25;color:#26352B;background:#fff;
+  border:1.5px solid #E1EBDD;border-radius:2rem;padding:.03rem .42rem}
+.ovchip>b{font-size:.68rem;font-weight:800;color:#6B7A6E;margin-left:.2rem;white-space:nowrap}
+.ovchip.ovmore{background:#F4F8F2;color:#4C6152;border-style:dashed}
+html.big .ovghead{font-size:.8rem;gap:.2rem;padding:.24rem .34rem}
+html.big .ovgi{font-size:.86rem}
+html.big .ovgc,html.big .ovgempty{font-size:.66rem}
+html.big .ovggo{font-size:.6rem;padding:.02rem .28rem}
+html.big .ovgitems{padding:.22rem .34rem .26rem;gap:.14rem .18rem}
+html.big .ovchip{font-size:.72rem;padding:.02rem .34rem}
+html.big .ovchip>b{font-size:.62rem}
+.todayfoot{margin:0 0 .1rem;font-size:.76rem;font-weight:700;color:#7C8B80;line-height:1.35}
 
 /* 툴바 */
 .toolbar{display:flex;flex-wrap:wrap;gap:.24rem;margin:.02rem 0 .4rem}
@@ -797,14 +819,13 @@ html.big .dpdishes{font-size:.86rem}
       <button type="button" class="homerec" id="homeAlbumBtn"><span aria-hidden="true">🖼️</span><span id="homeAlbumLab">앨범에서</span></button>
     </div>
 
-    <section class="card today" id="todayCard">
+    <section class="card today" id="todayCard" aria-label="우리 집 전체 내역">
       <div class="todayhead">
-        <h2 id="todayTitle">🧺 실온보관바구니</h2>
-        <span class="todaycount" id="todayCount">3개 남음</span>
+        <h2 id="todayTitle">🏠 우리 집 전체 내역</h2>
+        <span class="todaycount" id="todayCount">모두 7개</span>
       </div>
-      <ul class="todaylist" id="todayList"></ul>
+      <div class="ovgroups" id="todayList"></div>
       <p class="todayfoot" id="todayFoot"></p>
-      <button type="button" class="btn full" id="openCartBtn">실온보관바구니 열기 →</button>
     </section>
   </section>
 
@@ -1319,32 +1340,53 @@ function renderHome(){
   renderToday();
 }
 function renderToday(){
-  const c=cart(); if(!c) return;
-  const all=c.items;
-  $('#todayCount').textContent=L(all.length+'개', all.length+' item'+(all.length===1?'':'s'));
-  const ul=$('#todayList'); ul.innerHTML='';
-  if(!all.length){
-    const li=document.createElement('li');
-    li.innerHTML='<span class="tnone">'+esc(L('실온보관바구니가 비었어요.','The pantry is empty.'))+'</span>';
-    ul.appendChild(li);
-  }else{
-    all.slice(0,4).forEach(function(it){
-      const li=document.createElement('li');
-      const meta=[it.memo? dnMemo(it.memo):'', it.qty>1? L(it.qty+'개', it.qty+' pcs'):''].filter(Boolean).join(' · ');
-      li.innerHTML='<span class="tname">'+esc(dnItem(it.name))+'</span>'+
-        (meta? '<span class="tmeta">'+esc(meta)+'</span>':'');
-      ul.appendChild(li);
-    });
-    if(all.length>4){
-      const li=document.createElement('li');
-      li.innerHTML='<span class="tnone">'+esc(L('외 '+(all.length-4)+'개','+'+(all.length-4)+' more'))+'</span>';
-      ul.appendChild(li);
+  const box=$('#todayList'); if(!box) return;
+  box.innerHTML='';
+  const c=cart();
+  const ordered=fridges().concat(c? [c] : []);
+  let total=0;
+  ordered.forEach(function(sp){
+    const n=sp.items.length;
+    total+=n;
+    const grp=document.createElement('div');
+    grp.className='ovgrp'+(n? '' : ' noitems');
+    const head=document.createElement('button');
+    head.type='button'; head.className='ovghead';
+    head.setAttribute('aria-label', L(sp.name+' 열기 · '+n+'개', 'Open '+dnSpace(sp.name)+' · '+n+(n===1?' item':' items')));
+    head.innerHTML='<span class="ovgi" aria-hidden="true">'+esc(sp.icon||'❄️')+'</span>'+
+      '<span class="ovgn">'+esc(dnSpace(sp.name))+'</span>'+
+      (n? '<span class="ovgc">'+esc(L(n+'개', n+(n===1?' item':' items')))+'</span>'
+        : '<span class="ovgempty">'+esc(L('비어 있어요','Empty'))+'</span>')+
+      '<span class="ovggo" aria-hidden="true">'+esc(L('열기','Open'))+'</span>';
+    head.addEventListener('click', function(){ openSpace(sp.id); });
+    grp.appendChild(head);
+    if(n){
+      const row=document.createElement('button');
+      row.type='button'; row.className='ovgitems';
+      row.setAttribute('aria-label', L(sp.name+' 열기','Open '+dnSpace(sp.name)));
+      sp.items.slice(0,8).forEach(function(it){
+        const meta=[it.memo? dnMemo(it.memo):'', it.qty>1? L(it.qty+'개', it.qty+' pcs'):''].filter(Boolean).join(' · ');
+        const chip=document.createElement('span');
+        chip.className='ovchip';
+        chip.innerHTML=esc(dnItem(it.name))+(meta? '<b>'+esc(meta)+'</b>' : '');
+        row.appendChild(chip);
+      });
+      if(n>8){
+        const more=document.createElement('span');
+        more.className='ovchip ovmore';
+        more.textContent=L('+'+(n-8)+'개 더', '+'+(n-8)+' more');
+        row.appendChild(more);
+      }
+      row.addEventListener('click', function(){ openSpace(sp.id); });
+      grp.appendChild(row);
     }
-  }
+    box.appendChild(grp);
+  });
+  $('#todayCount').textContent=L('모두 '+total+'개', total+(total===1?' item':' items'));
   const fr=fridges();
-  const total=fr.reduce(function(n,sp){ return n+sp.items.length; }, 0);
-  $('#todayFoot').textContent=L('우리 집에는 모두 '+(total+all.length)+'개가 있어요 · 냉장고 '+fr.length+'대 '+total+'개 · 실온보관바구니 '+all.length+'개',
-    'Everything at home: '+(total+all.length)+' items · '+fr.length+' fridges '+total+' · pantry '+all.length);
+  const frc=fr.reduce(function(sum,sp){ return sum+sp.items.length; }, 0);
+  $('#todayFoot').textContent=L('냉장고 '+fr.length+'대 '+frc+'개'+(c? ' · 실온보관바구니 '+c.items.length+'개' : ''),
+    fr.length+' fridge'+(fr.length===1?'':'s')+': '+frc+(c? ' · pantry: '+c.items.length : ''));
 }
 function renderSpaceView(){
   $('#homeView').hidden=true;
@@ -1928,8 +1970,7 @@ function applyStaticLang(){
     'Tap a space badge to change it. Tick only what to add.');
   $('#recCancel').textContent = L('그만두기','Cancel');
   $('#recAdd').textContent = L('✓ 각 칸으로 한 번에 넣기','✓ Add to each space');
-  $('#todayTitle').textContent = L('🧺 실온보관바구니','🧺 Pantry');
-  $('#openCartBtn').textContent = L('실온보관바구니 열기 →','Open the pantry →');
+  $('#todayTitle').textContent = L('🏠 우리 집 전체 내역','🏠 Everything at home');
   $('#bulkSum').textContent = L('📋 여러 줄 붙여넣기','📋 Paste several lines');
   $('#bulkLab').textContent = L('한 줄에 하나씩 붙여넣으면 한 번에 담겨요','One item per line — added at once');
   $('#bulkText').placeholder = L('우유\n계란\n대파','Milk\nEggs\nGreen onions');
@@ -2075,7 +2116,6 @@ function renderOverview(){
 $('#roofBtn').addEventListener('click', function(){
   renderOverview(); showModal('overviewModal');
 });
-$('#openCartBtn').addEventListener('click', function(){ const c=cart(); if(c) openSpace(c.id); });
 
 /* ══════ 품목 담기 ══════ */
 function flashItem(id){
