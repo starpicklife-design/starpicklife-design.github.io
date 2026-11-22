@@ -704,7 +704,7 @@ function load(){
     if(!raw) return freshState();
     const d=JSON.parse(raw);
     if(!d || !Array.isArray(d.spaces) || d.spaces.length<4) return freshState();
-    const out={big:!!d.big, filterFav:!!d.filterFav, view:'home',
+    const out={big:!!d.big, filterFav:false, view:'home',
       cur:String(d.cur||'cart'), spaces:[]};
     out.spaces=d.spaces.map(function(s){
       const fx=SPACE_FIX[String(s.id||'')];
@@ -1651,11 +1651,11 @@ function openItem(id){
   $('#itemMemo').value=it.memo||'';
   syncVolRow('itemVol','itemMemo');
   $('#itemDate').value=editDate;
-  $('#dateLab').textContent=isCart? L('담은 날','Added on') : L('구매일','Bought on');
-  $('#qtyLab').textContent=isCart? L('살 수량','How many to buy') : L('남은 수량','How many left');
+  $('#dateLab').textContent=L('구매일','Bought on');
+  $('#qtyLab').textContent=L('남은 수량','How many left');
   $('#qtyUnit').textContent=L('개','pcs');
   $('#itemTitle').textContent=(f.sp.icon||'')+' '+dnSpace(f.sp.name)+' · '+L('품목','Item');
-  $('#itemDel').textContent=isCart? L('빼기','Remove') : L('🍽️ 다 먹음 · 빼기','🍽️ Finished · remove');
+  $('#itemDel').textContent=L('🍽️ 다 먹음 · 빼기','🍽️ Finished · remove');
   $('#moveBox').hidden=!isCart;
   if(isCart) renderMoveGrid();
   syncQty();
