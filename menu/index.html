@@ -56,8 +56,13 @@ input,textarea{font-family:inherit;font-size:1.05rem;color:var(--ink)}
 .chip.on{background:#FFF7E9;color:var(--coffee);border-color:#FFF7E9}
 .chip.add{border-style:dashed;color:#FFE9C7}
 /* 📲 홈 화면에 앱 설치 */
-.chipline{display:flex;align-items:center;gap:.45rem}
-.chipline .chips{flex:1;min-width:0}
+/* 메뉴판 탭 줄: 탭 영역과 버튼을 완전히 분리(겹침 0) — 탭은 자기 영역 안에서만 스크롤 */
+.chipline{display:flex;align-items:center;gap:.5rem}
+.chipline .chips{flex:1 1 auto;min-width:0;padding-right:1.1rem;
+  -webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 1.1rem),rgba(0,0,0,0) 100%);
+  mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 1.1rem),rgba(0,0,0,0) 100%)}
+.chipline .installbtn,.chipline .langtoggle,.chipline .chip.add{flex:0 0 auto}
+.brand .langtoggle{flex:0 0 auto}
 .installbtn{flex:0 0 auto;display:flex;align-items:center;gap:.3rem;white-space:nowrap;
   background:linear-gradient(180deg,#F8DDB2,#E9BC6E);color:#3E2C22;border:2px solid #FFE9C7;
   border-radius:2rem;padding:.32rem .7rem;font-size:.82rem;font-weight:900;min-height:2.8rem;
@@ -234,10 +239,19 @@ html.big .sprice{min-width:4.6rem}
 html[lang="en"] .brand h1{font-size:.95rem;letter-spacing:-.015em}
 html[lang="en"] .brand .sub{letter-spacing:-.025em}
 .brand .titles{overflow:hidden}
+.brand .langtoggle{flex:0 0 auto;font-size:.74rem;padding:0 .45rem;min-height:2.6rem}
+/* 일반폰(≤430px): 제목·언어·큰글씨가 한 줄에 다 들어가게 폭을 아껴 쓴다 */
+@media (max-width:430px){
+  .brand{gap:.4rem}
+  .brand h1{font-size:.94rem}
+  .brand .langtoggle{font-size:.7rem;padding:0 .38rem;min-height:2.5rem}
+  .brand .bigtoggle{font-size:.72rem;padding:.24rem .42rem .24rem .52rem;min-height:2.5rem}
+}
 /* 아주 좁은 폰(≤359px)에서도 머리말·하단 바가 뭉개지지 않게 */
 @media (max-width:389px){
   .brand{gap:.32rem;flex-wrap:wrap;row-gap:.3rem}
   .brand .titles{order:1;flex:1 1 auto}
+  .brand .langtoggle{order:2}
   .brand .bigtoggle{order:3;flex:1 1 100%;justify-content:center}
   .brand .hamsvg{width:2.5rem;height:2.2rem}
   .brand h1{font-size:.94rem}
@@ -798,11 +812,12 @@ html.big .isteps li>span{font-size:1rem}
       <h1 id="appTitle">와글가족 테이블</h1>
       <span class="sub" id="appSub">큰 글씨 메뉴판 · 테이블 이벤트</span>
     </div>
+    <button type="button" id="langBtn" class="langtoggle" aria-pressed="false">🌐 EN</button>
     <button id="bigBtn" class="bigtoggle" aria-pressed="false"><span class="bglab">큰 글씨</span><span class="sw" aria-hidden="true"></span></button>
   </div>
   <div class="chipline">
     <div class="chips" id="chips" role="tablist" aria-label="메뉴판 고르기"></div>
-    <button type="button" id="langBtn" class="langtoggle" aria-pressed="false">🌐 EN</button>
+    <button type="button" id="addStoreChip" class="chip add" data-act="newstore">＋ 새 메뉴판</button>
     <button type="button" id="installBtn" class="installbtn" aria-haspopup="dialog">📲 앱 설치</button>
   </div>
 </header>
@@ -816,7 +831,6 @@ html.big .isteps li>span{font-size:1rem}
 
   <div class="listhead">
     <button id="starFilter" class="mini" aria-pressed="false">★ 즐겨찾기만</button>
-    <button id="curBtn" class="mini" title="통화 바꾸기" aria-label="통화 바꾸기">₩</button>
     <button class="mini" data-act="reset">주문 비우기</button>
   </div>
 
@@ -1130,7 +1144,6 @@ const esc=s=> String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt
 
 /* ══════ 🌐 언어 (한국어 / English) ══════ */
 const LKEY='menu_lang_v1';
-const CUR_SYMS=['₩','$','€','¥'];
 function qLang(){
   try{
     var m=/[?&]lang=([A-Za-z_-]+)/.exec(location.search||'');
@@ -1179,10 +1192,11 @@ function qtyUnit(n,st){
   var u=unitOf(st);
   return n+' '+u+(n===1? '':'s');
 }
-function sym(st){ st=st||store(); return st.sym||'₩'; }
+/* 통화는 항상 원화(KRW) 한 가지로만 표시 — 한국어 '4,500원' · 영어 '₩4,500' */
+function sym(st){ return '₩'; }
 function money(n,st){
-  n=Math.max(0,parseInt(n,10)||0); var s=sym(st);
-  return EN()? s+won(n) : won(n)+(s==='₩'?'원':s);
+  n=Math.max(0,parseInt(n,10)||0);
+  return EN()? '₩'+won(n) : won(n)+'원';
 }
 
 /* ── 기본 메뉴판 ── */
@@ -1226,7 +1240,7 @@ function load(){
       .filter(function(x,i,a){ return x>=1 && x<=d.draw.n && a.indexOf(x)===i; });
     d.stores=d.stores.map(s=>({
       id:s.id||uid(), name:String(s.name||'메뉴판'), unit:s.unit||'개',
-      sym:(CUR_SYMS.indexOf(s.sym)>=0? s.sym : '₩'),
+      sym:'₩',
       menus:(s.menus||[]).map(m=>({
         id:m.id||uid(), name:String(m.name||''),
         price:Math.max(0,parseInt(m.price,10)||0),
@@ -1271,6 +1285,7 @@ function applyLang(){
   setTxt('[data-act="renamestore"]','✏️ 이름 바꾸기','✏️ Rename');
   setTxt('[data-act="delstore"]','🗑 메뉴판 지우기','🗑 Delete');
   setTxt('[data-act="reset"]','주문 비우기','Clear');
+  setTxt('#addStoreChip','＋ 새 메뉴판','＋ New Menu');
   setTxt('.hint','💡 메뉴 이름을 누르면 이름·가격 고치기와 지우기가 열려요.','💡 Tap a menu name to edit its name and price, or delete it.');
 
   setTxt('#qrCard h2','🏷️ 매장용 QR 스티커','🏷️ Store QR Sticker');
@@ -1404,7 +1419,7 @@ function renderChips(){
   const box=$('#chips');
   box.innerHTML=S.stores.map(s=>
     `<button class="chip${s.id===S.cur?' on':''}" data-act="store" data-id="${s.id}" role="tab" aria-selected="${s.id===S.cur}">${esc(dn(s.name))}</button>`
-  ).join('')+`<button class="chip add" data-act="newstore">${L('＋ 새 메뉴판','＋ New Menu')}</button>`;
+  ).join('');
 }
 function renderMenu(){
   const st=store();
@@ -1414,12 +1429,6 @@ function renderMenu(){
   const sf=$('#starFilter');
   sf.setAttribute('aria-pressed', S.filterFav?'true':'false');
   sf.textContent = S.filterFav? L('★ 즐겨찾기만 (켜짐)','Favorites ★ (on)') : L('★ 즐겨찾기만','Favorites ★');
-  const cb=$('#curBtn');
-  if(cb){
-    cb.textContent=sym(st);
-    cb.setAttribute('aria-label', L('통화 바꾸기','Change currency'));
-    cb.setAttribute('title', L('통화 바꾸기','Change currency'));
-  }
   const box=$('#menuList');
   if(!st.menus.length){
     box.innerHTML='<div class="empty">'+EMPTY_ART()+'<div>'+L('아직 메뉴가 없어요.<br>아래 <b>메뉴 추가</b>에서 하나씩 넣어 주세요.','No menu items yet.<br>Add them one by one under <b>Add Menu</b> below.')+'</div></div>';
@@ -1457,13 +1466,13 @@ function renderBar(){
   const st=store(), c=calc();
   $('#totLabel').textContent = L('총','Total');
   $('#totCount').textContent=qtyUnit(c.count, st);
-  $('#curPre').textContent = EN()? sym(st) : '';
-  $('#curSuf').textContent = EN()? '' : (sym(st)==='₩'? '원' : sym(st));
+  $('#curPre').textContent = EN()? '₩' : '';
+  $('#curSuf').textContent = EN()? '' : '원';
   $('#totAmount').textContent=won(c.total);
   $('#pcount').textContent = EN()? (S.people+(S.people===1?' person':' people')) : (S.people+'명');
   $('#perText').innerHTML = EN()
     ? 'Per Person <b>'+esc(money(c.per,st))+'</b>'
-    : '1인당 <b>'+won(c.per)+'</b>'+esc(sym(st)==='₩'? '원' : sym(st));
+    : '1인당 <b>'+won(c.per)+'</b>원';
   $('#summaryBtn').disabled=(c.count===0);
   requestAnimationFrame(fitTotal);
 }
@@ -1726,14 +1735,6 @@ $('#langBtn').addEventListener('click', ()=>{
   toast(L('한국어로 바꿨어요 🌐','Switched to English 🌐'));
 });
 
-/* 통화 기호 바꾸기 (₩ → $ → € → ¥) */
-$('#curBtn').addEventListener('click', ()=>{
-  const st=store();
-  const i=CUR_SYMS.indexOf(sym(st));
-  st.sym=CUR_SYMS[(i+1)%CUR_SYMS.length];
-  save(); renderMenu(); renderBar();
-  toast(L('통화를 '+sym(st)+' 로 바꿨어요','Currency set to '+sym(st)));
-});
 window.addEventListener('resize', fitPad);
 window.addEventListener('resize', fitTotal);
 
