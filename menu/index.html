@@ -2157,13 +2157,13 @@ function revealField(el){
   var lh=$('#listHead');
   if(lh && !lh.hidden) topPad+=lh.getBoundingClientRect().height;
   var freeTop=vTop+topPad, freeBottom=vBottom-16, freeH=freeBottom-freeTop;
-  if(freeH<80) return;
+  if(freeH<=0) return;
   if(r.top>=freeTop && r.bottom<=vBottom-24) return;   /* 이미 다 보임 */
   var box=el.closest('form, .panel') || el;
   var br=box.getBoundingClientRect();
   var dy;
   if(br.height<=freeH){ dy=Math.round(br.bottom-freeBottom); }         /* 입력 한 벌이 자판 위에 다 들어가면 그 아래를 자판에 맞춤 */
-  else { dy=Math.round((r.top+r.height/2)-(freeTop+freeBottom)/2); }    /* 아니면 입력칸을 가운데로 */
+  else { dy=Math.round(r.top-(freeTop+8)); }                     /* 아니면 입력칸을 헤더 바로 아래에 붙여 아래를 최대한 살림 */
   if(!dy) return;
   try{ window.scrollBy({top:dy, behavior:'smooth'}); }catch(err){ try{ window.scrollBy(0, dy); }catch(err2){} }
 }
