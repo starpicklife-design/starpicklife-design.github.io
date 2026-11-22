@@ -158,6 +158,8 @@
   .sub{margin:.25rem auto 0;max-width:22rem;font-size:.84rem;color:#DFE9DE;opacity:.9}
   /* 크리스마스 한 장면: 위아래 빈 공간을 잘라 낸 슬림한 띠 — 캐릭터는 그대로 예쁘게, 세로는 35~40% 짧게 */
   .santa-scene{display:block;width:100%;height:auto;max-width:18rem;margin:.3rem auto 0}
+  /* 큰 화면(태블릿·PC)에서는 그림이 너무 작아 보이지 않도록 조금 더 크게 */
+  @media (min-width:480px){ .santa-scene{max-width:22rem} }
 
   /* ───────── 탭 ───────── */
   .tabs{
