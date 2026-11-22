@@ -7,6 +7,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="와글 파티">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' rx='24' fill='%23163A2D'/%3E%3Cpath d='M60 16l7 14 15 2-11 11 3 15-14-7-14 7 3-15-11-11 15-2z' fill='%23E6B34B'/%3E%3Cpath d='M60 48l20 28H68l16 24H36l16-24H40z' fill='%233A8266'/%3E%3Crect x='55' y='98' width='10' height='10' rx='3' fill='%237A4F2E'/%3E%3C/svg%3E">
 <meta name="description" content="Wagle Holiday Party — a free Christmas table party game for phones. Would You Rather, a 60-second guessing game, and a classic quotes quiz from public-domain books. No sign-up, no ads, no personal data.">
 <title>Wagle Holiday Party 🎄 Free Christmas Table Games</title>
 <style>
@@ -94,13 +99,37 @@
   }
   .tgl:active{transform:scale(.97)}
   .tgl.share{border-color:rgba(230,179,75,.85);background:rgba(230,179,75,.18);color:#FFF6E2}
-  /* 일반폰(≤430px): 브랜드·공유·언어·소리가 한 줄에 깔끔하게 — 글자 겹침·넘침 0 */
+  /* 📲 앱 설치 — 금색으로 눈에 띄게 */
+  .tgl.install{border-color:rgba(255,228,168,.95);background:linear-gradient(180deg,#F6D98F,#E6B34B);
+    color:#3D2A02;box-shadow:0 2px 8px rgba(0,0,0,.26)}
+  .tgl.install[hidden]{display:none}
+  /* 일반폰(≤430px): 브랜드·설치·공유·언어·소리가 한 줄에 깔끔하게 — 글자 겹침·넘침 0
+     (좁은 화면에서는 로고를 WAGLE 워드마크만 남기고, 전체 이름은 바로 아래 제목이 보여 준다) */
   @media (max-width:430px){
     .topbar{gap:.35rem;flex-wrap:wrap}
     .brand{font-size:.66rem;gap:.3rem;letter-spacing:0;flex:0 0 auto}
+    .brand .bn{display:none}
     .toggles{gap:.25rem;margin-left:auto}
     .tgl{padding:.3rem .4rem;font-size:.68rem;gap:.18rem}
   }
+  /* 설치 안내 모달 */
+  .modal{position:fixed;inset:0;z-index:70;display:flex;align-items:flex-end;justify-content:center;
+    background:rgba(6,22,16,.62);padding:0}
+  .modal[hidden]{display:none}
+  .modal .sheet{width:100%;max-width:26rem;background:var(--cream);color:var(--ink);
+    border-radius:1.15rem 1.15rem 0 0;padding:1rem 1rem calc(1rem + env(safe-area-inset-bottom));
+    box-shadow:0 -12px 34px rgba(0,0,0,.4);animation:sheetUp .22s ease-out}
+  @keyframes sheetUp{from{transform:translateY(1.4rem);opacity:.35}to{transform:none;opacity:1}}
+  .modal .sheet h3{margin:.1rem 0 .35rem;font-size:1.06rem;line-height:1.3;color:#1E2B24}
+  .modal .sheet .note{margin:0 0 .7rem;font-size:.82rem;line-height:1.5;color:#4F5A50}
+  .modal .sheet .note b{color:#1E4B33}
+  .isteps{list-style:none;margin:0 0 .2rem;padding:0;display:flex;flex-direction:column;gap:.5rem}
+  .isteps li{background:#F6EDDA;border:1.5px solid #E4D6B6;border-radius:.8rem;padding:.55rem .7rem;
+    font-size:.8rem;line-height:1.45;color:#3C4436}
+  .isteps li > b{display:block;font-size:.84rem;color:#1E4B33;margin-bottom:.1rem}
+  .isteps li > span{display:block}
+  .isteps li b{color:#1E4B33}
+  .modal .mrow{display:flex;gap:.45rem;margin-top:.8rem}
   /* 📤 공유 알림 */
   #toast{position:fixed;left:50%;bottom:calc(1.6rem + env(safe-area-inset-bottom));transform:translate(-50%,.8rem);
     background:rgba(255,249,238,.97);color:#163A2D;border:1.5px solid rgba(230,179,75,.75);border-radius:1rem;
@@ -274,15 +303,18 @@
 
 <div class="app">
   <div class="topbar">
-    <div class="brand"><span aria-hidden="true">🎄</span> <b>WAGLE</b> HOLIDAY PARTY</div>
+    <div class="brand"><span aria-hidden="true">🎄</span> <b>WAGLE</b> <span class="bn" data-en="HOLIDAY PARTY" data-ko="홀리데이 파티">HOLIDAY PARTY</span></div>
     <div class="toggles">
+      <button class="tgl install" id="installBtn" type="button" aria-haspopup="dialog" aria-label="앱 설치 안내">
+        <span aria-hidden="true">📲</span><span data-en="Install" data-ko="설치">설치</span>
+      </button>
       <button class="tgl share" id="shareBtn" type="button" aria-label="Share this page">
         <span aria-hidden="true">📤</span><span id="shareLabel" data-en="Share" data-ko="공유">Share</span>
       </button>
       <button class="tgl" id="langBtn" type="button" aria-label="Language">
         <span aria-hidden="true">🌐</span><span id="langLabel">한</span>
       </button>
-      <button class="tgl" id="soundBtn" type="button" aria-pressed="true" aria-label="Sound">
+      <button class="tgl" id="soundBtn" type="button" aria-pressed="true" aria-label="Sound" data-en-aria="Sound" data-ko-aria="소리">
         <span id="soundIcon" aria-hidden="true">🔔</span><span id="soundLabel" data-en="Sound On" data-ko="소리 켜짐">Sound On</span>
       </button>
     </div>
@@ -296,7 +328,8 @@
 
     <!-- 와글가족(미미·테오·아기) + 니키(세희) 인라인 SVG : 외부 이미지 0개 -->
     <svg class="santa-scene" viewBox="0 0 380 182" role="img" aria-labelledby="sceneTitle">
-      <title id="sceneTitle">The Wagle family and Niki in Santa hats and winter scarves</title>
+      <title id="sceneTitle" data-en="The Wagle family and Niki in Santa hats and winter scarves"
+             data-ko="산타 모자와 겨울 목도리를 한 와글가족과 니키">The Wagle family and Niki in Santa hats and winter scarves</title>
       <defs>
         <radialGradient id="glow" cx="50%" cy="40%" r="60%">
           <stop offset="0%" stop-color="#3A7A5F" stop-opacity=".55"/>
@@ -439,7 +472,7 @@
     </svg>
   </header>
 
-  <div class="tabs" role="tablist" aria-label="Games">
+  <div class="tabs" role="tablist" aria-label="Games" data-en-aria="Games" data-ko-aria="게임">
     <button class="tab" role="tab" id="tab-wyr" aria-controls="panel-wyr" aria-selected="true" data-tab="wyr" type="button">
       <span class="em" aria-hidden="true">⚖️</span><span data-en="Would You Rather" data-ko="밸런스 게임">Would You Rather</span>
     </button>
@@ -490,7 +523,7 @@
         </div>
         <h2 class="qt" data-en="Describe the word. Don't say the word." data-ko="단어를 설명하세요. 단어는 말하지 마세요.">Describe the word. Don't say the word.</h2>
         <p class="tiny" style="margin:-.5rem 0 .8rem;line-height:1.5" data-en="Hold the phone on your forehead or pass it around. Your team guesses out loud. Tap ✅ for each correct guess, ⏭️ to skip." data-ko="폰을 이마에 대거나 옆으로 돌려 가며, 팀이 소리 내어 맞힙니다. 맞히면 ✅, 넘어가려면 ⏭️를 누르세요.">Hold the phone on your forehead or pass it around. Your team guesses out loud. Tap ✅ for each correct guess, ⏭️ to skip.</p>
-        <div class="chips" id="huChips" role="group" aria-label="Word category">
+        <div class="chips" id="huChips" role="group" aria-label="Word category" data-en-aria="Word category" data-ko-aria="단어 종류">
           <button class="chip" type="button" data-cat="all" aria-pressed="true"><span data-en="🎲 All" data-ko="🎲 전체">🎲 All</span></button>
           <button class="chip" type="button" data-cat="winter" aria-pressed="false"><span data-en="🎄 Winter" data-ko="🎄 겨울">🎄 Winter</span></button>
           <button class="chip" type="button" data-cat="party" aria-pressed="false"><span data-en="🎉 Party" data-ko="🎉 파티">🎉 Party</span></button>
@@ -557,6 +590,24 @@
 
 <div id="toast" role="status" aria-live="polite"></div>
 
+<!-- 📲 홈 화면에 앱 설치 안내 -->
+<div class="modal" id="installModal" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="instTitle">
+    <h3 id="instTitle" data-en="📲 Keep it on your home screen like an app" data-ko="📲 홈 화면에 앱처럼 꺼내 두기">📲 홈 화면에 앱처럼 꺼내 두기</h3>
+    <p class="note" data-en="Once it's on your home screen, one tap opens the party games — even when the internet is slow."
+       data-ko="한 번 꺼내 두면 <b>아이콘만 눌러</b> 바로 열려요. 인터넷이 느려도 게임이 열립니다.">한 번 꺼내 두면 <b>아이콘만 눌러</b> 바로 열려요. 인터넷이 느려도 게임이 열립니다.</p>
+    <ol class="isteps">
+      <li><b data-en="Chrome · Samsung Internet" data-ko="크롬 · 삼성 인터넷">크롬 · 삼성 인터넷</b>
+        <span data-en="Tap ⋮ at the top right → Add to Home screen (or Install app)" data-ko="오른쪽 위 <b>⋮</b> → <b>홈 화면에 추가</b>(또는 앱 설치)를 눌러 주세요">오른쪽 위 <b>⋮</b> → <b>홈 화면에 추가</b>(또는 앱 설치)를 눌러 주세요</span></li>
+      <li><b data-en="KakaoTalk or another in-app browser" data-ko="카톡 같은 인앱 브라우저">카톡 같은 인앱 브라우저</b>
+        <span data-en="First tap ⋮ → Open in another browser (Chrome)" data-ko="먼저 <b>⋮</b> → <b>다른 브라우저(크롬)로 열기</b>를 눌러 주세요">먼저 <b>⋮</b> → <b>다른 브라우저(크롬)로 열기</b>를 눌러 주세요</span></li>
+      <li><b data-en="iPhone · iPad (Safari)" data-ko="아이폰 · 아이패드(사파리)">아이폰 · 아이패드(사파리)</b>
+        <span data-en="Tap Share (□↑) below → Add to Home Screen" data-ko="아래 <b>공유(□↑)</b> → <b>홈 화면에 추가</b>를 눌러 주세요">아래 <b>공유(□↑)</b> → <b>홈 화면에 추가</b>를 눌러 주세요</span></li>
+    </ol>
+    <div class="mrow"><button class="btn primary" id="instClose" type="button" data-en="Got it" data-ko="알겠어요">알겠어요</button></div>
+  </div>
+</div>
+
 <script>
 (function(){
   "use strict";
@@ -567,7 +618,12 @@
     set: function(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
   };
   var qs = new URLSearchParams(location.search).get("lang");
-  var lang = LS.get("waglePartyLang", null) || (qs === "ko" ? "ko" : "en");
+  var savedLang = LS.get("waglePartyLang", null);
+  /* 주소창의 ?lang= 이 저장된 설정보다 우선한다 (공유 링크가 늘 보낸 사람 언어로 열리도록).
+     언어를 직접 바꾸면 그 선택을 localStorage에 기억해 다음 방문에도 유지한다. */
+  var lang = (qs === "ko" || qs === "en") ? qs
+           : ((savedLang === "ko" || savedLang === "en") ? savedLang : "en");
+  if(qs === "ko" || qs === "en"){ LS.set("waglePartyLang", lang); }
   var soundOn = LS.get("waglePartySound", true) !== false;  /* 2026-11-22: 기본 효과음 켜짐 */
 
   function T(o){ return (o && (o[lang] || o.en)) || ""; }
@@ -595,9 +651,12 @@
     secLeft: {en:"sec left", ko:"초 남음"},
     shareTitle: {en:"Wagle Holiday Party 🎄 Free Christmas Table Games", ko:"와글 홀리데이 파티 🎄 무료 크리스마스 테이블 게임"},
     shareText: {en:"🎄 Wagle Holiday Party — three Christmas party games for your table (Would You Rather, 60-second guessing, classic quotes). No sign-up, no ads. Open the link on any phone!",
-                ko:"🎄 와글 홀리데이 파티 — 식탁 위 크리스마스 파티게임 3종(밸런스 게임·60초 초성 퀴즈·고전 명대사). 가입 없음, 광고 없음. 아무 폰에서나 링크를 열면 끝!"},
+                ko:"🎄 와글 홀리데이 파티 — 식탁 위 크리스마스 파티게임 3종(밸런스 게임·60초 이마 게임·고전 명대사). 가입 없음, 광고 없음. 아무 폰에서나 링크를 열면 끝!"},
     shareCopied: {en:"Share text and link copied. Paste it into KakaoTalk", ko:"공유 문구와 링크를 복사했어요! 카톡에 붙여넣기 하세요"},
-    shareCopyFail: {en:"If copying fails, copy the link from the address bar", ko:"복사가 안 되면 주소창의 링크를 복사해 보내 주세요"}
+    shareCopyFail: {en:"If copying fails, copy the link from the address bar", ko:"복사가 안 되면 주소창의 링크를 복사해 보내 주세요"},
+    installStarted: {en:"Installation started 📲", ko:"설치를 시작했어요 📲"},
+    installHint: {en:"Tap 📲 Install anytime for the steps", ko:"언제든 📲 설치를 다시 누르면 안내해 드려요"},
+    installDone: {en:"Added to your home screen 📲", ko:"홈 화면에 앱을 꺼내 두었어요 📲"}
   };
 
   /* ══════════════ 효과음 (짧은 합성음, 외부 파일 0개) ══════════════ */
@@ -859,7 +918,7 @@
     if(s <= 5 && s > 0 && s !== hu.lastTick){ hu.lastTick = s; sfx("tick"); }
     if(hu.left <= 0){ huFinish(); }
   }
-  function huFinish(){
+  function huFinish(quiet){
     clearInterval(hu.timer); hu.timer = null;
     hu.state = "end";
     $("#huPlay").hidden = true; $("#huEnd").hidden = false;
@@ -869,7 +928,7 @@
     hu.got.forEach(function(w){ var s = document.createElement("span"); s.className = "ok"; s.textContent = "✅ " + T(w); recap.appendChild(s); });
     hu.passed.forEach(function(w){ var s = document.createElement("span"); s.className = "no"; s.textContent = "⏭️ " + T(w); recap.appendChild(s); });
     if(!hu.got.length && !hu.passed.length){ var e = document.createElement("span"); e.textContent = lang === "ko" ? "이번엔 단어를 못 봤어요" : "No words this round"; recap.appendChild(e); }
-    sfx("end"); buzz([80,60,120]);
+    if(!quiet){ sfx("end"); buzz([80,60,120]); }  /* 언어를 바꿀 때는 소리·진동 없이 다시 그리기만 */
   }
   function huAdvance(kind){
     if(hu.state !== "play") return;
@@ -920,7 +979,7 @@
       choices:[{en:"mouse", ko:"생쥐"},{en:"reindeer", ko:"순록"},{en:"stocking", ko:"양말"}],
       answer:0,
       note:{en:"The quietest line in Christmas poetry. (Korean line above is a translation of the answer.)",
-            ko:"크리스마스 시에서 가장 조용한 한 줄. 정답은 ‘생쥐(mouse)’입니다."},
+            ko:"크리스마스 시에서 가장 조용한 한 줄. 정답은 ‘생쥐’입니다."},
       src:{en:"A Visit from St. Nicholas — Clement Clarke Moore, 1823", ko:"《성 니콜라스의 방문》 — 클레멘트 클라크 무어, 1823"}
     },
     {
@@ -1133,7 +1192,14 @@
     document.title = T(TXT.title);
     $$("[data-en]").forEach(function(el){
       var s = el.getAttribute("data-" + lang);
-      if(s !== null) el.textContent = s;
+      if(s === null) return;
+      if(/<[a-z][^>]*>/i.test(s)) el.innerHTML = s;   /* 굵은 글씨 같은 서식이 들어간 문구 */
+      else el.textContent = s;
+    });
+    /* 접근성 이름(aria-label)도 함께 번역 — 화면 낱말과 같은 언어로 읽히게 */
+    $$("[data-en-aria]").forEach(function(el){
+      var s = el.getAttribute("data-" + lang + "-aria");
+      if(s !== null) el.setAttribute("aria-label", s);
     });
     $("#langLabel").textContent = (lang === "ko") ? "EN" : "한";
     $("#langBtn").setAttribute("aria-label", (lang === "ko") ? "Switch to English" : "한국어로 보기");
@@ -1141,7 +1207,19 @@
     $("#soundIcon").textContent = soundOn ? "🔔" : "🔕";
     $("#soundBtn").setAttribute("aria-pressed", soundOn ? "true" : "false");
     $("#shareBtn").setAttribute("aria-label", (lang === "ko") ? "이 페이지 공유하기" : "Share this page");
+    var ib = $("#installBtn");
+    if(ib) ib.setAttribute("aria-label", (lang === "ko") ? "앱 설치 안내" : "How to install the app");
     var c = $("#huClock"); if(c) c.textContent = Math.ceil(hu.left);
+  }
+
+  /* 주소창에도 지금 언어를 반영 (?lang=ko 유지 / 영어는 파라미터 없이) */
+  function syncUrlLang(){
+    try{
+      if(!history.replaceState) return;
+      var u = new URL(location.href);
+      if(lang === "ko") u.searchParams.set("lang", "ko"); else u.searchParams.delete("lang");
+      history.replaceState(null, "", u.pathname + u.search + u.hash);
+    }catch(e){}
   }
 
   function renderAll(){
@@ -1151,7 +1229,7 @@
       if(hu.current) $("#huWord").textContent = T(hu.current);
       $("#huCat").textContent = hu.current ? catLabel(hu.current.cat) : "";
     } else if(hu.state === "end"){
-      huFinish();
+      huFinish(true);
     }
     if($("#qEnd").hidden === false){
       $("#qFinal").textContent = qg.score;
@@ -1189,6 +1267,7 @@
   $("#langBtn").addEventListener("click", function(){
     lang = (lang === "ko") ? "en" : "ko";
     LS.set("waglePartyLang", lang);
+    syncUrlLang();
     renderAll();
   });
   $("#soundBtn").addEventListener("click", function(){
@@ -1248,6 +1327,75 @@
     copyShare(payload);
   }
   $("#shareBtn").addEventListener("click", doShare);
+
+  /* ══════════════ 📲 홈 화면에 앱 설치 (PWA) ══════════════ */
+  var installBtn = $("#installBtn"), deferredPrompt = null, installedApp = false;
+  function standaloneNow(){
+    try{
+      if(window.matchMedia){
+        if(window.matchMedia("(display-mode: standalone)").matches) return true;
+        if(window.matchMedia("(display-mode: minimal-ui)").matches) return true;
+      }
+    }catch(e){}
+    if(navigator.standalone === true) return true;
+    if(/^android-app:\/\//i.test(document.referrer || "")) return true;
+    return false;
+  }
+  function syncInstallBtn(){ if(installBtn) installBtn.hidden = installedApp || standaloneNow(); }
+  function openInstall(){
+    var m = $("#installModal"); if(!m) return;
+    m.hidden = false;
+    try{ document.documentElement.style.overflow = "hidden"; }catch(e){}
+  }
+  function closeInstall(){
+    var m = $("#installModal"); if(!m) return;
+    m.hidden = true;
+    try{ document.documentElement.style.overflow = ""; }catch(e){}
+  }
+  if(installBtn){
+    syncInstallBtn();
+    try{
+      var mq = window.matchMedia && window.matchMedia("(display-mode: standalone)");
+      if(mq){ if(mq.addEventListener) mq.addEventListener("change", syncInstallBtn); else if(mq.addListener) mq.addListener(syncInstallBtn); }
+    }catch(e){}
+    installBtn.addEventListener("click", function(){
+      sfx("tap");
+      if(deferredPrompt){
+        var dp = deferredPrompt; deferredPrompt = null;
+        try{
+          dp.prompt();
+          if(dp.userChoice && dp.userChoice.then){
+            dp.userChoice.then(function(r){
+              if(r && r.outcome === "accepted") toast(T(TXT.installStarted));
+              else toast(T(TXT.installHint));
+              syncInstallBtn();
+            }).catch(function(){});
+          }
+        }catch(e){ openInstall(); }
+        return;
+      }
+      openInstall();   /* 브라우저 설치 창을 못 쓰는 환경(카톡 인앱·아이폰 등)은 단계 안내 */
+    });
+  }
+  var instModal = $("#installModal");
+  if(instModal){
+    instModal.addEventListener("click", function(e){ if(e.target === instModal) closeInstall(); });
+    var ic = $("#instClose"); if(ic) ic.addEventListener("click", function(){ sfx("tap"); closeInstall(); });
+    document.addEventListener("keydown", function(e){ if(e.key === "Escape" && !instModal.hidden) closeInstall(); });
+  }
+  window.addEventListener("beforeinstallprompt", function(e){
+    if(e && e.preventDefault) e.preventDefault();
+    deferredPrompt = e; syncInstallBtn();
+  });
+  window.addEventListener("appinstalled", function(){
+    installedApp = true; deferredPrompt = null; syncInstallBtn();
+    toast(T(TXT.installDone));
+  });
+  if("serviceWorker" in navigator && location.protocol !== "file:"){
+    window.addEventListener("load", function(){
+      try{ navigator.serviceWorker.register("./sw.js").catch(function(){}); }catch(e){}
+    });
+  }
 
   /* 시작 */
   applyStatic();
