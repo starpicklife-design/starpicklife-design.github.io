@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#3E2C22" />
-<!-- build: 2026-11-22 wagle-table ocr-v5 · header-v8 (새 가게·색 구분·가게 고르기 삭제) -->
+<!-- build: 2026-11-22 wagle-table ocr-v5 · header-v9 (메뉴 지우기 체크박스 일괄삭제) -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
@@ -100,8 +100,8 @@ main{padding:.7rem .75rem 0;max-width:34rem;margin:0 auto}
   font-size:.82rem;font-weight:800;color:var(--ink2);min-height:2.8rem;white-space:nowrap}
 .mini[aria-pressed="true"]{background:#FFF1D8;border-color:var(--gold);color:#8A6210}
 .mini.danger{color:#A63A2A}
-.listhead{display:flex;gap:.4rem;margin-bottom:.55rem}
-.listhead .mini:last-child{margin-left:auto}
+.listhead{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;margin-bottom:.55rem}
+.listhead .mini:last-child{margin-left:auto;flex:1 1 auto}
 .list{display:flex;flex-direction:column;gap:.55rem}
 .item{display:grid;grid-template-columns:2.4rem 1fr auto;align-items:center;gap:.4rem;
   background:var(--card);border:2px solid var(--line);border-radius:1rem;padding:.45rem .5rem;box-shadow:var(--shadow)}
@@ -121,6 +121,50 @@ main{padding:.7rem .75rem 0;max-width:34rem;margin:0 auto}
 .empty{background:#fff;border:2px dashed var(--line);border-radius:1rem;padding:1.4rem .9rem;
   text-align:center;color:var(--ink2);font-size:1rem;font-weight:700;line-height:1.5}
 .hint{font-size:.82rem;color:#8B7A6B;margin:.55rem .2rem .9rem;font-weight:700;line-height:1.4}
+
+/* ★ 즐겨찾기만 — ★ 메뉴는 선명하게 위로, 나머지는 연하게(누르면 그대로 동작) */
+.item.dim{opacity:.42}
+.item.dim.on{opacity:.58}
+.item.dim.sel{opacity:1}
+.favsep{display:flex;align-items:center;gap:.45rem;font-size:.72rem;font-weight:900;color:#8B7A6B;
+  letter-spacing:-.01em;margin:.1rem .15rem -.1rem}
+.favsep::after{content:"";flex:1 1 auto;height:2px;border-radius:2px;
+  background:repeating-linear-gradient(90deg,var(--line) 0 9px,transparent 9px 15px)}
+.favsep.fav{color:#8A6210}
+.favnote{font-size:.82rem;font-weight:800;color:#8A6210;background:#FFF7E3;border:2px dashed #E7C88C;
+  border-radius:.8rem;padding:.45rem .6rem;margin-bottom:.55rem;line-height:1.4}
+
+/* ── 🗑️ 메뉴 지우기 (체크해서 한꺼번에) ── */
+.mini.delmode{color:#8A2E22;border-color:#E8BFB7;background:#FFF4F2}
+.mini.delmode:active{transform:translateY(1px)}
+.mini.delmode:disabled{opacity:.45}
+.selbar{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem;margin-bottom:.55rem}
+.seldel{flex:1 1 auto;min-height:2.8rem;border-radius:.8rem;border:2px solid #A63A2A;
+  background:#C4564A;color:#fff;font-size:.86rem;font-weight:900;letter-spacing:-.015em;
+  padding:.35rem .5rem;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seldel:disabled{opacity:.42}
+.seldel:active{transform:translateY(1px)}
+.seltool{flex:0 0 auto;font-size:.72rem;padding:.3rem .45rem;min-height:2.8rem}
+/* 선택 모드 메뉴 카드 — 카드 어디를 눌러도 체크/해제 */
+.list.selmode .item{grid-template-columns:2.7rem 1fr;grid-template-areas:none;gap:.55rem;
+  padding:.55rem .6rem;text-align:left;width:100%;font-family:inherit;cursor:pointer}
+.list.selmode .item.sel{border-color:#C4564A;background:#FFF5F3;box-shadow:0 3px 10px rgba(196,86,74,.18)}
+.list.selmode .item:focus-visible{outline:3px solid #2E8A82;outline-offset:2px}
+.cbox{width:1.9rem;height:1.9rem;border-radius:.55rem;border:2.5px solid #C8B29A;background:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:900;
+  line-height:1;color:transparent;flex:0 0 auto}
+.item.sel .cbox{background:#C4564A;border-color:#C4564A;color:#fff}
+.selinfo{display:flex;flex-direction:column;align-items:flex-start;gap:.05rem;min-width:0}
+html.big .list.selmode .item{grid-template-columns:3rem 1fr;grid-template-areas:none}
+html.big .cbox{width:2.2rem;height:2.2rem;font-size:1.4rem;border-radius:.6rem}
+html.big .seldel{font-size:.74rem;min-height:2.9rem}
+html.big .seltool{font-size:.66rem;min-height:2.9rem}
+@media (max-width:389px){
+  .listhead .mini{padding-left:.42rem;padding-right:.42rem}
+  .seldel{font-size:.78rem;padding:.35rem .4rem}
+  .seltool{font-size:.66rem;padding:.3rem .38rem}
+  .list.selmode .item{grid-template-columns:2.4rem 1fr;gap:.45rem}
+}
 
 /* ── 카드 / 추가 ── */
 .card{background:#fff;border:2px solid var(--line);border-radius:1.1rem;padding:.8rem;margin-bottom:.9rem;box-shadow:var(--shadow)}
@@ -198,6 +242,24 @@ main{padding:.7rem .75rem 0;max-width:34rem;margin:0 auto}
 .mrow{display:flex;flex-direction:column;gap:.55rem;margin-top:1rem}
 .mrow .btn{width:100%;font-size:1.1rem;min-height:3.4rem}
 .fieldlabel{font-size:.9rem;font-weight:900;color:var(--ink2);margin:.2rem 0 .3rem;display:block}
+/* 🔥 핫 / 🧊 아이스 — 메뉴 이름 뒤에 (핫)/(아이스) 붙이기 */
+.tempRow{display:flex;gap:.4rem;margin:.15rem 0 .55rem}
+.tempbtn{flex:1 1 0;min-width:0;min-height:2.9rem;border-radius:.8rem;border:2px solid var(--line);
+  background:#FFFBF2;font-size:.95rem;font-weight:900;color:var(--ink2);
+  display:flex;align-items:center;justify-content:center;gap:.3rem;padding:.3rem .4rem;letter-spacing:-.02em}
+.tempbtn:active{transform:translateY(1px)}
+.tempbtn.hot[aria-pressed="true"]{background:#FFE0D2;border-color:#C0562B;color:#8A3A16}
+.tempbtn.ice[aria-pressed="true"]{background:#DDEEFB;border-color:#2E7FA8;color:#14556F}
+html.big .tempbtn{font-size:.82rem;min-height:3rem}
+/* 두 번째 줄 — 빠른 이름 (아아·뜨아·카라·바라·돌라) */
+.nameRow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.3rem;margin:0 0 .55rem}
+html[lang="en"] .nameRow{grid-template-columns:repeat(3,minmax(0,1fr))}
+.qname{min-width:0;min-height:2.7rem;border-radius:.7rem;border:2px solid var(--line);background:#fff;
+  font-size:.9rem;font-weight:900;color:var(--coffee);padding:.25rem .18rem;letter-spacing:-.04em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qname:active{transform:translateY(1px);background:#FFF3E2;border-color:var(--gold)}
+html.big .qname{font-size:.76rem;min-height:2.9rem}
+html.big[lang="en"] .qname{font-size:.72rem}
 .modal h3{margin:0 0 .5rem;font-size:1.15rem;font-weight:900;color:var(--coffee)}
 .modal p{margin:.2rem 0 .6rem;font-size:.95rem;font-weight:700;color:var(--ink2);line-height:1.5}
 .modal input[type=text],.modal input:not([type]){width:100%;border:2px solid var(--line);border-radius:.8rem;
@@ -870,9 +932,17 @@ html.big .isteps li>span{font-size:1rem}
     <span id="menuCount" class="count">메뉴 0개</span>
   </div>
 
-  <div class="listhead">
+  <div class="listhead" id="listHead">
     <button id="starFilter" class="mini" aria-pressed="false">★ 즐겨찾기만</button>
+    <button id="bulkBtn" class="mini delmode" data-act="bulkmode">🗑️ 메뉴 지우기</button>
     <button class="mini" data-act="reset">주문 비우기</button>
+  </div>
+
+  <!-- 🗑️ 메뉴 지우기 — 체크해서 한꺼번에 지우는 선택 모드 -->
+  <div class="selbar" id="selBar" role="group" aria-label="메뉴 지우기" hidden>
+    <button type="button" id="selDel" class="seldel" disabled>선택한 0개 지우기</button>
+    <button type="button" id="selAll" class="mini seltool" aria-pressed="false">전체 선택</button>
+    <button type="button" id="selDone" class="mini seltool">완료(취소)</button>
   </div>
 
   <div id="menuList" class="list"></div>
@@ -984,6 +1054,17 @@ html.big .isteps li>span{font-size:1rem}
 <div class="modal center" id="editModal" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="editTitle">
     <h3 id="editTitle">메뉴 고치기</h3>
+    <div class="tempRow" id="tempRow" role="group" aria-label="핫 / 아이스 빠른 선택">
+      <button type="button" class="tempbtn hot" id="tempHot" aria-pressed="false">🔥 핫</button>
+      <button type="button" class="tempbtn ice" id="tempIce" aria-pressed="false">🧊 아이스</button>
+    </div>
+    <div class="nameRow" id="nameRow" role="group" aria-label="빠른 이름">
+      <button type="button" class="qname" data-ko="아아" data-en="Iced Amer.">아아</button>
+      <button type="button" class="qname" data-ko="뜨아" data-en="Hot Amer.">뜨아</button>
+      <button type="button" class="qname" data-ko="카라" data-en="Latte">카라</button>
+      <button type="button" class="qname" data-ko="바라" data-en="Vanilla">바라</button>
+      <button type="button" class="qname" data-ko="돌라" data-en="Dolce">돌라</button>
+    </div>
     <label class="fieldlabel" for="editName" id="edNameLab">메뉴 이름</label>
     <input id="editName" type="text">
     <label class="fieldlabel" for="editPrice" id="edPriceLab">가격(원)</label>
@@ -1404,6 +1485,11 @@ function applyLang(){
   setTxt('[data-close="nameModal"]','취소','Cancel');
 
   setTxt('#editTitle','메뉴 고치기','Edit Menu');
+  setTxt('#tempHot','🔥 핫','🔥 Hot');
+  setTxt('#tempIce','🧊 아이스','🧊 Iced');
+  setAttr('#tempRow','aria-label','핫 / 아이스 빠른 선택','Hot / Iced quick pick');
+  setAttr('#nameRow','aria-label','빠른 이름','Quick names');
+  $$('#nameRow .qname').forEach(function(b){ b.textContent = EN()? b.getAttribute('data-en') : b.getAttribute('data-ko'); });
   setTxt('#edNameLab','메뉴 이름','Menu name');
   setTxt('#edPriceLab','가격(원)','Price');
   setTxt('#editSave','저장','Save');
@@ -1508,18 +1594,47 @@ function renderMenu(){
   const sf=$('#starFilter');
   sf.setAttribute('aria-pressed', S.filterFav?'true':'false');
   sf.textContent = S.filterFav? L('★ 즐겨찾기만 (켜짐)','Favorites ★ (on)') : L('★ 즐겨찾기만','Favorites ★');
+  const bulk=$('#bulkBtn');
+  if(bulk){
+    bulk.disabled = !st.menus.length;
+    bulk.textContent = L('🗑️ 메뉴 지우기','🗑️ Delete Items');
+    bulk.setAttribute('aria-label', L('지울 메뉴 고르기','Choose items to delete'));
+  }
   const box=$('#menuList');
+  box.classList.toggle('selmode', selMode);
+  renderSelBar();
   if(!st.menus.length){
     box.innerHTML='<div class="empty">'+EMPTY_ART()+'<div>'+L('아직 메뉴가 없어요.<br>아래 <b>메뉴 추가</b>에서 하나씩 넣어 주세요.','No menu items yet.<br>Add them one by one under <b>Add Menu</b> below.')+'</div></div>';
     return;
   }
-  const list = S.filterFav? st.menus.filter(m=>m.fav) : st.menus;
-  if(!list.length){
-    box.innerHTML='<div class="empty">'+EMPTY_ART_STAR()+'<div>'+L('★ 표시한 메뉴가 없어요.<br>메뉴 옆 ☆를 눌러 표시해 보세요.','No favorites yet.<br>Tap ☆ next to an item to mark it.')+'</div></div>';
+  /* ★ 즐겨찾기만 — 숨기지 않고 ★ 메뉴는 위로 모아 선명하게, 나머지는 연하게(눌러도 그대로 동작) */
+  const favN = st.menus.filter(m=>m.fav).length;
+  const list = S.filterFav
+    ? st.menus.map((m,i)=>({m:m,i:i})).sort((a,b)=>((b.m.fav?1:0)-(a.m.fav?1:0))||(a.i-b.i)).map(x=>x.m)
+    : st.menus;
+  const dimOf = m => !!(S.filterFav && !m.fav);
+  if(selMode){
+    /* 선택 모드 — 카드 왼쪽 큰 체크박스, 카드 어디를 눌러도 체크/해제 */
+    box.innerHTML=list.map(m=>
+      `<button type="button" class="item selitem${selIds.has(m.id)?' sel':''}${dimOf(m)?' dim':''}" data-act="seltoggle" data-id="${m.id}" role="checkbox" aria-checked="${selIds.has(m.id)?'true':'false'}" aria-label="${esc(dn(m.name))}">
+        <span class="cbox" aria-hidden="true">✓</span>
+        <span class="selinfo"><span class="name">${esc(dn(m.name))}</span><span class="price">${esc(money(m.price,st))}</span></span>
+      </button>`
+    ).join('');
     return;
   }
-  box.innerHTML=list.map(m=>
-    `<div class="item${m.qty>0?' on':''}">
+  let html='';
+  if(S.filterFav && !favN){
+    html+='<div class="favnote">'+L('★ 표시한 메뉴가 아직 없어요. 메뉴 옆 ☆를 누르면 즐겨찾기로 모여요.','No favorites yet — tap ☆ next to an item to collect it here.')+'</div>';
+  }
+  let sepFav=false, sepOther=false;
+  list.forEach(m=>{
+    if(S.filterFav && favN){
+      if(m.fav && !sepFav){ html+='<div class="favsep fav">'+L('★ 즐겨찾기','★ Favorites')+'</div>'; sepFav=true; }
+      if(!m.fav && !sepOther){ html+='<div class="favsep">'+L('그 밖의 메뉴 · 연하게','Other items · dimmed')+'</div>'; sepOther=true; }
+    }
+    html+=
+    `<div class="item${m.qty>0?' on':''}${dimOf(m)?' dim':''}">
       <button class="star" data-act="star" data-id="${m.id}" aria-pressed="${m.fav}" aria-label="${esc(dn(m.name))} ${L('즐겨찾기 표시','favorite')}">${m.fav?'★':'☆'}</button>
       <button class="info" data-act="edit" data-id="${m.id}" aria-label="${esc(dn(m.name))} ${L('고치기','edit')}">
         <span class="name">${esc(dn(m.name))}</span>
@@ -1530,9 +1645,87 @@ function renderMenu(){
         <div class="num">${m.qty}</div>
         <button class="qbtn plus" data-act="plus" data-id="${m.id}" aria-label="${esc(dn(m.name))} ${L('하나 더','plus one')}">＋</button>
       </div>
-    </div>`
-  ).join('');
+    </div>`;
+  });
+  box.innerHTML=html;
 }
+
+/* ── 🗑️ 메뉴 지우기 (체크박스 일괄 삭제) ── */
+let selMode=false;
+const selIds=new Set();
+function visibleMenus(st){ return st.menus; }
+function clearSel(){ selMode=false; selIds.clear(); }
+function startSel(){
+  const st=store();
+  if(!st.menus.length){ toast(L('지울 메뉴가 없어요','There are no items to delete')); return; }
+  selMode=true; selIds.clear();
+  renderMenu();
+  const d=$('#selDone');
+  if(d && d.focus) try{ d.focus({preventScroll:true}); }catch(e){}
+}
+function renderSelBar(){
+  const bar=$('#selBar'), head=$('#listHead');
+  if(!bar || !head) return;
+  bar.hidden=!selMode;
+  head.hidden=selMode;
+  if(!selMode){
+    const h=$('.hint');
+    if(h) h.textContent = L('💡 메뉴 이름을 누르면 이름·가격 고치기와 지우기가 열려요.','💡 Tap a menu name to edit its name and price, or delete it.');
+    return;
+  }
+  const n=selIds.size, st=store(), vis=visibleMenus(st);
+  const all = vis.length>0 && vis.every(m=>selIds.has(m.id));
+  const del=$('#selDel');
+  if(del){
+    del.disabled = n===0;
+    del.textContent = L('선택한 '+n+'개 지우기','Delete '+n+' Selected');
+    del.setAttribute('aria-label', L('선택한 '+n+'개 지우기','Delete '+n+' selected items'));
+  }
+  const allBtn=$('#selAll');
+  if(allBtn){
+    allBtn.textContent = all? L('전체 해제','Deselect All') : L('전체 선택','Select All');
+    allBtn.setAttribute('aria-pressed', all?'true':'false');
+  }
+  const done=$('#selDone');
+  if(done) done.textContent = L('완료(취소)','Done (Cancel)');
+  const hint=$('.hint');
+  if(hint) hint.textContent = L('지울 메뉴를 눌러 체크한 뒤 위의 빨간 버튼을 누르세요.','Tap the items to delete, then press the red button above.');
+  bar.setAttribute('aria-label', L('메뉴 지우기','Delete menu items'));
+}
+function toggleSel(id){
+  if(!selMode) return;
+  if(selIds.has(id)) selIds.delete(id); else selIds.add(id);
+  renderMenu();
+  const card=$('#menuList [data-act="seltoggle"][data-id="'+id+'"]');
+  if(card && card.focus) try{ card.focus({preventScroll:true}); }catch(e){}
+}
+function toggleSelAll(){
+  const vis=visibleMenus(store());
+  const all = vis.length>0 && vis.every(m=>selIds.has(m.id));
+  if(all) vis.forEach(m=>selIds.delete(m.id)); else vis.forEach(m=>selIds.add(m.id));
+  renderMenu();
+}
+function finishSel(){ clearSel(); renderMenu(); }
+function bulkDelete(){
+  if(!selMode) return;
+  const st=store();
+  const names=st.menus.filter(m=>selIds.has(m.id)).map(m=>dn(m.name));
+  if(!names.length){ toast(L('지울 메뉴를 먼저 체크해 주세요','Check the items to delete first')); return; }
+  const n=names.length, one=(n===1);
+  const shown=names.slice(0,4).join(', ')+(n>4? ' …' : '');
+  askConfirm(L('메뉴 '+n+'개를 지울까요?','Delete '+n+(one?' item':' items')+'?'),
+    L(shown+'를 지웁니다. 담아 둔 주문 수량도 함께 사라져요. 되돌릴 수 없어요.',
+      shown+' will be deleted, along with any ordered quantity. This cannot be undone.'),
+    L('지우기','Delete'), ()=>{
+      const ids=new Set(selIds);
+      st.menus=st.menus.filter(m=>!ids.has(m.id));
+      clearSel(); save(); render();
+      toast(L('메뉴 '+ids.size+'개를 지웠어요','Deleted '+ids.size+(ids.size===1?' item':' items')));
+    });
+}
+$('#selDel').addEventListener('click', bulkDelete);
+$('#selAll').addEventListener('click', toggleSelAll);
+$('#selDone').addEventListener('click', finishSel);
 function calc(){
   const st=store();
   const items=st.menus.filter(m=>m.qty>0);
@@ -1601,7 +1794,10 @@ $$('.modal').forEach(m=>{
   m.addEventListener('click', e=>{ if(e.target===m) hideModal(m.id); });
 });
 document.addEventListener('keydown', e=>{
-  if(e.key==='Escape') $$('.modal').forEach(m=>{ if(!m.hidden) hideModal(m.id); });
+  if(e.key==='Escape'){
+    if(selMode){ finishSel(); return; }
+    $$('.modal').forEach(m=>{ if(!m.hidden) hideModal(m.id); });
+  }
 });
 document.addEventListener('click', e=>{
   const cb=e.target.closest('[data-close]');
@@ -1697,6 +1893,7 @@ function doName(){
   if(nameMode==='new'){
     const s={id:uid(), name:v, unit:'개', sym:'₩', menus:[]};
     S.stores.push(s); S.cur=s.id;
+    clearSel();
     hideModal('nameModal'); save(); render();
     toast(L('새 가게를 만들었어요. 메뉴를 넣어 보세요 🙂','New shop created. Add some items 🙂'));
     return;
@@ -1738,6 +1935,7 @@ function delStore(id){
     const wasCur = st.id===S.cur;
     S.stores=S.stores.filter(s=>s.id!==st.id);
     if(wasCur && S.stores.length) S.cur=S.stores[0].id;
+    clearSel();
     save(); render();
     if($('#delStoreModal') && !$('#delStoreModal').hidden) hideModal('delStoreModal');
     toast(L('"'+st.name+'" 가게를 지웠어요','Deleted the "'+dn(st.name)+'" shop'));
@@ -1785,12 +1983,57 @@ function resetOrder(){
 
 /* ── 메뉴 고치기 ── */
 let editId=null;
+/* 🔥 핫 / 🧊 아이스 — 메뉴 이름 뒤에 (핫)/(아이스) 를 붙이고 바꾸고 떼기 */
+var TEMP_RE=/\s*[\(\[]\s*(핫|아이스|hot|iced)\s*[\)\]]\s*$/i;
+function tempOf(name){
+  var m=TEMP_RE.exec(String(name||''));
+  if(!m) return -1;
+  var t=m[1].toLowerCase();
+  return (t==='핫'||t==='hot')? 0 : 1;
+}
+function stripTemp(name){
+  return String(name||'').replace(TEMP_RE,'').replace(/\s+$/,'');
+}
+function syncTemp(){
+  var el=$('#editName'); if(!el) return;
+  var cur=tempOf(el.value), h=$('#tempHot'), i=$('#tempIce');
+  if(h) h.setAttribute('aria-pressed', cur===0? 'true':'false');
+  if(i) i.setAttribute('aria-pressed', cur===1? 'true':'false');
+}
+function setTemp(kind){
+  var el=$('#editName'); if(!el) return;
+  var idx = kind==='hot'? 0 : 1;
+  var tag = idx===0? L('핫','Hot') : L('아이스','Iced');
+  var base=stripTemp(el.value), cur=tempOf(el.value);
+  var m=TEMP_RE.exec(el.value);
+  /* 지금 단 같은 표기(예: 핫)를 다시 누르면 떼기, 다른 표기면 깔끔하게 바꾸기(예: (Hot) → (핫)) */
+  if(cur===idx && m && m[1].toLowerCase()===tag.toLowerCase()){
+    el.value=base;
+  } else {
+    el.value = base + (base? ' ':'') + '('+tag+')';
+  }
+  syncTemp();
+  try{ el.focus({preventScroll:true}); el.setSelectionRange(el.value.length, el.value.length); }catch(e){}
+}
+$('#tempHot').addEventListener('click', ()=>setTemp('hot'));
+$('#tempIce').addEventListener('click', ()=>setTemp('ice'));
+$('#editName').addEventListener('input', syncTemp);
+/* 빠른 이름 (아아·뜨아·카라·바라·돌라) — 누르면 이름 칸을 그 줄임말로 바로 바꾸기 */
+document.addEventListener('click', e=>{
+  const q=e.target.closest('#nameRow .qname');
+  if(!q) return;
+  const el=$('#editName'); if(!el) return;
+  el.value = (EN()? q.getAttribute('data-en') : q.getAttribute('data-ko')) || '';
+  syncTemp();
+  try{ el.focus({preventScroll:true}); el.setSelectionRange(el.value.length, el.value.length); }catch(err){}
+});
 function openEdit(id){
   const m=store().menus.filter(x=>x.id===id)[0];
   if(!m) return;
   editId=id;
   $('#editName').value=m.name;
   $('#editPrice').value=m.price;
+  syncTemp();
   showModal('editModal');
 }
 $('#editSave').addEventListener('click', ()=>{
@@ -1813,8 +2056,10 @@ document.addEventListener('click', e=>{
   const el=e.target.closest('[data-act]');
   if(!el) return;
   const act=el.dataset.act, id=el.dataset.id, st=store();
-  if(act==='store'){ S.cur=id; save(); render(); }
+  if(act==='store'){ if(selMode) clearSel(); S.cur=id; save(); render(); }
   else if(act==='newstore'){ askName('new'); }
+  else if(act==='bulkmode'){ startSel(); }
+  else if(act==='seltoggle'){ toggleSel(id); }
   else if(act==='renamestore'){ askName('rename'); }
   else if(act==='delstore'){ openDelPicker(); }
   else if(act==='reset'){ resetOrder(); }
