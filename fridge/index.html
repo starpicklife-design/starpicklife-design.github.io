@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#1E4A36" />
-<!-- build: 2026-11-22 와글가족장바구니 v3 · 앱 이름 통일(와글 장바구니 → 와글가족장바구니) -->
+<!-- build: 2026-11-22 와글가족장바구니 v4 · 이름 통일 + 🏠 홈 헤더 이동 · 이름변경 제거 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,13 +54,15 @@ html.big .logo{display:none}
 .langtoggle[aria-pressed="true"]{background:rgba(217,162,39,.42);border-color:#F3D391;color:#FFFDF4}
 .langtoggle:active,.bigtoggle:active{transform:translateY(1px)}
 
-/* 관리 줄 — 이름변경 앰버 · 공유 틸 · 설치 골드 */
+/* 관리 줄 — 🏠 홈 · 공유 틸 · 설치 골드 */
 .managerow{display:flex;flex-wrap:wrap;align-items:center;gap:.3rem;margin-top:.36rem}
 .managerow .actions{display:flex;align-items:center;gap:.3rem;margin-left:auto;flex-wrap:wrap}
-.miniact{display:flex;align-items:center;gap:.2rem;flex:0 0 auto;white-space:nowrap;border-radius:2rem;
-  padding:.26rem .6rem;font-size:.78rem;font-weight:900;min-height:2.1rem;letter-spacing:-.01em;
-  background:var(--amber);border:2px solid var(--amber-line);color:var(--amber-ink)}
-.miniact:active{transform:translateY(1px)}
+.headhome{display:flex;align-items:center;gap:.22rem;flex:0 0 auto;white-space:nowrap;
+  background:rgba(242,250,243,.16);border:2px solid rgba(242,250,243,.55);color:#F2FAF3;
+  border-radius:2rem;padding:.24rem .62rem;font-size:.82rem;font-weight:900;min-height:2.1rem;
+  letter-spacing:-.01em}
+.headhome[hidden]{display:none}
+.headhome:active{transform:translateY(1px)}
 .sharebtn{display:flex;align-items:center;gap:.24rem;white-space:nowrap;flex:0 0 auto;
   background:var(--teal);color:var(--teal-ink);border:2px solid var(--teal-line);border-radius:2rem;
   padding:.26rem .62rem;font-size:.78rem;font-weight:900;min-height:2.1rem;letter-spacing:-.01em}
@@ -78,7 +80,7 @@ html.big .logo{display:none}
 @media (max-width:389px){
   .brand{gap:.28rem}
   .brand h1{font-size:.94rem}
-  .miniact,.sharebtn,.installbtn{font-size:.71rem;padding-left:.48rem;padding-right:.48rem}
+  .sharebtn,.installbtn{font-size:.71rem;padding-left:.48rem;padding-right:.48rem}
   .bigtoggle{font-size:.66rem}
 }
 /* 앱 이름이 길어져도(와글가족장바구니) 좁은 폰·큰 글씨에서 제목이 잘리지 않게 */
@@ -100,10 +102,6 @@ main{padding:.7rem .75rem 0;max-width:34rem;margin:0 auto}
 .spname{flex:1 1 auto;min-width:0;font-size:1.02rem;font-weight:900;color:var(--green);
   line-height:1.22;overflow-wrap:anywhere;word-break:keep-all}
 html.big .spname{font-size:1rem}
-.homebtn{display:flex;align-items:center;gap:.24rem;flex:0 0 auto;white-space:nowrap;
-  background:#EAF3E9;border:2px solid #9CC9A8;color:#1F4C2D;border-radius:.9rem;
-  padding:.34rem .6rem;font-size:.84rem;font-weight:900;min-height:2.6rem;line-height:1.15}
-.homebtn:active{transform:translateY(1px);background:#DCEEDD}
 .count{font-weight:900;font-size:.95rem;color:var(--green);white-space:nowrap;min-width:0;
   display:flex;align-items:center;gap:.25rem;overflow:hidden;text-overflow:ellipsis}
 .spacetools{display:flex;align-items:center;gap:.35rem;flex:0 0 auto;margin-left:auto;flex-wrap:wrap}
@@ -384,6 +382,7 @@ details.bulk[open] summary::before{content:"▾"}
     <button type="button" id="bigBtn" class="bigtoggle" aria-pressed="false"><span class="bglab">큰 글씨</span><span class="sw" aria-hidden="true"></span></button>
   </div>
   <div class="managerow" role="group" aria-label="관리">
+    <button type="button" id="homeBtn" class="headhome" aria-label="집으로 가기" hidden>🏠 홈</button>
     <div class="actions">
       <button type="button" id="shareBtn" class="sharebtn" aria-label="이 앱 공유하기">📤 공유</button>
       <button type="button" id="installBtn" class="installbtn" aria-haspopup="dialog">📲 설치</button>
@@ -428,9 +427,7 @@ details.bulk[open] summary::before{content:"▾"}
   <section id="spaceView" hidden>
     <div class="spacebar">
       <div class="spbarTop">
-        <button type="button" id="backBtn" class="homebtn">🏠 집으로</button>
         <span class="spname" id="spName">❄️ 냉장실</span>
-        <button type="button" id="renameBtn" class="miniact" aria-label="이 칸 이름 바꾸기" hidden>✏️ 이름변경</button>
       </div>
       <div class="spbarBottom">
         <span class="count" id="count">품목 0개</span>
@@ -492,21 +489,6 @@ details.bulk[open] summary::before{content:"▾"}
     </div>
     <p class="note" id="ovNote">냉장고 3대와 장바구니를 한눈에 볼 수 있어요. 칸 이름을 누르면 그 칸이 열려요.</p>
     <div id="ovBody"></div>
-  </div>
-</div>
-
-<!-- ✏️ 칸 이름 / 그림 -->
-<div class="modal" id="spaceModal" hidden>
-  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="spaceTitle">
-    <h3 id="spaceTitle">칸 이름 바꾸기</h3>
-    <label class="fl" for="spaceName" id="spaceNameLab">칸 이름</label>
-    <input class="input" id="spaceName" type="text" maxlength="20" placeholder="예: 김치냉장고" autocomplete="off">
-    <p class="fl" id="spaceIconLab">그림 고르기</p>
-    <div class="icons" id="spaceIcons" role="group" aria-labelledby="spaceIconLab"></div>
-    <div class="mrow">
-      <button type="button" class="btn" data-close="spaceModal" id="spaceCancel">취소</button>
-      <button type="button" class="btn primary" id="spaceSave">저장</button>
-    </div>
   </div>
 </div>
 
@@ -589,8 +571,11 @@ function L(ko,en){ return LANG==='en'? en : ko; }
 function saveLang(){ try{ localStorage.setItem(LKEY, LANG); }catch(e){} }
 
 const SPACE_EN={'장바구니':'Cart','냉장실':'Fridge','냉동실':'Freezer','야채·김치칸':'Veg & kimchi'};
-const ITEM_EN={'우유':'Milk','계란':'Eggs','대파':'Green onions','식빵':'Bread','두부':'Tofu','상추':'Lettuce',
-  '사과':'Apple','삼겹살':'Pork belly','만두':'Dumplings','새우':'Shrimp','김치':'Kimchi','당근':'Carrots'};
+const ITEM_EN={'우유':'Milk','계란':'Eggs','빵':'Bread','식빵':'Bread','두부':'Tofu','치즈':'Cheese',
+  '고기':'Meat','생선':'Fish','만두/냉동':'Dumpling','라면/면':'Noodles','쌀/잡곡':'Rice',
+  '양념/장':'Sauces','채소류':'Greens','과일류':'Fruit','생수':'Water','커피/차':'Coffee/tea',
+  '대파':'Green onions','상추':'Lettuce','사과':'Apple','삼겹살':'Pork belly','만두':'Dumplings',
+  '새우':'Shrimp','김치':'Kimchi','당근':'Carrots'};
 const MEMO_EN={'1L':'1L','한 판':'1 pack','한 단':'1 bunch','한 봉':'1 bag'};
 function dnSpace(n){ return EN()? (SPACE_EN[n]||n) : n; }
 function dnItem(n){ return EN()? (ITEM_EN[n]||n) : n; }
@@ -610,6 +595,9 @@ function fmtDate(iso){
 
 /* ══════ 저장 (이 기기의 브라우저에만 · 서버 없음) ══════ */
 const KEY='wagle_fridge_v2';
+/* 칸 이름·그림 고정 — 이름변경 기능 없음 */
+const SPACE_FIX={'cart':{icon:'🧺',name:'장바구니'},'cold':{icon:'❄️',name:'냉장실'},
+  'freeze':{icon:'🧊',name:'냉동실'},'veg':{icon:'🥬',name:'야채·김치칸'}};
 function sampleSpaces(){
   const it=(name,memo,qty,days,fav,done)=>({id:uid(),name:name,memo:memo||'',qty:qty||1,
     bought:dayStr(-(days||0)),fav:!!fav,done:!!done});
@@ -642,11 +630,12 @@ function load(){
     const out={big:!!d.big, filterFav:!!d.filterFav, view:'home',
       cur:String(d.cur||'cart'), spaces:[]};
     out.spaces=d.spaces.map(function(s){
+      const fx=SPACE_FIX[String(s.id||'')];
       return {
         id:String(s.id||uid()),
         kind:(s.kind==='cart'?'cart':'fridge'),
-        icon:String(s.icon||'🧺').slice(0,4),
-        name:String(s.name||L('칸','Space')).slice(0,20),
+        icon: fx? fx.icon : String(s.icon||'🧺').slice(0,4),
+        name: fx? fx.name : String(s.name||L('칸','Space')).slice(0,20),
         items:(Array.isArray(s.items)? s.items:[]).map(function(i){
           return {
             id:String(i.id||uid()),
@@ -708,9 +697,10 @@ document.addEventListener('click', function(e){
 });
 
 /* ══════ 뼈대 그리기 ══════ */
-const QUICK=[['🥛','우유','Milk'],['🥚','계란','Eggs'],['🥬','채소','Greens'],['🥩','고기','Meat'],
-  ['🍎','과일','Fruit'],['🍞','빵','Bread'],['🧈','두부','Tofu'],['💧','생수','Water']];
-const ICONS=['🧺','🛒','❄️','🧊','🥬','🍎','🍖','🧴','🍱','🥤','🧀','🍫'];
+const QUICK=[['🥛','우유','Milk'],['🥚','계란','Eggs'],['🍞','빵','Bread'],['🧈','두부','Tofu'],
+  ['🧀','치즈','Cheese'],['🥩','고기','Meat'],['🐟','생선','Fish'],['🥟','만두/냉동','Dumpling'],
+  ['🍜','라면/면','Noodles'],['🍚','쌀/잡곡','Rice'],['🧂','양념/장','Sauces'],['🥬','채소류','Greens'],
+  ['🍎','과일류','Fruit'],['💧','생수','Water'],['☕','커피/차','Coffee/tea']];
 
 function renderKitchen(){
   const box=$('#kitchen'); box.innerHTML='';
@@ -755,6 +745,7 @@ function renderKitchen(){
 function renderHome(){
   $('#homeView').hidden=false;
   $('#spaceView').hidden=true;
+  $('#homeBtn').hidden=true;
   renderKitchen();
   renderToday();
 }
@@ -787,14 +778,13 @@ function renderToday(){
 function renderSpaceView(){
   $('#homeView').hidden=true;
   $('#spaceView').hidden=false;
+  $('#homeBtn').hidden=false;
   const sp=space(); if(!sp) return;
   const isCart=sp.kind==='cart';
   const n=sp.items.length;
   $('#spName').textContent=(sp.icon||'')+' '+dnSpace(sp.name);
   $('#count').textContent=L('품목 '+n+'개', n+(n===1?' item':' items'));
   $('#clearAll').disabled=!n;
-  $('#renameBtn').hidden=isCart;
-  $('#renameBtn').textContent=L('✏️ 이름변경','✏️ Rename');
   $('#cartHint').hidden=!isCart;
   $('#fridgeHint').hidden=isCart;
   if(isCart){
@@ -914,7 +904,7 @@ function renderQuick(){
     b.innerHTML='<span class="qe" aria-hidden="true">'+q[0]+'</span><span class="ql"></span>';
     b.querySelector('.ql').textContent=L(q[1],q[2]);
     b.setAttribute('aria-label', L(q[1]+' 바로 담기','Add '+q[2]));
-    b.addEventListener('click', function(){ addItem(L(q[1],q[2]),''); });
+    b.addEventListener('click', function(){ addItem(q[1],''); });
     box.appendChild(b);
   });
 }
@@ -935,7 +925,8 @@ function applyStaticLang(){
   const bb=$('#bigBtn');
   bb.querySelector('.bglab').textContent = L('큰 글씨','Big text');
   bb.setAttribute('aria-label', L('큰 글씨로 보기','Larger text'));
-  $('#renameBtn').textContent = L('✏️ 이름변경','✏️ Rename');
+  $('#homeBtn').textContent = L('🏠 홈','🏠 Home');
+  $('#homeBtn').setAttribute('aria-label', L('집으로 가기','Back to home'));
   $('#shareBtn').textContent = L('📤 공유','📤 Share');
   $('#installBtn').textContent = L('📲 설치','📲 Install');
   $('#installBtn').setAttribute('aria-label', L('앱 설치 안내','How to install the app'));
@@ -943,7 +934,6 @@ function applyStaticLang(){
   $('#roofBtn').setAttribute('aria-label', L('우리 집 전체 내역 보기','See everything in our home'));
   $('#houseHint').innerHTML = L('<b>냉장고나 장바구니</b>를 누르면 안을 볼 수 있어요.<br>지붕을 누르면 <b>우리 집 전체 내역</b>이 열려요.',
     'Tap a <b>fridge or the cart</b> to see inside.<br>Tap the <b>roof</b> to see everything at home.');
-  $('#backBtn').textContent = L('🏠 집으로','🏠 Home');
   $('#addJump').textContent = L('➕ 품목 추가','➕ Add item');
   $('#clearAll').textContent = L('🧹 올클리어','🧹 Clear all');
   $('#favBtn').textContent = L('★ 자주 사는 것만','★ Favorites only');
@@ -968,17 +958,6 @@ function applyStaticLang(){
   $('#ovNote').textContent = L('냉장고 3대와 장바구니를 한눈에 볼 수 있어요. 칸 이름을 누르면 그 칸이 열려요.',
     'All three fridges and the cart at a glance. Tap a name to open that space.');
   $('#ovClose').textContent = L('닫기','Close');
-
-  /* 이름 고치기 */
-  $('#spaceTitle').textContent = L('칸 이름 바꾸기','Rename space');
-  $('#spaceNameLab').textContent = L('칸 이름','Space name');
-  $('#spaceName').placeholder = L('예: 김치냉장고','e.g. Kimchi fridge');
-  $('#spaceIconLab').textContent = L('그림 고르기','Pick an icon');
-  $('#spaceCancel').textContent = L('취소','Cancel');
-  $('#spaceSave').textContent = L('저장','Save');
-  $$('#spaceIcons .ic').forEach(function(b){
-    b.setAttribute('aria-label', L('그림 '+b.textContent,'Icon '+b.textContent));
-  });
 
   /* 품목 고치기 */
   $('#itemTitle').textContent = L('품목 고치기','Edit item');
@@ -1011,7 +990,7 @@ function openSpace(id){
   save(); renderAll();
   window.scrollTo(0,0);
 }
-$('#backBtn').addEventListener('click', function(){
+$('#homeBtn').addEventListener('click', function(){
   S.view='home'; S.selMode=false; S.sel=new Set();
   save(); renderAll(); window.scrollTo(0,0);
 });
@@ -1251,38 +1230,6 @@ $('#clearAll').addEventListener('click', function(){
   const n=sp.items.length; if(!n) return;
   sp.items=[]; save(); renderSpaceView();
   toast(L('이 칸을 비웠어요','Cleared this space'));
-});
-
-/* ══════ 칸 이름 바꾸기 ══════ */
-let spaceId=null, spaceIcon='🧺';
-function renderIconPick(){
-  const box=$('#spaceIcons'); box.innerHTML='';
-  ICONS.forEach(function(ic){
-    const b=document.createElement('button');
-    b.type='button'; b.className='ic'; b.textContent=ic;
-    b.setAttribute('aria-pressed', ic===spaceIcon?'true':'false');
-    b.setAttribute('aria-label', L('그림 '+ic,'Icon '+ic));
-    b.addEventListener('click', function(){
-      spaceIcon=ic;
-      $$('#spaceIcons .ic').forEach(function(x){ x.setAttribute('aria-pressed', x.textContent===ic?'true':'false'); });
-    });
-    box.appendChild(b);
-  });
-}
-$('#renameBtn').addEventListener('click', function(){
-  const sp=space(); if(!sp || sp.kind==='cart') return;
-  spaceId=sp.id; spaceIcon=sp.icon||'🧺';
-  $('#spaceName').value=sp.name;
-  $('#spaceTitle').textContent=L('칸 이름 바꾸기','Rename space');
-  renderIconPick(); showModal('spaceModal');
-});
-$('#spaceSave').addEventListener('click', function(){
-  const nm=$('#spaceName').value.trim();
-  if(!nm){ toast(L('칸 이름을 넣어 주세요','Please type a space name')); $('#spaceName').focus(); return; }
-  const sp=spById(spaceId);
-  if(sp){ sp.name=nm.slice(0,20); sp.icon=spaceIcon; }
-  hideModal('spaceModal'); save(); renderAll();
-  toast(L('칸 이름을 저장했어요','Space saved'));
 });
 
 /* ══════ 큰 글씨 / 언어 ══════ */

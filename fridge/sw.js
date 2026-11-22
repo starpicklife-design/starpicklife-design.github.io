@@ -1,10 +1,10 @@
-/* 와글가족장바구니 · 가벼운 Service Worker (v2)
+/* 와글가족장바구니 · 가벼운 Service Worker (v3)
    - 홈 화면 설치 요건(매니페스트 + 아이콘 + fetch 핸들러) 충족
    - 화면(index.html)은 항상 네트워크 우선 → 새 버전이 바로 반영됨
    - 인터넷이 끊겨도 마지막으로 열었던 화면이 뜨도록 껍데기만 캐시
    - 외부(다른 사이트) 요청은 절대 건드리지 않음 · 개인정보 0% */
 
-const CACHE = 'wagle-fridge-v2';
+const CACHE = 'wagle-fridge-v3';
 const SHELL = [
   './',
   './index.html',
