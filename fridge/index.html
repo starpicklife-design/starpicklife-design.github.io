@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#1E4A36" />
-<!-- build: 2026-11-23 와글가족장바구니 v16 · 첫 화면 아래 카드를 '🏠 우리 집 전체 내역'으로(보관 공간 5칸 품목을 칸별 알약으로 한눈에 · 칸 줄을 누르면 그 칸이 바로 열림 · 빈 칸은 '비어 있어요' 1줄 · 지붕 모달은 그대로) + 페이지 아래로 내려가면 오른쪽 아래에 '⬆️ 맨 위로' 버튼(한 번 누르면 부드럽게 맨 위로 · 홈·칸 화면 공통) · 한국어/영어·큰 글씨 겹침·잘림 없음 · 캐시 v16 -->
+<!-- build: 2026-11-23 와글가족장바구니 v17 · 첫 화면 아래 카드를 '🏠 우리 집 전체 내역'으로(보관 공간 5칸 품목을 칸별 알약으로 한눈에 · 칸 줄을 누르면 그 칸이 바로 열림 · 빈 칸은 '비어 있어요' 1줄 · 지붕 모달은 그대로) + 페이지 아래로 내려가면 오른쪽 아래에 '⬆️ 맨 위로' 버튼(한 번 누르면 부드럽게 맨 위로 · 홈·칸 화면 공통) · 안내 문구(토스트)가 버튼을 가리지 않게 위로 살짝 · 한국어/영어·큰 글씨 겹침·잘림 없음 · 캐시 v17 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -551,6 +551,8 @@ details.bulk[open] summary::before{content:"▾"}
   box-shadow:0 6px 20px rgba(10,25,15,.35);opacity:0;pointer-events:none;transition:.18s;text-align:center}
 #toast{display:flex;align-items:center;justify-content:center;gap:.45rem;flex-wrap:wrap;word-break:keep-all}
 #toast.on{opacity:1;transform:translate(-50%,0)}
+/* '⬆️ 맨 위로' 버튼이 떠 있을 때는 안내 문구가 버튼을 가리지 않게 살짝 위로 */
+#toast.aboveTop{bottom:calc(4.6rem + env(safe-area-inset-bottom))}
 #toast.undo{pointer-events:auto}
 #toastUndo{border:2px solid #8FCBA4;background:#F4FAF5;color:#14432E;border-radius:.6rem;
   padding:.3rem .55rem;font-size:.82rem;font-weight:900;line-height:1.1;flex:0 0 auto}
@@ -2137,7 +2139,9 @@ $('#roofBtn').addEventListener('click', function(){
 /* ⬆️ 맨 위로 — 조금이라도 내려가 있으면 오른쪽 아래에 뜨고, 한 번 누르면 부드럽게 맨 위로 */
 function syncToTop(){
   const b=$('#toTopBtn'); if(!b) return;
-  b.classList.toggle('on', (window.scrollY||window.pageYOffset||document.documentElement.scrollTop||0) > 60);
+  const show=(window.scrollY||window.pageYOffset||document.documentElement.scrollTop||0) > 60;
+  b.classList.toggle('on', show);
+  const t=$('#toast'); if(t) t.classList.toggle('aboveTop', show);
 }
 window.addEventListener('scroll', syncToTop, {passive:true});
 window.addEventListener('resize', syncToTop);
