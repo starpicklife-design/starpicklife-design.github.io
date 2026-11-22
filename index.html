@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FFFDF7">
+<meta name="description" content="와글가족 메뉴판 계산기 — 설치 없이 브라우저에서 바로 쓰는 무료 메뉴판·큰 글씨 계산기·QR 스티커. 회원가입 없음, 개인정보 수집 0%, 광고 없음.">
+<title>와글가족 메뉴판 계산기 · 무료 메뉴판 &amp; QR 스티커</title>
+<style>
+  :root{
+    --bg:#FFFDF7; --ink:#1E1E1E; --ink-soft:#5A5142;
+    --card:#FFFFFF; --line:#E8DFC8;
+    --coral:#C9553D; --coral-dark:#9E4430; --coral-light:#FBEDE9;
+    --sage:#2F6B4F; --sage-light:#EAF3EB;
+    --shadow:0 .5rem 1.6rem rgba(90,74,40,.10);
+    --shadow-hover:0 .9rem 2.2rem rgba(90,74,40,.18);
+    --r:1.4rem;
+  }
+  *{box-sizing:border-box}
+  html{font-size:19px;-webkit-text-size-adjust:100%}
+  @media (min-width:48rem){ html{font-size:21px} }
+  @media (min-width:80rem){ html{font-size:23px} }
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",system-ui,-apple-system,sans-serif;
+    line-height:1.6;word-break:keep-all;overflow-wrap:break-word;
+    min-height:100vh;
+  }
+  .wrap{
+    max-width:40rem;margin:0 auto;
+    padding:2.2rem 1.1rem 3rem;
+    padding-top:calc(2.2rem + env(safe-area-inset-top));
+    padding-bottom:calc(3rem + env(safe-area-inset-bottom));
+  }
+
+  /* ── 머리말 ───────────────────────────── */
+  header{text-align:center;margin-bottom:1.8rem}
+  .badge{
+    display:inline-flex;align-items:center;gap:.4rem;
+    background:var(--sage-light);color:#245740;
+    border:1.5px solid #CFE2D4;border-radius:999px;
+    padding:.28rem .85rem;font-size:.78rem;font-weight:800;letter-spacing:-.01em;
+  }
+  h1{
+    margin:.85rem 0 .5rem;font-size:1.68rem;line-height:1.3;
+    letter-spacing:-.03em;font-weight:900;
+  }
+  h1 .line2{display:block;color:var(--coral-dark)}
+  .lead{
+    margin:0 auto;max-width:32rem;color:var(--ink-soft);
+    font-size:.95rem;line-height:1.65;
+  }
+
+  /* ── 앱 카드 ──────────────────────────── */
+  .app{
+    display:flex;flex-direction:column;
+    background:var(--card);border:2px solid var(--line);border-radius:var(--r);
+    padding:1.4rem 1.25rem 1.2rem;text-decoration:none;color:inherit;
+    box-shadow:var(--shadow);margin-bottom:1.4rem;
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  .app:hover,.app:focus-visible{
+    transform:translateY(-3px);box-shadow:var(--shadow-hover);
+    border-color:var(--coral);outline:none;
+  }
+  .app:active{transform:translateY(0) scale(.995)}
+  .app-emoji{
+    font-size:2.4rem;line-height:1;margin-bottom:.6rem;
+    display:flex;align-items:center;justify-content:center;
+    width:3.7rem;height:3.7rem;border-radius:1rem;background:var(--coral-light);
+  }
+  .app h2{
+    margin:0 0 .35rem;font-size:1.3rem;font-weight:900;letter-spacing:-.03em;color:var(--coral-dark);
+  }
+  .app p{margin:0 0 .95rem;font-size:.9rem;color:var(--ink-soft)}
+  .tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1.1rem}
+  .tag{
+    font-size:.72rem;font-weight:800;padding:.22rem .6rem;border-radius:999px;
+    background:#F7F3E8;color:#6B5F45;border:1px solid #EDE4CF;
+  }
+  .go{
+    margin-top:auto;display:flex;align-items:center;justify-content:center;gap:.4rem;
+    background:var(--coral);color:#fff;font-weight:900;font-size:1.05rem;
+    border-radius:.9rem;padding:.9rem 1rem;letter-spacing:-.01em;
+    box-shadow:0 .25rem .6rem rgba(201,85,61,.22);
+  }
+  .app:hover .go,.app:focus-visible .go{filter:brightness(1.06)}
+
+  /* ── 안내 ────────────────────────────── */
+  .notice{
+    background:#FBF7EC;border:1.5px solid #EFE5CD;border-radius:1rem;
+    padding:1rem 1.1rem;font-size:.86rem;color:var(--ink-soft);
+  }
+  .notice b{color:var(--ink)}
+  .notice ul{margin:.5rem 0 0;padding-left:1.15rem}
+  .notice li{margin:.2rem 0}
+
+  footer{
+    margin-top:2.1rem;text-align:center;
+    font-size:.76rem;color:#8B8271;line-height:1.8;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <span class="badge">설치 없이 · 무료 · 광고 없음</span>
+    <h1>가게에 딱 맞는<span class="line2">메뉴판과 계산기</span></h1>
+    <p class="lead">
+      휴대폰이나 컴퓨터 브라우저에서 링크만 열면 바로 쓸 수 있어요.
+      회원가입도, 앱 설치도, 개인정보 입력도 필요 없습니다.
+    </p>
+  </header>
+
+  <main>
+    <a class="app" href="menu/">
+      <div class="app-emoji" aria-hidden="true">🧾</div>
+      <h2>와글가족 메뉴판 계산기</h2>
+      <p>메뉴와 가격을 넣으면 큰 글씨 메뉴판이 뚝딱. 손님은 휴대폰으로 담고, 사장님은 총액을 한눈에 볼 수 있어요.</p>
+      <div class="tags">
+        <span class="tag">큰 글씨 메뉴판</span>
+        <span class="tag">QR 스티커 만들기</span>
+        <span class="tag">사진으로 메뉴 읽기</span>
+      </div>
+      <span class="go">메뉴판 열기 →</span>
+    </a>
+  </main>
+
+  <section class="notice">
+    <b>이 페이지의 약속</b>
+    <ul>
+      <li><b>개인정보를 하나도 받지 않습니다.</b> 이름·전화번호·주소를 묻지 않아요.</li>
+      <li>입력한 메뉴와 주문은 <b>그 기기의 브라우저 안에만</b> 저장되고, 어디로도 보내지 않습니다.</li>
+      <li>로그인·결제·광고가 없습니다. 브라우저 기록을 지우면 저장된 내용도 함께 사라져요.</li>
+    </ul>
+  </section>
+
+  <footer>
+    휴대폰 홈 화면에 두고 쓰려면 브라우저 메뉴에서 <b>“홈 화면에 추가”</b>를 눌러 주세요.<br>
+    무료로 제공되는 생활 도구입니다.
+  </footer>
+
+</div>
+</body>
+</html>
