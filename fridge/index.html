@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#1E4A36" />
-<!-- build: 2026-11-23 와글가족장바구니 v15 · 첫 화면 아래 카드를 '🏠 우리 집 전체 내역'으로 — 실온보관바구니만 보이던 미리보기 대신 보관 공간 5칸(냉장고·냉동실·야채·과일·김치냉장고·실온보관바구니)의 품목을 칸별 알약으로 한눈에 · 칸 줄을 누르면 그 칸이 바로 열림 · 빈 칸은 '비어 있어요' 1줄 · 지붕 🏠 우리 집 전체 내역 모달은 그대로 · 한국어/영어·큰 글씨 겹침·잘림 없음 · 캐시 v15 -->
+<!-- build: 2026-11-23 와글가족장바구니 v16 · 첫 화면 아래 카드를 '🏠 우리 집 전체 내역'으로(보관 공간 5칸 품목을 칸별 알약으로 한눈에 · 칸 줄을 누르면 그 칸이 바로 열림 · 빈 칸은 '비어 있어요' 1줄 · 지붕 모달은 그대로) + 페이지 아래로 내려가면 오른쪽 아래에 '⬆️ 맨 위로' 버튼(한 번 누르면 부드럽게 맨 위로 · 홈·칸 화면 공통) · 한국어/영어·큰 글씨 겹침·잘림 없음 · 캐시 v16 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,7 +54,7 @@ html{font-size:18px}
 html.big{font-size:22px}
 body{margin:0;background:var(--cream);color:var(--ink);
   font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
-  line-height:1.4;padding-bottom:2.4rem;-webkit-text-size-adjust:100%}
+  line-height:1.4;padding-bottom:4.6rem;-webkit-text-size-adjust:100%}
 [hidden]{display:none !important}
 button{font-family:inherit;cursor:pointer;color:inherit}
 input,textarea{font-family:inherit;font-size:1.05rem;color:var(--ink)}
@@ -273,6 +273,17 @@ html.big .ovgitems{padding:.22rem .34rem .26rem;gap:.14rem .18rem}
 html.big .ovchip{font-size:.72rem;padding:.02rem .34rem}
 html.big .ovchip>b{font-size:.62rem}
 .todayfoot{margin:0 0 .1rem;font-size:.76rem;font-weight:700;color:#7C8B80;line-height:1.35}
+/* ⬆️ 맨 위로 — 아래로 내려가 있으면 홈·칸 화면 모두 오른쪽 아래에 떠고, 한 번 누르면 맨 위로 */
+.totop{position:fixed;right:.6rem;bottom:calc(.85rem + env(safe-area-inset-bottom));z-index:70;
+  display:flex;align-items:center;justify-content:center;gap:.2rem;min-height:2.7rem;
+  padding:.28rem .7rem;border-radius:2rem;border:2px solid #1F4C2D;
+  background:linear-gradient(180deg,#3F8155,#2F6B4F);color:#F2FAF3;
+  font-size:.86rem;font-weight:900;letter-spacing:-.01em;white-space:nowrap;
+  box-shadow:0 4px 14px rgba(12,35,22,.32);opacity:0;transform:translateY(.9rem);
+  pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+.totop.on{opacity:1;transform:none;pointer-events:auto}
+.totop:active{transform:translateY(1px)}
+html.big .totop{font-size:.74rem;min-height:2.5rem;padding:.24rem .6rem}
 
 /* 툴바 */
 .toolbar{display:flex;flex-wrap:wrap;gap:.24rem;margin:.02rem 0 .4rem}
@@ -903,6 +914,9 @@ html.big .dpdishes{font-size:.86rem}
   </section>
 </main>
 
+<!-- ⬆️ 맨 위로 (홈·칸 화면 공통) -->
+<button type="button" id="toTopBtn" class="totop" aria-label="맨 위로"><span aria-hidden="true">⬆️</span><span id="toTopLab">맨 위로</span></button>
+
 <!-- 🏠 우리 집 전체 내역 -->
 <div class="modal" id="overviewModal" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="ovTitle">
@@ -1434,6 +1448,7 @@ function renderAll(){
   else { S.view='home'; renderHome(); }
   applyChromeOpen();
   $('#installBtn').hidden=installedApp || standaloneNow();
+  syncToTop();
 }
 
 /* ══════ 목록 ══════ */
@@ -1940,6 +1955,8 @@ function applyStaticLang(){
   bb.setAttribute('aria-label', L('큰 글씨로 보기','Larger text'));
   $('#homeBtn').textContent = L('🏠 홈','🏠 Home');
   $('#homeBtn').setAttribute('aria-label', L('집으로 가기','Back to home'));
+  $('#toTopLab').textContent = L('맨 위로','Top');
+  $('#toTopBtn').setAttribute('aria-label', L('맨 위로 가기','Back to top'));
   $('#shareBtn').textContent = L('📤 공유','📤 Share');
   $('#installBtn').textContent = L('📲 설치','📲 Install');
   $('#installBtn').setAttribute('aria-label', L('앱 설치 안내','How to install the app'));
@@ -2115,6 +2132,18 @@ function renderOverview(){
 }
 $('#roofBtn').addEventListener('click', function(){
   renderOverview(); showModal('overviewModal');
+});
+
+/* ⬆️ 맨 위로 — 조금이라도 내려가 있으면 오른쪽 아래에 뜨고, 한 번 누르면 부드럽게 맨 위로 */
+function syncToTop(){
+  const b=$('#toTopBtn'); if(!b) return;
+  b.classList.toggle('on', (window.scrollY||window.pageYOffset||document.documentElement.scrollTop||0) > 60);
+}
+window.addEventListener('scroll', syncToTop, {passive:true});
+window.addEventListener('resize', syncToTop);
+$('#toTopBtn').addEventListener('click', function(){
+  try{ window.scrollTo({top:0, behavior:'smooth'}); }catch(e){ window.scrollTo(0,0); }
+  syncToTop();
 });
 
 /* ══════ 품목 담기 ══════ */
