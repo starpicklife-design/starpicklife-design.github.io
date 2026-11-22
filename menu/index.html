@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#3E2C22" />
-<!-- build: 2026-11-23 wagle-table v21 · 글씨 입력 중 하단 요약 바 자동 숨김(입력칸·가격칸·추가 버튼 안 가리게) -->
+<!-- build: 2026-11-23 wagle-table v22 · ⚡ 빠른 메뉴 아이콘 + 입력 중 '메뉴 추가' 카드를 화면 맨 위로 (삼성 자판 420px에도 이름칸·가격칸·＋ 메뉴 넣기 안 가림) -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
@@ -223,6 +223,27 @@ html.big .addhead h2{font-size:1rem}
 html.big .addhead .tab{font-size:.74rem;padding:.28rem .45rem}
 @media (max-width:359px){.addhead{flex-wrap:wrap}.addhead .tabs{width:100%}.addhead .tab{flex:1 1 0}}
 .tab.on{background:var(--cream2);border-color:var(--coffee);color:var(--coffee)}
+
+/* ── v22 · ⚡ 빠른 메뉴 아이콘 — 장바구니(/fridge/)처럼 톡 누르면 메뉴 이름이 채워진다 ── */
+.qhead{display:flex;align-items:center;gap:.35rem;margin:.6rem 0 .3rem;min-width:0}
+.qtag{font-size:.68rem;font-weight:900;color:#1F4C2D;background:#E7F3EA;border:1.5px solid #BFDCC7;
+  border-radius:.5rem;padding:.08rem .34rem;flex:0 0 auto;white-space:nowrap;letter-spacing:-.02em}
+.qhint{font-size:.68rem;font-weight:800;color:#8B7A6B;min-width:0;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+.qgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.24rem;margin:0}
+.qpick{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.06rem;
+  background:#F3FAF4;border:2px solid #BFD9C6;border-radius:.62rem;padding:.2rem .06rem;min-height:2.75rem;
+  font-size:.7rem;font-weight:900;color:#234C33;line-height:1.08;letter-spacing:-.03em;
+  word-break:keep-all;text-align:center;overflow:hidden}
+.qpick .qe{font-size:1.05rem;line-height:1}
+.qpick .ql{display:block;width:100%;max-width:100%;overflow-wrap:anywhere}
+.qpick:active{transform:translateY(1px);background:#DDEFE1}
+.qpick:focus-visible{outline:3px solid #2E8A82;outline-offset:2px}
+html.big .qgrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:.26rem}
+html.big .qpick{font-size:.74rem;min-height:2.9rem}
+html.big .qpick .qe{font-size:1.12rem}
+html.big .qhead{flex-wrap:wrap;row-gap:.2rem}
+@media (max-width:349px){.qgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .panel form{display:flex;flex-direction:column;gap:.5rem}
 .panel input[type=text],.panel input:not([type]),.panel textarea{width:100%;border:2px solid var(--line);
   border-radius:.8rem;padding:.7rem .8rem;min-height:3rem;background:#FFFDF8}
@@ -260,6 +281,41 @@ html.big .addhead .tab{font-size:.74rem;padding:.28rem .45rem}
    입력칸·가격칸·'＋ 메뉴 넣기' 버튼을 가리지 않게. 내려간 동안엔 눌리지도 않는다 */
 .bar.down{transform:translateY(calc(100% + 2rem));opacity:0;pointer-events:none}
 @media (prefers-reduced-motion:reduce){.bar{transition:none}}
+
+/* ══ v22 · ⌨️ 입력 중엔 '메뉴 추가' 카드를 화면 맨 위로 (자판이 절대 가리지 않게) ══
+   · html.kbdock = '메뉴 추가'(또는 '찾은 메뉴')의 글씨 칸에 커서가 있을 때 (스크립트가 붙임)
+   · 갈색 헤더 · '★ 즐겨찾기만 | 🗑️ 메뉴 지우기 | 주문 비우기' 줄 · 메뉴 목록을 잠깐 접고,
+     '이름칸 + 가격칸 + ＋ 메뉴 넣기'만 보이는 화면 맨 위에 붙인다
+   · 삼성 자판이 화면 아래 48%(390×844에서 420px)를 덮어도 세 칸이 y≈8~215px 안에서 다 보인다
+   · 커서를 떼면(자판이 내려가면) 원래 자리로 바로 돌아온다 */
+html.kbdock .top{display:none}
+html.kbdock main > *{display:none}
+html.kbdock main > .kbdockcard{
+  display:block;position:fixed;left:0;right:0;top:calc(var(--vvt,0px) + max(env(safe-area-inset-top,0px), .5rem));
+  z-index:60;max-width:34rem;margin:0 auto;padding:.5rem .7rem .6rem;border-radius:1rem;
+  max-height:calc(var(--vvh,100dvh) - 1.2rem);overflow:auto;overscroll-behavior:contain;
+  border-color:#BFDCC7;box-shadow:0 10px 30px rgba(24,16,10,.32)}
+/* 입력 한 벌(이름·가격·버튼)은 늘 위에 붙박이 — 아이콘 줄을 훑어 내려도 자판 위에 그대로 */
+html.kbdock .kbdockcard .panel{position:sticky;top:0;z-index:3;background:#fff;padding-bottom:.1rem}
+/* 빠른 메뉴 아이콘은 입력 중에도 폼 바로 아래에 남겨 둔다 — 자판 바로 위 띠에서 보인다 */
+html.kbdock .kbdockcard .qhead{margin:.32rem 0 .2rem}
+html.kbdock .kbdockcard .qgrid{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:1.9rem;gap:.18rem;margin:0}
+html.kbdock .kbdockcard .qpick{height:100%;min-height:0;flex-direction:row;gap:.14rem;font-size:.62rem;line-height:1.05;padding:0 .1rem}
+html.kbdock .kbdockcard .qpick .qe{font-size:.95rem}
+html.kbdock .kbdockcard .qpick .ql{width:auto;max-width:100%;flex:0 1 auto;min-width:0}
+/* 큰 글씨 모드에서는 아이콘도 3열로 넓게 — 좁은 4열로 글씨를 작게 줄이지 않는다 */
+html.big.kbdock .kbdockcard .qgrid{grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:2rem}
+html.big.kbdock .kbdockcard .qpick{font-size:.64rem}
+html.kbdock .kbdockcard .addhead{margin:0 0 .3rem;flex-wrap:nowrap}
+html.kbdock .kbdockcard .addhead .tabs{width:auto;gap:.22rem}
+html.kbdock .kbdockcard .addhead .tab{flex:0 0 auto;min-height:2rem;padding:.18rem .42rem;font-size:.7rem}
+html.kbdock .kbdockcard h2{font-size:.96rem}
+html.kbdock .kbdockcard .panel form{gap:.3rem}
+html.kbdock .kbdockcard .panel input[type=text],
+html.kbdock .kbdockcard .panel input:not([type]){min-height:2.8rem;padding:.45rem .7rem;font-size:1.05rem}
+html.kbdock .kbdockcard .panel .btn{min-height:2.8rem;font-size:1rem}
+html.kbdock .kbdockcard .note{display:none}
+
 .barTop{display:flex;align-items:center;gap:.36rem;max-width:34rem;margin:0 auto}
 .totals{flex:1 1 auto;min-width:0}
 .tcount{font-size:.82rem;font-weight:800;color:var(--ink2);line-height:1.1}
@@ -1146,6 +1202,13 @@ html.big .isteps li>span{font-size:1rem}
       <textarea id="pasteArea" rows="5" placeholder="아메리카노 4,500&#10;카페라떼 5,000&#10;대추차 6,000" aria-label="메뉴판 글 붙여넣기"></textarea>
       <div class="row2"><button id="pasteBtn" class="btn primary">읽어서 확인하기</button></div>
     </div>
+
+    <!-- v22 · ⚡ 빠른 메뉴 아이콘 — 톡 누르면 이름이 채워지고 가격칸으로 커서가 간다 -->
+    <div class="qhead">
+      <span class="qtag" id="quickTag">⚡ 빠른 메뉴</span>
+      <span class="qhint" id="quickHint">톡 누르면 이름이 채워져요</span>
+    </div>
+    <div class="qgrid" id="quickGrid" role="group" aria-label="자주 쓰는 메뉴"></div>
   </section>
 
   <section class="card" id="review" hidden>
@@ -1649,6 +1712,10 @@ function applyLang(){
   setTxt('#openSticker','QR 스티커 만들기','Make QR Sticker');
 
   setTxt('#addTitle','메뉴 추가','Add Menu');
+  setTxt('#quickTag','⚡ 빠른 메뉴','⚡ Quick Menu');
+  setTxt('#quickHint','톡 누르면 이름이 채워져요','Tap one to fill in the name');
+  setAttr('#quickGrid','aria-label','자주 쓰는 메뉴','Frequently used items');
+  try{ renderQuick(); }catch(e){}
   setTxt('#addCard [data-tab="manual"]','직접 입력','Type In');
   setTxt('#addCard [data-tab="photo"]','📷 사진으로','📷 Photo');
   setTxt('#addSubmit','＋ 메뉴 넣기','＋ Add Menu');
@@ -1782,10 +1849,17 @@ function render(){
 }
 function fitPad(){
   const bar=$('#bar');
-  const toastEl=$('#toast');
   if(!bar) return;
   document.body.style.paddingBottom=(bar.offsetHeight+24)+'px';
-  if(toastEl) toastEl.style.bottom=(bar.offsetHeight+16)+'px';
+  placeToast();
+}
+/* 토스트는 하단 바 위에 → 입력 중(자판 올라옴)엔 자판 바로 위로 — 자판에 가리지 않게 */
+function placeToast(){
+  const t=$('#toast'), bar=$('#bar');
+  if(!t || !bar) return;
+  const docked=document.documentElement.classList.contains('kbdock');
+  const kb=parseFloat(document.documentElement.style.getPropertyValue('--kb'))||0;
+  t.style.bottom=((docked && kb>0 ? Math.round(kb) : bar.offsetHeight)+16)+'px';
 }
 function renderChips(){
   const box=$('#chips');
@@ -2132,9 +2206,36 @@ function isTypeField(el){
   return !NOKBTYPE[t];
 }
 var kbPrev=false, barForce=false, barShownT=null, kbOffT=null;
+/* ── v22 · 지금 글씨를 넣고 있는 카드(메뉴 추가 / 찾은 메뉴) ── */
+function dockCard(){
+  var el=document.activeElement;
+  if(!isTypeField(el) || !el.closest) return null;
+  var card=el.closest('#addCard,#review');
+  return (card && !card.hidden) ? card : null;
+}
+var dockScrollY=null;
+function syncDock(){
+  var root=document.documentElement;
+  var card=dockCard();
+  var prev=document.querySelector('.kbdockcard');
+  if(prev && prev!==card) prev.classList.remove('kbdockcard');
+  if(card){
+    card.classList.add('kbdockcard');
+    if(!root.classList.contains('kbdock')){
+      dockScrollY=window.pageYOffset;      /* 접었다 펴도 보던 자리로 돌아오게 */
+      root.classList.add('kbdock');
+    }
+  }else if(root.classList.contains('kbdock')){
+    root.classList.remove('kbdock');
+    var y=dockScrollY; dockScrollY=null;
+    if(y!=null) requestAnimationFrame(function(){ try{ window.scrollTo(0,y); }catch(e){} });
+  }
+  try{ placeToast(); }catch(e){}
+}
 function syncBar(){
   var bar=$('#bar');
   if(!bar) return;
+  syncDock();
   var kbOn=document.documentElement.classList.contains('kb');
   /* 자판이 내려갔으면(자판 숨김 버튼 등) 입력칸에 그대로 있어도 바를 다시 올린다
      — 자판이 오르내리며 잠깐 흔들릴 때 바가 깜빡이지 않도록 180ms 기다렸다가 */
@@ -2165,6 +2266,8 @@ function syncBar(){
 function revealField(el){
   if(!el || !el.getBoundingClientRect || !el.closest) return;
   if(el.closest('.modal')) return;            /* 팝업 안 입력칸은 keepFieldVisible 이 맡는다 */
+  /* v22 · 입력 카드가 이미 화면 맨 위에 붙어 있으면(Wagle dock) 스크롤할 필요가 없다 */
+  if(document.documentElement.classList.contains('kbdock')) return;
   var r=el.getBoundingClientRect();
   var vv=window.visualViewport;
   var vTop=vv?vv.offsetTop:0;
@@ -2204,7 +2307,7 @@ document.addEventListener('focusout', function(e){
   if(!isTypeField(e.target)) return;
   clearTimeout(barHideT);
   barHideT=setTimeout(function(){
-    if(isTypeField(document.activeElement)) return;   /* 같은 카드의 다른 칸으로 옮김 */
+    if(isTypeField(document.activeElement)){ syncDock(); return; }   /* 같은 카드의 다른 칸으로 옮김 */
     syncBar();
   }, 150);
 });
@@ -2534,7 +2637,9 @@ function jumpToAdd(){
   const sec=title && title.closest('.card');
   if(!sec) return;
   const hdr=document.querySelector('.top');
-  const off=(hdr? hdr.getBoundingClientRect().height : 0)+12;
+  const lh=$('#listHead');
+  const off=(hdr? hdr.getBoundingClientRect().height : 0)
+           +((lh && !lh.hidden)? lh.getBoundingClientRect().height : 0)+12;
   const y=Math.max(0, sec.getBoundingClientRect().top + window.pageYOffset - off);
   const reduce=!!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   try{ window.scrollTo({top:y, behavior: reduce? 'auto':'smooth'}); }
@@ -2594,6 +2699,55 @@ $('#addForm').addEventListener('submit', e=>{
   save(); render(); nEl.focus();
   toast(L('"'+name+'" 넣었어요'+(price? ' ('+won(price)+'원)':''),
           '"'+name+'" added'+(price? ' ('+money(price)+')':'')));
+});
+
+/* ══ v22 · ⚡ 빠른 메뉴 아이콘 ══
+   장바구니(/fridge/)의 '빠른 품목'처럼 톡 누르면 → 이름칸이 채워지고 → 가격칸으로 커서가 가서
+   숫자 자판만 눌러 가격을 넣고 '＋ 메뉴 넣기'를 고르면 된다.
+   [이모지, 한국어 이름, English name] */
+var QUICK=[
+  ['☕','아메리카노','Americano'],
+  ['🧊','아아','Iced Amer.'],
+  ['🥛','카페라떼','Latte'],
+  ['🍵','차','Tea'],
+  ['🧃','에이드','Ade'],
+  ['🥤','콜라','Soda'],
+  ['🍰','케이크','Cake'],
+  ['🍦','아이스크림','Ice Cream'],
+  ['🍞','토스트','Toast'],
+  ['🍲','찌개','Stew'],
+  ['🍚','비빔밥','Bibimbap'],
+  ['🍜','라면','Noodles'],
+  ['🍙','김밥','Kimbap'],
+  ['🥟','만두','Dumplings'],
+  ['🍗','치킨','Chicken'],
+  ['🍺','맥주','Beer']
+];
+function renderQuick(){
+  var box=$('#quickGrid'); if(!box) return;
+  box.innerHTML=QUICK.map(function(q,i){
+    return '<button type="button" class="qpick" data-qi="'+i+'"'
+      +' aria-label="'+esc(L(q[1]+' 넣기','Add '+q[2]))+'">'
+      +'<span class="qe" aria-hidden="true">'+q[0]+'</span>'
+      +'<span class="ql">'+esc(L(q[1],q[2]))+'</span></button>';
+  }).join('');
+}
+function quickPick(q){
+  if(!q) return;
+  if(!store()){ askName('new'); return; }
+  switchTab('manual');
+  var nEl=$('#newName'), pEl=$('#newPrice');
+  if(!nEl) return;
+  var name=L(q[1],q[2]);
+  nEl.value=name;
+  try{ pEl.focus({preventScroll:true}); }catch(e){ try{ pEl.focus(); }catch(_){} }
+  toast(L('"'+name+'" 이름을 채웠어요 — 가격만 넣고 ＋ 메뉴 넣기',
+          '"'+name+'" filled in — add a price and tap ＋ Add Menu'));
+}
+$('#quickGrid').addEventListener('click', function(e){
+  var b=e.target.closest ? e.target.closest('.qpick') : null;
+  if(!b) return;
+  quickPick(QUICK[parseInt(b.dataset.qi,10)]);
 });
 
 /* ── 메뉴 글자 → (이름, 가격) ──
