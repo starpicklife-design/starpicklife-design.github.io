@@ -2131,16 +2131,28 @@ function isTypeField(el){
   var t=(el.getAttribute('type')||'text').toLowerCase();
   return !NOKBTYPE[t];
 }
+var kbPrev=false, barForce=false, barShownT=null;
 function syncBar(){
   var bar=$('#bar');
   if(!bar) return;
-  var hide = isTypeField(document.activeElement) || document.documentElement.classList.contains('kb');
+  var kbOn=document.documentElement.classList.contains('kb');
+  /* 자판이 내려갔으면(자판 숨김 버튼 등) 입력칸에 그대로 있어도 바를 다시 올린다 */
+  if(kbPrev && !kbOn) barForce=true;
+  if(!kbPrev && kbOn) barForce=false;
+  kbPrev=kbOn;
+  var field=isTypeField(document.activeElement) ? document.activeElement : null;
+  var hide = (!!field || kbOn) && !barForce;
   bar.classList.toggle('down', hide);
   /* 자판이 올라온 동안에는 페이지 아래 여백을 자판 높이만큼 더 두어
-     입력칸을('자판 위 가운데'까지) 끌어올릴 수 있게 한다 */
+     입력칸을 자판 위까지 끌어올릴 수 있게 한다 */
   var kb=parseFloat(document.documentElement.style.getPropertyValue('--kb'))||0;
   var extra = hide ? Math.round(kb) : 0;
   document.body.style.paddingBottom = (bar.offsetHeight + 24 + extra) + 'px';
+  /* 바를 다시 올렸는데 그 바가 입력칸을 덮으면 입력칸을 바 위로 올린다 */
+  if(!hide && field){
+    clearTimeout(barShownT);
+    barShownT=setTimeout(function(){ revealField(field); }, 60);
+  }
 }
 /* 입력칸이 상단 헤더 아래 ~ 자판 위 사이에 오도록 보이는 화면(자판 뺀 영역) 가운데로 정리 */
 function revealField(el){
@@ -2156,9 +2168,13 @@ function revealField(el){
   if(hd) topPad+=hd.getBoundingClientRect().height;
   var lh=$('#listHead');
   if(lh && !lh.hidden) topPad+=lh.getBoundingClientRect().height;
-  var freeTop=vTop+topPad, freeBottom=vBottom-16, freeH=freeBottom-freeTop;
+  /* 아래쪽은 자판 위 — 자판이 없고 하단 바가 올라와 있으면 그 바 위까지 */
+  var barEl=$('#bar');
+  var barTop=(barEl && !barEl.classList.contains('down')) ? barEl.getBoundingClientRect().top : Infinity;
+  var bottomEdge=Math.min(vBottom-16, barTop-8);
+  var freeTop=vTop+topPad, freeBottom=bottomEdge, freeH=freeBottom-freeTop;
   if(freeH<=0) return;
-  if(r.top>=freeTop && r.bottom<=vBottom-24) return;   /* 이미 다 보임 */
+  if(r.top>=freeTop && r.bottom<=vBottom-24 && r.bottom<=barTop-8) return;   /* 이미 다 보임 */
   var box=el.closest('form, .panel') || el;
   var br=box.getBoundingClientRect();
   var dy;
@@ -2170,6 +2186,7 @@ function revealField(el){
 document.addEventListener('focusin', function(e){
   if(!isTypeField(e.target)) return;
   clearTimeout(barHideT); barHideT=null;         /* 앞 칸에서 넘어온 경우 — 바로 숨김 유지 */
+  barForce=false;                               /* 새로 입력을 시작했으니 다시 숨김 */
   syncBar();
   var el=e.target;
   setTimeout(function(){ revealField(el); }, 80);
