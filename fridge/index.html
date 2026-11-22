@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#1E4A36" />
-<!-- build: 2026-11-23 와글가족장바구니 v10 · 와글가족 캐릭터(집 옆 세희·미미·테오·아기햄스터) 살랑살랑·까딱까딱 움직임 강화(발끝 축, prefers-reduced-motion 유지) · 🧾 영수증 버튼을 칸 화면 맨 위(냉장실 줄 오른쪽)로 · 빠른 식품 22종을 영양소 순서로(단백질: 소고기·돼지고기·닭·생선·계란·두부·우유·치즈 → 탄수화물 → 채소 5종+채소류 → 과일 → 양념·음료) · 품목을 담으면 '만들 수 있는 요리' 6가지가 4초 떴다가 사라짐(한/영, 한식 표준 로마자) · 와글가족 캐릭터 · 첫 화면 영수증 버튼 · 품목 카드 한 줄 · 같은 품목 자동 +1 · 용량/유통기한 두 칸 · 폰 뒤로가기 -->
+<!-- build: 2026-11-23 와글가족장바구니 v10 · 와글가족 캐릭터(집 옆 세희·미미·테오·아기햄스터) 살랑살랑·까딱까딱 움직임 강화(발끝 축, prefers-reduced-motion 유지) · 🥒 오이 추가(요리 6가지·영수증 자동 분류) · 🥛 우유를 맨 아래 음료 줄로 이동 · 무는 🥬 대신 직접 그린 하얀 무 그림 · 🍎 사과·🍊 오렌지·🍌 바나나 따로 두고 나머지는 🍇 과일류 · 🧃 주스 추가 · 🧾 영수증 버튼을 칸 화면 맨 위(냉장실 줄 오른쪽)로 · 빠른 식품 27종을 영양소 순서로(단백질: 소고기·돼지고기·닭·생선·계란·두부·치즈 → 탄수화물 → 채소 6종(양파·무·호박·당근·감자·오이)+채소류 → 과일: 사과·오렌지·바나나·과일류🍇 → 음료: 생수·커피/차·우유·주스) · 품목을 담으면 '만들 수 있는 요리' 6가지가 4초 떴다가 사라짐(한/영, 한식 표준 로마자) · 와글가족 캐릭터 · 첫 화면 영수증 버튼 · 품목 카드 한 줄 · 같은 품목 자동 +1 · 용량/유통기한 두 칸 · 폰 뒤로가기 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -357,10 +357,12 @@ html.big .recbtn.recmini{font-size:.72rem;padding:.12rem .42rem;min-height:2.05r
   background:#F3FAF4;border:2px solid #BFD9C6;border-radius:.56rem;padding:.14rem .06rem;min-height:2.45rem;
   font-size:.71rem;font-weight:900;color:#234C33;line-height:1.08;overflow-wrap:anywhere;letter-spacing:-.02em}
 .qbtn .qe{font-size:.98rem;line-height:1}
+.qbtn .qe svg{display:block;width:1.3rem;height:1.3rem;margin:-.1rem 0}
 .qbtn:active{transform:translateY(1px);background:#E4F3E7}
 html.big .quick{grid-template-columns:repeat(3,minmax(0,1fr));gap:.24rem}
 html.big .qbtn{font-size:.72rem;min-height:2.55rem}
 html.big .qbtn .qe{font-size:1.1rem}
+html.big .qbtn .qe svg{width:1.26rem;height:1.26rem}
 
 .field{margin-bottom:.36rem}
 .memorow{display:flex;gap:.3rem}
@@ -956,9 +958,9 @@ function saveLang(){ try{ localStorage.setItem(LKEY, LANG); }catch(e){} }
 const SPACE_EN={'실온보관바구니':'Pantry','실온보관':'Pantry','냉장실':'Fridge','냉동실':'Freezer','야채·김치칸':'Veg & kimchi'};
 const ITEM_EN={'우유':'Milk','계란':'Eggs','빵':'Bread','식빵':'Bread','두부':'Tofu','치즈':'Cheese',
   '고기':'Meat','생선':'Fish','만두/냉동':'Dumpling','라면/면':'Noodles','쌀/잡곡':'Rice',
-  '양념/장':'Sauces','채소류':'Greens','과일류':'Fruit','생수':'Water','커피/차':'Coffee/tea',
+  '양념/장':'Sauces','채소류':'Greens','과일류':'Fruit','생수':'Water','커피/차':'Coffee/tea','주스':'Juice',
   '대파':'Green onions','상추':'Lettuce','사과':'Apple','삼겹살':'Pork belly','만두':'Dumplings',
-  '새우':'Shrimp','김치':'Kimchi','당근':'Carrots','양파':'Onion','무':'Radish','호박':'Pumpkin',
+  '새우':'Shrimp','김치':'Kimchi','당근':'Carrots','양파':'Onion','무':'Radish','호박':'Pumpkin','오이':'Cucumber','오렌지':'Orange','바나나':'Banana',
   '감자':'Potatoes','애호박':'Zucchini','단호박':'Pumpkin','소고기':'Beef','돼지고기':'Pork','닭':'Chicken','닭고기':'Chicken'};
 const MEMO_EN={'1L':'1L','한 판':'1 pack','한 단':'1 bunch','한 봉':'1 bag','1팩':'1 pack','1봉':'1 bag','500g':'500g'};
 function dnSpace(n){ return EN()? (SPACE_EN[n]||n) : n; }
@@ -1134,13 +1136,23 @@ document.addEventListener('click', function(e){
 });
 
 /* ══════ 뼈대 그리기 ══════ */
-/* 자주 쓰는 식재료 — 영양소 순서: 단백질 → 탄수화물 → 채소(자주 쓰는 5종 + 나머지) → 과일 → 양념·음료 */
+/* 자주 쓰는 식재료 — 영양소 순서: 단백질 → 탄수화물 → 채소(자주 쓰는 6종 + 나머지) → 과일 → 양념·음료(생수·커피/차·우유) */
+/* 무는 🥬로 보이면 배추와 헷갈려서, 하얀 몸통 + 초록 잎 모양을 직접 그린 인라인 SVG를 씁니다 */
+const ICON_MU='<svg class="muic" viewBox="0 0 32 32" aria-hidden="true" focusable="false">'
+  +'<defs><linearGradient id="muBody" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E4EECF"/><stop offset=".34" stop-color="#FFFEF8"/><stop offset="1" stop-color="#EBE4CD"/></linearGradient></defs>'
+  +'<path d="M16 10.4C20.6 10.4 23.4 14.3 23.4 18.8C23.4 25 18.9 30.5 16 31.4C13.1 30.5 8.6 25 8.6 18.8C8.6 14.3 11.4 10.4 16 10.4Z" fill="url(#muBody)" stroke="#ADA78C" stroke-width="1.6" stroke-linejoin="round"/>'
+  +'<path d="M12.2 15.6C10.8 17.6 10.2 20.2 10.5 22.6" stroke="#FFFDF4" stroke-width="1.9" stroke-linecap="round" fill="none" opacity=".9"/>'
+  +'<path d="M16 10.8C13.8 7 13.3 3 15 .4C18.1 2.7 19.4 7.3 18.1 11.2Z" fill="#6FB477"/>'
+  +'<path d="M15.8 10.4C11.9 9.3 8.6 6.5 7.3 3C11.6 2.9 15.3 5.7 16.8 9.8Z" fill="#4F9C5C"/>'
+  +'<path d="M16.2 10.4C20.1 9.3 23.4 6.5 24.7 3C20.4 2.9 16.7 5.7 15.2 9.8Z" fill="#8ACB90"/>'
+  +'<path d="M16 28.4C16 29.6 16 30.6 16 31.4" stroke="#C9C2A6" stroke-width="1.6" stroke-linecap="round" fill="none"/>'
+  +'</svg>';
 const QUICK=[
-  ['🥩','소고기','Beef'],['🥓','돼지고기','Pork'],['🍗','닭','Chicken'],['🐟','생선','Fish'],['🥚','계란','Eggs'],['🧈','두부','Tofu'],['🥛','우유','Milk'],['🧀','치즈','Cheese'],
+  ['🥩','소고기','Beef'],['🥓','돼지고기','Pork'],['🍗','닭','Chicken'],['🐟','생선','Fish'],['🥚','계란','Eggs'],['🧈','두부','Tofu'],['🧀','치즈','Cheese'],
   ['🍚','쌀/잡곡','Rice'],['🍞','빵','Bread'],['🍜','라면/면','Noodles'],['🥟','만두/냉동','Dumpling'],
-  ['🧅','양파','Onion'],['🥬','무','Radish'],['🎃','호박','Pumpkin'],['🥕','당근','Carrots'],['🥔','감자','Potatoes'],['🥬','채소류','Greens'],
-  ['🍎','과일류','Fruit'],
-  ['🧂','양념/장','Sauces'],['💧','생수','Water'],['☕','커피/차','Coffee/tea']
+  ['🧅','양파','Onion'],['🥬','무','Radish',ICON_MU],['🎃','호박','Pumpkin'],['🥕','당근','Carrots'],['🥔','감자','Potatoes'],['🥒','오이','Cucumber'],['🥬','채소류','Greens'],
+  ['🍎','사과','Apple'],['🍊','오렌지','Orange'],['🍌','바나나','Banana'],['🍇','과일류','Fruit'],
+  ['🧂','양념/장','Sauces'],['💧','생수','Water'],['☕','커피/차','Coffee/tea'],['🥛','우유','Milk'],['🧃','주스','Juice']
 ];
 
 /* ══════ 🍳 만들 수 있는 요리 (0원 내장 사전 · 이 폰에서만 · 인터넷 필요 없음) ══════ */
@@ -1162,18 +1174,23 @@ const DISHES={
   '호박':[['애호박전','호박볶음','된장찌개','호박죽','애호박찌개','호박범벅'],['Hobak-jeon','Hobak-bokkeum','Doenjang-jjigae','Hobak-juk','Hobak-jjigae','Hobak-beombeok']],
   '당근':[['당근라페','카레','잡채','당근주스','당근볶음','당근케이크'],['Carrot Salad','Curry','Japchae','Carrot Juice','Danggeun-bokkeum','Carrot Cake']],
   '감자':[['감자조림','감자수프','감자전','카레','감자샐러드','감자탕'],['Gamja-jorim','Potato Soup','Gamja-jeon','Curry','Potato Salad','Gamjatang']],
+  '오이':[['오이소박이','오이무침','오이냉국','김밥','오이피클','오이김치'],['Oi-sobagi','Oi-muchim','Oi-naengguk','Gimbap','Cucumber Pickle','Oi-kimchi']],
   '채소류':[['야채볶음','샐러드','된장찌개','잡채','야채죽','야채전'],['Yachae-bokkeum','Salad','Doenjang-jjigae','Japchae','Yachae-juk','Yachae-jeon']],
   '과일류':[['과일샐러드','요거트볼','과일주스','프루트파르페','과일화채','과일탕'],['Fruit Salad','Yogurt Bowl','Fruit Juice','Fruit Parfait','Hwachae','Fruit Punch']],
+  '사과':[['사과잼','사과샐러드','사과파이','사과주스','사과조림','사과전'],['Apple Jam','Apple Salad','Apple Pie','Apple Juice','Apple Compote','Apple Fritters']],
+  '오렌지':[['오렌지주스','마멀레이드','과일샐러드','오렌지차','오렌지케이크','오렌지청'],['Orange Juice','Marmalade','Fruit Salad','Orange Tea','Orange Cake','Orange Cheong']],
+  '바나나':[['바나나스무디','바나나팬케이크','바나나우유','바나나빵','바나나튀김','바나나아이스크림'],['Banana Smoothie','Banana Pancakes','Banana Milk','Banana Bread','Fried Banana','Banana Ice Cream']],
   '양념/장':[['된장찌개','간장불고기','고추장비빔밥','양념치킨','장아찌','고추장찌개'],['Doenjang-jjigae','Ganjang-bulgogi','Gochujang-bibimbap','Yangnyeom-chicken','Jangajji','Gochujang-jjigae']],
   '생수':[['미역국','콩나물국','야채수프','보리차','냉면육수','떡국'],['Miyeok-guk','Kongnamul-guk','Vegetable Soup','Boricha','Naengmyeon-broth','Tteokguk']],
-  '커피/차':[['커피우유','아포가토','홍차푸딩','커피젤리','밀크티','커피빵'],['Coffee Milk','Affogato','Tea Pudding','Coffee Jelly','Milk Tea','Coffee Bread']]
+  '커피/차':[['커피우유','아포가토','홍차푸딩','커피젤리','밀크티','커피빵'],['Coffee Milk','Affogato','Tea Pudding','Coffee Jelly','Milk Tea','Coffee Bread']],
+  '주스':[['과일스무디','에이드','주스젤리','샐러드드레싱','팬케이크','과일펀치'],['Fruit Smoothie','Ade','Juice Jelly','Salad Dressing','Pancake','Fruit Punch']]
 };
 let dishTimer=0;
 function hideDishPop(){ const p=$('#dishPop'); if(!p) return; p.hidden=true; p.classList.remove('on'); }
 function showDishPop(name, qty){
   const d=DISHES[name]; if(!d) return false;
   const q=QUICK.filter(function(x){ return x[1]===name; })[0];
-  $('#dpHead').textContent=(q? q[0]+' ':'')+(EN()? dnItem(name) : name)+(qty>1
+  $('#dpHead').textContent=(q && !q[3]? q[0]+' ':'')+(EN()? dnItem(name) : name)+(qty>1
     ? L(' '+qty+'개로 늘었어요.',' — now '+qty+' pcs.')
     : L(' 담았어요.',' added.'));
   $('#dpDishes').innerHTML='<span class="dlab">'+esc(L('🍳 만들 수 있는 요리: ','🍳 You can make: '))+'</span>'+
@@ -1384,7 +1401,7 @@ function renderQuick(){
   QUICK.forEach(function(q){
     const b=document.createElement('button');
     b.type='button'; b.className='qbtn';
-    b.innerHTML='<span class="qe" aria-hidden="true">'+q[0]+'</span><span class="ql"></span>';
+    b.innerHTML='<span class="qe" aria-hidden="true">'+(q[3]||esc(q[0]))+'</span><span class="ql"></span>';
     b.querySelector('.ql').textContent=L(q[1],q[2]);
     b.setAttribute('aria-label', L(q[1]+' 바로 담기','Add '+q[2]));
     b.addEventListener('click', function(){ addItem(q[1], joinMemo($('#addVolIn').value, $('#addMemo').value), true); });
@@ -1579,8 +1596,8 @@ function splitVolume(name){
 /* 품목 이름으로 알맞은 칸 자동 선택 */
 const REC_CLASS=[
   ['freeze',['냉동','만두','아이스크림','빙수','새우','돈까스','돈가스','튀김','피자','핫도그','어묵','냉면','냉동밥','만두피','아이스바']],
-  ['veg',['김치','채소','야채','대파','쪽파','양파','사과','과일','버섯','콩나물','당근','배추','무우','무말랭이','단무지','깍두기','총각무','알타리무','무청','깐무','오이','상추','시금치','감자','고구마','브로콜리','토마토','바나나','귤','딸기','포도','수박','참외','파프리카','깻잎','부추','미나리','양배추','호박','열무','숙주','청경채','샐러리','레몬','키위','복숭아','자두','감']],
-  ['cold',['우유','계란','달걀','두부','치즈','고기','생선','고등어','갈치','조기','명태','연어','오징어','낙지','요거트','요구르트','햄','소시지','베이컨','버터','마가린','주스','샐러드','삼겹','목살','갈비','안심','등심','가슴살','닭','오리','순대','어묵볶음','맛김']],
+  ['veg',['김치','채소','야채','대파','쪽파','양파','사과','오렌지','과일','버섯','콩나물','당근','배추','무우','무말랭이','단무지','깍두기','총각무','알타리무','무청','깐무','오이','상추','시금치','감자','고구마','브로콜리','토마토','바나나','귤','딸기','포도','수박','참외','파프리카','깻잎','부추','미나리','양배추','호박','열무','숙주','청경채','샐러리','레몬','키위','복숭아','자두','감']],
+  ['cold',['우유','계란','달걀','두부','치즈','고기','생선','고등어','갈치','조기','명태','연어','오징어','낙지','요거트','요구르트','햄','소시지','베이컨','버터','마가린','주스','쥬스','샐러드','삼겹','목살','갈비','안심','등심','가슴살','닭','오리','순대','어묵볶음','맛김']],
   ['cart',['라면','쌀','생수','빵','커피','양념','간장','고추장','된장','소금','설탕','과자','통조림','캔','참치','참기름','식용유','기름','음료','콜라','사이다','맥주','소주','스팸','국수','파스타','당면','미역','다시마','멸치','견과','호두','아몬드','시리얼','잼','꿀','초콜릿','녹차','홍삼','비타민','세제','휴지','키친타올','봉지','스낵','김','떡','한과','조미']]
 ];
 function guessSpaceId(name){
