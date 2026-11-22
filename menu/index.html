@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#3E2C22" />
-<!-- build: 2026-11-23 wagle-table v22 · ⚡ 빠른 메뉴 아이콘 + 입력 중 '메뉴 추가' 카드를 화면 맨 위로 (삼성 자판 420px에도 이름칸·가격칸·＋ 메뉴 넣기 안 가림) -->
+<!-- build: 2026-11-23 wagle-table v23 · ⚡ 빠른 메뉴를 터치 조합 빌더로 (🔥핫/🧊아이스 + 재료 + 라떼·티·에이드·뱅쇼 → '아이스 바닐라라떼') · 조합 버튼은 자판을 띄우지 않음 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
@@ -224,26 +224,56 @@ html.big .addhead .tab{font-size:.74rem;padding:.28rem .45rem}
 @media (max-width:359px){.addhead{flex-wrap:wrap}.addhead .tabs{width:100%}.addhead .tab{flex:1 1 0}}
 .tab.on{background:var(--cream2);border-color:var(--coffee);color:var(--coffee)}
 
-/* ── v22 · ⚡ 빠른 메뉴 아이콘 — 장바구니(/fridge/)처럼 톡 누르면 메뉴 이름이 채워진다 ── */
-.qhead{display:flex;align-items:center;gap:.35rem;margin:.6rem 0 .3rem;min-width:0}
+/* ── v23 · ⚡ 빠른 메뉴 — 터치로 말을 조합하는 메뉴 빌더 ──
+   🔥 핫 / 🧊 아이스(온도·맨 앞) ＋ 재료(☕ 아메리카노·🍦 바닐라 …) ＋ 종류(🥛 라떼·🍵 티 …)를
+   이어 눌러 '아이스 바닐라라떼' 처럼 자연스러운 이름을 만든다. 아래 작은 구분선 밑엔 식사·디저트 칩 */
+.qhead{display:flex;align-items:center;gap:.28rem;margin:.6rem 0 .3rem;min-width:0}
 .qtag{font-size:.68rem;font-weight:900;color:#1F4C2D;background:#E7F3EA;border:1.5px solid #BFDCC7;
   border-radius:.5rem;padding:.08rem .34rem;flex:0 0 auto;white-space:nowrap;letter-spacing:-.02em}
-.qhint{font-size:.68rem;font-weight:800;color:#8B7A6B;min-width:0;white-space:nowrap;
+.qhint{font-size:.63rem;font-weight:800;color:#8B7A6B;min-width:0;flex:1 1 auto;white-space:nowrap;
   overflow:hidden;text-overflow:ellipsis}
-.qgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.24rem;margin:0}
-.qpick{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.06rem;
-  background:#F3FAF4;border:2px solid #BFD9C6;border-radius:.62rem;padding:.2rem .06rem;min-height:2.75rem;
-  font-size:.7rem;font-weight:900;color:#234C33;line-height:1.08;letter-spacing:-.03em;
-  word-break:keep-all;text-align:center;overflow:hidden}
-.qpick .qe{font-size:1.05rem;line-height:1}
-.qpick .ql{display:block;width:100%;max-width:100%;overflow-wrap:anywhere}
-.qpick:active{transform:translateY(1px);background:#DDEFE1}
-.qpick:focus-visible{outline:3px solid #2E8A82;outline-offset:2px}
-html.big .qgrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:.26rem}
-html.big .qpick{font-size:.74rem;min-height:2.9rem}
-html.big .qpick .qe{font-size:1.12rem}
+/* 🔥 핫 · 🧊 아이스 — 빠른 메뉴 줄 오른쪽(손그림 위치), 둘 중 하나만 켜지고 다시 누르면 꺼진다 */
+.qtbtn{flex:0 0 auto;display:flex;align-items:center;gap:.1rem;border:2px solid #BFD9C6;background:#F3FAF4;
+  border-radius:.6rem;padding:.12rem .36rem;min-height:2rem;font-size:.72rem;font-weight:900;
+  color:#234C33;letter-spacing:-.03em;white-space:nowrap;line-height:1.05}
+.qtbtn:active{transform:translateY(1px)}
+.qtbtn.hot[aria-pressed="true"]{background:#FFE0D2;border-color:#C0562B;color:#8A3A16}
+.qtbtn.ice[aria-pressed="true"]{background:#DDEEFB;border-color:#2E7FA8;color:#14556F}
+.qclr{flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;
+  border-radius:.6rem;border:2px solid var(--line);background:#fff;color:#A63A2A;
+  font-size:.82rem;font-weight:900;line-height:1;padding:0}
+.qclr:active{transform:translateY(1px);background:#FDECE7}
+.qbuild{display:flex;flex-direction:column;gap:.22rem;min-width:0}
+.qline,.qgrid,.qmore{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.22rem;margin:0;min-width:0}
+.qchip{display:flex;align-items:center;justify-content:center;gap:.12rem;min-width:0;min-height:2.5rem;
+  background:#F3FAF4;border:2px solid #BFD9C6;border-radius:.62rem;padding:.2rem .04rem;
+  font-size:.72rem;font-weight:900;color:#234C33;line-height:1.05;letter-spacing:-.03em;
+  white-space:nowrap;overflow:hidden;text-align:center}
+.qchip .qe{font-size:1rem;line-height:1;flex:0 0 auto}
+.qchip .ql{min-width:0;overflow:hidden;text-overflow:ellipsis}
+/* 긴 이름(아메리카노·Sweet Potato)만 살짝 작게 — 잘리지 않게 */
+.qchip.qlong .ql{font-size:.86em;letter-spacing:-.02em}
+/* 영어는 띄어쓰기 자리에서 두 줄로 자연스럽게 — 'Sweet Potato'를 잘라 버리지 않는다 */
+html[lang="en"] .qchip{white-space:normal}
+html[lang="en"] .qchip .ql{white-space:normal;overflow-wrap:break-word;text-overflow:clip;overflow:visible;line-height:1.06}
+.qchip:active{transform:translateY(1px);background:#DDEFE1}
+.qchip:focus-visible{outline:3px solid #2E8A82;outline-offset:2px}
+/* 종류(라떼·티·에이드·뱅쇼)는 amber, 켜지면 진하게 */
+.qchip.qkind{background:#FFF6E6;border-color:#E9CD97;color:#6B4B15}
+.qchip[aria-pressed="true"]{background:#234C33;border-color:#173A25;color:#FFFDF5}
+.qchip.qkind[aria-pressed="true"]{background:#8A5A12;border-color:#6B4610;color:#FFF6E6}
+.qsplit{height:0;border-top:2px dashed #D9E7DC;margin:.08rem 0 .02rem}
+/* 식사·디저트 — 한 줄 더 컴팩트하게 */
+.qmore .qchip{min-height:2.05rem;font-size:.66rem;background:#FFFCF4;border-color:#E4D7BC;color:#5E4629}
+.qmore .qchip .qe{font-size:.92rem}
+.qmore .qchip[aria-pressed="true"]{background:#8A5A12;border-color:#6B4610;color:#FFF6E6}
+html.big .qline,html.big .qgrid,html.big .qmore{grid-template-columns:repeat(3,minmax(0,1fr));gap:.26rem}
+html.big .qchip{font-size:.76rem;min-height:2.7rem}
+html.big .qmore .qchip{font-size:.7rem;min-height:2.3rem}
 html.big .qhead{flex-wrap:wrap;row-gap:.2rem}
-@media (max-width:349px){.qgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+html.big .qhint{order:9;flex:1 0 100%}
+html.big .qtbtn{min-height:2.3rem;font-size:.78rem}
+@media (max-width:349px){.qline,.qgrid,.qmore{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .panel form{display:flex;flex-direction:column;gap:.5rem}
 .panel input[type=text],.panel input:not([type]),.panel textarea{width:100%;border:2px solid var(--line);
   border-radius:.8rem;padding:.7rem .8rem;min-height:3rem;background:#FFFDF8}
@@ -297,15 +327,25 @@ html.kbdock main > .kbdockcard{
   border-color:#BFDCC7;box-shadow:0 10px 30px rgba(24,16,10,.32)}
 /* 입력 한 벌(이름·가격·버튼)은 늘 위에 붙박이 — 아이콘 줄을 훑어 내려도 자판 위에 그대로 */
 html.kbdock .kbdockcard .panel{position:sticky;top:0;z-index:3;background:#fff;padding-bottom:.1rem}
-/* 빠른 메뉴 아이콘은 입력 중에도 폼 바로 아래에 남겨 둔다 — 자판 바로 위 띠에서 보인다 */
-html.kbdock .kbdockcard .qhead{margin:.32rem 0 .2rem}
-html.kbdock .kbdockcard .qgrid{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:1.9rem;gap:.18rem;margin:0}
-html.kbdock .kbdockcard .qpick{height:100%;min-height:0;flex-direction:row;gap:.14rem;font-size:.62rem;line-height:1.05;padding:0 .1rem}
-html.kbdock .kbdockcard .qpick .qe{font-size:.95rem}
-html.kbdock .kbdockcard .qpick .ql{width:auto;max-width:100%;flex:0 1 auto;min-width:0}
-/* 큰 글씨 모드에서는 아이콘도 3열로 넓게 — 좁은 4열로 글씨를 작게 줄이지 않는다 */
-html.big.kbdock .kbdockcard .qgrid{grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:2rem}
-html.big.kbdock .kbdockcard .qpick{font-size:.64rem}
+/* 빠른 메뉴 칸은 입력 중에도 폼 바로 아래에 남겨 둔다 — 자판 바로 위 띠에서 조합을 이어 누를 수 있게 */
+html.kbdock .kbdockcard .qhead{margin:.32rem 0 .2rem;flex-wrap:nowrap}
+/* 입력 중엔 도움말 문구는 접는다 — 버튼 줄을 한 줄로 */
+html.kbdock .kbdockcard .qhint{display:none}
+html.kbdock .kbdockcard .qbuild{gap:.16rem}
+html.kbdock .kbdockcard .qline,
+html.kbdock .kbdockcard .qgrid,
+html.kbdock .kbdockcard .qmore{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:1.8rem;gap:.16rem}
+html.kbdock .kbdockcard .qmore{grid-auto-rows:1.6rem}
+html.kbdock .kbdockcard .qchip{height:100%;min-height:0;font-size:.6rem;line-height:1.05;padding:0 .04rem;gap:.1rem;scroll-margin-top:12rem}
+html.kbdock .kbdockcard .qchip .qe{font-size:.9rem}
+html.kbdock .kbdockcard .qmore .qchip{font-size:.56rem}
+html.kbdock .kbdockcard .qsplit{margin:.02rem 0}
+/* 큰 글씨 모드에서는 칸도 3열로 넓게 — 좁은 4열로 글씨를 작게 줄이지 않는다 */
+html.big.kbdock .kbdockcard .qline,
+html.big.kbdock .kbdockcard .qgrid,
+html.big.kbdock .kbdockcard .qmore{grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:2rem}
+html.big.kbdock .kbdockcard .qmore{grid-auto-rows:1.8rem}
+html.big.kbdock .kbdockcard .qchip{font-size:.64rem}
 html.kbdock .kbdockcard .addhead{margin:0 0 .3rem;flex-wrap:nowrap}
 html.kbdock .kbdockcard .addhead .tabs{width:auto;gap:.22rem}
 html.kbdock .kbdockcard .addhead .tab{flex:0 0 auto;min-height:2rem;padding:.18rem .42rem;font-size:.7rem}
@@ -1203,12 +1243,20 @@ html.big .isteps li>span{font-size:1rem}
       <div class="row2"><button id="pasteBtn" class="btn primary">읽어서 확인하기</button></div>
     </div>
 
-    <!-- v22 · ⚡ 빠른 메뉴 아이콘 — 톡 누르면 이름이 채워지고 가격칸으로 커서가 간다 -->
+    <!-- v23 · ⚡ 빠른 메뉴 — 🔥/🧊 온도 + 재료 + 종류를 이어 눌러 '아이스 바닐라라떼'처럼 조합 -->
     <div class="qhead">
       <span class="qtag" id="quickTag">⚡ 빠른 메뉴</span>
-      <span class="qhint" id="quickHint">톡 누르면 이름이 채워져요</span>
+      <span class="qhint" id="quickHint">눌러서 조합</span>
+      <button type="button" class="qtbtn hot" id="qHot" aria-pressed="false" aria-label="핫 온도 붙이기">🔥 핫</button>
+      <button type="button" class="qtbtn ice" id="qIce" aria-pressed="false" aria-label="아이스 온도 붙이기">🧊 아이스</button>
+      <button type="button" class="qclr" id="qClear" aria-label="메뉴 이름 지우기">✕</button>
     </div>
-    <div class="qgrid" id="quickGrid" role="group" aria-label="자주 쓰는 메뉴"></div>
+    <div class="qbuild" id="quickBuild">
+      <div class="qline" id="quickKind" role="group" aria-label="종류 — 라떼·티·에이드·뱅쇼"></div>
+      <div class="qgrid" id="quickGrid" role="group" aria-label="재료 메뉴"></div>
+      <div class="qsplit" aria-hidden="true"></div>
+      <div class="qmore" id="quickMore" role="group" aria-label="식사·디저트"></div>
+    </div>
   </section>
 
   <section class="card" id="review" hidden>
@@ -1713,8 +1761,15 @@ function applyLang(){
 
   setTxt('#addTitle','메뉴 추가','Add Menu');
   setTxt('#quickTag','⚡ 빠른 메뉴','⚡ Quick Menu');
-  setTxt('#quickHint','톡 누르면 이름이 채워져요','Tap one to fill in the name');
-  setAttr('#quickGrid','aria-label','자주 쓰는 메뉴','Frequently used items');
+  setTxt('#quickHint','눌러서 조합','Tap to mix');
+  setTxt('#qHot','🔥 핫','🔥 Hot');
+  setTxt('#qIce','🧊 아이스','🧊 Iced');
+  setAttr('#qHot','aria-label','핫 온도 붙이기','Add hot');
+  setAttr('#qIce','aria-label','아이스 온도 붙이기','Add iced');
+  setAttr('#qClear','aria-label','메뉴 이름 지우기','Clear the menu name');
+  setAttr('#quickKind','aria-label','종류 — 라떼·티·에이드·뱅쇼','Type — Latte, Tea, Ade, Vin Chaud');
+  setAttr('#quickGrid','aria-label','재료 메뉴','Ingredients');
+  setAttr('#quickMore','aria-label','식사·디저트','Meals and desserts');
   try{ renderQuick(); }catch(e){}
   setTxt('#addCard [data-tab="manual"]','직접 입력','Type In');
   setTxt('#addCard [data-tab="photo"]','📷 사진으로','📷 Photo');
@@ -2224,6 +2279,8 @@ function syncDock(){
     if(!root.classList.contains('kbdock')){
       dockScrollY=window.pageYOffset;      /* 접었다 펴도 보던 자리로 돌아오게 */
       root.classList.add('kbdock');
+      /* v23 · 붙박이 카드로 바뀔 땐 늘 맨 위(이름칸·가격칸·＋ 메뉴 넣기)부터 보이게 */
+      card.scrollTop=0;
     }
   }else if(root.classList.contains('kbdock')){
     root.classList.remove('kbdock');
@@ -2696,58 +2753,179 @@ $('#addForm').addEventListener('submit', e=>{
   if(!st){ toast(L('먼저 가게를 만들어 주세요','Make a shop first')); return; }
   st.menus.push({id:uid(), name:name, price:price, fav:false, qty:1});
   nEl.value=''; pEl.value='';
+  try{ combReset(); }catch(e){}
   save(); render(); nEl.focus();
   toast(L('"'+name+'" 넣었어요'+(price? ' ('+won(price)+'원)':''),
           '"'+name+'" added'+(price? ' ('+money(price)+')':'')));
 });
 
-/* ══ v22 · ⚡ 빠른 메뉴 아이콘 ══
-   장바구니(/fridge/)의 '빠른 품목'처럼 톡 누르면 → 이름칸이 채워지고 → 가격칸으로 커서가 가서
-   숫자 자판만 눌러 가격을 넣고 '＋ 메뉴 넣기'를 고르면 된다.
-   [이모지, 한국어 이름, English name] */
-var QUICK=[
-  ['☕','아메리카노','Americano'],
-  ['🧊','아아','Iced Amer.'],
-  ['🥛','카페라떼','Latte'],
-  ['🍵','차','Tea'],
-  ['🧃','에이드','Ade'],
-  ['🥤','콜라','Soda'],
-  ['🍰','케이크','Cake'],
-  ['🍦','아이스크림','Ice Cream'],
-  ['🍞','토스트','Toast'],
-  ['🍲','찌개','Stew'],
-  ['🍚','비빔밥','Bibimbap'],
-  ['🍜','라면','Noodles'],
-  ['🍙','김밥','Kimbap'],
-  ['🥟','만두','Dumplings'],
-  ['🍗','치킨','Chicken'],
-  ['🍺','맥주','Beer']
+/* ══ v23 · ⚡ 빠른 메뉴 — 터치로 말을 조합하는 메뉴 빌더 ══
+   🔥 핫 / 🧊 아이스(맨 앞 온도) + 재료(아메리카노·바닐라…) + 종류(라떼·티·에이드·뱅쇼)를
+   이어 눌러 '아이스 바닐라라떼' · '핫 자몽티' 처럼 자연스러운 이름을 만든다.
+   · 조합 버튼은 커서를 옮기지 않는다 — 자판을 띄우지 않아 2~3개를 잇달아 누를 수 있다
+   · 이름칸·가격칸을 직접 탭했을 때의 v22 자판 도킹(kbdock)은 그대로
+   [키, 이모지, 한국어, English] */
+var QKIND=[
+  ['latte','🥛','라떼','Latte'],
+  ['tea','🍵','티','Tea'],
+  ['ade','🧃','에이드','Ade'],
+  ['vin','🍷','뱅쇼','Vin Chaud']
 ];
-function renderQuick(){
-  var box=$('#quickGrid'); if(!box) return;
-  box.innerHTML=QUICK.map(function(q,i){
-    return '<button type="button" class="qpick" data-qi="'+i+'"'
-      +' aria-label="'+esc(L(q[1]+' 넣기','Add '+q[2]))+'">'
-      +'<span class="qe" aria-hidden="true">'+q[0]+'</span>'
-      +'<span class="ql">'+esc(L(q[1],q[2]))+'</span></button>';
-  }).join('');
+var QMAT=[
+  ['americano','☕','아메리카노','Americano'],
+  ['cafe','☕','카페','Café'],
+  ['vanilla','🍦','바닐라','Vanilla'],
+  ['dolce','🍮','돌체','Dolce'],
+  ['matcha','🍵','말차','Matcha'],
+  ['sweet','🍠','고구마','Sweet Potato'],
+  ['ginger','🫚','생강','Ginger'],
+  ['grapefruit','🍊','자몽','Grapefruit'],
+  ['lemon','🍋','레몬','Lemon'],
+  ['plum','🍑','매실','Plum'],
+  ['omija','🍒','오미자','Omija'],
+  ['jujube','🫖','대추차','Jujube Tea']
+];
+var QETC=[
+  ['cake','🍰','케이크','Cake'],
+  ['toast','🍞','토스트','Toast'],
+  ['stew','🍲','찌개','Stew'],
+  ['bibimbap','🍚','비빔밥','Bibimbap'],
+  ['ramen','🍜','라면','Ramen'],
+  ['dumpling','🥟','만두','Dumplings'],
+  ['chicken','🍗','치킨','Chicken'],
+  ['beer','🍺','맥주','Beer'],
+  ['soda','🥤','콜라','Soda'],
+  ['icecream','🍨','아이스크림','Ice Cream'],
+  ['kimbap','🍙','김밥','Gimbap']
+];
+/* 지금 조합 상태 — t: 온도 / items: 재료 키 / kind: 종류 키 / base: 직접 적은 이름 */
+var COMB={t:'', items:[], kind:'', base:''};
+var TPRE=/^\s*(?:핫|아이스|hot|iced)(?:\s+|$)/i;
+/* 온도는 '핫 '·'아이스 '처럼 띄어 쓸 때만 온도로 본다 — '아이스크림'의 앞글자를 온도로 떼지 않게 */
+function tpreOf(s){
+  var m=/^\s*(핫|아이스|hot|iced)(?:\s+|$)/i.exec(String(s==null?'':s));
+  if(!m) return '';
+  var t=m[1].toLowerCase();
+  return (t==='핫'||t==='hot')? 'hot':'ice';
 }
-function quickPick(q){
-  if(!q) return;
+function stripTpre(s){ return String(s==null?'':s).replace(TPRE,'').replace(/\s+$/,''); }
+function qMeta(list,key){
+  for(var i=0;i<list.length;i++){ if(list[i][0]===key) return list[i]; }
+  return null;
+}
+/* 조합한 이름 — 온도(맨앞) + 재료 + 종류(한국어는 붙여쓰기 '바닐라라떼', 영어는 띄어쓰기 'Vanilla Latte') */
+function combText(){
+  var out=[];
+  if(COMB.t) out.push(COMB.t==='hot'? L('핫','Hot') : L('아이스','Iced'));
+  if(COMB.base) out.push(COMB.base);
+  var mats=QMAT.filter(function(m){ return COMB.items.indexOf(m[0])>=0; })
+               .map(function(m){ return L(m[2],m[3]); });
+  var km=COMB.kind? qMeta(QKIND,COMB.kind) : null;
+  var kind=km? L(km[2],km[3]) : '';
+  if(mats.length && kind) out.push(EN()? mats.join(' ')+' '+kind : mats.join(' ')+kind);
+  else if(mats.length) out.push(mats.join(' '));
+  else if(kind) out.push(kind);
+  return out.join(' ');
+}
+function syncComb(){
+  var h=$('#qHot'), i=$('#qIce');
+  if(h) h.setAttribute('aria-pressed', COMB.t==='hot'? 'true':'false');
+  if(i) i.setAttribute('aria-pressed', COMB.t==='ice'? 'true':'false');
+  $$('#quickBuild .qchip').forEach(function(b){
+    var key=b.getAttribute('data-qk'), type=b.getAttribute('data-qt');
+    if(!type || type==='meal') return;
+    var on = type==='kind'? (COMB.kind===key) : (COMB.items.indexOf(key)>=0);
+    b.setAttribute('aria-pressed', on? 'true':'false');
+  });
+}
+function combApply(){
+  var el=$('#newName');
+  if(el) el.value=combText();
+  syncComb();
+}
+function combReset(){ COMB={t:'', items:[], kind:'', base:''}; syncComb(); }
+function qChipHTML(type,item){
+  var lab=L(item[2],item[3]);
+  var long = lab.replace(/\s/gu,'').length > (EN()? 8 : 4);
+  return '<button type="button" class="qchip'+(type==='kind'? ' qkind':'')+(long? ' qlong':'')+'"'
+    +' data-qt="'+type+'" data-qk="'+item[0]+'"'
+    +(type==='meal'? '' : ' aria-pressed="false"')
+    +' aria-label="'+esc(lab)+'">'
+    +'<span class="qe" aria-hidden="true">'+item[1]+'</span>'
+    +'<span class="ql">'+esc(lab)+'</span></button>';
+}
+function renderQuick(){
+  var k=$('#quickKind'), g=$('#quickGrid'), m=$('#quickMore');
+  if(k) k.innerHTML=QKIND.map(function(x){ return qChipHTML('kind',x); }).join('');
+  if(g) g.innerHTML=QMAT.map(function(x){ return qChipHTML('mat',x); }).join('');
+  if(m) m.innerHTML=QETC.map(function(x){ return qChipHTML('meal',x); }).join('');
+  syncComb();
+}
+/* 🔥/🧊 — 누르면 켜지고, 반대쪽을 누르면 깔끔하게 교체, 같은 걸 다시 누르면 해제 */
+function combTemp(kind){
   if(!store()){ askName('new'); return; }
   switchTab('manual');
+  if(COMB.t===kind){ COMB.t=''; combApply(); return; }
+  if(!COMB.items.length && !COMB.kind && !COMB.base){
+    var cur=$('#newName');
+    COMB.base = cur? stripTpre(cur.value) : '';
+  }
+  COMB.t=kind;
+  combApply();
+}
+/* 재료·종류 — 누를 때마다 켜고/끄고, 순서와 상관없이 자연스러운 말로 합쳐진다 */
+function combChip(type,key){
+  if(!store()){ askName('new'); return; }
+  switchTab('manual');
+  if(type==='kind'){
+    COMB.kind = (COMB.kind===key)? '' : key;
+  }else{
+    var i=COMB.items.indexOf(key);
+    if(i>=0) COMB.items.splice(i,1); else COMB.items.push(key);
+  }
+  combApply();
+}
+/* 식사·디저트 — 완성된 메뉴 한 번에 채우고 가격칸으로 (v22 그대로) */
+function combMeal(item){
+  if(!item) return;
+  if(!store()){ askName('new'); return; }
+  switchTab('manual');
+  var name=L(item[2],item[3]);
+  combReset();
   var nEl=$('#newName'), pEl=$('#newPrice');
   if(!nEl) return;
-  var name=L(q[1],q[2]);
   nEl.value=name;
   try{ pEl.focus({preventScroll:true}); }catch(e){ try{ pEl.focus(); }catch(_){} }
   toast(L('"'+name+'" 이름을 채웠어요 — 가격만 넣고 ＋ 메뉴 넣기',
           '"'+name+'" filled in — add a price and tap ＋ Add Menu'));
 }
-$('#quickGrid').addEventListener('click', function(e){
-  var b=e.target.closest ? e.target.closest('.qpick') : null;
+$('#qHot').addEventListener('click', function(){ combTemp('hot'); });
+$('#qIce').addEventListener('click', function(){ combTemp('ice'); });
+/* ✕ — 이름칸을 한 번에 비우기 (가격은 그대로) */
+$('#qClear').addEventListener('click', function(){
+  combReset();
+  var n=$('#newName');
+  if(n && n.value) n.value='';
+});
+$('#quickBuild').addEventListener('click', function(e){
+  var b=e.target.closest? e.target.closest('.qchip') : null;
   if(!b) return;
-  quickPick(QUICK[parseInt(b.dataset.qi,10)]);
+  var type=b.getAttribute('data-qt'), key=b.getAttribute('data-qk');
+  if(type==='meal'){ combMeal(qMeta(QETC,key)); return; }
+  combChip(type,key);
+});
+/* 조합 버튼을 눌러도 커서를 빼앗지 않는다 — 이름칸·가격칸에 커서가 있을 때 자판이 내려가지 않게 */
+$('#addCard').addEventListener('pointerdown', function(e){
+  var b=e.target.closest? e.target.closest('.qchip,.qtbtn,.qclr') : null;
+  if(!b) return;
+  var a=document.activeElement;
+  if(a && a.matches && a.matches('#newName,#newPrice')) e.preventDefault();
+});
+/* 이름칸을 직접 고치면 조합 상태도 그 글자에 맞춰 따라간다 */
+$('#newName').addEventListener('input', function(){
+  var v=this.value;
+  COMB={t:tpreOf(v), items:[], kind:'', base:stripTpre(v)};
+  syncComb();
 });
 
 /* ── 메뉴 글자 → (이름, 가격) ──
