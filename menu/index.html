@@ -1539,7 +1539,18 @@ function calc(){
   const count=items.reduce((a,m)=>a+m.qty,0);
   const total=items.reduce((a,m)=>a+m.qty*m.price,0);
   const per=Math.ceil(total/Math.max(1,S.people));
-  return {items:items,count:count,total:total,per:per};
+  return {items:items,merged:mergeSame(items),count:count,total:total,per:per};
+}
+/* 같은 메뉴(이름이 같고 가격이 같은 항목)는 요약에서 한 줄로 합쳐 보여 준다
+   예: 아메리카노 ×1 + 아메리카노 ×2 → 아메리카노 3잔 */
+function mergeSame(items){
+  const map=new Map(), order=[];
+  items.forEach(m=>{
+    const key=m.name.trim()+'\u0000'+m.price;
+    if(!map.has(key)){ map.set(key,{name:m.name.trim(),price:m.price,qty:0}); order.push(key); }
+    map.get(key).qty+=m.qty;
+  });
+  return order.map(k=>map.get(k));
 }
 function renderBar(){
   const st=store(), c=calc();
@@ -1609,25 +1620,27 @@ function toast(msg){
 /* ── 주문 요약 ── */
 function summaryText(){
   const st=store(), c=calc();
+  const list=c.merged;
   let t;
   if(EN()){
     t='['+dn(st.name)+'] Order\n';
-    c.items.forEach(m=>{ t+='· '+dn(m.name)+' '+qtyUnit(m.qty,st)+' '+money(m.qty*m.price,st)+'\n'; });
+    list.forEach(m=>{ t+='· '+dn(m.name)+' '+qtyUnit(m.qty,st)+' '+money(m.qty*m.price,st)+'\n'; });
     t+='Total '+qtyUnit(c.count,st)+' · '+money(c.total,st);
     if(S.people>1) t+='\nSplit '+S.people+' ways · '+money(c.per,st)+' each';
     return t;
   }
   const u=unitOf(st);
   t='['+st.name+'] 주문\n';
-  c.items.forEach(m=>{ t+='· '+m.name+' '+m.qty+u+' '+won(m.qty*m.price)+'원\n'; });
+  list.forEach(m=>{ t+='· '+m.name+' '+m.qty+u+' '+won(m.qty*m.price)+'원\n'; });
   t+='총 '+c.count+u+' · '+won(c.total)+'원';
   if(S.people>1) t+='\n'+S.people+'명이서 1인당 '+won(c.per)+'원';
   return t;
 }
 function fillSummary(){
   const st=store(), c=calc();
+  const list=c.merged;
   $('#sumStore').textContent=dn(st.name);
-  $('#sumItems').innerHTML=c.items.map(m=>
+  $('#sumItems').innerHTML=list.map(m=>
     `<div class="srow"><span class="sname">${esc(dn(m.name))}</span><span class="sqty">${EN()? qtyUnit(m.qty,st) : m.qty+unitOf(st)}</span><span class="sprice">${esc(money(m.qty*m.price,st))}</span></div>`
   ).join('');
   $('#sumTotal').textContent = EN()
