@@ -4,14 +4,14 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#1E4A36" />
-<!-- build: 2026-11-23 와글가족장바구니 v10 · 와글가족 캐릭터(집 옆 세희·미미·테오·아기햄스터) 살랑살랑·까딱까딱 움직임 강화(발끝 축, prefers-reduced-motion 유지) · 🥒 오이 추가(요리 6가지·영수증 자동 분류) · 🥛 우유를 맨 아래 음료 줄로 이동 · 무는 🥬 대신 직접 그린 하얀 무 그림 · 🍎 사과·🍊 오렌지·🍌 바나나 따로 두고 나머지는 🍇 과일류 · 🧃 주스 추가 · 🧾 영수증 버튼을 칸 화면 맨 위(냉장실 줄 오른쪽)로 · 빠른 식품 27종을 영양소 순서로(단백질: 소고기·돼지고기·닭·생선·계란·두부·치즈 → 탄수화물 → 채소 6종(양파·무·호박·당근·감자·오이)+채소류 → 과일: 사과·오렌지·바나나·과일류🍇 → 음료: 생수·커피/차·우유·주스) · 품목을 담으면 '만들 수 있는 요리' 6가지가 4초 떴다가 사라짐(한/영, 한식 표준 로마자) · 와글가족 캐릭터 · 첫 화면 영수증 버튼 · 품목 카드 한 줄 · 같은 품목 자동 +1 · 용량/유통기한 두 칸 · 폰 뒤로가기 -->
+<!-- build: 2026-11-23 와글가족장바구니 v13 · 보관 공간 5칸(냉장고·냉동실·야채·과일·김치냉장고·실온보관바구니) — 집 그림 안 냉장고 4대 2줄 2칸 + 오른쪽 실온보관 바구니, 오른쪽 위 벽에 작은 부엌창(390·360px·큰 글씨에서도 라벨 잘림·겹침 없음) · 회전문 스와이프 6단계(홈↔냉장고↔냉동실↔야채과일↔김치냉장고↔실온보관바구니) · 영수증 자동 분류에 김치/깍두기/동치미/장아찌/젓갈/청국장→김치냉장고 · 옛 4칸 데이터는 그대로 두고 kimchi 칸만 빈 채로 추가 · 집 아래 3줄 안내 문구 삭제(첫 화면 간결) · 홈 영수증 버튼을 📷 영수증 찍기(카메라 바로) | 🖼️ 앨범에서(여러 장) 두 칸으로 분리 · 캐시 v13 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="와글가족장바구니" />
-<meta name="description" content="와글가족장바구니 — 우리 집 냉장고 3대와 실온보관바구니를 한눈에. 구매일·남은 수량, 다 먹음 정리, 영수증 사진으로 품목 넣기. 목록은 이 기기에만 저장. 광고 없음." />
+<meta name="description" content="와글가족장바구니 — 우리 집 냉장고 4대(냉장·냉동·야채과일·김치냉장고)와 실온보관바구니를 한눈에. 구매일·남은 수량, 다 먹음 정리, 영수증 사진으로 품목 넣기. 목록은 이 기기에만 저장. 광고 없음." />
 <title>와글가족장바구니 · 우리집 냉장고 · 실온보관바구니</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 120%27%3E%3Crect width=%27120%27 height=%27120%27 rx=%2726%27 fill=%27%23F6FAF4%27/%3E%3Cpath d=%27M30 48h60l-7 42a8 8 0 0 1-8 7H45a8 8 0 0 1-8-7z%27 fill=%27%23F3DCAE%27 stroke=%27%23C08A3E%27 stroke-width=%275%27/%3E%3Cpath d=%27M44 48q16-20 32 0%27 fill=%27none%27 stroke=%27%23C08A3E%27 stroke-width=%276%27 stroke-linecap=%27round%27/%3E%3Ccircle cx=%2750%27 cy=%2772%27 r=%276%27 fill=%27%232F6B4F%27/%3E%3Ccircle cx=%2770%27 cy=%2772%27 r=%276%27 fill=%27%23C9553D%27/%3E%3C/svg%3E">
 <style>
@@ -32,7 +32,7 @@
 .famstrip svg use{transform-box:fill-box;transform-origin:50% 100%;animation:famsway 3.4s ease-in-out infinite}
 .famstrip svg use:nth-of-type(2){animation-delay:.45s}
 .famstrip svg use:nth-of-type(3){animation-delay:.9s}
-.housepeek{position:absolute;right:-.34rem;bottom:.02rem;width:1.9rem;height:auto;pointer-events:none;
+.housepeek{position:absolute;right:-.9rem;bottom:.02rem;width:1.9rem;height:auto;pointer-events:none;
   filter:drop-shadow(0 2px 3px rgba(90,60,30,.18))}
 /* 집 옆 세희 — 발끝을 축으로 살랑살랑 좌우로 + 가볍게 방긋(상하) */
 .housepeek svg{display:block;width:100%;height:auto;transform-origin:50% 97%;animation:famgreet 3.4s ease-in-out infinite;will-change:transform}
@@ -177,9 +177,15 @@ html.big .roofchip{font-size:.66rem}
 .walls::before,.walls::after{content:"";position:absolute;bottom:.3rem;width:.4rem;height:.4rem;border-radius:50%;background:#EAD6B3}
 .walls::before{left:.32rem}
 .walls::after{right:.32rem}
-.kitchen{display:flex;align-items:flex-end;justify-content:center;gap:.24rem;position:relative;z-index:1}
-.fridge{flex:1 1 0;min-width:0;max-width:6.2rem;display:flex;flex-direction:column;align-items:center;
-  gap:.12rem;background:none;border:0;padding:0;line-height:1}
+/* 벽 위 작은 부엌창 — 오른쪽 위 빈 벽을 채우는 그림(눌러도 아무 일 없음) */
+.kwin{position:absolute;top:.34rem;right:.3rem;width:1.85rem;line-height:0;opacity:.95;pointer-events:none;z-index:0}
+.kwin svg{display:block;width:100%;height:auto;filter:drop-shadow(0 2px 3px rgba(120,80,40,.16))}
+html.big .kwin{width:1.7rem}
+/* 냉장고 4대(냉장고·냉동실·야채과일·김치냉장고)는 2줄 2칸, 실온보관바구니는 오른쪽에 두 줄 높이로 바닥에 */
+.kitchen{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,23%);
+  gap:.3rem .26rem;align-items:end;justify-items:center;position:relative;z-index:1}
+.fridge{width:100%;min-width:0;max-width:6.2rem;display:flex;flex-direction:column;align-items:center;
+  gap:.1rem;background:none;border:0;padding:0;line-height:1}
 .fridge:active .fbox{transform:translateY(2px);filter:brightness(.98)}
 .fbox{position:relative;width:100%;aspect-ratio:.88;border-radius:.54rem .54rem .38rem .38rem;
   border:3px solid #5C6E60;display:flex;align-items:flex-start;justify-content:center;padding-top:.14rem;
@@ -188,6 +194,7 @@ html.big .roofchip{font-size:.66rem}
 .fbox.ice{background:linear-gradient(165deg,#F2FBFF,#D8EEF8)}
 .fbox.freeze{background:linear-gradient(165deg,#F4F8FF,#D8E4F8)}
 .fbox.veg{background:linear-gradient(165deg,#F6FDF2,#DDEFD3)}
+.fbox.kimchi{background:linear-gradient(165deg,#FFF4F0,#FAD8CA)}
 .fh{position:absolute;right:9%;width:3px;border-radius:3px;background:rgba(40,60,45,.34)}
 .fh.a{top:9%;height:15%}
 .fh.b{top:45%;height:21%}
@@ -197,25 +204,26 @@ html.big .roofchip{font-size:.66rem}
 .fname{font-size:.66rem;font-weight:900;color:#2F3A2F;line-height:1.1;text-align:center;
   max-width:100%;overflow-wrap:anywhere;word-break:keep-all}
 html.big .fname{font-size:.6rem}
-.cartbtn{flex:0 0 21%;max-width:4.4rem;min-width:0;display:flex;flex-direction:column;align-items:center;
-  gap:.12rem;background:none;border:0;padding:0;line-height:1}
+.cartbtn{grid-column:3;grid-row:1 / span 2;align-self:end;width:100%;max-width:4.4rem;min-width:0;
+  display:flex;flex-direction:column;align-items:center;gap:.1rem;background:none;border:0;padding:0;line-height:1}
 .cartbtn:active .cartbox{transform:translateY(2px);filter:brightness(.98)}
 .cartbox{position:relative;width:100%;transition:.12s}
 .cartbox svg{display:block;width:100%;height:auto}
 .floor{height:.3rem;border-radius:.22rem;margin:.16rem .15rem 0;
   background:repeating-linear-gradient(90deg,#D9A46A 0 16px,#CF9558 16px 32px);opacity:.9}
 /* 한 글자만 다음 줄로 떨어지지 않게(keep-all) + 위아래 여백 축소 */
-.househint{margin:.42rem .2rem .5rem;text-align:center;font-size:.78rem;font-weight:800;color:#6B7A6E;
-  line-height:1.45;word-break:keep-all;overflow-wrap:break-word;text-wrap:balance}
-.househint b{color:#2F6B4F}
-/* 홈에서 바로 영수증 찍기 */
-.homerec{display:flex;align-items:center;justify-content:center;gap:.28rem;width:100%;
-  min-height:2.45rem;margin:.05rem 0 .55rem;padding:.3rem .5rem;border-radius:.8rem;
+/* 홈에서 바로 영수증 — 📷 찍기 | 🖼️ 앨범에서 (반반 두 버튼) */
+.homerec2{display:grid;grid-template-columns:1fr 1fr;gap:.32rem;margin:.22rem 0 .55rem}
+.homerec{display:flex;align-items:center;justify-content:center;gap:.26rem;width:100%;min-width:0;
+  min-height:2.45rem;margin:0;padding:.3rem .32rem;border-radius:.8rem;
   border:2px solid #C98A2E;background:linear-gradient(180deg,#FFF5DE,#FFE8BE);color:#7A4A10;
-  font-size:.86rem;font-weight:900;letter-spacing:-.01em;box-shadow:0 2px 6px rgba(201,138,46,.18)}
+  font-size:.84rem;font-weight:900;letter-spacing:-.02em;white-space:nowrap;
+  box-shadow:0 2px 6px rgba(201,138,46,.18)}
+.homerec>span{min-width:0}
 .homerec:active{transform:translateY(1px);background:#FFE3B0}
 .homerec[disabled]{opacity:.55}
-html.big .homerec{font-size:.8rem;min-height:2.35rem}
+html.big .homerec{font-size:.76rem;min-height:2.4rem;padding:.3rem .22rem}
+@media (max-width:389px){ .homerec{font-size:.79rem;padding:.3rem .2rem;gap:.2rem} }
 .today{padding:.5rem .6rem .55rem}
 .todayhead{display:flex;align-items:center;gap:.35rem;margin-bottom:.24rem}
 .todayhead h2{flex:1 1 auto;min-width:0;margin:0;font-size:1rem}
@@ -330,7 +338,7 @@ html.big .cbox{width:2.2rem;height:2.2rem;font-size:1.4rem;border-radius:.6rem}
 .empty .big svg{width:auto;height:2.1rem;display:block}
 html.big .empty .big svg{height:2.3rem}
 
-/* 카드 / 담기 — 🧾 영수증 버튼은 칸 화면 맨 위(냉장실 이름 줄 오른쪽)에 */
+/* 카드 / 담기 — 🧾 영수증 버튼은 칸 화면 맨 위(냉장고 이름 줄 오른쪽)에 */
 .recbtn{display:flex;align-items:center;justify-content:center;gap:.3rem;flex-wrap:nowrap;
   width:100%;min-height:2.6rem;border-radius:.7rem;border:2px solid #C98A2E;background:#FFEFD2;
   color:#7A4A10;font-size:.88rem;font-weight:900;line-height:1.15;text-align:center}
@@ -442,7 +450,7 @@ details.bulk[open] summary::before{content:"▾"}
 /* 냉장고로 넣기 */
 .movebox{border:2px dashed #BFD9C6;border-radius:.8rem;padding:.45rem;margin:.45rem 0 .1rem;background:#F6FBF5}
 .movehead{font-size:.78rem;font-weight:900;color:#2F6B4F;margin:0 0 .28rem}
-.movegrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.28rem}
+.movegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.28rem}
 .movebtn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.18rem;
   border:2px solid #9CC9A8;border-radius:.7rem;background:#fff;padding:.32rem .18rem;
   font-size:.72rem;font-weight:900;color:#1F4C2D;line-height:1.14;min-height:2.95rem;overflow-wrap:anywhere}
@@ -761,11 +769,19 @@ html.big .dpdishes{font-size:.86rem}
       <div class="walls">
         <div class="kitchen" id="kitchen"></div>
         <div class="floor"></div>
+        <span class="kwin" aria-hidden="true"><svg viewBox="0 0 48 52" focusable="false">
+          <rect x="3" y="3" width="42" height="38" rx="4" fill="#EAF6FF" stroke="#B9793A" stroke-width="3.5"/>
+          <path d="M24 3v38M3 22h42" stroke="#B9793A" stroke-width="3" stroke-linecap="round"/>
+          <path d="M7 8h12" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity=".75"/>
+          <rect x="0" y="41" width="48" height="6" rx="3" fill="#C98A2E"/>
+        </svg></span>
       </div>
       <span class="housepeek" aria-hidden="true"><svg viewBox="0 0 120 190"><use href="#wg-sehee"/></svg></span>
     </div>
-    <p class="househint" id="houseHint"><b>냉장고나 실온보관바구니</b>를 누르면 안을 볼 수 있어요.<br>지붕을 누르면 <b>우리 집 전체 내역</b>이 열려요. <b>좌우로 밀면</b> 다음 칸으로 넘어가요.</p>
-    <button type="button" class="homerec" id="homeRecBtn"><span class="paw" aria-hidden="true"><svg viewBox="0 0 40 40"><use href="#wg-paw"/></svg></span><span aria-hidden="true">🧾</span><span id="homeRecLab">영수증 찍기 / 고르기</span><span class="paw r" aria-hidden="true"><svg viewBox="0 0 40 40"><use href="#wg-paw"/></svg></span></button>
+    <div class="homerec2">
+      <button type="button" class="homerec" id="homeCamBtn"><span aria-hidden="true">📷</span><span id="homeCamLab">영수증 찍기</span></button>
+      <button type="button" class="homerec" id="homeAlbumBtn"><span aria-hidden="true">🖼️</span><span id="homeAlbumLab">앨범에서</span></button>
+    </div>
 
     <section class="card today" id="todayCard">
       <div class="todayhead">
@@ -783,7 +799,7 @@ html.big .dpdishes{font-size:.86rem}
     <div class="spacebar">
       <div class="spbarTop">
         <span class="spnameline">
-          <span class="spname" id="spName">❄️ 냉장실</span>
+          <span class="spname" id="spName">❄️ 냉장고</span>
           <span class="count" id="count">· 0개</span>
         </span>
         <button type="button" class="recbtn recmini" id="recBtn"><span aria-hidden="true">🧾</span><span id="recBtnLab">영수증 찍기</span></button>
@@ -859,7 +875,7 @@ html.big .dpdishes{font-size:.86rem}
       <h3 id="ovTitle">🏠 우리 집 전체 내역</h3>
       <button type="button" class="btn ovclose" data-close="overviewModal" id="ovClose">닫기</button>
     </div>
-    <p class="note" id="ovNote">냉장고 3대와 실온보관바구니를 한눈에 볼 수 있어요. 칸 이름을 누르면 그 칸이 열려요.</p>
+    <p class="note" id="ovNote">냉장고 4대와 실온보관바구니를 한눈에 볼 수 있어요. 칸 이름을 누르면 그 칸이 열려요.</p>
     <div id="ovBody"></div>
   </div>
 </div>
@@ -937,6 +953,7 @@ html.big .dpdishes{font-size:.86rem}
 </div>
 
 <input type="file" id="recInput" accept="image/*" multiple hidden>
+<input type="file" id="recInputCam" accept="image/*" capture="environment" hidden>
 
 <div class="dishpop" id="dishPop" hidden aria-live="polite"><button type="button" class="dpclose" id="dpClose" aria-label="닫기">✕</button><p class="dphead" id="dpHead"></p><p class="dpdishes" id="dpDishes"></p></div>
 
@@ -968,12 +985,15 @@ function EN(){ return LANG==='en'; }
 function L(ko,en){ return LANG==='en'? en : ko; }
 function saveLang(){ try{ localStorage.setItem(LKEY, LANG); }catch(e){} }
 
-const SPACE_EN={'실온보관바구니':'Pantry','실온보관':'Pantry','냉장실':'Fridge','냉동실':'Freezer','야채·김치칸':'Veg & kimchi'};
+const SPACE_EN={'실온보관바구니':'Pantry','실온보관':'Pantry','냉장고':'Fridge','냉동실':'Freezer','야채·과일':'Veg · Fruit','김치냉장고':'Kimchi'};
 const ITEM_EN={'우유':'Milk','계란':'Eggs','빵':'Bread','식빵':'Bread','두부':'Tofu','치즈':'Cheese',
   '고기':'Meat','생선':'Fish','만두/냉동':'Dumpling','라면/면':'Noodles','쌀/잡곡':'Rice',
   '양념/장':'Sauces','채소류':'Greens','과일류':'Fruit','생수':'Water','커피/차':'Coffee/tea','주스':'Juice',
   '대파':'Green onions','상추':'Lettuce','사과':'Apple','삼겹살':'Pork belly','만두':'Dumplings',
   '새우':'Shrimp','김치':'Kimchi','당근':'Carrots','양파':'Onion','무':'Radish','호박':'Pumpkin','오이':'Cucumber','오렌지':'Orange','바나나':'Banana',
+  '깍두기':'Kkakdugi','동치미':'Dongchimi','장아찌':'Jangajji','젓갈':'Jeotgal','청국장':'Cheonggukjang',
+  '열무김치':'Yeolmu kimchi','총각김치':'Chonggak kimchi','백김치':'Baek kimchi','파김치':'Pa kimchi',
+  '오이소박이':'Oi-sobagi','무말랭이':'Dried radish strips',
   '감자':'Potatoes','애호박':'Zucchini','단호박':'Pumpkin','소고기':'Beef','돼지고기':'Pork','닭':'Chicken','닭고기':'Chicken'};
 const MEMO_EN={'1L':'1L','한 판':'1 pack','한 단':'1 bunch','한 봉':'1 bag','1팩':'1 pack','1봉':'1 bag','500g':'500g'};
 function dnSpace(n){ return EN()? (SPACE_EN[n]||n) : n; }
@@ -982,7 +1002,8 @@ function shortSpace(n){ return (n==='실온보관바구니')? L('실온보관','
 /* 집 그림 안 타일은 좁아서 긴 이름은 두 줄로 넘어가요 — 한 줄에 들어가는 짧은 이름 사용(칸 이름은 그대로) */
 function houseLabel(n){
   if(n==='실온보관바구니') return L('실온보관','Pantry');
-  if(n==='야채·김치칸') return L('야채·김치','Veg');
+  if(n==='야채·과일') return L('야채·과일','Veg·Fruit');
+  if(n==='김치냉장고') return L('김치냉장고','Kimchi');
   return dnSpace(n);
 }
 function dnItem(n){ return EN()? (ITEM_EN[n]||n) : n; }
@@ -1002,18 +1023,16 @@ function fmtDate(iso){
 
 /* ══════ 저장 (이 기기의 브라우저에만 · 서버 없음) ══════ */
 const KEY='wagle_fridge_v2';
-/* 칸 이름·그림 고정 — 이름변경 기능 없음 */
-const SPACE_FIX={'cart':{icon:'🧺',name:'실온보관바구니'},'cold':{icon:'❄️',name:'냉장실'},
-  'freeze':{icon:'🧊',name:'냉동실'},'veg':{icon:'🥬',name:'야채·김치칸'}};
+/* 칸 이름·그림 고정 — 이름변경 기능 없음 (집 그림 순서: 냉장고 → 냉동실 → 야채·과일 → 김치냉장고 → 실온보관바구니) */
+const SPACE_FIX={'cold':{icon:'❄️',name:'냉장고'},'freeze':{icon:'🧊',name:'냉동실'},
+  'veg':{icon:'🥬',name:'야채·과일'},'kimchi':{icon:'🌶️',name:'김치냉장고'},
+  'cart':{icon:'🧺',name:'실온보관바구니'}};
+const SPACE_ORDER=['cold','freeze','veg','kimchi','cart'];
 function sampleSpaces(){
   const it=(name,memo,qty,days,fav,done)=>({id:uid(),name:name,memo:memo||'',qty:qty||1,
     bought:dayStr(-(days||0)),fav:!!fav,done:!!done});
   return [
-    {id:'cart',kind:'cart',icon:'🧺',name:'실온보관바구니',items:[
-      it('우유','1L',1,0,true,false), it('계란','한 판',1,0,true,false),
-      it('대파','한 단',1,0,false,false), it('식빵','',1,0,false,true)
-    ]},
-    {id:'cold',kind:'fridge',icon:'❄️',name:'냉장실',items:[
+    {id:'cold',kind:'fridge',icon:'❄️',name:'냉장고',items:[
       it('우유','1L',1,2,false,false), it('두부','',1,1,false,false),
       it('상추','',1,3,false,false), it('사과','',2,4,false,false)
     ]},
@@ -1021,9 +1040,16 @@ function sampleSpaces(){
       it('삼겹살','500g',1,5,true,false), it('만두','한 봉',1,12,false,false),
       it('새우','300g',1,17,false,false)
     ]},
-    {id:'veg',kind:'fridge',icon:'🥬',name:'야채·김치칸',items:[
-      it('김치','',1,10,false,false), it('대파','한 단',1,2,false,false),
-      it('당근','',2,4,false,false)
+    {id:'veg',kind:'fridge',icon:'🥬',name:'야채·과일',items:[
+      it('대파','한 단',1,2,false,false), it('당근','',2,4,false,false),
+      it('양파','',1,6,false,false)
+    ]},
+    {id:'kimchi',kind:'fridge',icon:'🌶️',name:'김치냉장고',items:[
+      it('김치','',1,10,false,false), it('깍두기','',1,14,false,false)
+    ]},
+    {id:'cart',kind:'cart',icon:'🧺',name:'실온보관바구니',items:[
+      it('우유','1L',1,0,true,false), it('계란','한 판',1,0,true,false),
+      it('대파','한 단',1,0,false,false), it('식빵','',1,0,false,true)
     ]}
   ];
 }
@@ -1033,12 +1059,13 @@ function load(){
     const raw=localStorage.getItem(KEY);
     if(!raw) return freshState();
     const d=JSON.parse(raw);
-    if(!d || !Array.isArray(d.spaces) || d.spaces.length<4) return freshState();
+    if(!d || !Array.isArray(d.spaces) || !d.spaces.length) return freshState();
     const out={big:!!d.big, filterFav:false, view:'home',
       cur:String(d.cur||'cart'), spaces:[]};
-    out.spaces=d.spaces.map(function(s){
+    const byId={}, extras=[];
+    d.spaces.forEach(function(s){
       const fx=SPACE_FIX[String(s.id||'')];
-      return {
+      const sp={
         id:String(s.id||uid()),
         kind:(s.kind==='cart'?'cart':'fridge'),
         icon: fx? fx.icon : String(s.icon||'🧺').slice(0,4),
@@ -1054,8 +1081,21 @@ function load(){
           };
         }).filter(function(i){ return !!i.name; })
       };
+      if(fx){ if(!byId[sp.id]) byId[sp.id]=sp; }      /* 같은 칸이 두 번 있으면 앞의 것만 */
+      else extras.push(sp);                            /* 이름을 고칠 수 있던 옛 칸은 그대로 살려요 */
     });
+    /* 기존 기기 사용자: 없는 칸만 빈 채로 더해요 — 원래 담아 둔 품목은 그대로 */
+    let added=false;
+    SPACE_ORDER.forEach(function(id){
+      if(byId[id]) return;
+      byId[id]={id:id, kind:(id==='cart'?'cart':'fridge'), icon:SPACE_FIX[id].icon,
+        name:SPACE_FIX[id].name, items:[]};
+      added=true;
+    });
+    out.spaces=SPACE_ORDER.map(function(id){ return byId[id]; });
+    extras.forEach(function(sp){ out.spaces.splice(out.spaces.length-1, 0, sp); });  /* 실온보관바구니 앞에 */
     if(!out.spaces.some(function(s){ return s.id===out.cur; })) out.cur=out.spaces[0].id;
+    if(added){ try{ localStorage.setItem(KEY, JSON.stringify(out)); }catch(e){} }
     return out;
   }catch(e){ return freshState(); }
 }
@@ -1223,7 +1263,7 @@ function renderKitchen(){
     const b=document.createElement('button');
     b.type='button'; b.className='fridge'; b.dataset.id=sp.id;
     b.setAttribute('aria-label', L(dnSpace(sp.name)+' 열기', 'Open '+dnSpace(sp.name)));
-    const cls=sp.id==='freeze'? 'freeze' : (sp.id==='veg'? 'veg' : 'ice');
+    const cls=sp.id==='freeze'? 'freeze' : (sp.id==='veg'? 'veg' : (sp.id==='kimchi'? 'kimchi' : 'ice'));
     const n=sp.items.length;
     b.innerHTML=
       '<span class="fbox '+cls+'">'+
@@ -1287,9 +1327,10 @@ function renderToday(){
       ul.appendChild(li);
     }
   }
-  const total=fridges().reduce(function(n,sp){ return n+sp.items.length; }, 0);
-  $('#todayFoot').textContent=L('우리 집에는 모두 '+(total+all.length)+'개가 있어요 · 냉장고 3대 '+total+'개 · 실온보관바구니 '+all.length+'개',
-    'Everything at home: '+(total+all.length)+' items · fridges '+total+' · pantry '+all.length);
+  const fr=fridges();
+  const total=fr.reduce(function(n,sp){ return n+sp.items.length; }, 0);
+  $('#todayFoot').textContent=L('우리 집에는 모두 '+(total+all.length)+'개가 있어요 · 냉장고 '+fr.length+'대 '+total+'개 · 실온보관바구니 '+all.length+'개',
+    'Everything at home: '+(total+all.length)+' items · '+fr.length+' fridges '+total+' · pantry '+all.length);
 }
 function renderSpaceView(){
   $('#homeView').hidden=true;
@@ -1392,7 +1433,7 @@ function renderList(){
       row.innerHTML='<span class="cbox" aria-hidden="true">✓</span>'+
         '<span class="info"><span class="iname">'+name+'</span>'+memoLine+'</span>';
     }else{
-      /* 냉장고 3대·실온보관바구니 모두 같은 카드: 이름·구매일(눌러 고치기) + − 수량 + + 🍽️ 다 먹음 */
+      /* 냉장고 4대·실온보관바구니 모두 같은 카드: 이름·구매일(눌러 고치기) + − 수량 + + 🍽️ 다 먹음 */
       row.innerHTML=
         '<button type="button" class="info" aria-label="'+esc(L(it.name+' 이름·메모·날짜 고치기','Edit name, note and date of '+dnItem(it.name)))+'">'+
           '<span class="iname">'+name+'</span>'+memoLine+'</button>'+
@@ -1609,7 +1650,9 @@ function splitVolume(name){
 /* 품목 이름으로 알맞은 칸 자동 선택 */
 const REC_CLASS=[
   ['freeze',['냉동','만두','아이스크림','빙수','새우','돈까스','돈가스','튀김','피자','핫도그','어묵','냉면','냉동밥','만두피','아이스바']],
-  ['veg',['김치','채소','야채','대파','쪽파','양파','사과','오렌지','과일','버섯','콩나물','당근','배추','무우','무말랭이','단무지','깍두기','총각무','알타리무','무청','깐무','오이','상추','시금치','감자','고구마','브로콜리','토마토','바나나','귤','딸기','포도','수박','참외','파프리카','깻잎','부추','미나리','양배추','호박','열무','숙주','청경채','샐러리','레몬','키위','복숭아','자두','감']],
+  /* 김치냉장고: 김치·깍두기·동치미·장아찌·젓갈·청국장 등 — '김치'가 들어간 말은 야채·과일보다 먼저 여기서 찾아요 */
+  ['kimchi',['김치','깍두기','동치미','열무','총각무','알타리무','백김치','파김치','오이소박이','장아찌','젓갈','청국장','무말랭이','무청','깐무','단무지']],
+  ['veg',['채소','야채','대파','쪽파','양파','사과','오렌지','과일','버섯','콩나물','당근','배추','무우','오이','상추','시금치','감자','고구마','브로콜리','토마토','바나나','귤','딸기','포도','수박','참외','파프리카','깻잎','부추','미나리','양배추','호박','숙주','청경채','샐러리','레몬','키위','복숭아','자두','감']],
   ['cold',['우유','계란','달걀','두부','치즈','고기','생선','고등어','갈치','조기','명태','연어','오징어','낙지','요거트','요구르트','햄','소시지','베이컨','버터','마가린','주스','쥬스','샐러드','삼겹','목살','갈비','안심','등심','가슴살','닭','오리','순대','어묵볶음','맛김']],
   ['cart',['라면','쌀','생수','빵','커피','양념','간장','고추장','된장','소금','설탕','과자','통조림','캔','참치','참기름','식용유','기름','음료','콜라','사이다','맥주','소주','스팸','국수','파스타','당면','미역','다시마','멸치','견과','호두','아몬드','시리얼','잼','꿀','초콜릿','녹차','홍삼','비타민','세제','휴지','키친타올','봉지','스낵','김','떡','한과','조미']]
 ];
@@ -1648,7 +1691,7 @@ function recOpen(list, note){
 }
 function recRender(){
   const box=$('#recList'); if(!box) return; box.innerHTML='';
-  const order=['cold','freeze','veg','cart'];
+  const order=SPACE_ORDER;
   recItems.forEach(function(it,i){
     const sp=spById(it.spId)||spById('cold');
     const row=document.createElement('div');
@@ -1678,7 +1721,7 @@ $('#recList').addEventListener('input', function(e){
   const i=parseInt(row.dataset.i,10); if(isNaN(i)||!recItems[i]) return;
   if(e.target.classList.contains('rname')) recItems[i].name=e.target.value;
 });
-const REC_ORDER=['cold','freeze','veg','cart'];
+const REC_ORDER=SPACE_ORDER;
 $('#recList').addEventListener('click', function(e){
   const b=e.target.closest('.rspace'); if(!b) return;
   const row=b.closest('.recrow'); if(!row) return;
@@ -1706,17 +1749,19 @@ $('#recAdd').addEventListener('click', function(){
   });
   if(!added){ toast(L('넣을 품목이 없어요','Nothing to add')); return; }
   save(); hideModal('recModal'); renderAll(); recHideProg(); recItems=[];
-  const parts=['cold','freeze','veg','cart'].filter(function(id){ return counts[id]; })
+  const parts=SPACE_ORDER.filter(function(id){ return counts[id]; })
     .map(function(id){ return spBadge(spById(id))+' '+counts[id]; });
   toast(L(added+'개를 칸에 맞춰 넣었어요 — '+parts.join(' · '), 'Added '+added+' — '+parts.join(' · ')));
 });
-function recPickFile(){
-  const inp=$('#recInput'); if(!inp) return;
+function recPickFile(sel){
+  const inp=$(sel||'#recInput'); if(!inp) return;
   try{ inp.value=''; }catch(e){}
   try{ inp.click(); }catch(e){}
 }
-$('#recBtn').addEventListener('click', recPickFile);
-$('#homeRecBtn').addEventListener('click', recPickFile);
+$('#recBtn').addEventListener('click', function(){ recPickFile('#recInput'); });
+/* 홈: 📷 영수증 찍기(카메라 바로) · 🖼️ 앨범에서(여러 장) */
+$('#homeCamBtn').addEventListener('click', function(){ recPickFile('#recInputCam'); });
+$('#homeAlbumBtn').addEventListener('click', function(){ recPickFile('#recInput'); });
 let recBusy=false, recWorker=null;
 const REC_MAX=10;
 function recMerge(base, add){
@@ -1729,7 +1774,7 @@ function recMerge(base, add){
   });
   return base;
 }
-$('#recInput').addEventListener('change', function(e){
+function onRecInputChange(e){
   const inp=e.target;
   let files=[];
   try{ files=[].slice.call(inp.files||[]); }catch(_){ files=[]; }
@@ -1738,7 +1783,7 @@ $('#recInput').addEventListener('change', function(e){
   const capped=files.length>REC_MAX;
   files=files.slice(0,REC_MAX);
   const total=files.length;
-  recBusy=true; $('#recBtn').disabled=true; $('#homeRecBtn').disabled=true;
+  recBusy=true; setRecBusy(true);
   if(!$('#homeView').hidden) toast(L('영수증을 읽고 있어요… 잠깐만 기다려 주세요','Reading the receipt… one moment'));
   (async function(){
     let merged=[], fail=0, engineFail=false;
@@ -1809,10 +1854,17 @@ $('#recInput').addEventListener('change', function(e){
       recHideProg();
       toast(L('사진 읽기를 못 했어요 — 직접 입력이나 빠른 버튼으로 넣어 주세요','Could not read the photo — type it or use a quick button'));
     }finally{
-      recBusy=false; $('#recBtn').disabled=false; $('#homeRecBtn').disabled=false;
+      recBusy=false; setRecBusy(false);
     }
   })();
-});
+}
+$('#recInput').addEventListener('change', onRecInputChange);
+$('#recInputCam').addEventListener('change', onRecInputChange);
+function setRecBusy(on){
+  ['#recBtn','#homeCamBtn','#homeAlbumBtn'].forEach(function(sel){
+    const b=$(sel); if(b) b.disabled=!!on;
+  });
+}
 
 /* ══════ 화면의 고정 글자 ══════ */
 function applyStaticLang(){
@@ -1837,8 +1889,6 @@ function applyStaticLang(){
   $('#installBtn').setAttribute('aria-label', L('앱 설치 안내','How to install the app'));
   $('#roofChip').textContent = L('🏠 우리 집 전체 내역','🏠 Everything at home');
   $('#roofBtn').setAttribute('aria-label', L('우리 집 전체 내역 보기','See everything in our home'));
-  $('#houseHint').innerHTML = L('<b>냉장고나 실온보관바구니</b>를 누르면 안을 볼 수 있어요.<br>지붕을 누르면 <b>우리 집 전체 내역</b>이 열려요. <b>좌우로 밀면</b> 다음 칸으로 넘어가요.',
-    'Tap a <b>fridge or the cart</b> to see inside.<br>Tap the <b>roof</b> to see everything at home. <b>Swipe left or right</b> to move on.');
   $('#addJump').textContent = L('➕ 품목 추가','➕ Add item');
   $('#clearAll').textContent = L('🧹 올클리어','🧹 Clear all');
   $('#favBtn').textContent = L('★ 자주 사는 것만','★ Favorites only');
@@ -1854,8 +1904,10 @@ function applyStaticLang(){
   $('#addMemo').placeholder = L('예: 11/28','e.g. Nov 28');
   $('#addBtn').textContent = L('➕ 담기','➕ Add');
   $('#recBtnLab').textContent = L('영수증 찍기','Receipt');
-  $('#homeRecLab').textContent = L('영수증 찍기 / 고르기','Receipt — take or pick');
-  $('#homeRecBtn').setAttribute('aria-label', L('영수증 사진을 찍거나 골라서 품목 한 번에 넣기','Take or pick a receipt photo to add items at once'));
+  $('#homeCamLab').textContent = L('영수증 찍기','Camera');
+  $('#homeCamBtn').setAttribute('aria-label', L('영수증을 카메라로 찍어 품목 한 번에 넣기','Take a receipt photo with the camera to add items at once'));
+  $('#homeAlbumLab').textContent = L('앨범에서','Album');
+  $('#homeAlbumBtn').setAttribute('aria-label', L('앨범에서 영수증 사진을 골라(여러 장) 품목 한 번에 넣기','Pick receipt photos from the album to add items at once'));
   $('#recBtn').setAttribute('aria-label', L('영수증 사진을 찍거나 골라서 품목 한 번에 넣기(사진은 이 폰 안에서만 읽아요)','Take or pick a receipt photo to add items at once (photo is read on this phone only)'));
   $('#recTitle').textContent = L('🧾 영수증에서 찾은 품목','🧾 Items found on the receipt');
   $('#recNote2').textContent = L('칸 배지를 누르면 넣을 칸을 바꿀 수 있어요. 넣을 것만 체크해 두세요. 사진은 이 폰 안에서만 읽고 밖으로 보내지 않았어요.',
@@ -1872,8 +1924,8 @@ function applyStaticLang(){
 
   /* 전체 내역 */
   $('#ovTitle').textContent = L('🏠 우리 집 전체 내역','🏠 Everything at home');
-  $('#ovNote').textContent = L('냉장고 3대와 실온보관바구니를 한눈에 볼 수 있어요. 칸 이름을 누르면 그 칸이 열려요.',
-    'All three fridges and the cart at a glance. Tap a name to open that space.');
+  $('#ovNote').textContent = L('냉장고 '+fridges().length+'대와 실온보관바구니를 한눈에 볼 수 있어요. 칸 이름을 누르면 그 칸이 열려요.',
+    'All '+fridges().length+' fridges and the cart at a glance. Tap a name to open that space.');
   $('#ovClose').textContent = L('닫기','Close');
 
   /* 품목 고치기 */
@@ -1925,7 +1977,7 @@ $('#kitchen').addEventListener('click', function(e){
   openSpace(b.dataset.id);
 });
 
-/* ══════ 👈👉 좌우로 밀어 칸 이동 (홈 → 냉장실 → 냉동실 → 야채·김치칸 → 실온보관바구니) ══════
+/* ══════ 👈👉 좌우로 밀어 칸 이동 (홈 → 냉장고 → 냉동실 → 야채·과일 → 김치냉장고 → 실온보관바구니) ══════
    - 세로 스크롤을 방해하지 않게: 가로로 충분히(65px) 밀고, 세로보다 1.6배 이상 길 때만
    - 입력칸·모달·골라 지우기 중에는 동작하지 않음 */
 function spaceSeq(){
@@ -1940,7 +1992,7 @@ function swipeSlide(dir){
 function swipeNav(dir){
   if($$('.modal').some(function(m){ return !m.hidden; })) return;
   if(S.selMode) return;
-  /* 회전문처럼 한 바퀴 순환: 홈 → 냉장실 → 냉동실 → 야채·김치칸 → 실온보관바구니 → 홈 … */
+  /* 회전문처럼 한 바퀴 순환: 홈 → 냉장고 → 냉동실 → 야채·과일 → 김치냉장고 → 실온보관바구니 → 홈 … */
   const seq=spaceSeq();
   const cur=(S.view==='space' && seq.indexOf(S.cur)>=0)? S.cur : 'home';
   const i=seq.indexOf(cur);
@@ -2347,8 +2399,8 @@ function shareTargetUrl(){ return EN()? SHARE_BASE+'?lang=en' : SHARE_BASE; }
 function sharePayload(){
   return {
     title: L('와글가족장바구니 · 우리집 냉장고','Wagulcart · our home fridge'),
-    text: L('🧺 와글가족장바구니 — 우리 집 냉장고 3대와 실온보관바구니를 한눈에\n설치·회원가입 없이 링크만 누르면 바로 열려요. 구매일·남은 수량, 다 먹음 정리, 영수증 사진으로 품목 넣기까지! 😊',
-           '🧺 Wagulcart — three fridges and a shopping cart at a glance\nNo install, no sign-up. Purchase dates, how much is left, and easy clean-up.'),
+    text: L('🧺 와글가족장바구니 — 우리 집 냉장고 '+fridges().length+'대(냉장·냉동·야채과일·김치냉장고)와 실온보관바구니를 한눈에\n설치·회원가입 없이 링크만 누르면 바로 열려요. 구매일·남은 수량, 다 먹음 정리, 영수증 사진으로 품목 넣기까지! 😊',
+           '🧺 Wagulcart — '+fridges().length+' fridges and the pantry at a glance\nNo install, no sign-up. Purchase dates, how much is left, and easy clean-up.'),
     url: shareTargetUrl()
   };
 }
