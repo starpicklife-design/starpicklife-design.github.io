@@ -1375,10 +1375,9 @@ function applyLang(){
   setAttr('.shapeRow','aria-label','스티커 모양','Sticker shape');
   setAttr('#stkName','placeholder','예: 행복카페','e.g. Happy Café');
   setAttr('#preview','alt','고른 메뉴판 사진','The menu photo you picked');
-  setTxt('#reviewTitle','찾은 메뉴','Found Menu');
-  setTxt('#confTitle','확인','Confirm');
-  setTxt('#confOk','예','Yes');
-  setTxt('#nameTitle','새 메뉴판 이름','New Menu Board Name');
+  if($('#review').hidden) setTxt('#reviewTitle','찾은 메뉴','Found Menu'); else reviewTitleNow();
+  if($('#confirmModal').hidden){ setTxt('#confTitle','확인','Confirm'); setTxt('#confOk','예','Yes'); }
+  if($('#nameModal').hidden) setTxt('#nameTitle','새 메뉴판 이름','New Menu Board Name');
 }
 
 /* ── 화면 그리기 ── */
@@ -1787,18 +1786,24 @@ function parseMenuText(text){
 $('#pasteBtn').addEventListener('click', ()=>{
   const list=parseMenuText($('#pasteArea').value);
   if(!list.length){ toast(L('가격이 있는 줄을 찾지 못했어요. "대추차 6000" 처럼 적어 주세요','No line with a price was found. Write it like "Jujube Tea 6000"')); return; }
-  startReview(list, L('붙여넣은 글에서 찾은 메뉴','Found in pasted text'));
+  startReview(list, 'paste');
 });
 
 /* ── 후보 확인 ── */
-let cands=[];
-function startReview(list, title){
+let cands=[], reviewKind='', reviewCount=0;
+function reviewTitleNow(){
+  if(!reviewKind) return;
+  var base = reviewKind==='photo'? L('사진에서 찾은 메뉴','Found in photo') : L('붙여넣은 글에서 찾은 메뉴','Found in pasted text');
+  $('#reviewTitle').textContent = base+L(' ('+reviewCount+'개)',' ('+reviewCount+')');
+}
+function startReview(list, kind){
   const st=store();
   cands=list.map(c=>{
     const dup=st.menus.some(m=> m.name.replace(/\s/g,'')===c.name.replace(/\s/g,'') && m.price===c.price);
     return {name:c.name, price:c.price, check:!dup, dup:dup};
   });
-  $('#reviewTitle').textContent=title+L(' ('+list.length+'개)',' ('+list.length+')');
+  reviewKind=kind||'paste'; reviewCount=list.length;
+  reviewTitleNow();
   renderCands();
   $('#review').hidden=false;
   try{ $('#review').scrollIntoView({behavior:'smooth', block:'start'}); }catch(e){}
@@ -1835,6 +1840,7 @@ $('#candList').addEventListener('click', e=>{
 $('#candCancel').addEventListener('click', hideReview);
 function hideReview(){
   $('#review').hidden=true;
+  reviewKind=''; reviewCount=0;
   cands=[];
   $('#candList').innerHTML='';
 }
@@ -1920,7 +1926,7 @@ $('#photoInput').addEventListener('change', async e=>{
       return;
     }
     setProg(100, L(list.length+'개 후보를 찾았어요. 아래에서 확인해 주세요', list.length+' found. Check them below'));
-    startReview(list, L('사진에서 찾은 메뉴','Found in photo'));
+    startReview(list, 'photo');
   }catch(err){
     setProg(100, L('사진 읽기를 못 했어요','Could not read the photo'));
     toast(L('사진 읽기를 못 했어요. 직접 입력이나 붙여넣기로 1초 만에 넣을 수 있어요','Could not read the photo. Add items in a second with Type In or Paste'));
