@@ -129,13 +129,18 @@ main{padding:.42rem .7rem 0;max-width:34rem;margin:0 auto}
 #spaceView.swipeL,#homeView.swipeL{animation:swipeInL .24s ease-out}
 #spaceView.swipeR,#homeView.swipeR{animation:swipeInR .24s ease-out}
 @media (prefers-reduced-motion:reduce){#spaceView.swipeL,#spaceView.swipeR,#homeView.swipeL,#homeView.swipeR{animation:none}}
-.spbarTop{display:flex;flex-wrap:wrap;align-items:center;gap:.3rem;margin-bottom:.3rem}
-.spbarBottom{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem}
-.spname{flex:1 1 auto;min-width:0;font-size:1.02rem;font-weight:900;color:var(--green);
-  line-height:1.22;overflow-wrap:anywhere;word-break:keep-all}
+.spbarTop{display:flex;align-items:center;gap:.24rem;margin-bottom:.24rem;flex-wrap:nowrap}
+.spnameline{display:flex;align-items:baseline;gap:.24rem;flex:1 1 auto;min-width:0}
+/* 아래 한 줄: 골라 지우기 · 품목 추가 · 올클리어 (큰 글씨에서도 한 줄) */
+.spbarBottom{display:flex;align-items:center;gap:.2rem;flex-wrap:nowrap;margin-bottom:.26rem}
+.spbarBottom>button{flex:1 1 0;min-width:0;justify-content:center;white-space:nowrap;
+  font-size:.74rem;padding:.12rem .16rem;min-height:2.08rem;border-radius:.66rem;letter-spacing:-.03em}
+html.big .spbarBottom>button{font-size:.66rem;padding:.1rem .12rem;min-height:2.02rem;letter-spacing:-.04em}
+@media (max-width:339px){ .spbarBottom>button{font-size:.66rem;padding:.1rem .1rem} }
+.spname{flex:0 1 auto;min-width:0;font-size:1.02rem;font-weight:900;color:var(--green);
+  line-height:1.22;overflow-wrap:anywhere;word-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 html.big .spname{font-size:1rem}
-.count{font-weight:900;font-size:.95rem;color:var(--green);white-space:nowrap;min-width:0;
-  display:flex;align-items:center;gap:.25rem;overflow:hidden;text-overflow:ellipsis}
+.count{font-weight:900;font-size:.82rem;color:#3C6B4C;white-space:nowrap;flex:0 0 auto;letter-spacing:-.02em}
 .spacetools{display:flex;align-items:center;gap:.28rem;flex:0 0 auto;margin-left:0;flex-wrap:wrap}
 .addjump{display:flex;align-items:center;justify-content:center;gap:.18rem;flex:0 0 auto;white-space:nowrap;
   background:#D9EBDD;border:2px solid #3F8155;color:#1F4C2D;border-radius:.9rem;
@@ -350,7 +355,11 @@ html.big .recbtn.recmini{font-size:.72rem;padding:.12rem .42rem;min-height:2.05r
 .card{background:#fff;border:2px solid var(--line);border-radius:.9rem;padding:.58rem .62rem;
   margin-bottom:.55rem;box-shadow:var(--shadow)}
 .card h2{margin:0 0 .34rem;font-size:.98rem;font-weight:900;color:var(--green)}
-.quickhead{font-size:.76rem;font-weight:900;color:var(--ink2);margin:0 0 .24rem}
+.quickhead{font-size:.66rem;font-weight:900;color:#41684E;background:#EEF6EF;border:1.5px solid #CFE0CC;
+  border-radius:.5rem;padding:.1rem .34rem;margin:0;white-space:nowrap;flex:0 0 auto;letter-spacing:-.02em}
+.addhead{display:flex;align-items:center;gap:.3rem;margin:0 0 .34rem;flex-wrap:nowrap}
+.addhead h2{margin:0;flex:1 1 auto;min-width:0}
+html.big .quickhead{font-size:.62rem;padding:.08rem .28rem}
 /* 빠른 품목 버튼 — 한눈에 들어오게 작고 가지런한 칩 형태(4열) */
 .quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.22rem;margin-bottom:.45rem}
 .qbtn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.04rem;
@@ -771,16 +780,16 @@ html.big .dpdishes{font-size:.86rem}
   <section id="spaceView" hidden>
     <div class="spacebar">
       <div class="spbarTop">
-        <span class="spname" id="spName">❄️ 냉장실</span>
+        <span class="spnameline">
+          <span class="spname" id="spName">❄️ 냉장실</span>
+          <span class="count" id="count">· 0개</span>
+        </span>
         <button type="button" class="recbtn recmini" id="recBtn"><span aria-hidden="true">🧾</span><span id="recBtnLab">영수증 찍기</span></button>
       </div>
       <div class="spbarBottom">
-        <span class="count" id="count">품목 0개</span>
         <button type="button" id="selBtn" class="mini selbtn selinline" aria-pressed="false">🗑️ 골라 지우기</button>
-        <div class="spacetools">
-          <button type="button" id="addJump" class="addjump" aria-label="품목 추가 칸으로 바로 가기">➕ 품목 추가</button>
-          <button type="button" id="clearAll" class="clearall" aria-label="이 칸의 품목을 전부 지우기">🧹 올클리어</button>
-        </div>
+        <button type="button" id="addJump" class="addjump" aria-label="품목 추가 칸으로 바로 가기">➕ 품목 추가</button>
+        <button type="button" id="clearAll" class="clearall" aria-label="이 칸의 품목을 전부 지우기">🧹 올클리어</button>
       </div>
     </div>
 
@@ -805,8 +814,10 @@ html.big .dpdishes{font-size:.86rem}
     <div class="list" id="list"></div>
 
     <section class="card" id="addCard">
-      <h2 id="addTitle">➕ 품목 담기</h2>
-      <p class="quickhead" id="quickHead">자주 쓰는 식재료 — 영양소 순서</p>
+      <div class="addhead">
+        <h2 id="addTitle">➕ 품목 담기</h2>
+        <span class="quickhead" id="quickHead">영양소 순서</span>
+      </div>
       <div class="quick" id="quick"></div>
       <form id="addForm" autocomplete="off">
         <div class="field">
@@ -1199,7 +1210,7 @@ function showDishPop(name, qty){
   pop.hidden=false;
   requestAnimationFrame(function(){ pop.classList.add('on'); });
   clearTimeout(dishTimer);
-  dishTimer=setTimeout(function(){ pop.classList.remove('on'); setTimeout(hideDishPop, 200); }, 4000);
+  dishTimer=setTimeout(function(){ pop.classList.remove('on'); setTimeout(hideDishPop, 200); }, 1200);
   return true;
 }
 $('#dpClose').addEventListener('click', function(){ clearTimeout(dishTimer); hideDishPop(); });
@@ -1286,7 +1297,7 @@ function renderSpaceView(){
   const isCart=sp.kind==='cart';
   const n=sp.items.length;
   $('#spName').textContent=(sp.icon||'')+' '+dnSpace(sp.name);
-  $('#count').textContent=L('품목 '+n+'개', n+(n===1?' item':' items'));
+  $('#count').textContent=L('· '+n+'개', '· '+n+(n===1?' item':' items'));
   $('#clearAll').disabled=!n;
   $('#cartHint').hidden=!isCart;
   $('#fridgeHint').hidden=isCart;
@@ -1313,7 +1324,7 @@ function renderSpaceView(){
   }
   $('#addTitle').textContent=isCart? L('➕ 실온보관바구니에 넣기','➕ Add to the pantry') : L('➕ 냉장고에 넣기','➕ Add to this fridge');
   $('#addBtn').textContent=L('➕ 넣기','➕ Put in');
-  $('#quickHead').textContent=L('자주 쓰는 식재료 — 영양소 순서','Quick add — in nutrient order');
+  $('#quickHead').textContent=L('영양소 순서','Nutrient order');
   $('#addCard').hidden=!sp;
   renderList();
   renderQuick();
