@@ -2131,14 +2131,21 @@ function isTypeField(el){
   var t=(el.getAttribute('type')||'text').toLowerCase();
   return !NOKBTYPE[t];
 }
-var kbPrev=false, barForce=false, barShownT=null;
+var kbPrev=false, barForce=false, barShownT=null, kbOffT=null;
 function syncBar(){
   var bar=$('#bar');
   if(!bar) return;
   var kbOn=document.documentElement.classList.contains('kb');
-  /* 자판이 내려갔으면(자판 숨김 버튼 등) 입력칸에 그대로 있어도 바를 다시 올린다 */
-  if(kbPrev && !kbOn) barForce=true;
-  if(!kbPrev && kbOn) barForce=false;
+  /* 자판이 내려갔으면(자판 숨김 버튼 등) 입력칸에 그대로 있어도 바를 다시 올린다
+     — 자판이 오르내리며 잠깐 흔들릴 때 바가 깜빡이지 않도록 180ms 기다렸다가 */
+  if(kbPrev && !kbOn){
+    clearTimeout(kbOffT);
+    kbOffT=setTimeout(function(){
+      if(document.documentElement.classList.contains('kb')) return;
+      barForce=true; syncBar();
+    }, 180);
+  }
+  if(!kbPrev && kbOn){ clearTimeout(kbOffT); barForce=false; }
   kbPrev=kbOn;
   var field=isTypeField(document.activeElement) ? document.activeElement : null;
   var hide = (!!field || kbOn) && !barForce;
