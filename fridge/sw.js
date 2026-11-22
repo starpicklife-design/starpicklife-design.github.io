@@ -4,7 +4,7 @@
    - 인터넷이 끊겨도 마지막으로 열었던 화면이 뜨도록 껍데기만 캐시
    - 외부(다른 사이트) 요청은 절대 건드리지 않음 · 개인정보 0% */
 
-const CACHE = 'wagle-fridge-v10';
+const CACHE = 'wagle-fridge-v11';
 const SHELL = [
   './',
   './index.html',
@@ -51,7 +51,7 @@ self.addEventListener('fetch', (event) => {
       } catch (e) {
         const cache = await caches.open(CACHE);
         return (await cache.match('./index.html')) || (await cache.match('./')) ||
-          new Response('와글가족장바구니 · 인터넷이 없어 화면을 열지 못했어요. / Wagle Cart · offline, the page could not be opened.', {
+          new Response('와글가족장바구니 · 인터넷이 없어 화면을 열지 못했어요. / Wagulcart · offline, the page could not be opened.', {
             status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' }
           });
       }

@@ -1816,11 +1816,11 @@ $('#recInput').addEventListener('change', function(e){
 function applyStaticLang(){
   const en=EN();
   try{ document.documentElement.setAttribute('lang', en?'en':'ko'); }catch(e){}
-  document.title = en? 'Wagle Cart · Our home fridge · shopping list'
+  document.title = en? 'Wagulcart · Our home fridge · shopping list'
                      : '와글가족장바구니 · 우리집 냉장고 · 실온보관바구니';
   const at=document.querySelector('meta[name="apple-mobile-web-app-title"]');
-  if(at) at.setAttribute('content', en?'Wagle Cart':'와글가족장바구니');
-  $('#appTitle').textContent = en? 'Wagle Cart' : '와글가족장바구니';
+  if(at) at.setAttribute('content', en?'Wagulcart':'와글가족장바구니');
+  $('#appTitle').textContent = en? 'Wagulcart' : '와글가족장바구니';
   const lb=$('#langBtn');
   lb.textContent = en? '🌐 한' : '🌐 EN';
   lb.setAttribute('aria-pressed', en? 'true':'false');
@@ -2343,9 +2343,9 @@ const SHARE_BASE='https://starpicklife-design.github.io/fridge/';
 function shareTargetUrl(){ return EN()? SHARE_BASE+'?lang=en' : SHARE_BASE; }
 function sharePayload(){
   return {
-    title: L('와글가족장바구니 · 우리집 냉장고','Wagle Cart · our home fridge'),
+    title: L('와글가족장바구니 · 우리집 냉장고','Wagulcart · our home fridge'),
     text: L('🧺 와글가족장바구니 — 우리 집 냉장고 3대와 실온보관바구니를 한눈에\n설치·회원가입 없이 링크만 누르면 바로 열려요. 구매일·남은 수량, 다 먹음 정리, 영수증 사진으로 품목 넣기까지! 😊',
-           '🧺 Wagle Cart — three fridges and a shopping cart at a glance\nNo install, no sign-up. Purchase dates, how much is left, and easy clean-up.'),
+           '🧺 Wagulcart — three fridges and a shopping cart at a glance\nNo install, no sign-up. Purchase dates, how much is left, and easy clean-up.'),
     url: shareTargetUrl()
   };
 }
