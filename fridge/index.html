@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#1E4A36" />
-<!-- build: 2026-11-23 와글가족장바구니 v13 · 보관 공간 5칸(냉장고·냉동실·야채·과일·김치냉장고·실온보관바구니) — 집 그림 안 냉장고 4대 2줄 2칸 + 오른쪽 실온보관 바구니, 오른쪽 위 벽에 작은 부엌창(390·360px·큰 글씨에서도 라벨 잘림·겹침 없음) · 회전문 스와이프 6단계(홈↔냉장고↔냉동실↔야채과일↔김치냉장고↔실온보관바구니) · 영수증 자동 분류에 김치/깍두기/동치미/장아찌/젓갈/청국장→김치냉장고 · 옛 4칸 데이터는 그대로 두고 kimchi 칸만 빈 채로 추가 · 집 아래 3줄 안내 문구 삭제(첫 화면 간결) · 홈 영수증 버튼을 📷 영수증 찍기(카메라 바로) | 🖼️ 앨범에서(여러 장) 두 칸으로 분리 · 캐시 v13 -->
+<!-- build: 2026-11-23 와글가족장바구니 v14 · 집 그림을 넓고 낮게(가로 4칸) — 집 폭을 폰 화면 폭에 가깝게 넓히고 냉장고 4대를 작게 줄여 왼쪽 한 줄에 냉장고·냉동실·야채·과일 3칸 + 오른쪽 4번째 칸은 위 김치냉장고·아래 실온보관바구니(실온보관 바로 위에 김치냉장고) · 지붕은 더 낮고 넓게(400×92) · 오른쪽 위로 올라간 김치냉장고 대신 부엌창은 왼쪽 위로 · 집 옆 세희 캐릭터는 겹치지 않게 유지 · 390/360px 기본·큰 글씨에서 라벨·배지 겹침·잘림 없음 · 보관 공간 5칸·영수증·요리 안내·회전문 스와이프 그대로 · 캐시 v14 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
 .famstrip svg use{transform-box:fill-box;transform-origin:50% 100%;animation:famsway 3.4s ease-in-out infinite}
 .famstrip svg use:nth-of-type(2){animation-delay:.45s}
 .famstrip svg use:nth-of-type(3){animation-delay:.9s}
-.housepeek{position:absolute;right:-.9rem;bottom:.02rem;width:1.9rem;height:auto;pointer-events:none;
+.housepeek{position:absolute;right:-1rem;bottom:.02rem;width:1.8rem;height:auto;pointer-events:none;
   filter:drop-shadow(0 2px 3px rgba(90,60,30,.18))}
 /* 집 옆 세희 — 발끝을 축으로 살랑살랑 좌우로 + 가볍게 방긋(상하) */
 .housepeek svg{display:block;width:100%;height:auto;transform-origin:50% 97%;animation:famgreet 3.4s ease-in-out infinite;will-change:transform}
@@ -159,7 +159,8 @@ html.big .spname{font-size:1rem}
 html.big .addjump,html.big .clearall{font-size:.72rem;min-height:2.05rem;padding:.14rem .38rem}
 
 /* ── 집 모양 홈 ───────────────────────── */
-.house{position:relative;margin:.22rem auto .04rem;max-width:32rem;padding:0 .1rem;width:84%}
+/* v14: 집을 폰 폭에 가깝게 넓게 — 오른쪽 한 칸은 세희가 설 자리로 비워 둡니다 */
+.house{position:relative;margin:.22rem 0 .04rem;max-width:34rem;padding:0 .1rem;width:calc(100% - 1rem)}
 .roofbtn{display:block;width:100%;border:0;background:none;padding:0;position:relative}
 .roofbtn svg{display:block;width:100%;height:auto;filter:drop-shadow(0 4px 5px rgba(120,60,30,.16))}
 /* 지붕 무늬에 얹히는 이름표 — 얕은 지붕에서도 지붕 밖으로 나가지 않게 크기·위치 고정 */
@@ -177,20 +178,33 @@ html.big .roofchip{font-size:.66rem}
 .walls::before,.walls::after{content:"";position:absolute;bottom:.3rem;width:.4rem;height:.4rem;border-radius:50%;background:#EAD6B3}
 .walls::before{left:.32rem}
 .walls::after{right:.32rem}
-/* 벽 위 작은 부엌창 — 오른쪽 위 빈 벽을 채우는 그림(눌러도 아무 일 없음) */
-.kwin{position:absolute;top:.34rem;right:.3rem;width:1.85rem;line-height:0;opacity:.95;pointer-events:none;z-index:0}
+/* 벽 위 작은 부엌창 — 김치냉장고가 오른쪽 위로 올라가서, 비는 왼쪽 위 벽을 채우는 그림(눌러도 아무 일 없음) */
+.kwin{position:absolute;top:.3rem;left:.32rem;width:2.05rem;line-height:0;opacity:.95;pointer-events:none;z-index:0}
 .kwin svg{display:block;width:100%;height:auto;filter:drop-shadow(0 2px 3px rgba(120,80,40,.16))}
 html.big .kwin{width:1.7rem}
-/* 냉장고 4대(냉장고·냉동실·야채과일·김치냉장고)는 2줄 2칸, 실온보관바구니는 오른쪽에 두 줄 높이로 바닥에 */
-.kitchen{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,23%);
-  gap:.3rem .26rem;align-items:end;justify-items:center;position:relative;z-index:1}
+/* v14 넓고 낮은 집: 왼쪽 3칸을 한 줄로(냉장고·냉동실·야채·과일) + 오른쪽 4번째 칸은 위 김치냉장고·아래 실온보관바구니 */
+.kitchen{display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.18fr);
+  grid-template-rows:auto auto;
+  gap:.72rem .22rem;align-items:end;justify-items:center;position:relative;z-index:1;padding-top:.3rem}
 .fridge{width:100%;min-width:0;max-width:6.2rem;display:flex;flex-direction:column;align-items:center;
   gap:.1rem;background:none;border:0;padding:0;line-height:1}
+/* 왼쪽 세 칸은 두 줄 높이를 다 쓰고 바닥에 닿게(김치·바구니 두 칸 높이에 맞춰 서 있음) */
+.f-cold{grid-area:1 / 1 / 3 / 2}
+.f-freeze{grid-area:1 / 2 / 3 / 3}
+.f-veg{grid-area:1 / 3 / 3 / 4}
+.f-kimchi{grid-area:1 / 4 / 2 / 5}
+/* 김치냉장고·바구니는 이름표가 들어갈 칸 폭은 그대로 두고 그림만 조금 작게 — 왼쪽 냉장고보다 작은 칸다운 비례 */
+.f-kimchi .fbox{width:82%}
+.cartbtn .cartbox{width:72%}
 .fridge:active .fbox{transform:translateY(2px);filter:brightness(.98)}
 .fbox{position:relative;width:100%;aspect-ratio:.88;border-radius:.54rem .54rem .38rem .38rem;
   border:3px solid #5C6E60;display:flex;align-items:flex-start;justify-content:center;padding-top:.14rem;
   font-size:.98rem;box-shadow:0 3px 0 rgba(70,50,30,.16),inset 0 -6px 0 rgba(0,0,0,.05);transition:.12s}
 .fbox::before{content:"";position:absolute;left:0;right:0;top:37%;border-top:2px solid rgba(40,60,45,.22)}
+/* 왼쪽 세 칸은 조금 길쭉하게 — 넓어진 집에서 바닥에 서 있는 냉장고다운 비례 */
+.f-cold .fbox,.f-freeze .fbox,.f-veg .fbox{aspect-ratio:.6}
+.f-kimchi .fbox{aspect-ratio:.84}
 .fbox.ice{background:linear-gradient(165deg,#F2FBFF,#D8EEF8)}
 .fbox.freeze{background:linear-gradient(165deg,#F4F8FF,#D8E4F8)}
 .fbox.veg{background:linear-gradient(165deg,#F6FDF2,#DDEFD3)}
@@ -204,7 +218,7 @@ html.big .kwin{width:1.7rem}
 .fname{font-size:.66rem;font-weight:900;color:#2F3A2F;line-height:1.1;text-align:center;
   max-width:100%;overflow-wrap:anywhere;word-break:keep-all}
 html.big .fname{font-size:.6rem}
-.cartbtn{grid-column:3;grid-row:1 / span 2;align-self:end;width:100%;max-width:4.4rem;min-width:0;
+.cartbtn{grid-area:2 / 4 / 3 / 5;align-self:end;width:100%;min-width:0;
   display:flex;flex-direction:column;align-items:center;gap:.1rem;background:none;border:0;padding:0;line-height:1}
 .cartbtn:active .cartbox{transform:translateY(2px);filter:brightness(.98)}
 .cartbox{position:relative;width:100%;transition:.12s}
@@ -756,13 +770,13 @@ html.big .dpdishes{font-size:.86rem}
   <section id="homeView" aria-label="우리 집">
     <div class="house">
       <button type="button" class="roofbtn" id="roofBtn">
-        <svg viewBox="0 0 400 118" aria-hidden="true">
-          <rect x="286" y="16" width="24" height="42" rx="4" fill="#B96A4A" stroke="#7E3A24" stroke-width="3"/>
-          <path d="M297 14q6-8 0-14M310 12q7-8 1-12" fill="none" stroke="#D6C2B0" stroke-width="3.5" stroke-linecap="round" opacity=".85"/>
-          <path d="M200 4 392 102H8Z" fill="#C9553D" stroke="#8A3B22" stroke-width="4" stroke-linejoin="round"/>
-          <path d="M200 18 374 102H26Z" fill="#D96B50" opacity=".55"/>
-          <path d="M200 18v84M126 57h148M90 84h220" stroke="#A8442E" stroke-width="3" opacity=".45"/>
-          <rect x="20" y="96" width="360" height="13" rx="6" fill="#9E4430"/>
+        <svg viewBox="0 0 400 92" aria-hidden="true">
+          <rect x="286" y="12" width="24" height="34" rx="4" fill="#B96A4A" stroke="#7E3A24" stroke-width="3"/>
+          <path d="M297 11q6-7 0-11M310 9q7-7 1-9" fill="none" stroke="#D6C2B0" stroke-width="3.5" stroke-linecap="round" opacity=".85"/>
+          <path d="M200 3 392 80H8Z" fill="#C9553D" stroke="#8A3B22" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M200 14 374 80H26Z" fill="#D96B50" opacity=".55"/>
+          <path d="M200 14v66M126 45h148M90 66h220" stroke="#A8442E" stroke-width="3" opacity=".45"/>
+          <rect x="20" y="75" width="360" height="12" rx="5" fill="#9E4430"/>
         </svg>
         <span class="roofchip" id="roofChip">🏠 우리 집 전체 내역</span>
       </button>
@@ -1261,7 +1275,7 @@ function renderKitchen(){
   const box=$('#kitchen'); box.innerHTML='';
   fridges().forEach(function(sp){
     const b=document.createElement('button');
-    b.type='button'; b.className='fridge'; b.dataset.id=sp.id;
+    b.type='button'; b.className='fridge f-'+sp.id; b.dataset.id=sp.id;
     b.setAttribute('aria-label', L(dnSpace(sp.name)+' 열기', 'Open '+dnSpace(sp.name)));
     const cls=sp.id==='freeze'? 'freeze' : (sp.id==='veg'? 'veg' : (sp.id==='kimchi'? 'kimchi' : 'ice'));
     const n=sp.items.length;
