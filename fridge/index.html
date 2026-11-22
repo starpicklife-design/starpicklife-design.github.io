@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#1E4A36" />
-<!-- build: 2026-11-23 와글가족장바구니 v6 · 집 그림(지붕·벽·냉장고·바구니) 약 30~35% 축소 · 화면 전체 카드·여백·줄 간격 컴팩트(스크롤 최소) · 카드 안 즉시 조작(− 수량 + · 🍽️ 다 먹음) · 🧺 실온보관바구니 · 🧾 영수증(여러 장) -->
+<!-- build: 2026-11-23 와글가족장바구니 v8 · 와글가족 캐릭터(헤더·집·빈 칸·영수증) · 첫 화면 영수증 버튼 · 품목 카드 한 줄 · 같은 품목 자동 +1 · 용량/유통기한 두 칸 · 폰 뒤로가기 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -24,6 +24,19 @@
   --teal:#CFEDEA; --teal-line:#2E8A82; --teal-ink:#14524C;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+.svgdefs{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
+/* ── 와글가족 미니 캐릭터 (화면 높이를 키우지 않고 곁에 인사) ───────── */
+.famstrip{display:flex;align-items:center;gap:.12rem;flex:0 1 auto;min-width:0;height:2.05rem;margin-left:.05rem}
+.famstrip svg{display:block;height:100%;width:auto;max-width:100%;transform-origin:50% 92%;animation:famwave 3.6s ease-in-out infinite}
+.housepeek{position:absolute;right:-.34rem;bottom:.02rem;width:1.9rem;height:auto;pointer-events:none;
+  filter:drop-shadow(0 2px 3px rgba(90,60,30,.18))}
+.housepeek svg{display:block;width:100%;height:auto;transform-origin:50% 96%;animation:famhop 2.8s ease-in-out infinite}
+.paw{display:inline-flex;align-items:center;opacity:.85}
+.paw svg{display:block;width:.95rem;height:.95rem;transform:rotate(-12deg);animation:famwave 4.4s ease-in-out infinite;transform-origin:50% 100%}
+.paw.r svg{transform:rotate(12deg)}
+@keyframes famwave{0%,100%{transform:rotate(-3.5deg)}50%{transform:rotate(3.5deg)}}
+@keyframes famhop{0%,100%{transform:translateY(0)}45%{transform:translateY(-2.5px)}}
+@media (prefers-reduced-motion:reduce){.famstrip svg,.housepeek svg,.paw svg{animation:none}}
 html{font-size:18px}
 html.big{font-size:22px}
 body{margin:0;background:var(--cream);color:var(--ink);
@@ -104,29 +117,29 @@ main{padding:.42rem .7rem 0;max-width:34rem;margin:0 auto}
 html.big .spname{font-size:1rem}
 .count{font-weight:900;font-size:.95rem;color:var(--green);white-space:nowrap;min-width:0;
   display:flex;align-items:center;gap:.25rem;overflow:hidden;text-overflow:ellipsis}
-.spacetools{display:flex;align-items:center;gap:.35rem;flex:0 0 auto;margin-left:auto;flex-wrap:wrap}
+.spacetools{display:flex;align-items:center;gap:.28rem;flex:0 0 auto;margin-left:0;flex-wrap:wrap}
 .addjump{display:flex;align-items:center;justify-content:center;gap:.18rem;flex:0 0 auto;white-space:nowrap;
   background:#D9EBDD;border:2px solid #3F8155;color:#1F4C2D;border-radius:.9rem;
-  padding:.26rem .58rem;font-size:.82rem;font-weight:900;letter-spacing:-.01em;min-height:2.4rem;
-  box-shadow:0 2px 6px rgba(46,110,70,.15);line-height:1.15}
+  padding:.16rem .42rem;font-size:.76rem;font-weight:900;letter-spacing:-.01em;min-height:2.05rem;
+  border-radius:.72rem;box-shadow:0 1px 4px rgba(46,110,70,.14);line-height:1.15}
 .addjump:active{transform:translateY(1px);background:#C7E2CE}
 .clearall{display:flex;align-items:center;justify-content:center;gap:.18rem;flex:0 0 auto;white-space:nowrap;
   background:#FFE0D8;border:2px solid #C4564A;color:#8A2E22;border-radius:.9rem;
-  padding:.26rem .54rem;font-size:.82rem;font-weight:900;letter-spacing:-.01em;min-height:2.4rem;
-  box-shadow:0 2px 6px rgba(196,86,74,.16);line-height:1.15}
+  padding:.16rem .4rem;font-size:.76rem;font-weight:900;letter-spacing:-.01em;min-height:2.05rem;
+  border-radius:.72rem;box-shadow:0 1px 4px rgba(196,86,74,.14);line-height:1.15}
 .clearall:active{transform:translateY(1px);background:#FFD1C6}
 .clearall:disabled{opacity:.4;box-shadow:none}
 @media (max-width:389px){
-  .addjump,.clearall{font-size:.76rem;padding:.24rem .44rem;min-height:2.3rem}
+  .addjump,.clearall{font-size:.72rem;padding:.14rem .34rem;min-height:1.95rem}
 }
-html.big .addjump,html.big .clearall{font-size:.76rem;min-height:2.55rem}
+html.big .addjump,html.big .clearall{font-size:.72rem;min-height:2.05rem;padding:.14rem .38rem}
 
 /* ── 집 모양 홈 ───────────────────────── */
-.house{margin:.24rem auto .06rem;max-width:32rem;padding:0 .1rem;width:88%}
+.house{position:relative;margin:.22rem auto .04rem;max-width:32rem;padding:0 .1rem;width:84%}
 .roofbtn{display:block;width:100%;border:0;background:none;padding:0;position:relative}
 .roofbtn svg{display:block;width:100%;height:auto;filter:drop-shadow(0 4px 5px rgba(120,60,30,.16))}
 /* 지붕 무늬에 얹히는 이름표 — 얕은 지붕에서도 지붕 밖으로 나가지 않게 크기·위치 고정 */
-.roofchip{position:absolute;left:50%;bottom:13.5%;transform:translateX(-50%);
+.roofchip{position:absolute;left:50%;bottom:12%;transform:translateX(-50%);
   display:inline-flex;align-items:center;gap:.24rem;background:#FFF8E8;border:2px solid #8A3B22;color:#7A3018;
   border-radius:2rem;padding:.18rem .55rem;font-size:.7rem;font-weight:900;white-space:nowrap;
   box-shadow:0 2px 6px rgba(90,40,20,.2)}
@@ -136,15 +149,15 @@ html.big .roofchip{font-size:.66rem}
 .roofbtn:active .roofchip{transform:translateX(-50%) translateY(1px);background:#FFF1D6}
 .walls{position:relative;margin:0 .5rem;background:linear-gradient(180deg,#FFF9EC,#FFF2DA 70%,#FCEBCB);
   border:3px solid #B9793A;border-top:0;border-radius:0 0 1rem 1rem;
-  padding:.42rem .42rem .3rem;box-shadow:inset 0 6px 0 #F3E1C1,0 5px 12px rgba(120,80,40,.12)}
+  padding:.36rem .38rem .26rem;box-shadow:inset 0 5px 0 #F3E1C1,0 5px 12px rgba(120,80,40,.12)}
 .walls::before,.walls::after{content:"";position:absolute;bottom:.3rem;width:.4rem;height:.4rem;border-radius:50%;background:#EAD6B3}
 .walls::before{left:.32rem}
 .walls::after{right:.32rem}
 .kitchen{display:flex;align-items:flex-end;justify-content:center;gap:.24rem;position:relative;z-index:1}
 .fridge{flex:1 1 0;min-width:0;max-width:6.2rem;display:flex;flex-direction:column;align-items:center;
-  gap:.16rem;background:none;border:0;padding:0;line-height:1}
+  gap:.12rem;background:none;border:0;padding:0;line-height:1}
 .fridge:active .fbox{transform:translateY(2px);filter:brightness(.98)}
-.fbox{position:relative;width:100%;aspect-ratio:.82;border-radius:.54rem .54rem .38rem .38rem;
+.fbox{position:relative;width:100%;aspect-ratio:.88;border-radius:.54rem .54rem .38rem .38rem;
   border:3px solid #5C6E60;display:flex;align-items:flex-start;justify-content:center;padding-top:.14rem;
   font-size:.98rem;box-shadow:0 3px 0 rgba(70,50,30,.16),inset 0 -6px 0 rgba(0,0,0,.05);transition:.12s}
 .fbox::before{content:"";position:absolute;left:0;right:0;top:37%;border-top:2px solid rgba(40,60,45,.22)}
@@ -160,17 +173,25 @@ html.big .roofchip{font-size:.66rem}
 .fname{font-size:.66rem;font-weight:900;color:#2F3A2F;line-height:1.1;text-align:center;
   max-width:100%;overflow-wrap:anywhere;word-break:keep-all}
 html.big .fname{font-size:.6rem}
-.cartbtn{flex:0 0 22%;max-width:4.6rem;min-width:0;display:flex;flex-direction:column;align-items:center;
-  gap:.16rem;background:none;border:0;padding:0;line-height:1}
+.cartbtn{flex:0 0 21%;max-width:4.4rem;min-width:0;display:flex;flex-direction:column;align-items:center;
+  gap:.12rem;background:none;border:0;padding:0;line-height:1}
 .cartbtn:active .cartbox{transform:translateY(2px);filter:brightness(.98)}
 .cartbox{position:relative;width:100%;transition:.12s}
 .cartbox svg{display:block;width:100%;height:auto}
-.floor{height:.36rem;border-radius:.24rem;margin:.22rem .15rem 0;
+.floor{height:.3rem;border-radius:.22rem;margin:.16rem .15rem 0;
   background:repeating-linear-gradient(90deg,#D9A46A 0 16px,#CF9558 16px 32px);opacity:.9}
 /* 한 글자만 다음 줄로 떨어지지 않게(keep-all) + 위아래 여백 축소 */
 .househint{margin:.42rem .2rem .5rem;text-align:center;font-size:.78rem;font-weight:800;color:#6B7A6E;
   line-height:1.45;word-break:keep-all;overflow-wrap:break-word;text-wrap:balance}
 .househint b{color:#2F6B4F}
+/* 홈에서 바로 영수증 찍기 */
+.homerec{display:flex;align-items:center;justify-content:center;gap:.28rem;width:100%;
+  min-height:2.45rem;margin:.05rem 0 .55rem;padding:.3rem .5rem;border-radius:.8rem;
+  border:2px solid #C98A2E;background:linear-gradient(180deg,#FFF5DE,#FFE8BE);color:#7A4A10;
+  font-size:.86rem;font-weight:900;letter-spacing:-.01em;box-shadow:0 2px 6px rgba(201,138,46,.18)}
+.homerec:active{transform:translateY(1px);background:#FFE3B0}
+.homerec[disabled]{opacity:.55}
+html.big .homerec{font-size:.8rem;min-height:2.35rem}
 .today{padding:.5rem .6rem .55rem}
 .todayhead{display:flex;align-items:center;gap:.35rem;margin-bottom:.24rem}
 .todayhead h2{flex:1 1 auto;min-width:0;margin:0;font-size:1rem}
@@ -194,6 +215,8 @@ html.big .fname{font-size:.6rem}
 .mini.selbtn[aria-pressed="true"]{background:#FFE6E1;border-color:#C4564A;color:#8A2E22}
 .mini.tidy{color:#1F4C2D;border-color:#9CC9A8;background:#F1F9F3}
 .mini:disabled{opacity:.45}
+.selinline{flex:0 0 auto;font-size:.72rem;min-height:2rem;padding:.12rem .4rem;border-radius:.7rem}
+html.big .selinline{font-size:.68rem;min-height:2rem;padding:.1rem .34rem}
 
 /* 목록 */
 .hintline{font-size:.78rem;font-weight:800;color:#6B7A6E;background:#F2F8F0;border:2px dashed #CFE0CC;
@@ -213,7 +236,7 @@ html.big .fname{font-size:.6rem}
 .info{display:flex;flex-direction:column;align-items:flex-start;gap:.02rem;background:none;border:none;
   padding:.04rem 0;text-align:left;min-width:0;flex:1 1 3rem;min-height:2.1rem;justify-content:center}
 .iname{font-size:1rem;font-weight:800;line-height:1.2;overflow-wrap:anywhere;word-break:keep-all}
-.imemo{font-size:.76rem;font-weight:700;color:var(--ink2);line-height:1.25;overflow-wrap:anywhere}
+.imemo{font-size:.76rem;font-weight:700;color:var(--ink2);line-height:1.25;overflow-wrap:anywhere;word-break:keep-all;text-wrap:balance}
 .item.done .iname{text-decoration:line-through;color:#7C8B80}
 .item.done .imemo{color:#93A198}
 .star{width:2.5rem;height:2.5rem;border:none;background:none;font-size:1.3rem;color:#C3CFC6;
@@ -236,12 +259,17 @@ html.big .fname{font-size:.6rem}
 .step.moveic:active{background:#E1EFF7;transform:translateY(1px)}
 .eatpill .pe{font-size:1.02rem;line-height:1}
 .itemctl .star{width:2.2rem;height:2.2rem;font-size:1.2rem;border-radius:.6rem}
-html.big .eatpill{font-size:.66rem;padding:.05rem .3rem}
-html.big .stepnum{font-size:.9rem;min-width:1.25rem}
-html.big .step{width:2rem;height:2.3rem}
+html.big .eatpill{font-size:.6rem;padding:.03rem .26rem;gap:.1rem;min-height:2.05rem}
+html.big .eatpill .pe{font-size:.9rem}
+html.big .stepnum{font-size:.84rem;min-width:1.1rem}
+html.big .step{width:1.95rem;height:2.15rem;font-size:1rem}
+html.big .step.moveic{font-size:.9rem}
 html.big .chk{width:2.6rem;height:2.6rem}
-html.big .imemo{font-size:.68rem}
-html.big .iname{font-size:.94rem}
+html.big .imemo{font-size:.6rem;line-height:1.15}
+html.big .iname{font-size:.9rem;line-height:1.15}
+html.big .item{padding:.2rem .34rem;border-radius:.7rem;gap:.14rem .2rem}
+html.big .itemctl{gap:.12rem .1rem}
+html.big .list{gap:.26rem}
 .item.flash{animation:itemflash 1.3s ease-out}
 @keyframes itemflash{0%{border-color:#3F8155;box-shadow:0 0 0 0 rgba(63,129,85,.5)}
   65%{box-shadow:0 0 0 .5rem rgba(63,129,85,0);border-color:#3F8155}
@@ -268,9 +296,13 @@ html.big .cbox{width:2.2rem;height:2.2rem;font-size:1.4rem;border-radius:.6rem}
 
 .favnote{font-size:.8rem;font-weight:800;color:#8A6210;background:#FFF7E3;border:2px dashed #E7C88C;
   border-radius:.7rem;padding:.34rem .5rem;margin-bottom:.4rem;line-height:1.35}
-.empty{background:#fff;border:2px dashed var(--line);border-radius:.8rem;padding:.9rem .8rem;
-  text-align:center;color:var(--ink2);font-size:.92rem;font-weight:800;line-height:1.4}
-.empty .big{display:block;font-size:2.4rem;line-height:1;margin-bottom:.45rem}
+.empty{background:#fff;border:2px dashed var(--line);border-radius:.8rem;padding:.5rem .6rem;
+  text-align:left;color:var(--ink2);font-size:.86rem;font-weight:800;line-height:1.3;
+  display:flex;align-items:center;justify-content:center;gap:.4rem;flex-wrap:nowrap}
+.empty>span:last-child{min-width:0;text-align:center}
+.empty .big{display:flex;align-items:center;margin:0;flex:0 0 auto}
+.empty .big svg{width:auto;height:2.1rem;display:block}
+html.big .empty .big svg{height:2.3rem}
 
 /* 카드 / 담기 */
 .recbox{background:#FFF9EE;border:2px dashed #E2C79A;border-radius:.8rem;padding:.4rem .5rem;margin:0 0 .45rem}
@@ -311,6 +343,8 @@ html.big .qbtn{font-size:.72rem;min-height:2.55rem}
 html.big .qbtn .qe{font-size:1.1rem}
 
 .field{margin-bottom:.36rem}
+.memorow{display:flex;gap:.3rem}
+.memorow .mcell{flex:1 1 0;min-width:0}
 .volrow{display:flex;gap:.24rem;margin-top:.24rem;flex-wrap:nowrap}
 .volbtn{flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:center;
   min-height:2.3rem;padding:.14rem .18rem;border-radius:.6rem;border:2px solid #CFE0CC;background:#F7FBF6;
@@ -436,6 +470,211 @@ details.bulk[open] summary::before{content:"▾"}
 </style>
 </head>
 <body>
+<svg class="svgdefs" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+      <linearGradient id="furTheo" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#FADCA6"/><stop offset="1" stop-color="#E2A048"/>
+      </linearGradient>
+      <linearGradient id="furMimi" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#FFF6E6"/><stop offset="1" stop-color="#EFD4AB"/>
+      </linearGradient>
+      <linearGradient id="furBaby" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#FFF0DA"/><stop offset="1" stop-color="#F5CD9E"/>
+      </linearGradient>
+      <linearGradient id="coatTheo" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#41547C"/><stop offset="1" stop-color="#33415F"/>
+      </linearGradient>
+      <linearGradient id="coatMimi" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#FFFCF4"/><stop offset="1" stop-color="#F4E3C7"/>
+      </linearGradient>
+      <linearGradient id="boxGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#E5B471"/><stop offset="1" stop-color="#BE8038"/>
+      </linearGradient>
+      <radialGradient id="boxGlow" cx="50%" cy="30%" r="70%">
+        <stop offset="0" stop-color="#FFF3CF" stop-opacity=".85"/><stop offset="1" stop-color="#FFF3CF" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+  <symbol id="wg-theo" viewBox="0 0 120 120">
+    <ellipse cx="60" cy="116" rx="34" ry="6" fill="#6B4A2C" opacity=".16"/>
+    <ellipse cx="43" cy="110" rx="13" ry="6.5" fill="#5B3A24"/>
+    <ellipse cx="77" cy="110" rx="13" ry="6.5" fill="#5B3A24"/>
+    <ellipse cx="60" cy="87" rx="33" ry="27" fill="url(#coatTheo)"/>
+    <path d="M50 66 L70 66 L64 92 L56 92 Z" fill="#F7F2E7"/>
+    <circle cx="60" cy="96" r="2.2" fill="#8A6A3C"/><circle cx="60" cy="104" r="2.2" fill="#8A6A3C"/>
+    <ellipse cx="26" cy="84" rx="9.5" ry="11.5" fill="#E3A24C"/>
+    <ellipse cx="94" cy="84" rx="9.5" ry="11.5" fill="#E3A24C"/>
+    <ellipse cx="33" cy="29" rx="13.5" ry="12.5" fill="url(#furTheo)"/>
+    <ellipse cx="87" cy="29" rx="13.5" ry="12.5" fill="url(#furTheo)"/>
+    <ellipse cx="33" cy="29" rx="7.5" ry="6.4" fill="#F6B7AC"/>
+    <ellipse cx="87" cy="29" rx="7.5" ry="6.4" fill="#F6B7AC"/>
+    <ellipse cx="60" cy="56" rx="34" ry="31.5" fill="url(#furTheo)"/>
+    <ellipse cx="30" cy="66" rx="8" ry="5.6" fill="#F4A09A" opacity=".5"/>
+    <ellipse cx="90" cy="66" rx="8" ry="5.6" fill="#F4A09A" opacity=".5"/>
+    <ellipse cx="48" cy="67" rx="13" ry="9.6" fill="#FFF7EA"/>
+    <ellipse cx="72" cy="67" rx="13" ry="9.6" fill="#FFF7EA"/>
+    <ellipse cx="60" cy="60.5" rx="4.6" ry="3.6" fill="#E8857C"/>
+    <path d="M60 64 L60 67 M60 67 Q55 72 51 68.5 M60 67 Q65 72 69 68.5" stroke="#A0674F" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path d="M30 72 L12 68 M30 76 L12 76 M30 80 L12 84 M90 72 L108 68 M90 76 L108 76 M90 80 L108 84"
+          stroke="#A07C5F" stroke-width="1.5" stroke-linecap="round" opacity=".75"/>
+    <circle cx="45" cy="52" r="7.4" fill="#2C1F18"/><circle cx="75" cy="52" r="7.4" fill="#2C1F18"/>
+    <circle cx="47.4" cy="49.4" r="2.7" fill="#fff"/><circle cx="77.4" cy="49.4" r="2.7" fill="#fff"/>
+    <circle cx="43" cy="55" r="1.2" fill="#fff" opacity=".65"/><circle cx="73" cy="55" r="1.2" fill="#fff" opacity=".65"/>
+    <path d="M27 48 C25 26 46 17 62 19 C82 21 95 31 93 49 C88 38 80 40 74 33 C66 45 50 31 43 41 C37 35 31 40 27 48 Z" fill="#2E2320"/>
+    <g stroke="#2B2118" stroke-width="3.2" fill="none">
+      <circle cx="45" cy="52" r="11.4"/><circle cx="75" cy="52" r="11.4"/>
+      <path d="M56.4 52 L63.6 52"/><path d="M33.6 50 L27 47"/><path d="M86.4 50 L93 47"/>
+    </g>
+    <g fill="#A83B3B"><path d="M59 84 L48 78 L48 90 Z"/><path d="M61 84 L72 78 L72 90 Z"/></g>
+    <circle cx="60" cy="84" r="3.4" fill="#8C2E2E"/>
+  </symbol>
+  <symbol id="wg-mimi" viewBox="0 0 120 120">
+    <ellipse cx="60" cy="116" rx="34" ry="6" fill="#6B4A2C" opacity=".16"/>
+    <ellipse cx="43" cy="110" rx="13" ry="6.5" fill="#7E9A58"/>
+    <ellipse cx="77" cy="110" rx="13" ry="6.5" fill="#7E9A58"/>
+    <ellipse cx="60" cy="88" rx="33" ry="26" fill="url(#coatMimi)" stroke="#E7D2B0" stroke-width="1.6"/>
+    <g fill="#D06A5C">
+      <circle cx="45.4" cy="86" r="2.1"/><circle cx="42" cy="83.6" r="2.1"/><circle cx="39.4" cy="87.4" r="2.1"/><circle cx="42.4" cy="90.6" r="2.1"/><circle cx="46" cy="89" r="2.1"/>
+      <circle cx="78.4" cy="91.4" r="2.1"/><circle cx="75" cy="89" r="2.1"/><circle cx="72.4" cy="92.8" r="2.1"/><circle cx="75.4" cy="96" r="2.1"/><circle cx="79" cy="94.4" r="2.1"/>
+      <circle cx="60.4" cy="101.4" r="2.1"/><circle cx="57" cy="99" r="2.1"/><circle cx="54.4" cy="102.8" r="2.1"/><circle cx="57.4" cy="106" r="2.1"/><circle cx="61" cy="104.4" r="2.1"/>
+    </g>
+    <circle cx="42" cy="87" r="1.8" fill="#F3C24A"/><circle cx="75" cy="92.6" r="1.8" fill="#F3C24A"/><circle cx="57.4" cy="102.6" r="1.8" fill="#F3C24A"/>
+    <g fill="#fff" opacity=".95">
+      <circle cx="41.6" cy="66" r="2.1"/><circle cx="46" cy="68.6" r="2.1"/><circle cx="51" cy="70.6" r="2.1"/>
+      <circle cx="60" cy="71.6" r="2.1"/><circle cx="69" cy="70.6" r="2.1"/><circle cx="74" cy="68.6" r="2.1"/><circle cx="78.4" cy="66" r="2.1"/>
+    </g>
+    <ellipse cx="26" cy="84" rx="9.5" ry="11.5" fill="#F2D8B2"/>
+    <ellipse cx="94" cy="84" rx="9.5" ry="11.5" fill="#F2D8B2"/>
+    <ellipse cx="33" cy="29" rx="13.5" ry="12.5" fill="url(#furMimi)"/>
+    <ellipse cx="87" cy="29" rx="13.5" ry="12.5" fill="url(#furMimi)"/>
+    <ellipse cx="33" cy="29" rx="7.5" ry="6.4" fill="#F6B7AC"/>
+    <ellipse cx="87" cy="29" rx="7.5" ry="6.4" fill="#F6B7AC"/>
+    <ellipse cx="60" cy="56" rx="34" ry="31.5" fill="url(#furMimi)"/>
+    <ellipse cx="30" cy="66" rx="8" ry="5.6" fill="#F4A09A" opacity=".5"/>
+    <ellipse cx="90" cy="66" rx="8" ry="5.6" fill="#F4A09A" opacity=".5"/>
+    <ellipse cx="48" cy="67" rx="13" ry="9.6" fill="#FFFCF2"/>
+    <ellipse cx="72" cy="67" rx="13" ry="9.6" fill="#FFFCF2"/>
+    <ellipse cx="60" cy="60.5" rx="4.6" ry="3.6" fill="#E8857C"/>
+    <path d="M60 64 L60 67 M60 67 Q55 72 51 68.5 M60 67 Q65 72 69 68.5" stroke="#A0674F" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path d="M30 72 L12 68 M30 76 L12 76 M30 80 L12 84 M90 72 L108 68 M90 76 L108 76 M90 80 L108 84"
+          stroke="#A07C5F" stroke-width="1.5" stroke-linecap="round" opacity=".75"/>
+    <circle cx="45" cy="52" r="7.4" fill="#2C1F18"/><circle cx="75" cy="52" r="7.4" fill="#2C1F18"/>
+    <circle cx="47.4" cy="49.4" r="2.7" fill="#fff"/><circle cx="77.4" cy="49.4" r="2.7" fill="#fff"/>
+    <circle cx="43" cy="55" r="1.2" fill="#fff" opacity=".65"/><circle cx="73" cy="55" r="1.2" fill="#fff" opacity=".65"/>
+    <path d="M38 41 Q33 37 29 39 M82 41 Q87 37 91 39" stroke="#C08A63" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <ellipse cx="59" cy="30" rx="29" ry="13" fill="#C0392B"/>
+    <ellipse cx="59" cy="24" rx="26" ry="15" fill="#C0392B"/>
+    <ellipse cx="59" cy="35" rx="28" ry="6" fill="#A93226"/>
+    <path d="M80 18 L76 25" stroke="#A93226" stroke-width="2.4" stroke-linecap="round"/>
+    <circle cx="80" cy="15" r="3.4" fill="#A93226"/>
+    <ellipse cx="48" cy="20" rx="10" ry="5" fill="#E8695B" opacity=".35"/>
+  </symbol>
+  <symbol id="wg-baby" viewBox="0 0 120 120">
+    <ellipse cx="60" cy="116" rx="30" ry="5.6" fill="#6B4A2C" opacity=".14"/>
+    <ellipse cx="45" cy="110" rx="12" ry="6" fill="#E8B77F"/>
+    <ellipse cx="75" cy="110" rx="12" ry="6" fill="#E8B77F"/>
+    <ellipse cx="60" cy="90" rx="29" ry="24" fill="url(#furBaby)"/>
+    <ellipse cx="26" cy="86" rx="8.5" ry="10.5" fill="#F7D2A4"/>
+    <ellipse cx="94" cy="86" rx="8.5" ry="10.5" fill="#F7D2A4"/>
+    <ellipse cx="33" cy="29" rx="13.5" ry="12.5" fill="url(#furBaby)"/>
+    <ellipse cx="87" cy="29" rx="13.5" ry="12.5" fill="url(#furBaby)"/>
+    <ellipse cx="33" cy="29" rx="7.5" ry="6.4" fill="#F6B7AC"/>
+    <ellipse cx="87" cy="29" rx="7.5" ry="6.4" fill="#F6B7AC"/>
+    <ellipse cx="60" cy="56" rx="34" ry="31.5" fill="url(#furBaby)"/>
+    <ellipse cx="28" cy="66" rx="9.5" ry="6.6" fill="#F4A09A" opacity=".55"/>
+    <ellipse cx="92" cy="66" rx="9.5" ry="6.6" fill="#F4A09A" opacity=".55"/>
+    <ellipse cx="48" cy="67" rx="13" ry="9.6" fill="#FFF7EA"/>
+    <ellipse cx="72" cy="67" rx="13" ry="9.6" fill="#FFF7EA"/>
+    <ellipse cx="60" cy="60.5" rx="4.6" ry="3.6" fill="#E8857C"/>
+    <path d="M60 64 L60 67 M60 67 Q55 72 51 68.5 M60 67 Q65 72 69 68.5" stroke="#A0674F" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path d="M56.6 68.4 L60 68.4 L58.2 72 Z M60 68.4 L63.4 68.4 L61.8 72 Z" fill="#fff"/>
+    <path d="M30 72 L14 69 M30 76 L14 76 M30 80 L14 83 M90 72 L106 69 M90 76 L106 76 M90 80 L106 83"
+          stroke="#A07C5F" stroke-width="1.4" stroke-linecap="round" opacity=".7"/>
+    <circle cx="45" cy="52" r="7.8" fill="#2C1F18"/><circle cx="75" cy="52" r="7.8" fill="#2C1F18"/>
+    <circle cx="47.6" cy="49.2" r="2.9" fill="#fff"/><circle cx="77.6" cy="49.2" r="2.9" fill="#fff"/>
+    <circle cx="43" cy="55" r="1.3" fill="#fff" opacity=".65"/><circle cx="73" cy="55" r="1.3" fill="#fff" opacity=".65"/>
+  </symbol>
+  <symbol id="wg-trio" viewBox="0 0 160 130">
+    <use href="#wg-mimi" x="-12" y="6" width="104" height="104"/>
+    <use href="#wg-theo" x="70" y="6" width="104" height="104"/>
+    <use href="#wg-baby" x="40" y="34" width="84" height="84"/>
+  </symbol>
+  <symbol id="wg-sehee" viewBox="0 0 120 190">
+    <ellipse cx="60" cy="184" rx="27" ry="5" fill="#6B4A2C" opacity=".14"/>
+    <path d="M60 24 C34 24 24 44 24 66 C24 82 19 98 17 116 C15 138 22 158 34 167 C40 171 47 169 48 163 C39 149 35 130 36 110 C37 90 43 72 60 68 C77 72 83 90 84 110 C85 130 81 149 72 163 C73 169 80 171 86 167 C98 158 105 138 103 116 C101 98 96 82 96 66 C96 44 86 24 60 24 Z" fill="#3B2A26"/>
+    <g fill="#3B2A26">
+      <ellipse cx="28" cy="118" rx="9.5" ry="14"/>
+      <ellipse cx="26" cy="139" rx="8.5" ry="13"/>
+      <ellipse cx="31" cy="157" rx="8" ry="11"/>
+      <ellipse cx="92" cy="118" rx="9.5" ry="14"/>
+      <ellipse cx="94" cy="139" rx="8.5" ry="13"/>
+      <ellipse cx="89" cy="157" rx="8" ry="11"/>
+    </g>
+    <g fill="none" stroke="#5A4238" stroke-width="2.6" stroke-linecap="round" opacity=".6">
+      <path d="M40 86 C33 106 32 128 37 148"/>
+      <path d="M80 86 C87 106 88 128 83 148"/>
+      <path d="M52 80 C46 100 45 128 49 150" opacity=".5"/>
+      <path d="M68 80 C74 100 75 128 71 150" opacity=".5"/>
+    </g>
+    <rect x="48" y="136" width="9" height="32" rx="4.5" fill="#F7E1CC"/>
+    <rect x="63" y="136" width="9" height="32" rx="4.5" fill="#F7E1CC"/>
+    <rect x="43" y="163" width="17" height="12" rx="6" fill="#6E4C36"/>
+    <rect x="60" y="163" width="17" height="12" rx="6" fill="#6E4C36"/>
+    <path d="M40 122 L80 122 L87 148 Q87 153 81 153 L39 153 Q33 153 33 148 Z" fill="#F6EBD8"/>
+    <path d="M48 124 L50 151 M60 124 L60 151 M72 124 L70 151" stroke="#E7D6B9" stroke-width="1.5" stroke-linecap="round"/>
+    <rect x="54" y="74" width="12" height="14" rx="5" fill="#F1D8C0"/>
+    <path d="M38 98 Q38 86 52 84 L68 84 Q82 86 82 98 L84 122 Q84 127 78 127 L42 127 Q36 127 36 122 Z" fill="#D6C6EF"/>
+    <path d="M45 94 L45 120 M53 92 L53 120 M67 92 L67 120 M75 94 L75 120" stroke="#E6DAF8" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M36 118 L84 118" stroke="#C4AFE6" stroke-width="3"/>
+    <path d="M50 84 Q60 93 70 84" stroke="#C4AFE6" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+    <g transform="translate(60,105) scale(.4)">
+      <path d="M0 0 C-7 -4 -8 -14 0 -15 C8 -14 7 -4 0 0 Z" fill="#6FA87C"/>
+      <path d="M0 0 C-7 -4 -8 -14 0 -15 C8 -14 7 -4 0 0 Z" fill="#6FA87C" transform="rotate(118)"/>
+      <path d="M0 0 C-7 -4 -8 -14 0 -15 C8 -14 7 -4 0 0 Z" fill="#6FA87C" transform="rotate(238)"/>
+      <circle r="2.6" fill="#4E8A5C"/>
+    </g>
+    <path d="M40 96 C32 104 29 115 30 122" stroke="#D6C6EF" stroke-width="11" stroke-linecap="round" fill="none"/>
+    <path d="M80 96 C88 104 91 112 90 118" stroke="#D6C6EF" stroke-width="11" stroke-linecap="round" fill="none"/>
+    <circle cx="30" cy="125" r="5.4" fill="#FBE4CF"/>
+    <circle cx="90" cy="121" r="5.4" fill="#FBE4CF"/>
+    <g transform="translate(30,122)">
+      <path d="M0 -2 L0 9" stroke="#4E8A5C" stroke-width="1.8" stroke-linecap="round"/>
+      <g transform="translate(0,-2)">
+        <path d="M0 0 C-5 -3 -6 -11 0 -12 C6 -11 5 -3 0 0 Z" fill="#7EB98A"/>
+        <path d="M0 0 C-5 -3 -6 -11 0 -12 C6 -11 5 -3 0 0 Z" fill="#7EB98A" transform="rotate(120)"/>
+        <path d="M0 0 C-5 -3 -6 -11 0 -12 C6 -11 5 -3 0 0 Z" fill="#7EB98A" transform="rotate(240)"/>
+      </g>
+    </g>
+    <ellipse cx="60" cy="56" rx="26" ry="24" fill="#FBEDDF"/>
+    <ellipse cx="33.5" cy="58" rx="4.2" ry="5.4" fill="#F7DFC9"/>
+    <ellipse cx="86.5" cy="58" rx="4.2" ry="5.4" fill="#F7DFC9"/>
+    <path d="M34 50 C34 30 48 24 60 24 C73 24 86 31 86 50 C81 40 76 38 71 42 C67 34 60 36 57 42 C53 38 46 39 43 46 C40 42 36 44 34 50 Z" fill="#3B2A26"/>
+    <path d="M35 48 C30 60 30 72 33 82 C37 74 36 62 38 54 Z" fill="#3B2A26"/>
+    <path d="M85 48 C90 60 90 72 87 82 C83 74 84 62 82 54 Z" fill="#3B2A26"/>
+    <ellipse cx="50" cy="57" rx="4.6" ry="5.6" fill="#3A2A22"/>
+    <ellipse cx="70" cy="57" rx="4.6" ry="5.6" fill="#3A2A22"/>
+    <circle cx="51.6" cy="55" r="1.7" fill="#fff"/>
+    <circle cx="71.6" cy="55" r="1.7" fill="#fff"/>
+    <path d="M45 47 Q50 44.5 55 47" stroke="#5A4235" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+    <path d="M65 47 Q70 44.5 75 47" stroke="#5A4235" stroke-width="1.7" fill="none" stroke-linecap="round"/>
+    <ellipse cx="42" cy="65" rx="5" ry="3" fill="#F3AFA5" opacity=".45"/>
+    <ellipse cx="78" cy="65" rx="5" ry="3" fill="#F3AFA5" opacity=".45"/>
+    <path d="M60 61 L60 63.6" stroke="#E0B79C" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M56 67 Q60 70.6 64 67" stroke="#C9553D" stroke-width="1.9" fill="none" stroke-linecap="round"/>
+    <g transform="translate(84,44)">
+      <circle cx="0" cy="-4.6" r="3" fill="#FFF8E8"/>
+      <circle cx="4.4" cy="-1.4" r="3" fill="#FFF8E8"/>
+      <circle cx="2.7" cy="3.7" r="3" fill="#FFF8E8"/>
+      <circle cx="-2.7" cy="3.7" r="3" fill="#FFF8E8"/>
+      <circle cx="-4.4" cy="-1.4" r="3" fill="#FFF8E8"/>
+      <circle r="2.1" fill="#E8B85A"/>
+    </g>
+  </symbol>
+  <symbol id="wg-paw" viewBox="0 0 40 40">
+    <ellipse cx="20" cy="27" rx="9" ry="7.5" fill="#C99A63"/>
+    <circle cx="10" cy="17" r="4.2" fill="#C99A63"/><circle cx="17" cy="12" r="4.4" fill="#C99A63"/>
+    <circle cx="26" cy="12" r="4.4" fill="#C99A63"/><circle cx="33" cy="17" r="4.2" fill="#C99A63"/>
+  </symbol>
+</svg>
 
 <header class="top">
   <div class="brand">
@@ -446,6 +685,7 @@ details.bulk[open] summary::before{content:"▾"}
   </div>
   <div class="managerow" role="group" aria-label="관리">
     <button type="button" id="homeBtn" class="headhome" aria-label="집으로 가기" hidden>🏠 홈</button>
+    <span class="famstrip" aria-hidden="true"><svg class="tri" viewBox="-16 2 192 120" aria-hidden="true"><use href="#wg-mimi" x="-12" y="6" width="104" height="104"/><use href="#wg-theo" x="70" y="6" width="104" height="104"/><use href="#wg-baby" x="40" y="34" width="84" height="84"/></svg></span>
     <div class="actions">
       <button type="button" id="shareBtn" class="sharebtn" aria-label="이 앱 공유하기">📤 공유</button>
       <button type="button" id="installBtn" class="installbtn" aria-haspopup="dialog">📲 설치</button>
@@ -472,8 +712,10 @@ details.bulk[open] summary::before{content:"▾"}
         <div class="kitchen" id="kitchen"></div>
         <div class="floor"></div>
       </div>
+      <span class="housepeek" aria-hidden="true"><svg viewBox="0 0 120 190"><use href="#wg-sehee"/></svg></span>
     </div>
     <p class="househint" id="houseHint"><b>냉장고나 실온보관바구니</b>를 누르면 안을 볼 수 있어요.<br>지붕을 누르면 <b>우리 집 전체 내역</b>이 열려요.</p>
+    <button type="button" class="homerec" id="homeRecBtn"><span class="paw" aria-hidden="true"><svg viewBox="0 0 40 40"><use href="#wg-paw"/></svg></span><span aria-hidden="true">🧾</span><span id="homeRecLab">영수증 찍기 / 고르기</span><span class="paw r" aria-hidden="true"><svg viewBox="0 0 40 40"><use href="#wg-paw"/></svg></span></button>
 
     <section class="card today" id="todayCard">
       <div class="todayhead">
@@ -494,6 +736,7 @@ details.bulk[open] summary::before{content:"▾"}
       </div>
       <div class="spbarBottom">
         <span class="count" id="count">품목 0개</span>
+        <button type="button" id="selBtn" class="mini selbtn selinline" aria-pressed="false">🗑️ 골라 지우기</button>
         <div class="spacetools">
           <button type="button" id="addJump" class="addjump" aria-label="품목 추가 칸으로 바로 가기">➕ 품목 추가</button>
           <button type="button" id="clearAll" class="clearall" aria-label="이 칸의 품목을 전부 지우기">🧹 올클리어</button>
@@ -505,7 +748,6 @@ details.bulk[open] summary::before{content:"▾"}
     <div class="hintline" id="fridgeHint" hidden></div>
     <div class="toolbar" id="toolbar">
       <button type="button" id="favBtn" class="mini favbtn" aria-pressed="false">★ 자주 사는 것만</button>
-      <button type="button" id="selBtn" class="mini selbtn" aria-pressed="false">🗑️ 골라 지우기</button>
       <button type="button" id="tidyBtn" class="mini tidy">✓ 산 것 정리</button>
     </div>
 
@@ -521,7 +763,6 @@ details.bulk[open] summary::before{content:"▾"}
       <h2 id="addTitle">➕ 품목 담기</h2>
       <section class="recbox" id="recBox">
         <button type="button" class="recbtn" id="recBtn"><span aria-hidden="true">🧾</span><span id="recBtnLab">영수증 사진 찍기 / 고르기</span></button>
-        <input type="file" id="recInput" accept="image/*" multiple hidden>
         <p class="recnote" id="recNote">영수증을 찍으면 품목을 찾아 칸까지 나눠 드려요. 여러 장(최대 10장)도 한 번에. 사진은 이 폰 안에서만 읽고 밖으로 보내지 않아요.</p>
         <div class="recprog" id="recProg" hidden>
           <div class="rectrack"><div class="recbar" id="recBar"></div></div>
@@ -536,8 +777,16 @@ details.bulk[open] summary::before{content:"▾"}
           <input class="input" id="addName" type="text" maxlength="40" placeholder="예: 우유" autocomplete="off">
         </div>
         <div class="field">
-          <label class="fl" for="addMemo" id="addMemoLab">메모 · 용량 · 유통기한 (선택)</label>
-          <input class="input" id="addMemo" type="text" maxlength="40" placeholder="예: 1L, 11/28" autocomplete="off">
+          <div class="memorow">
+            <div class="mcell">
+              <label class="fl" for="addVolIn" id="addVolLab">용량</label>
+              <input class="input" id="addVolIn" type="text" maxlength="20" placeholder="예: 1L" autocomplete="off">
+            </div>
+            <div class="mcell">
+              <label class="fl" for="addMemo" id="addMemoLab">유통기한 / 메모 (선택)</label>
+              <input class="input" id="addMemo" type="text" maxlength="40" placeholder="예: 11/28" autocomplete="off">
+            </div>
+          </div>
           <div class="volrow" id="addVol" role="group" aria-label="빠른 용량"></div>
         </div>
         <button type="submit" id="addBtn" class="btn primary full">➕ 담기</button>
@@ -548,7 +797,7 @@ details.bulk[open] summary::before{content:"▾"}
         <textarea id="bulkText" placeholder="우유&#10;계란&#10;대파"></textarea>
         <button type="button" id="bulkBtn" class="btn full">한 번에 담기</button>
       </details>
-      <p class="hint" id="addHint">위 카드에서 − +로 수량, 이름을 누르면 고치기 창이 열려요.</p>
+      <p class="hint" id="addHint">위 카드에서 − +로 수량, 이름을 누르면 고치기 창이 열려요. <span class="paw" aria-hidden="true"><svg viewBox="0 0 40 40"><use href="#wg-paw"/></svg></span></p>
     </section>
   </section>
 </main>
@@ -572,8 +821,16 @@ details.bulk[open] summary::before{content:"▾"}
     <label class="fl" for="itemName" id="itemNameLab">품목 이름</label>
     <input class="input" id="itemName" type="text" maxlength="40" autocomplete="off">
     <div style="height:.5rem"></div>
-    <label class="fl" for="itemMemo" id="itemMemoLab">메모 · 용량 · 유통기한 (선택)</label>
-    <input class="input" id="itemMemo" type="text" maxlength="40" placeholder="예: 1L, 11/28" autocomplete="off">
+    <div class="memorow">
+      <div class="mcell">
+        <label class="fl" for="itemVolIn" id="itemVolLab">용량</label>
+        <input class="input" id="itemVolIn" type="text" maxlength="20" placeholder="예: 1L" autocomplete="off">
+      </div>
+      <div class="mcell">
+        <label class="fl" for="itemMemo" id="itemMemoLab">유통기한 / 메모 (선택)</label>
+        <input class="input" id="itemMemo" type="text" maxlength="40" placeholder="예: 11/28" autocomplete="off">
+      </div>
+    </div>
     <div class="volrow" id="itemVol" role="group" aria-label="빠른 용량"></div>
     <div style="height:.55rem"></div>
     <p class="fl" id="qtyLab">남은 수량</p>
@@ -628,6 +885,8 @@ details.bulk[open] summary::before{content:"▾"}
     <div class="mrow"><button class="btn primary" data-close="installModal" id="instOk">알겠어요</button></div>
   </div>
 </div>
+
+<input type="file" id="recInput" accept="image/*" multiple hidden>
 
 <div id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button type="button" id="toastUndo" hidden>↩ 되돌리기</button></div>
 
@@ -780,19 +1039,47 @@ $('#toastUndo').addEventListener('click', function(){
   if(cb) cb();
 });
 let lastFocus=null;
+
+/* ══════ 📱 폰 뒤로가기 — 모달 → 첫 화면 순서로 한 단계씩 ══════
+   화면이 한 단계 깊어질 때만 pushState(1단계=1기록) → 뒤로가기로 그 단계만 닫힘.
+   홈(첫 화면)에서는 쌓인 기록이 없어 브라우저/앱 뒤로가기가 그대로 동작해요. */
+let navDepth=0, navQuiet=0, navPopping=false;
+function navPush(){
+  if(navPopping) return;
+  try{ history.pushState({wagleFridge:1}, '', location.href); navDepth++; }catch(e){}
+}
+function navStepBack(){
+  if(navDepth<=0) return;
+  navDepth--; navQuiet++;
+  try{ history.back(); }catch(e){ navQuiet--; }
+}
+window.addEventListener('popstate', function(){
+  if(navQuiet>0){ navQuiet--; return; }
+  navPopping=true;
+  try{
+    if(navDepth>0) navDepth--;
+    const open=$$('.modal').filter(function(m){ return !m.hidden; });
+    if(open.length){ open.forEach(function(m){ hideModal(m.id); }); }
+    else if(S.view==='space'){ goHomeView(); }
+  } finally { navPopping=false; }
+});
+
 function showModal(id){
   lastFocus=document.activeElement;
   const m=document.getElementById(id); if(!m) return;
+  const wasOpen=$$('.modal').some(function(x){ return !x.hidden; });
   m.hidden=false;
   document.body.style.overflow='hidden';
   const f=m.querySelector('input,button,textarea');
   if(f && f.focus){ try{ f.focus({preventScroll:true}); }catch(e){} }
+  if(!wasOpen) navPush();
 }
 function hideModal(id){
   const m=document.getElementById(id); if(!m || m.hidden) return;
   m.hidden=true;
   if(!$$('.modal').some(function(x){ return !x.hidden; })) document.body.style.overflow='';
   if(lastFocus && lastFocus.focus){ try{ lastFocus.focus({preventScroll:true}); }catch(e){} }
+  if(!navPopping) navStepBack();   /* 뒤로가기로 닫힐 때는 기록이 이미 소비됨 */
 }
 $$('.modal').forEach(function(m){
   m.addEventListener('click', function(e){ if(e.target===m) hideModal(m.id); });
@@ -914,6 +1201,7 @@ function renderSpaceView(){
   $('#toolbar').hidden=!n;
   $('#selBtn').setAttribute('aria-pressed', S.selMode?'true':'false');
   $('#selBtn').disabled=!n;
+  $('#selBtn').hidden=!n;
   $('#selBar').hidden=!S.selMode;
   if(S.selMode){
     const k=S.sel.size;
@@ -965,10 +1253,9 @@ function renderList(){
           'No favorites yet, so everything looks faint — tap ★ to mark some.');
   }
   if(!sp.items.length){
-    box.innerHTML='<div class="empty"><span class="big" aria-hidden="true">'+(isCart?'🧺':'❄️')+'</span>'+
-      esc(isCart? L('실온보관바구니가 비었어요.','The pantry is empty.') : L('이 냉장고가 비었어요.','This fridge is empty.'))+'<br>'+
-      esc(isCart? L('아래 빠른 버튼이나 직접 입력으로 넣어 보세요.','Use a quick button or type below to add.')
-               : L('아래에서 품목을 넣어 보세요.','Add something from below.'))+'</div>';
+    box.innerHTML='<div class="empty"><span class="big" aria-hidden="true"><svg class="tri" viewBox="-16 2 192 120" aria-hidden="true"><use href="#wg-mimi" x="-12" y="6" width="104" height="104"/><use href="#wg-theo" x="70" y="6" width="104" height="104"/><use href="#wg-baby" x="40" y="34" width="84" height="84"/></svg></span><span>'+
+      esc(isCart? L('실온보관바구니가 비었어요 — 아래에서 넣어 보세요.','The pantry is empty — add something below.')
+               : L('이 냉장고가 비었어요 — 아래에서 넣어 보세요.','This fridge is empty — add something below.'))+'</span></div>';
     return;
   }
   sortedItems(sp).forEach(function(it){
@@ -1014,7 +1301,7 @@ function renderQuick(){
     b.innerHTML='<span class="qe" aria-hidden="true">'+q[0]+'</span><span class="ql"></span>';
     b.querySelector('.ql').textContent=L(q[1],q[2]);
     b.setAttribute('aria-label', L(q[1]+' 바로 담기','Add '+q[2]));
-    b.addEventListener('click', function(){ addItem(q[1], $('#addMemo').value.trim()); });
+    b.addEventListener('click', function(){ addItem(q[1], joinMemo($('#addVolIn').value, $('#addMemo').value)); });
     box.appendChild(b);
   });
 }
@@ -1025,6 +1312,18 @@ function volTok(v){ return [v[0], v[1]]; }
 const VOL_ALL=[].concat.apply([], VOLS.map(volTok));
 function memoParts(inp){
   return String((inp&&inp.value)||'').split(/\s*·\s*/).map(function(s){ return s.trim(); }).filter(Boolean);
+}
+/* 용량 칸 + 유통기한/메모 칸 → 저장은 '1L · 11/28' 한 줄(memo) */
+function joinMemo(vol, memo){
+  return [String(vol||'').trim(), String(memo||'').trim()].filter(Boolean).join(' · ').slice(0,40);
+}
+const VOL_RE=/^\d+(?:\.\d+)?\s?(?:kg|g|ml|l|개|입|병|캔|포|장|봉|통|팩|박스|세트|컵)$/i;
+function splitMemo(v){
+  const parts=String(v||'').split(/\s*·\s*/).map(function(x){ return x.trim(); }).filter(Boolean);
+  if(!parts.length) return {vol:'', memo:''};
+  const first=parts[0];
+  if(VOL_ALL.indexOf(first)>=0 || VOL_RE.test(first)) return {vol:first, memo:parts.slice(1).join(' · ')};
+  return {vol:'', memo:parts.join(' · ')};
 }
 function syncVolRow(rowId, inputId){
   const row=$('#'+rowId), inp=$('#'+inputId); if(!row||!inp) return;
@@ -1072,8 +1371,8 @@ function buildVolRow(rowId, inputId){
   });
   syncVolRow(rowId, inputId);
 }
-$('#addMemo').addEventListener('input', function(){ syncVolRow('addVol','addMemo'); });
-$('#itemMemo').addEventListener('input', function(){ syncVolRow('itemVol','itemMemo'); });
+$('#addVolIn').addEventListener('input', function(){ syncVolRow('addVol','addVolIn'); });
+$('#itemVolIn').addEventListener('input', function(){ syncVolRow('itemVol','itemVolIn'); });
 
 /* ══════ 🧾 영수증 사진 → 품목 (Tesseract.js kor+eng · 이 폰 안에서만 · 0원) ══════ */
 let tessP=null;
@@ -1293,11 +1592,13 @@ $('#recAdd').addEventListener('click', function(){
     .map(function(id){ return spBadge(spById(id))+' '+counts[id]; });
   toast(L(added+'개를 칸에 맞춰 넣었어요 — '+parts.join(' · '), 'Added '+added+' — '+parts.join(' · ')));
 });
-$('#recBtn').addEventListener('click', function(){
+function recPickFile(){
   const inp=$('#recInput'); if(!inp) return;
   try{ inp.value=''; }catch(e){}
   try{ inp.click(); }catch(e){}
-});
+}
+$('#recBtn').addEventListener('click', recPickFile);
+$('#homeRecBtn').addEventListener('click', recPickFile);
 let recBusy=false, recWorker=null;
 const REC_MAX=10;
 function recMerge(base, add){
@@ -1319,7 +1620,8 @@ $('#recInput').addEventListener('change', function(e){
   const capped=files.length>REC_MAX;
   files=files.slice(0,REC_MAX);
   const total=files.length;
-  recBusy=true; $('#recBtn').disabled=true;
+  recBusy=true; $('#recBtn').disabled=true; $('#homeRecBtn').disabled=true;
+  if(!$('#homeView').hidden) toast(L('영수증을 읽고 있어요… 잠깐만 기다려 주세요','Reading the receipt… one moment'));
   (async function(){
     let merged=[], fail=0, engineFail=false;
     try{
@@ -1389,7 +1691,7 @@ $('#recInput').addEventListener('change', function(e){
       recHideProg();
       toast(L('사진 읽기를 못 했어요 — 직접 입력이나 빠른 버튼으로 넣어 주세요','Could not read the photo — type it or use a quick button'));
     }finally{
-      recBusy=false; $('#recBtn').disabled=false;
+      recBusy=false; $('#recBtn').disabled=false; $('#homeRecBtn').disabled=false;
     }
   })();
 });
@@ -1427,10 +1729,14 @@ function applyStaticLang(){
   $('#selCancel').textContent = L('그만두기','Done');
   $('#addNameLab').textContent = L('품목 이름','Item name');
   $('#addName').placeholder = L('예: 우유','e.g. Milk');
-  $('#addMemoLab').textContent = L('메모 · 용량 · 유통기한 (선택)','Note · size · use-by (optional)');
-  $('#addMemo').placeholder = L('예: 1L, 11/28','e.g. 1L, Nov 28');
+  $('#addVolLab').textContent = L('용량','Size');
+  $('#addVolIn').placeholder = L('예: 1L','e.g. 1L');
+  $('#addMemoLab').textContent = L('유통기한 / 메모 (선택)','Use-by / note (optional)');
+  $('#addMemo').placeholder = L('예: 11/28','e.g. Nov 28');
   $('#addBtn').textContent = L('➕ 담기','➕ Add');
   $('#recBtnLab').textContent = L('영수증 사진 찍기 / 고르기','Receipt photo — take or pick');
+  $('#homeRecLab').textContent = L('영수증 찍기 / 고르기','Receipt — take or pick');
+  $('#homeRecBtn').setAttribute('aria-label', L('영수증 사진을 찍거나 골라서 품목 한 번에 넣기','Take or pick a receipt photo to add items at once'));
   $('#recBtn').setAttribute('aria-label', L('영수증 사진 찍기 또는 고르기','Take or choose a receipt photo'));
   $('#recNote').textContent = L('영수증을 찍으면 품목을 찾아 칸까지 나눠 드려요. 여러 장(최대 10장)도 한 번에. 사진은 이 폰 안에서만 읽고 밖으로 보내지 않아요.',
     'Take the receipt and the items are found and sorted into the right spaces. Up to 10 photos at once. The photo is read on this phone only.');
@@ -1456,8 +1762,10 @@ function applyStaticLang(){
   /* 품목 고치기 */
   $('#itemTitle').textContent = L('품목 고치기','Edit item');
   $('#itemNameLab').textContent = L('품목 이름','Item name');
-  $('#itemMemoLab').textContent = L('메모 · 용량 · 유통기한 (선택)','Note · size · use-by (optional)');
-  $('#itemMemo').placeholder = L('예: 1L, 11/28','e.g. 1L, Nov 28');
+  $('#itemVolLab').textContent = L('용량','Size');
+  $('#itemVolIn').placeholder = L('예: 1L','e.g. 1L');
+  $('#itemMemoLab').textContent = L('유통기한 / 메모 (선택)','Use-by / note (optional)');
+  $('#itemMemo').placeholder = L('예: 11/28','e.g. Nov 28');
   $('#itemDel').textContent = L('빼기','Remove');
   $('#itemSave').textContent = L('저장','Save');
   $('#dateToday').textContent = L('오늘','Today');
@@ -1474,21 +1782,26 @@ function applyStaticLang(){
   $('#instStep3').innerHTML = L('<b>아이폰 · 아이패드(사파리)</b><span>아래 <b>공유(□↑)</b> → <b>홈 화면에 추가</b>를 눌러 주세요</span>',
     '<b>iPhone · iPad (Safari)</b><span>Tap <b>Share (□↑)</b> → <b>Add to Home Screen</b></span>');
   $('#instOk').textContent = L('알겠어요','Got it');
-  buildVolRow('addVol','addMemo');
-  buildVolRow('itemVol','itemMemo');
+  buildVolRow('addVol','addVolIn');
+  buildVolRow('itemVol','itemVolIn');
 }
 function applyLang(){ saveLang(); renderAll(); }
 
 /* ══════ 집 ↔ 칸 이동 ══════ */
 function openSpace(id){
   const t=spById(id); if(!t) return;
+  if(S.view!=='space') navPush();     /* 홈 → 칸: 한 단계 */
   S.view='space'; S.cur=id; S.selMode=false; S.sel=new Set();
   save(); renderAll();
   window.scrollTo(0,0);
 }
-$('#homeBtn').addEventListener('click', function(){
+function goHomeView(){
   S.view='home'; S.selMode=false; S.sel=new Set();
   save(); renderAll(); window.scrollTo(0,0);
+}
+$('#homeBtn').addEventListener('click', function(){
+  if(navDepth>0) navStepBack();       /* 홈 버튼으로 나올 때 기록도 정리 */
+  goHomeView();
 });
 $('#kitchen').addEventListener('click', function(e){
   const b=e.target.closest('[data-id]'); if(!b) return;
@@ -1543,12 +1856,18 @@ function addItem(name, memo){
   const sp=space(); if(!sp) return false;
   const nm=String(name||'').trim().replace(/\s+/g,' ').slice(0,40);
   if(!nm) return false;
-  const dup=sp.items.some(function(i){ return i.name.toLowerCase()===nm.toLowerCase(); });
-  if(dup){
-    toast(L('이미 있어요 — 목록에서 볼 수 있어요','Already here — see it below'));
-    const ex=sp.items.filter(function(i){ return i.name.toLowerCase()===nm.toLowerCase(); })[0];
-    if(ex) flashItem(ex.id);
-    return false;
+  /* 같은 칸에 같은 이름이 있으면 새 카드를 만들지 않고 수량을 +1 (메모·용량이 같거나 새 메모가 없을 때) */
+  const mm=String(memo||'').trim().slice(0,40);
+  const same=sp.items.filter(function(i){ return i.name.toLowerCase()===nm.toLowerCase(); });
+  if(same.length){
+    const hit=same.filter(function(i){ return !mm || String(i.memo||'')===mm; })[0];
+    if(hit){
+      hit.qty=Math.min(99,(hit.qty||1)+1);
+      hit.done=false;
+      save(); renderSpaceView(); flashItem(hit.id);
+      toast(L(nm+' 수량 '+(hit.qty)+'개로 늘었어요', nm+' is now '+hit.qty+' pcs'));
+      return true;
+    }
   }
   const it={id:uid(),name:nm,memo:String(memo||'').trim().slice(0,40),qty:1,bought:dayStr(0),fav:false,done:false};
   sp.items.unshift(it);
@@ -1561,7 +1880,9 @@ $('#addForm').addEventListener('submit', function(e){
   e.preventDefault();
   const nm=$('#addName').value;
   if(!nm.trim()){ toast(L('품목 이름을 넣어 주세요','Please type an item name')); $('#addName').focus(); return; }
-  if(addItem(nm, $('#addMemo').value)){ $('#addName').value=''; $('#addMemo').value=''; syncVolRow('addVol','addMemo'); }
+  if(addItem(nm, joinMemo($('#addVolIn').value, $('#addMemo').value))){
+    $('#addName').value=''; $('#addVolIn').value=''; $('#addMemo').value=''; syncVolRow('addVol','addVolIn');
+  }
   $('#addName').focus();
 });
 $('#addJump').addEventListener('click', function(){
@@ -1666,8 +1987,10 @@ function openItem(id){
   const it=f.it, isCart=f.sp.kind==='cart';
   editId=id; editFav=!!it.fav; editQty=it.qty||1; editDate=it.bought||dayStr(0);
   $('#itemName').value=it.name;
-  $('#itemMemo').value=it.memo||'';
-  syncVolRow('itemVol','itemMemo');
+  const mv=splitMemo(it.memo||'');
+  $('#itemVolIn').value=mv.vol;
+  $('#itemMemo').value=mv.memo;
+  syncVolRow('itemVol','itemVolIn');
   $('#itemDate').value=editDate;
   $('#dateLab').textContent=L('구매일','Bought on');
   $('#qtyLab').textContent=L('남은 수량','How many left');
@@ -1714,7 +2037,7 @@ $('#itemSave').addEventListener('click', function(){
   const nm=$('#itemName').value.trim();
   if(!nm){ toast(L('품목 이름을 넣어 주세요','Please type an item name')); $('#itemName').focus(); return; }
   f.it.name=nm.slice(0,40);
-  f.it.memo=$('#itemMemo').value.trim().slice(0,40);
+  f.it.memo=joinMemo($('#itemVolIn').value, $('#itemMemo').value);
   f.it.qty=Math.min(99,Math.max(1,parseInt(editQty,10)||1));
   f.it.bought=/^\d{4}-\d{2}-\d{2}$/.test($('#itemDate').value)? $('#itemDate').value : (f.it.bought||dayStr(0));
   save(); hideModal('itemModal'); renderAll();
