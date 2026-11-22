@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#3E2C22" />
-<!-- build: 2026-11-22 wagle-table v13 · 이름 통일: 와글테이블 -->
+<!-- build: 2026-11-23 wagle-table v19 · 가게 지우기 문구 구분 · 메뉴 지우기 줄 상단 고정 · 하단 바 슬림 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
@@ -88,7 +88,8 @@ input,textarea{font-family:inherit;font-size:1.05rem;color:var(--ink)}
 @media (max-width:389px){
   .brand{gap:.28rem}
   .brand h1{font-size:.94rem}
-  .miniact,.sharebtn,.installbtn,.chip{font-size:.7rem;padding-left:.46rem;padding-right:.46rem}
+  .miniact,.sharebtn,.installbtn{font-size:.68rem;padding-left:.38rem;padding-right:.38rem}
+  .chip{font-size:.7rem;padding-left:.46rem;padding-right:.46rem}
   .bigtoggle{font-size:.66rem;padding:.16rem .3rem .16rem .4rem}
 }
 
@@ -131,7 +132,14 @@ html.big .clearall{font-size:.78rem;padding:.32rem .54rem;min-height:2.8rem}
   font-size:.82rem;font-weight:800;color:var(--ink2);min-height:2.8rem;white-space:nowrap}
 .mini[aria-pressed="true"]{background:#FFF1D8;border-color:var(--gold);color:#8A6210}
 .mini.danger{color:#A63A2A}
-.listhead{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;margin-bottom:.55rem}
+/* ── v19 · '★ 즐겨찾기만 | 🗑️ 메뉴 지우기 | 주문 비우기' 줄을 갈색 헤더 바로 아래에 고정 ──
+   · --hdrh 는 위쪽 갈색 헤더의 실제 높이(스크립트가 잰다) */
+.listhead{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;
+  position:sticky;top:var(--hdrh,0px);z-index:15;
+  background:var(--cream);margin-left:-.75rem;margin-right:-.75rem;
+  padding:.16rem .75rem .34rem;margin-bottom:.34rem;
+  border-bottom:2px solid transparent;transition:box-shadow .15s,border-color .15s}
+.listhead.stuck{border-bottom-color:var(--line);box-shadow:0 4px 10px rgba(58,40,25,.10)}
 .listhead .mini:last-child{margin-left:auto;flex:1 1 auto}
 .list{display:flex;flex-direction:column;gap:.55rem}
 .item{display:grid;grid-template-columns:2.4rem 1fr auto;align-items:center;gap:.4rem;
@@ -167,7 +175,11 @@ html.big .clearall{font-size:.78rem;padding:.32rem .54rem;min-height:2.8rem}
 .mini.delmode{color:#8A2E22;border-color:#E8BFB7;background:#FFF4F2}
 .mini.delmode:active{transform:translateY(1px)}
 .mini.delmode:disabled{opacity:.45}
-.selbar{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem;margin-bottom:.55rem}
+.selbar{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem;margin-bottom:.45rem;
+  position:sticky;top:var(--hdrh,0px);z-index:15;background:var(--cream);
+  margin-left:-.75rem;margin-right:-.75rem;padding:.16rem .75rem .34rem;
+  border-bottom:2px solid transparent;transition:box-shadow .15s,border-color .15s}
+.selbar.stuck{border-bottom-color:var(--line);box-shadow:0 4px 10px rgba(58,40,25,.10)}
 .seldel{flex:1 1 auto;min-height:2.8rem;border-radius:.8rem;border:2px solid #A63A2A;
   background:#C4564A;color:#fff;font-size:.86rem;font-weight:900;letter-spacing:-.015em;
   padding:.35rem .5rem;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -240,20 +252,20 @@ html.big .addhead .tab{font-size:.74rem;padding:.28rem .45rem}
 .cdel{border:2px solid var(--line);background:#fff;border-radius:.7rem;width:2.4rem;height:2.4rem;
   font-size:1rem;font-weight:800;color:#A63A2A;line-height:1}
 
-/* ── 하단 고정 요약 ── */
+/* ── 하단 고정 요약 (v19: 상하 여백·줄 간격·버튼 높이를 슬림하게 — 세로 높이 축소) ── */
 .bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:#fff;border-top:3px solid var(--coffee);
-  padding:.5rem .8rem calc(.5rem + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(40,26,16,.13)}
-.barTop{display:flex;align-items:center;gap:.42rem;max-width:34rem;margin:0 auto}
+  padding:.3rem .8rem calc(.3rem + env(safe-area-inset-bottom));box-shadow:0 -4px 16px rgba(40,26,16,.13)}
+.barTop{display:flex;align-items:center;gap:.36rem;max-width:34rem;margin:0 auto}
 .totals{flex:1 1 auto;min-width:0}
-.tcount{font-size:.88rem;font-weight:800;color:var(--ink2)}
-.tamount{font-size:2rem;font-weight:900;color:var(--coffee);line-height:1.03;letter-spacing:-.02em;white-space:nowrap}
-.tamount .won{font-size:1.05rem;margin-left:.1rem}
-.show{font-size:.92rem;line-height:1.16;padding:.45rem .75rem;text-align:center;border-radius:.9rem;flex:0 0 auto}
-.split{display:flex;align-items:center;gap:.35rem;margin-top:.4rem;border-top:2px dashed var(--line);
-  padding-top:.4rem;max-width:34rem;margin-left:auto;margin-right:auto;flex-wrap:wrap;row-gap:.3rem}
-.splitlabel{font-size:.82rem;font-weight:900;color:var(--accent);background:#FDEEE4;border-radius:.5rem;padding:.12rem .5rem;white-space:nowrap;flex:0 0 auto}
-.pstep{width:2.9rem;height:2.9rem;border-radius:.8rem;border:2px solid var(--line);background:#fff;
-  font-size:1.4rem;font-weight:800;color:var(--coffee);line-height:1}
+.tcount{font-size:.82rem;font-weight:800;color:var(--ink2);line-height:1.1}
+.tamount{font-size:1.9rem;font-weight:900;color:var(--coffee);line-height:1.02;letter-spacing:-.02em;white-space:nowrap}
+.tamount .won{font-size:1.02rem;margin-left:.1rem}
+.show{font-size:.9rem;line-height:1.12;padding:.26rem .62rem;text-align:center;border-radius:.85rem;flex:0 0 auto;min-height:2.5rem}
+.split{display:flex;align-items:center;gap:.35rem;margin-top:.24rem;border-top:2px dashed var(--line);
+  padding-top:.24rem;max-width:34rem;margin-left:auto;margin-right:auto;flex-wrap:wrap;row-gap:.24rem}
+.splitlabel{font-size:.82rem;font-weight:900;color:var(--accent);background:#FDEEE4;border-radius:.5rem;padding:.08rem .5rem;white-space:nowrap;flex:0 0 auto}
+.pstep{width:2.55rem;height:2.55rem;border-radius:.75rem;border:2px solid var(--line);background:#fff;
+  font-size:1.3rem;font-weight:800;color:var(--coffee);line-height:1}
 .pcount{font-size:1.08rem;font-weight:900;min-width:2.6rem;text-align:center}
 .per{margin-left:auto;font-size:.92rem;font-weight:800;color:var(--ink2);white-space:nowrap;flex:0 0 auto}
 .per b{font-size:1.18rem;color:var(--coffee)}
@@ -329,7 +341,7 @@ html.big .logo{display:none}
 html.big .bigtoggle{font-size:.68rem;padding:.2rem .34rem .2rem .44rem;min-height:2.4rem}
 html.big .langtoggle{font-size:.7rem;padding:0 .4rem;min-height:2.4rem}
 html.big .chip{font-size:.68rem;padding:.24rem .5rem;min-height:2.3rem}
-html.big .miniact,html.big .sharebtn,html.big .installbtn{font-size:.68rem;padding:.22rem .44rem;min-height:2.4rem}
+html.big .miniact,html.big .sharebtn,html.big .installbtn{font-size:.62rem;padding:.2rem .32rem;min-height:2.25rem;gap:.14rem}
 html.big .count{font-size:.82rem;flex:1 1 auto}
 html.big .mini{font-size:.72rem;padding:.3rem .45rem;min-height:2.7rem}
 html.big .storebar{flex-wrap:wrap;row-gap:.35rem}
@@ -345,10 +357,10 @@ html.big .qty{grid-area:qty;justify-content:space-between;border-top:2px dashed 
 html.big .num{flex:1;text-align:center}
 html.big .qbtn{width:3rem;height:3rem;font-size:1.6rem}
 html.big .num{font-size:1.5rem;min-width:2.2rem}
-html.big .tamount{font-size:1.85rem}
-html.big .show{font-size:.82rem;padding:.4rem .6rem}
+html.big .tamount{font-size:1.78rem}
+html.big .show{font-size:.8rem;padding:.24rem .52rem;min-height:2.35rem}
 html.big .splitlabel{font-size:.72rem}
-html.big .pstep{width:2.7rem;height:2.7rem;font-size:1.3rem}
+html.big .pstep{width:2.4rem;height:2.4rem;font-size:1.2rem}
 html.big .per{font-size:.8rem}
 html.big .per b{font-size:1.05rem}
 html.big .tab{font-size:.78rem;padding:.4rem .1rem}
@@ -385,13 +397,22 @@ html[lang="en"] .brand .sub{letter-spacing:-.025em}
   .brand h1{font-size:.92rem}
   .brand .langtoggle{font-size:.66rem;padding:0 .34rem;min-height:2.05rem}
   .brand .bigtoggle{font-size:.66rem;padding:.16rem .3rem .16rem .42rem;min-height:2.05rem}
+  /* v19 · '🗑️ 가게 지우기'가 길어져도 오른쪽 공유·설치와 같은 줄에 들어가도록 폭을 아낀다 */
+  .storerow{gap:.24rem;flex-wrap:nowrap}
+  .miniact,.sharebtn,.installbtn{padding-left:.42rem;padding-right:.42rem}
+}
+/* 아주 작은 화면(≤359px)은 한 줄에 다 못 들어가므로 다시 줄바꿈 허용 — 넘칩니다 방지 */
+@media (max-width:359px){
+  .storerow{flex-wrap:wrap}
 }
 /* 아주 좁은 폰(≤389px)에서도 머리말은 한 줄 유지 — 아래 줄에만 여유를 준다 */
 @media (max-width:389px){
+  html.big .miniact,html.big .sharebtn,html.big .installbtn{font-size:.6rem;padding:.18rem .28rem}
+  .storerow{gap:.2rem}
   .brand .hamsvg{width:2.3rem;height:2rem}
   .brand h1{font-size:.88rem}
   .brand .sub{font-size:.52rem}
-  .bar .tcount{font-size:.7rem;line-height:1.15}
+  .bar .tcount{font-size:.72rem;line-height:1.1}
   .bar .per{font-size:.76rem}
   .bar .per b{font-size:.98rem}
   .bar .pcount{font-size:.95rem;white-space:nowrap;min-width:3.2rem}
@@ -489,7 +510,7 @@ html.big .chkline{font-size:.86rem}
 /* ══════ 🎲 와글테이블 이벤트 ══════ */
 /* 🎲 이벤트 버튼 — 둥근 알약이 아니라 메뉴 카드처럼 반듯한 사각 박스 */
 .drawbtn{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:.2rem;
-  min-height:2.9rem;padding:.28rem .56rem;border-radius:.7rem;border:2px solid #A9690A;
+  min-height:2.55rem;padding:.2rem .52rem;border-radius:.7rem;border:2px solid #A9690A;
   background:linear-gradient(180deg,#FFD873 0%,#F2A91F 100%);color:#4A2C05;
   font-size:.75rem;font-weight:900;letter-spacing:-.04em;line-height:1.15;
   white-space:nowrap;text-shadow:0 1px 0 rgba(255,255,255,.35);
@@ -577,7 +598,7 @@ html.big .chkline{font-size:.86rem}
 .dfoot .dsound{flex:0 0 auto;font-size:.78rem;font-weight:800;min-height:2.6rem;padding:.3rem .6rem;
   color:#8B7A6B;background:#FBF7EE;border-width:1.5px}
 .dfoot .dsound[aria-pressed="true"]{color:#8A6210;background:#FFF1D8;border-color:var(--gold)}
-html.big .drawbtn{font-size:.6rem;min-height:3.1rem;padding:.24rem .46rem;letter-spacing:-.05em}
+html.big .drawbtn{font-size:.6rem;min-height:2.8rem;padding:.2rem .44rem;letter-spacing:-.05em}
 html.big .drawbtn .dice{font-size:.78rem}
 html.big .dcount{font-size:1.4rem}
 html.big .dhead h3{font-size:.94rem}
@@ -998,7 +1019,7 @@ html.big .isteps li>span{font-size:1rem}
   </div>
   <div class="storerow" role="group" aria-label="가게 관리">
     <button type="button" class="miniact" data-act="renamestore" aria-label="이 가게 이름 바꾸기">✏️ 이름변경</button>
-    <button type="button" class="miniact danger" data-act="delstore" aria-label="지울 가게 고르기">🗑️ 지우기</button>
+    <button type="button" class="miniact danger" data-act="delstore" aria-label="가게 지우기">🗑️ 가게 지우기</button>
     <div class="actions">
       <button type="button" id="shareBtn" class="sharebtn" aria-label="이 앱 공유하기">📤 공유</button>
       <button type="button" id="installBtn" class="installbtn" aria-haspopup="dialog">📲 설치</button>
@@ -1583,7 +1604,7 @@ function applyLang(){
 
   setTxt('[data-act="renamestore"]','✏️ 이름변경','✏️ Rename');
   setAttr('[data-act="renamestore"]','aria-label','이 가게 이름 바꾸기','Rename this shop');
-  setTxt('[data-act="delstore"]','🗑️ 지우기','🗑️ Delete');
+  setTxt('[data-act="delstore"]','🗑️ 가게 지우기','🗑️ Del Store');
   setAttr('[data-act="delstore"]','aria-label','지울 가게 고르기','Choose a shop to delete');
   setTxt('[data-act="reset"]','주문 비우기','Clear');
   setTxt('#addStoreChip','＋ 새 가게','＋ New Shop');
@@ -1897,6 +1918,7 @@ function renderSelBar(){
   const hint=$('.hint');
   if(hint) hint.textContent = L('지울 메뉴를 눌러 체크한 뒤 위의 빨간 버튼을 누르세요.','Tap the items to delete, then press the red button above.');
   bar.setAttribute('aria-label', L('메뉴 지우기','Delete menu items'));
+  if(typeof syncStuck==='function') syncStuck();
 }
 function toggleSel(id){
   if(!selMode) return;
@@ -4510,9 +4532,37 @@ if('serviceWorker' in navigator && location.protocol!=='file:'){
   });
 }
 
+/* ── v19 · '🗑️ 메뉴 지우기' 줄 상단 고정 — 갈색 헤더 높이를 재서 바로 아래에 붙인다 ──
+   · 헤더 높이는 가게 탭 줄바꿈·글씨 크기(큰 글씨)·언어에 따라 달라지므로 실시간으로 잰다 */
+var HDRH=0;
+function syncHdrH(){
+  var hd=document.querySelector('header.top'); if(!hd) return;
+  HDRH=Math.round(hd.getBoundingClientRect().height);
+  document.documentElement.style.setProperty('--hdrh', HDRH+'px');
+}
+function syncStuck(){
+  ['#listHead','#selBar'].forEach(function(sel){
+    var el=$(sel); if(!el) return;
+    var on = !el.hidden && el.getBoundingClientRect().top <= HDRH+1;
+    el.classList.toggle('stuck', on);
+  });
+}
+var stickTick=false;
+window.addEventListener('scroll', function(){
+  if(stickTick) return; stickTick=true;
+  requestAnimationFrame(function(){ stickTick=false; syncStuck(); });
+}, {passive:true});
+window.addEventListener('resize', function(){ syncHdrH(); syncStuck(); });
+window.addEventListener('orientationchange', function(){ syncHdrH(); syncStuck(); });
+if(window.ResizeObserver){
+  try{ new ResizeObserver(function(){ syncHdrH(); syncStuck(); }).observe(document.querySelector('header.top')); }catch(e){}
+}
+
 /* ── 시작 ── */
 var qrStoreName=importFromHash();
 render();
+syncHdrH();
+syncStuck();
 if(qrStoreName){ setTimeout(function(){ toast(L('QR로 받은 "'+qrStoreName+'" 가게를 열었어요 🙂','Opened the "'+qrStoreName+'" shop from the QR 🙂')); }, 500); }
 })();
 </script>
