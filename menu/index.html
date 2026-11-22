@@ -2223,7 +2223,7 @@ function withTimeout(p, ms, tag){
   });
 }
 /* 사진 여러 장 고르기 — 한 번에 최대 10장, 한 장씩 차례로 읽어 결과를 합칩니다 */
-var PHOTO_MAX=10;
+var PHOTO_MAX=10, photoRunToken=0, photoWorker=null;
 $('#photoInput').addEventListener('change', function(e){
   var inp=e.target;
   var files=[];
@@ -2236,17 +2236,20 @@ $('#photoInput').addEventListener('change', function(e){
     ? L(' (사진은 한 번에 '+PHOTO_MAX+'장까지라 앞 '+PHOTO_MAX+'장만 읽었어요)', ' (only the first '+PHOTO_MAX+' photos were read — up to '+PHOTO_MAX+' at once)')
     : '';
   var total=files.length;
+  var myRun=++photoRunToken;                  /* 새로 고르면 앞서 돌던 읽기는 조용히 접습니다 */
+  if(photoWorker){ try{ photoWorker.terminate(); }catch(_){} photoWorker=null; }
   hideReview();
   photoShowFallback(false);
   var pv=$('#preview');
   var settled=false, worker=null, active=1;
+  function stale(){ return settled || myRun!==photoRunToken; }
   function curPct(){
     var w=0;
     try{ w=parseFloat(($('#progBar').style.width||'0').replace('%',''))||0; }catch(_){ w=0; }
     return w;
   }
   var hintT=setTimeout(function(){
-    if(settled) return;
+    if(stale()) return;
     setProg(Math.max(curPct(),4), total>1
       ? L('📷 사진 '+total+'장을 읽는 중이에요 ('+active+' / '+total+') — 여러 장이면 조금 걸려요. 급하면 아래 「직접 입력」으로 넣을 수 있어요',
           '📷 Reading '+total+' photos ('+active+' / '+total+') — several take a moment. In a hurry, the buttons below add items in a second')
@@ -2255,7 +2258,9 @@ $('#photoInput').addEventListener('change', function(e){
   }, 10000);
   function finish(msg, short){
     settled=true; clearTimeout(hintT);
-    if(worker){ try{ worker.terminate(); }catch(_){} worker=null; }
+    var mine=(myRun===photoRunToken);
+    if(worker){ try{ worker.terminate(); }catch(_){} if(photoWorker===worker) photoWorker=null; worker=null; }
+    if(!mine) return;                       /* 그사이 새 사진을 골랐으면 화면은 그쪽에 맡깁니다 */
     setProg(100, msg);
     toast(short || msg);
     photoShowFallback(true);
@@ -2274,12 +2279,12 @@ $('#photoInput').addEventListener('change', function(e){
         ? L('📷 사진 '+total+'장을 한 장씩 읽을게요… (1 / '+total+')','📷 Reading '+total+' photos one by one… (1 / '+total+')')
         : L('📷 사진 읽는 중…','📷 Reading the photo…'));
       for(var i=0;i<total;i++){
-        if(settled) return;
+        if(stale()) return;
         active=i+1;
         try{
           setProg(Math.max(overall(active,total,0),1), readingMsg(active,total,0));
           var dataUrl=await withTimeout(downscale(files[i],1600), 15000, 'img');
-          if(settled) return;
+          if(stale()) return;
           pv.src=dataUrl; pv.hidden=false;
           pv.alt=L('고른 메뉴판 사진 '+active+' / '+total, 'Menu photo '+active+' of '+total);
           if(navigator.onLine===false){
@@ -2291,9 +2296,9 @@ $('#photoInput').addEventListener('change', function(e){
           if(!worker){
             setProg(Math.max(overall(active,total,0.02),2), L('글자 읽기 준비 중… (처음 한 번은 20초쯤 걸려요)','Getting ready to read… (the first time takes about 20 seconds)'));
             var T=await withTimeout(loadTesseract(), 15000, 'load');
-            if(settled) return;
-            worker=await withTimeout(T.createWorker('kor+eng',1,{logger:function(m){
-              if(!m || settled) return;
+            if(stale()) return;
+            worker=photoWorker=await withTimeout(T.createWorker('kor+eng',1,{logger:function(m){
+              if(!m || stale()) return;
               var st=String(m.status||'');
               if(st==='recognizing text'){
                 var p=Math.max(0,Math.min(1,m.progress||0));
@@ -2303,22 +2308,22 @@ $('#photoInput').addEventListener('change', function(e){
               }
             }}), 30000, 'worker');
           }
-          if(settled) return;
+          if(stale()) return;
           setProg(Math.max(overall(active,total,0.05),2), readingMsg(active,total,0));
           var r=await withTimeout(worker.recognize(dataUrl), 60000, 'ocr');
-          if(settled) return;
+          if(stale()) return;
           var list=parseMenuFromOCR(r && r.data ? r.data : {});
           if(list.length) merged=menuDedupe(merged.concat(list));
         }catch(err){
           readFail++;
           var tag=String((err && err.message) || '');
           /* 한 장이 넘어져도 다음 사진은 계속 — 오래 멈춘 워커는 버리고 새로 만듭니다 */
-          if(worker){ try{ worker.terminate(); }catch(_){} worker=null; }
+          if(worker){ try{ worker.terminate(); }catch(_){} if(photoWorker===worker) photoWorker=null; worker=null; }
           if(tag==='load' || tag==='net' || tag==='timeout'){ engineFail=true; break; }
         }
       }
-      if(settled) return;
-      if(worker){ try{ worker.terminate(); }catch(_){} worker=null; }
+      if(stale()) return;
+      if(worker){ try{ worker.terminate(); }catch(_){} if(photoWorker===worker) photoWorker=null; worker=null; }
       if(!merged.length){
         if(engineFail){
           finish(L('사진 읽기를 못 했어요. 사진은 위에 그대로 보여요 — 직접 입력이나 붙여넣기로 1초 만에 넣을 수 있어요',
@@ -2345,7 +2350,7 @@ $('#photoInput').addEventListener('change', function(e){
       photoShowFallback(false);
       startReview(merged, 'photo', total);
     }catch(err){
-      if(settled) return;
+      if(stale()) return;
       finish(L('사진 읽기를 못 했어요. 사진은 위에 그대로 보여요 — 직접 입력이나 붙여넣기로 1초 만에 넣을 수 있어요',
         'Could not read the photo. The photo is shown above — Type In or Paste adds items in a second'),
         L('사진을 읽지 못했어요','Could not read the photo'));
