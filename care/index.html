@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#7A4A25" />
-<!-- build: 2026-11-23 wagle-care v4 · 🚨 위급 연락: 보호자 1·2 큰 문자 타일 2열(등록 시 💬 문자 보내기·📞 전화, 미등록 시 📝 번호 등록) · 💬 매니저 문자 큰 줄 · 119 부제 「📞 누르고 초록 통화 눌러 주세요」+ 누를 때 2음 경보음(1.8초) · 📝 매니저·보호자 번호를 한 창에서 등록 · ⏰ 약 시간 알림: 큰 글씨 카드(약 이름)·말로 읽어 주기(🔊 다시 듣기·카드 탭)·✅ 약 먹었어요(닫기)·뒤로가기 닫기 · 🩺 병원동행매니저(첫 화면 버튼·매니저 2명 직접 등록·📞 바로 전화·💬 오늘 동행 알림 문자·📅 예약일/⏰ 만날 시간/📍 만날 장소 저장·오늘 약·남은 일수·병원 예약·보호자 번호 자동 포함·메모 복사) · 약 떨어짐 알림·위급 연락에 💬 매니저님께도 문자 · 공공 129·서울 1533-1179·내 지역 검색 안내 · v2: 아침·점심·저녁·자기 전 약 큰 버튼 체크(시각 기록·다시 누르면 취소) · 물 잔 수 · 산책·혈압/컨디션 · 복용 시간·알림 소리(Web Audio+음성 안내) · 약 이름·메모 · 최근 7일 기록 · 병원 약 남은 날(D-Day, 30·60·90·100일분·직접 입력) + 7일 이하 알림 카드 · 어르신께 정중한 말투("어르신, 약 드실 시간입니다.") · 보호자 번호 한 번 저장(설정·첫 화면) · 💬 보호자 문자(sms:) · 🚨 위급 버튼(보호자 전화·문자·119, 뒤로가기로 닫힘) · 큰 글씨·한/영·공유·설치·뒤로가기 · 기록은 기기에만 -->
+<!-- build: 2026-11-23 wagle-care v6 · ☀️ 아침 7시·🍚 낮 12시·🍲 오후 5시·🌙 저녁 9시 큰 인사 카드 + 한국어 음성(ko-KR, 앱을 켜면 생략·정각에만 자동) · 실시간 날씨(Open-Meteo, 위치 허용 시 현재 위치·기본 서울, 오프라인이면 날씨만 생략) · ☀️ 오늘 날짜·날씨 듣기 큰 버튼 · 🚨 위급 연락: 보호자 1·2 큰 문자 타일 2열(등록 전에도 💬 문자 보내기 큰 버튼·누르면 통합 번호 등록 창) · 💬 병원동행 매니저 문자 큰 줄 · 119 부제 「📞 누르고 초록 통화 눌러 주세요」+ 누를 때 2음 경보음(1.8초) · 📝 매니저·보호자 번호를 한 창에서 등록 · ⏰ 약 시간 알림: 큰 글씨 카드(약 이름)·말로 읽어 주기(🔊 다시 듣기·카드 탭)·✅ 약 먹었어요(닫기)·뒤로가기 닫기 · 🩺 병원동행매니저(첫 화면 버튼·매니저 2명 직접 등록·📞 바로 전화·💬 오늘 동행 알림 문자·📅 예약일/⏰ 만날 시간/📍 만날 장소 저장·오늘 약·남은 일수·병원 예약·보호자 번호 자동 포함·메모 복사) · 약 떨어짐 알림·위급 연락에 💬 매니저님께도 문자 · 공공 129·서울 1533-1179·내 지역 검색 안내 · v2: 아침·점심·저녁·자기 전 약 큰 버튼 체크(시각 기록·다시 누르면 취소) · 물 잔 수 · 산책·혈압/컨디션 · 복용 시간·알림 소리(Web Audio+음성 안내) · 약 이름·메모 · 최근 7일 기록 · 병원 약 남은 날(D-Day, 30·60·90·100일분·직접 입력) + 7일 이하 알림 카드 · 어르신께 정중한 말투("어르신, 약 드실 시간입니다.") · 보호자 번호 한 번 저장(설정·첫 화면) · 💬 보호자 문자(sms:) · 🚨 위급 버튼(보호자 전화·문자·119, 뒤로가기로 닫힘) · 큰 글씨·한/영·공유·설치·뒤로가기 · 기록은 기기에만 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -80,6 +80,36 @@ html.big .herocap{font-size:.66rem}
   font-size:.7rem;font-weight:800;min-height:2.2rem;white-space:nowrap;box-shadow:0 1px 3px rgba(94,60,26,.06)}
 html.big .dtoday{font-size:1rem}
 html.big .tools button{font-size:.62rem;padding:.3rem .36rem}
+
+/* ── ☀️ 오늘 날짜·날씨 듣기 큰 버튼 (v6) ─────── */
+.hibtn{display:flex;align-items:center;gap:.5rem;width:calc(100% - 1rem);margin:0 .5rem .52rem;
+  border:3px solid var(--amber-line);background:linear-gradient(135deg,#FFF9E9,#FFEDCE);color:var(--amber-ink);
+  border-radius:1.05rem;padding:.54rem .62rem;min-height:4.1rem;text-align:left;
+  box-shadow:0 4px 14px rgba(196,146,58,.22)}
+.hibtn:active{transform:scale(.99)}
+.hibtn.night{border-color:#5C6FAE;background:linear-gradient(135deg,#EFF1FC,#DDE1F7);color:#2C3769;
+  box-shadow:0 4px 14px rgba(70,90,160,.2)}
+.hibtn .hii{font-size:1.9rem;line-height:1;flex:0 0 auto}
+.hibtn .hitt{flex:1 1 auto;min-width:0}
+.hibtn .hitt b{display:block;font-size:1.1rem;font-weight:900;letter-spacing:-.03em;line-height:1.18}
+.hibtn .hitt em{display:block;margin-top:.1rem;font-size:.76rem;font-weight:800;line-height:1.28;font-style:normal;
+  color:#7A4A25;opacity:.95}
+.hibtn.night .hitt em{color:#3B4A82}
+.hibtn .higo{flex:0 0 auto;font-size:1.45rem;line-height:1;opacity:.9}
+html.big .hibtn{min-height:4.3rem;padding:.48rem .54rem}
+html.big .hibtn .hitt b{font-size:.98rem}
+html.big .hibtn .hitt em{font-size:.68rem}
+
+/* ── 인사 카드 (아침 7시 · 낮 12시 · 오후 5시 · 저녁 9시) ── */
+#hiBanner{align-items:center}
+.hcard{border-color:var(--amber-line)}
+.hcard.night{border-color:#5C6FAE}
+.hgret{margin:.34rem 0 0;font-size:1.16rem;font-weight:900;color:var(--brown);line-height:1.38;letter-spacing:-.02em}
+.hgret:empty{display:none}
+.wxmm{display:block;margin-top:.12rem;font-size:.82rem;font-weight:800;color:var(--ink2);line-height:1.35}
+.geolink{border:0;background:none;color:var(--ink2);font-size:.76rem;font-weight:800;line-height:1.3;
+  min-height:2.6rem;padding:.3rem .2rem;text-decoration:underline;text-underline-offset:2px}
+.geolink:active{opacity:.7}
 
 /* ── 공통 카드 ──────────────────────────── */
 .card{background:var(--card);border:1px solid var(--line);border-radius:1.05rem;
@@ -414,6 +444,10 @@ html.big .smsrow{font-size:.82rem}
 .sosbig.sms1{background:var(--blue-bg);border-color:#2B6E9E;color:#1E5580}
 .sosbig.add{width:100%;flex:1 1 auto;border-style:dashed;border-color:var(--amber-line);
   background:var(--amber-bg);color:var(--amber-ink)}
+/* 미등록이어도 처음부터 「문자 보내기」 큰 버튼(점선 테두리로 등록 전임을 표시) */
+.sosbig.need{border-style:dashed;border-color:#7FA8C4;background:var(--blue-bg);color:var(--blue)}
+.sosg.empty .sosbig{flex:1 1 auto}
+.sphone.need{font-weight:800;letter-spacing:-.02em;opacity:.82}
 .soscal{display:flex;align-items:center;justify-content:center;gap:.22rem;margin-top:.32rem;
   text-decoration:none;border:2.5px solid #C0392B;background:var(--red-bg);color:#8E2418;
   border-radius:.8rem;padding:.28rem .18rem;min-height:2.9rem;font-size:1.18rem;font-weight:900;
@@ -635,6 +669,16 @@ html.big .org .ot span{font-size:.6rem}
   </div>
 </div>
 
+<!-- ══ ☀️ 오늘 날짜·날씨 듣기 (v6 · 어르신이 언제든 눌러서 말로 들음) ══ -->
+<button type="button" class="hibtn" id="hiBtn" aria-haspopup="dialog" aria-label="오늘 날짜·날씨 듣기">
+  <span class="hii" id="hiBtnIcon" aria-hidden="true">☀️</span>
+  <span class="hitt">
+    <b id="hiBtnTitle">오늘 날짜·날씨 듣기</b>
+    <em id="hiBtnSub">누르면 오늘 날짜와 날씨를 말로 들려 드려요</em>
+  </span>
+  <span class="higo" aria-hidden="true">🔊</span>
+</button>
+
 <!-- ══ 🚨 위급 버튼 (첫 화면 상단) ══ -->
 <button type="button" class="sosbtn" id="sosBtn" aria-haspopup="dialog" aria-label="위급 버튼 · 위급할 때 누르세요">
   <span class="sosi" aria-hidden="true">🚨</span>
@@ -729,6 +773,7 @@ html.big .org .ot span{font-size:.6rem}
   <b id="footBrand">와글 효도 약통</b> · <span id="footBy">별의별 살림 (StarPick)</span><br />
   <span id="footPrivacy">모든 기록은 이 휴대폰에만 저장돼요 · 회원가입 없음 · 광고 없음</span>
   <span class="disc" id="footDisc">이 앱은 복약을 도와주는 기록장이에요. 약 복용과 병원 일정은 꼭 의사·약사 선생님의 안내를 따라 주세요.</span>
+  <span class="disc" id="footWx">☀️ 날씨는 Open-Meteo에서 받아와요 — 위치를 허용하시면 지금 계신 곳 좌표만 보내고, 약·건강 기록은 보내지 않아요.</span>
 </p>
 
 <!-- ══ 약 시간 알림 배너 ══ -->
@@ -743,6 +788,22 @@ html.big .org .ot span{font-size:.6rem}
       <button type="button" class="okbtn" id="dueDone">✅ 약 먹었어요 (닫기)</button>
       <button type="button" class="laterbtn" id="dueLater">⏰ 조금 있다가 할게요</button>
       <a class="laterbtn" id="dueSms" href="#" style="display:flex;align-items:center;justify-content:center;gap:.3rem;text-decoration:none;border-color:var(--blue-line);color:var(--blue);background:var(--blue-bg);font-weight:900">💬 <span id="dueSmsT">보호자 문자</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ☀️ 아침 7시 · 🌙 저녁 9시 인사 카드 (v6) ══ -->
+<div class="banner" id="hiBanner" hidden>
+  <div class="bcard hcard" role="dialog" aria-modal="true" aria-labelledby="hiTitle" id="hiCard">
+    <div class="bemoji" id="hiEmoji" aria-hidden="true">☀️</div>
+    <div class="btitle" id="hiTitle">어르신, 아침 7시입니다</div>
+    <div class="bmed" id="hiDate">11월 23일 월요일</div>
+    <p class="bsub" id="hiWeather"></p>
+    <p class="hgret" id="hiGreet"></p>
+    <button type="button" class="speakbtn" id="hiSpeak">🔊 다시 듣기</button>
+    <div class="bbtns">
+      <button type="button" class="okbtn" id="hiDone">✅ 확인 (닫기)</button>
+      <button type="button" class="geolink" id="hiGeo">📍 지금 계신 곳 날씨로 보기</button>
     </div>
   </div>
 </div>
@@ -853,7 +914,7 @@ html.big .org .ot span{font-size:.6rem}
     <div class="sos3">
       <div id="sosRows"></div>
       <a class="both" id="sosBoth" href="#" hidden>💬 <span id="sosBothT">보호자 1·2에게 함께 문자</span></a>
-      <a class="mgr off" id="sosMgrSms" href="#"><span aria-hidden="true">💬</span> <span id="sosMgrSmsT">매니저 문자</span></a>
+      <a class="mgr off" id="sosMgrSms" href="#"><span aria-hidden="true">💬</span> <span id="sosMgrSmsT">병원동행 매니저 문자</span></a>
       <a class="emg" id="sos119" href="tel:119">
         <span class="ic" aria-hidden="true">🚑</span>
         <span class="tx"><b id="sos119T">119 긴급 전화</b><span class="emgsub"><span aria-hidden="true">📞</span> <span id="sos119S">누르고 초록 통화 눌러 주세요</span></span></span>
@@ -1036,7 +1097,7 @@ function defaults(){
   var s = { v:3, big:false, lang:'ko', sound:true, guardians:[{ name:'', tel:'' }, { name:'', tel:'' }],
             companions:[{ name:'', tel:'' }, { name:'', tel:'' }],
             trip:{ date:'', time:'', place:'' },
-            slots:{}, water:{}, walk:{}, bp:{}, meds:[], history:{}, seen:{} };
+            slots:{}, water:{}, walk:{}, bp:{}, meds:[], history:{}, seen:{}, hi:{} };
   SLOTS.forEach(function(x){ s.slots[x.id] = { at:x.at, name:'', memo:'', doneAt:null }; });
   s.water = { date:'', count:0, goal:8, last:null };
   s.walk  = { date:'', doneAt:null };
@@ -1114,6 +1175,7 @@ function load(){
   }
   if(o.history && typeof o.history === 'object') S.history = o.history;
   if(o.seen && typeof o.seen === 'object') S.seen = o.seen;
+  if(o.hi && typeof o.hi === 'object') S.hi = o.hi;
 }
 function save(){
   try { syncHistory(); } catch(e){}
@@ -1208,9 +1270,10 @@ function paintSosRows(){
     var head = '<div class="sosname"><span class="snum">' + (i+1) + '</span><b>' + nm + '</b></div>';
     if(!d){
       return '<div class="sosg empty">' + head
-        + '<button type="button" class="sosbig add" data-gadd="' + i + '">'
-        + '<span class="ic" aria-hidden="true">📝</span>'
-        + '<span class="lb">' + esc(L('번호 등록', 'Add number')) + '</span></button>'
+        + '<div class="sphone need">' + esc(L('번호 등록 필요', 'No number yet')) + '</div>'
+        + '<button type="button" class="sosbig sms1 need" data-gadd="' + i + '" aria-label="' + esc(L('문자 보내기 · 보호자 번호 등록', 'SOS text · add guardian number')) + '">'
+        + '<span class="ic" aria-hidden="true">💬</span>'
+        + '<span class="lb">' + esc(L('문자 보내기', 'SOS text')) + '</span></button>'
         + '</div>';
     }
     return '<div class="sosg">' + head
@@ -1229,7 +1292,7 @@ function paintSosRows(){
     else both.hidden = true;
   }
   $$('#sosRows [data-gadd]').forEach(function(b){
-    b.addEventListener('click', function(){ openGuardian(); });
+    b.addEventListener('click', function(){ needNumberAll(); });
   });
 }
 function todayMsg(){
@@ -1255,6 +1318,11 @@ function hasGuardian(){ return allTels().length > 0; }
 function needNumber(){
   toast(L('보호자 번호를 먼저 등록해 주세요', 'Please register the guardian number first'));
   openGuardian();
+}
+/* 위급 연락 창에서 미등록 보호자 타일을 누르면 → 안내 + 통합 등록 창 */
+function needNumberAll(){
+  toast(L('보호자 번호를 먼저 등록해 주세요', 'Please register the guardian number first'));
+  openAllReg();
 }
 function updateGuardianUI(){
   var hint = $('#guardianHint');
@@ -2251,6 +2319,8 @@ function paintDue(){
 function showDue(id){
   var x = SLOTS.filter(function(s){ return s.id === id; })[0];
   if(!x) return;
+  /* 인사 카드가 떠 있으면 약 알림이 먼저 — 인사 카드는 닫고 약 알림을 띄운다 */
+  try{ if($('#hiBanner') && !$('#hiBanner').hidden) hiClose(false); }catch(e){}
   var t = todayKey();
   S.seen[t + '|' + id] = 1; save();
   dueSlot = id;
@@ -2266,6 +2336,7 @@ function closeDue(fromBack){
   dueSlot = null;
   try{ window.speechSynthesis.cancel(); }catch(e){}
   if(!fromBack) navConsume('due');
+  try{ hiFlushPending(); }catch(e){}   /* 정각 인사가 약 알림 뒤로 밀려 있으면 이제 띄움 */
 }
 /* 카드 탭·「🔊 말로 다시 듣기」·「✅ 약 먹었어요 (닫기)」 */
 $('#dueSpeak').addEventListener('click', function(e){ e.stopPropagation(); speakDue(true); });
@@ -2287,6 +2358,313 @@ $('#dueDone').addEventListener('click', function(){
 });
 $('#dueLater').addEventListener('click', function(){ closeDue(false); });
 
+/* ═══════════════════════════════════════════════════════════
+   ☀️🌙 오늘 날짜·날씨 · 아침 7시 / 낮 12시 / 오후 5시 / 저녁 9시 인사 (v6)
+   · 실시간 날씨 = Open-Meteo (회원가입·열쇠·비용 0)
+     - 위치 권한을 이미 허용한 경우에만 조용히 현재 위치 좌표, 아니면 기본 좌표(서울)
+     - 오프라인이면 날씨 부분만 자연스럽게 생략
+   · 인사 카드는 앱을 새로 열 때는 띄우지 않음(볼일 보러 켰을 때 방해 없게)
+     → 앱이 켜진 채로 07:00(날짜·날씨) · 12:00(점심) · 17:00(저녁 식사) · 21:00(취침) 정각이 되는 순간에만 각각 하루 1회
+   · 평소에는 첫 화면 「☀️ 오늘 날짜·날씨 듣기」 버튼을 누를 때만 읽어 드림
+   · 앱을 닫아 두면 이 인사도 울리지 않음(약 알림과 같은 안내)
+   ═══════════════════════════════════════════════════════════ */
+var HI = { lat:37.5665, lon:126.9780, geo:false,
+           temp:null, code:null, tmax:null, tmin:null, at:0 };
+var HI_TTL = 10 * 60 * 1000;
+var hiKind = null, hiTimer = null, hiInflight = false, hiWaiters = [];
+
+function hiWxInfo(code){
+  var c = parseInt(code, 10);
+  if(isNaN(c)) return { i:'🌡️', ko:'날씨', en:'weather' };
+  if(c === 0) return { i:'☀️', ko:'맑음', en:'clear' };
+  if(c === 1) return { i:'🌤️', ko:'맑음', en:'mostly clear' };
+  if(c === 2) return { i:'⛅', ko:'구름 조금', en:'partly cloudy' };
+  if(c === 3) return { i:'☁️', ko:'흐림', en:'cloudy' };
+  if(c === 45 || c === 48) return { i:'🌫️', ko:'안개', en:'foggy' };
+  if(c >= 51 && c <= 57) return { i:'🌦️', ko:'이슬비', en:'drizzle' };
+  if(c >= 61 && c <= 67) return { i:'🌧️', ko:'비', en:'rain' };
+  if(c >= 71 && c <= 77) return { i:'🌨️', ko:'눈', en:'snow' };
+  if(c >= 80 && c <= 82) return { i:'🌦️', ko:'소나기', en:'showers' };
+  if(c === 85 || c === 86) return { i:'🌨️', ko:'눈', en:'snow showers' };
+  if(c >= 95) return { i:'⛈️', ko:'천둥번개', en:'thunderstorms' };
+  return { i:'🌡️', ko:'날씨', en:'weather' };
+}
+function hiPlaceText(){
+  return HI.geo ? L('지금 계신 곳', 'your area') : L('기본 위치(서울)', 'default: Seoul');
+}
+
+/* 날씨 받아 오기 — 10분 동안은 받아 둔 값을 쓴다. 실패하면 조용히 끝(날씨만 생략) */
+function hiWxLoad(force, cb){
+  cb = typeof cb === 'function' ? cb : function(){};
+  if(!force && HI.temp != null && (Date.now() - HI.at) < HI_TTL && HI.at){ cb(true); return; }
+  if(hiInflight){ hiWaiters.push(cb); return; }
+  hiInflight = true; hiWaiters = [cb];
+  var finished = false, ctl = null, timer = null;
+  var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + HI.lat + '&longitude=' + HI.lon +
+            '&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FSeoul';
+  var opt = { cache:'no-store' };
+  try{ if(window.AbortController){ ctl = new AbortController(); opt.signal = ctl.signal; } }catch(e){}
+  function fin(ok){
+    if(finished) return;
+    finished = true;
+    if(timer) clearTimeout(timer);
+    hiInflight = false;
+    var ws = hiWaiters; hiWaiters = [];
+    for(var i = 0; i < ws.length; i++){ try{ ws[i](!!ok); }catch(e){} }
+  }
+  timer = setTimeout(function(){ try{ if(ctl) ctl.abort(); }catch(e){} fin(false); }, 7000);
+  try{
+    fetch(url, opt).then(function(r){ return (r && r.ok) ? r.json() : null; }).then(function(j){
+      var cur = j && j.current;
+      if(!cur || cur.temperature_2m == null) return fin(false);
+      var t = Number(cur.temperature_2m);
+      HI.temp = isFinite(t) ? Math.round(t) : null;
+      HI.code = cur.weather_code;
+      HI.tmax = null; HI.tmin = null;
+      try{
+        var dl = j.daily || {};
+        var mx = dl.temperature_2m_max ? Number(dl.temperature_2m_max[0]) : NaN;
+        var mn = dl.temperature_2m_min ? Number(dl.temperature_2m_min[0]) : NaN;
+        if(isFinite(mx)) HI.tmax = Math.round(mx);
+        if(isFinite(mn)) HI.tmin = Math.round(mn);
+      }catch(e){}
+      HI.at = Date.now();
+      fin(true);
+    }).catch(function(){ fin(false); });
+  }catch(e){ fin(false); }
+}
+
+/* 위치 — 권한을 이미 허용했으면 묻지 않고 조용히, 아니면 기본 좌표(서울) */
+function hiGeoGranted(cb){
+  try{
+    if(navigator.permissions && navigator.permissions.query){
+      navigator.permissions.query({ name:'geolocation' }).then(function(p){
+        cb(!!p && p.state === 'granted');
+      }).catch(function(){ cb(false); });
+      return;
+    }
+  }catch(e){}
+  cb(false);
+}
+function hiLocate(cb){
+  cb = typeof cb === 'function' ? cb : function(){};
+  if(!navigator.geolocation){ cb(false); return; }
+  var done = false;
+  function fin(ok){ if(done) return; done = true; cb(!!ok); }
+  try{
+    navigator.geolocation.getCurrentPosition(function(p){
+      if(!p || !p.coords) return fin(false);
+      HI.lat = Math.round(p.coords.latitude * 10000) / 10000;
+      HI.lon = Math.round(p.coords.longitude * 10000) / 10000;
+      HI.geo = true; HI.at = 0;
+      fin(true);
+    }, function(){ fin(false); }, { enableHighAccuracy:false, timeout:8000, maximumAge:600000 });
+  }catch(e){ fin(false); }
+  setTimeout(function(){ fin(false); }, 9000);
+}
+
+/* 말로 읽어 드릴 글 */
+function hiNight(h){ return (h >= 21 || h < 6); }
+function hiMD(){
+  var d = new Date();
+  if(EN()) return WD.en[d.getDay()] + ', ' + MO.en[d.getMonth()] + ' ' + d.getDate();
+  return (d.getMonth()+1) + '월 ' + d.getDate() + '일 ' + WD.ko[d.getDay()] + '요일';
+}
+function hiWxSay(){
+  if(HI.temp == null) return '';
+  var w = hiWxInfo(HI.code);
+  return L('현재 날씨는 ' + HI.temp + '도, ' + w.ko + '입니다.',
+           'The weather is ' + HI.temp + ' degrees, ' + w.en + '.');
+}
+/* 인사 카드 그리기 — 아침·점심·저녁식사·취침·(버튼)오늘 날짜·날씨 */
+function hiPaint(){
+  var h = new Date().getHours(), k = hiKind;
+  var night = (k === 'evening') || (k === 'day' && hiNight(h));
+  var info = hiWxInfo(HI.code);
+  var emoji = k === 'morning' ? '☀️' : k === 'lunch' ? '🍚' : k === 'dinner' ? '🍲'
+            : k === 'evening' ? '🌙' : (hiNight(h) ? '🌙' : '☀️');
+  $('#hiEmoji').textContent = emoji;
+  $('#hiCard').classList.toggle('night', night);
+  var title = L('오늘 날짜와 날씨', 'Today’s date & weather');
+  if(k === 'morning') title = L('어르신, 아침 7시입니다', 'Good morning · 7 a.m.');
+  else if(k === 'lunch') title = L('어르신, 낮 12시입니다', 'Good afternoon · noon');
+  else if(k === 'dinner') title = L('어르신, 오후 5시입니다', 'Good evening · 5 p.m.');
+  else if(k === 'evening') title = L('어르신, 저녁 9시입니다', 'Good evening · 9 p.m.');
+  $('#hiTitle').textContent = title;
+  var meal = k === 'lunch' ? L('점심 식사 맛있게 하세요', 'Enjoy your lunch')
+           : k === 'dinner' ? L('저녁 식사 맛있게 하세요', 'Enjoy your dinner') : '';
+  $('#hiDate').textContent = meal || hiMD();
+  var parts = [];
+  if(meal) parts.push('<span class="wxmm">' + esc(hiMD()) + '</span>');
+  if(HI.temp == null){
+    parts.push(L(hiInflight ? '날씨를 확인하고 있어요…' : '날씨는 지금 확인이 안 되네요',
+                 hiInflight ? 'Checking the weather…' : 'The weather cannot be checked right now'));
+  } else {
+    parts.push(L('지금 <b>' + HI.temp + '도</b> · ' + info.i + ' ' + info.ko,
+                 'Now <b>' + HI.temp + '°</b> · ' + info.i + ' ' + info.en));
+    if(HI.tmax != null && HI.tmin != null){
+      parts.push(L('<span class="wxmm">오늘 최고 ' + HI.tmax + '도 · 최저 ' + HI.tmin + '도</span>',
+                   '<span class="wxmm">High ' + HI.tmax + '° · Low ' + HI.tmin + '°</span>'));
+    }
+    parts.push('<span class="wxmm">📍 ' + esc(hiPlaceText()) + '</span>');
+  }
+  $('#hiWeather').innerHTML = parts.join('');
+  var greet = '';
+  if(night) greet = L('오늘도 수고 많으셨습니다. 안녕히 주무세요.', 'You worked hard today. Sleep well.');
+  $('#hiGreet').textContent = greet;
+  $('#hiGeo').hidden = !!HI.geo;
+}
+
+function hiSpokenText(kind){
+  var h = new Date().getHours(), w = hiWxSay();
+  if(kind === 'evening'){
+    return L('어르신, 저녁 9시입니다. 오늘도 수고 많으셨습니다. 안녕히 주무세요.',
+             'It is 9 in the evening. You worked hard today. Sleep well.');
+  }
+  if(kind === 'lunch'){
+    return L('어르신, 낮 12시입니다. 점심 식사 맛있게 하세요.',
+             'It is noon. Enjoy your lunch.');
+  }
+  if(kind === 'dinner'){
+    return L('어르신, 오후 5시입니다. 저녁 식사 맛있게 하세요.',
+             'It is 5 in the afternoon. Enjoy your dinner.');
+  }
+  if(kind === 'morning'){
+    var head = L('어르신, 아침 7시입니다. ', 'Good morning. It is 7 a.m. ');
+    return head + (w ? L('오늘은 ' + hiMD() + '이고, ', 'Today is ' + hiMD() + ', and ') + w
+                     : L('오늘은 ' + hiMD() + '입니다.', 'Today is ' + hiMD() + '.'));
+  }
+  var s = L('어르신, 오늘은 ' + hiMD() + '입니다. ', 'Today is ' + hiMD() + '. ');
+  if(w) s += w + ' ';
+  if(hiNight(h)) s += L('오늘도 수고 많으셨습니다. 안녕히 주무세요.', 'You worked hard today. Sleep well.');
+  return s.replace(/\s+$/, '');
+}
+function hiSpeak(force){
+  var kind = hiKind;
+  if(!kind) return;
+  if(hiTimer){ clearTimeout(hiTimer); hiTimer = null; }
+  var spoken = false;
+  function say(){
+    if(spoken || hiKind !== kind) return;
+    spoken = true;
+    if(hiTimer){ clearTimeout(hiTimer); hiTimer = null; }
+    ttsSay(hiSpokenText(kind), !!force, 0.9);
+  }
+  if(HI.temp != null && (Date.now() - HI.at) < HI_TTL && HI.at){
+    say();
+    hiWxLoad(false, function(){ if(hiKind === kind) hiPaint(); });
+    return;
+  }
+  hiPaint();
+  hiTimer = setTimeout(say, 4500); /* 날씨가 늦어도 4.5초 뒤에는 날씨 없이 읽어 드림 */
+  hiWxLoad(true, function(){
+    if(hiKind !== kind) return;
+    hiPaint(); hiUpdateBtn(); say();
+  });
+}
+function hiShow(kind){
+  hiKind = kind;
+  hiPaint();
+  $('#hiBanner').hidden = false;
+  navPushLayer('hi', function(){ hiClose(true); });
+  if(S.sound) chime(1);
+  hiSpeak(false);
+}
+function hiClose(fromBack){
+  if($('#hiBanner').hidden) return;
+  $('#hiBanner').hidden = true;
+  hiKind = null;
+  if(hiTimer){ clearTimeout(hiTimer); hiTimer = null; }
+  try{ window.speechSynthesis.cancel(); }catch(e){}
+  if(!fromBack) navConsume('hi');
+}
+function hiSeen(kind){
+  try{ return !!(S.hi && S.hi[todayKey() + '|' + kind]); }catch(e){ return false; }
+}
+function hiMark(kind){
+  try{ S.hi = S.hi || {}; S.hi[todayKey() + '|' + kind] = 1; save(); }catch(e){}
+}
+
+/* 첫 화면 버튼 — 낮에는 「오늘 날짜·날씨 듣기」, 밤에는 「인사 듣기」 */
+function hiUpdateBtn(){
+  var b = $('#hiBtn');
+  if(!b) return;
+  var night = hiNight(new Date().getHours());
+  b.classList.toggle('night', night);
+  $('#hiBtnIcon').textContent = night ? '🌙' : '☀️';
+  $('#hiBtnTitle').textContent = night ? L('인사 듣기', 'Hear the greeting')
+                                       : L('오늘 날짜·날씨 듣기', 'Today’s date & weather');
+  var sub;
+  if(HI.temp == null){
+    sub = L('누르면 오늘 날짜와 날씨를 말로 들려 드려요', 'Tap to hear today’s date and weather');
+  } else {
+    var w = hiWxInfo(HI.code);
+    sub = L('지금 ' + HI.temp + '도 · ' + w.i + ' ' + w.ko + ' · ' + (HI.geo ? '내 위치' : '서울'),
+            'Now ' + HI.temp + '° · ' + w.i + ' ' + w.en + ' · ' + (HI.geo ? 'my area' : 'Seoul'));
+  }
+  $('#hiBtnSub').textContent = sub;
+  b.setAttribute('aria-label', $('#hiBtnTitle').textContent + ' · ' + sub);
+}
+
+/* 자동 인사 — 앱을 새로 열 때는 띄우지 않고, 켜진 채로 정각(07:00·12:00·17:00·21:00)이 될 때만 하루 1회 */
+var hiBootHm = '';
+var hiPending = null;   /* 약 알림 창이 떠 있는 동안 정각을 지나면, 약 알림을 닫은 뒤에 보여 줌 */
+function hiFlushPending(){
+  if(!hiPending) return;
+  if(Date.now() > hiPending.until){ hiPending = null; return; }
+  if($('#dueBanner') && !$('#dueBanner').hidden) return;
+  if(!$('#hiBanner').hidden) return;
+  var k = hiPending.kind;
+  hiPending = null;
+  if(hiSeen(k)) return;
+  hiMark(k);
+  hiShow(k);
+}
+function hiAuto(){
+  if(!$('#hiBanner').hidden) return;
+  if(!hiBootHm) return;
+  var hm2 = hhmm(new Date()), kind = null;
+  if(hm2 === hiBootHm) return;   /* 앱을 켠 그 순간(정각)은 인사 생략 */
+  if(hm2 === '07:00') kind = 'morning';
+  else if(hm2 === '12:00') kind = 'lunch';
+  else if(hm2 === '17:00') kind = 'dinner';
+  else if(hm2 === '21:00') kind = 'evening';
+  if(!kind || hiSeen(kind)) return;
+  if(hiPending && hiPending.kind === kind) return;
+  hiFlushPending();
+  if($('#dueBanner') && !$('#dueBanner').hidden){
+    hiPending = { kind:kind, until: Date.now() + 10 * 60000 };   /* 광고·약 알림이 먼저 */
+    return;
+  }
+  hiMark(kind);
+  hiShow(kind);
+}
+function hiTick(){ hiUpdateBtn(); hiAuto(); }
+
+$('#hiBtn').addEventListener('click', function(){ hiShow('day'); });
+$('#hiSpeak').addEventListener('click', function(e){ e.stopPropagation(); hiSpeak(true); });
+$('#hiCard').addEventListener('click', function(e){
+  var t = e.target;
+  if(t && t.closest && t.closest('button, a')) return;
+  hiSpeak(true);
+});
+$('#hiDone').addEventListener('click', function(){ hiClose(false); });
+$('#hiGeo').addEventListener('click', function(e){
+  e.stopPropagation();
+  var kind = hiKind;
+  hiLocate(function(ok){
+    if(!ok){
+      toast(L('위치를 쓸 수 없어 기본 위치(서울)로 보여 드려요', 'Location is not available — showing Seoul'));
+      return;
+    }
+    hiWxLoad(true, function(){
+      hiUpdateBtn();
+      if(kind && hiKind === kind){ hiPaint(); hiSpeak(true); }
+      toast(L('지금 계신 곳 날씨로 바꿨어요 📍', 'Using the weather where you are 📍'));
+    });
+  });
+});
+
 /* ── 알림 점검 ────────────────────────── */
 var lastTick = '', curDay = todayKey();
 function tick(){
@@ -2298,6 +2676,7 @@ function tick(){
   var now = new Date(), hm = hhmm(now);
   if(hm === lastTick) return;
   lastTick = hm;
+  hiTick();
   /* 소리 설정과 상관없이 큰 글씨 알림은 띄우고, 소리·말은 설정을 따라간다 */
   SLOTS.forEach(function(x){
     var st = S.slots[x.id];
@@ -2573,6 +2952,8 @@ function applyLang(){
     'All records stay on this phone · no sign-up · no ads');
   $('#footDisc').textContent = L('이 앱은 복약을 도와주는 기록장이에요. 약 복용과 병원 일정은 꼭 의사·약사 선생님의 안내를 따라 주세요.',
     'This app is a care diary. Always follow your doctor’s and pharmacist’s advice.');
+  $('#footWx').textContent = L('☀️ 날씨는 Open-Meteo에서 받아와요 — 위치를 허용하시면 지금 계신 곳 좌표만 보내고, 약·건강 기록은 보내지 않아요.',
+    '☀️ Weather comes from Open-Meteo — only your coordinates if you allow location; your health records are never sent.');
   /* 혈압 모달 */
   $('#bpHead').textContent = L('🩺 혈압 · 컨디션','🩺 Blood pressure & how I feel');
   $('#bpSysL').textContent = L('수축기 (높은 수)','Systolic (top)');
@@ -2641,8 +3022,14 @@ function applyLang(){
   $('#sos119T').textContent = L('119 긴급 전화','119 emergency call');
   $('#sos119S').textContent = L('누르고 초록 통화 눌러 주세요','Press, then tap the green call button');
   $('#alarmStop').textContent = L('⏹ 경보음 · 도와주세요 끄기','⏹ Stop the alarm');
+  /* v6: 오늘 날짜·날씨 듣기 버튼 · 아침/저녁 인사 카드 */
+  hiUpdateBtn();
+  $('#hiSpeak').textContent = L('🔊 다시 듣기','🔊 Listen again');
+  $('#hiDone').textContent = L('✅ 확인 (닫기)','✅ OK (close)');
+  $('#hiGeo').textContent = L('📍 지금 계신 곳 날씨로 보기','📍 Use the weather where I am');
+  if(!$('#hiBanner').hidden) hiPaint();
   $('#sosBothT').textContent = L('보호자 1·2에게 함께 문자','Text both guardians at once');
-  $('#sosMgrSmsT').textContent = L('매니저 문자','Text companion');
+  $('#sosMgrSmsT').textContent = L('병원동행 매니저 문자','Text hospital escort');
   $('#sosRegT').textContent = L('매니저 · 보호자 번호 등록 · 변경','Add or edit companion & guardian numbers');
   $('#sosCloseT').textContent = L('닫기','Close');
   $('#guardianHead').textContent = L('👵 보호자 번호','👵 Guardian numbers');
@@ -2860,12 +3247,18 @@ function renderAll(){
 load();
 var ql = qLang();
 if(ql) S.lang = ql;
+hiBootHm = hhmm(new Date());   /* v6: 앱을 켠 시각 — 이 순간이 정각이면 인사는 띄우지 않음 */
 if(todayKey() !== S.water.date || todayKey() !== S.walk.date || todayKey() !== S.bp.date) rollover();
 renderAll();
 save();
 setTimeout(catchUp, 900);
 tick();
 setInterval(tick, 15000);
+/* v6: 첫 화면 날씨 준비 — 권한을 이미 허용한 경우에만 조용히 현재 위치 사용(묻지 않음) */
+hiGeoGranted(function(ok){
+  if(!ok){ hiWxLoad(false, hiUpdateBtn); return; }
+  hiLocate(function(){ hiWxLoad(true, hiUpdateBtn); });
+});
 window.addEventListener('focus', function(){ tick(); });
 document.addEventListener('visibilitychange', function(){ if(!document.hidden){ unlockAudio(); tick(); } });
 
