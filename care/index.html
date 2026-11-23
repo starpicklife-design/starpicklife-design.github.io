@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#7A4A25" />
-<!-- build: 2026-11-23 wagle-care v3 · 🩺 병원동행매니저(첫 화면 버튼·매니저 2명 직접 등록·📞 바로 전화·💬 오늘 동행 알림 문자·📅 예약일/⏰ 만날 시간/📍 만날 장소 저장·오늘 약·남은 일수·병원 예약·보호자 번호 자동 포함·메모 복사) · 약 떨어짐 알림·위급 연락에 💬 매니저님께도 문자 · 공공 129·서울 1533-1179·내 지역 검색 안내 · v2: 아침·점심·저녁·자기 전 약 큰 버튼 체크(시각 기록·다시 누르면 취소) · 물 잔 수 · 산책·혈압/컨디션 · 복용 시간·알림 소리(Web Audio+음성 안내) · 약 이름·메모 · 최근 7일 기록 · 병원 약 남은 날(D-Day, 30·60·90·100일분·직접 입력) + 7일 이하 알림 카드 · 어르신께 정중한 말투("어르신, 약 드실 시간입니다.") · 보호자 번호 한 번 저장(설정·첫 화면) · 💬 보호자 문자(sms:) · 🚨 위급 버튼(보호자 전화·문자·119, 뒤로가기로 닫힘) · 큰 글씨·한/영·공유·설치·뒤로가기 · 기록은 기기에만 -->
+<!-- build: 2026-11-23 wagle-care v4 · 🚨 위급 연락: 보호자 1·2 큰 문자 타일 2열(등록 시 💬 문자 보내기·📞 전화, 미등록 시 📝 번호 등록) · 💬 매니저 문자 큰 줄 · 119 부제 「📞 누르고 초록 통화 눌러 주세요」+ 누를 때 2음 경보음(1.8초) · 📝 매니저·보호자 번호를 한 창에서 등록 · ⏰ 약 시간 알림: 큰 글씨 카드(약 이름)·말로 읽어 주기(🔊 다시 듣기·카드 탭)·✅ 약 먹었어요(닫기)·뒤로가기 닫기 · 🩺 병원동행매니저(첫 화면 버튼·매니저 2명 직접 등록·📞 바로 전화·💬 오늘 동행 알림 문자·📅 예약일/⏰ 만날 시간/📍 만날 장소 저장·오늘 약·남은 일수·병원 예약·보호자 번호 자동 포함·메모 복사) · 약 떨어짐 알림·위급 연락에 💬 매니저님께도 문자 · 공공 129·서울 1533-1179·내 지역 검색 안내 · v2: 아침·점심·저녁·자기 전 약 큰 버튼 체크(시각 기록·다시 누르면 취소) · 물 잔 수 · 산책·혈압/컨디션 · 복용 시간·알림 소리(Web Audio+음성 안내) · 약 이름·메모 · 최근 7일 기록 · 병원 약 남은 날(D-Day, 30·60·90·100일분·직접 입력) + 7일 이하 알림 카드 · 어르신께 정중한 말투("어르신, 약 드실 시간입니다.") · 보호자 번호 한 번 저장(설정·첫 화면) · 💬 보호자 문자(sms:) · 🚨 위급 버튼(보호자 전화·문자·119, 뒤로가기로 닫힘) · 큰 글씨·한/영·공유·설치·뒤로가기 · 기록은 기기에만 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -263,15 +263,29 @@ details.settings[open]>summary .caret{transform:rotate(180deg)}
   animation:pop .25s ease-out}
 @keyframes pop{from{transform:scale(.94);opacity:.6}to{transform:scale(1);opacity:1}}
 @media (prefers-reduced-motion:reduce){.bcard{animation:none}}
-.bemoji{font-size:2.6rem;line-height:1}
-.btitle{margin:.34rem 0 .1rem;font-size:1.24rem;font-weight:900;letter-spacing:-.04em;color:var(--brown);line-height:1.24}
-.bsub{margin:.2rem 0 0;font-size:.92rem;font-weight:800;color:var(--ink);line-height:1.4}
+.bemoji{font-size:3rem;line-height:1}
+.btitle{margin:.38rem 0 .16rem;font-size:1.55rem;font-weight:900;letter-spacing:-.05em;color:var(--brown);line-height:1.22}
+.bmed{margin:.16rem 0 .3rem;padding:.5rem .46rem;border-radius:.9rem;border:2.5px solid var(--amber-line);
+  background:var(--amber-bg);color:var(--amber-ink);font-size:1.45rem;font-weight:900;letter-spacing:-.05em;
+  line-height:1.2;word-break:keep-all}
+.bmed:empty{display:none}
+.bsub{margin:.2rem 0 0;font-size:.95rem;font-weight:800;color:var(--ink);line-height:1.4}
 .bsub b{color:var(--green)}
-.bbtns{display:flex;flex-direction:column;gap:.4rem;margin-top:.8rem}
+.speakbtn{width:100%;margin-top:.6rem;border:2.5px solid var(--blue-line);background:var(--blue-bg);
+  color:var(--blue);border-radius:.9rem;padding:.6rem .5rem;font-size:1.14rem;font-weight:900;
+  min-height:3.2rem;letter-spacing:-.03em}
+.speakbtn:active{transform:scale(.99)}
+.bbtns{display:flex;flex-direction:column;gap:.4rem;margin-top:.44rem}
 .bbtns .okbtn{border:2px solid var(--green-line);background:var(--green-bg);color:var(--green);
-  border-radius:.9rem;padding:.68rem;font-size:1.02rem;font-weight:900;min-height:3.2rem}
+  border-radius:.9rem;padding:.62rem;font-size:1.2rem;font-weight:900;min-height:3.6rem}
 .bbtns .laterbtn{border:1px solid var(--line);background:#fff;color:var(--ink2);
-  border-radius:.9rem;padding:.56rem;font-size:.86rem;font-weight:800;min-height:2.8rem}
+  border-radius:.9rem;padding:.54rem;font-size:.95rem;font-weight:800;min-height:3rem}
+html.big .btitle{font-size:1.34rem}
+html.big .bmed{font-size:1.26rem}
+html.big .bsub{font-size:.82rem}
+html.big .speakbtn{font-size:.98rem}
+html.big .bbtns .okbtn{font-size:1.06rem}
+html.big .bbtns .laterbtn{font-size:.84rem}
 
 /* ── 모달 ───────────────────────────────── */
 .modal{position:fixed;inset:0;z-index:70;background:rgba(45,28,12,.5);display:flex;align-items:center;
@@ -337,8 +351,9 @@ html.big .gcard .gt{font-size:.7rem}
 html.big .gcard .gbtn{font-size:.7rem;padding:.3rem .42rem}
 
 /* ── 오늘의 약 안내 문구 ───────────────── */
-.dosemsg{margin:-.12rem 0 .44rem;font-size:.88rem;font-weight:900;letter-spacing:-.03em;line-height:1.3;
+.dosemsg{display:block;width:100%;text-align:left;font-family:inherit;margin:-.12rem 0 .44rem;font-size:.88rem;font-weight:900;letter-spacing:-.03em;line-height:1.3;
   color:var(--brown);padding:.34rem .46rem;border-radius:.66rem;background:var(--cream2);border:1px solid var(--line)}
+.dosemsg.due{cursor:pointer}
 .dosemsg.due{color:var(--red);background:var(--red-bg);border-color:var(--red-line)}
 .dosemsg.done{color:var(--green);background:var(--green-bg);border-color:var(--green-line)}
 html.big .dosemsg{font-size:.8rem}
@@ -375,37 +390,44 @@ html.big .smsrow{font-size:.82rem}
   border-radius:.7rem;padding:.34rem .54rem;font-size:.76rem;font-weight:900;min-height:2.4rem;white-space:nowrap}
 
 /* ── 위급 연락 창 ──────────────────────── */
-#sosModal .mcard{border:3px solid var(--red-line);background:#FFF8F5}
+#sosModal{padding:.5rem}
+#sosModal .mcard{border:3px solid var(--red-line);background:#FFF8F5;padding:.7rem .6rem .66rem}
 .sos3{display:flex;flex-direction:column;gap:.5rem;margin-top:.1rem}
-.sosg{border:2px solid var(--red-line);border-radius:1rem;background:#fff;padding:.44rem .5rem .5rem}
+#sosRows{display:grid;grid-template-columns:1fr 1fr;gap:.42rem;align-items:stretch}
+.sosg{display:flex;flex-direction:column;border:2px solid var(--red-line);border-radius:1rem;background:#fff;
+  padding:.4rem .36rem .44rem;min-width:0}
 .sosg.empty{border-style:dashed;border-color:var(--line);background:#FFFCF6}
-.sosname{display:flex;align-items:center;gap:.32rem;margin-bottom:.36rem;flex-wrap:wrap}
-.snum{flex:0 0 auto;width:1.3rem;height:1.3rem;border-radius:50%;background:var(--red);color:#fff;
-  font-size:.78rem;font-weight:900;line-height:1.3rem;text-align:center}
-.sosname b{font-size:.92rem;font-weight:900;letter-spacing:-.02em;color:var(--red);min-width:0;
+.sosname{display:flex;align-items:center;gap:.28rem;margin-bottom:.14rem;min-width:0}
+.snum{flex:0 0 auto;width:1.5rem;height:1.5rem;border-radius:50%;background:var(--red);color:#fff;
+  font-size:.92rem;font-weight:900;line-height:1.5rem;text-align:center}
+.sosname b{font-size:1.18rem;font-weight:900;letter-spacing:-.045em;color:var(--red);min-width:0;flex:1 1 auto;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sphone{margin-left:auto;font-size:.76rem;font-weight:800;color:var(--ink2)}
-.sos2{display:grid;grid-template-columns:1fr 1fr;gap:.36rem}
-.sos2 a{display:flex;align-items:center;gap:.34rem;text-decoration:none;border-radius:.85rem;
-  padding:.46rem .5rem;min-height:3.8rem;border:3px solid;letter-spacing:-.02em}
-.sos2 a:active{transform:scale(.99)}
-.sos2 .ic{font-size:1.5rem;line-height:1;flex:0 0 auto}
-.sos2 .tx{flex:1 1 auto;min-width:0}
-.sos2 .tx b{display:block;font-size:.96rem;font-weight:900;line-height:1.16}
-.sos2 .tx span{display:block;margin-top:.06rem;font-size:.66rem;font-weight:800;line-height:1.2;opacity:.92;
+.sphone{margin:0 0 .34rem;font-size:.86rem;font-weight:900;color:var(--ink2);letter-spacing:-.03em;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sos2 .call1{background:var(--red-bg);border-color:#C0392B;color:#8E2418}
-.sos2 .sms1{background:var(--blue-bg);border-color:#2B6E9E;color:#1E5580}
+.sosbig{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.04rem;
+  text-decoration:none;border-radius:.9rem;border:3px solid;padding:.4rem .16rem .44rem;
+  min-height:4.5rem;text-align:center;letter-spacing:-.05em;line-height:1.1;box-sizing:border-box}
+.sosbig:active{transform:scale(.99)}
+.sosbig .ic{font-size:1.5rem;line-height:1}
+.sosbig .lb{display:block;font-size:1.4rem;font-weight:900;line-height:1.08;letter-spacing:-.06em;
+  word-break:keep-all}
+.sosbig.sms1{background:var(--blue-bg);border-color:#2B6E9E;color:#1E5580}
+.sosbig.add{width:100%;flex:1 1 auto;border-style:dashed;border-color:var(--amber-line);
+  background:var(--amber-bg);color:var(--amber-ink)}
+.soscal{display:flex;align-items:center;justify-content:center;gap:.22rem;margin-top:.32rem;
+  text-decoration:none;border:2.5px solid #C0392B;background:var(--red-bg);color:#8E2418;
+  border-radius:.8rem;padding:.28rem .18rem;min-height:2.9rem;font-size:1.18rem;font-weight:900;
+  letter-spacing:-.055em;white-space:nowrap;line-height:1.1}
+.soscal .ic{font-size:1.15rem;line-height:1}
 .sosadd{width:100%;border:2px dashed var(--amber-line);background:var(--amber-bg);color:var(--amber-ink);
   border-radius:.8rem;padding:.5rem;font-size:.86rem;font-weight:900;min-height:3rem}
 .sos3 a.both{display:flex;align-items:center;justify-content:center;gap:.3rem;text-decoration:none;
   border:2px solid var(--blue-line);background:var(--blue-bg);color:var(--blue);border-radius:.85rem;
-  padding:.52rem .5rem;font-size:.9rem;font-weight:900;min-height:3.1rem}
-.sos3 a.mgr{display:flex;align-items:center;justify-content:center;gap:.3rem;text-decoration:none;
+  padding:.56rem .4rem;font-size:1.06rem;font-weight:900;min-height:3.3rem;letter-spacing:-.045em;line-height:1.2}
+.sos3 a.mgr{display:flex;align-items:center;justify-content:center;gap:.32rem;text-decoration:none;
   border:2px solid #2F8B82;background:#EAF7F4;color:#1C5751;border-radius:.85rem;
-  padding:.52rem .5rem;font-size:.9rem;font-weight:900;min-height:3.1rem}
+  padding:.62rem .4rem;font-size:1.3rem;font-weight:900;min-height:3.8rem;letter-spacing:-.05em;line-height:1.2}
 .sos3 a.mgr.off{border-style:dashed;opacity:.8}
-html.big .sos3 a.mgr{font-size:.8rem}
 .sos3 a.emg{display:flex;align-items:center;gap:.6rem;text-decoration:none;
   background:linear-gradient(180deg,#C4301F,#981F13);border:3px solid #7E1D13;color:#FFF6F2;
   border-radius:1rem;padding:.62rem .7rem;min-height:5rem;box-shadow:0 3px 12px rgba(150,30,15,.3)}
@@ -414,23 +436,50 @@ html.big .sos3 a.mgr{font-size:.8rem}
 .sos3 a.emg .tx{flex:1 1 auto;min-width:0}
 .sos3 a.emg .tx b{display:block;font-size:1.22rem;font-weight:900;line-height:1.18}
 .sos3 a.emg .tx span{display:block;margin-top:.08rem;font-size:.72rem;font-weight:800;line-height:1.24;opacity:.94}
-.sosreg{width:100%;border:1px solid var(--line);background:#fff;color:var(--ink2);border-radius:.8rem;
-  padding:.46rem;font-size:.8rem;font-weight:800;min-height:2.7rem}
-html.big .sos2 .tx b{font-size:.82rem;line-height:1.14;letter-spacing:-.04em;white-space:nowrap}
-html.big .sos2 .tx span{display:none}
-html.big .sos2 .ic{font-size:1.15rem}
-html.big .sos2 a{min-height:3.4rem;padding:.4rem .32rem;gap:.22rem}
-html.big .sosname b{font-size:.84rem}
-html.big .sphone{font-size:.68rem}
+#sosModal .sos3 a.emg .emgsub{display:inline-flex;align-items:center;gap:.26rem;width:fit-content;max-width:100%;
+  margin-top:.22rem;padding:.16rem .46rem;border-radius:.62rem;background:#FFEFC2;color:#7E1D13;
+  font-size:.9rem;font-weight:900;line-height:1.24;letter-spacing:-.045em;opacity:1;
+  word-break:keep-all;text-wrap:balance;box-shadow:0 1px 0 rgba(0,0,0,.15) inset}
+#sosModal .sos3 a.emg .emgsub #sos119S{display:inline;margin:0;font-size:inherit;font-weight:inherit;
+  line-height:inherit;opacity:1;letter-spacing:inherit;white-space:normal}
+.sosreg{width:100%;border:1.5px solid var(--line);background:#fff;color:var(--ink2);border-radius:.8rem;
+  padding:.5rem .4rem;font-size:.9rem;font-weight:900;min-height:3rem;letter-spacing:-.03em;line-height:1.25}
+.alarmstop{width:100%;border:2px solid #7E1D13;background:#3A120C;color:#FFF6F2;border-radius:.85rem;
+  padding:.56rem .5rem;font-size:1.06rem;font-weight:900;min-height:3.1rem;letter-spacing:-.04em}
+.alarmstop:active{transform:scale(.99)}
+html.big .sos3{gap:.4rem}
+html.big .sos3 a.emg{min-height:4.6rem;padding:.5rem .6rem}
+html.big .sosreg{min-height:2.5rem}
+html.big #sosModal .mcancel{min-height:2.4rem}
+html.big #sosModal .mcard{padding:.62rem .56rem .58rem}
+html.big .sosname b{font-size:1.06rem}
+html.big .sphone{font-size:.72rem}
+html.big .snum{width:1.36rem;height:1.36rem;font-size:.82rem;line-height:1.36rem}
+html.big .sosbig{min-height:4.3rem}
+html.big .sosbig .lb{font-size:1.26rem}
+html.big .sosbig .ic{font-size:1.35rem}
+html.big .soscal{font-size:1.02rem;min-height:2.7rem}
+html.big .sos3 a.both{font-size:.94rem;min-height:3.1rem}
+html.big .sos3 a.mgr{font-size:1.08rem;min-height:3.5rem}
 html.big .sos3 a.emg .tx b{font-size:1.08rem}
 html.big .sos3 a.emg .tx span{font-size:.64rem}
 /* 보호자 번호 입력(설정·등록 창) */
+.arhead{display:flex;align-items:center;gap:.32rem;margin:.06rem 0 .3rem;padding:.3rem .46rem;
+  border-radius:.62rem;background:var(--cream2);border:1px solid var(--line);
+  font-size:.88rem;font-weight:900;color:var(--brown);letter-spacing:-.03em}
 .grow{border:1px solid var(--line);border-radius:.85rem;padding:.5rem .56rem;margin-bottom:.44rem;background:#FFFDF8}
 .gtitle{display:flex;align-items:center;gap:.3rem;font-size:.8rem;font-weight:900;color:var(--brown);margin-bottom:.3rem}
 .gtitle .snum{background:var(--brown)}
 .grow .fld{margin-bottom:.32rem}
 .grow .fld:last-child{margin-bottom:0}
+.grow .mrow .fld{margin-bottom:0}
 .grow .fld input{min-height:2.7rem}
+
+#allRegModal .mhelp{font-size:.68rem;line-height:1.35;margin:.1rem 0 .34rem}
+#allRegModal .grow{margin-bottom:.34rem;padding:.44rem .5rem}
+#allRegModal .grow .fld input{min-height:2.5rem}
+#allRegModal .grow .fld>span{font-size:.66rem}
+#allRegModal .msave{min-height:2.9rem}
 
 /* ── 🩺 병원동행매니저 연결 ─────────────── */
 .compbtn{display:flex;align-items:center;gap:.56rem;width:calc(100% - 1rem);margin:0 .5rem .52rem;
@@ -613,7 +662,7 @@ html.big .org .ot span{font-size:.6rem}
   <div class="secthead">
     <h2 id="doseTitle">💊 오늘의 약</h2>
   </div>
-  <p class="dosemsg" id="doseMsg" hidden></p>
+  <button type="button" class="dosemsg" id="doseMsg" hidden></button>
   <div class="dosegrid" id="doseGrid"></div>
 </section>
 
@@ -684,14 +733,16 @@ html.big .org .ot span{font-size:.6rem}
 
 <!-- ══ 약 시간 알림 배너 ══ -->
 <div class="banner" id="dueBanner" hidden>
-  <div class="bcard" role="dialog" aria-modal="true" aria-labelledby="dueTitle">
+  <div class="bcard" role="dialog" aria-modal="true" aria-labelledby="dueTitle" id="dueCard">
     <div class="bemoji" id="dueEmoji" aria-hidden="true">☀️</div>
-    <div class="btitle" id="dueTitle">어르신, 약 드실 시간입니다.</div>
+    <div class="btitle" id="dueTitle">어르신, 약 드실 시간입니다!</div>
+    <div class="bmed" id="dueMed">아침 약</div>
     <p class="bsub" id="dueSub"></p>
+    <button type="button" class="speakbtn" id="dueSpeak">🔊 말로 다시 듣기</button>
     <div class="bbtns">
-      <button type="button" class="okbtn" id="dueDone">✅ 먹었어요</button>
+      <button type="button" class="okbtn" id="dueDone">✅ 약 먹었어요 (닫기)</button>
       <button type="button" class="laterbtn" id="dueLater">⏰ 조금 있다가 할게요</button>
-      <a class="laterbtn" id="dueSms" href="#" style="display:flex;align-items:center;justify-content:center;text-decoration:none;border-color:var(--blue-line);color:var(--blue);background:var(--blue-bg);font-weight:900">💬 <span id="dueSmsT">보호자 문자</span></a>
+      <a class="laterbtn" id="dueSms" href="#" style="display:flex;align-items:center;justify-content:center;gap:.3rem;text-decoration:none;border-color:var(--blue-line);color:var(--blue);background:var(--blue-bg);font-weight:900">💬 <span id="dueSmsT">보호자 문자</span></a>
     </div>
   </div>
 </div>
@@ -802,12 +853,13 @@ html.big .org .ot span{font-size:.6rem}
     <div class="sos3">
       <div id="sosRows"></div>
       <a class="both" id="sosBoth" href="#" hidden>💬 <span id="sosBothT">보호자 1·2에게 함께 문자</span></a>
-      <a class="mgr off" id="sosMgrSms" href="#">💬 <span id="sosMgrSmsT">동행 매니저님께도 문자</span></a>
+      <a class="mgr off" id="sosMgrSms" href="#"><span aria-hidden="true">💬</span> <span id="sosMgrSmsT">매니저 문자</span></a>
       <a class="emg" id="sos119" href="tel:119">
         <span class="ic" aria-hidden="true">🚑</span>
-        <span class="tx"><b id="sos119T">119 긴급 전화</b><span id="sos119S">숨이 힘들거나 쓰러질 것 같을 때</span></span>
+        <span class="tx"><b id="sos119T">119 긴급 전화</b><span class="emgsub"><span aria-hidden="true">📞</span> <span id="sos119S">누르고 초록 통화 눌러 주세요</span></span></span>
       </a>
-      <button type="button" class="sosreg" id="sosReg">📝 <span id="sosRegT">보호자 번호 등록 · 변경</span></button>
+      <button type="button" class="alarmstop" id="alarmStop" hidden>⏹ 경보음 · 도와주세요 끄기</button>
+      <button type="button" class="sosreg" id="sosReg">📝 <span id="sosRegT">매니저 · 보호자 번호 등록 · 변경</span></button>
     </div>
     <button type="button" class="mcancel" data-close="sosModal" id="sosCloseT">닫기</button>
   </div>
@@ -902,6 +954,57 @@ html.big .org .ot span{font-size:.6rem}
     </div>
     <button type="button" class="msave" id="compSave">저장</button>
     <button type="button" class="mcancel" data-close="compEditModal">닫기</button>
+  </div>
+</div>
+
+<!-- ══ 📝 매니저 · 보호자 번호 함께 등록 ══ -->
+<div class="modal" id="allRegModal" hidden>
+  <div class="mcard" role="dialog" aria-modal="true" aria-labelledby="allRegHead">
+    <div class="mhead">
+      <h3 id="allRegHead">📝 매니저 · 보호자 번호</h3>
+      <button type="button" class="x" data-close="allRegModal" aria-label="닫기">✕</button>
+    </div>
+    <p class="mhelp" id="allRegHelp">위급할 때 바로 연결될 번호예요. 보호자 두 분과 동행 매니저 두 분까지 한 번만 적어 두면 전화·문자가 바로 돼요. 번호는 이 휴대폰에만 저장돼요.</p>
+    <div class="arhead"><span aria-hidden="true">👵</span> <span id="arGHead">보호자 번호</span></div>
+    <div class="grow">
+      <div class="gtitle"><span class="snum">1</span><span id="arG1">보호자 1</span></div>
+      <div class="mrow">
+        <label class="fld"><span id="arGNameL1">이름 · 관계</span>
+          <input type="text" id="p1NameIn" maxlength="16" placeholder="예) 딸 서영" autocomplete="off" /></label>
+        <label class="fld"><span id="arGTelL1">휴대폰 번호</span>
+          <input type="tel" id="p1TelIn" inputmode="tel" maxlength="20" placeholder="010-1234-5678" autocomplete="tel" /></label>
+      </div>
+    </div>
+    <div class="grow">
+      <div class="gtitle"><span class="snum">2</span><span id="arG2">보호자 2</span></div>
+      <div class="mrow">
+        <label class="fld"><span id="arGNameL2">이름 · 관계</span>
+          <input type="text" id="p2NameIn" maxlength="16" placeholder="예) 아들 철수" autocomplete="off" /></label>
+        <label class="fld"><span id="arGTelL2">휴대폰 번호</span>
+          <input type="tel" id="p2TelIn" inputmode="tel" maxlength="20" placeholder="010-9876-5432" autocomplete="tel" /></label>
+      </div>
+    </div>
+    <div class="arhead"><span aria-hidden="true">🩺</span> <span id="arCHead">동행 매니저 번호</span></div>
+    <div class="grow">
+      <div class="gtitle"><span class="snum">1</span><span id="arC1">동행매니저 1</span></div>
+      <div class="mrow">
+        <label class="fld"><span id="arCNameL1">이름</span>
+          <input type="text" id="m1NameIn" maxlength="16" placeholder="예) 김OO 동행매니저님" autocomplete="off" /></label>
+        <label class="fld"><span id="arCTelL1">휴대폰 번호</span>
+          <input type="tel" id="m1TelIn" inputmode="tel" maxlength="20" placeholder="010-1234-5678" autocomplete="tel" /></label>
+      </div>
+    </div>
+    <div class="grow">
+      <div class="gtitle"><span class="snum">2</span><span id="arC2">동행매니저 2</span></div>
+      <div class="mrow">
+        <label class="fld"><span id="arCNameL2">이름</span>
+          <input type="text" id="m2NameIn" maxlength="16" placeholder="예) 이OO 동행매니저님" autocomplete="off" /></label>
+        <label class="fld"><span id="arCTelL2">휴대폰 번호</span>
+          <input type="tel" id="m2TelIn" inputmode="tel" maxlength="20" placeholder="010-9876-5432" autocomplete="tel" /></label>
+      </div>
+    </div>
+    <button type="button" class="msave" id="allRegSave">저장</button>
+    <button type="button" class="mcancel" data-close="allRegModal">닫기</button>
   </div>
 </div>
 
@@ -1095,29 +1198,30 @@ function smsBothURL(body){
   return 'sms:' + all.join(',') + (isIOS() ? '&body=' : '?body=') + encodeURIComponent(body);
 }
 function telURL(tel){ var d = digits(tel); return d ? 'tel:' + d : ''; }
-/* 위급 연락 창 — 보호자 1·2 각각 전화/문자 + 함께 문자 + 119 */
+/* 위급 연락 창 — 보호자 1·2 각각 큰 문자 타일 + 전화 + 함께 문자 + 매니저 + 119 */
 function paintSosRows(){
   var box = $('#sosRows');
   if(!box) return;
   var emg = L(EMG_MSG.ko, EMG_MSG.en);
   box.innerHTML = S.guardians.map(function(g, i){
     var d = digits(g.tel), nm = esc(gName(i));
-    var head = '<div class="sosname"><span class="snum">' + (i+1) + '</span><b>' + nm + '</b>'
-      + (d ? '<span class="sphone">' + esc(fmtPhone(g.tel)) + '</span>' : '') + '</div>';
+    var head = '<div class="sosname"><span class="snum">' + (i+1) + '</span><b>' + nm + '</b></div>';
     if(!d){
       return '<div class="sosg empty">' + head
-        + '<button type="button" class="sosadd" data-gadd="' + i + '">📝 ' + esc(L('보호자 ' + (i+1) + ' 번호 등록', 'Add guardian ' + (i+1))) + '</button>'
+        + '<button type="button" class="sosbig add" data-gadd="' + i + '">'
+        + '<span class="ic" aria-hidden="true">📝</span>'
+        + '<span class="lb">' + esc(L('번호 등록', 'Add number')) + '</span></button>'
         + '</div>';
     }
     return '<div class="sosg">' + head
-      + '<div class="sos2">'
-      + '<a class="call1" href="' + telURL(g.tel) + '" data-gcall="' + i + '">'
-      + '<span class="ic" aria-hidden="true">📞</span><span class="tx"><b>' + esc(L('전화 걸기', 'Call')) + '</b>'
-      + '<span>' + esc(L('바로 연결', 'call now')) + '</span></span></a>'
-      + '<a class="sms1" href="' + smsURL(emg, g.tel) + '" data-gsms="' + i + '">'
-      + '<span class="ic" aria-hidden="true">💬</span><span class="tx"><b>' + esc(L('위급 문자', 'SOS text')) + '</b>'
-      + '<span>' + esc(L('비상 문자 보내기', 'send SOS')) + '</span></span></a>'
-      + '</div></div>';
+      + '<div class="sphone">' + esc(fmtPhone(g.tel)) + '</div>'
+      + '<a class="sosbig sms1" href="' + smsURL(emg, g.tel) + '" data-gsms="' + i + '">'
+      + '<span class="ic" aria-hidden="true">💬</span>'
+      + '<span class="lb">' + esc(L('문자 보내기', 'SOS text')) + '</span></a>'
+      + '<a class="soscal" href="' + telURL(g.tel) + '" data-gcall="' + i + '">'
+      + '<span class="ic" aria-hidden="true">📞</span>'
+      + '<span class="lb">' + esc(L('전화 걸기', 'Call')) + '</span></a>'
+      + '</div>';
   }).join('');
   var both = $('#sosBoth'), all = allTels();
   if(both){
@@ -1193,6 +1297,59 @@ function saveGuardian(){
     ? L('보호자 두 분 번호를 저장했어요 👵', 'Both guardian numbers saved 👵')
     : allTels().length ? L('보호자 번호를 저장했어요 👵', 'Guardian number saved 👵')
     : L('보호자 번호를 비웠어요', 'Guardian number cleared'));
+}
+
+/* ── 📝 매니저 · 보호자 번호 함께 등록 (위급 창) ──────────
+   · 보호자 1·2 + 동행 매니저 1·2 번호를 한 창에서 등록·수정
+   · 번호는 이 휴대폰에만 저장(서버 전송 없음) ─────── */
+function openAllReg(){
+  var g1 = S.guardians[0] || {}, g2 = S.guardians[1] || {};
+  var c1 = S.companions[0] || {}, c2 = S.companions[1] || {};
+  $('#p1NameIn').value = g1.name || '';
+  $('#p1TelIn').value = g1.tel ? fmtPhone(g1.tel) : '';
+  $('#p2NameIn').value = g2.name || '';
+  $('#p2TelIn').value = g2.tel ? fmtPhone(g2.tel) : '';
+  $('#m1NameIn').value = c1.name || '';
+  $('#m1TelIn').value = c1.tel ? fmtPhone(c1.tel) : '';
+  $('#m2NameIn').value = c2.name || '';
+  $('#m2TelIn').value = c2.tel ? fmtPhone(c2.tel) : '';
+  openModal('allRegModal');
+  var card = $('#allRegModal .mcard');
+  if(card) card.scrollTop = 0;
+}
+function saveAllReg(){
+  var groups = [
+    [{ name:($('#p1NameIn').value || ''), tel:($('#p1TelIn').value || '') },
+     { name:($('#p2NameIn').value || ''), tel:($('#p2TelIn').value || '') }],
+    [{ name:($('#m1NameIn').value || ''), tel:($('#m1TelIn').value || '') },
+     { name:($('#m2NameIn').value || ''), tel:($('#m2TelIn').value || '') }]
+  ];
+  var bad = null;
+  for(var gi = 0; gi < groups.length && !bad; gi++){
+    for(var i = 0; i < groups[gi].length; i++){
+      var d = digits(groups[gi][i].tel);
+      if(!d) continue;
+      if(d.length < 8 || d.length > 15){ bad = { gi:gi, i:i }; break; }
+    }
+  }
+  if(bad){
+    toast(bad.gi === 0
+      ? L('보호자 ' + (bad.i+1) + ' 번호를 다시 확인해 주세요 (예: 010-1234-5678)',
+          'Please check guardian ' + (bad.i+1) + '’s number (e.g. 010-1234-5678)')
+      : L('동행매니저 ' + (bad.i+1) + ' 번호를 다시 확인해 주세요 (예: 010-1234-5678)',
+          'Please check companion ' + (bad.i+1) + '’s number (e.g. 010-1234-5678)'));
+    return;
+  }
+  S.guardians = groups[0].map(function(p){
+    return { name:String(p.name).trim().slice(0,16), tel:digits(p.tel) ? fmtPhone(p.tel).slice(0,20) : '' };
+  });
+  S.companions = groups[1].map(function(p){
+    return { name:String(p.name).trim().slice(0,16), tel:digits(p.tel) ? fmtPhone(p.tel).slice(0,20) : '' };
+  });
+  save();
+  updateGuardianUI(); updateCompUI(); renderSettings();
+  closeModal('allRegModal', false);
+  toast(L('매니저 · 보호자 번호를 저장했어요 👵🩺', 'Companion & guardian numbers saved 👵🩺'));
 }
 
 /* ══ 🩺 병원동행매니저 연결 ══════════════════════════════
@@ -1520,22 +1677,114 @@ $('#memoCopy').addEventListener('click', function(){
   copyText(memoText(), L('건강 메모를 복사했어요. 문자·카톡에 붙여넣기 하세요', 'Health note copied — paste it into a text or KakaoTalk'));
 });
 
-/* 음성 안내 — 소리 켜져 있을 때만 (기기 TTS, 외부 전송 없음) */
+/* 음성 안내 — 소리 켜져 있을 때만 (기기 TTS, 외부 전송 없음)
+   force=true 는 어르신이 직접 누른 「🔊 말로 다시 듣기」 — 이때는 소리 설정과 상관없이 읽어 드림 */
 var voiceOn = true;
-function speak(msg){
-  if(!S.sound || !voiceOn) return;
+function ttsSay(msg, force, rate){
+  if(!force && (!S.sound || !voiceOn)) return;
   try{
     if(!('speechSynthesis' in window) || typeof window.SpeechSynthesisUtterance !== 'function') return;
     var u = new SpeechSynthesisUtterance(msg);
     u.lang = EN() ? 'en-US' : 'ko-KR';
-    u.rate = 0.92; u.pitch = 1.0;
+    u.rate = rate || 0.92; u.pitch = 1.0; u.volume = 1;
     try{
       var vs = window.speechSynthesis.getVoices() || [];
       for(var i = 0; i < vs.length; i++){ if(/^ko/i.test(vs[i].lang) && !EN()){ u.voice = vs[i]; break; } }
     }catch(e){}
     try{ window.speechSynthesis.cancel(); }catch(e){}
+    try{ window.speechSynthesis.resume(); }catch(e){}
     window.speechSynthesis.speak(u);
   }catch(e){}
+}
+function speak(msg){ ttsSay(msg, false); }
+
+/* 🚨 119 경보음 — 어르신이 119 버튼을 직접 누른 순간(사용자 터치)이라 앱 소리 설정과 상관없이 재생
+   · 2음 사이렌(삐뽀삐뽀) 1.5초 · 기기 미디어 볼륨이 0이면 들리지 않는다 */
+var sirenOsc = null, sirenGain = null;
+function siren(ms){
+  var ac = audioCtx();
+  if(!ac) return;
+  if(ac.state === 'suspended') ac.resume().catch(function(){});
+  var t0 = ac.currentTime + 0.01, dur = (ms || 1500) / 1000, step = 0.23;
+  var hi = 1046.5, lo = 784; /* 높은음·낮은음 교대 */
+  var o = ac.createOscillator(), g = ac.createGain();
+  o.type = 'square';
+  var n = Math.max(2, Math.round(dur / step));
+  for(var i = 0; i < n; i++) o.frequency.setValueAtTime(i % 2 ? lo : hi, t0 + i * step);
+  g.gain.setValueAtTime(0.0001, t0);
+  g.gain.linearRampToValueAtTime(0.26, t0 + 0.05);
+  g.gain.setValueAtTime(0.26, t0 + Math.max(0.1, dur - 0.2));
+  g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+  try{
+    var lp = ac.createBiquadFilter();
+    lp.type = 'lowpass'; lp.frequency.value = 2600;
+    o.connect(lp); lp.connect(g);
+  }catch(e){ o.connect(g); }
+  g.connect(ac.destination);
+  o.start(t0); o.stop(t0 + dur + 0.03);
+  sirenOsc = o; sirenGain = g;
+  try{ o.onended = function(){ if(sirenOsc === o) sirenOsc = null; }; }catch(e){}
+}
+function stopSiren(){
+  try{
+    var ac = AC;
+    if(sirenGain && ac){ try{ sirenGain.gain.cancelScheduledValues(ac.currentTime); }catch(e){}
+      try{ sirenGain.gain.setValueAtTime(0.0001, ac.currentTime); }catch(e){} }
+    if(sirenOsc){ sirenOsc.stop(); sirenOsc = null; }
+  }catch(e){}
+}
+/* 🆘 119 버튼 — 경보음 ↔ 「도와주세요! 도와주세요!」를 최대 6번 번갈아 (끄기 버튼·모달 닫기로 즉시 정지)
+   · tel:119 이동을 막지 않도록 클릭 핸들러에서는 예약만 걸고 바로 끝남 */
+var emgBusy = false, emgRound = 0, emgTimer = null, emgGuard = null;
+function stopEmergencyAlarm(){
+  emgBusy = false; emgRound = 0;
+  try{ clearTimeout(emgTimer); }catch(e){}
+  try{ clearTimeout(emgGuard); }catch(e){}
+  emgTimer = null; emgGuard = null;
+  try{ if('speechSynthesis' in window) window.speechSynthesis.cancel(); }catch(e){}
+  stopSiren();
+  var b = $('#alarmStop');
+  if(b) b.hidden = true;
+}
+function sayHelpOnce(after){
+  var fired = false;
+  function once(){ if(fired) return; fired = true; after(); }
+  try{
+    if(!('speechSynthesis' in window) || typeof window.SpeechSynthesisUtterance !== 'function') throw 0;
+    var u = new SpeechSynthesisUtterance(L('도와주세요! 도와주세요!', 'Help! Help!'));
+    u.lang = EN() ? 'en-US' : 'ko-KR';
+    u.rate = 0.95; u.pitch = 1.05; u.volume = 1;
+    u.onend = once; u.onerror = once;
+    try{ window.speechSynthesis.cancel(); }catch(e){}
+    try{ window.speechSynthesis.resume(); }catch(e){}
+    window.speechSynthesis.speak(u);
+    setTimeout(once, 5000); /* 일부 기기에서 onend가 안 올 때 대비 */
+  }catch(e){
+    setTimeout(once, 1800);
+  }
+}
+function emergencyAlarm(){
+  if(emgBusy) return;
+  emgBusy = true; emgRound = 0;
+  var b = $('#alarmStop');
+  if(b) b.hidden = false;
+  try{ emgGuard = setTimeout(stopEmergencyAlarm, 60000); }catch(e){} /* 안전장치 60초 */
+  function round(){
+    if(!emgBusy) return;
+    if(emgRound >= 6){ stopEmergencyAlarm(); return; }
+    emgRound++;
+    siren(1500);
+    try{
+      emgTimer = setTimeout(function(){
+        if(!emgBusy) return;
+        sayHelpOnce(function(){
+          if(!emgBusy) return;
+          try{ emgTimer = setTimeout(round, 900); }catch(e){}
+        });
+      }, 1560);
+    }catch(e){}
+  }
+  round();
 }
 
 function rollover(){
@@ -1624,7 +1873,7 @@ function renderDoseMsg(){
   if(done >= SLOTS.length){
     msg = L('어르신, 오늘 약을 모두 드셨어요 ✅', 'You have taken all of today’s medicine ✅'); cls = 'done';
   } else if(due.length){
-    msg = L('어르신, 약 드실 시간입니다.', 'It is time to take your medicine.'); cls = 'due';
+    msg = L('어르신, 약 드실 시간입니다. 🔔 크게 보기', 'It is time to take your medicine. 🔔 Open big'); cls = 'due';
   } else {
     msg = L('어르신, 오늘 드실 약이에요.', 'These are today’s medicines.'); cls = '';
   }
@@ -1972,18 +2221,31 @@ function chime(times){
   }
 }
 
-/* ── 약 시간 배너 ─────────────────────── */
+/* ── 약 시간 알림 — 큰 글씨 + 말로 읽어 주기 ───────────── */
 var dueSlot = null;
+function dueSlotObj(){ return SLOTS.filter(function(s){ return s.id === dueSlot; })[0] || null; }
+function dueMedText(){
+  var x = dueSlotObj(); if(!x) return '';
+  var st = S.slots[dueSlot] || {};
+  return [slotTitle(x), st.name].filter(Boolean).join(' · ');
+}
+function dueSayText(){
+  var nm = dueMedText();
+  var base = L('어르신, 약 드실 시간입니다. 지금 약 드세요.',
+    'It is time to take your medicine. Please take it now.');
+  return nm ? base + ' ' + L('지금 드실 약은 ' + nm + '입니다.', 'Your medicine now is ' + nm + '.') : base;
+}
+function speakDue(force){ ttsSay(dueSayText(), force, 0.86); }
 function paintDue(){
-  if(!dueSlot) return;
-  var x = SLOTS.filter(function(s){ return s.id === dueSlot; })[0];
+  var x = dueSlotObj();
   if(!x) return;
-  var st = S.slots[dueSlot];
+  var st = S.slots[dueSlot] || {};
   $('#dueEmoji').textContent = x.emoji;
-  /* 어르신께 정중한 말투 — 음성/소리 켜면 이 문장을 그대로 읽어 드림 */
-  $('#dueTitle').textContent = L('어르신, 약 드실 시간입니다.', 'It is time to take your medicine.');
-  var meta = [slotTitle(x) + ' · ' + fmtTime(st.at), st.name, st.memo].filter(Boolean).join(' · ');
-  $('#dueSub').innerHTML = esc(meta) + '<br>' + L('드셨으면 아래 버튼을 눌러 주세요.', 'Tap below once you have taken it.');
+  /* 어르신께 정중한 말투 — 음성/소리 켜지면 이 문장을 그대로 읽어 드림 */
+  $('#dueTitle').textContent = L('어르신, 약 드실 시간입니다!', 'It is time to take your medicine!');
+  $('#dueMed').textContent = [slotTitle(x), st.name].filter(Boolean).join(' · ');
+  var meta = [fmtTime(st.at), st.memo].filter(Boolean).join(' · ');
+  $('#dueSub').innerHTML = (meta ? esc(meta) + '<br>' : '') + L('드셨으면 아래 버튼을 눌러 주세요.', 'Tap below once you have taken it.');
   setSmsLink($('#dueSms'), todayMsg());
 }
 function showDue(id){
@@ -1995,17 +2257,23 @@ function showDue(id){
   paintDue();
   $('#dueBanner').hidden = false;
   navPushLayer('due', function(){ closeDue(true); });
-  if(S.sound){
-    chime(2);
-    speak(L('어르신, 약 드실 시간입니다.', 'It is time to take your medicine.'));
-  }
+  if(S.sound) chime(2);
+  speakDue(false);
 }
 function closeDue(fromBack){
   if($('#dueBanner').hidden) return;
   $('#dueBanner').hidden = true;
   dueSlot = null;
+  try{ window.speechSynthesis.cancel(); }catch(e){}
   if(!fromBack) navConsume('due');
 }
+/* 카드 탭·「🔊 말로 다시 듣기」·「✅ 약 먹었어요 (닫기)」 */
+$('#dueSpeak').addEventListener('click', function(e){ e.stopPropagation(); speakDue(true); });
+$('#dueCard').addEventListener('click', function(e){
+  var t = e.target;
+  if(t && t.closest && t.closest('button, a')) return; /* 버튼은 각자 동작 */
+  speakDue(true);
+});
 $('#dueDone').addEventListener('click', function(){
   if(dueSlot){
     var id = dueSlot;
@@ -2030,7 +2298,7 @@ function tick(){
   var now = new Date(), hm = hhmm(now);
   if(hm === lastTick) return;
   lastTick = hm;
-  if(!S.sound) return;
+  /* 소리 설정과 상관없이 큰 글씨 알림은 띄우고, 소리·말은 설정을 따라간다 */
   SLOTS.forEach(function(x){
     var st = S.slots[x.id];
     if(st.at === hm && !isDone(x.id) && !S.seen[t + '|' + x.id] && $('#dueBanner').hidden){
@@ -2039,7 +2307,6 @@ function tick(){
   });
 }
 function catchUp(){
-  if(!S.sound) return;
   var now = new Date(), nowMin = now.getHours() * 60 + now.getMinutes(), t = todayKey();
   var best = null, bestMin = -1;
   SLOTS.forEach(function(x){
@@ -2051,6 +2318,19 @@ function catchUp(){
   });
   if(best) showDue(best);
 }
+/* 첫 화면 「어르신, 약 드실 시간입니다」 누르면 큰 알림 창으로 */
+$('#doseMsg').addEventListener('click', function(){
+  if(!this.classList.contains('due')) return;
+  var nowMin = new Date().getHours() * 60 + new Date().getMinutes(), pick = null, best = -1;
+  SLOTS.forEach(function(x){
+    var st = S.slots[x.id];
+    var p = (st.at || '08:00').split(':').map(Number);
+    var atMin = p[0] * 60 + p[1];
+    if(isDone(x.id) || atMin > nowMin) return;
+    if(atMin > best){ pick = x.id; best = atMin; }
+  });
+  if(pick) showDue(pick);
+});
 
 /* ── 혈압·컨디션 모달 ─────────────────── */
 var moodPick = '';
@@ -2175,6 +2455,7 @@ function closeModal(id, fromBack){
   var el = $('#' + id);
   if(!el || el.hidden) return;
   el.hidden = true;
+  if(id === 'sosModal'){ try{ stopEmergencyAlarm(); }catch(e){} } /* 119 경보음·도와주세요 즉시 정지 */
   if(!fromBack) navConsume('modal:' + id);
 }
 $$('[data-close]').forEach(function(b){
@@ -2191,12 +2472,15 @@ document.addEventListener('keydown', function(e){
 });
 
 /* ── 🚨 위급 버튼 · 보호자 번호 ────────── */
+$('#sos119').addEventListener('click', function(){ try{ emergencyAlarm(); }catch(e){} });
+$('#alarmStop').addEventListener('click', function(e){ e.stopPropagation(); stopEmergencyAlarm(); });
 $('#sosBtn').addEventListener('click', function(){
   paintSosRows(); updateGuardianUI(); updateMgrLinks();
   openModal('sosModal');
 });
 $('#guardianAdd').addEventListener('click', openGuardian);
-$('#sosReg').addEventListener('click', openGuardian);
+$('#sosReg').addEventListener('click', openAllReg);
+$('#allRegSave').addEventListener('click', saveAllReg);
 $('#guardianSave').addEventListener('click', saveGuardian);
 /* 번호가 없을 때 문자 버튼을 누르면 등록 창으로 */
 document.addEventListener('click', function(e){
@@ -2341,8 +2625,9 @@ function applyLang(){
   $('#installModal .mcancel:last-child').textContent = L('다음에 할게요','Maybe later');
   /* 배너 */
   paintDue();
-  $('#dueDone').textContent = L('✅ 먹었어요','✅ I took it');
+  $('#dueDone').textContent = L('✅ 약 먹었어요 (닫기)','✅ I took it (close)');
   $('#dueLater').textContent = L('⏰ 조금 있다가 할게요','⏰ Later');
+  $('#dueSpeak').textContent = L('🔊 말로 다시 듣기','🔊 Hear it again');
   $('#dueSmsT').textContent = L('보호자 문자','Guardian SMS');
   /* 위급 버튼 · 보호자 */
   $('#sosTitle').textContent = L('위급 버튼','Emergency');
@@ -2354,10 +2639,11 @@ function applyLang(){
   $('#sosHelp').textContent = L('숨이 차거나 쓰러질 것 같으면 119를 누르세요. 보호자에게 바로 전화하거나 비상 문자를 보낼 수 있어요.',
     'If you cannot breathe or feel faint, press 119. You can call or text your guardians right away.');
   $('#sos119T').textContent = L('119 긴급 전화','119 emergency call');
-  $('#sos119S').textContent = L('숨이 힘들거나 쓰러질 것 같을 때','When breathing is hard or you feel faint');
+  $('#sos119S').textContent = L('누르고 초록 통화 눌러 주세요','Press, then tap the green call button');
+  $('#alarmStop').textContent = L('⏹ 경보음 · 도와주세요 끄기','⏹ Stop the alarm');
   $('#sosBothT').textContent = L('보호자 1·2에게 함께 문자','Text both guardians at once');
-  $('#sosMgrSmsT').textContent = L('동행 매니저님께도 문자','Text the companion too');
-  $('#sosRegT').textContent = L('보호자 번호 등록 · 변경','Add or edit guardian numbers');
+  $('#sosMgrSmsT').textContent = L('매니저 문자','Text companion');
+  $('#sosRegT').textContent = L('매니저 · 보호자 번호 등록 · 변경','Add or edit companion & guardian numbers');
   $('#sosCloseT').textContent = L('닫기','Close');
   $('#guardianHead').textContent = L('👵 보호자 번호','👵 Guardian numbers');
   $('#guardianHelp').textContent = L('보호자 두 분의 번호를 한 번만 적어 두면, 위급할 때 전화·문자를 바로 보낼 수 있어요. 번호는 이 휴대폰에만 저장돼요.',
@@ -2372,6 +2658,30 @@ function applyLang(){
   $('#g2NameIn').placeholder = L('예) 아들 철수','e.g. son Tom');
   $('#guardianSave').textContent = L('저장','Save');
   $('#guardianModal .mcancel').textContent = L('닫기','Close');
+  /* 📝 매니저·보호자 함께 등록 */
+  $('#allRegHead').textContent = L('📝 매니저 · 보호자 번호','📝 Companion & guardian numbers');
+  $('#allRegHelp').textContent = L('위급할 때 바로 연결될 번호예요. 보호자 두 분과 동행 매니저 두 분까지 한 번만 적어 두면 전화·문자가 바로 돼요. 번호는 이 휴대폰에만 저장돼요.',
+    'These numbers are used in an emergency. Save up to two guardians and two companions once — then call or text them right away. Numbers stay on this phone.');
+  $('#arGHead').textContent = L('보호자 번호','Guardian numbers');
+  $('#arCHead').textContent = L('동행 매니저 번호','Companion numbers');
+  $('#arG1').textContent = L('보호자 1','Guardian 1');
+  $('#arG2').textContent = L('보호자 2','Guardian 2');
+  $('#arC1').textContent = L('동행매니저 1','Companion 1');
+  $('#arC2').textContent = L('동행매니저 2','Companion 2');
+  $('#arGNameL1').textContent = L('이름 · 관계','Name · relation');
+  $('#arGNameL2').textContent = L('이름 · 관계','Name · relation');
+  $('#arGTelL1').textContent = L('휴대폰 번호','Mobile number');
+  $('#arGTelL2').textContent = L('휴대폰 번호','Mobile number');
+  $('#arCNameL1').textContent = L('이름','Name');
+  $('#arCNameL2').textContent = L('이름','Name');
+  $('#arCTelL1').textContent = L('휴대폰 번호','Mobile number');
+  $('#arCTelL2').textContent = L('휴대폰 번호','Mobile number');
+  $('#p1NameIn').placeholder = L('예) 딸 서영','e.g. daughter Sue');
+  $('#p2NameIn').placeholder = L('예) 아들 철수','e.g. son Tom');
+  $('#m1NameIn').placeholder = L('예) 김OO 동행매니저님','e.g. Ms. Kim, companion');
+  $('#m2NameIn').placeholder = L('예) 이OO 동행매니저님','e.g. Mr. Lee, companion');
+  $('#allRegSave').textContent = L('저장','Save');
+  $('#allRegModal .mcancel').textContent = L('닫기','Close');
   $('#weekSmsT').textContent = L('보호자 문자','Guardian SMS');
   $('#weekSmsHint').textContent = L('오늘 약 복용을 보호자에게 문자로 알려 드려요.','Text your guardians how today’s medicine went.');
   /* 🩺 병원동행매니저 */
