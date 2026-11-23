@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#3E2C22" />
-<!-- build: 2026-11-23 wagle-table v24 · ☕ 카페 메인 화면(테이블에 모인 와글가족·클로벨 일러스트 + 🏪 카페 추가·🛒 주문·🎲 이벤트 + 내 카페 칩) · 폰 뒤로가기(◀)=메뉴판→카페 메인 · 3화면 회전문·v23 빠른 메뉴 그대로 -->
+<!-- build: 2026-11-23 wagle-table v26 · ☕ 카페 메인 화면(테이블에 모인 와글가족·클로벨 일러스트 + 🏪 카페 추가·🛒 주문·🎲 이벤트 + 내 카페 칩) · 📤 공유·🔔 소리·📲 설치를 그림 위에서 빼내 제목 줄 오른쪽으로(얼굴 안 가리게) · v25 소리·뒤로가기·3화면 그대로 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
@@ -110,38 +110,45 @@ body.athome .top{box-shadow:0 3px 10px rgba(40,26,16,.10)}
 
 #homeView{display:none;max-width:34rem;margin:0 auto;padding:0 .75rem}
 body.athome #homeView{display:block}
-.homeLead{margin:.75rem .2rem .5rem;font-size:.9rem;font-weight:900;color:var(--coffee);letter-spacing:-.02em;line-height:1.25}
+/* v26 · 제목 줄(.homeHead) — 왼쪽 인사말, 오른쪽 앱 도구 알약
+   · 도구가 자리에 다 안 들어가면 인사말 아래 오른쪽 슬림 줄로 자연스럽게 내려간다 */
+.homeHead{display:flex;flex-wrap:wrap;align-items:center;gap:.3rem .45rem;margin:.55rem 0 .4rem}
+.homeLead{margin:0;flex:1 1 auto;min-width:0;font-size:.9rem;font-weight:900;color:var(--coffee);letter-spacing:-.02em;line-height:1.25}
 .homeLead span{display:block}
 .homeLead #homeLeadSub{font-size:.76rem;font-weight:700;color:#8B7A6B;margin-top:.1rem}
-/* 테이블에 모여 차 마시는 와글가족 + 클로벨 세 자매 */
+/* 테이블에 모여 차 마시는 와글가족 + 클로벨 세 자매 — v26: 그림 위에 얹는 버튼 없이 그림만 */
 .heroCard{position:relative;margin:0;border-radius:1.15rem;overflow:hidden;background:#F5E4C8;
   border:2px solid #E6CFA6;box-shadow:0 6px 18px rgba(62,44,34,.16)}
 .heroCard picture,.heroCard img{display:block;width:100%}
-.heroCard img{height:auto;aspect-ratio:3/2;object-fit:cover;object-position:center 42%}
+.heroCard img{height:auto;aspect-ratio:31/20;object-fit:cover;object-position:center 42%}
 html.big .heroCard img{aspect-ratio:16/9}
-/* v25 · 그림 카드 위 오른쪽 모서리 — 📤 공유하기 · 🔔 소리 (설치 가능·인앱이면 📲 설치 · 🌐 크롬으로 열기)
-   · 메인 화면 높이를 하나도 늘리지 않으려고 그림 위에 띄운다 (3개 큰 버튼·내 카페가 한 화면에 그대로) */
-.heroTools{position:absolute;top:.5rem;right:.5rem;z-index:2;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:.32rem;
-  max-width:calc(100% - 1rem)}
-.homepill{display:inline-flex;align-items:center;justify-content:center;gap:.18rem;white-space:nowrap;flex:0 0 auto;
-  background:rgba(255,250,240,.94);border:2px solid #E0C79B;color:#4A3423;border-radius:2rem;
-  padding:0 .58rem;min-height:2.3rem;font-size:.8rem;font-weight:900;letter-spacing:-.02em;line-height:1.1;
-  box-shadow:0 2px 8px rgba(60,40,20,.24);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+/* v26 · 📤 공유 · 🔔 소리 (설치 가능·인앱이면 📲 설치 · 🌐 크롬)
+   · 그림 얼굴을 가리지 않도록 그림 바깥 — 제목 줄 오른쪽의 작은 알약으로 */
+.heroTools{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:.28rem;
+  flex:0 0 auto;margin-left:auto;max-width:100%}
+.homepill{display:inline-flex;align-items:center;justify-content:center;gap:.16rem;white-space:nowrap;flex:0 0 auto;
+  background:#FFFCF3;border:2px solid #E0C79B;color:#4A3423;border-radius:2rem;
+  padding:0 .5rem;min-height:2.05rem;font-size:.74rem;font-weight:900;letter-spacing:-.02em;line-height:1.1;
+  box-shadow:0 1px 3px rgba(60,40,20,.14)}
 .homepill:active{transform:translateY(1px);background:#FFF3DA}
 .homepill[hidden]{display:none}
 .homepill:focus-visible{outline:3px solid #2E8A82;outline-offset:2px}
-/* 📤 공유하기 — 메뉴판 화면의 📤 공유와 같은 소프트 틸 */
-.homepill.share{background:rgba(207,237,234,.96);border-color:#2E8A82;color:#14524C}
+/* 📤 공유 — 메뉴판 화면의 📤 공유와 같은 소프트 틸 */
+.homepill.share{background:#CFEDEA;border-color:#2E8A82;color:#14524C}
 /* 🔔 소리 / 🔇 무음 — 켜짐은 따뜻한 골드, 꺼짐은 차분한 회갈색 */
-.homepill.snd{background:rgba(255,243,218,.96);border-color:#C98A2E;color:#5E3E0C}
-.homepill.snd[aria-pressed="false"]{background:rgba(246,238,225,.95);border-color:#B9A48C;color:#6B5B4C}
+.homepill.snd{background:#FFF3DA;border-color:#C98A2E;color:#5E3E0C}
+.homepill.snd[aria-pressed="false"]{background:#F1E9DC;border-color:#B9A48C;color:#6B5B4C}
 .homepill.install{background:linear-gradient(180deg,#FFD873,#F2B33B);border-color:#A9690A;color:#3E2C22}
-.homepill.chrome{background:rgba(255,250,240,.96);border-color:#8B9BA8;color:#2F4B5C;text-decoration:none}
-@media (max-width:389px){ .homepill{font-size:.76rem;padding:0 .5rem;min-height:2.2rem} }
-html.big .homepill{font-size:.76rem;padding:0 .48rem;min-height:2.5rem}
-html.big .heroTools{top:.4rem;right:.4rem;gap:.24rem}
-/* 큰 글씨 + 인앱(카톡·인스타): 한 줄에 들어가도록 크롬 알약 이름을 짧게 */
-html.big .homepill.chrome .cx{display:none}
+.homepill.chrome{background:#FFFCF3;border-color:#8B9BA8;color:#2F4B5C;text-decoration:none}
+/* 알약은 어느 화면에서나 아이콘 + 짧은 이름 — 도구 줄이 두 줄이 되어도 높이를 적게 쓴다 */
+.homepill.chrome .cx{display:none}
+@media (max-width:389px){
+  .homeHead{gap:.26rem .4rem}
+  .homepill{font-size:.7rem;padding:0 .44rem;min-height:2rem}
+}
+html.big .homeHead{gap:.24rem .32rem;margin:.55rem 0 .38rem}
+html.big .homepill{font-size:.72rem;padding:0 .44rem;min-height:2.15rem}
+html.big .heroTools{gap:.22rem}
 
 /* 3개 큰 버튼 — 색으로 역할 구분 (초록 추가 / 주황 주문 / 금색 이벤트) */
 .homebtns{display:flex;flex-direction:column;gap:.5rem;margin:.7rem 0 .2rem}
@@ -174,8 +181,9 @@ html.big .homepill.chrome .cx{display:none}
 .hlistnote{margin:.1rem .2rem 0;font-size:.82rem;font-weight:700;color:#8B7A6B;line-height:1.45}
 .homeHint{margin:.9rem .3rem 0;font-size:.74rem;font-weight:700;color:#A08E7E;line-height:1.5;letter-spacing:-.01em}
 .homeHint b{color:#7A6656}
-/* 화면이 납작한 작은 폰에서는 안내 한 줄을 잠깐 숨겨 3개 버튼·내 카페가 한 화면에 들어오게 */
+/* 화면이 납작한 작은 폰·큰 글씨에서는 안내 한 줄을 잠깐 숨겨 일러스트·3개 버튼·내 카페가 한 화면에 들어오게 */
 @media (max-height:760px){ .homeHint{display:none} }
+@media (max-height:860px){ html.big .homeHint{display:none} }
 @media (max-width:389px){
   .heroCard{border-radius:1rem}
   .hbtn{padding:.46rem .68rem;min-height:3.2rem}
@@ -188,7 +196,7 @@ html.big .homepill.chrome .cx{display:none}
 html.big .homebtn{font-size:1.02rem;padding:0 .5rem}
 html.big .homebtn .hbl{display:none}
 /* 큰 글씨: 메인 화면이 한 화면에 들어오도록 높이를 조금씩 아낀다 */
-html.big .homeLead{margin:.6rem .15rem .38rem}
+html.big .homeLead{margin:0}
 html.big .homeLead #homeLeadSub{display:none}
 html.big .homebtns{gap:.38rem}
 html.big .hbtn{min-height:3rem;padding:.4rem .7rem}
@@ -1264,20 +1272,22 @@ html.big .isteps li>span{font-size:1rem}
 
 <!-- ══ v24 · ☕ 카페 메인 화면 (첫 화면) — 테이블에 모인 와글가족 · 클로벨이 차를 마시는 그림 ══ -->
 <section id="homeView" aria-label="카페 메인">
-  <p class="homeLead"><span id="homeLead">☕ 와글가족 카페에 오셨네요!</span><span id="homeLeadSub">하고 싶은 일을 콕 눌러 주세요</span></p>
+  <!-- v26 · 📤 공유 · 🔔 소리 — 그림 위가 아니라 제목 줄 오른쪽(모자라면 바로 아래 슬림 줄) -->
+  <div class="homeHead">
+    <p class="homeLead"><span id="homeLead">☕ 와글가족 카페에 오셨네요!</span><span id="homeLeadSub">하고 싶은 일을 콕 눌러 주세요</span></p>
+    <div class="heroTools" role="group" aria-label="앱 도구">
+      <button type="button" id="homeShareBtn" class="homepill share" aria-label="이 앱 공유하기">📤 공유</button>
+      <button type="button" id="homeSoundBtn" class="homepill snd" aria-pressed="true" aria-label="소리 끄기">🔔 소리</button>
+      <button type="button" id="homeInstallBtn" class="homepill install" hidden>📲 설치</button>
+      <a id="homeChromeOpen" class="homepill chrome" href="#" hidden>🌐 크롬<span class="cx">으로 열기</span></a>
+    </div>
+  </div>
   <div class="heroCard">
     <picture>
       <source srcset="./home-cafe.webp" type="image/webp">
       <img id="homeArt" src="./home-cafe.jpg" width="1200" height="800"
            alt="테이블에 모여 함께 차를 마시는 와글가족 햄스터 가족과 클로벨 세 자매" />
     </picture>
-    <!-- v25 · 📤 공유하기 · 🔔 소리 — 그림 위에 띄워 메인 화면 높이를 늘리지 않는다 -->
-    <div class="heroTools" role="group" aria-label="앱 도구">
-      <button type="button" id="homeShareBtn" class="homepill share" aria-label="이 앱 공유하기">📤 공유하기</button>
-      <button type="button" id="homeSoundBtn" class="homepill snd" aria-pressed="true" aria-label="소리 끄기">🔔 소리</button>
-      <button type="button" id="homeInstallBtn" class="homepill install" hidden>📲 설치</button>
-      <a id="homeChromeOpen" class="homepill chrome" href="#" hidden>🌐 크롬<span class="cx">으로 열기</span></a>
-    </div>
   </div>
   <div class="homebtns">
     <button type="button" class="hbtn add" data-home="add">
@@ -1881,13 +1891,13 @@ function applyLang(){
   setTxt('#homeLead','☕ 와글가족 카페에 오셨네요!','☕ Welcome to the Wagle family cafe!');
   setTxt('#homeLeadSub','하고 싶은 일을 콕 눌러 주세요','Tap what you would like to do');
   /* v25 · 메인 화면 도구 — 📤 공유하기 · 🔔 소리 · 📲 설치 · 🌐 크롬으로 열기 */
-  setTxt('#homeShareBtn','📤 공유하기','📤 Share');
+  setTxt('#homeShareBtn','📤 공유','📤 Share');
   setAttr('#homeShareBtn','aria-label','이 앱 공유하기','Share this app');
   setAttr('.heroTools','aria-label','앱 도구','App tools');
   try{ sndLabel(); }catch(e){}
   setTxt('#homeInstallBtn','📲 설치','📲 Install');
   setAttr('#homeInstallBtn','aria-label','앱 설치 안내','How to install the app');
-  setHTML('#homeChromeOpen','🌐 크롬<span class="cx">으로 열기</span>','🌐 Open in Chrome');
+  setHTML('#homeChromeOpen','🌐 크롬<span class="cx">으로 열기</span>','🌐 Chrome');
   setAttr('#homeChromeOpen','aria-label','크롬 브라우저로 이 앱 열기','Open this app in the Chrome browser');
   setTxt('#hbAdd','카페 추가하기','Add a Cafe');
   setTxt('#hbAddS','새 카페 이름을 넣고 시작','Name a new cafe to start');
