@@ -7,9 +7,10 @@
    - v6: 간판 버튼 안 그림(이모지) 삭제 → 글씨만 큼직하게 · 글자 사이/줄 사이 여유(letter-spacing·line-height) · 영어 모드 검수
    - v7: 슬로건·날씨 알약 한 단계 크게 · 내 위치(GPS) 날씨 + 역지오코딩 도시명 5개국어 · 알약 톡 누르면 내 위치 날씨 새로고침
    - v8: 4개 페이지(식당·간판 / 카페 메뉴 / 교통·길찾기 / 여행 일기) 분리 · 위·아래 전환 바 · 메뉴↔일기↔교통 연동 · 폰 뒤로가기 스택 · 카페 메뉴 10종(그림 3종 추가)
+   - v9: 카페 그림 위 － 수량 ＋ 스테퍼(그림·＋ = +1, － = -1) · 카페 메뉴 20종(전통차·에이드·라떼·식혜 10종 그림 추가)
    - 메뉴판 사진 OCR(Tesseract.js CDN)은 그대로 통과 */
 
-const CACHE = 'wagle-dining-v8';
+const CACHE = 'wagle-dining-v9';
 const SHELL = [
   './',
   './index.html',
@@ -24,6 +25,7 @@ const SHELL = [
 ];
 /* 그림 메뉴 · 음료 · 카페 사진 (하나씩 담아 실패해도 앱은 그대로 열림) */
 const IMAGES = [
+  './food/hot-americano.webp',
   './food/americano.webp',
   './food/beer.webp',
   './food/bibim-naengmyeon.webp',
@@ -62,7 +64,17 @@ const IMAGES = [
   './food/tteokbokki.webp',
   './food/vanilla-latte.webp',
   './food/water.webp',
-  './food/yuja-tea.webp'
+  './food/yuja-tea.webp',
+  './food/jujube-tea.webp',
+  './food/ginger-tea.webp',
+  './food/ssanghwa-tea.webp',
+  './food/omija-tea.webp',
+  './food/maesil-tea.webp',
+  './food/lemon-ade.webp',
+  './food/strawberry-latte.webp',
+  './food/milk-tea.webp',
+  './food/choco-latte.webp',
+  './food/sikhye.webp'
 ];
 
 self.addEventListener('install', (event) => {
