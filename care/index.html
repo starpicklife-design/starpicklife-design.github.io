@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#7A4A25" />
-<!-- build: 2026-11-23 wagle-care v1 · 아침·점심·저녁·자기 전 약 큰 버튼 체크(시각 기록·다시 누르면 취소) · 물 잔 수 · 산책·혈압/컨디션 · 복용 시간·알림 소리(Web Audio) · 약 이름·메모 · 최근 7일 기록 · 병원 약 남은 날(D-Day, 30·60·90·100일분·직접 입력) + 7일 이하 알림 카드 · 큰 글씨·한/영·공유·설치·뒤로가기 · 기록은 기기에만 -->
+<!-- build: 2026-11-23 wagle-care v3 · 🩺 병원동행매니저(첫 화면 버튼·매니저 2명 직접 등록·📞 바로 전화·💬 오늘 동행 알림 문자·📅 예약일/⏰ 만날 시간/📍 만날 장소 저장·오늘 약·남은 일수·병원 예약·보호자 번호 자동 포함·메모 복사) · 약 떨어짐 알림·위급 연락에 💬 매니저님께도 문자 · 공공 129·서울 1533-1179·내 지역 검색 안내 · v2: 아침·점심·저녁·자기 전 약 큰 버튼 체크(시각 기록·다시 누르면 취소) · 물 잔 수 · 산책·혈압/컨디션 · 복용 시간·알림 소리(Web Audio+음성 안내) · 약 이름·메모 · 최근 7일 기록 · 병원 약 남은 날(D-Day, 30·60·90·100일분·직접 입력) + 7일 이하 알림 카드 · 어르신께 정중한 말투("어르신, 약 드실 시간입니다.") · 보호자 번호 한 번 저장(설정·첫 화면) · 💬 보호자 문자(sms:) · 🚨 위급 버튼(보호자 전화·문자·119, 뒤로가기로 닫힘) · 큰 글씨·한/영·공유·설치·뒤로가기 · 기록은 기기에만 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -310,6 +310,205 @@ details.settings[open]>summary .caret{transform:rotate(180deg)}
 .danger{width:100%;border:2px solid var(--red-line);background:var(--red-bg);color:var(--red);
   border-radius:.85rem;padding:.6rem;font-size:.96rem;font-weight:900;min-height:3rem}
 
+/* ── 🚨 위급 버튼 ───────────────────────── */
+.sosbtn{display:flex;align-items:center;gap:.56rem;width:calc(100% - 1rem);margin:0 .5rem .52rem;
+  border:3px solid #8E2418;background:linear-gradient(180deg,#D8412F,#B3261A);color:#FFF6F2;
+  border-radius:1.05rem;padding:.56rem .66rem;min-height:4rem;text-align:left;
+  box-shadow:0 4px 16px rgba(150,30,15,.34)}
+.sosbtn:active{transform:scale(.99)}
+.sosbtn .sosi{font-size:1.95rem;line-height:1;flex:0 0 auto}
+.sosbtn .sost{flex:1 1 auto;min-width:0}
+.sosbtn .sost b{display:block;font-size:1.16rem;font-weight:900;letter-spacing:-.03em;line-height:1.18;text-shadow:0 1px 2px rgba(0,0,0,.28)}
+.sosbtn .sost em{display:block;margin-top:.06rem;font-size:.8rem;font-weight:800;line-height:1.24;font-style:normal;opacity:.96}
+.sosbtn .sosgo{flex:0 0 auto;font-size:1.5rem;line-height:1;opacity:.85}
+html.big .sosbtn{min-height:4.3rem;padding:.52rem .6rem}
+html.big .sosbtn .sost b{font-size:1.06rem}
+html.big .sosbtn .sost em{font-size:.74rem}
+
+/* ── 보호자 번호 안내(첫 화면) ─────────── */
+.gcard{margin:0 .5rem .52rem;border:1px solid var(--line);background:#FFFDF8;border-radius:1rem;
+  padding:.46rem .56rem;box-shadow:var(--shadow);display:flex;align-items:center;gap:.44rem}
+.gcard .gi{font-size:1.3rem;line-height:1;flex:0 0 auto}
+.gcard .gt{flex:1 1 auto;min-width:0;font-size:.76rem;font-weight:800;line-height:1.3;color:var(--ink)}
+.gcard .gt b{color:var(--brown);font-weight:900}
+.gcard .gbtn{flex:0 0 auto;border:1.5px solid var(--amber-line);background:var(--amber-bg);color:var(--amber-ink);
+  border-radius:.7rem;padding:.34rem .5rem;font-size:.76rem;font-weight:900;min-height:2.4rem;white-space:nowrap}
+html.big .gcard .gt{font-size:.7rem}
+html.big .gcard .gbtn{font-size:.7rem;padding:.3rem .42rem}
+
+/* ── 오늘의 약 안내 문구 ───────────────── */
+.dosemsg{margin:-.12rem 0 .44rem;font-size:.88rem;font-weight:900;letter-spacing:-.03em;line-height:1.3;
+  color:var(--brown);padding:.34rem .46rem;border-radius:.66rem;background:var(--cream2);border:1px solid var(--line)}
+.dosemsg.due{color:var(--red);background:var(--red-bg);border-color:var(--red-line)}
+.dosemsg.done{color:var(--green);background:var(--green-bg);border-color:var(--green-line)}
+html.big .dosemsg{font-size:.8rem}
+
+/* ── 7일 알림 카드 줄 ──────────────────── */
+.alsub{margin-top:.16rem;font-size:.82rem;font-weight:900;color:var(--ink);line-height:1.35}
+.alline{display:flex;align-items:center;gap:.3rem;flex-wrap:wrap;margin-top:.3rem}
+.alname{font-size:.82rem;font-weight:900;color:var(--ink)}
+.alchip{font-size:.76rem;font-weight:900;border-radius:.5rem;padding:.12rem .4rem;line-height:1.2;
+  background:#fff;border:1px solid var(--red-line);color:var(--red)}
+.alertcard.warn .alchip{border-color:var(--amber-line);color:var(--amber-ink);background:#fff}
+.almeta{margin-left:.02rem;font-size:.72rem;font-weight:700;color:var(--ink2);line-height:1.3}
+.albtns{display:flex;flex-wrap:wrap;gap:.36rem;margin-top:.44rem}
+.albtns .algo{margin-top:0;flex:1 1 100%}
+.alsms{flex:1 1 calc(50% - .18rem);min-width:0;display:flex;align-items:center;justify-content:center;text-decoration:none;
+  border:1px solid var(--blue-line);background:#fff;color:var(--blue);border-radius:.72rem;
+  padding:.46rem .4rem;font-size:.76rem;font-weight:900;min-height:2.5rem;white-space:nowrap}
+.alsms:active{background:var(--blue-bg)}
+.alsms.mgr{border-color:#2F8B82;color:#1C5751;background:#EAF7F4}
+.alsms.mgr.off{border-style:dashed;opacity:.8}
+
+/* ── 보호자 문자(오늘 기록) ─────────────── */
+.weekfoot{margin-top:.44rem}
+.smsrow{display:flex;align-items:center;justify-content:center;gap:.3rem;text-decoration:none;
+  width:100%;border:2px solid var(--blue-line);background:var(--blue-bg);color:var(--blue);
+  border-radius:.8rem;padding:.5rem .5rem;font-size:.9rem;font-weight:900;min-height:3rem;letter-spacing:-.02em}
+.smsrow:active{background:#DCEDF9}
+html.big .smsrow{font-size:.82rem}
+/* 설정 · 보호자 번호 줄 */
+.gset{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.gnum{flex:1 1 auto;min-width:0;font-size:.86rem;font-weight:900;color:var(--ink)}
+.gnum.none{color:var(--ink2);font-weight:700}
+.gset button{border:1px solid var(--amber-line);background:var(--amber-bg);color:var(--amber-ink);
+  border-radius:.7rem;padding:.34rem .54rem;font-size:.76rem;font-weight:900;min-height:2.4rem;white-space:nowrap}
+
+/* ── 위급 연락 창 ──────────────────────── */
+#sosModal .mcard{border:3px solid var(--red-line);background:#FFF8F5}
+.sos3{display:flex;flex-direction:column;gap:.5rem;margin-top:.1rem}
+.sosg{border:2px solid var(--red-line);border-radius:1rem;background:#fff;padding:.44rem .5rem .5rem}
+.sosg.empty{border-style:dashed;border-color:var(--line);background:#FFFCF6}
+.sosname{display:flex;align-items:center;gap:.32rem;margin-bottom:.36rem;flex-wrap:wrap}
+.snum{flex:0 0 auto;width:1.3rem;height:1.3rem;border-radius:50%;background:var(--red);color:#fff;
+  font-size:.78rem;font-weight:900;line-height:1.3rem;text-align:center}
+.sosname b{font-size:.92rem;font-weight:900;letter-spacing:-.02em;color:var(--red);min-width:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sphone{margin-left:auto;font-size:.76rem;font-weight:800;color:var(--ink2)}
+.sos2{display:grid;grid-template-columns:1fr 1fr;gap:.36rem}
+.sos2 a{display:flex;align-items:center;gap:.34rem;text-decoration:none;border-radius:.85rem;
+  padding:.46rem .5rem;min-height:3.8rem;border:3px solid;letter-spacing:-.02em}
+.sos2 a:active{transform:scale(.99)}
+.sos2 .ic{font-size:1.5rem;line-height:1;flex:0 0 auto}
+.sos2 .tx{flex:1 1 auto;min-width:0}
+.sos2 .tx b{display:block;font-size:.96rem;font-weight:900;line-height:1.16}
+.sos2 .tx span{display:block;margin-top:.06rem;font-size:.66rem;font-weight:800;line-height:1.2;opacity:.92;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sos2 .call1{background:var(--red-bg);border-color:#C0392B;color:#8E2418}
+.sos2 .sms1{background:var(--blue-bg);border-color:#2B6E9E;color:#1E5580}
+.sosadd{width:100%;border:2px dashed var(--amber-line);background:var(--amber-bg);color:var(--amber-ink);
+  border-radius:.8rem;padding:.5rem;font-size:.86rem;font-weight:900;min-height:3rem}
+.sos3 a.both{display:flex;align-items:center;justify-content:center;gap:.3rem;text-decoration:none;
+  border:2px solid var(--blue-line);background:var(--blue-bg);color:var(--blue);border-radius:.85rem;
+  padding:.52rem .5rem;font-size:.9rem;font-weight:900;min-height:3.1rem}
+.sos3 a.mgr{display:flex;align-items:center;justify-content:center;gap:.3rem;text-decoration:none;
+  border:2px solid #2F8B82;background:#EAF7F4;color:#1C5751;border-radius:.85rem;
+  padding:.52rem .5rem;font-size:.9rem;font-weight:900;min-height:3.1rem}
+.sos3 a.mgr.off{border-style:dashed;opacity:.8}
+html.big .sos3 a.mgr{font-size:.8rem}
+.sos3 a.emg{display:flex;align-items:center;gap:.6rem;text-decoration:none;
+  background:linear-gradient(180deg,#C4301F,#981F13);border:3px solid #7E1D13;color:#FFF6F2;
+  border-radius:1rem;padding:.62rem .7rem;min-height:5rem;box-shadow:0 3px 12px rgba(150,30,15,.3)}
+.sos3 a.emg:active{transform:scale(.99)}
+.sos3 a.emg .ic{font-size:2.1rem;line-height:1;flex:0 0 auto}
+.sos3 a.emg .tx{flex:1 1 auto;min-width:0}
+.sos3 a.emg .tx b{display:block;font-size:1.22rem;font-weight:900;line-height:1.18}
+.sos3 a.emg .tx span{display:block;margin-top:.08rem;font-size:.72rem;font-weight:800;line-height:1.24;opacity:.94}
+.sosreg{width:100%;border:1px solid var(--line);background:#fff;color:var(--ink2);border-radius:.8rem;
+  padding:.46rem;font-size:.8rem;font-weight:800;min-height:2.7rem}
+html.big .sos2 .tx b{font-size:.82rem;line-height:1.14;letter-spacing:-.04em;white-space:nowrap}
+html.big .sos2 .tx span{display:none}
+html.big .sos2 .ic{font-size:1.15rem}
+html.big .sos2 a{min-height:3.4rem;padding:.4rem .32rem;gap:.22rem}
+html.big .sosname b{font-size:.84rem}
+html.big .sphone{font-size:.68rem}
+html.big .sos3 a.emg .tx b{font-size:1.08rem}
+html.big .sos3 a.emg .tx span{font-size:.64rem}
+/* 보호자 번호 입력(설정·등록 창) */
+.grow{border:1px solid var(--line);border-radius:.85rem;padding:.5rem .56rem;margin-bottom:.44rem;background:#FFFDF8}
+.gtitle{display:flex;align-items:center;gap:.3rem;font-size:.8rem;font-weight:900;color:var(--brown);margin-bottom:.3rem}
+.gtitle .snum{background:var(--brown)}
+.grow .fld{margin-bottom:.32rem}
+.grow .fld:last-child{margin-bottom:0}
+.grow .fld input{min-height:2.7rem}
+
+/* ── 🩺 병원동행매니저 연결 ─────────────── */
+.compbtn{display:flex;align-items:center;gap:.56rem;width:calc(100% - 1rem);margin:0 .5rem .52rem;
+  border:3px solid #2F8B82;background:linear-gradient(135deg,#E6F6F2,#CDEBE5);color:#1C5751;
+  border-radius:1.05rem;padding:.6rem .68rem;min-height:4.4rem;text-align:left;
+  box-shadow:0 4px 16px rgba(30,110,100,.2)}
+.compbtn:active{transform:scale(.99)}
+.compbtn .copi{font-size:2rem;line-height:1;flex:0 0 auto}
+.compbtn .cot{flex:1 1 auto;min-width:0}
+.compbtn .cot b{display:block;font-size:1.16rem;font-weight:900;letter-spacing:-.03em;line-height:1.18}
+.compbtn .cot em{display:block;margin-top:.08rem;font-size:.78rem;font-weight:800;line-height:1.25;font-style:normal;
+  color:#2A7168;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.compbtn .cogo{flex:0 0 auto;font-size:1.5rem;line-height:1;color:#2A7168;opacity:.8}
+html.big .compbtn .cot b{font-size:.98rem}
+html.big .compbtn .cot em{font-size:.7rem}
+#compModal .mcard{border:2px solid #BEE0DA}
+.comprow{border:1px solid var(--line);border-radius:.9rem;background:#FFFDF8;padding:.5rem .56rem;margin-bottom:.42rem}
+.comprow.empty{border-style:dashed;background:#FFFCF6}
+.compname{display:flex;align-items:center;gap:.32rem;margin-bottom:.36rem;flex-wrap:wrap}
+.compname .snum{background:#2F8B82}
+.compname b{font-size:.92rem;font-weight:900;letter-spacing:-.02em;color:#1C5751;min-width:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.comp2{display:grid;grid-template-columns:1fr 1fr;gap:.36rem}
+.comp2 a{display:flex;align-items:center;gap:.34rem;text-decoration:none;border-radius:.85rem;
+  padding:.46rem .5rem;min-height:3.7rem;border:2px solid;letter-spacing:-.02em}
+.comp2 a:active{transform:scale(.99)}
+.comp2 .ic{font-size:1.35rem;line-height:1;flex:0 0 auto}
+.comp2 .tx{flex:1 1 auto;min-width:0}
+.comp2 .tx b{display:block;font-size:.9rem;font-weight:900;line-height:1.18}
+.comp2 .tx span{display:block;margin-top:.06rem;font-size:.64rem;font-weight:800;line-height:1.2;opacity:.9;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.comp2 .call1{background:#EAF7F4;border-color:#2F8B82;color:#1C5751}
+.comp2 .sms1{background:var(--blue-bg);border-color:#2B6E9E;color:#1E5580}
+.memobox{margin:.4rem 0 0;white-space:pre-wrap;word-break:keep-all;
+  font-family:inherit;font-size:.78rem;font-weight:700;line-height:1.5;color:var(--ink);
+  background:#FFFCF4;border:1px solid var(--line);border-radius:.8rem;padding:.52rem .58rem;
+  max-height:10rem;overflow:auto;-webkit-overflow-scrolling:touch}
+.memobtns{display:grid;grid-template-columns:1fr 1fr;gap:.36rem;margin-top:.06rem}
+.mcopy{border:2px solid var(--amber-line);background:var(--amber-bg);color:var(--amber-ink);
+  border-radius:.8rem;padding:.46rem .4rem;font-size:.82rem;font-weight:900;min-height:2.9rem;letter-spacing:-.03em}
+.mcopy:active{background:#FFEAC4}
+.msms{display:flex;align-items:center;justify-content:center;text-decoration:none;
+  border:2px solid var(--blue-line);background:var(--blue-bg);color:var(--blue);
+  border-radius:.8rem;padding:.46rem .4rem;font-size:.82rem;font-weight:900;min-height:2.9rem;letter-spacing:-.03em}
+.msms:active{background:#DCEDF9}
+.orgs{display:flex;flex-direction:column;gap:.36rem;margin-top:.1rem}
+.org{display:flex;align-items:center;gap:.42rem;text-decoration:none;border:1px solid var(--line);
+  background:#FFFDF8;border-radius:.85rem;padding:.46rem .52rem;min-height:3.1rem;color:inherit}
+.org:active{background:#FDF6EA}
+.org .oi{font-size:1.15rem;line-height:1;flex:0 0 auto}
+.org .ot{flex:1 1 auto;min-width:0}
+.org .ot b{display:block;font-size:.84rem;font-weight:900;letter-spacing:-.03em;line-height:1.2;color:var(--brown)}
+.org .ot span{display:block;margin-top:.08rem;font-size:.66rem;font-weight:700;color:var(--ink2);line-height:1.25}
+.org .ogo{flex:0 0 auto;font-size:.78rem;font-weight:900;color:#2F8B82;white-space:nowrap}
+.orgnote{margin:.44rem 0 .5rem;font-size:.68rem;font-weight:700;line-height:1.42;color:var(--ink2);
+  background:var(--cream2);border:1px solid var(--line);border-radius:.7rem;padding:.42rem .5rem}
+.compform{border:2px dashed #2F8B82;background:#F4FBF9;border-radius:.95rem;padding:.56rem .6rem}
+.cfhead{font-size:.88rem;font-weight:900;color:#1C5751;line-height:1.32;margin-bottom:.42rem;
+  letter-spacing:-.02em}
+.compform .fld{margin-bottom:.36rem}
+.compform .fld>span{color:#2A7168}
+.compform .fld input{background:#fff;border-color:#BEE0DA}
+.compform .msave{border:2px solid #2F8B82;background:#E6F6F2;color:#1C5751;margin-top:.1rem}
+.orgsmall{margin-top:.82rem;border-top:1px dashed var(--line);padding-top:.52rem}
+.orgsmallhead{font-size:.72rem;font-weight:900;color:var(--ink2);margin-bottom:.34rem;letter-spacing:-.02em}
+.tripgrid{display:grid;grid-template-columns:1fr 1fr;gap:.34rem .4rem;margin-top:.1rem}
+.tripgrid .fld.full{grid-column:1 / -1}
+.tripgrid .fld>span{color:#2A7168}
+.tripgrid .fld input{background:#FFFDF8;border-color:#BEE0DA;font-weight:800}
+html.big .memobox{font-size:.72rem}
+html.big .tripgrid{grid-template-columns:1fr}
+html.big .compname{flex-direction:column;align-items:flex-start;gap:.12rem}
+html.big .compname .sphone{margin-left:0}
+html.big .comp2 .tx b{font-size:.8rem}
+html.big .comp2 .tx span{display:none}
+html.big .org .ot b{font-size:.78rem}
+html.big .org .ot span{font-size:.6rem}
+
 /* ── 토스트 ─────────────────────────────── */
 .toast{position:fixed;left:50%;bottom:1.1rem;transform:translateX(-50%) translateY(1rem);z-index:90;
   max-width:calc(100vw - 1.4rem);background:rgba(46,33,24,.95);color:#FFF9EF;border-radius:1rem;
@@ -387,12 +586,34 @@ details.settings[open]>summary .caret{transform:rotate(180deg)}
   </div>
 </div>
 
+<!-- ══ 🚨 위급 버튼 (첫 화면 상단) ══ -->
+<button type="button" class="sosbtn" id="sosBtn" aria-haspopup="dialog" aria-label="위급 버튼 · 위급할 때 누르세요">
+  <span class="sosi" aria-hidden="true">🚨</span>
+  <span class="sost"><b id="sosTitle">위급 버튼</b><em id="sosSub">· 위급할 때 누르세요</em></span>
+  <span class="sosgo" aria-hidden="true">›</span>
+</button>
+
 <div id="ddayAlert" hidden></div>
+
+<!-- ══ 보호자 번호 안내 (번호 없을 때만) ══ -->
+<div class="gcard" id="guardianHint" hidden>
+  <span class="gi" aria-hidden="true">👵</span>
+  <div class="gt" id="guardianHintText"><b>보호자 번호</b>를 한 번만 등록해 두세요.</div>
+  <button type="button" class="gbtn" id="guardianAdd">📝 등록</button>
+</div>
+
+<!-- ══ 🩺 병원동행매니저 버튼 (첫 화면 눈에 띄게) ══ -->
+<button type="button" class="compbtn" id="compBtn" aria-haspopup="dialog" aria-label="병원동행매니저">
+  <span class="copi" aria-hidden="true">🩺</span>
+  <span class="cot"><b id="compTitle">병원동행매니저</b><em id="compSub">누르면 동행 매니저님께 전화·문자</em></span>
+  <span class="cogo" aria-hidden="true">›</span>
+</button>
 
 <section class="card" aria-labelledby="doseTitle">
   <div class="secthead">
     <h2 id="doseTitle">💊 오늘의 약</h2>
   </div>
+  <p class="dosemsg" id="doseMsg" hidden></p>
   <div class="dosegrid" id="doseGrid"></div>
 </section>
 
@@ -441,6 +662,10 @@ details.settings[open]>summary .caret{transform:rotate(180deg)}
   <div class="secthead"><h2 id="weekTitle">🗓 최근 7일 기록</h2></div>
   <div class="week" id="week"></div>
   <div class="wlegend" id="weekLegend"></div>
+  <div class="weekfoot">
+    <a class="smsrow" id="weekSms" href="#">💬 <span id="weekSmsT">보호자 문자</span></a>
+  </div>
+  <p class="hint" id="weekSmsHint">오늘 약 복용을 보호자에게 문자로 알려 드려요.</p>
 </section>
 
 <details class="settings" id="settings">
@@ -461,11 +686,12 @@ details.settings[open]>summary .caret{transform:rotate(180deg)}
 <div class="banner" id="dueBanner" hidden>
   <div class="bcard" role="dialog" aria-modal="true" aria-labelledby="dueTitle">
     <div class="bemoji" id="dueEmoji" aria-hidden="true">☀️</div>
-    <div class="btitle" id="dueTitle">아침 약 시간이에요</div>
+    <div class="btitle" id="dueTitle">어르신, 약 드실 시간입니다.</div>
     <p class="bsub" id="dueSub"></p>
     <div class="bbtns">
       <button type="button" class="okbtn" id="dueDone">✅ 먹었어요</button>
       <button type="button" class="laterbtn" id="dueLater">⏰ 조금 있다가 할게요</button>
+      <a class="laterbtn" id="dueSms" href="#" style="display:flex;align-items:center;justify-content:center;text-decoration:none;border-color:var(--blue-line);color:var(--blue);background:var(--blue-bg);font-weight:900">💬 <span id="dueSmsT">보호자 문자</span></a>
     </div>
   </div>
 </div>
@@ -565,6 +791,120 @@ details.settings[open]>summary .caret{transform:rotate(180deg)}
   </div>
 </div>
 
+<!-- ══ 🚨 위급 연락 ══ -->
+<div class="modal" id="sosModal" hidden>
+  <div class="mcard" role="dialog" aria-modal="true" aria-labelledby="sosHead">
+    <div class="mhead">
+      <h3 id="sosHead">🚨 위급 연락</h3>
+      <button type="button" class="x" data-close="sosModal" aria-label="닫기">✕</button>
+    </div>
+    <p class="mhelp" id="sosHelp">숨이 차거나 쓰러질 것 같으면 119를 누르세요. 보호자에게 바로 전화하거나 비상 문자를 보낼 수 있어요.</p>
+    <div class="sos3">
+      <div id="sosRows"></div>
+      <a class="both" id="sosBoth" href="#" hidden>💬 <span id="sosBothT">보호자 1·2에게 함께 문자</span></a>
+      <a class="mgr off" id="sosMgrSms" href="#">💬 <span id="sosMgrSmsT">동행 매니저님께도 문자</span></a>
+      <a class="emg" id="sos119" href="tel:119">
+        <span class="ic" aria-hidden="true">🚑</span>
+        <span class="tx"><b id="sos119T">119 긴급 전화</b><span id="sos119S">숨이 힘들거나 쓰러질 것 같을 때</span></span>
+      </a>
+      <button type="button" class="sosreg" id="sosReg">📝 <span id="sosRegT">보호자 번호 등록 · 변경</span></button>
+    </div>
+    <button type="button" class="mcancel" data-close="sosModal" id="sosCloseT">닫기</button>
+  </div>
+</div>
+
+<!-- ══ 보호자 번호 등록(2명) ══ -->
+<div class="modal" id="guardianModal" hidden>
+  <div class="mcard" role="dialog" aria-modal="true" aria-labelledby="guardianHead">
+    <div class="mhead">
+      <h3 id="guardianHead">👵 보호자 번호</h3>
+      <button type="button" class="x" data-close="guardianModal" aria-label="닫기">✕</button>
+    </div>
+    <p class="mhelp" id="guardianHelp">보호자 두 분의 번호를 한 번만 적어 두면, 위급할 때 전화·문자를 바로 보낼 수 있어요. 번호는 이 휴대폰에만 저장돼요.</p>
+    <div class="grow">
+      <div class="gtitle"><span class="snum">1</span><span id="g1Title">보호자 1</span></div>
+      <label class="fld"><span id="gNameL1">이름 · 관계</span>
+        <input type="text" id="g1NameIn" maxlength="16" placeholder="예) 딸 서영" autocomplete="off" /></label>
+      <label class="fld"><span id="gTelL1">휴대폰 번호</span>
+        <input type="tel" id="g1TelIn" inputmode="tel" maxlength="20" placeholder="010-1234-5678" autocomplete="tel" /></label>
+    </div>
+    <div class="grow">
+      <div class="gtitle"><span class="snum">2</span><span id="g2Title">보호자 2</span></div>
+      <label class="fld"><span id="gNameL2">이름 · 관계</span>
+        <input type="text" id="g2NameIn" maxlength="16" placeholder="예) 아들 철수" autocomplete="off" /></label>
+      <label class="fld"><span id="gTelL2">휴대폰 번호</span>
+        <input type="tel" id="g2TelIn" inputmode="tel" maxlength="20" placeholder="010-9876-5432" autocomplete="tel" /></label>
+    </div>
+    <button type="button" class="msave" id="guardianSave">저장</button>
+    <button type="button" class="mcancel" data-close="guardianModal">닫기</button>
+  </div>
+</div>
+
+<!-- ══ 🩺 병원동행매니저 ══ -->
+<div class="modal" id="compModal" hidden>
+  <div class="mcard" role="dialog" aria-modal="true" aria-labelledby="compHead">
+    <div class="mhead">
+      <h3 id="compHead">🩺 병원동행매니저</h3>
+      <button type="button" class="x" data-close="compModal" aria-label="닫기">✕</button>
+    </div>
+    <p class="mhelp" id="compHelp">번호를 한 번만 등록해 두면, 누르자마자 동행 매니저님께 바로 전화하거나 오늘 약·병원 일정·보호자 번호를 담은 알림 문자를 보낼 수 있어요. 번호는 이 휴대폰에만 저장돼요.</p>
+    <div id="compRows"></div>
+
+    <div class="gtitle" style="margin-top:.72rem"><span id="tripTitle">📅 동행 예약일 · 시간 · 장소</span></div>
+    <div class="tripgrid">
+      <label class="fld"><span id="tripDateL">원하는 예약일</span>
+        <input type="date" id="tripDate" /></label>
+      <label class="fld"><span id="tripTimeL">만날 시간</span>
+        <input type="time" id="tripTime" /></label>
+      <label class="fld full"><span id="tripPlaceL">만날 장소</span>
+        <input type="text" id="tripPlace" maxlength="30" autocomplete="off" placeholder="예) 어르신 댁 앞 / OO병원 1층 로비" /></label>
+    </div>
+
+    <div class="gtitle" style="margin-top:.72rem"><span id="memTitle">📋 알림 문자에 함께 실리는 내용</span></div>
+    <div class="memobtns">
+      <a class="msms" id="memoSms" href="#">💬 <span id="memoSmsT">이 내용으로 문자</span></a>
+      <button type="button" class="mcopy" id="memoCopy">📋 <span id="memoCopyT">메모 복사</span></button>
+    </div>
+    <pre class="memobox" id="memoBox"></pre>
+
+    <button type="button" class="sosadd" id="compReg" hidden>📝 <span id="compRegT">번호 등록 · 변경</span></button>
+
+    <div class="orgsmall">
+      <div class="orgsmallhead" id="orgTitle">🏛 공공 안내 — 지역 병원동행 알아보기</div>
+      <div class="orgs" id="orgList"></div>
+      <p class="orgnote" id="orgNote">이 앱은 어떤 업체와도 제휴하지 않았어요. 아래는 공공 안내와 검색 링크일 뿐이고, 지역 매니저님은 직접 알아보신 뒤 번호를 저장해 두세요.</p>
+    </div>
+    <button type="button" class="mcancel" data-close="compModal" id="compCloseT">닫기</button>
+  </div>
+</div>
+
+<!-- ══ 🩺 동행매니저 번호 등록(2명) ══ -->
+<div class="modal" id="compEditModal" hidden>
+  <div class="mcard" role="dialog" aria-modal="true" aria-labelledby="compEditHead">
+    <div class="mhead">
+      <h3 id="compEditHead">🩺 동행매니저 번호</h3>
+      <button type="button" class="x" data-close="compEditModal" aria-label="닫기">✕</button>
+    </div>
+    <p class="mhelp" id="compEditHelp">이름과 번호를 적어 두면 전화·문자를 한 번에 보낼 수 있어요. 두 분까지 저장할 수 있어요.</p>
+    <div class="grow">
+      <div class="gtitle"><span class="snum">1</span><span id="c1Title">동행매니저 1</span></div>
+      <label class="fld"><span id="cNameL1">이름</span>
+        <input type="text" id="c1NameIn" maxlength="16" placeholder="예) 김OO 동행매니저님" autocomplete="off" /></label>
+      <label class="fld"><span id="cTelL1">휴대폰 번호</span>
+        <input type="tel" id="c1TelIn" inputmode="tel" maxlength="20" placeholder="010-1234-5678" autocomplete="tel" /></label>
+    </div>
+    <div class="grow">
+      <div class="gtitle"><span class="snum">2</span><span id="c2Title">동행매니저 2</span></div>
+      <label class="fld"><span id="cNameL2">이름</span>
+        <input type="text" id="c2NameIn" maxlength="16" placeholder="예) 이OO 동행매니저님" autocomplete="off" /></label>
+      <label class="fld"><span id="cTelL2">휴대폰 번호</span>
+        <input type="tel" id="c2TelIn" inputmode="tel" maxlength="20" placeholder="010-9876-5432" autocomplete="tel" /></label>
+    </div>
+    <button type="button" class="msave" id="compSave">저장</button>
+    <button type="button" class="mcancel" data-close="compEditModal">닫기</button>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <noscript><p style="padding:1rem;font-weight:800">이 앱은 자바스크립트가 필요해요. 브라우저 설정에서 자바스크립트를 켜주세요.</p></noscript>
 
@@ -590,7 +930,10 @@ var MO = { ko:['1월','2월','3월','4월','5월','6월','7월','8월','9월','1
 
 /* ── 상태 ─────────────────────────────── */
 function defaults(){
-  var s = { v:1, big:false, lang:'ko', sound:true, slots:{}, water:{}, walk:{}, bp:{}, meds:[], history:{}, seen:{} };
+  var s = { v:3, big:false, lang:'ko', sound:true, guardians:[{ name:'', tel:'' }, { name:'', tel:'' }],
+            companions:[{ name:'', tel:'' }, { name:'', tel:'' }],
+            trip:{ date:'', time:'', place:'' },
+            slots:{}, water:{}, walk:{}, bp:{}, meds:[], history:{}, seen:{} };
   SLOTS.forEach(function(x){ s.slots[x.id] = { at:x.at, name:'', memo:'', doneAt:null }; });
   s.water = { date:'', count:0, goal:8, last:null };
   s.walk  = { date:'', doneAt:null };
@@ -609,6 +952,25 @@ function load(){
   if(o.big) S.big = true;
   if(o.lang === 'en') S.lang = 'en';
   if(o.sound === false) S.sound = false;
+  if(Array.isArray(o.guardians)){
+    S.guardians = [0,1].map(function(i){
+      var g = o.guardians[i] || {};
+      return { name:String(g.name || '').slice(0,16), tel:String(g.tel || '').slice(0,20) };
+    });
+  } else if(typeof o.guardian === 'string' && o.guardian){
+    S.guardians[0].tel = String(o.guardian).slice(0,20); /* 예전 한 명 설정에서 옮겨 오기 */
+  }
+  if(Array.isArray(o.companions)){
+    S.companions = [0,1].map(function(i){
+      var c = o.companions[i] || {};
+      return { name:String(c.name || '').slice(0,16), tel:String(c.tel || '').slice(0,20) };
+    });
+  }
+  if(o.trip && typeof o.trip === 'object'){
+    S.trip.date = /^\d{4}-\d{2}-\d{2}$/.test(o.trip.date || '') ? o.trip.date : '';
+    S.trip.time = /^\d{2}:\d{2}$/.test(o.trip.time || '') ? o.trip.time : '';
+    S.trip.place = String(o.trip.place || '').slice(0,30);
+  }
   if(o.slots && typeof o.slots === 'object'){
     SLOTS.forEach(function(x){
       var v = o.slots[x.id];
@@ -691,6 +1053,491 @@ function qLang(){
 }
 function L(ko, en){ return EN() ? en : ko; }
 
+/* ══ 보호자 번호 · 문자(sms:) · 위급 연락 ════════════════
+   · 번호는 localStorage에 한 번만 저장(서버 전송 없음)
+   · 문자는 sms:{번호}?body=... (안드로이드) / sms:{번호}&body=... (아이폰)
+   ═══════════════════════════════════════════════════════ */
+var EMG_MSG = { ko:'[비상] 어르신이 위급 버튼을 누르셨습니다. 바로 연락 부탁드립니다.',
+                en:'[EMERGENCY] Your parent pressed the emergency button. Please call right away.' };
+function digits(s){ return String(s == null ? '' : s).replace(/[^0-9]/g, ''); }
+function fmtPhone(s){
+  var d = digits(s);
+  if(d.length === 11) return d.slice(0,3) + '-' + d.slice(3,7) + '-' + d.slice(7);
+  if(d.length === 10) return d.slice(0,3) + '-' + d.slice(3,6) + '-' + d.slice(6);
+  if(d.length === 8)  return d.slice(0,4) + '-' + d.slice(4);
+  return String(s == null ? '' : s).trim();
+}
+function isIOS(){
+  return /iPhone|iPad|iPod/i.test(navigator.userAgent || '')
+    || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+function guardianList(){
+  return S.guardians.map(function(g, i){
+    return { i:i, name:String(g.name || '').trim(), tel:fmtPhone(g.tel), d:digits(g.tel) };
+  });
+}
+function gName(i){
+  var g = S.guardians[i] || {};
+  return String(g.name || '').trim() || L('보호자 ' + (i+1), 'Guardian ' + (i+1));
+}
+function allTels(){
+  return S.guardians.map(function(g){ return digits(g.tel); }).filter(Boolean);
+}
+/* 한 명에게: sms:01012345678?body=... / 두 명에게: sms:01011112222,01033334444?body=... */
+function smsURL(body, tel){
+  var d = digits(tel == null ? (S.guardians[0] || {}).tel : tel);
+  if(!d) return '';
+  return 'sms:' + d + (isIOS() ? '&body=' : '?body=') + encodeURIComponent(body);
+}
+function smsBothURL(body){
+  var all = allTels();
+  if(!all.length) return '';
+  return 'sms:' + all.join(',') + (isIOS() ? '&body=' : '?body=') + encodeURIComponent(body);
+}
+function telURL(tel){ var d = digits(tel); return d ? 'tel:' + d : ''; }
+/* 위급 연락 창 — 보호자 1·2 각각 전화/문자 + 함께 문자 + 119 */
+function paintSosRows(){
+  var box = $('#sosRows');
+  if(!box) return;
+  var emg = L(EMG_MSG.ko, EMG_MSG.en);
+  box.innerHTML = S.guardians.map(function(g, i){
+    var d = digits(g.tel), nm = esc(gName(i));
+    var head = '<div class="sosname"><span class="snum">' + (i+1) + '</span><b>' + nm + '</b>'
+      + (d ? '<span class="sphone">' + esc(fmtPhone(g.tel)) + '</span>' : '') + '</div>';
+    if(!d){
+      return '<div class="sosg empty">' + head
+        + '<button type="button" class="sosadd" data-gadd="' + i + '">📝 ' + esc(L('보호자 ' + (i+1) + ' 번호 등록', 'Add guardian ' + (i+1))) + '</button>'
+        + '</div>';
+    }
+    return '<div class="sosg">' + head
+      + '<div class="sos2">'
+      + '<a class="call1" href="' + telURL(g.tel) + '" data-gcall="' + i + '">'
+      + '<span class="ic" aria-hidden="true">📞</span><span class="tx"><b>' + esc(L('전화 걸기', 'Call')) + '</b>'
+      + '<span>' + esc(L('바로 연결', 'call now')) + '</span></span></a>'
+      + '<a class="sms1" href="' + smsURL(emg, g.tel) + '" data-gsms="' + i + '">'
+      + '<span class="ic" aria-hidden="true">💬</span><span class="tx"><b>' + esc(L('위급 문자', 'SOS text')) + '</b>'
+      + '<span>' + esc(L('비상 문자 보내기', 'send SOS')) + '</span></span></a>'
+      + '</div></div>';
+  }).join('');
+  var both = $('#sosBoth'), all = allTels();
+  if(both){
+    if(all.length >= 2){ both.hidden = false; both.setAttribute('href', smsBothURL(emg)); both.removeAttribute('data-neednum'); }
+    else both.hidden = true;
+  }
+  $$('#sosRows [data-gadd]').forEach(function(b){
+    b.addEventListener('click', function(){ openGuardian(); });
+  });
+}
+function todayMsg(){
+  var done = SLOTS.filter(function(x){ return isDone(x.id); }).length;
+  if(done >= SLOTS.length) return L('[와글 약통] 오늘 약 복용을 마쳤습니다 ✅', '[Wagul Care] All of today’s medicine has been taken ✅');
+  return L('[와글 약통] 오늘 약 ' + done + '/' + SLOTS.length + ' 복용했습니다.', '[Wagul Care] Today’s medicine ' + done + '/' + SLOTS.length + ' taken.');
+}
+function weekMsg(){
+  var items = alertItems().filter(function(x){ return x.c.left <= 7; });
+  var left = items.length ? Math.min.apply(null, items.map(function(x){ return x.c.left; })) : 0;
+  var dn = left < 0 ? ('D+' + (-left)) : left === 0 ? 'D-DAY' : ('D-' + left);
+  return L('[와글 약통] 어르신 약이 일주일 이내로 남았습니다 (' + dn + ').',
+           '[Wagul Care] The medicine runs out within a week (' + dn + ').');
+}
+function setSmsLink(el, body){
+  if(!el) return;
+  el.removeAttribute('aria-disabled');
+  var u = smsBothURL(body);
+  if(u){ el.setAttribute('href', u); el.removeAttribute('data-neednum'); }
+  else { el.setAttribute('href', '#'); el.setAttribute('data-neednum', '1'); }
+}
+function hasGuardian(){ return allTels().length > 0; }
+function needNumber(){
+  toast(L('보호자 번호를 먼저 등록해 주세요', 'Please register the guardian number first'));
+  openGuardian();
+}
+function updateGuardianUI(){
+  var hint = $('#guardianHint');
+  if(hint) hint.hidden = hasGuardian();
+  paintSosRows();
+  setSmsLink($('#weekSms'), todayMsg());
+  var alSms = $('#alSms');
+  if(alSms) setSmsLink(alSms, weekMsg());
+  var dueSms = $('#dueSms');
+  if(dueSms) setSmsLink(dueSms, todayMsg());
+}
+function openGuardian(){
+  var i1 = $('#g1NameIn'), i2 = $('#g2NameIn'), t1 = $('#g1TelIn'), t2 = $('#g2TelIn');
+  if(i1) i1.value = (S.guardians[0] || {}).name || '';
+  if(t1) t1.value = (S.guardians[0] || {}).tel ? fmtPhone(S.guardians[0].tel) : '';
+  if(i2) i2.value = (S.guardians[1] || {}).name || '';
+  if(t2) t2.value = (S.guardians[1] || {}).tel ? fmtPhone(S.guardians[1].tel) : '';
+  openModal('guardianModal');
+  setTimeout(function(){ try{ (hasGuardian() ? $('#g2TelIn') : $('#g1TelIn')).focus(); }catch(e){} }, 140);
+}
+function saveGuardian(){
+  var pairs = [
+    { name:($('#g1NameIn').value || '').trim(), tel:($('#g1TelIn').value || '').trim() },
+    { name:($('#g2NameIn').value || '').trim(), tel:($('#g2TelIn').value || '').trim() }
+  ];
+  for(var i = 0; i < pairs.length; i++){
+    var d = digits(pairs[i].tel);
+    if(!d) continue;
+    if(d.length < 8 || d.length > 15){
+      toast(L('보호자 ' + (i+1) + ' 번호를 다시 확인해 주세요 (예: 010-1234-5678)',
+        'Please check guardian ' + (i+1) + '’s number (e.g. 010-1234-5678)'));
+      return;
+    }
+  }
+  S.guardians = pairs.map(function(p){
+    return { name:p.name.slice(0,16), tel:digits(p.tel) ? fmtPhone(p.tel).slice(0,20) : '' };
+  });
+  save(); updateGuardianUI(); renderSettings(); closeModal('guardianModal', false);
+  toast(allTels().length >= 2
+    ? L('보호자 두 분 번호를 저장했어요 👵', 'Both guardian numbers saved 👵')
+    : allTels().length ? L('보호자 번호를 저장했어요 👵', 'Guardian number saved 👵')
+    : L('보호자 번호를 비웠어요', 'Guardian number cleared'));
+}
+
+/* ══ 🩺 병원동행매니저 연결 ══════════════════════════════
+   · 매니저님 번호 2명까지 localStorage 저장(서버 전송 없음)
+   · 📞 tel: · 💬 sms: 바로 연결
+   · 📋 건강 메모(오늘 약 · 다음 병원 일정 · 보호자 연락처) 자동 작성 + 복사/문자
+   · 공공 안내(129·1533-1179)와 지역 검색만 — 허위 제휴·과장 없음
+   ═══════════════════════════════════════════════════════ */
+var ORGS = [
+  { icon:'📞', href:function(){ return 'tel:129'; },
+    ko:'보건복지상담 129', koSub:'지자체 노인맞춤돌봄·병원동행 문의',
+    en:'Health & welfare 129', enSub:'Ask about local senior care & hospital escort' },
+  { icon:'📞', href:function(){ return 'tel:15331179'; },
+    ko:'서울 병원안심동행 1533-1179', koSub:'서울시 공식 안내 · 서울 거주·서울 병원만',
+    en:'Seoul hospital escort 1533-1179', enSub:'Seoul City official · Seoul residents & Seoul hospitals only' },
+  { icon:'🔍', ext:true,
+    href:function(){ return 'https://search.naver.com/search.naver?query=' + encodeURIComponent('병원동행매니저'); },
+    ko:'내 지역 병원동행매니저 찾기', koSub:'새 탭에서 네이버 검색',
+    en:'Find a hospital escort in my area', enSub:'Opens a Naver search in a new tab' }
+];
+function smsPick(body){
+  return 'sms:' + (isIOS() ? '&body=' : '?body=') + encodeURIComponent(body || '');
+}
+function smsTo(tel, body){
+  var d = digits(tel);
+  if(!d) return '';
+  return 'sms:' + d + (body ? ((isIOS() ? '&body=' : '?body=') + encodeURIComponent(body)) : '');
+}
+function compList(){
+  return S.companions.map(function(c, i){
+    return { i:i, name:String(c.name || '').trim(), tel:fmtPhone(c.tel), d:digits(c.tel) };
+  });
+}
+function compName(i){
+  var c = S.companions[i] || {};
+  var nm = String(c.name || '').trim();
+  if(!nm) return L('동행매니저 ' + (i+1), 'Companion ' + (i+1));
+  if(EN()) return nm;
+  if(/님$/.test(nm)) return nm;
+  return /매니저$/.test(nm) ? nm + '님' : nm + ' 님';
+}
+function hasCompanion(){ return compList().some(function(c){ return !!c.d; }); }
+/* 등록 전: 입력칸이 바로 나온다 */
+function compFormHTML(){
+  return '<div class="compform">'
+    + '<div class="cfhead">' + esc(L('자주 부르는 동행 매니저님 연락처를 직접 등록하세요',
+        'Save the number of the companion you call often')) + '</div>'
+    + '<label class="fld"><span>' + esc(L('이름','Name')) + '</span>'
+    + '<input type="text" id="ci1Name" maxlength="16" autocomplete="off" placeholder="'
+    + esc(L('예) 김OO 동행매니저님','e.g. Ms. Kim, companion')) + '" /></label>'
+    + '<label class="fld"><span>' + esc(L('전화번호','Phone number')) + '</span>'
+    + '<input type="tel" id="ci1Tel" inputmode="tel" maxlength="20" autocomplete="tel" placeholder="010-1234-5678" /></label>'
+    + '<label class="fld"><span>' + esc(L('이름 (두 번째 · 비워 두어도 돼요)','Name (second · optional)')) + '</span>'
+    + '<input type="text" id="ci2Name" maxlength="16" autocomplete="off" placeholder="'
+    + esc(L('예) 이OO 동행매니저님','e.g. Mr. Lee, companion')) + '" /></label>'
+    + '<label class="fld"><span>' + esc(L('전화번호 (두 번째)','Phone number (second)')) + '</span>'
+    + '<input type="tel" id="ci2Tel" inputmode="tel" maxlength="20" autocomplete="tel" placeholder="010-9876-5432" /></label>'
+    + '<button type="button" class="msave" id="ciSave">' + esc(L('저장','Save')) + '</button>'
+    + '</div>';
+}
+/* 등록 후: 누르자마자 바로 전화 · 알림 문자 */
+function compRowHTML(c){
+  return '<div class="comprow">'
+    + '<div class="compname"><span class="snum">' + (c.i+1) + '</span><b>' + esc(compName(c.i)) + '</b>'
+    + '<span class="sphone">' + esc(c.tel) + '</span></div>'
+    + '<div class="comp2">'
+    + '<a class="call1" href="' + telURL(c.tel) + '" data-ccall="' + c.i + '">'
+    + '<span class="ic" aria-hidden="true">📞</span><span class="tx"><b>' + esc(L('바로 전화하기','Call now')) + '</b>'
+    + '<span>' + esc(L('매니저님께','to the companion')) + '</span></span></a>'
+    + '<a class="sms1" href="' + smsTo(c.tel, memoText()) + '" data-csms="' + c.i + '">'
+    + '<span class="ic" aria-hidden="true">💬</span><span class="tx"><b>' + esc(L('오늘 동행 알림 문자','Visit note text')) + '</b>'
+    + '<span>' + esc(L('약·병원일·보호자 포함','meds, visit, guardian')) + '</span></span></a>'
+    + '</div></div>';
+}
+function saveCompanions(pairs){
+  for(var i = 0; i < pairs.length; i++){
+    var d = digits(pairs[i].tel);
+    if(!d) continue;
+    if(d.length < 8 || d.length > 15){
+      toast(L('동행매니저 ' + (i+1) + ' 번호를 다시 확인해 주세요 (예: 010-1234-5678)',
+        'Please check companion ' + (i+1) + '’s number (e.g. 010-1234-5678)'));
+      return false;
+    }
+  }
+  S.companions = pairs.map(function(p){
+    return { name:String(p.name || '').trim().slice(0,16),
+             tel:digits(p.tel) ? fmtPhone(p.tel).slice(0,20) : '' };
+  });
+  save(); updateCompUI();
+  return true;
+}
+function saveCompInline(){
+  var v = function(id){ var el = document.getElementById(id); return el ? el.value : ''; };
+  var pairs = [
+    { name:v('ci1Name'), tel:v('ci1Tel') },
+    { name:v('ci2Name'), tel:v('ci2Tel') }
+  ];
+  if(!digits(pairs[0].tel) && !digits(pairs[1].tel)){
+    toast(L('동행 매니저님 전화번호를 적어 주세요', 'Please enter the companion’s phone number'));
+    return;
+  }
+  if(!saveCompanions(pairs)) return;
+  toast(L('등록했어요 👏 이제 누르면 바로 전화·알림 문자를 보낼 수 있어요',
+    'Saved 👏 now one tap calls or texts your companion'));
+}
+/* ── 매니저님께 드리는 어르신 건강 메모 (자동 생성) ─────── */
+function memoText(lead){
+  var now = new Date(), out = [];
+  out.push(EN() ? '[Wagul Care] Hospital visit note'
+                : '[와글 효도 약통] 오늘 병원 동행 알림입니다');
+  out.push(EN()
+    ? WD.en[now.getDay()] + ', ' + MO.en[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear()
+    : now.getFullYear() + '년 ' + (now.getMonth()+1) + '월 ' + now.getDate() + '일 (' + WD.ko[now.getDay()] + '요일)');
+  out.push('');
+  if(lead){ out.push(lead); out.push(''); }
+  var trip = S.trip || {};
+  if(trip.date || trip.time || trip.place){
+    out.push(EN() ? '■ Visit plan' : '■ 동행 예약');
+    if(/^\d{4}-\d{2}-\d{2}$/.test(trip.date || '')) out.push(L('· 예약일 ', '· Date ') + dFullY(parseKey(trip.date)));
+    if(/^\d{2}:\d{2}$/.test(trip.time || '')) out.push(L('· 만날 시간 ', '· Time ') + fmtTime(trip.time));
+    if(trip.place) out.push(L('· 만날 장소 ', '· Place ') + String(trip.place).slice(0,30));
+    out.push('');
+  }
+  out.push(EN() ? '■ Medicine today' : '■ 오늘 드시는 약');
+  SLOTS.forEach(function(x){
+    var st = S.slots[x.id], done = isDone(x.id);
+    var nm = [st.name, st.memo].filter(Boolean).join(' · ');
+    var line = '· ' + x.emoji + ' ' + slotTitle(x) + ' ' + fmtTime(st.at) + (nm ? ' · ' + nm : '');
+    if(done){
+      var at = (st.doneAt || '').slice(11,16);
+      line += EN() ? ' — ✅ taken' + (at ? ' ' + fmtTime(at) : '') : ' — ✅ ' + (at ? fmtTime(at) + ' ' : '') + '복용';
+    } else {
+      line += EN() ? ' — not yet' : ' — 아직';
+    }
+    out.push(line);
+  });
+  out.push('');
+  out.push(EN() ? '■ Hospital visits' : '■ 다음 병원 일정');
+  if(!S.meds.length){
+    out.push(EN() ? '· No hospital medicine saved yet.' : '· 아직 적어 둔 병원 약이 없어요.');
+  } else {
+    S.meds.forEach(function(m){
+      var c = medCalc(m), a = apptInfo(m, c);
+      var line = '· ' + (m.name || L('병원 약','Hospital med'))
+        + ' ' + (EN() ? c.days + ' days' : c.days + '일분')
+        + ' · ' + L('다음 병원 ', 'appointment ') + dFullY(a.date) + (a.time ? ' ' + fmtTime(a.time) : '')
+        + ' (' + dBadge(a.left) + ')';
+      if(c.left < 0) line += L(' · 약 다 떨어짐', ' · out of meds');
+      out.push(line);
+    });
+  }
+  out.push('');
+  out.push(EN() ? '■ Guardian contacts' : '■ 보호자 연락처');
+  var gs = guardianList().filter(function(g){ return !!g.d; });
+  if(!gs.length) out.push(EN() ? '· No guardian number saved yet.' : '· 보호자 번호가 아직 없어요.');
+  else gs.forEach(function(g){
+    out.push('· ' + (g.name || L('보호자 ' + (g.i+1), 'Guardian ' + (g.i+1))) + ' ' + g.tel);
+  });
+  out.push('');
+  out.push(EN() ? '※ Please follow the doctor’s and pharmacist’s advice about medicine and hospital visits.'
+                : '※ 약 복용과 병원 일정은 의사·약사 선생님 안내를 따라 주세요.');
+  return out.join('\n');
+}
+function paintCompRows(){
+  var box = $('#compRows');
+  if(!box) return;
+  var keep = {};
+  ['ci1Name','ci1Tel','ci2Name','ci2Tel'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) keep[id] = el.value;
+  });
+  var cs = compList().filter(function(c){ return !!c.d; });
+  box.innerHTML = cs.length ? cs.map(compRowHTML).join('') : compFormHTML();
+  Object.keys(keep).forEach(function(id){
+    var el = document.getElementById(id);
+    if(el && !el.value) el.value = keep[id];
+  });
+  var sv = $('#ciSave');
+  if(sv) sv.addEventListener('click', saveCompInline);
+  var reg = $('#compReg');
+  if(reg) reg.hidden = !cs.length;
+}
+function paintMemo(){
+  var box = $('#memoBox');
+  if(!box) return;
+  var txt = memoText();
+  box.textContent = txt;
+  var sms = $('#memoSms');
+  if(sms) sms.setAttribute('href', smsPick(txt));
+}
+function paintOrgs(){
+  var box = $('#orgList');
+  if(!box) return;
+  box.innerHTML = ORGS.map(function(o){
+    return '<a class="org" href="' + esc(o.href()) + '"'
+      + (o.ext ? ' target="_blank" rel="noopener noreferrer"' : '') + '>'
+      + '<span class="oi" aria-hidden="true">' + o.icon + '</span>'
+      + '<span class="ot"><b>' + esc(EN() ? o.en : o.ko) + '</b><span>' + esc(EN() ? o.enSub : o.koSub) + '</span></span>'
+      + '<span class="ogo" aria-hidden="true">' + (o.ext ? '↗' : '📞') + '</span></a>';
+  }).join('');
+}
+function updateCompUI(){
+  var sub = $('#compSub'), cs = compList().filter(function(c){ return !!c.d; });
+  if(sub){
+    sub.textContent = cs.length
+      ? compName(cs[0].i) + L(' · 바로 전화·문자', ' · call or text')
+      : L('누르면 매니저님 번호를 등록해요', 'Tap to save your companion’s number');
+  }
+  renderTrip();
+  paintCompRows();
+  paintMemo();
+  paintOrgs();
+  updateMgrLinks();
+}
+/* ── 동행 매니저님께 문자 — 위급/약 떨어짐 알림 영역 ─────────
+   · 보호자 문자 버튼 바로 옆에 나란히
+   · 본문: 오늘 약·남은 일수·병원 예약(날짜/시간/장소)·보호자 번호
+   · 등록된 매니저가 없으면 링크 대신 등록 안내
+   ──────────────────────────────────────────────────── */
+function mgrTel(){
+  var cs = compList().filter(function(c){ return !!c.d; });
+  return cs.length ? cs[0].tel : '';
+}
+function ddayLead(){
+  var items = alertItems().filter(function(x){ return x.c.left <= 7; });
+  if(!items.length) return '';
+  var best = items[0], nm = best.m.name || L('병원 약','Hospital med'), left = best.c.left;
+  if(left < 0) return L('⚠️ ' + nm + ' 약이 다 떨어졌어요. 병원 예약을 부탁드립니다.',
+    '⚠️ ' + nm + ' has run out. Please book the hospital visit.');
+  if(left === 0) return L('⚠️ ' + nm + ' 약이 오늘로 마지막이에요. 병원 예약을 부탁드립니다.',
+    '⚠️ Today is the last day of ' + nm + '. Please book the hospital visit.');
+  return L('⚠️ ' + nm + ' 약이 ' + left + '일 남았어요. 병원 예약을 부탁드립니다.',
+    '⚠️ ' + nm + ' runs out in ' + left + ' days. Please book the hospital visit.');
+}
+function setMgrLink(el, body){
+  if(!el) return;
+  var t = mgrTel();
+  if(t){
+    el.setAttribute('href', smsTo(t, body));
+    el.removeAttribute('data-needmgr');
+    el.classList.remove('off');
+  } else {
+    el.setAttribute('href', '#');
+    el.setAttribute('data-needmgr', '1');
+    el.classList.add('off');
+  }
+}
+function updateMgrLinks(){
+  setMgrLink($('#alMgr'), memoText(ddayLead()));
+  setMgrLink($('#sosMgrSms'), memoText(L(EMG_MSG.ko, EMG_MSG.en)));
+}
+/* 동행 예약일 · 만날 시간 · 만날 장소 (localStorage 저장) */
+function renderTrip(){
+  var t = S.trip || {};
+  if($('#tripDate')) $('#tripDate').value = /^\d{4}-\d{2}-\d{2}$/.test(t.date || '') ? t.date : '';
+  if($('#tripTime')) $('#tripTime').value = /^\d{2}:\d{2}$/.test(t.time || '') ? t.time : '';
+  if($('#tripPlace')) $('#tripPlace').value = String(t.place || '');
+}
+function bindTrip(){
+  var d = $('#tripDate'), t = $('#tripTime'), p = $('#tripPlace');
+  function upd(){
+    S.trip = {
+      date: d && /^\d{4}-\d{2}-\d{2}$/.test(d.value) ? d.value : '',
+      time: t && /^\d{2}:\d{2}$/.test(t.value) ? t.value : '',
+      place: p ? String(p.value || '').trim().slice(0,30) : ''
+    };
+    save(); paintMemo(); paintCompRows();
+  }
+  if(d) d.addEventListener('change', upd);
+  if(t) t.addEventListener('change', upd);
+  if(p) p.addEventListener('input', upd);
+}
+bindTrip();
+function openComp(){
+  updateCompUI();
+  openModal('compModal');
+  var card = $('#compModal .mcard');
+  if(card) card.scrollTop = 0;
+  if(!hasCompanion()){
+    setTimeout(function(){ try{ $('#ci1Name').focus(); }catch(e){} }, 160);
+  }
+}
+function openCompEdit(){
+  var c1 = S.companions[0] || {}, c2 = S.companions[1] || {};
+  $('#c1NameIn').value = String(c1.name || '');
+  $('#c1TelIn').value = c1.tel ? fmtPhone(c1.tel) : '';
+  $('#c2NameIn').value = String(c2.name || '');
+  $('#c2TelIn').value = c2.tel ? fmtPhone(c2.tel) : '';
+  openModal('compEditModal');
+  setTimeout(function(){
+    try { ($('#c1TelIn').value ? $('#c2NameIn') : $('#c1NameIn')).focus(); } catch(e){}
+  }, 140);
+}
+function saveComp(){
+  if(!saveCompanions([
+    { name:($('#c1NameIn').value || ''), tel:($('#c1TelIn').value || '') },
+    { name:($('#c2NameIn').value || ''), tel:($('#c2TelIn').value || '') }
+  ])) return;
+  closeModal('compEditModal', false);
+  toast(hasCompanion()
+    ? L('동행매니저님 번호를 저장했어요 🩺', 'Companion number saved 🩺')
+    : L('동행매니저 번호를 비웠어요', 'Companion number cleared'));
+}
+function copyText(str, okMsg){
+  var done = function(){ toast(okMsg); };
+  var fail = function(){ toast(L('복사가 안 되면 문자로 보내 주세요','If copying fails, send it by text')); };
+  var legacy = function(){
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = str; ta.style.position = 'fixed'; ta.style.left = '-9999px';
+      document.body.appendChild(ta); ta.select();
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      ok ? done() : fail();
+    } catch(e){ fail(); }
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(str).then(done, legacy);
+  } else legacy();
+}
+$('#compBtn').addEventListener('click', openComp);
+$('#compReg').addEventListener('click', openCompEdit);
+$('#compSave').addEventListener('click', saveComp);
+$('#memoCopy').addEventListener('click', function(){
+  copyText(memoText(), L('건강 메모를 복사했어요. 문자·카톡에 붙여넣기 하세요', 'Health note copied — paste it into a text or KakaoTalk'));
+});
+
+/* 음성 안내 — 소리 켜져 있을 때만 (기기 TTS, 외부 전송 없음) */
+var voiceOn = true;
+function speak(msg){
+  if(!S.sound || !voiceOn) return;
+  try{
+    if(!('speechSynthesis' in window) || typeof window.SpeechSynthesisUtterance !== 'function') return;
+    var u = new SpeechSynthesisUtterance(msg);
+    u.lang = EN() ? 'en-US' : 'ko-KR';
+    u.rate = 0.92; u.pitch = 1.0;
+    try{
+      var vs = window.speechSynthesis.getVoices() || [];
+      for(var i = 0; i < vs.length; i++){ if(/^ko/i.test(vs[i].lang) && !EN()){ u.voice = vs[i]; break; } }
+    }catch(e){}
+    try{ window.speechSynthesis.cancel(); }catch(e){}
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+
 function rollover(){
   var t = todayKey();
   if(S.water.date !== t){ S.water.date = t; S.water.count = 0; S.water.last = null; }
@@ -761,6 +1608,29 @@ function renderDose(){
   $$('#doseGrid .dose').forEach(function(b){
     b.addEventListener('click', function(){ toggleSlot(b.dataset.slot); });
   });
+  renderDoseMsg();
+}
+/* 오늘의 약 위 안내 문구 — 어르신께 정중하게 */
+function renderDoseMsg(){
+  var el = $('#doseMsg');
+  if(!el) return;
+  var done = SLOTS.filter(function(x){ return isDone(x.id); }).length;
+  var now = new Date(), nowMin = now.getHours() * 60 + now.getMinutes();
+  var due = SLOTS.filter(function(x){
+    var p = (S.slots[x.id].at || '08:00').split(':').map(Number);
+    return !isDone(x.id) && (p[0] * 60 + p[1]) <= nowMin;
+  });
+  var msg, cls;
+  if(done >= SLOTS.length){
+    msg = L('어르신, 오늘 약을 모두 드셨어요 ✅', 'You have taken all of today’s medicine ✅'); cls = 'done';
+  } else if(due.length){
+    msg = L('어르신, 약 드실 시간입니다.', 'It is time to take your medicine.'); cls = 'due';
+  } else {
+    msg = L('어르신, 오늘 드실 약이에요.', 'These are today’s medicines.'); cls = '';
+  }
+  el.textContent = msg;
+  el.className = 'dosemsg ' + cls;
+  el.hidden = false;
 }
 function toggleSlot(id){
   var st = S.slots[id];
@@ -851,6 +1721,11 @@ function apptInfo(m, c){
 }
 function dText(d){ return EN() ? MO.en[d.getMonth()] + ' ' + d.getDate() : (d.getMonth()+1) + '월 ' + d.getDate() + '일'; }
 function dFull(d){ return dText(d) + (EN() ? ' (' + WD.en[d.getDay()] + ')' : '(' + WD.ko[d.getDay()] + ')'); }
+/* 메모·문자용 — 해를 함께 적어 오해가 없게 */
+function dFullY(d){
+  if(EN()) return MO.en[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear() + ' (' + WD.en[d.getDay()] + ')';
+  return d.getFullYear() + '년 ' + (d.getMonth()+1) + '월 ' + d.getDate() + '일(' + WD.ko[d.getDay()] + ')';
+}
 function dBadge(left){
   if(left > 0) return 'D-' + left;
   if(left === 0) return 'D-DAY';
@@ -930,10 +1805,13 @@ function renderDdayAlert(){
     var c = x.c, a = x.a, nm = x.m.name || L('병원 약','Hospital med');
     var out = '';
     if(c.left <= 7){
-      var when = c.left < 0 ? L('이미 다 떨어졌어요', 'already run out')
-        : c.left === 0 ? L('오늘이 마지막 날', 'last day is today')
-        : L(c.left + '일 뒤 마지막', 'last day in ' + c.left + ' days');
-      out += '<div>' + esc(nm) + ' · <b>' + esc(when) + '</b> (' + esc(dText(c.last)) + ')</div>';
+      var chip = c.left < 0
+        ? L('이미 다 떨어졌어요 (D+' + (-c.left) + ')', 'already out (D+' + (-c.left) + ')')
+        : c.left === 0 ? L('오늘이 마지막 (D-DAY)', 'last day (D-DAY)')
+        : L('일주일 이내 (D-' + c.left + ')', 'within a week (D-' + c.left + ')');
+      out += '<div class="alline"><span class="alname">' + esc(nm) + '</span>'
+        + '<span class="alchip">' + esc(chip) + '</span></div>'
+        + '<div class="almeta">' + L('마지막 날 ', 'Last day ') + esc(dFull(c.last)) + '</div>';
     }
     if(a.left <= 7 || c.left <= 7){
       var apTxt = dFull(a.date) + (a.time ? ' ' + fmtTime(a.time) : '');
@@ -945,17 +1823,25 @@ function renderDdayAlert(){
     return out;
   }).join('');
   var head = runout
-    ? '⚠️ ' + L('약 떨어질 때가 됐어요! 병원 예약 챙기세요', 'Your meds are running out — book the hospital visit')
+    ? L('어르신, 약이 일주일치 남았습니다.', 'You have about a week of medicine left')
     : '📅 ' + L('병원 예약이 가까워요', 'Your hospital appointment is coming up');
+  var sub = runout ? '<div class="alsub">' + L('병원 예약을 챙겨 주세요.', 'Please book the hospital visit.') + '</div>' : '';
   box.innerHTML = '<div class="alertcard' + (urgent ? '' : ' warn') + '" role="status">'
     + '<div class="alhead">' + head + '</div>'
+    + sub
     + '<div class="albody">' + lines + '</div>'
+    + '<div class="albtns">'
     + '<button type="button" class="algo" id="alGo">' + L('약 목록 보기', 'See the med list') + '</button>'
+    + '<a class="alsms" id="alSms" href="#">💬 ' + L('보호자 문자', 'Guardian SMS') + '</a>'
+    + '<a class="alsms mgr" id="alMgr" href="#">💬 ' + L('매니저님께도 문자', 'Companion text') + '</a>'
+    + '</div>'
     + '</div>';
   box.hidden = false;
   $('#alGo').addEventListener('click', function(){
     $('#ddaySec').scrollIntoView({ behavior:'smooth', block:'start' });
   });
+  setSmsLink($('#alSms'), weekMsg());
+  setMgrLink($('#alMgr'), memoText(ddayLead()));
 }
 
 /* ── 7일 기록 ────────────────────────── */
@@ -982,12 +1868,25 @@ function renderWeek(){
   wrap.innerHTML = html;
   $('#weekLegend').innerHTML = L('<span><i></i>약 복용</span><span>💧 물 잔 수</span><span>– 기록 없음</span>',
     '<span><i></i>Meds taken</span><span>💧 Glasses</span><span>– No record</span>');
+  if($('#weekSms')) setSmsLink($('#weekSms'), todayMsg());
 }
 
 /* ── 설정 ────────────────────────────── */
 function renderSettings(){
   var body = $('#setBody');
-  body.innerHTML = SLOTS.map(function(x){
+  var gl = guardianList();
+  var gRows = '<div class="setrow">'
+    + '<div class="setlabel">👵 ' + L('보호자 번호','Guardian numbers') + '</div>'
+    + gl.map(function(g){
+        return '<div class="gset"><span class="gnum' + (g.d ? '' : ' none') + '">' + (g.i + 1) + '. '
+          + esc(g.name || L('보호자 ' + (g.i + 1), 'Guardian ' + (g.i + 1)))
+          + (g.d ? ' · ' + esc(g.tel) : ' · ' + L('번호 없음','no number')) + '</span></div>';
+      }).join('')
+    + '<div class="gset" style="margin-top:.36rem"><button type="button" id="gEdit">'
+    + (hasGuardian() ? L('✏️ 번호 변경','✏️ Edit numbers') : L('📝 보호자 번호 등록','📝 Add guardian numbers'))
+    + '</button></div>'
+    + '</div>';
+  body.innerHTML = gRows + SLOTS.map(function(x){
     var st = S.slots[x.id];
     return '<div class="setrow">'
       + '<div class="setlabel">' + x.emoji + ' ' + esc(slotTitle(x)) + '</div>'
@@ -1007,6 +1906,7 @@ function renderSettings(){
   + '<div class="noteline">' + L('앱을 닫아 두면 이 앱의 알림은 울리지 않아요. 폰 기본 알람·캘린더(또는 피클 톡 알림)도 함께 써 주세요.',
       'Reminders only sound while this screen is open. Please also use your phone’s alarm and calendar (or Pickle chat alerts).') + '</div>';
 
+  $('#gEdit').addEventListener('click', openGuardian);
   $$('#setBody input[data-at]').forEach(function(inp){
     inp.addEventListener('change', function(){
       var v = inp.value;
@@ -1033,7 +1933,7 @@ function renderSettings(){
     toast(S.sound ? L('알림 소리를 켰어요 🔔','Reminder sound on 🔔') : L('알림 소리를 껐어요','Reminder sound off'));
     if(S.sound) chime(1);
   });
-  $('#testSound').addEventListener('click', function(){ chime(1); });
+  $('#testSound').addEventListener('click', function(){ chime(1); speak(L('어르신, 약 드실 시간입니다.','It is time to take your medicine.')); });
 }
 
 /* ── 알림 소리 (Web Audio) ─────────────── */
@@ -1074,22 +1974,31 @@ function chime(times){
 
 /* ── 약 시간 배너 ─────────────────────── */
 var dueSlot = null;
+function paintDue(){
+  if(!dueSlot) return;
+  var x = SLOTS.filter(function(s){ return s.id === dueSlot; })[0];
+  if(!x) return;
+  var st = S.slots[dueSlot];
+  $('#dueEmoji').textContent = x.emoji;
+  /* 어르신께 정중한 말투 — 음성/소리 켜면 이 문장을 그대로 읽어 드림 */
+  $('#dueTitle').textContent = L('어르신, 약 드실 시간입니다.', 'It is time to take your medicine.');
+  var meta = [slotTitle(x) + ' · ' + fmtTime(st.at), st.name, st.memo].filter(Boolean).join(' · ');
+  $('#dueSub').innerHTML = esc(meta) + '<br>' + L('드셨으면 아래 버튼을 눌러 주세요.', 'Tap below once you have taken it.');
+  setSmsLink($('#dueSms'), todayMsg());
+}
 function showDue(id){
   var x = SLOTS.filter(function(s){ return s.id === id; })[0];
   if(!x) return;
-  var st = S.slots[id];
   var t = todayKey();
   S.seen[t + '|' + id] = 1; save();
   dueSlot = id;
-  $('#dueEmoji').textContent = x.emoji;
-  $('#dueTitle').textContent = EN()
-    ? ('Time for your ' + x.en.toLowerCase() + ' medicine (' + fmtTime(st.at) + ')')
-    : (slotTitle(x) + ' 시간이에요 (' + fmtTime(st.at) + ')');
-  var meta = [st.name, st.memo].filter(Boolean).join(' · ');
-  $('#dueSub').innerHTML = (meta ? esc(meta) + '<br>' : '') + L('드셨으면 아래 버튼을 눌러 주세요.', 'Tap below once you have taken it.');
+  paintDue();
   $('#dueBanner').hidden = false;
   navPushLayer('due', function(){ closeDue(true); });
-  if(S.sound) chime(2);
+  if(S.sound){
+    chime(2);
+    speak(L('어르신, 약 드실 시간입니다.', 'It is time to take your medicine.'));
+  }
 }
 function closeDue(fromBack){
   if($('#dueBanner').hidden) return;
@@ -1281,6 +2190,27 @@ document.addEventListener('keydown', function(e){
   else if(!$('#dueBanner').hidden) closeDue(false);
 });
 
+/* ── 🚨 위급 버튼 · 보호자 번호 ────────── */
+$('#sosBtn').addEventListener('click', function(){
+  paintSosRows(); updateGuardianUI(); updateMgrLinks();
+  openModal('sosModal');
+});
+$('#guardianAdd').addEventListener('click', openGuardian);
+$('#sosReg').addEventListener('click', openGuardian);
+$('#guardianSave').addEventListener('click', saveGuardian);
+/* 번호가 없을 때 문자 버튼을 누르면 등록 창으로 */
+document.addEventListener('click', function(e){
+  var t = e.target;
+  var a = t && t.closest ? t.closest('a[data-neednum="1"]') : null;
+  if(a){ e.preventDefault(); needNumber(); return; }
+  var m = t && t.closest ? t.closest('a[data-needmgr="1"]') : null;
+  if(m){
+    e.preventDefault();
+    toast(L('동행 매니저님 번호를 먼저 등록해 주세요 🩺', 'Please save the companion’s number first 🩺'));
+    openComp();
+  }
+});
+
 /* ── 안드로이드 뒤로가기 ──────────────── */
 var navLayers = [], navQuiet = 0, navBackBusy = false, navBackQueue = 0, navPopping = false;
 function navPushLayer(key, close){
@@ -1410,13 +2340,76 @@ function applyLang(){
   $('#chromeOpen').textContent = L('🌐 크롬으로 바로 열기','🌐 Open in Chrome');
   $('#installModal .mcancel:last-child').textContent = L('다음에 할게요','Maybe later');
   /* 배너 */
-  if(dueSlot){
-    var x = SLOTS.filter(function(s){ return s.id === dueSlot; })[0];
-    if(x) $('#dueTitle').textContent = EN() ? ('Time for your ' + x.en.toLowerCase() + ' medicine (' + fmtTime(S.slots[x.id].at) + ')')
-      : (slotTitle(x) + ' 시간이에요 (' + fmtTime(S.slots[x.id].at) + ')');
-  }
+  paintDue();
   $('#dueDone').textContent = L('✅ 먹었어요','✅ I took it');
   $('#dueLater').textContent = L('⏰ 조금 있다가 할게요','⏰ Later');
+  $('#dueSmsT').textContent = L('보호자 문자','Guardian SMS');
+  /* 위급 버튼 · 보호자 */
+  $('#sosTitle').textContent = L('위급 버튼','Emergency');
+  $('#sosSub').textContent = L('· 위급할 때 누르세요','· press when it is urgent');
+  $('#sosBtn').setAttribute('aria-label', L('위급 버튼 · 위급할 때 누르세요','Emergency button — press when it is urgent'));
+  $('#guardianHintText').innerHTML = L('<b>보호자 번호</b>를 한 번만 등록해 두세요.', 'Add your <b>guardian numbers</b> once.');
+  $('#guardianAdd').textContent = L('📝 등록','📝 Add');
+  $('#sosHead').textContent = L('🚨 위급 연락','🚨 Emergency contacts');
+  $('#sosHelp').textContent = L('숨이 차거나 쓰러질 것 같으면 119를 누르세요. 보호자에게 바로 전화하거나 비상 문자를 보낼 수 있어요.',
+    'If you cannot breathe or feel faint, press 119. You can call or text your guardians right away.');
+  $('#sos119T').textContent = L('119 긴급 전화','119 emergency call');
+  $('#sos119S').textContent = L('숨이 힘들거나 쓰러질 것 같을 때','When breathing is hard or you feel faint');
+  $('#sosBothT').textContent = L('보호자 1·2에게 함께 문자','Text both guardians at once');
+  $('#sosMgrSmsT').textContent = L('동행 매니저님께도 문자','Text the companion too');
+  $('#sosRegT').textContent = L('보호자 번호 등록 · 변경','Add or edit guardian numbers');
+  $('#sosCloseT').textContent = L('닫기','Close');
+  $('#guardianHead').textContent = L('👵 보호자 번호','👵 Guardian numbers');
+  $('#guardianHelp').textContent = L('보호자 두 분의 번호를 한 번만 적어 두면, 위급할 때 전화·문자를 바로 보낼 수 있어요. 번호는 이 휴대폰에만 저장돼요.',
+    'Save up to two guardian numbers once, then call or text them in an emergency. They stay on this phone.');
+  $('#g1Title').textContent = L('보호자 1','Guardian 1');
+  $('#g2Title').textContent = L('보호자 2','Guardian 2');
+  $('#gNameL1').textContent = L('이름 · 관계','Name · relation');
+  $('#gNameL2').textContent = L('이름 · 관계','Name · relation');
+  $('#gTelL1').textContent = L('휴대폰 번호','Mobile number');
+  $('#gTelL2').textContent = L('휴대폰 번호','Mobile number');
+  $('#g1NameIn').placeholder = L('예) 딸 서영','e.g. daughter Sue');
+  $('#g2NameIn').placeholder = L('예) 아들 철수','e.g. son Tom');
+  $('#guardianSave').textContent = L('저장','Save');
+  $('#guardianModal .mcancel').textContent = L('닫기','Close');
+  $('#weekSmsT').textContent = L('보호자 문자','Guardian SMS');
+  $('#weekSmsHint').textContent = L('오늘 약 복용을 보호자에게 문자로 알려 드려요.','Text your guardians how today’s medicine went.');
+  /* 🩺 병원동행매니저 */
+  $('#compTitle').textContent = L('병원동행매니저','Hospital companion');
+  $('#compBtn').setAttribute('aria-label', L('병원동행매니저 — 전화·알림 문자·예약 입력','Hospital companion — call, text, plan a visit'));
+  $('#compHead').textContent = L('🩺 병원동행매니저','🩺 Hospital companion');
+  $('#compHelp').textContent = L('번호를 한 번만 등록해 두면, 누르자마자 동행 매니저님께 바로 전화하거나 오늘 약·병원 일정·보호자 번호를 담은 알림 문자를 보낼 수 있어요. 번호는 이 휴대폰에만 저장돼요.',
+    'Save the number once — then one tap calls your companion or sends a text with today’s medicine, next hospital visit and guardian contacts. Numbers stay on this phone.');
+  $('#tripTitle').textContent = L('📅 동행 예약일 · 시간 · 장소','📅 Visit date, time & place');
+  $('#tripDateL').textContent = L('원하는 예약일','Preferred date');
+  $('#tripTimeL').textContent = L('만날 시간','Meeting time');
+  $('#tripPlaceL').textContent = L('만날 장소','Meeting place');
+  $('#tripPlace').placeholder = L('예) 어르신 댁 앞 / OO병원 1층 로비','e.g. In front of the house / Hospital lobby');
+  $('#memTitle').textContent = L('📋 알림 문자에 함께 실리는 내용','📋 What the message includes');
+  $('#memoCopyT').textContent = L('메모 복사','Copy note');
+  $('#memoSmsT').textContent = L('이 내용으로 문자','Text this');
+  $('#compRegT').textContent = L('번호 등록 · 변경','Add or edit numbers');
+  $('#orgTitle').textContent = L('🏛 공공 안내 — 지역 병원동행 알아보기','🏛 Public services — find a local escort');
+  $('#orgNote').textContent = L('이 앱은 어떤 업체와도 제휴하지 않았어요. 아래는 공공 안내와 검색 링크일 뿐이고, 지역 매니저님은 직접 알아보신 뒤 번호를 저장해 두세요.',
+    'This app has no partnership with any company. These are public services and a search link only — find a local companion yourself and save the number.');
+  $('#compCloseT').textContent = L('닫기','Close');
+  $('#compEditHead').textContent = L('🩺 동행매니저 번호','🩺 Companion numbers');
+  $('#compEditHelp').textContent = L('이름과 번호를 적어 두면 전화·문자를 한 번에 보낼 수 있어요. 두 분까지 저장할 수 있어요.',
+    'Save up to two companions, then call or text them in one tap.');
+  $('#c1Title').textContent = L('동행매니저 1','Companion 1');
+  $('#c2Title').textContent = L('동행매니저 2','Companion 2');
+  $('#cNameL1').textContent = L('이름','Name');
+  $('#cNameL2').textContent = L('이름','Name');
+  $('#cTelL1').textContent = L('휴대폰 번호','Mobile number');
+  $('#cTelL2').textContent = L('휴대폰 번호','Mobile number');
+  $('#c1NameIn').placeholder = L('예) 김OO 동행매니저님','e.g. Ms. Kim, companion');
+  $('#c2NameIn').placeholder = L('예) 이OO 동행매니저님','e.g. Mr. Lee, companion');
+  $('#compSave').textContent = L('저장','Save');
+  $('#compEditModal .mcancel').textContent = L('닫기','Close');
+  /* 보호자 줄·문자 링크·오늘 안내 다시 그리기 */
+  updateCompUI();
+  renderDoseMsg();
+  updateGuardianUI();
   applyBig();
 }
 $('#langBtn').addEventListener('click', function(){
@@ -1428,8 +2421,8 @@ $('#langBtn').addEventListener('click', function(){
 /* ── 공유 ───────────────────────────── */
 var SHARE_BASE = 'https://starpicklife-design.github.io/care/';
 function shareText(){
-  return L('💊 와글 효도 약통 — 어르신 약·물·생활 챙김표\n아침·점심·저녁·자기 전 약을 큰 버튼으로 톡 누르면 시각이 기록되고, 물 잔 수·산책·혈압도 함께 챙겨요.\n병원 약은 100일분처럼 적어 두면 다음 병원 갈 날을 미리 알려 드려요. 설치·회원가입 없이 링크만 누르면 열려요 😊',
-    '💊 Wagul Care — a meds, water & daily care chart for seniors\nTap a big button for morning, noon, evening and bedtime meds and the time is recorded. Water, walks and blood pressure too.\nEnter 100 days of hospital meds and we will remind you before the next visit. No install or sign-up needed 😊');
+  return L('💊 와글 효도 약통 — 어르신 약·물·생활 챙김표\n아침·점심·저녁·자기 전 약을 큰 버튼으로 톡 누르면 시각이 기록되고, 물 잔 수·산책·혈압도 함께 챙겨요.\n병원 약은 100일분처럼 적어 두면 다음 병원 갈 날을 미리 알려 드리고, 약이 일주일치 남으면 보호자에게 문자 한 번으로 알려요.\n🚨 위급할 때 누르면 보호자 전화·문자와 119가 바로 나와요. 설치·회원가입 없이 링크만 누르면 열려요 😊',
+    '💊 Wagul Care — a meds, water & daily care chart for seniors\nTap a big button for morning, noon, evening and bedtime meds and the time is recorded. Water, walks and blood pressure too.\nEnter 100 days of hospital meds and we will remind you before the next visit — and text a guardian in one tap when a week is left.\n🚨 The emergency button offers a guardian call, an SOS text and 119. No install or sign-up needed 😊');
 }
 function shareApp(){
   var payload = { title: L('와글 효도 약통','Wagul Care'), text: shareText(), url: SHARE_BASE + (EN() ? '?lang=en' : '') };
@@ -1547,6 +2540,8 @@ function renderAll(){
   renderMeds();
   renderWeek();
   renderSettings();
+  updateGuardianUI();
+  updateCompUI();
   syncInstallBtn();
   applyChromeOpen();
 }
