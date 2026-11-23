@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#1E4A36" />
-<!-- build: 2026-11-23 와글가족장바구니 v18 · '➕ 냉장고에 넣기' 위에 🥬 식재료 | 🍲 반찬류 | 🧂 소스 탭 추가(반찬류 18종: 배추김치·무김치·열무김치·파김치·멸치볶음·진미채·어묵볶음·계란말이·장조림·두부조림·콩나물무침·시금치나물·무생채·감자채볶음·깻잎장아찌·젓갈/명란·피클/단무지·미역줄기 · 소스·치즈 18종: 고추장·된장·간장·쌈장·참기름·들기름·케첩·마요네즈·머스타드·돈까스소스·굴소스·참치액·식초·올리고당·칠리/스리라차·슬라이스치즈·모짜렐라치즈·크림치즈 · 둘 다 3열 빈 칸 없음) → 탭을 누르면 그 버튼 판만 바뀌고 누르면 기존과 똑같이 냉장고에 바로 담김 · 한국어/영어·큰 글씨 겹침·잘림 없음 · 캐시 v18 -->
+<!-- build: 2026-11-24 와글가족장바구니 v19 · 칸마다 바탕·머리말·카드 색을 다르게 — 냉장고(민트) · 냉동실(얼음 하늘) · 야채·과일(새잎 연두) · 김치냉장고(살구) · 실온보관바구니(버터). 칸을 넘기면 색이 부드럽게 바뀌어 글자를 읽지 않아도 어느 칸인지 바로 보임 · 품목 카드 왼쪽에 그 칸 색 띠 · 폰 상태바 색도 칸에 맞춰 바뀜 · 흰 글씨 대비 7:1 이상 유지 · 캐시 v19 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -23,6 +23,42 @@
   --rose:#FFD9D4; --rose-line:#C4564A; --rose-ink:#8A2E22;
   --teal:#CFEDEA; --teal-line:#2E8A82; --teal-ink:#14524C;
 }
+/* ══ v19: 칸마다 바탕·머리말·카드 색을 달리해, 글자를 읽지 않아도 지금 어느 칸인지 바로 알아채게 ══
+   · 홈(우리 집)은 지금까지의 크림색 그대로 — 칸 화면에서만 body[data-sp]가 붙어 색이 바뀝니다
+   · 색은 모두 아주 옅게(파스텔) — 글씨·버튼 대비는 그대로 높게 유지 */
+:root{
+  --sp-tint:#F6FAF4;   /* 칸 바탕(기본 = 홈과 같은 크림) */
+  --sp-soft:#F1F9F3;   /* 칩·버튼의 옅은 바탕 */
+  --sp-soft2:#E3F2E7;  /* 눌렀을 때 */
+  --sp-fill:#DCEFDF;   /* '품목 추가' 같은 또렷한 바탕 */
+  --sp-line:#CFE0CC;   /* 옅은 테두리 */
+  --sp-line2:#A9C3B0;  /* 조금 진한 테두리 */
+  --sp-text:#1F4C2D;   /* 옅은 바탕 위 글씨 */
+  --sp-accent:#9DCFAE; /* 품목 카드 왼쪽 띠 */
+}
+body{transition:background-color .28s ease}
+@media (prefers-reduced-motion:reduce){body{transition:none}}
+body[data-sp]{background:var(--sp-tint)}
+/* ❄️ 냉장고 — 민트 */
+body[data-sp="cold"]{--sp-tint:#EAF7EF;--sp-soft:#F1F9F3;--sp-soft2:#E2F2E7;--sp-fill:#DCEFDF;
+  --sp-line:#CFE0CC;--sp-line2:#A9C3B0;--sp-text:#1F4C2D;--sp-accent:#9DCFAE;
+  --green:#1E4A36;--green2:#2F6B4F;--line:#D8E7D3}
+/* 🧊 냉동실 — 얼음빛 하늘색 */
+body[data-sp="freeze"]{--sp-tint:#EAF5FF;--sp-soft:#EFF7FE;--sp-soft2:#DBEBFA;--sp-fill:#D6E9F9;
+  --sp-line:#C6DDF0;--sp-line2:#9BC2E0;--sp-text:#173E5C;--sp-accent:#8CC0E6;
+  --green:#163E5C;--green2:#1F5A88;--line:#CBE0F2}
+/* 🥬 야채·과일 — 새잎 연두 */
+body[data-sp="veg"]{--sp-tint:#F3F9DF;--sp-soft:#F6FAE9;--sp-soft2:#E7F2CC;--sp-fill:#E3EFC2;
+  --sp-line:#DBE8BC;--sp-line2:#B7CE8C;--sp-text:#33481A;--sp-accent:#B7D48A;
+  --green:#2E4A18;--green2:#4A6B1E;--line:#DCE9BF}
+/* 🌶️ 김치냉장고 — 살구빛 */
+body[data-sp="kimchi"]{--sp-tint:#FFF1E7;--sp-soft:#FFF5EE;--sp-soft2:#FBE4D5;--sp-fill:#F9DDCB;
+  --sp-line:#F2D3BE;--sp-line2:#E0AD8F;--sp-text:#6B2E12;--sp-accent:#EFB69B;
+  --green:#7A3418;--green2:#9C471F;--line:#F3D6C2}
+/* 🧺 실온보관바구니 — 버터빛 */
+body[data-sp="cart"]{--sp-tint:#FFFBE6;--sp-soft:#FFFBEA;--sp-soft2:#FBF0C8;--sp-fill:#F8EBB8;
+  --sp-line:#EFE0AE;--sp-line2:#DCC27C;--sp-text:#5E3E0C;--sp-accent:#EBD48C;
+  --green:#6A4712;--green2:#8A6116;--line:#EFE2B4}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 .svgdefs{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
 /* ── 와글가족 미니 캐릭터 (화면 높이를 키우지 않고 곁에 인사) ───────── */
@@ -140,13 +176,13 @@ html.big .spbarBottom>button{font-size:.66rem;padding:.1rem .12rem;min-height:2.
 .spname{flex:0 1 auto;min-width:0;font-size:1.02rem;font-weight:900;color:var(--green);
   line-height:1.22;overflow-wrap:anywhere;word-break:keep-all;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 html.big .spname{font-size:1rem}
-.count{font-weight:900;font-size:.82rem;color:#3C6B4C;white-space:nowrap;flex:0 0 auto;letter-spacing:-.02em}
+.count{font-weight:900;font-size:.82rem;color:var(--sp-text);white-space:nowrap;flex:0 0 auto;letter-spacing:-.02em}
 .spacetools{display:flex;align-items:center;gap:.28rem;flex:0 0 auto;margin-left:0;flex-wrap:wrap}
 .addjump{display:flex;align-items:center;justify-content:center;gap:.18rem;flex:0 0 auto;white-space:nowrap;
-  background:#D9EBDD;border:2px solid #3F8155;color:#1F4C2D;border-radius:.9rem;
+  background:var(--sp-fill);border:2px solid var(--sp-line2);color:var(--sp-text);border-radius:.9rem;
   padding:.16rem .42rem;font-size:.76rem;font-weight:900;letter-spacing:-.01em;min-height:2.05rem;
   border-radius:.72rem;box-shadow:0 1px 4px rgba(46,110,70,.14);line-height:1.15}
-.addjump:active{transform:translateY(1px);background:#C7E2CE}
+.addjump:active{transform:translateY(1px);background:var(--sp-soft2)}
 .clearall{display:flex;align-items:center;justify-content:center;gap:.18rem;flex:0 0 auto;white-space:nowrap;
   background:#FFE0D8;border:2px solid #C4564A;color:#8A2E22;border-radius:.9rem;
   padding:.16rem .4rem;font-size:.76rem;font-weight:900;letter-spacing:-.01em;min-height:2.05rem;
@@ -276,8 +312,8 @@ html.big .ovchip>b{font-size:.62rem}
 /* ⬆️ 맨 위로 — 아래로 내려가 있으면 홈·칸 화면 모두 오른쪽 아래에 떠고, 한 번 누르면 맨 위로 */
 .totop{position:fixed;right:.6rem;bottom:calc(.85rem + env(safe-area-inset-bottom));z-index:70;
   display:flex;align-items:center;justify-content:center;gap:.2rem;min-height:2.7rem;
-  padding:.28rem .7rem;border-radius:2rem;border:2px solid #1F4C2D;
-  background:linear-gradient(180deg,#3F8155,#2F6B4F);color:#F2FAF3;
+  padding:.28rem .7rem;border-radius:2rem;border:2px solid var(--green);
+  background:linear-gradient(180deg,var(--green2),var(--green));color:#F2FAF3;
   font-size:.86rem;font-weight:900;letter-spacing:-.01em;white-space:nowrap;
   box-shadow:0 4px 14px rgba(12,35,22,.32);opacity:0;transform:translateY(.9rem);
   pointer-events:none;transition:opacity .18s ease,transform .18s ease}
@@ -299,17 +335,22 @@ html.big .selinline{font-size:.68rem;min-height:2rem;padding:.1rem .34rem}
 
 /* 목록 */
 /* 안내 상자: 큰 글씨 모드에서도 작게(11~12px) — 자주 쓰는 기능이라 설명은 짧고 납작하게, 품목 카드가 위로 올라오게 */
-.hintline{font-size:11.5px;font-weight:700;color:#6B7A6E;background:#F2F8F0;border:2px dashed #CFE0CC;
+.hintline{font-size:11.5px;font-weight:700;color:#5E6C62;background:var(--sp-soft);border:2px dashed var(--sp-line);
   border-radius:.55rem;padding:4px 7px;margin-bottom:.3rem;line-height:1.35;letter-spacing:-.01em}
 html.big .hintline{font-size:12px;padding:4px 7px;line-height:1.35}
 .list{display:flex;flex-direction:column;gap:.32rem;margin-bottom:.6rem}
 /* 카드 한 줄 안 즉시 조작: 이름·날짜(왼쪽) + − 수량 + · 다 먹음(오른쪽) */
-.item{display:flex;flex-wrap:wrap;align-items:center;gap:.2rem .26rem;
-  background:var(--card);border:2px solid var(--line);border-radius:.8rem;padding:.26rem .4rem;
+/* v19: 카드 왼쪽에 그 칸의 색 띠 — 목록만 봐도 어느 칸인지 바로 보임
+   (띠는 왼쪽 여백 안에 그려서 글자 폭을 줄이지 않아요) */
+.item{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:.2rem .26rem;
+  background:var(--card);border:2px solid var(--line);
+  border-radius:.8rem;padding:.26rem .4rem .26rem .46rem;
   box-shadow:var(--shadow);width:100%;text-align:left;font-family:inherit}
+.item::before{content:"";position:absolute;left:0;top:0;bottom:0;width:.34rem;
+  background:var(--sp-accent);border-radius:.7rem 0 0 .7rem;pointer-events:none}
 .item.done{background:#FBFDFB}
 .item.dim:not(.done){opacity:.42}
-.chk{width:2.5rem;height:2.5rem;border-radius:.7rem;border:2.5px solid #A9C3B0;background:#fff;
+.chk{width:2.5rem;height:2.5rem;border-radius:.7rem;border:2.5px solid var(--sp-line2);background:#fff;
   font-size:1.25rem;font-weight:900;color:transparent;line-height:1;display:flex;align-items:center;
   justify-content:center;padding:0;flex:0 0 auto}
 .chk:active{transform:scale(.96)}
@@ -326,11 +367,11 @@ html.big .hintline{font-size:12px;padding:4px 7px;line-height:1.35}
 .star:active{transform:scale(.94)}
 .itemctl{display:flex;align-items:center;justify-content:flex-end;gap:.18rem .14rem;
   flex:0 0 auto;margin-left:auto;flex-wrap:wrap;max-width:100%}
-.step{width:2.1rem;height:2.2rem;border-radius:.6rem;border:2px solid #A9C3B0;background:#F1F9F3;
-  color:#1F4C2D;font-size:1.15rem;font-weight:900;line-height:1;display:flex;align-items:center;
+.step{width:2.1rem;height:2.2rem;border-radius:.6rem;border:2px solid var(--sp-line2);background:var(--sp-soft);
+  color:var(--sp-text);font-size:1.15rem;font-weight:900;line-height:1;display:flex;align-items:center;
   justify-content:center;padding:0;flex:0 0 auto;touch-action:manipulation}
-.step:active{background:#DDEEDF;transform:translateY(1px)}
-.stepnum{min-width:1.4rem;text-align:center;font-size:.95rem;font-weight:900;color:#1F4C2D;
+.step:active{background:var(--sp-soft2);transform:translateY(1px)}
+.stepnum{min-width:1.4rem;text-align:center;font-size:.95rem;font-weight:900;color:var(--sp-text);
   line-height:1;font-variant-numeric:tabular-nums;flex:0 0 auto}
 .eatpill{display:flex;align-items:center;gap:.14rem;min-height:2.2rem;padding:.06rem .38rem;
   border-radius:.6rem;font-size:.72rem;font-weight:900;line-height:1.1;white-space:nowrap;flex:0 0 auto;
@@ -348,7 +389,7 @@ html.big .step.moveic{font-size:.9rem}
 html.big .chk{width:2.6rem;height:2.6rem}
 html.big .imemo{font-size:.6rem;line-height:1.15}
 html.big .iname{font-size:.9rem;line-height:1.15}
-html.big .item{padding:.2rem .34rem;border-radius:.7rem;gap:.14rem .2rem}
+html.big .item{padding:.2rem .34rem .2rem .4rem;border-radius:.7rem;gap:.14rem .2rem}
 html.big .itemctl{gap:.12rem .1rem}
 html.big .list{gap:.26rem}
 .item.flash{animation:itemflash 1.3s ease-out}
@@ -368,6 +409,7 @@ html.big .list{gap:.26rem}
 .list.selmode .item{cursor:pointer}
 .list.selmode .itemctl{display:none}
 .item.sel{border-color:#C4564A;background:#FFF5F3;box-shadow:0 3px 10px rgba(196,86,74,.18)}
+.item.sel::before{background:#C4564A}
 .cbox{width:1.9rem;height:1.9rem;border-radius:.55rem;border:2.5px solid #C8B29A;background:#fff;
   display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:900;line-height:1;
   color:transparent;flex:0 0 auto;margin-left:.4rem}
@@ -401,18 +443,18 @@ html.big .recbtn.recmini{font-size:.72rem;padding:.12rem .42rem;min-height:2.05r
 .reclist{display:flex;flex-direction:column;gap:.26rem;max-height:48vh;overflow:auto;margin:.1rem 0 .2rem;padding-right:.1rem}
 .recrow{display:flex;align-items:center;gap:.34rem;border:2px solid var(--line);border-radius:.7rem;
   padding:.24rem .4rem;background:#fff;flex-wrap:wrap}
-.recrow .rchk{width:1.6rem;height:1.6rem;flex:0 0 auto;accent-color:#2F6B4F}
+.recrow .rchk{width:1.6rem;height:1.6rem;flex:0 0 auto;accent-color:var(--green2)}
 .recrow .rname{flex:1 1 5rem;min-width:0;border:none;background:none;font-size:.98rem;font-weight:800;
   color:var(--ink);padding:.15rem 0;line-height:1.2;font-family:inherit}
-.recrow .rqty{flex:0 0 auto;font-size:.82rem;font-weight:900;color:#2F6B4F}
-.recrow .rspace{flex:0 0 auto;border-radius:.6rem;border:2px solid #BFD9C6;background:#F3FAF4;
-  color:#234C33;font-size:.74rem;font-weight:900;line-height:1.1;padding:.32rem .45rem;white-space:nowrap}
-.recrow .rspace:active{background:#E4F3E7;transform:translateY(1px)}
+.recrow .rqty{flex:0 0 auto;font-size:.82rem;font-weight:900;color:var(--green2)}
+.recrow .rspace{flex:0 0 auto;border-radius:.6rem;border:2px solid var(--sp-line);background:var(--sp-soft);
+  color:var(--sp-text);font-size:.74rem;font-weight:900;line-height:1.1;padding:.32rem .45rem;white-space:nowrap}
+.recrow .rspace:active{background:var(--sp-soft2);transform:translateY(1px)}
 .recrow.off{opacity:.5}
 .card{background:#fff;border:2px solid var(--line);border-radius:.9rem;padding:.58rem .62rem;
   margin-bottom:.55rem;box-shadow:var(--shadow)}
 .card h2{margin:0 0 .34rem;font-size:.98rem;font-weight:900;color:var(--green)}
-.quickhead{font-size:.66rem;font-weight:900;color:#41684E;background:#EEF6EF;border:1.5px solid #CFE0CC;
+.quickhead{font-size:.66rem;font-weight:900;color:var(--sp-text);background:var(--sp-soft);border:1.5px solid var(--sp-line);
   border-radius:.5rem;padding:.1rem .34rem;margin:0;white-space:nowrap;flex:0 0 auto;letter-spacing:-.02em}
 .addhead{display:flex;align-items:center;gap:.3rem;margin:0 0 .34rem;flex-wrap:nowrap}
 .addhead h2{margin:0;flex:1 1 auto;min-width:0}
@@ -420,21 +462,21 @@ html.big .quickhead{font-size:.62rem;padding:.08rem .28rem}
 /* 🥬 식재료 · 🍲 반찬류 · 🧂 소스 탭 — 세 칸을 꽉 채워 한 줄에 (큰 글씨에서도 한 줄) */
 .addtabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.22rem;margin:0 0 .4rem}
 .addtab{display:flex;align-items:center;justify-content:center;gap:.16rem;min-width:0;min-height:2.2rem;
-  padding:.14rem .08rem;border-radius:.6rem;border:2px solid #CFE0CC;background:#F7FBF6;color:#234C33;
+  padding:.14rem .08rem;border-radius:.6rem;border:2px solid var(--sp-line);background:var(--sp-soft);color:var(--sp-text);
   font-size:.78rem;font-weight:900;line-height:1.1;letter-spacing:-.03em;white-space:nowrap;
   overflow:hidden;text-overflow:ellipsis}
-.addtab[aria-pressed="true"]{background:#2F6B4F;border-color:#2F6B4F;color:#F2FAF3}
+.addtab[aria-pressed="true"]{background:var(--green2);border-color:var(--green2);color:#F2FAF3}
 .addtab:active{transform:translateY(1px)}
 html.big .addtab{font-size:.68rem;min-height:2.5rem;padding:.12rem .04rem;gap:.1rem}
 /* 빠른 품목 버튼 — 한눈에 들어오게 작고 가지런한 칩 형태(4열 · 반찬류/소스는 3열) */
 .quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.22rem;margin-bottom:.45rem}
 .quick.three{grid-template-columns:repeat(3,minmax(0,1fr))}
 .qbtn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.04rem;
-  background:#F3FAF4;border:2px solid #BFD9C6;border-radius:.56rem;padding:.14rem .06rem;min-height:2.45rem;
-  font-size:.71rem;font-weight:900;color:#234C33;line-height:1.08;overflow-wrap:anywhere;letter-spacing:-.02em}
+  background:var(--sp-soft);border:2px solid var(--sp-line);border-radius:.56rem;padding:.14rem .06rem;min-height:2.45rem;
+  font-size:.71rem;font-weight:900;color:var(--sp-text);line-height:1.08;overflow-wrap:anywhere;letter-spacing:-.02em}
 .qbtn .qe{font-size:.98rem;line-height:1}
 .qbtn .qe svg{display:block;width:1.3rem;height:1.3rem;margin:-.1rem 0}
-.qbtn:active{transform:translateY(1px);background:#E4F3E7}
+.qbtn:active{transform:translateY(1px);background:var(--sp-soft2)}
 html.big .quick{grid-template-columns:repeat(3,minmax(0,1fr));gap:.24rem}
 html.big .qbtn{font-size:.72rem;min-height:2.55rem}
 html.big .qbtn .qe{font-size:1.1rem}
@@ -445,15 +487,15 @@ html.big .qbtn .qe svg{width:1.26rem;height:1.26rem}
 .memorow .mcell{flex:1 1 0;min-width:0}
 .volrow{display:flex;gap:.24rem;margin-top:.24rem;flex-wrap:nowrap}
 .volbtn{flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:center;
-  min-height:2.3rem;padding:.14rem .18rem;border-radius:.6rem;border:2px solid #CFE0CC;background:#F7FBF6;
-  color:#234C33;font-size:.82rem;font-weight:900;line-height:1.1;white-space:nowrap;letter-spacing:-.02em}
-.volbtn:active{transform:translateY(1px);background:#E6F3E8}
+  min-height:2.3rem;padding:.14rem .18rem;border-radius:.6rem;border:2px solid var(--sp-line);background:var(--sp-soft);
+  color:var(--sp-text);font-size:.82rem;font-weight:900;line-height:1.1;white-space:nowrap;letter-spacing:-.02em}
+.volbtn:active{transform:translateY(1px);background:var(--sp-soft2)}
 .volbtn[aria-pressed="true"]{background:#FFE8C6;border-color:#C98A2E;color:#7A4A10;
   box-shadow:0 2px 6px rgba(201,138,46,.22)}
 html.big .volbtn{font-size:.76rem}
 .fl{display:block;font-size:.76rem;font-weight:900;color:var(--ink2);margin:0 0 .18rem}
 .input{width:100%;border:2px solid var(--line);border-radius:.7rem;padding:.44rem .58rem;
-  min-height:2.5rem;background:#FDFEFA}
+  min-height:2.5rem;background:#fff}
 .input:focus{outline:3px solid #A9D3B4;outline-offset:1px}
 .btn{border:2px solid var(--line);background:#fff;border-radius:.8rem;padding:.44rem .7rem;
   font-size:.96rem;font-weight:900;min-height:2.6rem;color:var(--ink)}
@@ -470,7 +512,7 @@ details.bulk summary::-webkit-details-marker{display:none}
 details.bulk summary::before{content:"▸";font-size:.8rem;color:#7FA18B}
 details.bulk[open] summary::before{content:"▾"}
 #bulkText{width:100%;border:2px solid var(--line);border-radius:.7rem;padding:.45rem .55rem;
-  min-height:5.5rem;background:#FDFEFA;resize:vertical;line-height:1.45;margin:.3rem 0 .35rem}
+  min-height:5.5rem;background:#fff;resize:vertical;line-height:1.45;margin:.3rem 0 .35rem}
 .hint{font-size:.78rem;font-weight:700;color:#7C8B80;line-height:1.4;margin:.35rem 0 0}
 
 /* 모달 */
@@ -486,7 +528,7 @@ details.bulk[open] summary::before{content:"▾"}
 .icons{display:flex;flex-wrap:wrap;gap:.28rem;margin:.05rem 0 .5rem}
 .ic{width:2.6rem;height:2.6rem;border-radius:.7rem;border:2px solid var(--line);background:#fff;
   font-size:1.25rem;line-height:1;display:flex;align-items:center;justify-content:center;padding:0}
-.ic[aria-pressed="true"]{border-color:var(--green2);background:#E7F3E9;box-shadow:inset 0 0 0 2px #A9D3B4}
+.ic[aria-pressed="true"]{border-color:var(--green2);background:var(--sp-soft);box-shadow:inset 0 0 0 2px var(--sp-line2)}
 .favtoggle{display:flex;align-items:center;justify-content:center;gap:.3rem;width:100%;min-height:2.55rem;
   border-radius:.7rem;border:2px solid var(--line);background:#fff;font-size:.86rem;font-weight:900;
   color:#8B7A6B;margin-top:.1rem}
@@ -501,18 +543,18 @@ details.bulk[open] summary::before{content:"▾"}
 .qtyunit{font-size:.82rem;font-weight:800;color:var(--ink2)}
 .datefield{display:flex;align-items:center;gap:.45rem}
 .datefield .input{flex:1 1 auto;min-width:0}
-.datetoday{flex:0 0 auto;font-size:.72rem;font-weight:900;border:2px solid #9CC9A8;background:#F1F9F3;
-  color:#1F4C2D;border-radius:.7rem;min-height:2.5rem;padding:0 .5rem}
+.datetoday{flex:0 0 auto;font-size:.72rem;font-weight:900;border:2px solid var(--sp-line2);background:var(--sp-soft);
+  color:var(--sp-text);border-radius:.7rem;min-height:2.5rem;padding:0 .5rem}
 
 /* 냉장고로 넣기 */
-.movebox{border:2px dashed #BFD9C6;border-radius:.8rem;padding:.45rem;margin:.45rem 0 .1rem;background:#F6FBF5}
-.movehead{font-size:.78rem;font-weight:900;color:#2F6B4F;margin:0 0 .28rem}
+.movebox{border:2px dashed var(--sp-line);border-radius:.8rem;padding:.45rem;margin:.45rem 0 .1rem;background:var(--sp-soft)}
+.movehead{font-size:.78rem;font-weight:900;color:var(--green2);margin:0 0 .28rem}
 .movegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.28rem}
 .movebtn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.18rem;
-  border:2px solid #9CC9A8;border-radius:.7rem;background:#fff;padding:.32rem .18rem;
-  font-size:.72rem;font-weight:900;color:#1F4C2D;line-height:1.14;min-height:2.95rem;overflow-wrap:anywhere}
+  border:2px solid var(--sp-line2);border-radius:.7rem;background:#fff;padding:.32rem .18rem;
+  font-size:.72rem;font-weight:900;color:var(--sp-text);line-height:1.14;min-height:2.95rem;overflow-wrap:anywhere}
 .movebtn .me{font-size:1.15rem;line-height:1}
-.movebtn:active{transform:translateY(1px);background:#E8F5E9}
+.movebtn:active{transform:translateY(1px);background:var(--sp-soft2)}
 .movebtn .mcount{font-size:.68rem;font-weight:800;color:#6B7A6E}
 
 /* 전체 내역 */
@@ -570,18 +612,18 @@ details.bulk[open] summary::before{content:"▾"}
 
 /* 🍳 품목을 담으면 '만들 수 있는 요리'를 큼직하게 잠깐 (4초 뒤 저절로 사라짐 · 탭하면 바로 닫힘) */
 .dishpop{position:fixed;left:.5rem;right:.5rem;bottom:calc(1rem + env(safe-area-inset-bottom));z-index:101;
-  max-width:32rem;margin:0 auto;background:#FFFCF2;border:3px solid #2F6B4F;border-radius:1.05rem;
+  max-width:32rem;margin:0 auto;background:#FFFCF2;border:3px solid var(--green2);border-radius:1.05rem;
   padding:.6rem .7rem .66rem;box-shadow:0 12px 34px rgba(12,35,22,.34);text-align:center;
   opacity:0;transform:translateY(1.1rem);transition:opacity .18s ease,transform .18s ease;pointer-events:none}
 .dishpop.on{opacity:1;transform:translateY(0)}
 /* 안내 칸은 화면 아래에 떠 있어도 손가락을 막지 않게 그대로 통과시키고, ✕만 눌린다 */
 .dpclose{position:absolute;top:.26rem;right:.3rem;width:1.7rem;height:1.7rem;border-radius:.55rem;
-  border:2px solid #CFE0CC;background:#F3FAF4;color:#4B5F52;font-size:.72rem;font-weight:900;
+  border:2px solid var(--sp-line);background:var(--sp-soft);color:#4B5F52;font-size:.72rem;font-weight:900;
   display:flex;align-items:center;justify-content:center;padding:0;pointer-events:auto;line-height:1}
-.dpclose:active{background:#E4F3E7}
-.dphead{margin:0 0 .24rem;font-size:1.02rem;font-weight:900;color:#1E4A36;line-height:1.22;word-break:keep-all}
+.dpclose:active{background:var(--sp-soft2)}
+.dphead{margin:0 0 .24rem;font-size:1.02rem;font-weight:900;color:var(--green);line-height:1.22;word-break:keep-all}
 html.big .dphead{font-size:1rem}
-.dpdishes{margin:0;font-size:.9rem;font-weight:900;color:#234C33;line-height:1.32;word-break:keep-all}
+.dpdishes{margin:0;font-size:.9rem;font-weight:900;color:var(--sp-text);line-height:1.32;word-break:keep-all}
 .dpdishes .dlab{color:#8A6A38}
 html.big .dpdishes{font-size:.86rem}
 </style>
@@ -1392,10 +1434,26 @@ function renderKitchen(){
   }
 }
 
+/* ══════ 🎨 칸마다 다른 바탕·머리말 색 (v19) — 글자를 읽지 않아도 어느 칸인지 바로 알아채게 ══════
+   칸 화면에서는 <body data-sp="칸id">가 붙어 CSS 팔레트가 바뀌고, 홈으로 돌아오면 떨어집니다.
+   폰 윗줄(상태바) 색도 그 칸의 진한 색으로 맞춰 줍니다. */
+const SPACE_DEEP={'cold':'#1E4A36','freeze':'#163E5C','veg':'#2E4A18','kimchi':'#7A3418','cart':'#6A4712'};
+function applySpaceTheme(id){
+  const key=String(id||'');
+  const deep=SPACE_DEEP[key] || '';
+  try{
+    if(deep) document.body.setAttribute('data-sp', key);
+    else document.body.removeAttribute('data-sp');
+  }catch(e){}
+  const meta=document.querySelector('meta[name="theme-color"]');
+  if(meta) meta.setAttribute('content', deep || '#1E4A36');
+}
+
 function renderHome(){
   $('#homeView').hidden=false;
   $('#spaceView').hidden=true;
   $('#homeBtn').hidden=true;
+  applySpaceTheme(null);
   renderKitchen();
   renderToday();
 }
@@ -1453,6 +1511,7 @@ function renderSpaceView(){
   $('#spaceView').hidden=false;
   $('#homeBtn').hidden=false;
   const sp=space(); if(!sp) return;
+  applySpaceTheme(sp.id);
   const isCart=sp.kind==='cart';
   const n=sp.items.length;
   $('#spName').textContent=(sp.icon||'')+' '+dnSpace(sp.name);
