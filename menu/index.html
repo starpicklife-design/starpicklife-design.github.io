@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#3E2C22" />
-<!-- build: 2026-11-23 wagle-table v26 · ☕ 카페 메인 화면(테이블에 모인 와글가족·클로벨 일러스트 + 🏪 카페 추가·🛒 주문·🎲 이벤트 + 내 카페 칩) · 📤 공유·🔔 소리·📲 설치를 그림 위에서 빼내 제목 줄 오른쪽으로(얼굴 안 가리게) · v25 소리·뒤로가기·3화면 그대로 -->
+<!-- build: 2026-11-23 wagle-table v27 · 카페 메인 상단 = ☕ 와글가족 카페! 인사말 한 줄 + 📤 공유·🔔 소리·📲 설치 세 알약이 같은 줄 오른쪽(기본·큰 글씨·EN·카톡 인앱 모두 아랫줄로 안 내려감) · 🌐 크롬 → 📲 설치로 통일(인앱은 intent://로 크롬, 아이폰 사파리는 설치 안내 창) · v26 그림·3화면 그대로 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
@@ -110,25 +110,25 @@ body.athome .top{box-shadow:0 3px 10px rgba(40,26,16,.10)}
 
 #homeView{display:none;max-width:34rem;margin:0 auto;padding:0 .75rem}
 body.athome #homeView{display:block}
-/* v26 · 제목 줄(.homeHead) — 왼쪽 인사말, 오른쪽 앱 도구 알약
-   · 도구가 자리에 다 안 들어가면 인사말 아래 오른쪽 슬림 줄로 자연스럽게 내려간다 */
-.homeHead{display:flex;flex-wrap:wrap;align-items:center;gap:.3rem .45rem;margin:.55rem 0 .4rem}
-.homeLead{margin:0;flex:1 1 auto;min-width:0;font-size:.9rem;font-weight:900;color:var(--coffee);letter-spacing:-.02em;line-height:1.25}
-.homeLead span{display:block}
-.homeLead #homeLeadSub{font-size:.76rem;font-weight:700;color:#8B7A6B;margin-top:.1rem}
+/* v27 · 제목 줄(.homeHead) — 왼쪽 인사말 한 줄, 오른쪽 📤 공유 · 🔔 소리 · 📲 설치 세 알약
+   · 세 알약은 절대 아래 줄로 떨어지지 않는다(flex-wrap:nowrap). 자리가 모자라면 인사말만 줄어든다 */
+.homeHead{display:flex;flex-wrap:nowrap;align-items:center;gap:.28rem .4rem;margin:.55rem 0 .4rem}
+.homeLead{margin:0;flex:1 1 auto;min-width:0;font-size:.86rem;font-weight:900;color:var(--coffee);letter-spacing:-.03em;line-height:1.2;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.homeLead span{display:inline}
 /* 테이블에 모여 차 마시는 와글가족 + 클로벨 세 자매 — v26: 그림 위에 얹는 버튼 없이 그림만 */
 .heroCard{position:relative;margin:0;border-radius:1.15rem;overflow:hidden;background:#F5E4C8;
   border:2px solid #E6CFA6;box-shadow:0 6px 18px rgba(62,44,34,.16)}
 .heroCard picture,.heroCard img{display:block;width:100%}
 .heroCard img{height:auto;aspect-ratio:31/20;object-fit:cover;object-position:center 42%}
 html.big .heroCard img{aspect-ratio:16/9}
-/* v26 · 📤 공유 · 🔔 소리 (설치 가능·인앱이면 📲 설치 · 🌐 크롬)
+/* v27 · 📤 공유 · 🔔 소리 · 📲 설치 — 셋 다 늘 보이고 한 줄 고정
    · 그림 얼굴을 가리지 않도록 그림 바깥 — 제목 줄 오른쪽의 작은 알약으로 */
-.heroTools{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:.28rem;
+.heroTools{display:flex;flex-wrap:nowrap;justify-content:flex-end;align-items:center;gap:.22rem;
   flex:0 0 auto;margin-left:auto;max-width:100%}
-.homepill{display:inline-flex;align-items:center;justify-content:center;gap:.16rem;white-space:nowrap;flex:0 0 auto;
+.homepill{display:inline-flex;align-items:center;justify-content:center;gap:.12rem;white-space:nowrap;flex:0 0 auto;
   background:#FFFCF3;border:2px solid #E0C79B;color:#4A3423;border-radius:2rem;
-  padding:0 .5rem;min-height:2.05rem;font-size:.74rem;font-weight:900;letter-spacing:-.02em;line-height:1.1;
+  padding:0 .46rem;min-height:2.05rem;font-size:.72rem;font-weight:900;letter-spacing:-.03em;line-height:1.1;
   box-shadow:0 1px 3px rgba(60,40,20,.14)}
 .homepill:active{transform:translateY(1px);background:#FFF3DA}
 .homepill[hidden]{display:none}
@@ -139,16 +139,15 @@ html.big .heroCard img{aspect-ratio:16/9}
 .homepill.snd{background:#FFF3DA;border-color:#C98A2E;color:#5E3E0C}
 .homepill.snd[aria-pressed="false"]{background:#F1E9DC;border-color:#B9A48C;color:#6B5B4C}
 .homepill.install{background:linear-gradient(180deg,#FFD873,#F2B33B);border-color:#A9690A;color:#3E2C22}
-.homepill.chrome{background:#FFFCF3;border-color:#8B9BA8;color:#2F4B5C;text-decoration:none}
-/* 알약은 어느 화면에서나 아이콘 + 짧은 이름 — 도구 줄이 두 줄이 되어도 높이를 적게 쓴다 */
-.homepill.chrome .cx{display:none}
 @media (max-width:389px){
-  .homeHead{gap:.26rem .4rem}
-  .homepill{font-size:.7rem;padding:0 .44rem;min-height:2rem}
+  .homeHead{gap:.24rem .34rem}
+  .homeLead{font-size:.82rem}
+  .homepill{font-size:.69rem;padding:0 .4rem;min-height:2rem}
 }
-html.big .homeHead{gap:.24rem .32rem;margin:.55rem 0 .38rem}
-html.big .homepill{font-size:.72rem;padding:0 .44rem;min-height:2.15rem}
-html.big .heroTools{gap:.22rem}
+html.big .homeHead{gap:.2rem .22rem;margin:.5rem 0 .38rem}
+html.big .homeLead{font-size:.8rem;letter-spacing:-.04em}
+html.big .homepill{font-size:.64rem;padding:0 .3rem;min-height:2.15rem;gap:.1rem}
+html.big .heroTools{gap:.14rem}
 
 /* 3개 큰 버튼 — 색으로 역할 구분 (초록 추가 / 주황 주문 / 금색 이벤트) */
 .homebtns{display:flex;flex-direction:column;gap:.5rem;margin:.7rem 0 .2rem}
@@ -197,7 +196,6 @@ html.big .homebtn{font-size:1.02rem;padding:0 .5rem}
 html.big .homebtn .hbl{display:none}
 /* 큰 글씨: 메인 화면이 한 화면에 들어오도록 높이를 조금씩 아낀다 */
 html.big .homeLead{margin:0}
-html.big .homeLead #homeLeadSub{display:none}
 html.big .homebtns{gap:.38rem}
 html.big .hbtn{min-height:3rem;padding:.4rem .7rem}
 html.big .homeList{margin:.7rem 0 0}
@@ -1272,14 +1270,13 @@ html.big .isteps li>span{font-size:1rem}
 
 <!-- ══ v24 · ☕ 카페 메인 화면 (첫 화면) — 테이블에 모인 와글가족 · 클로벨이 차를 마시는 그림 ══ -->
 <section id="homeView" aria-label="카페 메인">
-  <!-- v26 · 📤 공유 · 🔔 소리 — 그림 위가 아니라 제목 줄 오른쪽(모자라면 바로 아래 슬림 줄) -->
+  <!-- v27 · 📤 공유 · 🔔 소리 · 📲 설치 — 인사말과 같은 한 줄 오른쪽(절대 아래 줄로 안 내려감) -->
   <div class="homeHead">
-    <p class="homeLead"><span id="homeLead">☕ 와글가족 카페에 오셨네요!</span><span id="homeLeadSub">하고 싶은 일을 콕 눌러 주세요</span></p>
+    <p class="homeLead"><span id="homeLead">☕ 와글가족 카페!</span></p>
     <div class="heroTools" role="group" aria-label="앱 도구">
       <button type="button" id="homeShareBtn" class="homepill share" aria-label="이 앱 공유하기">📤 공유</button>
       <button type="button" id="homeSoundBtn" class="homepill snd" aria-pressed="true" aria-label="소리 끄기">🔔 소리</button>
-      <button type="button" id="homeInstallBtn" class="homepill install" hidden>📲 설치</button>
-      <a id="homeChromeOpen" class="homepill chrome" href="#" hidden>🌐 크롬<span class="cx">으로 열기</span></a>
+      <button type="button" id="homeInstallBtn" class="homepill install" aria-haspopup="dialog" aria-label="앱 설치 안내">📲 설치</button>
     </div>
   </div>
   <div class="heroCard">
@@ -1888,17 +1885,14 @@ function applyLang(){
   /* ☕ v24 · 카페 메인 화면 */
   setTxt('#homeBtn .hbl','홈','Home');
   setAttr('#homeBtn','aria-label','카페 메인 화면으로','Back to the cafe home');
-  setTxt('#homeLead','☕ 와글가족 카페에 오셨네요!','☕ Welcome to the Wagle family cafe!');
-  setTxt('#homeLeadSub','하고 싶은 일을 콕 눌러 주세요','Tap what you would like to do');
-  /* v25 · 메인 화면 도구 — 📤 공유하기 · 🔔 소리 · 📲 설치 · 🌐 크롬으로 열기 */
+  setTxt('#homeLead','☕ 와글가족 카페!','☕ Wagle Cafe!');
+  /* v27 · 메인 화면 도구 — 📤 공유하기 · 🔔 소리 · 📲 설치 */
   setTxt('#homeShareBtn','📤 공유','📤 Share');
   setAttr('#homeShareBtn','aria-label','이 앱 공유하기','Share this app');
   setAttr('.heroTools','aria-label','앱 도구','App tools');
   try{ sndLabel(); }catch(e){}
   setTxt('#homeInstallBtn','📲 설치','📲 Install');
   setAttr('#homeInstallBtn','aria-label','앱 설치 안내','How to install the app');
-  setHTML('#homeChromeOpen','🌐 크롬<span class="cx">으로 열기</span>','🌐 Chrome');
-  setAttr('#homeChromeOpen','aria-label','크롬 브라우저로 이 앱 열기','Open this app in the Chrome browser');
   setTxt('#hbAdd','카페 추가하기','Add a Cafe');
   setTxt('#hbAddS','새 카페 이름을 넣고 시작','Name a new cafe to start');
   setTxt('#hbOrder','주문하기','Order');
@@ -5211,19 +5205,16 @@ function standaloneNow(){
 function syncInstallBtn(){
   var hide = installedApp || standaloneNow();
   if(installBtn) installBtn.hidden = hide;
-  /* v25 · 메인 화면 📲 설치 — 설치를 바로 할 수 있거나(설치 안내가 실제로 필요한) 안드로이드에서만 보인다
-     · 카톡·인스타 인앱 브라우저에서는 설치 대신 🌐 크롬으로 열기를 띄우므로 설치 알약은 숨긴다 */
+  /* v27 · 메인 화면 📲 설치 — 크롬·사파리·카톡 인앱·홈 화면 앱까지 어느 경우에도 숨기지 않는다(항상 보임)
+     · 눌렀을 때만 상황에 맞게 : 이미 설치됨 → 안내 토스트 / 인앱 → 크롬 / 설치 팝업 있음 → 팝업 / 그 밖 → 설치 안내 창 */
   var hb=$('#homeInstallBtn');
-  if(hb) hb.hidden = hide || inAppBrowser() || !(deferredPrompt || isAndroid());
-  syncHomeChrome();
+  if(hb) hb.hidden = false;
 }
-/* v25 · 메인 화면 🌐 크롬으로 열기 — 카톡·인스타 인앱 브라우저(안드로이드)에서만 띄운다 */
-function syncHomeChrome(){
-  var a=$('#homeChromeOpen');
-  if(!a) return;
-  var show = isAndroid() && inAppBrowser() && !installedApp && !standaloneNow();
-  a.hidden = !show;
-  if(show) a.setAttribute('href', chromeIntentUrl());
+/* v27 · 아이폰·아이패드 — 사파리는 설치 팝업이 없어 설치 안내 창으로 안내한다 */
+function isIOS(){
+  var ua=navigator.userAgent||'';
+  if(/iPhone|iPad|iPod/i.test(ua)) return true;
+  return /Macintosh/i.test(ua) && (navigator.maxTouchPoints||0) > 1;
 }
 /* ── 🌐 크롬으로 바로 열기 (안드로이드 전용) ──
    카톡·인스타 인앱 브라우저에서는 설치가 막혀서, Chrome 패키지를 지정한 intent:// 로 넘긴다.
@@ -5252,7 +5243,7 @@ function applyChromeOpen(){
     note.innerHTML = L('카톡·인스타 안에서는 바로 설치가 안 돼요. 아래 <b>🌐 크롬으로 바로 열기</b>를 누르면 크롬에서 열려 바로 설치할 수 있어요!',
       'You cannot install from inside KakaoTalk or Instagram. Tap <b>🌐 Open in Chrome</b> below to open it in Chrome and install right away!');
   }
-  try{ syncHomeChrome(); }catch(e){}
+  try{ syncInstallBtn(); }catch(e){}
 }
 applyChromeOpen();
 if(installBtn){
@@ -5264,23 +5255,38 @@ if(installBtn){
       else if(mq.addListener) mq.addListener(syncInstallBtn);
     }
   }catch(e){}
-  installBtn.addEventListener('click', function(){
-    if(deferredPrompt){
-      var dp=deferredPrompt; deferredPrompt=null;
-      try{
-        dp.prompt();
-        if(dp.userChoice && dp.userChoice.then){
-          dp.userChoice.then(function(r){
-            if(r && r.outcome==='accepted') toast(L('설치를 시작했어요 📲','Installation started 📲'));
-            else toast(L('언제든 📲 앱 설치를 다시 누르면 안내해 드려요','Tap 📲 Install App anytime for the steps'));
-            syncInstallBtn();
-          }).catch(function(){});
-        }
-      }catch(e){ showModal('installModal'); }
-      return;
-    }
-    showModal('installModal');
-  });
+  installBtn.addEventListener('click', installTap);
+}
+/* v27 · 📲 설치 — 어디서나 이 한 가지로
+   · 카톡·인스타 인앱(안드로이드): 설치가 막혀 있으니 intent:// 로 크롬에서 열기
+   · 크롬·삼성 인터넷: 설치 팝업이 준비돼 있으면 바로 띄우기
+   · 아이폰 사파리 등 팝업이 없는 곳: 단계별 설치 안내 창 */
+function installTap(){
+  /* 이미 홈 화면 앱으로 열고 있으면 설치할 게 없다고 알려 준다 */
+  if(installedApp || standaloneNow()){
+    toast(L('이미 홈 화면에 설치되어 있어요 📲','This app is already installed 📲'));
+    return;
+  }
+  if(isAndroid() && inAppBrowser()){
+    var u='';
+    try{ u=chromeIntentUrl(); }catch(e){}
+    if(u){ try{ location.href=u; return; }catch(e){} }
+  }
+  if(deferredPrompt){
+    var dp=deferredPrompt; deferredPrompt=null;
+    try{
+      dp.prompt();
+      if(dp.userChoice && dp.userChoice.then){
+        dp.userChoice.then(function(r){
+          if(r && r.outcome==='accepted') toast(L('설치를 시작했어요 📲','Installation started 📲'));
+          else toast(L('언제든 📲 설치를 다시 누르면 안내해 드려요','Tap 📲 Install anytime for the steps'));
+          syncInstallBtn();
+        }).catch(function(){});
+      }
+    }catch(e){ showModal('installModal'); }
+    return;
+  }
+  showModal('installModal');
 }
 window.addEventListener('beforeinstallprompt', function(e){
   if(e && e.preventDefault) e.preventDefault();
@@ -5401,7 +5407,7 @@ document.addEventListener('click', function(e){
   chime(hit.classList.contains('heroCard')? 'soft':'tap');
 }, true);
 var homeInstallBtn=$('#homeInstallBtn');
-if(homeInstallBtn) homeInstallBtn.addEventListener('click', function(){ if(installBtn) installBtn.click(); });
+if(homeInstallBtn) homeInstallBtn.addEventListener('click', installTap);
 
 /* 인터넷이 끊겨도 열리도록 Service Worker 등록 (파일로 직접 열었을 땐 건너뜀) */
 if('serviceWorker' in navigator && location.protocol!=='file:'){
