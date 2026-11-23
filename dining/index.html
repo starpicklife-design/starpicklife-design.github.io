@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#8E241A" />
 <meta name="google" content="notranslate" />
-<!-- build: 2026-11-23 와글한국여행 (Wagul Korea Trip) v6 · v6: 간판 버튼 안 그림 삭제·글자 사이 여유·영어 모드 검수 · 5개 언어(한·영·중·일·프) · 📍 내 위치 주소(폰 GPS → 한글 주소·영문 주소·좌표 · 📋 복사·꾹 눌러 복사 · 🍽️ 주변 식당/☕ 카페 · 🚕 기사님께 크게) · 🪧 간판에서 찾아보세요(간판 45종 → 누르면 2초 내 언어 알림·길게 누르면 자세히·그림·대표 음식 주문 연습) · 내 언어 작게/가게 언어 크게 · 🧺 그림 조합 주문(인원·음식·요청 → 공손한 문장) · 🔊 한글 읽기 · 🍲 음식 24종 사진 · 🍶 술·음료 5종 · ☕ 카페 7종 · 1→2→3→4 주문 연습 · 📷 메뉴판 사진 → 그림 메뉴 · 🚕 택시(내 위치·내려줄 곳 주소) 🚇 지하철 · 🏨 숙소 저장 · 📝 식사 일기 · 실시간 날씨 · Android 뒤로가기(popstate) -->
+<!-- build: 2026-11-23 와글한국여행 (Wagul Korea Trip) v8 · v8: 4개 페이지 분리(① 식당·간판 ② 카페 메뉴 ③ 교통·길찾기 ④ 여행 일기) + 위·아래 전환 바(큰 아이콘·현재 위치 표시) + 서로 연동(조합 → 📔 일기 남기기·이어 쓰기, 일기 장소 → 🚕 기사님 카드, 카페 → 내 주변 카페·일기) + 폰 뒤로가기 스택(뷰·모달 한 겹씩 닫기) · 카페 메뉴 10종(복숭아 아이스티·고구마라떼·자몽에이드 그림 추가, 2열 마지막 줄까지 빈 칸 없음) · v7: 슬로건·날씨 알약 한 단계 크게 · 내 위치(GPS) 날씨 + 역지오코딩 도시명 5개국어(한·영·중·일·프) · 알약 톡 누르면 내 위치 날씨 새로고침(📍) · v6: 간판 버튼 안 그림 삭제·글자 사이 여유·영어 모드 검수 · 5개 언어(한·영·중·일·프) · 📍 내 위치 주소(폰 GPS → 한글 주소·영문 주소·좌표 · 📋 복사·꾹 눌러 복사 · 🍽️ 주변 식당/☕ 카페 · 🚕 기사님께 크게) · 🪧 간판에서 찾아보세요(간판 45종 → 누르면 3초 내 언어 알림·길게 누르면 자세히·그림·대표 음식 주문 연습) · 내 언어 작게/가게 언어 크게 · 🧺 그림 조합 주문(인원·음식·요청 → 공손한 문장) · 🔊 한글 읽기 · 🍲 음식 24종 사진 · 🍶 술·음료 5종 · ☕ 카페 7종 · 1→2→3→4 주문 연습 · 📷 메뉴판 사진 → 그림 메뉴 · 🚕 택시(내 위치·내려줄 곳 주소) 🚇 지하철 · 🏨 숙소 저장 · 📝 식사 일기 · 실시간 날씨 · Android 뒤로가기(popstate) -->
 <link rel="manifest" href="./manifest.json" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -145,16 +145,17 @@ section{margin:.9rem .4rem 0}
 .sechd.signhd .sub{flex:1 1 100%;order:3;font-size:.74rem;line-height:1.5;letter-spacing:.012em}
 .sechd.signhd .num{order:2}
 @media (max-width:360px){ .sechd.signhd h2{font-size:.88rem} }
-.signs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.34rem}
-.sign{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.06rem;
-  min-width:0;min-height:3.2rem;padding:.46rem .2rem .42rem;border-radius:.7rem;
+/* v8: 상자·글자 컴팩트(45개가 한 화면에 여러 줄) — 알림 큰 카드는 그대로 */
+.signs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.26rem .3rem}
+.sign{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.02rem;
+  min-width:0;min-height:2.62rem;padding:.24rem .16rem .22rem;border-radius:.62rem;
   background:linear-gradient(180deg,#463229 0%,#2B211A 100%);border:2px solid #7E5433;
   box-shadow:0 2px 7px rgba(40,26,16,.22),inset 0 1px 0 rgba(255,220,160,.18);color:#FFF3DA}
 .sign:active{transform:translateY(1px);box-shadow:0 1px 3px rgba(40,26,16,.22)}
-/* v6: 간판 버튼 안 그림(이모지) 삭제 → 글씨만 큼직하게 */
-.sign .sb{font-size:1.34rem;font-weight:900;letter-spacing:.005em;line-height:1.22;word-break:keep-all;
+/* v6: 간판 버튼 안 그림(이모지) 삭제 → 글씨만 · v8: 상자·글자 컴팩트(3열 유지) */
+.sign .sb{font-size:1.06rem;font-weight:900;letter-spacing:0;line-height:1.16;word-break:keep-all;
   text-shadow:0 0 11px rgba(255,190,90,.40)}
-.sign .salt{font-size:.66rem;font-weight:900;color:#E8C79A;line-height:1.28;letter-spacing:.01em;margin-top:.06rem}
+.sign .salt{font-size:.53rem;font-weight:900;color:#E8C79A;line-height:1.18;letter-spacing:.01em;margin-top:.02rem}
 .signhint{font-size:.68rem;font-weight:800;color:#8A6A3E;line-height:1.55;letter-spacing:.01em;margin:.5rem 0 0;text-align:center}
 /* 🗣️ 여기 어떤 곳이에요? — 큰 배너(누르면 한국어 음성 + 큰 카드) */
 .askbtn{display:flex;align-items:center;gap:.55rem;width:100%;text-align:left;margin-top:.55rem;
@@ -188,11 +189,11 @@ section{margin:.9rem .4rem 0}
   margin-top:.5rem;letter-spacing:.012em;line-height:1.55;word-break:keep-all}
 @media (max-width:360px){ .signtip{padding:.95rem .95rem 1.05rem} .signtip .w{font-size:2.7rem}
   .signtip .ex{font-size:1.24rem} .signtip .dsc{font-size:1rem} }
-html.big .sign{min-height:3.4rem;padding:.44rem .12rem .4rem}
-html.big .sign .sb{font-size:1.26rem}
-html.big .sign .salt{font-size:.62rem}
-@media (max-width:360px){ .sign{min-height:3rem;padding:.4rem .14rem .36rem} .sign .sb{font-size:1.16rem} .sign .salt{font-size:.6rem}
-  html.big .sign .sb{font-size:1.08rem} html.big .sign .salt{font-size:.56rem} }
+html.big .sign{min-height:2.4rem;padding:.22rem .14rem .2rem}
+html.big .sign .sb{font-size:1rem}
+html.big .sign .salt{font-size:.5rem}
+@media (max-width:360px){ .sign{min-height:2.68rem;padding:.24rem .12rem .22rem} .sign .sb{font-size:1.06rem} .sign .salt{font-size:.56rem}
+  html.big .sign .sb{font-size:.94rem} html.big .sign .salt{font-size:.5rem} }
 
 /* 간판 카드 — 음식점인지 다른 가게인지 뱃지 */
 .signkind{display:inline-flex;align-items:center;gap:.26rem;border-radius:1rem;padding:.2rem .7rem;
@@ -524,15 +525,14 @@ html.big .lochint small{font-size:.54rem}
 .tnote,.lochint{font-size:.74rem}
 .scanbox .note{font-size:.76rem}
 .notes{font-size:.72rem}
-.slogan{font-size:.8rem;letter-spacing:.02em;line-height:1.55}
+.slogan{font-size:.95rem;letter-spacing:.02em;line-height:1.5}
 .say .wt{letter-spacing:.002em;line-height:1.34;font-size:1.3rem}
 .say .sm{letter-spacing:.008em;line-height:1.45;font-size:.76rem}
 .core .say .wt{font-size:1.54rem;line-height:1.32}
 .food .nm{letter-spacing:.002em;line-height:1.36;font-size:.92rem}
 .food .nm2{letter-spacing:.008em;line-height:1.36;font-size:.7rem}
 .bd{font-size:.62rem}
-.sign .sb{font-size:1.46rem;letter-spacing:.01em;line-height:1.24}
-.sign .salt{font-size:.7rem;letter-spacing:.015em;line-height:1.32}
+/* v8: 간판 상자 크기는 위 기본 규칙(컴팩트)을 그대로 따름 — 여기서 다시 키우지 않음 */
 .askbtn .atx b{letter-spacing:-.005em;line-height:1.28;font-size:1.18rem}
 .askbtn .atx span{letter-spacing:.012em;line-height:1.42;font-size:.78rem}
 .choice .cm,.sdpill,.cbitem .cbl,.staytx span{letter-spacing:.008em;line-height:1.4}
@@ -545,17 +545,98 @@ html.big .lochint small{font-size:.54rem}
 .staytx b{font-size:1rem}
 html.big .sechd h2{font-size:1.12rem}
 html.big .sechd .sub{font-size:.78rem}
-html.big .sign .sb{font-size:1.26rem}
-html.big .sign .salt{font-size:.64rem}
 @media (max-width:360px){
-  .sign .sb{font-size:1.34rem}
-  .sign .salt{font-size:.66rem}
   .sechd h2{font-size:1rem}
   .sechd .sub{font-size:.72rem}
   .core .say .wt{font-size:1.4rem}
-  html.big .sign .sb{font-size:1.14rem}
 }
 .notes{margin-top:1.2rem}
+
+/* ══════ v7: 슬로건·날씨 알약 한 단계 더 큼직하게 + 내 위치(📍) 날씨 · 390px 넘침 0 ══════ */
+.slogan{font-size:.95rem;line-height:1.5;margin-top:.5rem}
+.wxwrap{margin:.42rem .4rem 0}
+.wx{appearance:none;-webkit-appearance:none;font-family:inherit;cursor:pointer;gap:.42rem;
+  border:2px solid #EBCF9F;border-radius:1.4rem;padding:.42rem .85rem;font-size:.92rem;line-height:1.25;
+  max-width:100%;flex-wrap:wrap;justify-content:center;box-shadow:0 2px 9px rgba(90,60,35,.13)}
+.wx:active{transform:translateY(1px);box-shadow:0 1px 4px rgba(90,60,35,.16)}
+.wx .wxi{font-size:1.25rem;line-height:1}
+.wx b{font-size:1.02em}
+.wx .wxc{font-size:.9em;white-space:nowrap;color:#7C5B33}
+.wx .wxpin{font-size:.9em;line-height:1}
+.wx[aria-busy="true"]{opacity:.85}
+html.big .slogan{font-size:.9rem}
+html.big .wx{font-size:.86rem}
+@media (max-width:360px){ .slogan{font-size:.9rem} .wx{font-size:.88rem} }
+
+/* ══════ v8: 4개 페이지(뷰) 분리 + 위·아래 전환 바 + 서로 연동 ══════ */
+body{padding-bottom:0}
+.vwrap{padding-bottom:.4rem}
+.view[hidden]{display:none}
+.tabbar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.26rem;margin:.44rem .4rem 0;min-width:0}
+.tab{display:flex;align-items:center;justify-content:center;gap:.22rem;min-width:0;
+  background:#FFFDF8;border:2px solid #E3D1B4;border-radius:.8rem;padding:.34rem .16rem;min-height:2.4rem;
+  font-size:.72rem;font-weight:900;color:#5E4630;line-height:1.12;box-shadow:0 1px 3px rgba(90,60,35,.07)}
+.tab .ti{font-size:1rem;line-height:1;flex:0 0 auto}
+.tab .tl{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tab[aria-current="page"]{background:linear-gradient(180deg,#FFE7BE,#F7CE83);border-color:#B57C18;color:#5A3208;
+  box-shadow:0 2px 8px rgba(160,110,20,.22)}
+.tab:active{transform:translateY(1px)}
+.tabbot{position:fixed;left:0;right:0;bottom:0;z-index:60;margin:0;gap:.14rem;
+  background:#FFF8EC;border-top:1px solid var(--line);border-radius:0;
+  padding:.3rem .3rem calc(.28rem + env(safe-area-inset-bottom));box-shadow:0 -3px 14px rgba(90,60,35,.12)}
+.tabbot .tab{flex-direction:column;gap:.05rem;min-height:3.1rem;border-radius:.75rem;border-color:transparent;background:none;box-shadow:none;padding:.26rem .1rem}
+.tabbot .tab .ti{font-size:1.24rem}
+.tabbot .tab .tl{font-size:.66rem;max-width:100%}
+.tabbot .tab[aria-current="page"]{background:#FFF1DA;border-color:#D9A227;color:#8E241A}
+html.big .tab .tl{font-size:.64rem}
+html.big .tabbot .tab .ti{font-size:1.16rem}
+@media (max-width:360px){
+  .tab{font-size:.66rem;gap:.16rem;padding:.3rem .1rem}
+  .tab .ti{font-size:.94rem}
+  .tabbot .tab{min-height:2.9rem}
+  .tabbot .tab .tl{font-size:.6rem}
+}
+.pgcard{background:var(--card);border:2px solid var(--line);border-radius:.95rem;padding:.55rem .6rem;box-shadow:0 1px 4px rgba(90,60,35,.06)}
+.pgrow{display:grid;grid-template-columns:1fr 1fr;gap:.36rem}
+.pgnote{font-size:.74rem;font-weight:800;color:#8A6A3E;line-height:1.5;margin:.44rem 0 0;letter-spacing:.012em}
+/* 주문 조합 — 여러 페이지에 같은 카드를 그린다 */
+.cbgroups{display:flex;flex-direction:column;gap:.38rem}
+.cbgroups:empty{display:none}
+.cbglb{display:block;font-size:.66rem;font-weight:900;color:#8A6A3E;letter-spacing:.02em;margin-bottom:.16rem}
+.cbdiary{width:100%;margin-top:.42rem;background:linear-gradient(180deg,#FFF3D6,#FBE1A8);border-color:#C68C1E;color:#6B3E08;min-height:2.9rem;font-size:.86rem}
+/* 여행 일기 페이지 */
+.dcard{background:var(--card);border:2px solid var(--line);border-radius:.95rem;padding:.62rem;box-shadow:0 1px 4px rgba(90,60,35,.06)}
+.dkind{display:grid;grid-template-columns:1fr 1fr;gap:.34rem;margin-bottom:.3rem}
+.kbtn{display:flex;align-items:center;justify-content:center;gap:.3rem;background:#FFFDF8;border:2px solid #E3D1B4;
+  border-radius:.7rem;min-height:2.7rem;font-size:.86rem;font-weight:900;color:#5E4630;line-height:1.15}
+.kbtn.on{background:#FFF1DA;border-color:var(--red);color:#8E241A;box-shadow:0 2px 7px rgba(142,36,26,.14)}
+.dplacerow{display:grid;grid-template-columns:1fr;gap:.32rem}
+.dplacerow2{display:grid;grid-template-columns:1fr 1fr;gap:.32rem}
+.dplacerow2 .minibtn{padding:.2rem .3rem;font-size:.78rem}
+.minibtn{display:flex;align-items:center;justify-content:center;gap:.26rem;background:#FFF3E0;border:2px solid #DFC49B;
+  color:#7A4A16;border-radius:.7rem;min-height:2.6rem;font-size:.8rem;font-weight:900;padding:.2rem .5rem;line-height:1.15}
+.minibtn:active{transform:translateY(1px)}
+.minibtn.ghost{background:#FFFDF8;color:#8A4A2A;border-color:#E0C7A4}
+.dphotorow{display:grid;grid-template-columns:1fr 1fr;gap:.34rem;margin-top:.46rem}
+.dphotorow .minibtn[hidden]{display:none}
+.dprev{width:100%;max-height:9.5rem;object-fit:cover;border-radius:.7rem;margin-top:.44rem;border:2px solid var(--line)}
+.dsaverow{display:flex;flex-direction:column;gap:.36rem;margin-top:.56rem}
+.dedit{font-size:.74rem;font-weight:900;color:#8E241A;background:#FFE9D6;border:1.5px solid #E0B192;
+  border-radius:.7rem;padding:.36rem .55rem;line-height:1.45;margin:0 0 .5rem}
+.dexport{display:grid;grid-template-columns:1fr 1fr;gap:.36rem;margin:.6rem 0 0}
+.ditem .dke{font-size:.98rem;line-height:1;flex:0 0 auto}
+.ditem .dtime{font-size:.62rem;font-weight:900;color:#A2835A;flex:0 0 auto}
+.ditems{display:flex;flex-wrap:wrap;gap:.22rem;margin:.26rem 0 0}
+.ditems span{font-size:.68rem;font-weight:900;color:#7A4A16;background:#FFF1DA;border:1px solid #E7C89A;border-radius:1rem;padding:.08rem .38rem;line-height:1.3}
+.dplace{display:flex;align-items:center;gap:.26rem;width:100%;text-align:left;margin:.3rem 0 0;
+  background:#EAF5EE;border:1.5px solid #CBE3D3;border-radius:.6rem;padding:.34rem .5rem;
+  font-size:.78rem;font-weight:900;color:#1F5E45;line-height:1.35;word-break:keep-all}
+.dplace:active{transform:translateY(1px);background:#E0F1E6}
+.dplace .car{flex:0 0 auto;font-size:.9rem}
+.ditem .dphoto{width:100%;max-height:10rem;object-fit:cover;border-radius:.6rem;margin:.34rem 0 0;border:1.5px solid var(--line)}
+.cbpeek{bottom:calc(4.9rem + env(safe-area-inset-bottom))}
+.toast{bottom:calc(4.9rem + env(safe-area-inset-bottom))}
+.notes{padding-bottom:5.8rem;margin-bottom:0}
 </style>
 </head>
 <body>
@@ -589,8 +670,14 @@ html.big .sign .salt{font-size:.64rem}
     <button type="button" class="tgl" id="bigBtn" aria-pressed="false"><span aria-hidden="true">🔎</span><span id="bigLbl">큰 글씨</span><span class="sw" aria-hidden="true"></span></button>
     <button type="button" class="swap" id="swapBtn" aria-label="내 언어와 가게 언어 바꾸기">⇄</button>
   </div>
+
+  <!-- v8: 위 전환 바 — 4개 페이지(큰 아이콘 + 짧은 이름) -->
+  <nav class="tabbar" id="tabTop" role="tablist" aria-label="페이지 이동"></nav>
 </header>
 
+<!-- ══ ① 🍽️ 식당·간판 (홈 페이지) ══ -->
+<main class="vwrap">
+<div class="view" id="view-home" data-view="home">
 <!-- ══ 표지 그림 ══ -->
 <div class="hero">
   <picture>
@@ -602,7 +689,7 @@ html.big .sign .salt{font-size:.64rem}
 
 <p class="slogan" id="slogan">여행하기 제일 아름답고 편리한 나라</p>
 <div class="wxwrap">
-  <span class="wx" id="wxBadge" hidden></span>
+  <button type="button" class="wx" id="wxBadge" aria-live="polite" hidden></button>
 </div>
 
 <!-- ══ 0-1. 🪧 간판에서 찾아보세요 (표지 그림·날씨 바로 아래 · 길에서 본 한글 간판 → 내 언어 설명) ══ -->
@@ -631,24 +718,13 @@ html.big .sign .salt{font-size:.64rem}
   <div class="pplrow" id="pplRow" role="group" aria-labelledby="secPplH"></div>
 </section>
 
-<!-- ══ 0-2. 주문 조합 (그림 톡톡 → 문장 완성) ══ -->
+<!-- ══ 0-2. 주문 조합 (그림 톡톡 → 문장 완성 · 카페 페이지와 같은 조합) ══ -->
 <section class="combo" aria-labelledby="secComboH">
   <div class="sechd">
     <h2 id="secComboH">🧺 주문 조합</h2>
     <span class="sub" id="secComboS">그림을 톡톡 눌러 담으면 문장이 완성돼요</span>
   </div>
-  <div class="combobox">
-    <div class="cbtray" id="comboTray"></div>
-    <p class="cbempty" id="comboEmpty">👥 인원 · 🍲 음식 · 🧊 요청을 눌러 담아 보세요</p>
-    <p class="cbtext" id="comboText" hidden></p>
-    <p class="cbmy" id="comboMy" hidden></p>
-    <div class="cbrow">
-      <button type="button" class="cbbtn primary" id="comboSpeak" hidden>🔊 <span id="comboSpeakLbl">듣기</span></button>
-      <button type="button" class="cbbtn" id="comboFull" hidden>📺 <span id="comboFullLbl">크게 보여 주기</span></button>
-      <button type="button" class="cbbtn ghost" id="comboReset" hidden>🧽 <span id="comboResetLbl">비우기</span></button>
-    </div>
-    <div class="cbchips" id="comboReqs"></div>
-  </div>
+  <div id="comboHomeBody"></div>
 </section>
 
 <!-- ══ 1. 먼저 이 다섯 마디 ══ -->
@@ -687,16 +763,6 @@ html.big .sign .salt{font-size:.64rem}
     <span class="sub" id="secDrinkS">소주·맥주·막걸리도 한 잔</span>
   </div>
   <div class="grid" id="drinkGrid"></div>
-</section>
-
-<!-- ══ 3-3. 카페 메뉴 ══ -->
-<section aria-labelledby="secCafeH">
-  <div class="sechd">
-    <h2 id="secCafeH">☕ 카페 메뉴</h2>
-    <span class="sub" id="secCafeS">커피·디저트도 이렇게 주문해요</span>
-  </div>
-  <div id="cafeList"></div>
-  <div class="grid" id="cafeGrid"></div>
 </section>
 
 <!-- ══ 4. 메뉴판 찍기 ══ -->
@@ -739,6 +805,52 @@ html.big .sign .salt{font-size:.64rem}
   <div id="ingrList"></div>
 </section>
 
+</div><!-- /view-home -->
+
+<!-- ══ ② ☕ 카페 메뉴 (독립 페이지) ══ -->
+<div class="view" id="view-cafe" data-view="cafe" hidden>
+  <section aria-labelledby="secCafeH">
+    <div class="sechd">
+      <h2 id="secCafeH">☕ 카페 메뉴</h2>
+      <span class="sub" id="secCafeS">커피·디저트도 이렇게 주문해요</span>
+    </div>
+    <div class="pgcard">
+      <div class="pgrow">
+        <button type="button" class="tmap" id="cafeNearBtn">📍 <span id="cafeNearLbl">내 주변 카페 찾기</span></button>
+        <button type="button" class="tmap" id="cafeDiaryBtn">📔 <span id="cafeDiaryLbl">여행 일기</span></button>
+      </div>
+      <p class="pgnote" id="cafeNote">따뜻하게·아이스로, 먹고 가기·포장까지 — 문장을 누르면 화면 가득 커져요</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="secCafePhH">
+    <div class="sechd">
+      <h2 id="secCafePhH">☕ 카페 주문 문장</h2>
+      <span class="sub" id="secCafePhS">따뜻하게/아이스로, 먹고 가기/포장, 샷·얼음까지</span>
+    </div>
+    <div id="cafeList"></div>
+  </section>
+
+  <section class="combo" aria-labelledby="secCafeComboH">
+    <div class="sechd">
+      <h2 id="secCafeComboH">🧺 주문 조합</h2>
+      <span class="sub" id="secCafeComboS">카페 그림을 톡톡 눌러 담으면 문장이 완성돼요</span>
+    </div>
+    <div id="comboCafeBody"></div>
+  </section>
+
+  <section aria-labelledby="secCafeMenuH">
+    <div class="sechd">
+      <h2 id="secCafeMenuH">🍰 카페 메뉴 그림</h2>
+      <span class="sub" id="secCafeMenuS">손가락으로 짚어 보여 주세요 · ＋ 를 누르면 조합에 담겨요</span>
+      <span class="num" id="cafeNum">10</span>
+    </div>
+    <div class="grid" id="cafeGrid"></div>
+  </section>
+</div><!-- /view-cafe -->
+
+<!-- ══ ③ 🚕 교통·길찾기 (독립 페이지) ══ -->
+<div class="view" id="view-traffic" data-view="traffic" hidden>
 <!-- ══ 6. 교통 길찾기 (버스·택시·지하철) ══ -->
 <section class="transit" aria-labelledby="secTransitH">
   <div class="sechd">
@@ -795,30 +907,61 @@ html.big .sign .salt{font-size:.64rem}
   <div id="tPhrases"></div>
 </section>
 
-<!-- ══ 7. 식사 일기 (접혀 있다가 펼치기) ══ -->
+</div><!-- /view-traffic -->
+
+<!-- ══ ④ 📔 여행 일기 (독립 페이지 · 별점 없음) ══ -->
+<div class="view" id="view-diary" data-view="diary" hidden>
 <section class="diary" aria-labelledby="secDiaryH">
   <div class="sechd">
-    <h2 id="secDiaryH">📝 식사 일기</h2>
-    <span class="sub" id="secDiaryS">집에 가서도 오늘 먹은 맛을 기억해요</span>
+    <h2 id="secDiaryH">📔 여행 일기</h2>
+    <span class="sub" id="secDiaryS">오늘 다녀온 식당·카페와 먹은 것을 날짜별로 남겨요</span>
   </div>
-  <button type="button" class="accbtn" id="diaryToggle" aria-expanded="false" aria-controls="diaryBody">
-    <span aria-hidden="true">📝</span> <span id="diaryToggleLbl">메모장 펼치기</span> <span class="accarrow" aria-hidden="true">▾</span>
-  </button>
-  <div class="accbody" id="diaryBody" hidden>
+  <div class="dcard">
+    <p class="dedit" id="dcEditNote" hidden></p>
+    <div class="dkind" role="group" aria-label="식당·카페">
+      <button type="button" class="kbtn on" data-dkind="food" aria-pressed="true">🍽️ <span id="diaryKindFoodLbl">식당</span></button>
+      <button type="button" class="kbtn" data-dkind="cafe" aria-pressed="false">☕ <span id="diaryKindCafeLbl">카페</span></button>
+    </div>
     <label class="dfl" for="diaryName" id="diaryNameLbl">음식·가게 이름</label>
     <input type="text" id="diaryName" class="din" autocomplete="off" autocapitalize="sentences" />
+    <label class="dfl" for="diaryPlace" id="diaryPlaceLbl">장소·주소 (선택)</label>
+    <div class="dplacerow">
+      <input type="text" id="diaryPlace" class="din" autocomplete="off" />
+      <div class="dplacerow2">
+        <button type="button" class="minibtn" id="diaryLocBtn">📍 <span id="diaryLocBtnLbl">현재 위치 넣기</span></button>
+        <button type="button" class="minibtn" id="diaryStayBtn">🏨 <span id="diaryStayLbl">숙소 주소 넣기</span></button>
+      </div>
+    </div>
     <label class="dfl" for="diaryMemo" id="diaryMemoLbl">한 줄 메모 (선택)</label>
     <textarea id="diaryMemo" class="din dta" rows="2"></textarea>
-    <button type="button" class="btn primary" id="diarySave">💾 <span id="diarySaveLbl">일기 저장</span></button>
-    <div class="dlist" id="diaryList"></div>
+    <div class="dphotorow">
+      <button type="button" class="minibtn" id="diaryPhotoBtn">📷 <span id="diaryPhotoLbl">사진 넣기</span></button>
+      <button type="button" class="minibtn ghost" id="diaryPhotoDel" hidden>✕ <span id="diaryPhotoDelLbl">사진 빼기</span></button>
+    </div>
+    <input type="file" id="diaryPhoto" accept="image/*" class="sronly" aria-label="사진 고르기" />
+    <img class="dprev" id="diaryPrev" alt="" hidden />
+    <div class="dsaverow">
+      <button type="button" class="btn primary" id="diarySave">💾 <span id="diarySaveLbl">일기 저장</span></button>
+      <button type="button" class="minibtn ghost" id="diaryCancel" hidden>취소</button>
+    </div>
   </div>
+  <div class="dexport">
+    <button type="button" class="tmap" id="diaryCopy">📋 <span id="diaryCopyLbl">텍스트 복사</span></button>
+    <button type="button" class="tmap" id="diaryJson">⬇️ <span id="diaryJsonLbl">JSON 저장</span></button>
+  </div>
+  <div class="dlist" id="diaryList"></div>
 </section>
+</div><!-- /view-diary -->
+</main>
 
 <p class="notes">
   <span id="noteOffline">인터넷이 없어도 열려요</span> · <span id="notePrivacy">사진과 입력은 폰 안에서만 · 개인정보 0%</span><br />
   <span id="noteAi">그림·안내 AI 생성(전부) · 무료 폰트(OFL)</span><br />
   <span id="noteFoot">와글한국여행 · 여행자와 사장님 사이의 작은 통역</span>
 </p>
+
+<!-- v8: 아래 전환 바 — 4개 페이지(큰 아이콘 + 짧은 이름), 화면 아래에 고정 -->
+<nav class="tabbar tabbot" id="tabBot" role="tablist" aria-label="페이지 이동"></nav>
 
 <!-- ══ 화면 가득 큰 카드 (내 언어 작게 · 가게 언어 아주 크게) ══ -->
 <div class="bigcard" id="bigCard" role="dialog" aria-modal="true" aria-labelledby="bigBody" hidden>
@@ -977,7 +1120,7 @@ var UI = {
   comboEmpty:'👥 인원 · 🍲 음식 · 🧊 요청을 눌러 담아 보세요',
   comboSpeak:'듣기', comboFull:'크게 보여 주기', comboReset:'비우기',
   comboAddLbl:'조합에 담기', comboAdded:'조합에 담았어요', comboPeek:'조합 보기',
-  secTransit:'🚌 교통 길찾기', secTransitS:'버스·택시·지하철, 목적지만 넣으면 바로',
+  secTransit:'🚕 교통·길찾기', secTransitS:'버스·택시·지하철, 목적지만 넣으면 바로',
   tBus:'버스', tTaxi:'택시', tSubway:'지하철', tTo:'도착', tFromNow:'📍 지금 있는 곳에서 출발해요',
   tToPh:'예: 명동',
   tGo:'길찾기 열기', tGoTaxi:'기사님께 보여 주기', tNaver:'네이버지도', tGoogle:'구글맵',
@@ -1002,7 +1145,10 @@ var UI = {
   locNoAddr:'주소는 인터넷이 있어야 보여요. 아래 좌표로 지도는 열 수 있어요',
   locCoordsLb:'좌표', locEnLb:'영문 주소', locNeedLoc:'위치를 먼저 확인해 주세요',
   slogan:'여행하기 제일 아름답고 편리한 나라', wSeoul:'서울', wxLow:'최저', wxHigh:'최고', wxTxt:'날씨',
-  secDiary:'📝 식사 일기', secDiaryS:'집에 가서도 오늘 먹은 맛을 기억해요',
+  wxMyLoc:'내 위치', wxLocating:'위치 확인 중…', wxTapHint:'눌러서 내 위치 날씨 보기',
+  wxDenied:'위치 권한이 꺼져 있어요 · 서울 날씨를 보여 드려요', wxFail:'내 위치 날씨를 못 가져와 서울 날씨를 보여 드려요',
+  wxNoGeo:'이 브라우저에서는 위치를 쓸 수 없어요',
+  secDiary:'📔 여행 일기', secDiaryS:'오늘 다녀온 식당·카페와 먹은 것을 날짜별로 남겨요',
   diaryOpen:'메모장 펼치기', diaryClose:'메모장 접기', diaryNameLbl:'음식·가게 이름',
   diaryMemoLbl:'오늘의 맛 일기 (선택)', diarySaveLbl:'일기 저장', diarySaved:'식사 일기를 저장했어요',
   diaryEmpty:'아직 저장한 일기가 없어요', diaryNeedName:'음식이나 가게 이름을 적어 주세요',
@@ -1010,7 +1156,23 @@ var UI = {
   practice:'주문 연습', stepGreet:'1 · 인사', stepOrder:'2 · 주문', stepAsk:'3 · 요청', stepPay:'4 · 계산·인사',
   nextStep:'다음 단계 →', stepAgain:'처음부터 다시 →', viewBigCard:'전체 큰 카드로 보기', dishDescBtn:'🍲 음식 설명',
   trySay:'🔊 를 누르고 따라 말해 보세요', listenKo:'듣기(한글로 읽기)', listenIn:'듣기({l})',
-  noTTS:'이 폰에서는 읽어 주기를 쓸 수 없어요'},
+  noTTS:'이 폰에서는 읽어 주기를 쓸 수 없어요',
+  navRest:'식당', navCafe:'카페', navTraffic:'교통', navDiary:'일기',
+  cafePhH:'☕ 카페 주문 문장', cafePhS:'따뜻하게/아이스로, 먹고 가기/포장, 샷·얼음까지',
+  secCafeMenu:'🍰 카페 메뉴 그림', secCafeMenuS:'손가락으로 짚어 보여 주세요 · ＋ 를 누르면 조합에 담겨요',
+  cafeNear:'내 주변 카페 찾기', cafeDiaryGo:'여행 일기', cafeNote:'따뜻하게·아이스로, 먹고 가기·포장까지 — 문장을 누르면 화면 가득 커져요',
+  cbGrpPeople:'👥 인원', cbGrpFood:'🍽️ 식당 메뉴', cbGrpCafe:'☕ 카페 메뉴', cbGrpReq:'🧊 요청',
+  comboToDiary:'이 메뉴 여행 일기에 남기기',
+  diaryKindFood:'식당', diaryKindCafe:'카페', diaryPlacePh:'예: 김해 시장 안 식당',
+  diaryPlaceLbl:'장소·주소 (선택)', diaryLocPut:'현재 위치 넣기', diaryStayPut:'숙소 주소 넣기',
+  diaryPhotoAdd:'사진 넣기', diaryPhotoDel:'사진 빼기', diarySaveUpdate:'일기 고치기', diaryCancel:'취소',
+  diaryEditNote:'✏️ 이어 쓰는 중 — 고친 뒤 ‘일기 고치기’를 누르면 저장돼요',
+  diaryExportTxt:'텍스트 복사', diaryExportJson:'JSON 저장',
+  diaryCopyDone:'일기를 글자로 복사했어요', diaryCopyFail:'복사가 안 되면 화면의 글자를 길게 눌러 복사해 주세요',
+  diaryJsonDone:'일기 파일(JSON)을 저장했어요', diaryAdded:'여행 일기에 남겼어요 · 메모를 이어 써 보세요',
+  diaryNeedItem:'먼저 먹은 메뉴를 조합에 담아 주세요', diaryFull:'폰 저장 공간이 부족해 오래된 사진부터 줄였어요',
+  diaryPhotoFail:'사진을 읽지 못했어요. 다른 사진으로 해 보세요', diaryTaxi:'택시 기사님께 이 장소 보여 주기',
+  diaryPhotoAlt:'일기에 넣은 사진'},
  en:{appTitle:'Wagul Korea Trip', tagline:'Pick in your language. Show it big in theirs.', myLang:'My language', shopLang:'Staff language',
   sound:'Sound', bigText:'Big text', share:'Share', install:'Install',
   secOrder:'Five phrases to start', secOrderS:'Tap a card to open it full screen',
@@ -1056,7 +1218,7 @@ var UI = {
   comboEmpty:'Tap people · dishes · requests to build your order',
   comboSpeak:'Listen', comboFull:'Show big', comboReset:'Clear',
   comboAddLbl:'Add to order', comboAdded:'Added to your order', comboPeek:'See order',
-  secTransit:'🚌 Getting around', secTransitS:'Bus, taxi or subway — just add where you go',
+  secTransit:'🚕 Getting around', secTransitS:'Bus, taxi or subway — just add where you go',
   tBus:'Bus', tTaxi:'Taxi', tSubway:'Subway', tTo:'To', tFromNow:'📍 Starting from your current location',
   tToPh:'e.g. Myeongdong',
   tGo:'Open directions', tGoTaxi:'Show the driver', tNaver:'Naver Map', tGoogle:'Google Maps',
@@ -1081,7 +1243,10 @@ var UI = {
   locNoAddr:'The address needs internet. You can still open the map by the coordinates below',
   locCoordsLb:'Coordinates', locEnLb:'English address', locNeedLoc:'Please check your location first',
   slogan:'The most beautiful and convenient country to travel', wSeoul:'Seoul', wxLow:'low', wxHigh:'high', wxTxt:'Weather',
-  secDiary:'📝 Meal diary', secDiaryS:'Remember what you ate when you get home',
+  wxMyLoc:'My location', wxLocating:'Finding your location…', wxTapHint:'Tap to see the weather where you are',
+  wxDenied:'Location is off · showing Seoul weather', wxFail:'Could not get your weather · showing Seoul',
+  wxNoGeo:'This browser cannot use location',
+  secDiary:'📔 Trip diary', secDiaryS:'Note the restaurants, cafes and dishes of each day',
   diaryOpen:'Open the notepad', diaryClose:'Close the notepad', diaryNameLbl:'Dish or restaurant',
   diaryMemoLbl:'Your taste note (optional)', diarySaveLbl:'Save', diarySaved:'Diary saved',
   diaryEmpty:'No diary entries yet', diaryNeedName:'Please write the dish or restaurant',
@@ -1089,7 +1254,23 @@ var UI = {
   practice:'Order practice', stepGreet:'1 · Hello', stepOrder:'2 · Order', stepAsk:'3 · Ask', stepPay:'4 · Pay & thanks',
   nextStep:'Next step →', stepAgain:'Start again →', viewBigCard:'Show full-screen card', dishDescBtn:'🍲 Dish info',
   trySay:'Tap 🔊 and say it out loud', listenKo:'Listen (Korean)', listenIn:'Listen ({l})',
-  noTTS:'This phone cannot read it aloud'},
+  noTTS:'This phone cannot read it aloud',
+  navRest:'Eat', navCafe:'Cafe', navTraffic:'Transit', navDiary:'Diary',
+  cafePhH:'☕ Cafe phrases', cafePhS:'Hot or iced, here or to go, extra shot and no ice',
+  secCafeMenu:'🍰 Cafe menu pictures', secCafeMenuS:'Point at a picture · tap ＋ to add it to your order',
+  cafeNear:'Cafes near me', cafeDiaryGo:'Trip diary', cafeNote:'Hot or iced, for here or to go — tap a phrase to make it fill the screen',
+  cbGrpPeople:'👥 People', cbGrpFood:'🍽️ Restaurant', cbGrpCafe:'☕ Cafe', cbGrpReq:'🧊 Requests',
+  comboToDiary:'Save this order to the trip diary',
+  diaryKindFood:'Restaurant', diaryKindCafe:'Cafe', diaryPlacePh:'e.g. a restaurant in Gyeongju',
+  diaryPlaceLbl:'Place or address (optional)', diaryLocPut:'Add my location', diaryStayPut:'Add my stay address',
+  diaryPhotoAdd:'Add a photo', diaryPhotoDel:'Remove photo', diarySaveUpdate:'Update entry', diaryCancel:'Cancel',
+  diaryEditNote:'✏️ Continuing this entry — edit it, then tap “Update entry”.',
+  diaryExportTxt:'Copy as text', diaryExportJson:'Save JSON',
+  diaryCopyDone:'Diary copied as text', diaryCopyFail:'If copying fails, press and hold the text to copy it',
+  diaryJsonDone:'Diary file (JSON) saved', diaryAdded:'Saved to your trip diary — add a note if you like',
+  diaryNeedItem:'Add the dish or drink to your order first', diaryFull:'Storage was full, so older photos were dropped',
+  diaryPhotoFail:'Could not read that photo. Try another one.', diaryTaxi:'Show this place to the driver',
+  diaryPhotoAlt:'Photo in the diary'},
  zh:{appTitle:'Wagul 韩国旅行', tagline:'用我的语言点，用店里的语言放大给店员看', myLang:'我的语言', shopLang:'店员语言',
   sound:'声音', bigText:'大字', share:'分享', install:'安装',
   secOrder:'先看这五句', secOrderS:'点一下就能全屏放大',
@@ -1135,7 +1316,7 @@ var UI = {
   comboEmpty:'点人数 · 菜品 · 要求，拼出你的点单',
   comboSpeak:'朗读', comboFull:'全屏显示', comboReset:'清空',
   comboAddLbl:'加入点单', comboAdded:'已加入点单', comboPeek:'看我的点单',
-  secTransit:'🚌 交通问路', secTransitS:'公交·出租·地铁，填上目的地就行',
+  secTransit:'🚕 交通问路', secTransitS:'公交·出租·地铁，填上目的地就行',
   tBus:'公交', tTaxi:'出租车', tSubway:'地铁', tTo:'到达', tFromNow:'📍 从现在的位置出发',
   tToPh:'例：明洞',
   tGo:'打开路线', tGoTaxi:'给司机看', tNaver:'Naver地图', tGoogle:'谷歌地图',
@@ -1160,7 +1341,10 @@ var UI = {
   locNoAddr:'地址需要联网才能显示，仍可用下面的坐标打开地图',
   locCoordsLb:'坐标', locEnLb:'英文地址', locNeedLoc:'请先确认位置',
   slogan:'最适合旅行、最美又最便利的国家', wSeoul:'首尔', wxLow:'最低', wxHigh:'最高', wxTxt:'天气',
-  secDiary:'📝 用餐日记', secDiaryS:'回家后也能想起今天吃了什么',
+  wxMyLoc:'我的位置', wxLocating:'正在定位…', wxTapHint:'点按查看我所在位置的天气',
+  wxDenied:'位置权限已关闭 · 显示首尔天气', wxFail:'没法获取当前位置天气 · 显示首尔',
+  wxNoGeo:'此浏览器无法使用位置',
+  secDiary:'📔 旅行日记', secDiaryS:'把每天去的店和吃的东西按日期记下来',
   diaryOpen:'展开记事本', diaryClose:'收起记事本', diaryNameLbl:'菜名或店名',
   diaryMemoLbl:'今天的味道（可选）', diarySaveLbl:'保存日记', diarySaved:'日记已保存',
   diaryEmpty:'还没有保存的日记', diaryNeedName:'请填写菜名或店名',
@@ -1168,7 +1352,23 @@ var UI = {
   practice:'点餐练习', stepGreet:'1 · 打招呼', stepOrder:'2 · 点菜', stepAsk:'3 · 请求', stepPay:'4 · 结账·道谢',
   nextStep:'下一步 →', stepAgain:'重新开始 →', viewBigCard:'全屏大卡片', dishDescBtn:'🍲 菜品介绍',
   trySay:'按 🔊 跟着读一遍', listenKo:'朗读（韩语）', listenIn:'朗读（{l}）',
-  noTTS:'这部手机无法朗读'},
+  noTTS:'这部手机无法朗读',
+  navRest:'餐厅', navCafe:'咖啡', navTraffic:'交通', navDiary:'日记',
+  cafePhH:'☕ 咖啡点单句', cafePhS:'热的/冰的、店里吃/打包、加浓缩·不加冰',
+  secCafeMenu:'🍰 咖啡菜单图', secCafeMenuS:'用手指指给店员看 · 按＋加入点单',
+  cafeNear:'附近的咖啡店', cafeDiaryGo:'旅行日记', cafeNote:'热的·冰的、店里吃·打包——点句子就能全屏放大',
+  cbGrpPeople:'👥 人数', cbGrpFood:'🍽️ 餐厅', cbGrpCafe:'☕ 咖啡', cbGrpReq:'🧊 要求',
+  comboToDiary:'把这些写进旅行日记',
+  diaryKindFood:'餐厅', diaryKindCafe:'咖啡店', diaryPlacePh:'例：庆州的餐厅',
+  diaryPlaceLbl:'地点·地址（可选）', diaryLocPut:'加入当前位置', diaryStayPut:'加入住宿地址',
+  diaryPhotoAdd:'加照片', diaryPhotoDel:'去掉照片', diarySaveUpdate:'修改日记', diaryCancel:'取消',
+  diaryEditNote:'✏️ 正在接着写——修改后按“修改日记”保存',
+  diaryExportTxt:'复制文字', diaryExportJson:'保存 JSON',
+  diaryCopyDone:'已把日记复制成文字', diaryCopyFail:'复制不了时，请长按文字复制',
+  diaryJsonDone:'已保存日记文件（JSON）', diaryAdded:'已写进旅行日记 · 可以接着写备注',
+  diaryNeedItem:'请先把吃的东西加入点单', diaryFull:'手机空间不足，先减掉了旧照片',
+  diaryPhotoFail:'这张照片读不出来，请换一张', diaryTaxi:'把这个地点给司机看',
+  diaryPhotoAlt:'日记里的照片'},
  ja:{appTitle:'Wagul 韓国旅行', tagline:'自分の言葉で選んで、お店の言葉で大きく見せる', myLang:'自分の言語', shopLang:'お店の言語',
   sound:'音声', bigText:'大きな文字', share:'共有', install:'インストール',
   secOrder:'まずはこの5つ', secOrderS:'タップすると全画面の大きなカードになります',
@@ -1214,7 +1414,7 @@ var UI = {
   comboEmpty:'人数・料理・お願いをタップしてまとめましょう',
   comboSpeak:'読み上げ', comboFull:'大きく見せる', comboReset:'クリア',
   comboAddLbl:'まとめに追加', comboAdded:'まとめに追加しました', comboPeek:'まとめを見る',
-  secTransit:'🚌 交通の行き方', secTransitS:'バス・タクシー・地下鉄、行き先を入れるだけ',
+  secTransit:'🚕 交通・道案内', secTransitS:'バス・タクシー・地下鉄、行き先を入れるだけ',
   tBus:'バス', tTaxi:'タクシー', tSubway:'地下鉄', tTo:'到着', tFromNow:'📍 今いる場所から出発します',
   tToPh:'例：明洞',
   tGo:'経路を開く', tGoTaxi:'運転手さんに見せる', tNaver:'Naverマップ', tGoogle:'Googleマップ',
@@ -1239,7 +1439,10 @@ var UI = {
   locNoAddr:'住所はインターネットが必要です。下の座標で地図は開けます',
   locCoordsLb:'座標', locEnLb:'英語の住所', locNeedLoc:'先に位置を確認してください',
   slogan:'旅するのにいちばん美しくて便利な国', wSeoul:'ソウル', wxLow:'最低', wxHigh:'最高', wxTxt:'天気',
-  secDiary:'📝 食事日記', secDiaryS:'家に帰ってからも今日の味を思い出せます',
+  wxMyLoc:'現在地', wxLocating:'現在地を確認中…', wxTapHint:'タップで現在地の天気を見る',
+  wxDenied:'位置情報がオフです · ソウルの天気を表示', wxFail:'現在地の天気を取得できません · ソウルを表示',
+  wxNoGeo:'このブラウザでは位置情報を使えません',
+  secDiary:'📔 旅行日記', secDiaryS:'その日に行ったお店と食べたものを日付ごとに残せます',
   diaryOpen:'メモを開く', diaryClose:'メモを閉じる', diaryNameLbl:'料理・店名',
   diaryMemoLbl:'今日の味メモ（任意）', diarySaveLbl:'保存する', diarySaved:'食事日記を保存しました',
   diaryEmpty:'まだ保存した日記はありません', diaryNeedName:'料理名か店名を入れてください',
@@ -1247,7 +1450,23 @@ var UI = {
   practice:'注文れんしゅう', stepGreet:'1 · あいさつ', stepOrder:'2 · 注文', stepAsk:'3 · お願い', stepPay:'4 · 会計・お礼',
   nextStep:'次のステップ →', stepAgain:'はじめから →', viewBigCard:'全画面カードで見る', dishDescBtn:'🍲 料理の説明',
   trySay:'🔊 を押して声に出してみましょう', listenKo:'読み上げ（韓国語）', listenIn:'読み上げ（{l}）',
-  noTTS:'この端末では読み上げができません'},
+  noTTS:'この端末では読み上げができません',
+  navRest:'食事', navCafe:'カフェ', navTraffic:'交通', navDiary:'日記',
+  cafePhH:'☕ カフェの注文フレーズ', cafePhS:'ホット/アイス、店内/持ち帰り、エスプレッソ追加・氷なし',
+  secCafeMenu:'🍰 カフェメニューの絵', secCafeMenuS:'指で差して見せてください · ＋で注文に追加',
+  cafeNear:'近くのカフェを探す', cafeDiaryGo:'旅行日記', cafeNote:'ホット・アイス、店内・持ち帰りまで — 文をタップで全画面',
+  cbGrpPeople:'👥 人数', cbGrpFood:'🍽️ 食堂', cbGrpCafe:'☕ カフェ', cbGrpReq:'🧊 お願い',
+  comboToDiary:'この注文を旅行日記に残す',
+  diaryKindFood:'食堂', diaryKindCafe:'カフェ', diaryPlacePh:'例：慶州の食堂',
+  diaryPlaceLbl:'場所・住所（任意）', diaryLocPut:'現在地を入れる', diaryStayPut:'宿の住所を入れる',
+  diaryPhotoAdd:'写真を入れる', diaryPhotoDel:'写真を外す', diarySaveUpdate:'日記を直す', diaryCancel:'キャンセル',
+  diaryEditNote:'✏️ この日記の続きを書いています — 直したら「日記を直す」を押してください',
+  diaryExportTxt:'文字でコピー', diaryExportJson:'JSONで保存',
+  diaryCopyDone:'日記を文字でコピーしました', diaryCopyFail:'コピーできないときは文字を長押ししてコピーしてください',
+  diaryJsonDone:'日記ファイル（JSON）を保存しました', diaryAdded:'旅行日記に残しました · メモを続けて書けます',
+  diaryNeedItem:'先に食べたメニューを注文に追加してください', diaryFull:'保存容量が足りないので古い写真から減らしました',
+  diaryPhotoFail:'写真を読み取れませんでした。別の写真でお試しください', diaryTaxi:'この場所を運転手さんに見せる',
+  diaryPhotoAlt:'日記の写真'},
  fr:{appTitle:'Wagul Corée Voyage', tagline:'Choisissez dans votre langue, montrez-le en grand dans la leur.', myLang:'Ma langue', shopLang:'Langue du restaurant',
   sound:'Son', bigText:'Grands caractères', share:'Partager', install:'Installer',
   secOrder:'Cinq phrases pour commencer', secOrderS:'Touchez une carte pour l\'ouvrir en plein écran',
@@ -1293,7 +1512,7 @@ var UI = {
   comboEmpty:'Touchez personnes · plats · demandes',
   comboSpeak:'Écouter', comboFull:'Afficher en grand', comboReset:'Effacer',
   comboAddLbl:'Ajouter', comboAdded:'Ajouté à la commande', comboPeek:'Voir la commande',
-  secTransit:'🚌 Se déplacer', secTransitS:'Bus, taxi ou métro — indiquez la destination',
+  secTransit:'🚕 Se déplacer', secTransitS:'Bus, taxi ou métro — indiquez la destination',
   tBus:'Bus', tTaxi:'Taxi', tSubway:'Métro', tTo:'À', tFromNow:'📍 Départ de votre position actuelle',
   tToPh:'ex. Myeongdong',
   tGo:'Ouvrir l itinéraire', tGoTaxi:'Montrer au chauffeur', tNaver:'Naver Map', tGoogle:'Google Maps',
@@ -1318,7 +1537,10 @@ var UI = {
   locNoAddr:'L’adresse nécessite internet. La carte s’ouvre avec les coordonnées ci-dessous',
   locCoordsLb:'Coordonnées', locEnLb:'Adresse en anglais', locNeedLoc:'Vérifiez d’abord votre position',
   slogan:'Le pays le plus beau et le plus pratique pour voyager', wSeoul:'Séoul', wxLow:'min', wxHigh:'max', wxTxt:'Météo',
-  secDiary:'📝 Journal des repas', secDiaryS:'Souvenez-vous de ce que vous avez mangé',
+  wxMyLoc:'Ma position', wxLocating:'Localisation…', wxTapHint:'Appuyez pour la météo de votre position',
+  wxDenied:'Localisation désactivée · météo de Séoul', wxFail:'Météo de votre position indisponible · Séoul',
+  wxNoGeo:'Ce navigateur ne peut pas utiliser la position',
+  secDiary:'📔 Journal de voyage', secDiaryS:'Notez chaque jour les restaurants, cafés et plats',
   diaryOpen:'Ouvrir le carnet', diaryClose:'Fermer le carnet', diaryNameLbl:'Plat ou restaurant',
   diaryMemoLbl:'Votre note de goût (facultatif)', diarySaveLbl:'Enregistrer', diarySaved:'Journal enregistré',
   diaryEmpty:'Aucune entrée pour le moment', diaryNeedName:'Indiquez le plat ou le restaurant',
@@ -1326,7 +1548,23 @@ var UI = {
   practice:'Entraînement à la commande', stepGreet:'1 · Bonjour', stepOrder:'2 · Commander', stepAsk:'3 · Demander', stepPay:'4 · Addition et merci',
   nextStep:'Étape suivante →', stepAgain:'Recommencer →', viewBigCard:'Carte plein écran', dishDescBtn:'🍲 Info du plat',
   trySay:'Touchez 🔊 et répétez à voix haute', listenKo:'Écouter (coréen)', listenIn:'Écouter ({l})',
-  noTTS:'Ce téléphone ne peut pas lire à voix haute'}
+  noTTS:'Ce téléphone ne peut pas lire à voix haute',
+  navRest:'Resto', navCafe:'Café', navTraffic:'Trajet', navDiary:'Journal',
+  cafePhH:'☕ Phrases au café', cafePhS:'Chaud ou glacé, sur place ou à emporter, un shot, sans glaçons',
+  secCafeMenu:'🍰 La carte en images', secCafeMenuS:'Montrez du doigt · ＋ ajoute à la commande',
+  cafeNear:'Cafés à proximité', cafeDiaryGo:'Journal', cafeNote:'Chaud ou glacé, sur place ou à emporter — touchez une phrase pour l’agrandir',
+  cbGrpPeople:'👥 Personnes', cbGrpFood:'🍽️ Restaurant', cbGrpCafe:'☕ Café', cbGrpReq:'🧊 Demandes',
+  comboToDiary:'Noter cette commande dans le journal',
+  diaryKindFood:'Restaurant', diaryKindCafe:'Café', diaryPlacePh:'ex. un restaurant à Gyeongju',
+  diaryPlaceLbl:'Lieu ou adresse (facultatif)', diaryLocPut:'Ajouter ma position', diaryStayPut:'Ajouter l’adresse de l’hôtel',
+  diaryPhotoAdd:'Ajouter une photo', diaryPhotoDel:'Retirer la photo', diarySaveUpdate:'Modifier', diaryCancel:'Annuler',
+  diaryEditNote:'✏️ Vous continuez cette entrée — modifiez puis touchez « Modifier ».',
+  diaryExportTxt:'Copier en texte', diaryExportJson:'Enregistrer en JSON',
+  diaryCopyDone:'Journal copié en texte', diaryCopyFail:'Si la copie échoue, appuyez longuement sur le texte',
+  diaryJsonDone:'Fichier du journal (JSON) enregistré', diaryAdded:'Noté dans le journal — ajoutez une note si vous voulez',
+  diaryNeedItem:'Ajoutez d’abord le plat ou la boisson à la commande', diaryFull:'Mémoire pleine : les photos les plus anciennes ont été retirées',
+  diaryPhotoFail:'Photo illisible. Essayez-en une autre.', diaryTaxi:'Montrer ce lieu au chauffeur',
+  diaryPhotoAlt:'Photo du journal'}
 };
 
 /* ── 문장 (그룹: core 5 · more 4 · ingr 4) ──
@@ -1381,7 +1619,7 @@ var PHRASES = [
   t:{ko:'이 음식에 해산물이 들어가나요?', en:'Does this dish contain seafood?', zh:'这道菜里有海鲜吗？', ja:'この料理に海鮮は入っていますか？', fr:'Ce plat contient-il des fruits de mer ?'},
   lat:{ko:'i eumsige haesanmuri deureoganayo?', zh:'zhè dào cài lǐ yǒu hǎixiān ma?', ja:'kono ryōri ni kaisen wa haitte imasu ka?', en:'does this dish contain seafood', fr:'se pla kontyentil dé frwi de mer'},
   kor:{en:'더스 디스 디시 컴테인 씨푸드?', zh:'저 다오 차이 리 요우 하이시엔 마?', ja:'코노 료리니 카이센와 하잇테이마스카?', fr:'스 플라 콩티엔틸 데 프뤼 드 메르?'}},
- {id:'noice', icon:'🧊', groups:['drink'],
+ {id:'noice', icon:'🧊', groups:['drink','cafe'],
   t:{ko:'얼음은 빼 주세요.', en:'No ice, please.', zh:'请不要放冰。', ja:'氷を抜いてください。', fr:'Sans glaçons, s\'il vous plaît.'},
   lat:{ko:'eoreumeun ppae juseyo', zh:'qǐng búyào fàng bīng', ja:'kōri o nuite kudasai', en:'no ice please', fr:'san glason'},
   kor:{en:'노 아이스, 플리즈', zh:'칭 부야오 팡 빙', ja:'코리오 누이테 쿠다사이', fr:'상 글라송'}},
@@ -1395,6 +1633,11 @@ var PHRASES = [
   t:{ko:'따뜻한 걸로 주세요.', en:'Hot, please.', zh:'请给我热的。', ja:'ホットでお願いします。', fr:'Chaud, s\'il vous plaît.'},
   lat:{ko:'ttatteutan geollo juseyo', zh:'qǐng gěi wǒ rè de', ja:'hotto de onegaishimasu', en:'hot please', fr:'sho'},
   kor:{en:'핫, 플리즈', zh:'칭 게이 워 러 더', ja:'홋토데 오네가이시마스', fr:'쇼'}},
+ {id:'shot', icon:'⬛', groups:['cafe'],
+  short:{ko:'샷 추가', en:'Extra shot', zh:'加浓缩', ja:'エスプレッソ追加', fr:'Un shot en plus'},
+  t:{ko:'샷 추가해 주세요.', en:'An extra shot, please.', zh:'请多加一份浓缩。', ja:'エスプレッソを追加してください。', fr:'Un shot supplémentaire, s\'il vous plaît.'},
+  lat:{ko:'syat chuga hae juseyo', zh:'qǐng duō jiā yí fèn nóngsuō', ja:'esupurosso o tsuika shite kudasai', en:'an extra shot please', fr:'un shot supplémentaire'},
+  kor:{en:'언 엑스트라 샷, 플리즈', zh:'칭 둬 자 이 펀 눙쒀', ja:'에스프레소오 츠이카 시테 쿠다사이', fr:'앙 쇼트 쉬플레멩테르'}},
  {id:'here', icon:'🍽️', groups:['cafe'],
   short:{ko:'먹고 가요', en:'For here', zh:'店里吃', ja:'店内', fr:'Sur place'},
   t:{ko:'여기서 먹고 갈게요.', en:'For here, please.', zh:'在店里吃。', ja:'店内でいただきます。', fr:'Sur place, s\'il vous plaît.'},
@@ -1824,13 +2067,43 @@ var DISHES = [
     ja:'コーヒーと一緒に楽しむケーキやデザート。ショーケースから選びます。',
     fr:'Gâteaux et desserts à prendre avec le café, à choisir en vitrine.'},
  order:{ko:'케이크 하나 주세요.', en:'One slice of cake, please.', zh:'请给我一块蛋糕。', ja:'ケーキを一つください。', fr:'Une part de gâteau, s\'il vous plaît.'},
- a:['케이크','디저트','cake','dessert','蛋糕','ケーキ']}
+ a:['케이크','디저트','cake','dessert','蛋糕','ケーキ']},
+/* v8: 카페 메뉴를 10종으로 — 2열 그리드 마지막 줄까지 빈 칸 없이 */
+{id:'peach-iced-tea', img:'./food/peach-iced-tea.webp', kind:'cafe', unit:'glass', em:'🍑', art:'soup', tone:'gold', spice:0, meats:[], rom:'boksunga aiseuti',
+ n:{ko:'복숭아 아이스티',en:'Peach iced tea',zh:'桃子冰茶',ja:'ピーチアイスティー',fr:'Thé glacé à la pêche'},
+ d:{ko:'복숭아 향이 달콤한 차를 얼음에 말아 마시는 시원한 음료예요. 카페에서 가장 많이 팔려요.',
+    en:'Sweet peach tea poured over ice — the most popular cold drink in Korean cafes.',
+    zh:'香甜的桃子茶加冰块，韩国咖啡店最受欢迎的冷饮。',
+    ja:'桃の甘い香りの紅茶を氷で冷やした飲み物。韓国のカフェで一番人気の冷たい飲み物です。',
+    fr:'Un thé glacé sucré à la pêche, la boisson froide la plus commandée dans les cafés coréens.'},
+ order:{ko:'복숭아 아이스티 한 잔 주세요.', en:'One peach iced tea, please.', zh:'请给我一杯桃子冰茶。', ja:'ピーチアイスティーを一杯ください。', fr:'Un thé glacé à la pêche, s\'il vous plaît.'},
+ a:['복숭아아이스티','복숭아 아이스티','복숭아티','peach iced tea','peach ice tea','ピーチアイスティー','桃子冰茶','水蜜桃冰茶']},
+{id:'goguma-latte', img:'./food/goguma-latte.webp', kind:'cafe', unit:'glass', em:'🍠', art:'soup', tone:'cream', spice:0, meats:[], rom:'goguma ratte',
+ n:{ko:'고구마라떼',en:'Sweet potato latte',zh:'红薯拿铁',ja:'さつまいもラテ',fr:'Latte à la patate douce'},
+ d:{ko:'달콤한 고구마와 우유를 갈아 만든 라떼예요. 커피가 없어서 아이도 마실 수 있어요.',
+    en:'Sweet potato blended with milk — creamy, sweet and caffeine-free.',
+    zh:'红薯加牛奶打成的拿铁，香甜浓郁，没有咖啡因。',
+    ja:'甘いさつまいもとミルクを合わせたラテ。カフェインなしで子どもも飲めます。',
+    fr:'Patate douce mixée au lait, douce et sans caféine.'},
+ order:{ko:'고구마라떼 한 잔 주세요.', en:'One sweet potato latte, please.', zh:'请给我一杯红薯拿铁。', ja:'さつまいもラテを一杯ください。', fr:'Un latte à la patate douce, s\'il vous plaît.'},
+ a:['고구마라떼','고구마 라떼','goguma latte','sweet potato latte','さつまいもラテ','红薯拿铁']},
+{id:'grapefruit-ade', img:'./food/grapefruit-ade.webp', kind:'cafe', unit:'glass', em:'🍊', art:'soup', tone:'red', spice:0, meats:[], rom:'jamong eideu',
+ n:{ko:'자몽에이드',en:'Grapefruit ade',zh:'西柚汽水',ja:'グレープフルーツエード',fr:'Citronnade au pamplemousse'},
+ d:{ko:'자몽청에 탄산수를 부어 넣은 새콤달콤한 음료예요. 아이스로 마셔요.',
+    en:'Sparkling grapefruit drink, sweet and tangy, served iced.',
+    zh:'西柚酱加气泡水，酸甜清爽，加冰喝。',
+    ja:'グレープフルーツのシロップに炭酸水を注いだ甘酸っぱい飲み物。アイスで。',
+    fr:'Boisson pétillante au pamplemousse, sucrée et acidulée, servie glacée.'},
+ order:{ko:'자몽에이드 한 잔 주세요.', en:'One grapefruit ade, please.', zh:'请给我一杯西柚汽水。', ja:'グレープフルーツエードを一杯ください。', fr:'Une citronnade au pamplemousse, s\'il vous plaît.'},
+ a:['자몽에이드','자몽 에이드','grapefruit ade','grapefruitade','グレープフルーツエード','西柚汽水','葡萄柚汽水']}
 ];
 var FEATURED = ['kimchi-jjigae','doenjang-jjigae','sundubu-jjigae','budae-jjigae','galbitang','seolleongtang',
   'samgyetang','bibimbap','dolsot-bibimbap','bulgogi','samgyeopsal','jeyuk','dak-galbi','tteokbokki','gimbap',
   'ramyeon','mandu','naengmyeon','bibim-naengmyeon','kalguksu','pajeon','japchae','chicken','donkkaseu'];
 var DRINKS = ['soju','beer','makgeolli','soda','water'];
-var CAFE = ['americano','cafe-latte','vanilla-latte','matcha-latte','yuja-tea','bingsu','cake'];
+var CAFE = ['americano','cafe-latte','vanilla-latte','matcha-latte','yuja-tea','peach-iced-tea','goguma-latte','grapefruit-ade','bingsu','cake'];   /* v8: 10종 — 2열 × 5줄 */
+/* 카페 페이지 주문 문장 순서 (따뜻하게 → 아이스 → 샷 → 얼음 → 먹고 가기 → 포장) */
+var CAFEPH = ['hot','ice','shot','noice','here','takeout'];
 /* 술은 병, 음료·커피는 잔, 음식은 하나 */
 var UNITS = {soju:'bottle', beer:'bottle', makgeolli:'bottle', soda:'glass', water:'glass'};
 var EM = {pot:'🍲', soup:'🥣', rice:'🍚', grill:'🔥', noodles:'🍜', pancake:'🥞', roll:'🍙',
@@ -2561,23 +2834,40 @@ function applyUI(){
   try{ renderTransit(); }catch(e){}
   $('#secCafeH').textContent = ui('secCafe');
   $('#secCafeS').textContent = ui('secCafeS');
+  $('#secCafePhH').textContent = ui('cafePhH');
+  $('#secCafePhS').textContent = ui('cafePhS');
+  $('#secCafeMenuH').textContent = ui('secCafeMenu');
+  $('#secCafeMenuS').textContent = ui('secCafeMenuS');
+  $('#cafeNearLbl').textContent = ui('cafeNear');
+  $('#cafeDiaryLbl').textContent = ui('cafeDiaryGo');
+  $('#cafeNote').textContent = ui('cafeNote');
   $('#secComboH').textContent = ui('secCombo');
   $('#secComboS').textContent = ui('secComboS');
-  $('#comboEmpty').textContent = ui('comboEmpty');
-  $('#comboSpeakLbl').textContent = ui('comboSpeak');
-  $('#comboFullLbl').textContent = ui('comboFull');
-  $('#comboResetLbl').textContent = ui('comboReset');
+  $('#secCafeComboH').textContent = ui('secCombo');
+  $('#secCafeComboS').textContent = ui('secComboS');
   $('#stepAddLbl').textContent = ui('comboAddLbl');
   $('#comboPeek .pk').textContent = ui('comboPeek');
   $('#secDiaryH').textContent = ui('secDiary');
   $('#secDiaryS').textContent = ui('secDiaryS');
   $('#diaryNameLbl').textContent = ui('diaryNameLbl');
+  $('#diaryPlaceLbl').textContent = ui('diaryPlaceLbl');
   $('#diaryMemoLbl').textContent = ui('diaryMemoLbl');
-  $('#diarySaveLbl').textContent = ui('diarySaveLbl');
+  $('#diaryLocBtnLbl').textContent = ui('diaryLocPut');
+  $('#diaryStayLbl').textContent = ui('diaryStayPut');
+  try{ syncDiaryStay(); }catch(e){}
+  $('#diaryPhotoLbl').textContent = ui('diaryPhotoAdd');
+  $('#diaryPhotoDelLbl').textContent = ui('diaryPhotoDel');
+  $('#diaryKindFoodLbl').textContent = ui('diaryKindFood');
+  $('#diaryKindCafeLbl').textContent = ui('diaryKindCafe');
+  $('#diaryCancel').textContent = ui('diaryCancel');
+  $('#diaryCopyLbl').textContent = ui('diaryExportTxt');
+  $('#diaryJsonLbl').textContent = ui('diaryExportJson');
+  $('#diarySaveLbl').textContent = editingId ? ui('diarySaveUpdate') : ui('diarySaveLbl');
+  $('#diaryPhoto').setAttribute('aria-label', ui('diaryPhotoAdd'));
   $('#stepDiaryLbl').textContent = ui('stepDiaryLbl');
   try{ $('#diaryName').placeholder = ui('diaryPh'); }catch(e){}
-  try{ $('#diaryToggleLbl').textContent = $('#diaryBody').hidden ? ui('diaryOpen') : ui('diaryClose'); }catch(e){}
-  try{ if(!$('#diaryBody').hidden) renderDiary(); }catch(e){}
+  try{ $('#diaryPlace').placeholder = ui('diaryPlacePh'); }catch(e){}
+  try{ renderDiary(); }catch(e){}
   $('#secFoodH').textContent = ui('secFood');
   $('#secFoodS').textContent = ui('secFoodS');
   $('#secScanH').textContent = ui('secScan');
@@ -2667,8 +2957,8 @@ function renderFood(){
   $('#drinkGrid').innerHTML = drinks.map(foodCard).join('');
   var cafe = CAFE.map(function(id){ return DISHES.filter(function(d){ return d.id === id; })[0]; }).filter(Boolean);
   $('#cafeGrid').innerHTML = cafe.map(foodCard).join('');
-  $('#cafeList').innerHTML = PHRASES.filter(function(p){ return p.groups.indexOf('cafe') >= 0; })
-    .map(function(p){ return phraseCard(p); }).join('');
+  var cn = $('#cafeNum'); if(cn) cn.textContent = cafe.length;
+  $('#cafeList').innerHTML = CAFEPH.map(phraseById).filter(Boolean).map(function(p){ return phraseCard(p); }).join('');
   renderPeople();
   renderCombo();
 }
@@ -2694,21 +2984,167 @@ function renderSigns(){
   }).join('');
   $('#signNum').textContent = SIGNS.length;
 }
-function renderAll(){ applyUI(); renderChips(); renderPhrases(); renderFood(); renderSigns(); renderScan(); }
+function renderAll(){ applyUI(); renderChips(); renderPhrases(); renderFood(); renderSigns(); renderScan(); renderTabs(); }
 
-/* ══════ 큰 카드 / 주문 연습 · 뒤로가기(popstate) ══════ */
+/* ══════ 큰 카드 / 주문 연습 · 4개 페이지(뷰) · 뒤로가기 스택(popstate) ══════ */
 var bigText = '', bigLang = 'ko', stepState = null, STEPN = 4;
 var bigEl = $('#bigCard'), stepEl = $('#stepCard');
-var guardOn = false;                 /* 우리가 history에 쌓은 항목 1개 */
 
-function pushGuard(){
-  if(guardOn) return;
-  guardOn = true;
-  try{ history.pushState({wagle:1}, '', location.href); }catch(e){}
+/* 스택 한 칸 = {t:'view', id:'cafe'} 또는 {t:'modal', id:'big'|'step'|'loc'|'install'}
+   · 열 때 pushState · 닫을 때는 history.back() → popstate가 실제로 닫는다
+   · 폰 뒤로가기는 언제나 한 겹만 닫고, 앱은 꺼지지 않는다 */
+var HIST = [];
+var afterPop = null;
+
+function histCode(){
+  var out = [];
+  for(var i = 0; i < HIST.length; i++) out.push(HIST[i].t + ':' + HIST[i].id);
+  return out.join('|');
 }
-function dropGuard(){
-  if(!guardOn) return false;
-  try{ history.back(); return true; }catch(e){ guardOn = false; return false; }
+function histPush(){ try{ history.pushState({wg:1, st:histCode()}, '', location.href); }catch(e){} }
+function histReplace(){ try{ history.replaceState({wg:1, st:histCode()}, '', location.href); }catch(e){} }
+function goBack(){
+  if(!HIST.length) return false;
+  try{ history.back(); return true; }catch(e){ return false; }
+}
+function goBackN(n){ if(n > 0){ try{ history.go(-n); }catch(e){} } }
+function topModal(){
+  for(var i = HIST.length - 1; i >= 0; i--){ if(HIST[i].t === 'modal') return HIST[i].id; }
+  return '';
+}
+function openModal(id){
+  if(!id || topModal() === id) return;
+  HIST.push({t:'modal', id:id});
+  histPush();
+}
+/* 모달 → 모달 (큰 카드 ⇄ 주문 연습, 내 위치 → 기사님 카드): history 칸 수는 그대로 */
+function replaceTopModal(id){
+  for(var i = HIST.length - 1; i >= 0; i--){
+    if(HIST[i].t === 'modal'){
+      var old = HIST[i].id;
+      if(old === id) return;
+      HIST[i] = {t:'modal', id:id};
+      histReplace();
+      hideModalEl(old);
+      return;
+    }
+  }
+  openModal(id);
+}
+function hideModalEl(id){
+  if(id === 'big'){
+    if(bigEl) bigEl.hidden = true;
+    stopSpeak();
+    if(topModal() === 'step' && stepEl) stepEl.hidden = false;
+  } else if(id === 'step'){
+    if(stepEl) stepEl.hidden = true;
+    stepState = null;
+    stopSpeak();
+  } else if(id === 'loc'){
+    if(locEl){ locEl.hidden = true; locToken++; }
+  } else if(id === 'install'){
+    var im = $('#installModal'); if(im) im.hidden = true;
+  }
+  checkLock();
+}
+function checkLock(){ document.body.style.overflow = topModal() ? 'hidden' : ''; }
+function applyStack(desired){
+  var d = desired || [], guard = 0;
+  while(HIST.length > d.length && guard++ < 40){
+    var l = HIST.pop();
+    if(l.t === 'modal') hideModalEl(l.id);
+  }
+  if(HIST.length < d.length){                       /* 앞으로가기: 뷰 칸만 맞춘다 */
+    for(var i = HIST.length; i < d.length; i++){ if(d[i] && d[i].t === 'view') HIST.push(d[i]); }
+  }
+  var v = 'home';
+  for(var j = HIST.length - 1; j >= 0; j--){ if(HIST[j].t === 'view'){ v = HIST[j].id; break; } }
+  setView(v);
+  checkLock();
+  if(afterPop){ var f = afterPop; afterPop = null; try{ f(); }catch(e){} }
+}
+/* 모달을 닫고 나서 할 일(예: 일기 페이지로 이동) — popstate 뒤에 안전하게 */
+function backThen(fn){
+  if(!HIST.length){ fn(); return; }
+  afterPop = fn;
+  if(!goBack()){ afterPop = null; fn(); }
+}
+window.addEventListener('popstate', function(ev){
+  var st = ev.state;
+  if(st === undefined){ try{ st = history.state; }catch(e){ st = null; } }
+  var codes = (st && typeof st.st === 'string' && st.st) ? st.st.split('|') : [];
+  var desired = [];
+  for(var i = 0; i < codes.length; i++){
+    var p = String(codes[i]).split(':');
+    var id = p.slice(1).join(':');
+    if(p[0] === 'view' || p[0] === 'modal') desired.push({t:p[0], id:id});
+  }
+  applyStack(desired);
+});
+
+/* ══════ v8: 4개 페이지(뷰) — 위·아래 전환 바 ══════ */
+var VIEWS = ['home', 'cafe', 'traffic', 'diary'];
+var curView = 'home';
+function viewEl(v){ return document.getElementById('view-' + v); }
+function renderTabs(){
+  var defs = [
+    {id:'home', ic:'🍽️', lbl:'navRest'},
+    {id:'cafe', ic:'☕', lbl:'navCafe'},
+    {id:'traffic', ic:'🚕', lbl:'navTraffic'},
+    {id:'diary', ic:'📔', lbl:'navDiary'}
+  ];
+  var html = '';
+  for(var i = 0; i < defs.length; i++){
+    var d = defs[i], on = (curView === d.id);
+    html += '<button type="button" class="tab" data-goview="' + d.id + '" role="tab" aria-selected="' + (on ? 'true' : 'false') + '"'
+      + (on ? ' aria-current="page"' : '') + ' aria-controls="view-' + d.id + '">'
+      + '<span class="ti" aria-hidden="true">' + d.ic + '</span>'
+      + '<span class="tl">' + esc(ui(d.lbl)) + '</span></button>';
+  }
+  var top = $('#tabTop'), bot = $('#tabBot');
+  if(top) top.innerHTML = html;
+  if(bot) bot.innerHTML = html;
+}
+function setView(v){
+  if(VIEWS.indexOf(v) < 0) v = 'home';
+  try{ document.body.setAttribute('data-view', v); }catch(e){}
+  if(v === curView){
+    var cur = viewEl(v);
+    if(cur && !cur.hidden){ renderTabs(); return; }
+  }
+  curView = v;
+  for(var i = 0; i < VIEWS.length; i++){
+    var el = viewEl(VIEWS[i]);
+    if(el) el.hidden = (VIEWS[i] !== v);
+  }
+  renderTabs();
+  try{ window.scrollTo(0, 0); }catch(e){}
+  if(v === 'diary'){ renderDiary(); try{ syncDiaryStay(); }catch(e){} }
+  else if(v === 'cafe') { renderCombo(); }
+  else if(v === 'traffic') { try{ renderStay(); }catch(e){} }
+  try{ syncPeek(); }catch(e){}
+}
+/* 전환 바를 누를 때 — 이미 지나온 페이지면 그 자리로 되돌아간다 */
+function goView(v){
+  if(VIEWS.indexOf(v) < 0) v = 'home';
+  if(v === curView && !(viewEl(v) && viewEl(v).hidden)){
+    try{ window.scrollTo({top:0, behavior:'smooth'}); }catch(e){ try{ window.scrollTo(0, 0); }catch(e2){} }
+    return;
+  }
+  var idx = -1;
+  for(var i = HIST.length - 1; i >= 0; i--){ if(HIST[i].t === 'view' && HIST[i].id === v){ idx = i; break; } }
+  if(v === 'home'){
+    if(HIST.length) goBackN(HIST.length); else setView('home');
+    return;
+  }
+  if(idx >= 0){
+    var steps = HIST.length - (idx + 1);
+    if(steps > 0) goBackN(steps); else setView(v);
+    return;
+  }
+  HIST.push({t:'view', id:v});
+  histPush();
+  setView(v);
 }
 
 /* 글씨 길이에 맞춰 '화면 가득' 크기로 — 5개 언어 모두 넘치지 않게 */
@@ -2781,28 +3217,28 @@ function listenLabel(){
 }
 
 function showBig(html, text, lang){
+  if(topModal() === 'step') replaceTopModal('big');   /* 주문 연습 → 큰 카드 */
+  else openModal('big');                             /* 내 위치 → 기사님 카드도 같은 칸 */
   stepEl.hidden = true;
   $('#bigBody').innerHTML = html;
   bigEl.hidden = false;
-  document.body.style.overflow = 'hidden';
+  checkLock();
   try{ $('#bigBody').scrollTop = 0; }catch(e){}
   bigText = text; bigLang = lang || 'ko';
   try{ $('#bigSpeakLbl').textContent = (bigLang === 'ko') ? ui('listenKo') : listenLabel(); }catch(e){}
   try{ $('#bigHint').textContent = ui('showHint'); }catch(e){}
-  pushGuard();
   fitSoon('big');
   if(soundOn) speak(bigText, bigLang);
 }
 function hideBig(){
   if(bigEl.hidden) return;
   bigEl.hidden = true;
-  if(stepEl.hidden) document.body.style.overflow = '';
+  checkLock();
   stopSpeak();
 }
 function closeBig(){
   if(bigEl.hidden) return;
-  hideBig();
-  dropGuard();
+  if(!goBack()) hideBig();
 }
 
 /* ══════ 🧺 주문 조합 (그림 톡톡 → 5개국어 공손한 문장) ══════ */
@@ -2814,6 +3250,7 @@ var UNITW = {
 };
 var REQDEF = ['notspicy','ice','hot','here','takeout'];
 var combo = {people:0, items:[], reqs:[]};
+var comboCtx = 'home';               /* 조합 보기 → 마지막으로 담은 페이지(홈/카페) */
 var ATTACH = {notspicy:1};
 
 function dishById(id){ return DISHES.filter(function(d){ return d.id === id; })[0]; }
@@ -2870,7 +3307,12 @@ function comboText(){
 function comboAdd(id){
   var i = combo.items.indexOf(id);
   if(i >= 0){ combo.items.splice(i, 1); }
-  else { combo.items.push(id); toast(ui('comboAdded')); }
+  else {
+    combo.items.push(id);
+    var dd = dishById(id);
+    comboCtx = (dd && dd.kind === 'cafe') ? 'cafe' : 'home';   /* 조합 보기 → 마지막으로 담은 페이지 */
+    toast(ui('comboAdded'));
+  }
   renderCombo();
 }
 function comboReq(id){
@@ -2892,39 +3334,158 @@ function comboClear(){
   combo = {people:0, items:[], reqs:[]};
   renderCombo();
 }
-function renderCombo(){
-  if(!$('#comboTray')) return;
-  var tray = [];
-  if(combo.people) tray.push({k:'p', em:'👥', lbl: combo.people + (ui('pplUnit') || ''), id:'people'});
-  combo.items.forEach(function(id){ var d = dishById(id); if(d) tray.push({k:'i', em:emOf(d), lbl:d.n[my] || d.n.en, id:id}); });
-  combo.reqs.forEach(function(id){ var ph = phraseById(id); if(ph) tray.push({k:'r', em:ph.icon, lbl:(ph.short && ph.short[my]) || ph.t[my] || ph.t.en, id:id}); });
-  $('#comboTray').innerHTML = tray.map(function(t){
-    return '<span class="cbitem"><span class="cbe">' + t.em + '</span><span class="cbl">' + esc(t.lbl) + '</span>'
-      + '<button type="button" class="cbx" data-rm="' + t.k + ':' + esc(t.id) + '" aria-label="' + esc(ui('deleteLbl')) + '">×</button></span>';
-  }).join('');
-  var has = !!(combo.people || combo.items.length || combo.reqs.length);
-  var t = comboText();
-  $('#comboEmpty').hidden = has;
-  $('#comboText').hidden = !has;
-  $('#comboText').textContent = has ? (t[shop] || t.en) : '';
-  $('#comboMy').hidden = !has || shop === my;
-  $('#comboMy').textContent = has ? (t[my] || '') : '';
-  ['#comboSpeak', '#comboFull', '#comboReset'].forEach(function(sel){ $(sel).hidden = !has; });
-  $('#comboPeek').hidden = !has;
-  $('#comboPeekN').textContent = combo.items.length + combo.reqs.length + (combo.people ? 1 : 0);
-  $('#comboReqs').innerHTML = REQDEF.map(function(id){
+function cbChip(kind, id, em, lbl){
+  return '<span class="cbitem"><span class="cbe">' + em + '</span><span class="cbl">' + esc(lbl) + '</span>'
+    + '<button type="button" class="cbx" data-rm="' + kind + ':' + esc(id) + '" aria-label="' + esc(ui('deleteLbl')) + '">×</button></span>';
+}
+function cbReqs(){
+  return REQDEF.map(function(id){
     var ph = phraseById(id); if(!ph) return '';
     var on = combo.reqs.indexOf(id) >= 0;
     return '<button type="button" class="cbreq' + (on ? ' on' : '') + '" data-req="' + id + '" aria-pressed="' + (on ? 'true' : 'false') + '">'
       + ph.icon + ' ' + esc(ph.t[my] || ph.t.en) + '</button>';
   }).join('');
+}
+/* 조합 카드 하나를 홈·카페 두 페이지에 똑같이 그린다 (식당 칸 / 카페 칸으로 나눠서) */
+function comboCardHTML(){
+  var has = !!(combo.people || combo.items.length || combo.reqs.length);
+  var t = comboText();
+  var food = [], cafe = [];
+  combo.items.forEach(function(id){
+    var d = dishById(id); if(!d) return;
+    var chip = cbChip('i', id, emOf(d), d.n[my] || d.n.en);
+    if(d.kind === 'cafe') cafe.push(chip); else food.push(chip);
+  });
+  var h = '<div class="combobox"><div class="cbgroups">';
+  if(combo.people){
+    h += '<div class="cbgroup"><span class="cbglb">' + esc(ui('cbGrpPeople')) + '</span><div class="cbtray">'
+      + cbChip('p', 'people', '👥', combo.people + (ui('pplUnit') || '')) + '</div></div>';
+  }
+  if(food.length){
+    h += '<div class="cbgroup"><span class="cbglb">' + esc(ui('cbGrpFood')) + '</span><div class="cbtray">' + food.join('') + '</div></div>';
+  }
+  if(cafe.length){
+    h += '<div class="cbgroup"><span class="cbglb">' + esc(ui('cbGrpCafe')) + '</span><div class="cbtray">' + cafe.join('') + '</div></div>';
+  }
+  if(combo.reqs.length){
+    h += '<div class="cbgroup"><span class="cbglb">' + esc(ui('cbGrpReq')) + '</span><div class="cbtray">'
+      + combo.reqs.map(function(id){
+          var ph = phraseById(id); if(!ph) return '';
+          return cbChip('r', id, ph.icon, (ph.short && ph.short[my]) || ph.t[my] || ph.t.en);
+        }).join('') + '</div></div>';
+  }
+  h += '</div>';
+  h += '<p class="cbempty"' + (has ? ' hidden' : '') + '>' + esc(ui('comboEmpty')) + '</p>';
+  h += '<p class="cbtext"' + (has ? '' : ' hidden') + '>' + esc(has ? (t[shop] || t.en) : '') + '</p>';
+  h += '<p class="cbmy"' + (has && shop !== my ? '' : ' hidden') + '>' + esc(has ? (t[my] || '') : '') + '</p>';
+  h += '<div class="cbrow">'
+    + '<button type="button" class="cbbtn primary" data-cbact="speak"' + (has ? '' : ' hidden') + '>🔊 ' + esc(ui('comboSpeak')) + '</button>'
+    + '<button type="button" class="cbbtn" data-cbact="full"' + (has ? '' : ' hidden') + '>📺 ' + esc(ui('comboFull')) + '</button>'
+    + '<button type="button" class="cbbtn ghost" data-cbact="reset"' + (has ? '' : ' hidden') + '>🧽 ' + esc(ui('comboReset')) + '</button>'
+    + '</div>'
+    + '<button type="button" class="cbbtn cbdiary" data-cbact="diary"' + (combo.items.length ? '' : ' hidden') + '>📔 ' + esc(ui('comboToDiary')) + '</button>'
+    + '<div class="cbchips">' + cbReqs() + '</div></div>';
+  return h;
+}
+function renderCombo(){
+  var html = comboCardHTML();
+  ['#comboHomeBody', '#comboCafeBody'].forEach(function(sel){
+    var n = $(sel); if(n) n.innerHTML = html;
+  });
+  syncPeek();
   var btns = document.querySelectorAll('.fadd');
   for(var i = 0; i < btns.length; i++){
     btns[i].classList.toggle('on', combo.items.indexOf(btns[i].getAttribute('data-add')) >= 0);
   }
 }
-/* ══════ 오늘 날씨 (Open-Meteo · 0원 · 실패하면 조용히 숨김) ══════ */
-var WXKEY = 'dining_wx_v1', wxData = null;
+/* 조합 보기 동그라미 — 홈·카페에서만, 담은 것이 있을 때만 */
+function syncPeek(){
+  var pk = $('#comboPeek'); if(!pk) return;
+  var n = combo.items.length + combo.reqs.length + (combo.people ? 1 : 0);
+  pk.hidden = (!n) || (curView !== 'home' && curView !== 'cafe');
+  var pn = $('#comboPeekN'); if(pn) pn.textContent = n;
+}
+function comboTalk(){ var t = comboText(); speak(t[shop] || t.en, shop); }
+function comboBig(){
+  var t = comboText(), txt = t[shop] || t.en;
+  var cls = txt.length > 40 ? 'm' : (txt.length > 22 ? 'l' : '');
+  showBig(twoLang(t, cls), txt, shop);
+}
+/* 메뉴 → 여행 일기 (날짜·시간과 함께 자동 저장, 바로 이어 쓰기) */
+function comboToDiary(){
+  var items = combo.items.map(dishById).filter(Boolean);
+  if(!items.length){ toast(ui('diaryNeedItem')); return; }
+  var now = new Date(), list = diaryList();
+  var names = items.map(function(d){ return d.n[my] || d.n.en; });
+  var hasFood = items.some(function(d){ return d.kind !== 'cafe'; });
+  var entry = {id:'c' + now.getTime() + Math.floor(Math.random() * 1000), ts:now.getTime(), date:ymd(now),
+               kind:(hasFood ? 'food' : 'cafe'), name:names.join(' · '), items:names,
+               memo:'', place:'', photo:''};
+  list.push(entry);
+  if(!diaryStore(list)) return;
+  toast(ui('diaryAdded'));
+  goView('diary');
+  editDiaryEntry(entry.id);
+  setTimeout(function(){ try{ $('#diaryMemo').focus(); }catch(e){} }, 280);
+}
+/* ══════ 오늘 날씨 (v7 · 내 위치 기반 · Open-Meteo + 역지오코딩 · 0원) ══════
+   · 이미 위치가 허용돼 있으면 앱을 켤 때 조용히 내 위치(GPS) 날씨
+   · 날씨 알약을 톡 누르면 그때 위치를 다시 확인해 새로고침 (📍)
+   · 권한이 꺼져 있거나 실패하면 서울 날씨 그대로 · 콘솔 에러 없음
+   · 도시 이름 + 지금 기온 + 최저/최고가 항상 내 언어(my) 5개국어 */
+var WXKEY = 'dining_wx_v2', wxData = null, wxBusy = false, wxSeoulBusy = false;
+var WX_LANGS = ['ko', 'en', 'zh', 'ja', 'fr'];
+var WX_SEOUL = [37.5665, 126.9780];
+/* 대표 도시 이름 5개 언어 — 역지오코딩이 번역을 못 줘도 내 언어로 보이게 */
+var WX_CITY = {
+  '서울': ['서울', 'Seoul', '首尔', 'ソウル', 'Séoul', 37.5665, 126.9780],
+  '부산': ['부산', 'Busan', '釜山', '釜山', 'Busan', 35.1796, 129.0756],
+  '대구': ['대구', 'Daegu', '大邱', '大邱', 'Daegu', 35.8714, 128.6014],
+  '인천': ['인천', 'Incheon', '仁川', '仁川', 'Incheon', 37.4563, 126.7052],
+  '광주': ['광주', 'Gwangju', '光州', '光州', 'Gwangju', 35.1595, 126.8526],
+  '대전': ['대전', 'Daejeon', '大田', '大田', 'Daejeon', 36.3504, 127.3845],
+  '울산': ['울산', 'Ulsan', '蔚山', '蔚山', 'Ulsan', 35.5384, 129.3114],
+  '세종': ['세종', 'Sejong', '世宗', '世宗', 'Sejong', 36.4800, 127.2890],
+  '수원': ['수원', 'Suwon', '水原', '水原', 'Suwon', 37.2636, 127.0286],
+  '춘천': ['춘천', 'Chuncheon', '春川', '春川', 'Chuncheon', 37.8813, 127.7300],
+  '강릉': ['강릉', 'Gangneung', '江陵', '江陵', 'Gangneung', 37.7519, 128.8761],
+  '속초': ['속초', 'Sokcho', '束草', '束草', 'Sokcho', 38.2070, 128.5918],
+  '청주': ['청주', 'Cheongju', '清州', '清州', 'Cheongju', 36.6424, 127.4890],
+  '천안': ['천안', 'Cheonan', '天安', '天安', 'Cheonan', 36.8151, 127.1139],
+  '전주': ['전주', 'Jeonju', '全州', '全州', 'Jeonju', 35.8242, 127.1480],
+  '군산': ['군산', 'Gunsan', '群山', '群山', 'Gunsan', 35.9676, 126.7369],
+  '목포': ['목포', 'Mokpo', '木浦', '木浦', 'Mokpo', 34.8118, 126.3922],
+  '여수': ['여수', 'Yeosu', '丽水', '麗水', 'Yeosu', 34.7604, 127.6622],
+  '순천': ['순천', 'Suncheon', '顺天', '順天', 'Suncheon', 34.9506, 127.4872],
+  '포항': ['포항', 'Pohang', '浦项', '浦項', 'Pohang', 36.0190, 129.3435],
+  '경주': ['경주', 'Gyeongju', '庆州', '慶州', 'Gyeongju', 35.8562, 129.2247],
+  '안동': ['안동', 'Andong', '安东', '安東', 'Andong', 36.5684, 128.7294],
+  '창원': ['창원', 'Changwon', '昌原', '昌原', 'Changwon', 35.2281, 128.6811],
+  '김해': ['김해', 'Gimhae', '金海', '金海', 'Gimhae', 35.2342, 128.8894],
+  '양산': ['양산', 'Yangsan', '梁山', '梁山', 'Yangsan', 35.3350, 129.0370],
+  '통영': ['통영', 'Tongyeong', '统营', '統営', 'Tongyeong', 34.8544, 128.4331],
+  '거제': ['거제', 'Geoje', '巨济', '巨済', 'Geoje', 34.8806, 128.6211],
+  '제주': ['제주', 'Jeju', '济州', '済州', 'Jeju', 33.4996, 126.5312],
+  '서귀포': ['서귀포', 'Seogwipo', '西归浦', '西帰浦', 'Seogwipo', 33.2541, 126.5600],
+  '평창': ['평창', 'Pyeongchang', '平昌', '平昌', 'Pyeongchang', 37.3705, 128.3900]
+};
+/* 가까운 대표 도시 — 역지오코딩이 늦거나 실패해도 바로 내 언어 도시명 (12km 이내) */
+function wxDistKm(lat1, lon1, lat2, lon2){
+  var R = 6371, rad = Math.PI / 180;
+  var dLa = (lat2 - lat1) * rad, dLo = (lon2 - lon1) * rad;
+  var h = Math.sin(dLa / 2) * Math.sin(dLa / 2)
+    + Math.cos(lat1 * rad) * Math.cos(lat2 * rad) * Math.sin(dLo / 2) * Math.sin(dLo / 2);
+  return 2 * R * Math.asin(Math.min(1, Math.sqrt(h)));
+}
+function wxNearCity(lat, lon){
+  var best = '', bd = 1e9;
+  for(var k in WX_CITY){
+    var c = WX_CITY[k]; if(c.length < 7) continue;
+    var d = wxDistKm(lat, lon, c[5], c[6]);
+    if(d < bd){ bd = d; best = k; }
+  }
+  return (best && bd <= 12) ? WX_CITY[best].slice(0, 5) : null;
+}
 function wxIcon(code){
   if(code === 0) return '☀️';
   if(code <= 2) return '🌤️';
@@ -2938,47 +3499,210 @@ function wxIcon(code){
   if(code >= 95) return '⛈️';
   return '⛅';
 }
+function wxTrimKo(s){
+  var v = String(s == null ? '' : s).trim();
+  return v.replace(/(특별자치시|특별자치도|특별시|광역시|시|군|도)$/, '').trim() || v;
+}
+function wxTrimLatin(s){
+  var v = String(s == null ? '' : s).trim();
+  return v.replace(/[\s\-]+(si|gun|gu|do|city)$/i, '').trim() || v;
+}
+/* 역지오코딩 결과 이름을 5개 언어 배열로 정리 (빈 칸은 영문 → 한글 순으로 채움) */
+function wxNamesFix(nm, ko){
+  var short = wxTrimKo(ko) || ko;
+  if(WX_CITY[short]) return WX_CITY[short].slice();
+  var a = (nm && nm.length) ? nm.slice() : [short, '', '', '', ''];
+  for(var i = 0; i < 5; i++){
+    var v = String(a[i] == null ? '' : a[i]).trim();
+    if(i === 0) v = wxTrimKo(v);
+    else if(i === 1 || i === 4) v = wxTrimLatin(v);
+    a[i] = v;
+  }
+  if(!a[0]) a[0] = short;
+  if(!a[4]) a[4] = a[1];
+  for(var j = 0; j < 5; j++){ if(!a[j]) a[j] = (j === 0 ? short : (a[1] || short)); }
+  return a;
+}
+function wxPickNames(nd){
+  if(!nd) return null;
+  var ko = nd['name:ko'] || nd['name'] || '';
+  if(!ko) return null;
+  return [ko,
+    nd['name:en'] || nd['int_name'] || '',
+    nd['name:zh'] || nd['name:zh-Hans'] || nd['name:zh-Hant'] || '',
+    nd['name:ja'] || '',
+    nd['name:fr'] || nd['name:en'] || ''];
+}
+/* 날씨 알약에 쓸 도시 이름 — 항상 내 언어 */
+function wxCityText(){
+  if(!wxData) return ui('wSeoul');
+  if(wxData.name && wxData.name.length){
+    var i = WX_LANGS.indexOf(my); if(i < 0) i = 1;
+    var v = wxData.name[i] || wxData.name[1] || wxData.name[0];
+    if(v) return v;
+  }
+  return wxData.geo ? ui('wxMyLoc') : ui('wSeoul');
+}
 function renderWx(){
   var el = $('#wxBadge'); if(!el) return;
   if(!wxData){ el.hidden = true; return; }
-  var city = ui('wSeoul');
-  el.innerHTML = '<span class="wxi">' + wxIcon(wxData.code) + '</span>'
-    + '<b>' + esc(city) + ' ' + Math.round(wxData.t) + '°</b>'
-    + '<span class="wxc">' + esc(ui('wxLow')) + ' ' + Math.round(wxData.lo) + '° · '
-    + esc(ui('wxHigh')) + ' ' + Math.round(wxData.hi) + '°</span>';
+  var city = wxCityText();
+  var t = Math.round(wxData.t), lo = Math.round(wxData.lo), hi = Math.round(wxData.hi);
+  el.innerHTML = '<span class="wxi" aria-hidden="true">' + wxIcon(wxData.code) + '</span>'
+    + '<b>' + esc(city) + ' ' + t + '°</b>'
+    + '<span class="wxc">' + esc(ui('wxLow')) + ' ' + lo + '° · ' + esc(ui('wxHigh')) + ' ' + hi + '°</span>'
+    + (wxData.geo ? '<span class="wxpin" aria-hidden="true">📍</span>' : '');
   el.hidden = false;
-  el.setAttribute('aria-label', ui('wxTxt') + ': ' + city + ' ' + Math.round(wxData.t) + '°');
+  el.setAttribute('aria-busy', 'false');
+  el.title = ui('wxTapHint');
+  el.setAttribute('aria-label', ui('wxTxt') + ' · ' + city + ' ' + t + '° · ' + ui('wxTapHint'));
 }
-function loadWx(){
+function wxShowBusy(){
+  var el = $('#wxBadge'); if(!el) return;
+  el.innerHTML = '<span class="wxi" aria-hidden="true">📍</span><b>' + esc(ui('wxLocating')) + '</b>';
+  el.hidden = false;
+  el.setAttribute('aria-busy', 'true');
+}
+function wxCacheRead(){
   try{
-    var raw = localStorage.getItem(WXKEY);
-    if(raw){
-      var c = JSON.parse(raw);
-      if(c && c.ts && (Date.now() - c.ts) < 30 * 60 * 1000 && typeof c.t === 'number'){
-        wxData = c; renderWx();
+    var c = JSON.parse(localStorage.getItem(WXKEY) || 'null');
+    if(c && c.ts && (Date.now() - c.ts) < 30 * 60 * 1000 && typeof c.t === 'number'
+      && typeof c.lat === 'number' && typeof c.lon === 'number') return c;
+  }catch(e){}
+  return null;
+}
+function wxSave(d){ try{ localStorage.setItem(WXKEY, JSON.stringify(d)); }catch(e){} }
+function wxUrl(lat, lon){
+  return 'https://api.open-meteo.com/v1/forecast?latitude=' + lat.toFixed(4) + '&longitude=' + lon.toFixed(4)
+    + '&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=1';
+}
+/* 역지오코딩 → 도시 이름 5개 언어 (실패하면 null → '내 위치') */
+function wxNameAt(lat, lon, cb){
+  var sent = false;
+  var fin = function(nm){ if(sent) return; sent = true; cb(nm || null); };
+  var to = setTimeout(function(){ fin(null); }, 9000);
+  var ru = 'https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=10&addressdetails=1&accept-language=ko&lat='
+    + lat + '&lon=' + lon;
+  try{
+    fetch(ru, {headers:{'Accept':'application/json'}}).then(function(r){ return r.json(); }).then(function(j){
+      var a = (j && j.address) || {};
+      var ko = a.city || a.town || a.municipality || a.county || a.state || a.village || a.borough || '';
+      if(!ko){ clearTimeout(to); fin(null); return; }
+      var shortKo = wxTrimKo(ko) || ko;
+      if(WX_CITY[shortKo]){ clearTimeout(to); fin(WX_CITY[shortKo].slice()); return; }
+      var su = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&namedetails=1&accept-language=ko&q='
+        + encodeURIComponent(ko);
+      fetch(su, {headers:{'Accept':'application/json'}}).then(function(r){ return r.json(); }).then(function(arr){
+        clearTimeout(to);
+        var nd = (arr && arr[0] && arr[0].namedetails) || null;
+        fin(wxNamesFix(wxPickNames(nd), shortKo));
+      }).catch(function(){ clearTimeout(to); fin(wxNamesFix(null, shortKo)); });
+    }).catch(function(){ clearTimeout(to); fin(null); });
+  }catch(e){ clearTimeout(to); fin(null); }
+}
+function wxApply(j, lat, lon, geo){
+  if(!j || !j.current || typeof j.current.temperature_2m !== 'number') return;
+  var d = j.daily || {}, t = j.current.temperature_2m;
+  var data = {
+    t: t,
+    code: j.current.weather_code,
+    lo: (d.temperature_2m_min && d.temperature_2m_min[0] != null) ? d.temperature_2m_min[0] : t,
+    hi: (d.temperature_2m_max && d.temperature_2m_max[0] != null) ? d.temperature_2m_max[0] : t,
+    lat: lat, lon: lon, geo: !!geo, ts: Date.now(),
+    name: geo ? (wxNearCity(lat, lon) || null) : WX_CITY['서울'].slice()
+  };
+  wxData = data; wxSave(data); renderWx();
+  if(geo){
+    wxNameAt(lat, lon, function(nm){
+      if(!nm || !wxData || wxData.geo !== true) return;
+      if(Math.abs(wxData.lat - lat) > 0.05 || Math.abs(wxData.lon - lon) > 0.05) return;
+      wxData.name = nm; wxSave(wxData); renderWx();
+    });
+  }
+}
+/* 서울 날씨 (내 위치를 못 쓸 때의 기본값) */
+function wxSeoulOnce(){
+  if(wxSeoulBusy) return;
+  wxSeoulBusy = true;
+  try{
+    fetch(wxUrl(WX_SEOUL[0], WX_SEOUL[1])).then(function(r){ return r.json(); }).then(function(j){
+      wxSeoulBusy = false;
+      wxApply(j, WX_SEOUL[0], WX_SEOUL[1], false);
+    }).catch(function(){ wxSeoulBusy = false; });
+  }catch(e){ wxSeoulBusy = false; }
+}
+function wxFetchAt(lat, lon, geo, quiet){
+  var c = wxCacheRead();
+  if(c && c.geo === !!geo && Math.abs(c.lat - lat) < 0.02 && Math.abs(c.lon - lon) < 0.02){
+    wxData = c; renderWx(); return;
+  }
+  try{
+    fetch(wxUrl(lat, lon)).then(function(r){ return r.json(); }).then(function(j){
+      if(!j || !j.current || typeof j.current.temperature_2m !== 'number'){
+        if(geo){ if(!quiet) toast(ui('wxFail')); wxSeoulOnce(); }
         return;
       }
-    }
-  }catch(e){}
-  var lat = 37.5665, lon = 126.9780;
-  var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon
-    + '&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FSeoul&forecast_days=1';
-  try{
-    fetch(url).then(function(r){ return r.json(); }).then(function(j){
-      if(!j || !j.current || typeof j.current.temperature_2m !== 'number') return;
-      var d = j.daily || {};
-      wxData = {
-        t: j.current.temperature_2m,
-        code: j.current.weather_code,
-        lo: (d.temperature_2m_min && d.temperature_2m_min[0] != null) ? d.temperature_2m_min[0] : j.current.temperature_2m,
-        hi: (d.temperature_2m_max && d.temperature_2m_max[0] != null) ? d.temperature_2m_max[0] : j.current.temperature_2m,
-        ts: Date.now()
-      };
-      try{ localStorage.setItem(WXKEY, JSON.stringify(wxData)); }catch(e){}
-      renderWx();
-    }).catch(function(){});
-  }catch(e){}
+      wxApply(j, lat, lon, geo);
+    }).catch(function(){
+      if(geo){ if(!quiet) toast(ui('wxFail')); wxSeoulOnce(); }
+    });
+  }catch(e){ if(geo){ if(!quiet) toast(ui('wxFail')); wxSeoulOnce(); } }
 }
+/* 📍 내 위치 날씨 — 이미 허용돼 있으면 조용히, 알약을 누르면 안내와 함께 */
+function loadWxGeo(interactive){
+  if(wxBusy) return;
+  if(!navigator.geolocation){
+    if(interactive) toast(ui('wxNoGeo'));
+    if(!wxData) wxFetchAt(WX_SEOUL[0], WX_SEOUL[1], false, true);
+    return;
+  }
+  wxBusy = true;
+  if(interactive) wxShowBusy();
+  var done = false;
+  var stop = function(ok){
+    if(done) return false;
+    done = true; clearTimeout(to); wxBusy = false;
+    return true;
+  };
+  var to = setTimeout(function(){
+    if(!stop()) return;
+    if(interactive) toast(ui('wxFail'));
+    if(!wxData) wxFetchAt(WX_SEOUL[0], WX_SEOUL[1], false, true);
+  }, 12000);
+  try{
+    navigator.geolocation.getCurrentPosition(function(pos){
+      if(!stop(true)) return;
+      wxFetchAt(pos.coords.latitude, pos.coords.longitude, true, false);
+    }, function(err){
+      if(!stop()) return;
+      if(interactive) toast((err && err.code === 1) ? ui('wxDenied') : ui('wxFail'));
+      wxFetchAt(WX_SEOUL[0], WX_SEOUL[1], false, true);
+    }, {enableHighAccuracy:false, timeout:11000, maximumAge:5 * 60 * 1000});
+  }catch(e){
+    stop();
+    if(interactive) toast(ui('wxFail'));
+    if(!wxData) wxFetchAt(WX_SEOUL[0], WX_SEOUL[1], false, true);
+  }
+}
+function loadWx(){
+  var c = wxCacheRead();
+  if(c && c.geo === false){ wxData = c; renderWx(); }
+  if(!navigator.permissions || !navigator.permissions.query){
+    if(!wxData) wxFetchAt(WX_SEOUL[0], WX_SEOUL[1], false, true);
+    return;
+  }
+  try{
+    navigator.permissions.query({name:'geolocation'}).then(function(p){
+      if(p.state === 'granted'){ loadWxGeo(false); }
+      else if(p.state === 'denied'){ wxFetchAt(WX_SEOUL[0], WX_SEOUL[1], false, true); }
+      else if(!wxData){ wxFetchAt(WX_SEOUL[0], WX_SEOUL[1], false, true); }
+    }).catch(function(){ if(!wxData) wxFetchAt(WX_SEOUL[0], WX_SEOUL[1], false, true); });
+  }catch(e){ if(!wxData) wxFetchAt(WX_SEOUL[0], WX_SEOUL[1], false, true); }
+}
+try{
+  var wxEl = $('#wxBadge');
+  if(wxEl) wxEl.addEventListener('click', function(e){ try{ e.preventDefault(); }catch(e2){} loadWxGeo(true); });
+}catch(e){}
 
 /* ══════ 🚌 교통 길찾기 ══════ */
 var tMode = 'subway';
@@ -3235,9 +3959,9 @@ function setLocMap(k){
 }
 function openLoc(){
   if(!locEl) return;
+  if(topModal() !== 'loc') openModal('loc');
   locEl.hidden = false;
-  document.body.style.overflow = 'hidden';
-  pushGuard();
+  checkLock();
   try{ locEl.scrollTop = 0; }catch(e){}
   locFind();
 }
@@ -3245,12 +3969,11 @@ function hideLoc(){
   if(!locEl || locEl.hidden) return;
   locEl.hidden = true;
   locToken++;                      /* 아직 오는 위치·주소 결과는 버린다 */
-  if(stepEl.hidden && bigEl.hidden) document.body.style.overflow = '';
+  checkLock();
 }
 function closeLoc(){
   if(!locEl || locEl.hidden) return;
-  hideLoc();
-  dropGuard();
+  if(!goBack()) hideLoc();
 }
 function showTaxiCard(nameKo, addrKo){
   var ko = nameKo ? TPL('ko', 'tphTaxi', nameKo) : UI.ko.tphTaxiStay;
@@ -3424,12 +4147,13 @@ function renderStep(){
   fitSoon('step');
 }
 function openPractice(d, i){
+  var wasBig = (topModal() === 'big');
   stepState = {d:d, i:(i || 0), picks:[0,0,0,0]};
   lastDishName = d.n[my] || d.n.en || '';
+  if(wasBig) replaceTopModal('step'); else openModal('step');
   bigEl.hidden = true;
   stepEl.hidden = false;
-  document.body.style.overflow = 'hidden';
-  pushGuard();
+  checkLock();
   renderStep();
   if(soundOn) speak(bigText, shop);
 }
@@ -3437,24 +4161,19 @@ function hideStep(){
   if(stepEl.hidden) return;
   stepEl.hidden = true;
   stepState = null;
-  if(bigEl.hidden) document.body.style.overflow = '';
+  checkLock();
   stopSpeak();
 }
-function closeStep(){ hideStep(); dropGuard(); }
+function closeStep(){
+  if(stepEl.hidden) return;
+  if(!goBack()) hideStep();
+}
 function gotoStep(i){
   if(!stepState) return;
   stepState.i = Math.max(0, Math.min(STEPN - 1, i));
   renderStep();
   if(soundOn) speak(bigText, shop);
 }
-window.addEventListener('popstate', function(){
-  guardOn = false;
-  if(locEl && !locEl.hidden){ hideLoc(); return; }
-  if(!stepEl.hidden){ hideStep(); return; }
-  if(!bigEl.hidden){ hideBig(); return; }
-  document.body.style.overflow = '';
-});
-
 /* ══════ 소리 (Web Speech API · 0원 · 오프라인) ══════ */
 var voices = [];
 function loadVoices(){ try{ voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : []; }catch(e){ voices = []; } }
@@ -3496,16 +4215,35 @@ function toast(msg){
   clearTimeout(toastT);
   toastT = setTimeout(function(){ el.classList.remove('on'); }, 2600);
 }
-/* ══════ 📝 식사 일기 (폰 안 localStorage · 5개국어) ══════ */
+/* ══════ 📔 여행 일기 (폰 안 localStorage · 5개국어 · 별점 없음) ══════ */
 var DKEY = 'dining_diary_v1', lastDishName = '';
 var LOC = {ko:'ko-KR', en:'en-US', zh:'zh-CN', ja:'ja-JP', fr:'fr-FR'};
 function diaryList(){
   try{ var a = JSON.parse(localStorage.getItem(DKEY) || '[]'); return Object.prototype.toString.call(a) === '[object Array]' ? a : []; }
   catch(e){ return []; }
 }
+/* 저장 — 폰 저장 공간이 차면 오래된 사진부터 하나씩 빠지고, 나머지는 그대로 */
 function diaryStore(list){
-  try{ localStorage.setItem(DKEY, JSON.stringify(list.slice(-300))); }
-  catch(e){ toast(ui('noTTS')); }
+  var arr = list.slice(-300), trimmed = false;
+  for(var pass = 0; pass < 40; pass++){
+    try{
+      localStorage.setItem(DKEY, JSON.stringify(arr));
+      if(trimmed) toast(ui('diaryFull'));
+      return true;
+    }catch(e){
+      var done = false;
+      for(var i = 0; i < arr.length && !done; i++){
+        if(arr[i] && arr[i].photo){
+          var cp = {};
+          for(var k in arr[i]) cp[k] = arr[i][k];
+          delete cp.photo;
+          arr[i] = cp; done = true; trimmed = true;
+        }
+      }
+      if(!done) return false;
+    }
+  }
+  return false;
 }
 function ymd(d){
   d = d || new Date();
@@ -3518,52 +4256,209 @@ function fmtDate(key){
       {year:'numeric', month:'long', day:'numeric', weekday:'short'});
   }catch(e){ return key; }
 }
-function renderDiary(){
-  var box = $('#diaryList'); if(!box) return;
-  var items = diaryList();
-  if(!items.length){ box.innerHTML = '<p class="dempty">' + esc(ui('diaryEmpty')) + '</p>'; return; }
-  var dates = [], by = {};
+function fmtTime(ts){
+  try{ return new Date(ts || Date.now()).toLocaleTimeString(LOC[my] || 'en-US', {hour:'2-digit', minute:'2-digit'}); }
+  catch(e){ return ''; }
+}
+function diarySorted(){
+  var items = diaryList(), dates = [], by = {};
   items.forEach(function(it){
     var k = it.date || ymd(new Date(it.ts || Date.now()));
     if(!by[k]){ by[k] = []; dates.push(k); }
     by[k].push(it);
   });
   dates.sort().reverse();
+  return {dates:dates, by:by, all:items};
+}
+function renderDiary(){
+  var box = $('#diaryList'); if(!box) return;
+  var g = diarySorted();
+  if(!g.all.length){ box.innerHTML = '<p class="dempty">' + esc(ui('diaryEmpty')) + '</p>'; return; }
   var html = '';
-  dates.forEach(function(dt){
-    html += '<p class="ddate"><span>' + esc(fmtDate(dt)) + '</span><span>' + by[dt].length + '</span></p>';
-    by[dt].slice().reverse().forEach(function(it){
-      html += '<div class="ditem"><div class="dh"><b>' + esc(it.name || '') + '</b>'
+  g.dates.forEach(function(dt){
+    html += '<p class="ddate"><span>' + esc(fmtDate(dt)) + '</span><span>' + g.by[dt].length + '</span></p>';
+    g.by[dt].slice().reverse().forEach(function(it){
+      var isCafe = (it.kind === 'cafe');
+      var tm = fmtTime(it.ts);
+      html += '<div class="ditem"><div class="dh">'
+        + '<span class="dke" aria-hidden="true">' + (isCafe ? '☕' : '🍽️') + '</span>'
+        + '<b>' + esc(it.name || '') + '</b>'
+        + (tm ? '<span class="dtime">' + esc(tm) + '</span>' : '')
+        + '<button type="button" class="ddel" data-dedit="' + esc(it.id) + '" aria-label="' + esc(ui('diarySaveUpdate')) + '">✏️</button>'
         + '<button type="button" class="ddel" data-del="' + esc(it.id) + '" aria-label="' + esc(ui('deleteLbl')) + '">✕</button></div>'
-        + (it.memo ? '<p class="dmemo">' + esc(it.memo) + '</p>' : '') + '</div>';
+        + ((it.items && it.items.length)
+            ? '<div class="ditems">' + it.items.map(function(x){ return '<span>' + esc(x) + '</span>'; }).join('') + '</div>' : '')
+        + (it.place
+            ? '<button type="button" class="dplace" data-ditaxi="' + esc(it.place) + '" aria-label="' + esc(ui('diaryTaxi')) + '">'
+              + '<span class="car" aria-hidden="true">🚕</span><span>' + esc(it.place) + '</span></button>' : '')
+        + (it.memo ? '<p class="dmemo">' + esc(it.memo) + '</p>' : '')
+        + (it.photo ? '<img class="dphoto" src="' + it.photo + '" alt="' + esc(ui('diaryPhotoAlt')) + '" loading="lazy" />' : '')
+        + '</div>';
     });
   });
   box.innerHTML = html;
 }
+var diaryKind = 'food', diaryPhoto = '', editingId = '';
+function setDiaryKind(k){
+  diaryKind = (k === 'cafe') ? 'cafe' : 'food';
+  var btns = document.querySelectorAll('[data-dkind]');
+  for(var i = 0; i < btns.length; i++){
+    var on = (btns[i].getAttribute('data-dkind') === diaryKind);
+    btns[i].classList.toggle('on', on);
+    btns[i].setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+}
+function showDiaryPrev(){
+  var img = $('#diaryPrev');
+  if(img){
+    if(diaryPhoto){ img.src = diaryPhoto; img.hidden = false; }
+    else { img.setAttribute('src', ''); img.hidden = true; }
+  }
+  var del = $('#diaryPhotoDel'); if(del) del.hidden = !diaryPhoto;
+}
+function diaryFormReset(){
+  editingId = ''; diaryPhoto = '';
+  ['#diaryName', '#diaryPlace', '#diaryMemo'].forEach(function(sel){ var n = $(sel); if(n) n.value = ''; });
+  setDiaryKind('food'); showDiaryPrev();
+  var note = $('#dcEditNote'); if(note){ note.hidden = true; note.textContent = ''; }
+  var c = $('#diaryCancel'); if(c) c.hidden = true;
+  var sl = $('#diarySaveLbl'); if(sl) sl.textContent = ui('diarySaveLbl');
+}
+function editDiaryEntry(id){
+  var list = diaryList(), it = null;
+  for(var i = 0; i < list.length; i++){ if(list[i].id === id){ it = list[i]; break; } }
+  if(!it) return;
+  editingId = it.id;
+  if($('#diaryName')) $('#diaryName').value = it.name || '';
+  if($('#diaryPlace')) $('#diaryPlace').value = it.place || '';
+  if($('#diaryMemo')) $('#diaryMemo').value = it.memo || '';
+  diaryPhoto = it.photo || '';
+  setDiaryKind(it.kind || 'food'); showDiaryPrev();
+  var note = $('#dcEditNote');
+  if(note){ note.textContent = ui('diaryEditNote'); note.hidden = false; }
+  var c = $('#diaryCancel'); if(c) c.hidden = false;
+  var sl = $('#diarySaveLbl'); if(sl) sl.textContent = ui('diarySaveUpdate');
+}
 function saveDiaryEntry(){
-  var nameEl = $('#diaryName'), memoEl = $('#diaryMemo');
+  var nameEl = $('#diaryName'); if(!nameEl) return;
   var name = (nameEl.value || '').trim();
   if(!name){ toast(ui('diaryNeedName')); try{ nameEl.focus(); }catch(e){} return; }
-  var now = new Date(), list = diaryList();
-  list.push({id:'d' + now.getTime() + Math.floor(Math.random() * 1000), ts:now.getTime(), date:ymd(now),
-             name:name, memo:(memoEl.value || '').trim()});
-  diaryStore(list);
-  memoEl.value = '';
+  var list = diaryList(), now = new Date();
+  var data = {name:name,
+    place:(($('#diaryPlace') || {}).value || '').trim(),
+    memo:(($('#diaryMemo') || {}).value || '').trim(),
+    kind:diaryKind, photo:diaryPhoto || ''};
+  var found = -1;
+  if(editingId){
+    for(var i = 0; i < list.length; i++){ if(list[i].id === editingId){ found = i; break; } }
+  }
+  if(found >= 0){
+    for(var k in data) list[found][k] = data[k];
+  } else {
+    var entry = {id:'d' + now.getTime() + Math.floor(Math.random() * 1000), ts:now.getTime(), date:ymd(now), items:[]};
+    for(var k2 in data) entry[k2] = data[k2];
+    list.push(entry);
+  }
+  if(!diaryStore(list)) return;
+  diaryFormReset();
   toast(ui('diarySaved'));
   renderDiary();
 }
-function setDiaryOpen(open){
-  var body = $('#diaryBody');
-  body.hidden = !open;
-  $('#diaryToggle').setAttribute('aria-expanded', open ? 'true' : 'false');
-  $('#diaryToggleLbl').textContent = open ? ui('diaryClose') : ui('diaryOpen');
-  if(open){
-    if(!$('#diaryName').value && lastDishName) $('#diaryName').value = lastDishName;
-    renderDiary();
+function syncDiaryStay(){
+  var b = $('#diaryStayBtn'); if(!b) return;
+  b.hidden = !stayAddr();          /* 숙소 주소를 저장해 두었을 때만 */
+}
+/* 📍 현재 위치 넣기 — 한글 주소를 장소 칸에 */
+function diaryPutLoc(){
+  var btn = $('#diaryLocBtn'), lbl = $('#diaryLocBtnLbl');
+  var old = lbl ? lbl.textContent : '';
+  if(!navigator.geolocation){ toast(ui('locErrNone')); return; }
+  if(btn) btn.disabled = true;
+  if(lbl) lbl.textContent = ui('locLocating');
+  function done(){ if(btn) btn.disabled = false; if(lbl) lbl.textContent = old; }
+  try{
+    navigator.geolocation.getCurrentPosition(function(pos){
+      var co = {lat: pos.coords.latitude, lon: pos.coords.longitude};
+      locFetch(co.lat, co.lon, 'ko', function(addr){
+        done();
+        var a = addr || (co.lat.toFixed(5) + ', ' + co.lon.toFixed(5));
+        var inp = $('#diaryPlace');
+        if(inp){
+          var cur = (inp.value || '').trim();
+          inp.value = cur ? (cur + ' · ' + a) : a;
+        }
+        if(!addr) toast(ui('locNoAddr'));
+      });
+    }, function(){ done(); toast(ui('locErrPerm')); },
+    {enableHighAccuracy:true, timeout:12000, maximumAge:30000});
+  }catch(e){ done(); toast(ui('locErrTime')); }
+}
+/* 사진 — 폰 안에서만 640px 로 줄여 저장 */
+function handleDiaryPhoto(file){
+  if(!file) return;
+  var url = '', img = new Image();
+  try{ url = URL.createObjectURL(file); }catch(e){ toast(ui('diaryPhotoFail')); return; }
+  img.onload = function(){
+    try{
+      var max = 640, w = img.width || 1, h = img.height || 1, s = Math.min(1, max / Math.max(w, h));
+      var c = document.createElement('canvas');
+      c.width = Math.max(1, Math.round(w * s)); c.height = Math.max(1, Math.round(h * s));
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      diaryPhoto = c.toDataURL('image/jpeg', 0.62);
+    }catch(e){ diaryPhoto = ''; toast(ui('diaryPhotoFail')); }
+    try{ URL.revokeObjectURL(url); }catch(e){}
+    showDiaryPrev();
+  };
+  img.onerror = function(){ try{ URL.revokeObjectURL(url); }catch(e){} toast(ui('diaryPhotoFail')); };
+  img.src = url;
+}
+/* 내보내기 — 글자 복사 / JSON 파일 */
+function diaryAsText(){
+  var g = diarySorted();
+  var lines = [ui('appTitle') + ' · ' + ui('secDiary'), ''];
+  g.dates.forEach(function(dt){
+    lines.push('■ ' + fmtDate(dt));
+    g.by[dt].slice().reverse().forEach(function(it){
+      var tm = fmtTime(it.ts);
+      lines.push('  ' + (it.kind === 'cafe' ? '☕' : '🍽️') + ' ' + (it.name || '') + (tm ? ' · ' + tm : ''));
+      if(it.items && it.items.length) lines.push('     - ' + it.items.join(', '));
+      if(it.place) lines.push('     📍 ' + it.place);
+      if(it.memo) lines.push('     ' + String(it.memo).replace(/\n/g, ' '));
+    });
+    lines.push('');
+  });
+  if(!g.all.length) lines.push(ui('diaryEmpty'));
+  return lines.join('\n').trim();
+}
+function diaryCopyText(){
+  var txt = diaryAsText();
+  var done = function(){ toast(ui('diaryCopyDone')); };
+  var fail = function(){ toast(ui('diaryCopyFail')); };
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(done, function(){ legacyCopy(txt, done, fail); });
+    else legacyCopy(txt, done, fail);
+  }catch(e){ legacyCopy(txt, done, fail); }
+}
+function diarySaveJson(){
+  var data = {app:'wagle-korea-trip', version:8, exported:new Date().toISOString(), entries: diaryList()};
+  var txt = JSON.stringify(data, null, 2);
+  try{
+    var blob = new Blob([txt], {type:'application/json'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'wagle-diary-' + ymd() + '.json';
+    a.style.cssText = 'position:fixed;left:-9999px';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){ try{ URL.revokeObjectURL(a.href); }catch(e){} if(a.parentNode) a.parentNode.removeChild(a); }, 1800);
+    toast(ui('diaryJsonDone'));
+  }catch(e){
+    legacyCopy(txt, function(){ toast(ui('diaryCopyDone')); }, function(){ toast(ui('diaryCopyFail')); });
   }
 }
-function showInstall(){ $('#installModal').hidden = false; }
-function hideInstall(){ $('#installModal').hidden = true; }
+function showInstall(){ openModal('install'); var m = $('#installModal'); if(m) m.hidden = false; checkLock(); }
+function hideInstall(){ var m = $('#installModal'); if(m) m.hidden = true; checkLock(); }
+function closeInstall(){ var m = $('#installModal'); if(m && !m.hidden){ if(!goBack()) hideInstall(); } }
 function isStandalone(){
   try{ return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; }catch(e){ return false; }
 }
@@ -3837,8 +4732,8 @@ $('#bigBtn').addEventListener('click', function(){
 });
 $('#shareBtn').addEventListener('click', shareApp);
 $('#installBtn').addEventListener('click', onInstall);
-$('#instOk').addEventListener('click', hideInstall);
-$('#installModal').addEventListener('click', function(e){ if(e.target === this) hideInstall(); });
+$('#instOk').addEventListener('click', closeInstall);
+$('#installModal').addEventListener('click', function(e){ if(e.target === this) closeInstall(); });
 
 $('#bigBackTop').addEventListener('click', closeBig);
 $('#bigBack').addEventListener('click', closeBig);
@@ -3868,6 +4763,7 @@ $('#stepDesc').addEventListener('click', function(){ if(stepState) openDish(step
 $('#coreList').addEventListener('click', onSayClick);
 $('#moreList').addEventListener('click', onSayClick);
 $('#ingrList').addEventListener('click', onSayClick);
+$('#cafeList').addEventListener('click', onSayClick);   /* v8: 카페 페이지 문장 카드 */
 function onSayClick(e){
   var b = e.target.closest('[data-say]'); if(!b) return;
   var p = PHRASES.filter(function(x){ return x.id === b.getAttribute('data-say'); })[0];
@@ -3948,11 +4844,22 @@ $('#scanResBody').addEventListener('click', onDishClick);
 
 document.addEventListener('keydown', function(e){
   if(e.key !== 'Escape') return;
-  if(!stepEl.hidden) closeStep();
-  else if(!bigEl.hidden) closeBig();
+  if(HIST.length) goBack();          /* Esc = 폰 뒤로가기와 똑같이 한 겹만 */
 });
-
 document.addEventListener('click', function(e){
+  var gv = e.target.closest('[data-goview]');
+  if(gv){ goView(gv.getAttribute('data-goview')); return; }
+  var ca = e.target.closest('[data-cbact]');
+  if(ca){
+    var act = ca.getAttribute('data-cbact');
+    if(act === 'speak') comboTalk();
+    else if(act === 'full') comboBig();
+    else if(act === 'reset') comboClear();
+    else if(act === 'diary') comboToDiary();
+    return;
+  }
+  var dk = e.target.closest('[data-dkind]');
+  if(dk){ setDiaryKind(dk.getAttribute('data-dkind')); return; }
   var sd = e.target.closest('[data-sign-dish]');
   if(sd){ var sdd = dishById(sd.getAttribute('data-sign-dish')); if(sdd) openDish(sdd, true); return; }
   var sp = e.target.closest('[data-prac]');
@@ -3964,17 +4871,15 @@ document.addEventListener('click', function(e){
   var x = e.target.closest('[data-rm]');
   if(x){ comboRemove(x.getAttribute('data-rm')); return; }
 });
-$('#comboSpeak').addEventListener('click', function(){
-  var t = comboText(); speak(t[shop] || t.en, shop);
-});
-$('#comboFull').addEventListener('click', function(){
-  var t = comboText(), txt = t[shop] || t.en;
-  var cls = txt.length > 40 ? 'm' : (txt.length > 22 ? 'l' : '');
-  showBig(twoLang(t, cls), txt, shop);
-});
-$('#comboReset').addEventListener('click', comboClear);
 $('#comboPeek').addEventListener('click', function(){
-  try{ $('#secComboH').scrollIntoView({behavior:'smooth', block:'start'}); }catch(err){}
+  var host = (comboCtx === 'cafe') ? 'cafe' : 'home';
+  goView(host);
+  setTimeout(function(){
+    try{
+      var el = (host === 'cafe') ? $('#comboCafeBody') : $('#comboHomeBody');
+      if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+    }catch(e){}
+  }, 140);
 });
 $('#stepAdd').addEventListener('click', function(){
   if(!stepState) return;
@@ -3982,6 +4887,13 @@ $('#stepAdd').addEventListener('click', function(){
   renderCombo();
   toast(ui('comboAdded'));
 });
+
+/* ══════ ② 카페 페이지에서 다른 페이지로 (연동) ══════ */
+$('#cafeNearBtn').addEventListener('click', function(){
+  goView('traffic');
+  openLoc();
+});
+$('#cafeDiaryBtn').addEventListener('click', function(){ goView('diary'); });
 
 $('#tModeRow').addEventListener('click', function(e){
   var b = e.target.closest('[data-mode]'); if(!b) return;
@@ -4099,19 +5011,51 @@ $('#tPhrases').addEventListener('click', function(e){
   showTransitBig(b.getAttribute('data-tph'));
 });
 
-$('#diaryToggle').addEventListener('click', function(){ setDiaryOpen($('#diaryBody').hidden); });
 $('#diarySave').addEventListener('click', saveDiaryEntry);
+$('#diaryCancel').addEventListener('click', function(){ diaryFormReset(); renderDiary(); });
+$('#diaryLocBtn').addEventListener('click', diaryPutLoc);
+$('#diaryStayBtn').addEventListener('click', function(){
+  var a = stayAddr();
+  if(!a){ toast(ui('stayNeed')); return; }
+  var inp = $('#diaryPlace'); if(!inp) return;
+  var cur = (inp.value || '').trim();
+  inp.value = cur ? (cur + ' · ' + a) : a;
+});
+$('#diaryPhotoBtn').addEventListener('click', function(){
+  var inp = $('#diaryPhoto'); if(!inp) return;
+  try{ inp.value = ''; }catch(e){}
+  try{ inp.click(); }catch(err){ try{ inp.style.position = 'static'; inp.click(); }catch(e){} }
+});
+$('#diaryPhoto').addEventListener('change', function(e){
+  var f = null; try{ f = (e.target.files || [])[0]; }catch(err){}
+  try{ e.target.value = ''; }catch(err){}
+  handleDiaryPhoto(f);
+});
+$('#diaryPhotoDel').addEventListener('click', function(){ diaryPhoto = ''; showDiaryPrev(); });
+$('#diaryCopy').addEventListener('click', diaryCopyText);
+$('#diaryJson').addEventListener('click', diarySaveJson);
 $('#diaryList').addEventListener('click', function(e){
+  var t = e.target.closest('[data-ditaxi]');
+  if(t){ showTaxiCard('', t.getAttribute('data-ditaxi')); return; }
+  var ed = e.target.closest('[data-dedit]');
+  if(ed){ editDiaryEntry(ed.getAttribute('data-dedit')); try{ $('#diaryName').scrollIntoView({behavior:'smooth', block:'center'}); }catch(err){} return; }
   var b = e.target.closest('[data-del]'); if(!b) return;
   var id = b.getAttribute('data-del');
+  if(id && id === editingId) diaryFormReset();
   var list = diaryList().filter(function(it){ return it.id !== id; });
   diaryStore(list); renderDiary();
 });
 $('#stepDiary').addEventListener('click', function(){
-  closeStep();
-  $('#diaryName').value = lastDishName || '';
-  setDiaryOpen(true);
-  setTimeout(function(){ try{ $('#diaryName').scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){} }, 160);
+  var name = lastDishName || '';
+  var kind = (stepState && stepState.d && stepState.d.kind === 'cafe') ? 'cafe' : 'food';
+  backThen(function(){
+    goView('diary');
+    setTimeout(function(){
+      if(name && $('#diaryName')) $('#diaryName').value = name;
+      setDiaryKind(kind);
+      try{ $('#diaryMemo').focus(); }catch(e){}
+    }, 80);
+  });
 });
 
 $('#scanBtn').addEventListener('click', function(){
@@ -4138,6 +5082,9 @@ document.documentElement.classList.toggle('big', bigOn);
 $('#soundBtn').setAttribute('aria-pressed', soundOn ? 'true' : 'false');
 $('#bigBtn').setAttribute('aria-pressed', bigOn ? 'true' : 'false');
 renderAll();
+/* v8: 첫 화면 = ① 식당·간판, history 첫 칸은 기준점(0층) */
+try{ history.replaceState({wg:1, st:''}, '', location.href); }catch(e){}
+setView('home');
 loadWx();
 
 /* 서비스 워커 (오프라인 · https 에서만) */

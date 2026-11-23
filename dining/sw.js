@@ -5,9 +5,11 @@
    - v4: 📍 내 위치 주소 · 🪧 간판 45종 2초 알림 · 🗣️ 여기 어떤 곳이에요? 배너
    - v5: 언어 버튼 5칸 꽉 채우기(가로 5등분) · 표지 흰 문구칸 삭제 · 좌우 여백 줄임 · 자동번역 방지(notranslate)
    - v6: 간판 버튼 안 그림(이모지) 삭제 → 글씨만 큼직하게 · 글자 사이/줄 사이 여유(letter-spacing·line-height) · 영어 모드 검수
+   - v7: 슬로건·날씨 알약 한 단계 크게 · 내 위치(GPS) 날씨 + 역지오코딩 도시명 5개국어 · 알약 톡 누르면 내 위치 날씨 새로고침
+   - v8: 4개 페이지(식당·간판 / 카페 메뉴 / 교통·길찾기 / 여행 일기) 분리 · 위·아래 전환 바 · 메뉴↔일기↔교통 연동 · 폰 뒤로가기 스택 · 카페 메뉴 10종(그림 3종 추가)
    - 메뉴판 사진 OCR(Tesseract.js CDN)은 그대로 통과 */
 
-const CACHE = 'wagle-dining-v6';
+const CACHE = 'wagle-dining-v8';
 const SHELL = [
   './',
   './index.html',
@@ -45,6 +47,9 @@ const IMAGES = [
   './food/makgeolli.webp',
   './food/mandu.webp',
   './food/matcha-latte.webp',
+  './food/goguma-latte.webp',
+  './food/grapefruit-ade.webp',
+  './food/peach-iced-tea.webp',
   './food/naengmyeon.webp',
   './food/pajeon.webp',
   './food/ramyeon.webp',
