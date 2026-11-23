@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#8E241A" />
-<!-- build: 2026-11-23 와글한국여행 (Wagul Korea Trip) v3 · 5개 언어(한·영·중·일·프) · 🪧 간판에서 찾아보세요(간판 26종 → 음식점/다른 가게 판별·그림·대표 음식 주문 연습) · 내 언어 작게/가게 언어 크게 · 🧺 그림 조합 주문(인원·음식·요청 → 공손한 문장) · 🔊 한글 읽기 · 🍲 음식 24종 사진 · 🍶 술·음료 5종 · ☕ 카페 7종 · 1→2→3→4 주문 연습 · 📷 메뉴판 사진 → 그림 메뉴 · 🚕 택시(내 위치·내려줄 곳 주소) 🚇 지하철 · 🏨 숙소 저장 · 📝 식사 일기 · 실시간 날씨 · Android 뒤로가기(popstate) -->
+<!-- build: 2026-11-23 와글한국여행 (Wagul Korea Trip) v4 · 5개 언어(한·영·중·일·프) · 📍 내 위치 주소(폰 GPS → 한글 주소·영문 주소·좌표 · 📋 복사·꾹 눌러 복사 · 🍽️ 주변 식당/☕ 카페 · 🚕 기사님께 크게) · 🪧 간판에서 찾아보세요(간판 45종 → 누르면 2초 내 언어 알림·길게 누르면 자세히·그림·대표 음식 주문 연습) · 내 언어 작게/가게 언어 크게 · 🧺 그림 조합 주문(인원·음식·요청 → 공손한 문장) · 🔊 한글 읽기 · 🍲 음식 24종 사진 · 🍶 술·음료 5종 · ☕ 카페 7종 · 1→2→3→4 주문 연습 · 📷 메뉴판 사진 → 그림 메뉴 · 🚕 택시(내 위치·내려줄 곳 주소) 🚇 지하철 · 🏨 숙소 저장 · 📝 식사 일기 · 실시간 날씨 · Android 뒤로가기(popstate) -->
 <link rel="manifest" href="./manifest.json" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -160,6 +160,31 @@ section{margin:.95rem .7rem 0}
 .sign .sb{font-size:1.16rem;font-weight:900;letter-spacing:-.045em;line-height:1.1;word-break:keep-all;
   text-shadow:0 0 11px rgba(255,190,90,.40)}
 .sign .salt{font-size:.6rem;font-weight:900;color:#E8C79A;line-height:1.05;letter-spacing:-.02em}
+.signhint{font-size:.66rem;font-weight:800;color:#8A6A3E;line-height:1.35;margin:.45rem 0 0;text-align:center}
+/* 🗣️ 여기 어떤 곳이에요? — 큰 배너(누르면 한국어 음성 + 큰 카드) */
+.askbtn{display:flex;align-items:center;gap:.55rem;width:100%;text-align:left;margin-top:.55rem;
+  background:linear-gradient(180deg,#E4572E,#C0392B);border:2.5px solid #8E241A;border-radius:1rem;
+  padding:.6rem .7rem;min-height:3.9rem;box-shadow:0 4px 14px rgba(160,45,25,.3);color:#FFF6E4}
+.askbtn:active{transform:translateY(1px);filter:brightness(1.04)}
+.askbtn .ae{font-size:2rem;line-height:1;flex:0 0 auto}
+.askbtn .atx{display:flex;flex-direction:column;min-width:0;flex:1 1 auto}
+.askbtn .atx b{font-size:1.12rem;font-weight:900;line-height:1.2;letter-spacing:-.02em;color:#FFFDF6}
+.askbtn .atx span{font-size:.72rem;font-weight:800;line-height:1.28;margin-top:.14rem;color:#FFE3CE;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.askbtn .ag{font-size:1.25rem;flex:0 0 auto}
+/* 🪧 간판 빠른 알림 — 화면 가운데, 내 언어로 2초만, 손가락은 그대로 통과 */
+.signtip{position:fixed;left:50%;top:50%;transform:translate(-50%,-46%) scale(.92);
+  z-index:115;pointer-events:none;opacity:0;transition:opacity .16s ease,transform .18s ease;
+  background:linear-gradient(180deg,#FFFDF6,#FFEFD4);color:#2B211A;border:3px solid #C0392B;border-radius:1.3rem;
+  padding:.8rem 1.25rem 1rem;box-shadow:0 18px 46px rgba(30,18,10,.5);
+  min-width:64%;max-width:90vw;text-align:center}
+.signtip.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.signtip .k{display:inline-block;font-size:.9rem;font-weight:900;line-height:1.2;letter-spacing:-.01em;
+  color:#8E241A;background:#FFE2C8;border:1.5px solid #E8A680;border-radius:1rem;padding:.16rem .58rem}
+.signtip .w{display:block;font-size:2.3rem;font-weight:900;line-height:1.15;margin-top:.28rem;
+  color:#7A2A0E;letter-spacing:-.045em;word-break:keep-all}
+.signtip .w i{display:block;font-style:normal;font-size:1rem;font-weight:800;color:#6A5647;
+  margin-top:.16rem;letter-spacing:0;line-height:1.3;word-break:keep-all}
 html.big .sign .sb{font-size:1.06rem}
 html.big .sign .salt{font-size:.56rem}
 html.big .sign .sem{font-size:.8rem}
@@ -366,6 +391,57 @@ html.big .sign .sem{font-size:.8rem}
 .tmap:active{transform:translateY(1px)}
 .tnote{font-size:.68rem;color:#8A6A3E;font-weight:800;line-height:1.35;margin:.45rem 0 0;text-align:center}
 
+/* ── 📍 내 위치 주소 ── */
+.locbtn{display:flex;align-items:center;gap:.55rem;width:100%;text-align:left;
+  background:linear-gradient(180deg,#FFFDF8,#FFF0D6);border:2.5px solid #2E7D5B;border-radius:1rem;
+  padding:.62rem .7rem;margin-bottom:.55rem;min-height:3.7rem;box-shadow:0 3px 12px rgba(46,125,91,.2)}
+.locbtn:active{transform:translateY(1px);background:#FFF6E4}
+.locbtn .le{font-size:2rem;line-height:1;flex:0 0 auto}
+.locbtn .lt{display:flex;flex-direction:column;min-width:0;flex:1 1 auto}
+.locbtn .lt b{font-size:1.04rem;font-weight:900;color:#1F5E45;line-height:1.2;letter-spacing:-.01em}
+.locbtn .lt span{font-size:.7rem;font-weight:800;color:#4F7F69;line-height:1.28;margin-top:.14rem}
+.locbtn .lg{font-size:1.35rem;color:#2E7D5B;flex:0 0 auto;font-weight:900}
+.locsteps{display:flex;align-items:center;justify-content:center;gap:.16rem;margin:0;font-size:.95rem;line-height:1;color:#8A6A3E}
+.locsteps b{background:#FFE9C4;border:1.5px solid #E0B87A;color:#7A4A16;border-radius:50%;width:1.28rem;height:1.28rem;
+  display:inline-grid;place-items:center;font-size:.7rem;font-weight:900}
+.locsteps i{font-style:normal;color:#C9AE85;font-weight:900;margin:0 .06rem}
+.locbody{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+  gap:.42rem;overflow:auto;padding:.15rem .1rem .2rem;text-align:center}
+.locbody > :first-child{margin-top:auto}
+.locbody > :last-child{margin-bottom:auto}
+.locst{font-size:.84rem;font-weight:900;color:#1F5E45;background:#EAF5EE;border:1.5px solid #CBE3D3;
+  border-radius:.7rem;padding:.38rem .62rem;line-height:1.3;margin:0;max-width:23rem}
+.locst.err{color:#8E241A;background:#FDECEA;border-color:#F0C2BB}
+.locst.wait{color:#8A5A20;background:#FFF5E2;border-color:#EFD8AF}
+/* 주소 상자는 손가락으로 꾹 누르면 그대로 선택·복사 (user-select:text) */
+.locaddr{width:100%;max-width:23rem;margin:0;background:#FFF8E6;border:2.5px solid #D9A227;border-radius:.95rem;
+  padding:.55rem .68rem;font-size:1.4rem;font-weight:900;color:#7A2A0E;line-height:1.32;word-break:keep-all;
+  -webkit-user-select:text;user-select:text;-webkit-touch-callout:default;cursor:text;touch-action:auto;
+  box-shadow:0 2px 10px rgba(160,110,20,.18)}
+.locaddr:active{background:#FFF2D6}
+.locaddrEn{font-size:.8rem;font-weight:800;color:#6A5647;line-height:1.35;margin:0;max-width:23rem;word-break:break-word}
+.loccoords{font-size:.72rem;font-weight:800;color:#8A6A3E;margin:0;-webkit-user-select:text;user-select:text}
+.locbtns{display:flex;flex-direction:column;gap:.44rem;width:100%;max-width:23rem;margin-top:.15rem}
+.locbtns .btn.primary{min-height:3.3rem;font-size:1rem}
+.loc2{display:grid;grid-template-columns:1fr 1fr;gap:.44rem}
+.loc2 .tmap{min-height:3.3rem;font-size:.84rem;padding:.2rem .3rem;flex-direction:column;gap:.12rem}
+.locbtns > .tmap{min-height:3.1rem;font-size:.84rem}
+.locmaprow{display:flex;align-items:center;justify-content:center;gap:.3rem}
+.locmaprow .lb{font-size:.66rem;font-weight:900;color:#A2835A}
+.mchip{font-size:.74rem;font-weight:900;color:#7A4A16;background:#FFFDF8;border:1.5px solid #DFC49B;
+  border-radius:1rem;padding:.26rem .6rem;min-height:2.2rem}
+.mchip.on{background:#FFF1DA;border-color:var(--red);color:var(--red2);box-shadow:0 2px 7px rgba(142,36,26,.14)}
+.mchip:active{transform:translateY(1px)}
+.lochint{font-size:.68rem;font-weight:800;color:#8A6A3E;line-height:1.35;margin:.05rem 0 0;max-width:22rem}
+.lochint small{display:block;font-size:.6rem;color:#A08A6A;font-weight:700;margin-top:.1rem}
+/* 큰 글씨 모드에서는 여백을 조금 조여 한 화면에 더 담기 */
+html.big .locbody{gap:.34rem}
+html.big .locsteps{font-size:.82rem}
+html.big .locsteps b{width:1.12rem;height:1.12rem;font-size:.62rem}
+html.big .locbtns{gap:.36rem}
+html.big .lochint{font-size:.6rem}
+html.big .lochint small{font-size:.54rem}
+
 /* ── 식사 일기 ── */
 .diary .accbtn{display:flex;align-items:center;justify-content:center;gap:.4rem;width:100%;background:var(--card);
   border:2px solid #E3D1B4;border-radius:.9rem;padding:.62rem .7rem;font-size:.94rem;font-weight:900;min-height:3rem;
@@ -484,9 +560,16 @@ html.big .sign .sem{font-size:.8rem}
   <div class="sechd signhd">
     <h2 id="secSignH">🪧 간판에서 찾아보세요</h2>
     <span class="sub" id="secSignS">길에서 본 한글 간판을 톡 누르면 음식점인지 다른 가게인지 알려 드려요</span>
-    <span class="num" id="signNum">26</span>
+    <span class="num" id="signNum">45</span>
   </div>
   <div class="signs" id="signGrid" role="group" aria-labelledby="secSignH"></div>
+  <p class="signhint" id="secSignHint">간판을 누르면 2초 동안 무슨 가게인지 알려 드려요 · 길게 누르면 자세히</p>
+  <!-- 🗣️ 큰 배너 — 누르면 한국어로 바로 물어 봐요 -->
+  <button type="button" class="askbtn" id="askPlaceBtn" aria-label="여기 어떤 곳이에요? · 한국어로 물어 보기">
+    <span class="ae" aria-hidden="true">🗣️</span>
+    <span class="atx"><b id="askKo" lang="ko">여기 어떤 곳이에요?</b><span id="askMine">Excuse me, what kind of place is this?</span></span>
+    <span class="ag" aria-hidden="true">🔊</span>
+  </button>
 </section>
 
 <!-- ══ 0. 몇 분이세요? (가게 들어갈 때 첫마디) ══ -->
@@ -612,6 +695,12 @@ html.big .sign .sem{font-size:.8rem}
     <h2 id="secTransitH">🚌 교통 길찾기</h2>
     <span class="sub" id="secTransitS">버스·택시·지하철, 목적지만 넣으면 바로</span>
   </div>
+  <button type="button" class="locbtn" id="myLocBtn" aria-haspopup="dialog" aria-controls="locCard"
+    aria-label="📍 내 위치 주소 보기 · 지금 있는 곳을 한글 주소로">
+    <span class="le" aria-hidden="true">📍</span>
+    <span class="lt"><b id="myLocBtnLbl">내 위치 주소</b><span id="myLocBtnSub">지금 있는 곳을 한글로 · 복사해서 기사님께</span></span>
+    <span class="lg" aria-hidden="true">›</span>
+  </button>
   <div class="stay" id="stayCard">
     <div class="stayhd">
       <span class="stayem" aria-hidden="true">🏠</span>
@@ -719,6 +808,41 @@ html.big .sign .sem{font-size:.8rem}
   </div>
 </div>
 
+<!-- ══ 📍 내 위치 주소 (한글 주소 · 복사 · 주변 식당·카페) ══ -->
+<div class="bigcard loccard" id="locCard" role="dialog" aria-modal="true" aria-labelledby="locTitle" hidden>
+  <div class="bigbar">
+    <button type="button" class="circ" id="locBackTop" aria-label="뒤로">◀</button>
+    <span class="hint" id="locTitle">📍 내 위치 주소</span>
+    <button type="button" class="circ" id="locAgain" aria-label="다시 찾기">🔄</button>
+  </div>
+  <div class="locbody">
+    <p class="locst wait" id="locStatus" role="status" aria-live="polite">위치를 확인하는 중…</p>
+    <p class="locsteps" aria-hidden="true"><b>①</b> 📍 <i>›</i> <b>②</b> 📋 <i>›</i> <b>③</b> 🍽️</p>
+    <p class="locaddr" id="locAddr" lang="ko" tabindex="0" hidden></p>
+    <p class="locaddrEn" id="locAddrEn" lang="en" hidden></p>
+    <p class="loccoords" id="locCoords" hidden></p>
+    <div class="locbtns">
+      <button type="button" class="btn primary" id="locCopy">📋 <span id="locCopyLbl">주소 복사</span></button>
+      <div class="loc2">
+        <button type="button" class="tmap" id="locFood">🍽️ <span id="locFoodLbl">내 주변 식당</span></button>
+        <button type="button" class="tmap" id="locCafe">☕ <span id="locCafeLbl">내 주변 카페</span></button>
+      </div>
+      <div class="locmaprow">
+        <span class="lb" id="locMapLb">지도</span>
+        <button type="button" class="mchip on" id="locMapNaver" aria-pressed="true">🟢 <span id="locMapNaverLbl">네이버</span></button>
+        <button type="button" class="mchip" id="locMapGoogle" aria-pressed="false">🗺️ <span id="locMapGoogleLbl">구글</span></button>
+      </div>
+      <button type="button" class="tmap" id="locDriver">🚕 <span id="locDriverLbl">기사님께 크게 보여 주기</span></button>
+    </div>
+    <p class="lochint" id="locLongHint">주소 글자를 손가락으로 꾹 누르면 바로 선택·복사돼요</p>
+    <p class="lochint" id="locOsmCredit"><small>주소 © OpenStreetMap</small></p>
+  </div>
+  <div class="bigfoot">
+    <button type="button" class="bigback" id="locBack">◀ <span id="locBackLbl">뒤로</span></button>
+    <p class="bighint" id="locBackHint">폰 뒤로가기(◀)도 똑같이 됩니다</p>
+  </div>
+</div>
+
 <!-- ══ 설치 안내 ══ -->
 <div class="modal" id="installModal" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="instTitle">
@@ -736,6 +860,8 @@ html.big .sign .sem{font-size:.8rem}
 <button type="button" class="cbpeek" id="comboPeek" hidden>🧺 <span class="pk">조합 보기</span> <b id="comboPeekN">0</b></button>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<!-- 🪧 간판 빠른 알림 · 내 언어로 2초만 -->
+<div class="signtip" id="signTip" role="status" aria-live="polite"></div>
 
 <script>
 /* ══════════════════════════════════════════════════════════
@@ -761,6 +887,9 @@ var UI = {
   secOrder:'먼저 이 다섯 마디', secOrderS:'문장을 누르면 화면 가득 큰 카드로 열려요',
   secMore:'더 쓰는 말', secMoreS:'물·이거·계산처럼 짧게 쓰는 말',
   secSign:'🪧 간판에서 찾아보세요', secSignS:'길에서 본 한글 간판을 누르면 무슨 가게인지 알려 드려요',
+  signTapHint:'간판을 누르면 2초 동안 무슨 가게인지 알려 드려요 · 길게 누르면 자세히',
+  askKo:'여기 어떤 곳이에요?', askSay:'실례지만, 여기 어떤 곳이에요?',
+  askMine:'여기 어떤 곳이에요?', askLbl:'한국어로 물어 보기',
   signDishes:'대표 음식 — 누르면 설명·주문 연습', signPractice:'주문 연습', signHint:'간판과 같은 글자예요',
   signKindFood:'🍽 음식점', signKindShop:'🏪 음식점 아님', signItems:'파는 물건 — 누르면 설명',
   secFood:'🍲 음식 설명', secFoodS:'누르면 1→2→3→4단계 주문 연습이 열려요',
@@ -812,6 +941,16 @@ var UI = {
   txDrop:'내려줄 곳', txTapNav:'주소를 누르면 내비게이션이 열려요', txNow:'지금 내 위치',
   txLocating:'위치를 확인하는 중…', txMapMe:'내 위치 지도 보기', txNoLoc:'위치를 가져오지 못했어요',
   txCoords:'현재 좌표',
+  locBtn:'내 위치 주소', locBtnSub:'지금 있는 곳을 한글로 · 복사해서 기사님께', locTitle:'📍 내 위치 주소',
+  locLocating:'위치를 확인하는 중…', locOk:'위치를 확인했어요', locPls:'아래 주소를 기사님께 보여 주세요',
+  locCopy:'주소 복사', locCopied:'주소를 복사했어요', locCopyFail:'주소를 길게 눌러 선택한 뒤 복사해 주세요',
+  locFood:'내 주변 식당', locCafe:'내 주변 카페', locMap:'지도', locDriver:'기사님께 크게 보여 주기',
+  locHint:'주소 글자를 손가락으로 꾹 누르면 바로 선택·복사돼요', locAgain:'다시 찾기',
+  locErrPerm:'위치 권한이 꺼져 있어요. 브라우저 설정에서 이 사이트의 위치를 허용해 주세요',
+  locErrPos:'지금은 위치를 잡지 못했어요. 잠시 뒤 다시 눌러 주세요',
+  locErrTime:'위치 확인이 오래 걸려요. 다시 눌러 주세요', locErrNone:'이 브라우저에서는 위치를 쓸 수 없어요',
+  locNoAddr:'주소는 인터넷이 있어야 보여요. 아래 좌표로 지도는 열 수 있어요',
+  locCoordsLb:'좌표', locEnLb:'영문 주소', locNeedLoc:'위치를 먼저 확인해 주세요',
   slogan:'여행하기 제일 아름답고 편리한 나라', wSeoul:'서울', wxLow:'최저', wxHigh:'최고', wxTxt:'날씨',
   secDiary:'📝 식사 일기', secDiaryS:'집에 가서도 오늘 먹은 맛을 기억해요',
   diaryOpen:'메모장 펼치기', diaryClose:'메모장 접기', diaryNameLbl:'음식·가게 이름',
@@ -827,6 +966,9 @@ var UI = {
   secOrder:'Five phrases to start', secOrderS:'Tap a card to open it full screen',
   secMore:'More words', secMoreS:'Short ones — water, this one, the bill',
   secSign:'🪧 Find it on the sign', secSignS:'Tap a Korean sign to see what kind of shop it is',
+  signTapHint:'Tap a sign — the answer shows for 2 seconds · press and hold for details',
+  askKo:'여기 어떤 곳이에요?', askSay:'실례지만, 여기 어떤 곳이에요?',
+  askMine:'Excuse me, what kind of place is this?', askLbl:'Ask in Korean',
   signDishes:'What they serve — tap for info and order practice', signPractice:'Order practice', signHint:'The same word as the sign',
   signKindFood:'🍽 Restaurant', signKindShop:'🏪 Not a restaurant', signItems:'What they sell — tap for info',
   secFood:'🍲 Food guide', secFoodS:'Tap a dish to practise ordering it step by step',
@@ -878,6 +1020,16 @@ var UI = {
   txDrop:'Drop-off', txTapNav:'Tap the address to open navigation', txNow:'Where I am now',
   txLocating:'Checking your location…', txMapMe:'Show my location', txNoLoc:'Could not get your location',
   txCoords:'Coordinates',
+  locBtn:'My location address', locBtnSub:'Your spot in Korean · copy it for the driver', locTitle:'📍 My location address',
+  locLocating:'Checking your location…', locOk:'Location found', locPls:'Show the address below to the driver',
+  locCopy:'Copy address', locCopied:'Address copied', locCopyFail:'Press and hold the address, then copy',
+  locFood:'Restaurants nearby', locCafe:'Cafes nearby', locMap:'Map', locDriver:'Show big to the driver',
+  locHint:'Press and hold the address to select and copy it', locAgain:'Find again',
+  locErrPerm:'Location permission is off. Allow location for this site in the browser',
+  locErrPos:'Could not get a fix right now. Try again in a moment',
+  locErrTime:'Location is taking too long. Please try again', locErrNone:'This browser cannot use location',
+  locNoAddr:'The address needs internet. You can still open the map by the coordinates below',
+  locCoordsLb:'Coordinates', locEnLb:'English address', locNeedLoc:'Please check your location first',
   slogan:'The most beautiful and convenient country to travel', wSeoul:'Seoul', wxLow:'low', wxHigh:'high', wxTxt:'Weather',
   secDiary:'📝 Meal diary', secDiaryS:'Remember what you ate when you get home',
   diaryOpen:'Open the notepad', diaryClose:'Close the notepad', diaryNameLbl:'Dish or restaurant',
@@ -893,6 +1045,9 @@ var UI = {
   secOrder:'先看这五句', secOrderS:'点一下就能全屏放大',
   secMore:'还有这些', secMoreS:'水、这个、结账等短句',
   secSign:'🪧 看招牌找店', secSignS:'点一下街上看到的韩文招牌，就知道是什么店',
+  signTapHint:'点一下招牌，2秒显示是什么店 · 长按看详情',
+  askKo:'여기 어떤 곳이에요?', askSay:'실례지만, 여기 어떤 곳이에요?',
+  askMine:'请问，这里是什么地方？', askLbl:'用韩语问一下',
   signDishes:'常见菜品 — 点一下看介绍和点餐练习', signPractice:'点餐练习', signHint:'和招牌上的字一样',
   signKindFood:'🍽 餐厅', signKindShop:'🏪 不是餐厅', signItems:'卖的东西 — 点一下看介绍',
   secFood:'🍲 菜品介绍', secFoodS:'点一下菜品，就能按步骤练习点餐',
@@ -944,6 +1099,16 @@ var UI = {
   txDrop:'下车地点', txTapNav:'点地址即可打开导航', txNow:'我现在的位置',
   txLocating:'正在确认位置…', txMapMe:'查看我的位置', txNoLoc:'无法获取位置',
   txCoords:'当前坐标',
+  locBtn:'我的位置地址', locBtnSub:'把现在的位置换成韩文地址 · 复制给司机看', locTitle:'📍 我的位置地址',
+  locLocating:'正在确认位置…', locOk:'已找到位置', locPls:'请把下面的地址给司机看',
+  locCopy:'复制地址', locCopied:'已复制地址', locCopyFail:'请长按地址，选择后复制',
+  locFood:'附近的餐厅', locCafe:'附近的咖啡店', locMap:'地图', locDriver:'给司机全屏显示',
+  locHint:'长按地址文字即可选择并复制', locAgain:'重新查找',
+  locErrPerm:'位置权限已关闭，请在浏览器设置里允许本网站使用位置',
+  locErrPos:'暂时无法定位，请稍后再试',
+  locErrTime:'定位太久，请再试一次', locErrNone:'这个浏览器无法使用定位',
+  locNoAddr:'地址需要联网才能显示，仍可用下面的坐标打开地图',
+  locCoordsLb:'坐标', locEnLb:'英文地址', locNeedLoc:'请先确认位置',
   slogan:'最适合旅行、最美又最便利的国家', wSeoul:'首尔', wxLow:'最低', wxHigh:'最高', wxTxt:'天气',
   secDiary:'📝 用餐日记', secDiaryS:'回家后也能想起今天吃了什么',
   diaryOpen:'展开记事本', diaryClose:'收起记事本', diaryNameLbl:'菜名或店名',
@@ -959,6 +1124,9 @@ var UI = {
   secOrder:'まずはこの5つ', secOrderS:'タップすると全画面の大きなカードになります',
   secMore:'ほかの言葉', secMoreS:'水・これ・お会計などの短い言葉',
   secSign:'🪧 看板で探す', secSignS:'街で見た韓国語の看板をタップすると、どんなお店か分かります',
+  signTapHint:'看板を押すと2秒だけ種類を表示 · 長押しで詳しく',
+  askKo:'여기 어떤 곳이에요?', askSay:'실례지만, 여기 어떤 곳이에요?',
+  askMine:'すみません、ここはどんなお店ですか？', askLbl:'韓国語で聞く',
   signDishes:'代表的な料理 — タップで説明と注文れんしゅう', signPractice:'注文れんしゅう', signHint:'看板と同じ文字です',
   signKindFood:'🍽 飲食店', signKindShop:'🏪 飲食店ではありません', signItems:'売っている物 — タップで説明',
   secFood:'🍲 料理の説明', secFoodS:'タップすると1→2→3→4の注文れんしゅうが開きます',
@@ -1010,6 +1178,16 @@ var UI = {
   txDrop:'降りる場所', txTapNav:'住所を押すとナビが開きます', txNow:'今いる場所',
   txLocating:'位置を確認しています…', txMapMe:'今の場所を見る', txNoLoc:'位置を取得できません',
   txCoords:'現在の座標',
+  locBtn:'現在地の住所', locBtnSub:'今いる場所を韓国語の住所に · コピーして運転手さんへ', locTitle:'📍 現在地の住所',
+  locLocating:'位置を確認しています…', locOk:'位置が分かりました', locPls:'下の住所を運転手さんに見せてください',
+  locCopy:'住所をコピー', locCopied:'住所をコピーしました', locCopyFail:'住所を長押しして選択してからコピーしてください',
+  locFood:'近くの食堂', locCafe:'近くのカフェ', locMap:'地図', locDriver:'運転手さんに大きく見せる',
+  locHint:'住所を指で長押しすると選択・コピーできます', locAgain:'もう一度探す',
+  locErrPerm:'位置情報の許可がオフです。ブラウザの設定でこのサイトの位置を許可してください',
+  locErrPos:'今は位置が取れません。少ししてからもう一度押してください',
+  locErrTime:'位置の確認に時間がかかっています。もう一度押してください', locErrNone:'このブラウザでは位置情報を使えません',
+  locNoAddr:'住所はインターネットが必要です。下の座標で地図は開けます',
+  locCoordsLb:'座標', locEnLb:'英語の住所', locNeedLoc:'先に位置を確認してください',
   slogan:'旅するのにいちばん美しくて便利な国', wSeoul:'ソウル', wxLow:'最低', wxHigh:'最高', wxTxt:'天気',
   secDiary:'📝 食事日記', secDiaryS:'家に帰ってからも今日の味を思い出せます',
   diaryOpen:'メモを開く', diaryClose:'メモを閉じる', diaryNameLbl:'料理・店名',
@@ -1025,6 +1203,9 @@ var UI = {
   secOrder:'Cinq phrases pour commencer', secOrderS:'Touchez une carte pour l\'ouvrir en plein écran',
   secMore:'D\'autres mots', secMoreS:'Courts — eau, ce plat, l\'addition',
   secSign:'🪧 Reconnaître les enseignes', secSignS:'Touchez une enseigne coréenne pour voir quel commerce c\'est',
+  signTapHint:'Touchez une enseigne : 2 secondes d\'explication · appui long pour le détail',
+  askKo:'여기 어떤 곳이에요?', askSay:'실례지만, 여기 어떤 곳이에요?',
+  askMine:'Excusez-moi, c’est quel genre d’endroit ?', askLbl:'Demander en coréen',
   signDishes:'Ce qu\'ils servent — touchez pour l\'info et l\'entraînement', signPractice:'Entraînement', signHint:'Le même mot que l\'enseigne',
   signKindFood:'🍽 Restaurant', signKindShop:'🏪 Pas un restaurant', signItems:'Ce qu\'ils vendent — touchez pour l\'info',
   secFood:'🍲 Guide des plats', secFoodS:'Touchez un plat pour répéter la commande étape par étape',
@@ -1076,6 +1257,16 @@ var UI = {
   txDrop:'Dépose', txTapNav:'Touchez l adresse pour ouvrir le GPS', txNow:'Ma position actuelle',
   txLocating:'Localisation en cours…', txMapMe:'Voir ma position', txNoLoc:'Position indisponible',
   txCoords:'Coordonnées',
+  locBtn:'Adresse de ma position', locBtnSub:'Votre position en coréen · à copier pour le chauffeur', locTitle:'📍 Adresse de ma position',
+  locLocating:'Localisation en cours…', locOk:'Position trouvée', locPls:'Montrez l’adresse ci-dessous au chauffeur',
+  locCopy:'Copier l’adresse', locCopied:'Adresse copiée', locCopyFail:'Appuyez longuement sur l’adresse puis copiez',
+  locFood:'Restaurants à proximité', locCafe:'Cafés à proximité', locMap:'Carte', locDriver:'Montrer en grand au chauffeur',
+  locHint:'Appuyez longuement sur l’adresse pour la sélectionner et la copier', locAgain:'Rechercher à nouveau',
+  locErrPerm:'La localisation est désactivée. Autorisez-la pour ce site dans le navigateur',
+  locErrPos:'Impossible de vous localiser pour le moment. Réessayez dans un instant',
+  locErrTime:'La localisation prend trop de temps. Réessayez', locErrNone:'Ce navigateur ne peut pas utiliser la localisation',
+  locNoAddr:'L’adresse nécessite internet. La carte s’ouvre avec les coordonnées ci-dessous',
+  locCoordsLb:'Coordonnées', locEnLb:'Adresse en anglais', locNeedLoc:'Vérifiez d’abord votre position',
   slogan:'Le pays le plus beau et le plus pratique pour voyager', wSeoul:'Séoul', wxLow:'min', wxHigh:'max', wxTxt:'Météo',
   secDiary:'📝 Journal des repas', secDiaryS:'Souvenez-vous de ce que vous avez mangé',
   diaryOpen:'Ouvrir le carnet', diaryClose:'Fermer le carnet', diaryNameLbl:'Plat ou restaurant',
@@ -1831,6 +2022,178 @@ var SIGNS = [
     zh:'不是餐厅，是药局。需要买药时找“약국”两个字的招牌。',
     ja:'飲食店ではなく薬局です。薬が必要なときは「약국」の看板を探してください。',
     fr:'Ce n\'est pas un restaurant mais une pharmacie — repérez l\'enseigne 약국.'},
+ dishes:[]},
+
+/* ── 길에서 자주 만나는 간판 (가게 이름 그대로) ── */
+{id:'samgyeop', em:'🥓', ko:'삼겹살', alt:'목살', kind:'food', pic:'samgyeopsal',
+ n:{ko:'삼겹살·목살 구이', en:'Pork belly BBQ', zh:'五花肉烤肉', ja:'サムギョプサル', fr:'Poitrine de porc grillée'},
+ d:{ko:'두툼한 돼지고기를 불판에 구워 먹는 집이에요. 상추·깻잎에 싸서 먹어요.',
+    en:'Thick pork belly grilled at your table, eaten wrapped in lettuce and perilla leaves.',
+    zh:'把厚切猪肉在烤盘上烤着吃，用生菜和芝麻叶包起来吃。',
+    ja:'厚切りの豚バラ肉を鉄板で焼いて食べる店。サンチュやエゴマの葉で包みます。',
+    fr:'De la poitrine de porc épaisse grillée à table, à manger dans une feuille de laitue.'},
+ dishes:['samgyeopsal','jeyuk']},
+
+{id:'bulgogi', em:'🥩', ko:'불고기', alt:'', kind:'food', pic:'bulgogi',
+ n:{ko:'불고기', en:'Bulgogi (marinated beef)', zh:'烤牛肉（불고기）', ja:'プルコギ', fr:'Bulgogi (bœuf mariné)'},
+ d:{ko:'얇게 썬 소고기를 양념에 재워 볶아 내는 집이에요. 달짝지근한 맛이라 아이도 잘 먹어요.',
+    en:'Thin slices of beef marinated in a sweet soy sauce and cooked on a pan — mild, and kids like it.',
+    zh:'把切薄的牛肉腌好后炒着吃，味道微甜，孩子也爱吃。',
+    ja:'薄切りの牛肉を甘辛いタレに漬けて焼く店。甘めの味で子どもも食べやすいです。',
+    fr:'Du bœuf émincé mariné dans une sauce soja sucrée, cuit à la poêle — doux, parfait pour les enfants.'},
+ dishes:['bulgogi','bibimbap']},
+
+{id:'gimbap', em:'🍙', ko:'김밥', alt:'', kind:'food', pic:'gimbap',
+ n:{ko:'김밥', en:'Gimbap (rice roll)', zh:'紫菜包饭', ja:'キンパ（海苔巻き）', fr:'Gimbap (rouleau de riz)'},
+ d:{ko:'밥과 채소를 김에 말아 한 줄씩 파는 집이에요. 값이 싸고 들고 다니며 먹기 좋아요.',
+    en:'Rice and vegetables rolled in seaweed, sold by the roll — cheap and easy to eat on the go.',
+    zh:'把米饭和蔬菜用海苔卷起来卖，便宜又方便边走边吃。',
+    ja:'ご飯と野菜を海苔で巻いたものを売る店。安くて持ち歩きやすいです。',
+    fr:'Du riz et des légumes roulés dans une algue, vendus à la pièce — bon marché et facile à emporter.'},
+ dishes:['gimbap','tteokbokki']},
+
+{id:'naengmyeon', em:'🍜', ko:'냉면', alt:'', kind:'food', pic:'naengmyeon',
+ n:{ko:'냉면', en:'Cold noodles', zh:'冷面', ja:'冷麺', fr:'Nouilles froides'},
+ d:{ko:'차가운 육수에 메밀면을 말아 내는 집이에요. 여름에 특히 많이 찾아요.',
+    en:'Buckwheat noodles in icy broth — a favourite in summer.',
+    zh:'把荞麦面放进冰凉汤里吃，夏天特别受欢迎。',
+    ja:'冷たいスープにそば粉の麺を入れた店。夏に人気です。',
+    fr:'Des nouilles de sarrasin dans un bouillon glacé — très appréciées en été.'},
+ dishes:['naengmyeon','bibim-naengmyeon','mandu']},
+
+{id:'mandu', em:'🥟', ko:'만두', alt:'', kind:'food', pic:'mandu',
+ n:{ko:'만두', en:'Dumplings', zh:'饺子', ja:'マンドゥ（餃子）', fr:'Raviolis coréens'},
+ d:{ko:'고기·채소를 밀가루 피에 싸서 찌거나 군 만두를 파는 집이에요. 김치만두가 흔해요.',
+    en:'Dumplings steamed or fried — kimchi dumplings are the usual kind.',
+    zh:'把肉和蔬菜包在面皮里蒸或煎着卖，泡菜饺子最常见。',
+    ja:'肉や野菜を皮で包んで蒸したり焼いたりする店。キムチマンドゥが定番です。',
+    fr:'Des raviolis cuits à la vapeur ou poêlés — ceux au kimchi sont les plus courants.'},
+ dishes:['mandu','kalguksu']},
+
+{id:'juk', em:'🥣', ko:'죽', alt:'', kind:'food', pic:{art:'soup', tone:'milky'},
+ n:{ko:'죽', en:'Porridge', zh:'粥', ja:'お粥', fr:'Bouillie de riz'},
+ d:{ko:'쌀을 오래 끓여 부드럽게 만든 죽을 파는 집이에요. 속이 안 좋을 때 먹기 좋아요.',
+    en:'Rice cooked down until soft — gentle on the stomach when you are not feeling well.',
+    zh:'把米熬得很软的粥店，肚子不舒服时吃正好。',
+    ja:'お米をやわらかく煮たお粥の店。お腹の調子が悪いときにも安心です。',
+    fr:'Du riz mijoté jusqu\'à devenir crémeux — parfait quand l\'estomac est fragile.'},
+ dishes:[]},
+
+{id:'jokbal', em:'🍖', ko:'족발', alt:'보쌈', kind:'food', pic:'jokbal',
+ n:{ko:'족발·보쌈', en:'Pig trotters / boiled pork', zh:'猪蹄·白切肉', ja:'チョッパル・ポッサム', fr:'Pieds de porc / porc bouilli'},
+ d:{ko:'돼지 족발을 삶아 얇게 썰어 내는 집이에요. 보쌈(삶은 돼지고기)은 쌈으로 먹어요.',
+    en:'Boiled pig trotters sliced thin, and boiled pork (bossam) eaten in lettuce wraps.',
+    zh:'把猪蹄煮软切片，还有包着生菜吃的白切肉（보쌈）。',
+    ja:'豚足を煮て薄く切って出す店。ポッサム（ゆで豚）は葉に包んで食べます。',
+    fr:'Des pieds de porc bouillis tranchés fin, et du porc bouilli (bossam) à manger en feuilles.'},
+ dishes:['jokbal','bossam']},
+
+{id:'gopchang', em:'🔥', ko:'곱창', alt:'막창', kind:'food', pic:{art:'grill', tone:'red'},
+ n:{ko:'곱창·막창 구이', en:'Grilled beef intestines', zh:'烤肠（곱창）', ja:'コプチャン焼き', fr:'Intestins grillés (gopchang)'},
+ d:{ko:'소·돼지 곱창을 불에 구워 먹는 집이에요. 쫄깃한 식감이 특징이에요.',
+    en:'Beef or pork intestines grilled at the table — chewy and rich.',
+    zh:'把牛或猪的肠子烤着吃，口感很有嚼劲。',
+    ja:'牛や豚のホルモンを焼いて食べる店。コリコリした食感が特徴です。',
+    fr:'Des intestins de bœuf ou de porc grillés à table — moelleux et riches.'},
+ dishes:[]},
+
+{id:'dakgalbi', em:'🍗', ko:'닭갈비', alt:'', kind:'food', pic:'dak-galbi',
+ n:{ko:'닭갈비', en:'Spicy stir-fried chicken', zh:'辣炒鸡排', ja:'タッカルビ', fr:'Poulet épicé sauté'},
+ d:{ko:'닭고기를 양배추·고구마와 함께 매콤하게 볶아 먹는 집이에요. 마지막에 볶음밥을 넣어요.',
+    en:'Chicken stir-fried with cabbage and sweet potato in a spicy sauce — finish with fried rice.',
+    zh:'鸡肉和卷心菜、地瓜一起辣炒，最后可以加炒饭吃。',
+    ja:'鶏肉をキャベツやさつまいもと辛く炒める店。最後に炒飯を入れるのが定番です。',
+    fr:'Du poulet sauté avec chou et patate douce dans une sauce piquante — finissez avec du riz sauté.'},
+ dishes:['dak-galbi','jjimdak']},
+
+{id:'haejang', em:'🍲', ko:'해장국', alt:'', kind:'food', pic:{art:'soup', tone:'red'},
+ n:{ko:'해장국', en:'Hangover soup', zh:'醒酒汤', ja:'ヘジャンクク（二日酔いスープ）', fr:'Soupe anti-gueule de bois'},
+ d:{ko:'선지·콩나물을 넣고 얼큰하게 끓인 국에 밥을 말아 먹는 집이에요. 아침에도 열어요.',
+    en:'A spicy broth with bean sprouts served with rice — many open early in the morning.',
+    zh:'用豆芽煮的辣汤配米饭，很多店早上就开门。',
+    ja:'豆もやしを入れた辛いスープにご飯を入れて食べる店。朝から開く店も多いです。',
+    fr:'Un bouillon épicé aux pousses de soja servi avec du riz — beaucoup ouvrent tôt le matin.'},
+ dishes:['gukbap','seolleongtang','yukgaejang']},
+
+{id:'gomtang', em:'🥣', ko:'곰탕', alt:'설렁탕', kind:'food', pic:'seolleongtang',
+ n:{ko:'곰탕·설렁탕', en:'Beef bone soup', zh:'牛骨汤（설렁탕）', ja:'コムタン・ソルロンタン', fr:'Bouillon d\'os de bœuf'},
+ d:{ko:'소뼈를 오래 끓인 뽀얀 국물에 고기와 밥을 말아 먹는 집이에요. 소금·후추로 간을 해요.',
+    en:'Milky broth from bones simmered for hours, with beef and rice — season it yourself with salt.',
+    zh:'牛骨长时间熬出的白汤配牛肉和米饭，自己加盐和胡椒调味。',
+    ja:'牛骨を長時間煮た白いスープに肉とご飯を入れる店。塩と胡椒で味を調えます。',
+    fr:'Un bouillon blanc d\'os longuement mijoté, avec bœuf et riz — on sale soi-même.'},
+ dishes:['seolleongtang','galbitang','gukbap']},
+
+{id:'samgyetang', em:'🐔', ko:'삼계탕', alt:'', kind:'food', pic:'samgyetang',
+ n:{ko:'삼계탕', en:'Ginseng chicken soup', zh:'参鸡汤', ja:'参鶏湯（サムゲタン）', fr:'Poulet au ginseng'},
+ d:{ko:'닭 뱃속에 찹쌀·인삼을 넣고 끓인 보양식을 파는 집이에요. 여름에 특히 많이 찾아요.',
+    en:'A whole chicken stuffed with glutinous rice and ginseng — a summer energy dish.',
+    zh:'把糯米和人参塞进鸡肚里炖的补身餐，夏天特别受欢迎。',
+    ja:'鶏の中にもち米と高麗人参を入れて煮た滋養食の店。夏に人気です。',
+    fr:'Un poulet farci au riz gluant et au ginseng — un plat fortifiant d\'été.'},
+ dishes:['samgyetang']},
+
+{id:'jjimdak', em:'🍲', ko:'찜닭', alt:'', kind:'food', pic:'jjimdak',
+ n:{ko:'찜닭', en:'Braised chicken and noodles', zh:'炖鸡（찜닭）', ja:'チムタク（鶏の煮込み）', fr:'Poulet braisé aux nouilles'},
+ d:{ko:'닭고기·당면·채소를 간장 양념에 졸여 내는 집이에요. 한 그릇을 여럿이 나눠 먹어요.',
+    en:'Chicken, glass noodles and vegetables braised in soy sauce — one pot to share.',
+    zh:'鸡肉、粉条和蔬菜用酱油炖，一大盘大家分着吃。',
+    ja:'鶏肉・春雨・野菜を醤油で煮込んだ店。一皿をみんなで分けます。',
+    fr:'Du poulet, des nouilles de verre et des légumes braisés au soja — un plat à partager.'},
+ dishes:['jjimdak','dak-galbi']},
+
+{id:'bindaetteok', em:'🥞', ko:'빈대떡', alt:'파전', kind:'food', pic:'pajeon',
+ n:{ko:'빈대떡·파전', en:'Mung bean / spring onion pancake', zh:'绿豆饼·葱饼', ja:'ピンデトック・チヂミ', fr:'Galette de haricot mungo / ciboule'},
+ d:{ko:'녹두나 파를 반죽해 부쳐 내는 전을 파는 집이에요. 막걸리와 잘 어울려요.',
+    en:'Savory pancakes fried on the spot — they go perfectly with makgeolli.',
+    zh:'把绿豆或葱和面糊煎成饼，配米酒正好。',
+    ja:'緑豆やネギを混ぜて焼くチヂミの店。マッコリとよく合います。',
+    fr:'Des galettes salées cuites à la poêle — parfaites avec du makgeolli.'},
+ dishes:['pajeon','makgeolli']},
+
+{id:'bingsu', em:'🍧', ko:'빙수', alt:'디저트', kind:'food', pic:'bingsu',
+ n:{ko:'빙수·디저트', en:'Shaved ice and dessert', zh:'刨冰·甜点', ja:'かき氷・デザート', fr:'Glace pilée et desserts'},
+ d:{ko:'얼음을 갈아 팥·과일·우유를 올린 빙수를 파는 집이에요. 여름 간식으로 좋아요.',
+    en:'Shaved ice topped with red beans, fruit and milk — a summer treat.',
+    zh:'把冰刨碎后放上红豆、水果和牛奶的甜品店，夏天吃最合适。',
+    ja:'氷を削って小豆・果物・ミルクをのせたかき氷の店。夏のおやつにぴったりです。',
+    fr:'De la glace pilée avec haricots rouges, fruits et lait — la gourmandise d\'été.'},
+ dishes:['bingsu','cake','americano']},
+
+{id:'byeongwon', em:'🏥', ko:'병원', alt:'의원', kind:'shop', pic:null,
+ n:{ko:'병원·의원', en:'Clinic / hospital', zh:'医院·诊所', ja:'病院・クリニック', fr:'Clinique / hôpital'},
+ d:{ko:'음식점이 아니라 병원이에요. "의원"은 동네 작은 병원이에요. 아플 때 이 간판을 찾으세요.',
+    en:'Not a restaurant — a clinic. 의원 is a small neighbourhood doctor\'s office.',
+    zh:'不是餐厅，是医院。“의원”是社区小诊所。',
+    ja:'飲食店ではなく病院です。「의원」は街の小さなクリニック。',
+    fr:'Ce n\'est pas un restaurant mais un cabinet médical ; 의원 = un petit cabinet de quartier.'},
+ dishes:[]},
+
+{id:'eunhaeng', em:'🏦', ko:'은행', alt:'ATM', kind:'shop', pic:null,
+ n:{ko:'은행·ATM', en:'Bank / ATM', zh:'银行·ATM', ja:'銀行・ATM', fr:'Banque / distributeur'},
+ d:{ko:'음식점이 아니라 돈을 바꾸거나 찾는 곳이에요. 문 앞 ATM은 24시간일 때가 많아요.',
+    en:'Not a restaurant — a bank for cash and exchange; the ATM outside is often open 24 hours.',
+    zh:'不是餐厅，是换钱、取钱的地方，门口的ATM常常24小时可用。',
+    ja:'飲食店ではなく両替・引き出しの場所。入口のATMは24時間のことも多いです。',
+    fr:'Ce n\'est pas un restaurant mais une banque (change, retrait) ; le distributeur dehors est souvent ouvert 24 h.'},
+ dishes:[]},
+
+{id:'hwajangsil', em:'🚻', ko:'화장실', alt:'', kind:'shop', pic:null,
+ n:{ko:'화장실', en:'Toilet', zh:'洗手间', ja:'トイレ', fr:'Toilettes'},
+ d:{ko:'음식점이 아니라 화장실이에요. 지하철역·건물 안에서 이 글자를 찾으면 돼요.',
+    en:'Not a restaurant — a toilet. Look for this word inside stations and buildings.',
+    zh:'不是餐厅，是洗手间。在地铁站和楼里找这两个字。',
+    ja:'飲食店ではなくトイレです。駅や建物の中でこの文字を探してください。',
+    fr:'Pas un restaurant mais des toilettes — cherchez ce mot dans les stations et les bâtiments.'},
+ dishes:[]},
+
+{id:'miyongsil', em:'💇', ko:'미용실', alt:'이발소', kind:'shop', pic:null,
+ n:{ko:'미용실·이발소', en:'Hair salon / barber', zh:'理发店', ja:'美容室・理髪店', fr:'Salon de coiffure'},
+ d:{ko:'음식점이 아니라 머리를 자르는 곳이에요. 값을 먼저 물어보고 앉으면 좋아요.',
+    en:'Not a restaurant — a hair salon. Ask the price before you sit down.',
+    zh:'不是餐厅，是理发店。先问好价格再坐下。',
+    ja:'飲食店ではなく美容室・理髪店。先に値段を聞いてから座りましょう。',
+    fr:'Ce n\'est pas un restaurant mais un salon de coiffure — demandez le prix avant de vous asseoir.'},
  dishes:[]}
 ];
 
@@ -2098,6 +2461,11 @@ function applyUI(){
   $('#secMoreS').textContent = ui('secMoreS');
   $('#secSignH').textContent = ui('secSign');
   $('#secSignS').textContent = ui('secSignS');
+  $('#secSignHint').textContent = ui('signTapHint');
+  $('#askKo').textContent = ui('askKo');
+  $('#askMine').textContent = ui('askMine');
+  $('#askMine').hidden = (my === 'ko');
+  $('#askPlaceBtn').setAttribute('aria-label', ui('askMine') + ' · ' + ui('askLbl'));
   $('#secPplH').textContent = ui('secPpl');
   $('#secPplS').textContent = ui('secPplS');
   $('#secDrinkH').textContent = ui('secDrink');
@@ -2116,6 +2484,24 @@ function applyUI(){
   $('#stayGoLbl').textContent = ui('stayGo');
   $('#stayEditLbl').textContent = ui('stayEdit');
   try{ renderStay(); }catch(e){}
+  /* 📍 내 위치 주소 */
+  $('#myLocBtnLbl').textContent = ui('locBtn');
+  $('#myLocBtnSub').textContent = ui('locBtnSub');
+  $('#myLocBtn').setAttribute('aria-label', '📍 ' + ui('locBtn'));
+  $('#locTitle').textContent = ui('locTitle');
+  $('#locCopyLbl').textContent = ui('locCopy');
+  $('#locFoodLbl').textContent = ui('locFood');
+  $('#locCafeLbl').textContent = ui('locCafe');
+  $('#locDriverLbl').textContent = ui('locDriver');
+  $('#locLongHint').textContent = ui('locHint');
+  $('#locMapLb').textContent = ui('locMap');
+  $('#locMapNaverLbl').textContent = ui('tNaver');
+  $('#locMapGoogleLbl').textContent = ui('tGoogle');
+  $('#locAgain').setAttribute('aria-label', ui('locAgain'));
+  $('#locBackTop').setAttribute('aria-label', ui('back'));
+  $('#locBackLbl').textContent = ui('back');
+  $('#locBackHint').textContent = ui('backHint');
+  if(locEl && !locEl.hidden){ locSetStatus(locStat.key, locStat.cls); locPaintAddr(); }
   $('#tTo').placeholder = ui('tToPh');
   $('#tFromNow').textContent = ui('tFromNow');
   $('#tNaverLbl').textContent = ui('tNaver');
@@ -2667,6 +3053,156 @@ function txMyLocText(txt, coords){
   if(coords) return (ui('txCoords') || '') + ' ' + coords.lat.toFixed(4) + ', ' + coords.lon.toFixed(4);
   return ui('txNoLoc');
 }
+
+/* ══════ 📍 내 위치 주소 (한글 주소 · 꾹 눌러 복사 · 주변 식당·카페) ══════ */
+var LOCQ = {
+  food:{ko:'맛집', en:'restaurant', zh:'餐厅', ja:'レストラン', fr:'restaurant'},
+  cafe:{ko:'카페', en:'cafe', zh:'咖啡店', ja:'カフェ', fr:'café'}
+};
+var locEl = $('#locCard'), locCoords = null, locAddrKo = '', locAddrEn = '';
+var locMap = 'naver', locToken = 0, locStat = {key:'locLocating', cls:'wait'};
+
+function locSetStatus(key, cls){
+  locStat = {key:key, cls:cls || ''};
+  var el = $('#locStatus'); if(!el) return;
+  el.textContent = ui(key);
+  el.className = 'locst' + (locStat.cls ? ' ' + locStat.cls : '');
+}
+function locPaintAddr(){
+  var a = $('#locAddr'), e = $('#locAddrEn'), c = $('#locCoords');
+  if(!a) return;
+  if(locAddrKo){ a.textContent = locAddrKo; a.hidden = false; } else { a.hidden = true; a.textContent = ''; }
+  if(locAddrEn && locAddrEn !== locAddrKo){ e.textContent = locAddrEn; e.hidden = false; } else { e.hidden = true; e.textContent = ''; }
+  if(locCoords){
+    c.textContent = ui('locCoordsLb') + ' ' + locCoords.lat.toFixed(5) + ', ' + locCoords.lon.toFixed(5);
+    c.hidden = false;
+  } else { c.hidden = true; c.textContent = ''; }
+}
+/* Nominatim 주소 조각 → 사람이 읽는 순서 (한글: 시·구·동·도로명 번호 / 영문: 쉼표) */
+function addrText(j, lang){
+  var a = (j && j.address) || {}, out = [];
+  function push(v){ v = (v || '').trim(); if(v && out.indexOf(v) < 0) out.push(v); }
+  push(a.city || a.province || a.state || a.region);
+  push(a.city_district || a.borough || a.county);
+  push(a.suburb || a.quarter || a.neighbourhood || a.village || a.town || a.hamlet);
+  var road = a.road || a.pedestrian || a.footway || a.residential || '';
+  if(road) push(road + (a.house_number ? ' ' + a.house_number : ''));
+  if(!out.length && j && j.display_name){
+    out = String(j.display_name).split(',').map(function(x){ return x.trim(); })
+      .filter(function(x){ return x && !/^\d{4,6}$/.test(x); }).slice(0, 4);
+  }
+  return out.join(lang === 'en' ? ', ' : ' ');
+}
+function locFetch(lat, lon, lang, cb){
+  var base = 'https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=18&addressdetails=1'
+    + '&accept-language=' + lang + '&lat=' + lat + '&lon=' + lon;
+  var done = false;
+  var fin = function(v){ if(done) return; done = true; cb(v || ''); };
+  function go(url, mayRetry){
+    var to = setTimeout(function(){ fin(''); }, 8000);
+    function again(){ if(mayRetry) go(base + '&_cb=' + Date.now(), false); else fin(''); }
+    try{
+      fetch(url, {headers:{'Accept':'application/json'}})
+        .then(function(r){ return r.json(); })
+        .then(function(j){ clearTimeout(to); var t = addrText(j, lang); if(t) fin(t); else again(); })
+        .catch(function(){ clearTimeout(to); again(); });   /* CORS·엣지 캐시 실패 → 한 번 더 */
+    }catch(e){ clearTimeout(to); again(); }
+  }
+  go(base, true);
+}
+function locResolve(){
+  var co = locCoords; if(!co) return;
+  var token = locToken;
+  locSetStatus('locLocating', 'wait');
+  locFetch(co.lat, co.lon, 'ko', function(ko){
+    if(token !== locToken) return;
+    if(!ko){
+      locAddrKo = ''; locAddrEn = ''; locPaintAddr();
+      locSetStatus('locNoAddr', 'err');
+      return;
+    }
+    locAddrKo = ko; locAddrEn = ''; locPaintAddr();
+    locSetStatus('locOk', '');
+    locFetch(co.lat, co.lon, 'en', function(en){
+      if(token !== locToken) return;
+      if(en && en !== locAddrKo){ locAddrEn = en; locPaintAddr(); }
+    });
+  });
+}
+function locFind(){
+  locToken++;
+  if(!navigator.geolocation){ locSetStatus('locErrNone', 'err'); return; }
+  locSetStatus('locLocating', 'wait');
+  var token = locToken;
+  try{
+    navigator.geolocation.getCurrentPosition(function(pos){
+      if(token !== locToken) return;
+      locCoords = {lat: pos.coords.latitude, lon: pos.coords.longitude};
+      locResolve();
+    }, function(err){
+      if(token !== locToken) return;
+      var code = err && err.code;
+      locSetStatus(code === 1 ? 'locErrPerm' : (code === 2 ? 'locErrPos' : 'locErrTime'), 'err');
+    }, {enableHighAccuracy:true, timeout:12000, maximumAge:30000});
+  }catch(e){ locSetStatus('locErrTime', 'err'); }
+}
+function locCopyText(){
+  if(locAddrKo) return locAddrKo;
+  if(locCoords) return locCoords.lat.toFixed(6) + ', ' + locCoords.lon.toFixed(6);
+  return '';
+}
+function locCopyNow(){
+  var txt = locCopyText();
+  if(!txt){ toast(ui('locNeedLoc')); return false; }
+  var done = function(){ toast(ui('locCopied')); };
+  var fail = function(){ toast(ui('locCopyFail')); };
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(done, function(){ legacyCopy(txt, done, fail); });
+    } else legacyCopy(txt, done, fail);
+  }catch(e){ legacyCopy(txt, done, fail); }
+  return true;
+}
+function locNearUrl(what){
+  if(!locCoords) return '';
+  if(locMap === 'naver'){
+    var kq = (what === 'cafe') ? '카페' : '맛집';   /* 네이버지도는 한국어 검색어가 가장 정확 */
+    return 'https://map.naver.com/p/search/' + encodeURIComponent(kq)
+      + '?c=' + locCoords.lon.toFixed(6) + ',' + locCoords.lat.toFixed(6) + ',16';
+  }
+  var q = (LOCQ[what] && (LOCQ[what][my] || LOCQ[what].en)) || '';
+  return 'https://www.google.com/maps/search/' + encodeURIComponent(q)
+    + '/@' + locCoords.lat.toFixed(6) + ',' + locCoords.lon.toFixed(6) + ',16z?hl=' + my;
+}
+function locOpenNear(what){
+  if(!locCoords){ toast(ui('locNeedLoc')); locFind(); return; }
+  openUrl(locNearUrl(what));
+}
+function setLocMap(k){
+  locMap = (k === 'google') ? 'google' : 'naver';
+  var n = $('#locMapNaver'), g = $('#locMapGoogle');
+  if(n){ n.classList.toggle('on', locMap === 'naver'); n.setAttribute('aria-pressed', locMap === 'naver' ? 'true' : 'false'); }
+  if(g){ g.classList.toggle('on', locMap === 'google'); g.setAttribute('aria-pressed', locMap === 'google' ? 'true' : 'false'); }
+}
+function openLoc(){
+  if(!locEl) return;
+  locEl.hidden = false;
+  document.body.style.overflow = 'hidden';
+  pushGuard();
+  try{ locEl.scrollTop = 0; }catch(e){}
+  locFind();
+}
+function hideLoc(){
+  if(!locEl || locEl.hidden) return;
+  locEl.hidden = true;
+  locToken++;                      /* 아직 오는 위치·주소 결과는 버린다 */
+  if(stepEl.hidden && bigEl.hidden) document.body.style.overflow = '';
+}
+function closeLoc(){
+  if(!locEl || locEl.hidden) return;
+  hideLoc();
+  dropGuard();
+}
 function showTaxiCard(nameKo, addrKo){
   var ko = nameKo ? TPL('ko', 'tphTaxi', nameKo) : UI.ko.tphTaxiStay;
   var mine = nameKo ? TPL(my, 'tphTaxi', localizePlace(nameKo)) : TPL(my, 'tphTaxiStay');
@@ -2853,6 +3389,7 @@ function gotoStep(i){
 }
 window.addEventListener('popstate', function(){
   guardOn = false;
+  if(locEl && !locEl.hidden){ hideLoc(); return; }
   if(!stepEl.hidden){ hideStep(); return; }
   if(!bigEl.hidden){ hideBig(); return; }
   document.body.style.overflow = '';
@@ -3290,9 +3827,62 @@ function onDishClick(e){
 }
 $('#signGrid').addEventListener('click', function(e){
   var b = e.target.closest('[data-sign]'); if(!b) return;
+  if(signLongFired){ signLongFired = false; return; }   /* 길게 누른 경우는 이미 자세히 열림 */
   var s = SIGNS.filter(function(x){ return x.id === b.getAttribute('data-sign'); })[0];
-  if(s) openSign(s);
+  if(s) showSignTip(s);
 });
+/* ══════ 🪧 간판 빠른 알림 (2초 · 내 언어) + 길게 누르면 자세히 ══════ */
+var signTipT = null, signLongFired = false;
+function showSignTip(s){
+  var el = $('#signTip'); if(!el) return;
+  var kind = ui(s.kind === 'shop' ? 'signKindShop' : 'signKindFood');
+  var mine = String(s.n[my] || s.n.en || '');
+  /* "炖鸡（찜닭）"처럼 괄호 안에 한글을 또 넣은 이름은 괄호를 덜어 낸다 */
+  if(my !== 'ko') mine = mine.replace(/\s*[（(][^)）]*[가-힣][^)）]*[)）]\s*$/, '').trim();
+  el.innerHTML = '<span class="k">' + esc(kind) + '</span>'
+    + '<span class="w" lang="ko">' + esc(s.ko)
+    + ((my === 'ko' || !mine || mine === s.ko) ? ''
+        : '<i>' + (/[（(]/.test(mine) ? esc(mine) : '(' + esc(mine) + ')') + '</i>') + '</span>';
+  el.classList.add('on');
+  clearTimeout(signTipT);
+  signTipT = setTimeout(function(){ el.classList.remove('on'); }, 2000);
+}
+(function(){
+  var g = $('#signGrid'); if(!g) return;
+  var t = null, sx = 0, sy = 0, moved = false;
+  function clear(){ if(t){ clearTimeout(t); t = null; } }
+  g.addEventListener('pointerdown', function(e){
+    var b = e.target.closest('[data-sign]'); if(!b) return;
+    var s = SIGNS.filter(function(x){ return x.id === b.getAttribute('data-sign'); })[0];
+    if(!s) return;
+    sx = e.clientX; sy = e.clientY; moved = false; signLongFired = false; clear();
+    t = setTimeout(function(){
+      t = null;
+      if(moved) return;
+      signLongFired = true;
+      try{ if(navigator.vibrate) navigator.vibrate(12); }catch(err){}
+      openSign(s);
+      setTimeout(function(){ signLongFired = false; }, 1200);   /* 클릭이 안 오더라도 플래그는 스스로 풀림 */
+    }, 650);
+  });
+  g.addEventListener('pointermove', function(e){
+    if(t && (Math.abs(e.clientX - sx) > 8 || Math.abs(e.clientY - sy) > 8)){ moved = true; clear(); }
+  });
+  ['pointerup','pointercancel','pointerleave'].forEach(function(ev){ g.addEventListener(ev, clear); });
+})();
+/* ══════ 🗣️ 여기 어떤 곳이에요? — 누르면 한국어 음성 + 큰 카드 ══════ */
+function askPlace(){
+  var ko = ui('askSay') || '실례지만, 여기 어떤 곳이에요?';
+  var mine = ui('askMine') || '';
+  var html = '';
+  if(my !== 'ko' && mine) html += '<div class="bigmine"><span class="bigmlb">' + esc(ui('myLang')) + '</span>'
+    + '<span class="bigmytx">' + esc(mine) + '</span></div>';
+  html += '<p class="bigtext m">' + esc(ko) + '</p>';
+  showBig(html, ko, 'ko');
+  try{ speak(ko, 'ko'); }catch(e){}          /* 소리 설정과 상관없이 바로 한국어로 */
+  try{ $('#bigHint').textContent = ui('showHint'); }catch(e){}
+}
+$('#askPlaceBtn').addEventListener('click', askPlace);
 $('#foodGrid').addEventListener('click', onDishClick);
 $('#drinkGrid').addEventListener('click', onDishClick);
 $('#scanResBody').addEventListener('click', onDishClick);
@@ -3363,6 +3953,49 @@ $('#stayGo').addEventListener('click', function(){
   if(!a){ toast(ui('stayNeed')); return; }
   openUrl('https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(a) + '&travelmode=transit');
 });
+
+/* ── 📍 내 위치 주소 ── */
+$('#myLocBtn').addEventListener('click', openLoc);
+$('#locBack').addEventListener('click', closeLoc);
+$('#locBackTop').addEventListener('click', closeLoc);
+$('#locAgain').addEventListener('click', function(){ locFind(); });
+$('#locCopy').addEventListener('click', function(){ locCopyNow(); });
+$('#locFood').addEventListener('click', function(){ locOpenNear('food'); });
+$('#locCafe').addEventListener('click', function(){ locOpenNear('cafe'); });
+$('#locMapNaver').addEventListener('click', function(){ setLocMap('naver'); });
+$('#locMapGoogle').addEventListener('click', function(){ setLocMap('google'); });
+$('#locDriver').addEventListener('click', function(){
+  var a = locAddrKo;
+  if(!a){ toast(ui('locNeedLoc')); return; }
+  hideLoc();                        /* history 보호막은 그대로 두고 큰 카드로 */
+  showTaxiCard('', a);
+});
+/* 주소 글자를 꾹 누르면 → 굵게 선택되고 클립보드에도 복사 */
+(function(){
+  var el = $('#locAddr'); if(!el) return;
+  var t = null, sx = 0, sy = 0, moved = false;
+  function clear(){ if(t){ clearTimeout(t); t = null; } }
+  el.addEventListener('pointerdown', function(e){
+    if(e.pointerType === 'mouse' && e.button !== 0) return;
+    sx = e.clientX; sy = e.clientY; moved = false; clear();
+    t = setTimeout(function(){
+      t = null;
+      if(moved || !locCopyText()) return;
+      try{
+        var sel = window.getSelection();
+        if(sel){ var r = document.createRange(); r.selectNodeContents(el); sel.removeAllRanges(); sel.addRange(r); }
+      }catch(err){}
+      locCopyNow();
+    }, 650);
+  });
+  el.addEventListener('pointermove', function(e){
+    if(t && (Math.abs(e.clientX - sx) > 8 || Math.abs(e.clientY - sy) > 8)){ moved = true; clear(); }
+  });
+  ['pointerup','pointercancel','pointerleave'].forEach(function(ev){
+    el.addEventListener(ev, function(){ clear(); });
+  });
+  el.addEventListener('contextmenu', function(){ /* 길게 누를 때 나오는 기본 메뉴도 그대로 둡다 */ });
+})();
 document.addEventListener('click', function(e){
   var nav = e.target.closest('[data-taxi-nav]');
   if(nav){

@@ -2,9 +2,10 @@
    - 홈 화면 설치 요건 충족 + 인터넷이 끊겨도 주문 카드가 열리도록 앱 껍데기만 캐시
    - 외부(다른 사이트) 요청은 절대 건드리지 않음 · 개인정보 0%
    - index.html은 항상 네트워크 우선 → 새 버전이 바로 반영됨
+   - v4: 📍 내 위치 주소 · 🪧 간판 45종 2초 알림 · 🗣️ 여기 어떤 곳이에요? 배너
    - 메뉴판 사진 OCR(Tesseract.js CDN)은 그대로 통과 */
 
-const CACHE = 'wagle-dining-v3';
+const CACHE = 'wagle-dining-v4';
 const SHELL = [
   './',
   './index.html',
