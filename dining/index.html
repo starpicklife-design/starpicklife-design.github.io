@@ -1,0 +1,3457 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#8E241A" />
+<!-- build: 2026-11-23 와글한국여행 (Wagul Korea Trip) v3 · 5개 언어(한·영·중·일·프) · 🪧 간판에서 찾아보세요(간판 26종 → 음식점/다른 가게 판별·그림·대표 음식 주문 연습) · 내 언어 작게/가게 언어 크게 · 🧺 그림 조합 주문(인원·음식·요청 → 공손한 문장) · 🔊 한글 읽기 · 🍲 음식 24종 사진 · 🍶 술·음료 5종 · ☕ 카페 7종 · 1→2→3→4 주문 연습 · 📷 메뉴판 사진 → 그림 메뉴 · 🚕 택시(내 위치·내려줄 곳 주소) 🚇 지하철 · 🏨 숙소 저장 · 📝 식사 일기 · 실시간 날씨 · Android 뒤로가기(popstate) -->
+<link rel="manifest" href="./manifest.json" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="와글한국여행" />
+<link rel="icon" href="./icon-192.png" />
+<meta name="description" content="외국인을 위한 와글한국여행 · 5개 언어 식당·카페 주문 카드. 그림 메뉴, 주문 연습, 식사 일기까지 설치 없이 무료." />
+<title>와글한국여행 · 5개 언어 주문 카드</title>
+<style>
+:root{
+  --cream:#FFF8EC; --cream2:#FBEED8; --card:#FFFDF8; --ink:#2B211A; --ink2:#6A5647; --line:#EBDCC4;
+  --red:#C0392B; --red2:#8E241A; --gold:#D9A227; --green:#2E7D5B; --spice:#E4572E;
+  --shadow:0 2px 10px rgba(90,60,35,.10);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:17px}
+html.big{font-size:21px}
+html.big .lchip{font-size:10.5px;padding:3px 5px;min-height:30px}
+html.big .lchip .fl{font-size:12px}
+html.big .langrow .lb{font-size:11px}
+html.big .sechd{flex-wrap:wrap;gap:.15rem .34rem}
+html.big .sechd .sub{flex:1 1 100%;font-size:.68rem}
+html.big .sechd h2{font-size:.95rem}
+body{margin:0;background:var(--cream);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Noto Sans CJK KR","Malgun Gothic","Hiragino Sans","Microsoft YaHei","Noto Sans",Arial,Helvetica,sans-serif;
+  line-height:1.42;-webkit-text-size-adjust:100%;padding-bottom:2.2rem}
+button{font-family:inherit;cursor:pointer;color:inherit;border:0;background:none}
+img,svg{display:block}
+[hidden]{display:none !important}
+
+/* ── 상단 머리 ── */
+.top{background:linear-gradient(180deg,#FFF1DC 0%,#FFF8EC 100%);padding:.45rem .68rem .46rem;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:.42rem}
+.logo{font-size:1.45rem;line-height:1}
+.bh{min-width:0;flex:1 1 auto}
+.bh h1{font-size:1.02rem;margin:0;font-weight:900;letter-spacing:-.025em;line-height:1.2;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bh .tag{font-size:.66rem;color:var(--ink2);margin:.12rem 0 0;line-height:1.25;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.toolsTop{display:flex;align-items:center;gap:.26rem;flex:0 0 auto}
+.pill{display:flex;align-items:center;gap:.2rem;background:#fff;border:2px solid #D8C3A2;color:#4A3524;
+  border-radius:2rem;padding:.24rem .5rem;font-size:.72rem;font-weight:900;min-height:2.1rem;white-space:nowrap}
+.pill:active{transform:translateY(1px)}
+.pill.inst{background:linear-gradient(180deg,#FFD873,#F0B33A);border-color:#A9690A;color:#3E2C22}
+.langrow{display:flex;flex-direction:column;align-items:stretch;gap:.16rem;margin-top:.34rem}
+.langrow .lb{font-size:.62rem;font-weight:900;color:var(--ink2);white-space:nowrap;line-height:1.1;letter-spacing:.01em}
+.chips{display:flex;flex-wrap:nowrap;gap:.1rem;flex:1 1 auto;min-width:0;width:100%;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:1px}
+.chips::-webkit-scrollbar{display:none}
+.lchip{display:flex;align-items:center;gap:.12rem;flex:0 0 auto;background:#fff;border:2px solid #E3D1B4;border-radius:2rem;
+  padding:.14rem .26rem;font-size:.67rem;font-weight:900;white-space:nowrap;min-height:1.78rem;line-height:1.1;color:#4A3524;
+  box-shadow:0 1px 3px rgba(90,60,35,.08)}
+.lchip .fl{font-size:.8rem;line-height:1}
+.lchip.on{background:var(--red);border-color:var(--red2);color:#fff;box-shadow:0 2px 7px rgba(142,36,26,.30)}
+.lchip.on .fl{filter:saturate(1.1)}
+.langrow.shop .lchip.on{background:#3E2C22;border-color:#241811}
+.swap{flex:0 0 auto;background:#FFF1DA;border:2px solid #DFC49B;border-radius:50%;width:2rem;height:2rem;
+  font-size:.95rem;font-weight:900;color:#7A4A16;display:grid;place-items:center;line-height:1;margin-left:.1rem}
+.toolrow{display:flex;align-items:center;gap:.3rem;margin-top:.36rem;flex-wrap:wrap}
+.tgl{display:flex;align-items:center;gap:.3rem;background:#fff;border:2px solid #E3D1B4;border-radius:2rem;
+  padding:.2rem .34rem .2rem .48rem;font-size:.74rem;font-weight:900;min-height:2rem;color:#4A3524}
+.tgl .sw{width:1.75rem;height:1rem;border-radius:1rem;background:#E9DCC4;position:relative;transition:.15s;flex:0 0 auto}
+.tgl .sw::after{content:"";position:absolute;top:.1rem;left:.1rem;width:.8rem;height:.8rem;border-radius:50%;background:#fff;transition:.15s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.tgl[aria-pressed="true"]{background:#FFF1DA;border-color:#D7AE6A;color:#6B3E08}
+.tgl[aria-pressed="true"] .sw{background:var(--gold)}
+.tgl[aria-pressed="true"] .sw::after{left:.85rem}
+.tipbar{font-size:.68rem;color:#8A6A3E;font-weight:800;margin:.42rem 0 0;display:flex;align-items:center;gap:.25rem}
+
+/* ── 표지 그림 ── */
+.hero{margin:.6rem .7rem 0;border-radius:1.05rem;overflow:hidden;background:#FBEED8;box-shadow:var(--shadow);position:relative}
+.hero img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:center 56%}
+.heroCap{display:flex;align-items:center;gap:.4rem;background:#FFFDF8;border:1px solid var(--line);border-top:0;
+  border-radius:0 0 1.05rem 1.05rem;padding:.45rem .6rem;margin-top:-1px}
+.heroCap .hb{flex:1 1 auto;min-width:0}
+.heroCap .h1{font-size:.82rem;font-weight:900;line-height:1.25;display:block}
+.heroCap .h2{font-size:.68rem;color:var(--ink2);display:block;margin-top:.1rem;line-height:1.25}
+.heroCap .ho{font-size:1.25rem}
+
+.slogan{margin:.5rem .8rem 0;text-align:center;font-size:.76rem;font-weight:900;letter-spacing:.01em;
+  color:#8E241A;line-height:1.35}
+.slogan::before,.slogan::after{content:'·';margin:0 .35rem;color:#D9A227}
+.wxwrap{display:flex;justify-content:center;margin:.34rem .8rem 0}
+.wx{display:inline-flex;align-items:center;gap:.34rem;background:#FFFDF8;border:1.5px solid #EFD8AF;border-radius:1rem;
+  padding:.24rem .6rem;font-size:.72rem;font-weight:900;color:#5E4A3B;line-height:1.2;box-shadow:0 1px 4px rgba(90,60,35,.07)}
+.wx b{font-weight:900;color:#2B211A}
+.wx .wxc{color:#8A6A3E;font-weight:800}
+.wx .wxi{font-size:.95rem;line-height:1}
+
+/* ── 구역 ── */
+section{margin:.95rem .7rem 0}
+.sechd{display:flex;align-items:flex-end;gap:.4rem;margin-bottom:.45rem}
+.sechd h2{font-size:1.02rem;margin:0;font-weight:900;letter-spacing:-.025em;line-height:1.2}
+.sechd .sub{font-size:.68rem;color:var(--ink2);line-height:1.2;flex:1 1 auto;min-width:0}
+.sechd .num{font-size:.7rem;font-weight:900;color:#fff;background:var(--red);border-radius:1rem;padding:.1rem .4rem;flex:0 0 auto}
+
+/* ── 문장 카드 ── */
+.say{display:flex;width:100%;text-align:left;gap:.5rem;align-items:center;background:var(--card);
+  border:2px solid var(--line);border-radius:.95rem;padding:.55rem .6rem;margin-bottom:.42rem;
+  box-shadow:0 1px 4px rgba(90,60,35,.06)}
+.say:active{transform:translateY(1px);box-shadow:none}
+.say .ic{font-size:1.3rem;width:2.15rem;height:2.15rem;display:grid;place-items:center;background:#FFF1DA;
+  border-radius:.65rem;flex:0 0 auto;line-height:1}
+.say .tx{flex:1 1 auto;min-width:0}
+.say .wt{display:block;font-size:1.24rem;font-weight:900;letter-spacing:-.02em;line-height:1.24;word-break:keep-all}
+.say .sm{display:block;font-size:.7rem;color:var(--ink2);margin-top:.12rem;line-height:1.25}
+.say .pr{display:inline-block;font-size:.68rem;font-weight:800;color:#8A6A3E;background:#FFF1DA;
+  border-radius:.5rem;padding:.06rem .34rem;margin-top:.16rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.say .go{font-size:.95rem;opacity:.4;flex:0 0 auto}
+.core .say{border-color:#E4CBA6;background:linear-gradient(180deg,#FFFDF8,#FFF8EA);padding:.65rem .62rem}
+.core .say .wt{font-size:1.46rem;line-height:1.22}
+.core .say .ic{font-size:1.5rem;width:2.4rem;height:2.4rem}
+.divline{display:flex;align-items:center;gap:.5rem;margin:.2rem 0 .5rem;color:#A78A61;font-size:.66rem;font-weight:900}
+.divline::before,.divline::after{content:"";flex:1 1 auto;height:1px;background:var(--line)}
+
+/* ── 음식 카드 (그림) ── */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;align-items:stretch}
+.food{background:var(--card);border:2px solid var(--line);border-radius:.95rem;box-shadow:0 1px 4px rgba(90,60,35,.06);
+  min-width:0;height:100%;position:relative}
+.fmain{display:flex;flex-direction:column;align-items:center;gap:.22rem;text-align:center;width:100%;height:100%;
+  padding:.5rem .38rem .44rem;justify-content:flex-start}
+.fmain:active{transform:translateY(1px)}
+.fadd{position:absolute;right:.28rem;top:.28rem;width:2rem;height:2rem;border-radius:50%;background:#fff;
+  border:2px solid #D8C3A2;color:#8E241A;font-size:1.12rem;font-weight:900;line-height:1;display:grid;place-items:center;
+  box-shadow:0 1px 5px rgba(90,60,35,.18);z-index:2}
+.fadd.on{background:var(--red);border-color:var(--red2);color:#fff}
+.nm .em{font-style:normal;font-size:1.02em;margin-right:.1rem}
+.food .nm{font-size:.88rem;font-weight:900;line-height:1.2;letter-spacing:-.02em;word-break:keep-all}
+.food .nm2{font-size:.64rem;color:var(--ink2);line-height:1.15;word-break:keep-all}
+.art{width:4.35rem;height:4.35rem;border-radius:50%;display:grid;place-items:center;
+  background:radial-gradient(circle at 50% 32%,#FFF9EA 0%,#FFE9C8 70%,#FBDDB4 100%);
+  border:2px solid #F6E3C4;flex:0 0 auto;overflow:hidden}
+.art svg{width:88%;height:88%}
+.art img{width:100%;height:100%;object-fit:cover;display:block}
+.art.lg{width:5.2rem;height:5.2rem;border-width:3px}
+.badges{display:flex;flex-wrap:wrap;gap:.14rem;justify-content:center;margin-top:.05rem}
+.bd{font-size:.58rem;font-weight:900;background:#FFF1DA;border-radius:.45rem;padding:.08rem .26rem;color:#7A4A16;line-height:1.25;white-space:nowrap}
+.bd.sp{background:#FFDFD1;color:#A63714}
+.bd.nosp{background:#E6F2E6;color:#2C6B44}
+
+/* ── 🪧 간판에서 찾아보세요 (한글 간판 글자 버튼 · 3칸) ── */
+.sechd.signhd{flex-wrap:wrap;align-items:center;gap:.08rem .4rem}
+.sechd.signhd h2{flex:1 1 auto;white-space:nowrap;font-size:.98rem}
+.sechd.signhd .sub{flex:1 1 100%;order:3;font-size:.66rem}
+.sechd.signhd .num{order:2}
+@media (max-width:360px){ .sechd.signhd h2{font-size:.88rem} }
+.signs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.34rem}
+.sign{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.04rem;
+  min-width:0;min-height:3.15rem;padding:.4rem .18rem .34rem;border-radius:.7rem;
+  background:linear-gradient(180deg,#463229 0%,#2B211A 100%);border:2px solid #7E5433;
+  box-shadow:0 2px 7px rgba(40,26,16,.22),inset 0 1px 0 rgba(255,220,160,.18);color:#FFF3DA}
+.sign:active{transform:translateY(1px);box-shadow:0 1px 3px rgba(40,26,16,.22)}
+.sign .sem{font-size:.86rem;line-height:1;opacity:.95;margin-bottom:.06rem}
+.sign .sb{font-size:1.16rem;font-weight:900;letter-spacing:-.045em;line-height:1.1;word-break:keep-all;
+  text-shadow:0 0 11px rgba(255,190,90,.40)}
+.sign .salt{font-size:.6rem;font-weight:900;color:#E8C79A;line-height:1.05;letter-spacing:-.02em}
+html.big .sign .sb{font-size:1.06rem}
+html.big .sign .salt{font-size:.56rem}
+html.big .sign .sem{font-size:.8rem}
+@media (max-width:360px){ .sign .sb{font-size:1.02rem} .sign .salt{font-size:.56rem} }
+
+/* 간판 카드 — 음식점인지 다른 가게인지 뱃지 */
+.signkind{display:inline-flex;align-items:center;gap:.26rem;border-radius:1rem;padding:.2rem .7rem;
+  font-size:.8rem;font-weight:900;line-height:1.2;flex:0 0 auto;letter-spacing:-.01em}
+.signkind.isfood{background:#E6F2E6;color:#2C6B44;border:1.5px solid #B9DCC2}
+.signkind.isshop{background:#E3ECF7;color:#24507A;border:1.5px solid #B7CDE8}
+
+/* 간판 카드(큰 카드 안) */
+.signem{font-size:2.5rem;line-height:1;flex:0 0 auto}
+.signalt{font-size:.86rem;font-weight:900;color:#8A6A3E;margin:0;line-height:1.25}
+.signalt::before{content:"＋ ";opacity:.75}
+.sdhead{font-size:.66rem;font-weight:900;color:#A2835A;letter-spacing:.02em;margin:.1rem 0 -.2rem;line-height:1.2}
+.signdishes{display:flex;flex-wrap:wrap;gap:.34rem;justify-content:center;max-width:23rem}
+.sdpill{display:inline-flex;align-items:center;gap:.24rem;background:#FFFDF8;border:2px solid #E4CBA6;
+  border-radius:1rem;padding:.3rem .55rem;font-size:.84rem;font-weight:900;color:#4A3524;line-height:1.15;min-height:2.3rem}
+.sdpill:active{transform:translateY(1px)}
+.sdpill i{font-style:normal;font-size:1rem;line-height:1}
+.sdpill .sp{font-size:.62rem;color:var(--ink2);font-weight:800}
+.sdprac{background:linear-gradient(180deg,#FFD873,#F0B33A);border:2px solid #A9690A;color:#3E2C22;
+  border-radius:1rem;padding:.44rem .9rem;font-size:.86rem;font-weight:900;min-height:2.6rem;white-space:nowrap;
+  box-shadow:0 2px 7px rgba(120,70,10,.22);flex:0 0 auto}
+.sdprac:active{transform:translateY(1px)}
+
+/* ── 몇 분이세요? ── */
+.pplrow{display:grid;grid-template-columns:repeat(5,1fr);gap:.34rem}
+.ppl{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;min-width:0;
+  background:var(--card);border:2px solid #E3D1B4;border-radius:.85rem;padding:.4rem .1rem;min-height:3.4rem;
+  box-shadow:0 1px 4px rgba(90,60,35,.06)}
+.ppl b{font-size:1.46rem;font-weight:900;line-height:1.1;letter-spacing:-.02em;color:#3E2C22}
+.ppl i{font-size:.6rem;font-style:normal;font-weight:900;color:var(--ink2);line-height:1.1;margin-top:.05rem}
+.ppl:active{transform:translateY(1px);background:#FFF1DA}
+
+/* ── 메뉴판 찍기 ── */
+.scanbox{background:var(--card);border:2px solid var(--line);border-radius:.95rem;padding:.62rem;box-shadow:0 1px 4px rgba(90,60,35,.06)}
+.scanbox .note{font-size:.7rem;color:var(--ink2);margin:.45rem 0 0;line-height:1.35}
+.btn{display:flex;align-items:center;justify-content:center;gap:.34rem;border-radius:.8rem;padding:.62rem .7rem;
+  font-size:.92rem;font-weight:900;min-height:2.9rem;line-height:1.15;width:100%}
+.btn.primary{background:linear-gradient(180deg,#D2452F,#B0361F);color:#fff;box-shadow:0 3px 10px rgba(160,45,25,.28);border:2px solid #8E241A}
+.btn.ghost{background:#FFF3E0;color:#7A4A16;border:2px solid #DFC49B}
+.btn:active{transform:translateY(1px)}
+.btnrow{display:flex;flex-direction:column;gap:.42rem}
+.progwrap{margin-top:.55rem}
+.progbar{height:.5rem;border-radius:1rem;background:#F2E4CB;overflow:hidden}
+.progbar span{display:block;height:100%;width:0;background:linear-gradient(90deg,#E9A23B,#C0392B);transition:width .25s}
+.progmsg{font-size:.7rem;color:var(--ink2);margin:.28rem 0 0;font-weight:700}
+.pvwrap{position:relative;margin-top:.55rem;border-radius:.8rem;overflow:hidden;border:2px solid var(--line);background:#F7ECDA}
+.pvwrap img{width:100%;height:auto;max-height:9.5rem;object-fit:contain}
+.pvtag{position:absolute;left:.35rem;top:.35rem;background:rgba(43,33,26,.78);color:#FFF6E4;font-size:.62rem;font-weight:900;
+  padding:.12rem .4rem;border-radius:.5rem}
+.scanres{margin-top:.6rem}
+.scanreshd{display:flex;align-items:center;gap:.4rem;margin:0 0 .45rem}
+.scanreshd .t{font-size:.86rem;font-weight:900;flex:1 1 auto}
+.scanreshd .clr{font-size:.68rem;font-weight:900;color:#8A4A2A;background:#FFE7D6;border:1.5px solid #E0B192;border-radius:1rem;padding:.18rem .5rem}
+.scanmsg{font-size:.76rem;font-weight:800;color:#8A4A2A;background:#FFF3E2;border:1.5px dashed #E3C7A2;border-radius:.7rem;padding:.5rem .6rem;line-height:1.4}
+
+/* ── 재료·알레르기 ── */
+.ingr .say .wt{font-size:1.08rem}
+.ingr .say .ic{background:#E9F3E6;font-size:1.2rem}
+
+/* ── 화면 가득 카드 ── */
+.bigcard{position:fixed;inset:0;z-index:80;display:flex;flex-direction:column;
+  background:radial-gradient(circle at 50% 0%,#FFF6E4 0%,#FFEFD5 55%,#FBE4C4 100%);
+  padding:0 .8rem calc(.8rem + env(safe-area-inset-bottom))}
+.bigbar{display:flex;align-items:center;gap:.4rem;padding:calc(.6rem + env(safe-area-inset-top)) .1rem .25rem;flex:0 0 auto}
+.circ{width:2.7rem;height:2.7rem;border-radius:50%;background:#fff;border:2px solid #E7D3B4;
+  font-size:1.05rem;display:grid;place-items:center;font-weight:900;flex:0 0 auto;box-shadow:0 2px 6px rgba(90,60,35,.12)}
+.circ:active{transform:translateY(1px)}
+.circ.on{background:var(--red);color:#fff;border-color:var(--red2)}
+.bigbar .hint{flex:1 1 auto;text-align:center;font-size:.74rem;color:#7A5A32;font-weight:900;line-height:1.2;min-width:0}
+.bigbody{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;
+  overflow:auto;padding:.3rem .1rem;text-align:center}
+.bigtext{font-size:5.2rem;font-weight:900;line-height:1.16;letter-spacing:-.03em;word-break:keep-all;
+  text-wrap:balance;margin:0;overflow-wrap:normal;max-width:100%}
+.bigtext.l{font-size:clamp(1.7rem,8.4vw,2.9rem);line-height:1.28}
+.bigtext.m{font-size:clamp(1.36rem,6.2vw,2.1rem);line-height:1.34}
+.bigname{font-size:3rem;font-weight:900;line-height:1.18;letter-spacing:-.03em;margin:0;word-break:keep-all;overflow-wrap:normal;max-width:100%}
+.bigpron{font-size:1rem;font-weight:800;color:#8A5A20;background:#FFF3DC;border:2px solid #EFD8AF;border-radius:1rem;
+  padding:.22rem .7rem;max-width:100%;line-height:1.35}
+.bigmean{font-size:1rem;color:#6A5647;font-weight:700;max-width:22rem;line-height:1.4;margin:0}
+.bigdesc{font-size:1.02rem;color:#3A2C21;font-weight:700;line-height:1.5;max-width:23rem;margin:0}
+.bigfoot{flex:0 0 auto;display:flex;flex-direction:column;gap:.4rem;padding-top:.2rem}
+.bigback{display:flex;align-items:center;justify-content:center;gap:.35rem;background:#3E2C22;color:#FFF6E4;
+  border-radius:.85rem;padding:.7rem;font-size:1rem;font-weight:900;width:100%;min-height:3rem;box-shadow:0 3px 10px rgba(40,26,16,.25)}
+.bigback:active{transform:translateY(1px)}
+.bighint{font-size:.68rem;color:#8A6A3E;text-align:center;font-weight:800;margin:0}
+
+/* ── 내 언어(작게) + 가게 언어(아주 크게) ── */
+.bigmine{display:flex;flex-direction:column;align-items:center;gap:.06rem;max-width:100%;flex:0 0 auto}
+.bigmlb{font-size:.6rem;font-weight:900;letter-spacing:.02em;color:#A2835A;line-height:1.1}
+.bigmytx{font-size:1.26rem;font-weight:900;color:#5E4A3B;line-height:1.26;word-break:keep-all;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;max-width:21rem}
+.listenPill{display:flex;align-items:center;justify-content:center;gap:.3rem;flex:0 0 auto;
+  background:linear-gradient(180deg,#FFD873,#F0B33A);border:2px solid #A9690A;color:#3E2C22;
+  border-radius:2rem;padding:.34rem .66rem;font-size:.8rem;font-weight:900;min-height:2.6rem;
+  line-height:1.15;white-space:nowrap;box-shadow:0 2px 7px rgba(120,70,10,.22)}
+.listenPill:active{transform:translateY(1px)}
+
+/* ── 주문 연습 (1·2·3·4단계) ── */
+.stepcard .bigbody{gap:.72rem}
+.stepnum{font-size:.72rem;font-weight:900;color:#7A4A16;background:#FFF3DC;border:1.5px solid #EFD8AF;
+  border-radius:1rem;padding:.14rem .5rem;white-space:nowrap;flex:0 0 auto}
+.stepdots{display:flex;gap:.3rem;justify-content:center;align-items:center;flex:0 0 auto;padding:.05rem 0 .2rem}
+.stepdots i{width:1.5rem;height:.32rem;border-radius:1rem;background:#EDDBBE;display:block}
+.stepdots i.done{background:#E3B877}
+.stepdots i.on{background:var(--red);box-shadow:0 1px 5px rgba(142,36,26,.35)}
+.steptip{font-size:.72rem;font-weight:800;color:#8A6A3E;margin:0;line-height:1.3}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:.4rem}
+.choice{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;
+  background:#FFFDF8;border:2px solid #E7D3B4;border-radius:.8rem;padding:.4rem .3rem;min-height:3.1rem;min-width:0}
+.choice.on{background:#FFF1DA;border-color:var(--red);box-shadow:0 2px 7px rgba(142,36,26,.16)}
+.choice .ct{font-size:.84rem;font-weight:900;line-height:1.2;word-break:keep-all}
+.choice .cm{font-size:.62rem;color:var(--ink2);line-height:1.15;word-break:keep-all}
+.minirow{display:grid;grid-template-columns:1fr 1fr;gap:.4rem}
+.mini{background:#FFF3E0;border:2px solid #DFC49B;color:#7A4A16;border-radius:.7rem;
+  min-height:2.4rem;font-size:.76rem;font-weight:900;line-height:1.15;padding:.2rem .3rem}
+.mini:active{transform:translateY(1px)}
+
+/* ── 주문 조합 칸 ── */
+.combobox{background:var(--card);border:2px solid #E4CBA6;border-radius:.95rem;padding:.6rem;
+  box-shadow:0 2px 8px rgba(90,60,35,.08)}
+.cbtray{display:flex;flex-wrap:wrap;gap:.3rem}
+.cbtray:empty{display:none}
+.cbitem{display:inline-flex;align-items:center;gap:.24rem;background:#FFF1DA;border:1.5px solid #E7C89A;
+  border-radius:1rem;padding:.2rem .34rem .2rem .44rem;max-width:100%}
+.cbitem .cbe{font-size:.95rem;line-height:1}
+.cbitem .cbl{font-size:.74rem;font-weight:900;color:#6B3E08;line-height:1.2;min-width:0}
+.cbitem .cbx{width:1.3rem;height:1.3rem;border-radius:50%;background:#fff;color:#A0522D;font-size:.8rem;
+  font-weight:900;line-height:1;display:grid;place-items:center;border:1px solid #E0C7A4;flex:0 0 auto}
+.cbempty{font-size:.76rem;color:#9A7B50;font-weight:800;text-align:center;margin:.3rem 0;line-height:1.4}
+.cbtext{font-size:1.02rem;font-weight:900;color:#2B211A;line-height:1.4;margin:.45rem 0 0;word-break:keep-all;
+  border-top:1px dashed var(--line);padding-top:.5rem}
+.cbmy{font-size:.74rem;color:var(--ink2);font-weight:700;line-height:1.35;margin:.2rem 0 0}
+.cbrow{display:grid;grid-template-columns:1fr 1fr;gap:.34rem;margin-top:.5rem}
+.cbrow .cbbtn:last-child{grid-column:1 / -1}
+.cbbtn{display:flex;align-items:center;justify-content:center;gap:.26rem;border-radius:.7rem;min-height:2.6rem;
+  font-size:.82rem;font-weight:900;background:#FFF3E0;border:2px solid #DFC49B;color:#7A4A16;line-height:1.15;padding:.2rem .3rem}
+.cbbtn.primary{background:linear-gradient(180deg,#FFD873,#F0B33A);border-color:#A9690A;color:#3E2C22}
+.cbbtn.ghost{background:#FFFDF8;color:#8A4A2A;border-color:#E0C7A4}
+.cbbtn:active{transform:translateY(1px)}
+.cbchips{display:flex;flex-wrap:wrap;gap:.28rem;margin-top:.5rem}
+.cbreq{display:inline-flex;align-items:center;gap:.2rem;background:#FFFDF8;border:1.5px solid #E3D1B4;border-radius:1rem;
+  padding:.24rem .5rem;font-size:.72rem;font-weight:900;color:#6A5647;line-height:1.2;min-height:2.1rem}
+.cbreq.on{background:#FFE9D6;border-color:var(--red);color:#8E241A}
+.cbpeek{position:fixed;right:.7rem;bottom:calc(.9rem + env(safe-area-inset-bottom));z-index:70;display:flex;align-items:center;gap:.3rem;
+  background:#3E2C22;color:#FFF6E4;border-radius:2rem;padding:.5rem .8rem;font-size:.82rem;font-weight:900;
+  box-shadow:0 4px 14px rgba(40,26,16,.35)}
+.cbpeek b{background:#FFD873;color:#3E2C22;border-radius:1rem;padding:.05rem .4rem;font-size:.78rem}
+
+/* ── 교통 길찾기 ── */
+.stay{background:linear-gradient(180deg,#FFF6E4,#FFEFD8);border:2px solid #E0B87A;border-radius:.95rem;
+  padding:.6rem;margin-bottom:.5rem;box-shadow:0 2px 9px rgba(120,70,10,.12)}
+.stayhd{display:flex;align-items:center;gap:.45rem}
+.stayem{font-size:1.6rem;line-height:1}
+.staytx{display:flex;flex-direction:column;min-width:0}
+.staytx b{font-size:.94rem;font-weight:900;color:#7A4A16;line-height:1.2}
+.staytx span{font-size:.68rem;color:#9A7B50;font-weight:800;line-height:1.2;margin-top:.1rem}
+.stay .tin{margin-top:.45rem;width:100%;background:#FFFDF8}
+.stay .btn.primary{margin-top:.45rem;min-height:2.6rem;font-size:.86rem}
+.stayaddr{font-size:.92rem;font-weight:900;color:#8E241A;background:#FFFDF8;border:1.5px solid #E7C89A;border-radius:.6rem;
+  padding:.4rem .5rem;margin:.45rem 0 0;line-height:1.35;word-break:keep-all}
+.stayrow{display:grid;grid-template-columns:1fr 1fr;gap:.34rem;margin-top:.4rem}
+.stayrow .tmap:last-child{grid-column:1 / -1}
+.txblock{display:flex;flex-direction:column;align-items:center;gap:.2rem;width:100%;max-width:23rem}
+.txlb{font-size:.64rem;font-weight:900;color:#A2835A;letter-spacing:.02em}
+.bigaddr{display:block;width:100%;font-size:1.24rem;font-weight:900;color:#8E241A;background:#FFF3DC;border:2px solid #D9A227;
+  border-radius:.8rem;padding:.42rem .6rem;line-height:1.35;word-break:keep-all;margin:0;box-shadow:0 2px 8px rgba(160,110,20,.18)}
+.bigaddr:active{transform:translateY(1px)}
+.txhint{font-size:.62rem;font-weight:800;color:#A08050}
+.txloc{font-size:.86rem;font-weight:900;color:#2E7D5B;background:#EAF5EE;border:1.5px solid #CBE3D3;border-radius:.6rem;
+  padding:.3rem .55rem;line-height:1.35;word-break:keep-all;max-width:23rem}
+.txmapbtn{font-size:.74rem;font-weight:900;color:#2E7D5B;background:#FFFDF8;border:1.5px solid #CBE3D3;
+  border-radius:1rem;padding:.26rem .6rem;min-height:2.1rem}
+.tmode{display:grid;grid-template-columns:repeat(3,1fr);gap:.34rem;margin-bottom:.5rem}
+.tmode .tmode{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;
+  background:var(--card);border:2px solid #E3D1B4;border-radius:.9rem;padding:.42rem .1rem;min-height:4rem;
+  box-shadow:0 1px 4px rgba(90,60,35,.06);font-size:1.6rem;line-height:1}
+.tmode .tmode b{font-size:.76rem;font-weight:900;color:#4A3524;line-height:1.1}
+.tmode .tmode.on{background:#FFF1DA;border-color:var(--red);box-shadow:0 2px 8px rgba(142,36,26,.16)}
+.tmode .tmode.on b{color:var(--red2)}
+.tcard{background:var(--card);border:2px solid var(--line);border-radius:.95rem;padding:.6rem;box-shadow:0 1px 4px rgba(90,60,35,.06)}
+.trow{display:flex;align-items:center;gap:.4rem;margin-bottom:.4rem}
+.tlb{font-size:.72rem;font-weight:900;color:var(--ink2);flex:0 0 2.7rem}
+.tfrom{font-size:.72rem;font-weight:900;color:#2E7D5B;background:#EAF5EE;border:1.5px solid #CBE3D3;
+  border-radius:.6rem;padding:.34rem .5rem;margin:0 0 .45rem;line-height:1.25}
+.tin{flex:1 1 auto;min-width:0;border:2px solid #E7D3B4;border-radius:.7rem;padding:.45rem .55rem;
+  font-family:inherit;font-size:.9rem;font-weight:700;color:var(--ink);background:#FFFDF8;min-height:2.6rem}
+.tin:focus{outline:0;border-color:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,.12)}
+.tchips{display:flex;flex-wrap:wrap;gap:.26rem;margin:.15rem 0 .55rem}
+.tchip{display:flex;flex-direction:column;align-items:flex-start;gap:.05rem;background:#FFF3E0;border:1.5px solid #DFC49B;
+  border-radius:.7rem;padding:.28rem .5rem;min-height:2.4rem;line-height:1.15;text-align:left}
+.tchip b{font-size:.76rem;font-weight:900;color:#7A4A16}
+.tchip i{font-style:normal;font-size:.58rem;font-weight:800;color:#A08050}
+.tline{font-size:.76rem;font-weight:900;color:#2E7D5B;background:#EAF5EE;border:1.5px solid #CBE3D3;border-radius:.6rem;
+  padding:.3rem .5rem;margin:.1rem 0 .5rem;line-height:1.25}
+.tchip.on{background:#FFE9D6;border-color:var(--red);color:#8E241A}
+.tbtns .btn.primary{width:100%}
+.tmaprow{display:grid;grid-template-columns:1fr 1fr;gap:.36rem;margin-top:.36rem}
+.tmap{display:flex;align-items:center;justify-content:center;gap:.26rem;background:#FFFDF8;border:2px solid #DFC49B;
+  border-radius:.7rem;min-height:2.6rem;font-size:.78rem;font-weight:900;color:#7A4A16;line-height:1.15;padding:.2rem .3rem}
+.tmap:active{transform:translateY(1px)}
+.tnote{font-size:.68rem;color:#8A6A3E;font-weight:800;line-height:1.35;margin:.45rem 0 0;text-align:center}
+
+/* ── 식사 일기 ── */
+.diary .accbtn{display:flex;align-items:center;justify-content:center;gap:.4rem;width:100%;background:var(--card);
+  border:2px solid #E3D1B4;border-radius:.9rem;padding:.62rem .7rem;font-size:.94rem;font-weight:900;min-height:3rem;
+  box-shadow:0 1px 4px rgba(90,60,35,.06);color:#4A3524}
+.diary .accbtn:active{transform:translateY(1px)}
+.diary .accbtn .accarrow{margin-left:.2rem;font-size:.8rem;color:#8A6A3E}
+.accbody{background:var(--card);border:2px solid var(--line);border-top:0;border-radius:0 0 .9rem .9rem;
+  padding:.7rem .68rem .8rem;margin-top:-2px}
+.dfl{display:block;font-size:.72rem;font-weight:900;color:var(--ink2);margin:.5rem 0 .25rem}
+.dfl:first-child{margin-top:0}
+.din{width:100%;border:2px solid #E7D3B4;border-radius:.7rem;padding:.5rem .6rem;font-family:inherit;font-size:.9rem;
+  font-weight:700;color:var(--ink);background:#FFFDF8;min-height:2.7rem}
+.din:focus{outline:0;border-color:var(--red);box-shadow:0 0 0 3px rgba(192,57,43,.12)}
+.dta{min-height:4.4rem;resize:vertical;line-height:1.45;font-weight:600}
+.diary .btn.primary{margin-top:.7rem}
+.dlist{margin-top:.85rem;border-top:1px dashed var(--line);padding-top:.55rem}
+.dempty{font-size:.74rem;color:#9A7B50;font-weight:700;text-align:center;margin:.4rem 0}
+.ddate{display:flex;align-items:center;justify-content:space-between;font-size:.7rem;font-weight:900;color:#8A6A3E;margin:.55rem 0 .3rem}
+.ditem{background:#FFF8EA;border:1.5px solid #EEDCC0;border-radius:.7rem;padding:.42rem .5rem;margin-bottom:.34rem}
+.ditem .dh{display:flex;align-items:center;gap:.4rem}
+.ditem .dh b{font-size:.84rem;font-weight:900;flex:1 1 auto;min-width:0;line-height:1.25;word-break:keep-all}
+.ditem .ddel{font-size:.72rem;color:#B08A63;width:1.7rem;height:1.7rem;border-radius:50%;flex:0 0 auto}
+.ditem .dmemo{font-size:.74rem;color:#5E4A3B;line-height:1.4;margin:.2rem 0 0;white-space:pre-wrap;word-break:break-word}
+.mini.wide{width:100%;margin-top:.4rem}
+
+/* ── 안내·모달·토스트 ── */
+.notes{margin:1.1rem .9rem .4rem;font-size:.66rem;color:#8E7457;line-height:1.6;text-align:center}
+.notes b{color:#6A5647}
+.modal{position:fixed;inset:0;z-index:95;background:rgba(43,33,26,.45);display:flex;align-items:flex-end;justify-content:center;padding:0}
+.modal[hidden]{display:none}
+.sheet{background:#FFFDF8;width:100%;max-width:26rem;border-radius:1.1rem 1.1rem 0 0;padding:.9rem .9rem calc(1rem + env(safe-area-inset-bottom));
+  max-height:88vh;overflow:auto;box-shadow:0 -6px 24px rgba(40,26,16,.25)}
+.sheet h3{margin:.1rem 0 .4rem;font-size:1rem;font-weight:900}
+.sheet .note{font-size:.76rem;color:var(--ink2);margin:.2rem 0 .6rem;line-height:1.45}
+.isteps{margin:.2rem 0 .7rem;padding-left:1.05rem;font-size:.78rem;line-height:1.55;color:#4A3524}
+.isteps li{margin-bottom:.3rem}
+.isteps b{display:block;font-size:.8rem}
+.isteps span{color:var(--ink2);font-size:.74rem}
+.mrow{display:flex;gap:.45rem}
+.toast{position:fixed;left:50%;bottom:calc(1.1rem + env(safe-area-inset-bottom));transform:translate(-50%,1rem);
+  background:rgba(43,33,26,.93);color:#FFF6E4;font-size:.78rem;font-weight:800;padding:.55rem .85rem;border-radius:1rem;
+  max-width:88vw;text-align:center;line-height:1.35;z-index:120;opacity:0;transition:.2s;pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.sronly{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:360px){
+  .lchip{font-size:9.6px;padding:2px 4px;min-height:26px}
+  .lchip .fl{font-size:11px}
+  .sechd{flex-wrap:wrap;gap:.15rem .3rem}
+  .sechd .sub{flex:1 1 100%;font-size:.66rem}
+  .sechd h2{font-size:.96rem}
+}
+@media (max-width:350px){
+  html{font-size:16px}
+  .lchip{font-size:.7rem;padding:.2rem .38rem}
+  .bh .tag{display:none}
+  .core .say .wt{font-size:1.3rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ 머리: 언어 고르기 · 소리 · 큰 글씨 · 공유 · 설치 (그림 얼굴을 가리지 않게 그림 위쪽) ══ -->
+<header class="top">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">🍽️</span>
+    <div class="bh">
+      <h1 id="appTitle">와글한국여행</h1>
+      <p class="tag" id="tagline">내 말로 고르고, 가게 말로 크게 보여 주세요</p>
+    </div>
+    <div class="toolsTop">
+      <button type="button" class="pill" id="shareBtn" aria-label="공유">📤 <span id="shareLbl">공유</span></button>
+      <button type="button" class="pill inst" id="installBtn" aria-haspopup="dialog" aria-label="설치">📲 <span id="installLbl">설치</span></button>
+    </div>
+  </div>
+
+  <div class="langrow">
+    <span class="lb" id="myLangLbl">내 언어</span>
+    <div class="chips" id="myChips" role="group" aria-labelledby="myLangLbl"></div>
+  </div>
+
+  <div class="langrow shop">
+    <span class="lb" id="shopLangLbl">가게 언어</span>
+    <div class="chips" id="shopChips" role="group" aria-labelledby="shopLangLbl"></div>
+  </div>
+
+  <div class="toolrow">
+    <button type="button" class="tgl" id="soundBtn" aria-pressed="true"><span aria-hidden="true">🔊</span><span id="soundLbl">소리</span></button>
+    <button type="button" class="tgl" id="bigBtn" aria-pressed="false"><span aria-hidden="true">🔎</span><span id="bigLbl">큰 글씨</span><span class="sw" aria-hidden="true"></span></button>
+    <button type="button" class="swap" id="swapBtn" aria-label="내 언어와 가게 언어 바꾸기">⇄</button>
+  </div>
+</header>
+
+<!-- ══ 표지 그림 ══ -->
+<div class="hero">
+  <picture>
+    <source srcset="./home-dining.webp" type="image/webp" />
+    <img id="heroArt" src="./home-dining.jpg" width="1200" height="774"
+         alt="따뜻한 식당 테이블에 모여 김치찌개·비빔밥·파전을 함께 먹는 와글가족 햄스터 가족" />
+  </picture>
+  <div class="heroCap">
+    <div class="hb">
+      <span class="h1" id="showStaff">사장님께 화면을 보여 주세요</span>
+      <span class="h2" id="tapBig">카드를 누르면 화면 가득 커져요</span>
+    </div>
+    <span class="ho" aria-hidden="true">👉</span>
+  </div>
+</div>
+
+<p class="slogan" id="slogan">여행하기 제일 아름답고 편리한 나라</p>
+<div class="wxwrap">
+  <span class="wx" id="wxBadge" hidden></span>
+</div>
+
+<!-- ══ 0-1. 🪧 간판에서 찾아보세요 (표지 그림·날씨 바로 아래 · 길에서 본 한글 간판 → 내 언어 설명) ══ -->
+<section aria-labelledby="secSignH">
+  <div class="sechd signhd">
+    <h2 id="secSignH">🪧 간판에서 찾아보세요</h2>
+    <span class="sub" id="secSignS">길에서 본 한글 간판을 톡 누르면 음식점인지 다른 가게인지 알려 드려요</span>
+    <span class="num" id="signNum">26</span>
+  </div>
+  <div class="signs" id="signGrid" role="group" aria-labelledby="secSignH"></div>
+</section>
+
+<!-- ══ 0. 몇 분이세요? (가게 들어갈 때 첫마디) ══ -->
+<section class="ppl" aria-labelledby="secPplH">
+  <div class="sechd">
+    <h2 id="secPplH">🧑‍🤝‍🧑 몇 분이세요?</h2>
+    <span class="sub" id="secPplS">가게에 들어가면 먼저 이 한마디</span>
+  </div>
+  <div class="pplrow" id="pplRow" role="group" aria-labelledby="secPplH"></div>
+</section>
+
+<!-- ══ 0-2. 주문 조합 (그림 톡톡 → 문장 완성) ══ -->
+<section class="combo" aria-labelledby="secComboH">
+  <div class="sechd">
+    <h2 id="secComboH">🧺 주문 조합</h2>
+    <span class="sub" id="secComboS">그림을 톡톡 눌러 담으면 문장이 완성돼요</span>
+  </div>
+  <div class="combobox">
+    <div class="cbtray" id="comboTray"></div>
+    <p class="cbempty" id="comboEmpty">👥 인원 · 🍲 음식 · 🧊 요청을 눌러 담아 보세요</p>
+    <p class="cbtext" id="comboText" hidden></p>
+    <p class="cbmy" id="comboMy" hidden></p>
+    <div class="cbrow">
+      <button type="button" class="cbbtn primary" id="comboSpeak" hidden>🔊 <span id="comboSpeakLbl">듣기</span></button>
+      <button type="button" class="cbbtn" id="comboFull" hidden>📺 <span id="comboFullLbl">크게 보여 주기</span></button>
+      <button type="button" class="cbbtn ghost" id="comboReset" hidden>🧽 <span id="comboResetLbl">비우기</span></button>
+    </div>
+    <div class="cbchips" id="comboReqs"></div>
+  </div>
+</section>
+
+<!-- ══ 1. 먼저 이 다섯 마디 ══ -->
+<section class="core" aria-labelledby="secOrderH">
+  <div class="sechd">
+    <h2 id="secOrderH">먼저 이 다섯 마디</h2>
+    <span class="sub" id="secOrderS">문장을 누르면 화면 가득 큰 카드로 열려요</span>
+  </div>
+  <div id="coreList"></div>
+</section>
+
+<!-- ══ 2. 더 쓰는 말 ══ -->
+<section aria-labelledby="secMoreH">
+  <div class="divline" aria-hidden="true">·</div>
+  <div class="sechd">
+    <h2 id="secMoreH">더 쓰는 말</h2>
+    <span class="sub" id="secMoreS">물·이거·계산처럼 짧게 쓰는 말</span>
+  </div>
+  <div id="moreList"></div>
+</section>
+
+<!-- ══ 3. 음식 설명 ══ -->
+<section aria-labelledby="secFoodH">
+  <div class="sechd">
+    <h2 id="secFoodH">🍲 음식 설명</h2>
+    <span class="sub" id="secFoodS">메뉴를 고를 때 보여 주면 좋아요</span>
+    <span class="num" id="foodNum">8</span>
+  </div>
+  <div class="grid" id="foodGrid"></div>
+</section>
+
+<!-- ══ 3-2. 술·음료 ══ -->
+<section aria-labelledby="secDrinkH">
+  <div class="sechd">
+    <h2 id="secDrinkH">🍶 술·음료</h2>
+    <span class="sub" id="secDrinkS">소주·맥주·막걸리도 한 잔</span>
+  </div>
+  <div class="grid" id="drinkGrid"></div>
+</section>
+
+<!-- ══ 3-3. 카페 메뉴 ══ -->
+<section aria-labelledby="secCafeH">
+  <div class="sechd">
+    <h2 id="secCafeH">☕ 카페 메뉴</h2>
+    <span class="sub" id="secCafeS">커피·디저트도 이렇게 주문해요</span>
+  </div>
+  <div id="cafeList"></div>
+  <div class="grid" id="cafeGrid"></div>
+</section>
+
+<!-- ══ 4. 메뉴판 찍기 ══ -->
+<section aria-labelledby="secScanH">
+  <div class="sechd">
+    <h2 id="secScanH">📷 메뉴판 찍기</h2>
+    <span class="sub" id="secScanS">사진 한 장이면 그림 메뉴로 바뀌어요</span>
+  </div>
+  <div class="scanbox">
+    <div class="btnrow">
+      <button type="button" class="btn primary" id="scanBtn">📷 <span id="scanTakeLbl">사진 찍기 · 앨범에서 고르기</span></button>
+      <button type="button" class="btn ghost" id="sampleBtn">🥢 <span id="scanSampleLbl">샘플 메뉴판으로 미리 보기</span></button>
+    </div>
+    <input type="file" id="menuPhoto" accept="image/*" class="sronly" aria-label="메뉴판 사진 고르기" />
+    <div class="progwrap" id="scanProg" hidden>
+      <div class="progbar"><span id="scanBar"></span></div>
+      <p class="progmsg" id="scanMsg">사진 읽는 중…</p>
+    </div>
+    <div class="pvwrap" id="scanPvWrap" hidden>
+      <img id="scanPv" alt="" />
+      <span class="pvtag" id="scanPvTag" hidden>샘플 메뉴판</span>
+    </div>
+    <p class="note" id="scanNote">메뉴판을 찍으면 글자를 읽어 그림 메뉴 카드로 바꿔 드려요. 사진은 폰 밖으로 나가지 않아요.</p>
+    <div class="scanres" id="scanRes" hidden>
+      <div class="scanreshd">
+        <span class="t" id="scanResTitle">그림 메뉴</span>
+        <button type="button" class="clr" id="scanClear">지우기</button>
+      </div>
+      <div id="scanResBody"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 5. 재료·알레르기 ══ -->
+<section class="ingr" aria-labelledby="secIngrH">
+  <div class="sechd">
+    <h2 id="secIngrH">🥩 재료·알레르기</h2>
+    <span class="sub" id="secIngrS">먹지 못하는 재료가 있으면 꼭 물어보세요</span>
+  </div>
+  <div id="ingrList"></div>
+</section>
+
+<!-- ══ 6. 교통 길찾기 (버스·택시·지하철) ══ -->
+<section class="transit" aria-labelledby="secTransitH">
+  <div class="sechd">
+    <h2 id="secTransitH">🚌 교통 길찾기</h2>
+    <span class="sub" id="secTransitS">버스·택시·지하철, 목적지만 넣으면 바로</span>
+  </div>
+  <div class="stay" id="stayCard">
+    <div class="stayhd">
+      <span class="stayem" aria-hidden="true">🏠</span>
+      <div class="staytx"><b id="stayTitle">내 숙소 주소</b><span id="staySub">한 번 저장해 두면 언제든 택시로</span></div>
+    </div>
+    <div id="stayEdit">
+      <input type="text" id="stayAddr" class="tin" autocomplete="off" />
+      <button type="button" class="btn primary" id="staySave">💾 <span id="staySaveLbl">저장</span></button>
+    </div>
+    <div id="staySaved" hidden>
+      <p class="stayaddr" id="stayAddrTxt"></p>
+      <div class="stayrow">
+        <button type="button" class="tmap" id="stayTaxi">🚕 <span id="stayTaxiLbl">택시로 숙소 가기</span></button>
+        <button type="button" class="tmap" id="stayGo">🧭 <span id="stayGoLbl">길찾기</span></button>
+        <button type="button" class="tmap" id="stayEditBtn">✏️ <span id="stayEditLbl">수정</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="tmode" id="tModeRow" role="group" aria-labelledby="secTransitH">
+    <button type="button" class="tmode" data-mode="taxi" aria-pressed="false">🚕<b>택시</b></button>
+    <button type="button" class="tmode on" data-mode="subway" aria-pressed="true">🚇<b>지하철</b></button>
+    <button type="button" class="tmode" data-mode="stay" aria-pressed="false">🏨<b>숙소</b></button>
+  </div>
+  <div class="tcard">
+    <p class="tfrom" id="tFromNow">📍 지금 있는 곳에서 출발해요</p>
+    <div class="trow">
+      <label class="tlb" for="tTo" id="tToLbl">도착</label>
+      <input type="text" id="tTo" class="tin" autocomplete="off" />
+    </div>
+    <div class="tchips" id="tPlaceRow"></div>
+    <p class="tline" id="tLine" hidden></p>
+    <div class="tbtns">
+      <button type="button" class="btn primary" id="tGo">🧭 <span id="tGoLbl">길찾기 열기</span></button>
+      <div class="tmaprow">
+        <button type="button" class="tmap" id="tNaver">🟢 <span id="tNaverLbl">네이버지도</span></button>
+        <button type="button" class="tmap" id="tGoogle">🗺️ <span id="tGoogleLbl">구글맵</span></button>
+      </div>
+    </div>
+    <p class="tnote" id="tNote">비워 두면 지금 있는 곳에서 출발해요 · 실시간 안내는 지도 앱에서 보여 줘요</p>
+  </div>
+  <div id="tPhrases"></div>
+</section>
+
+<!-- ══ 7. 식사 일기 (접혀 있다가 펼치기) ══ -->
+<section class="diary" aria-labelledby="secDiaryH">
+  <div class="sechd">
+    <h2 id="secDiaryH">📝 식사 일기</h2>
+    <span class="sub" id="secDiaryS">집에 가서도 오늘 먹은 맛을 기억해요</span>
+  </div>
+  <button type="button" class="accbtn" id="diaryToggle" aria-expanded="false" aria-controls="diaryBody">
+    <span aria-hidden="true">📝</span> <span id="diaryToggleLbl">메모장 펼치기</span> <span class="accarrow" aria-hidden="true">▾</span>
+  </button>
+  <div class="accbody" id="diaryBody" hidden>
+    <label class="dfl" for="diaryName" id="diaryNameLbl">음식·가게 이름</label>
+    <input type="text" id="diaryName" class="din" autocomplete="off" autocapitalize="sentences" />
+    <label class="dfl" for="diaryMemo" id="diaryMemoLbl">한 줄 메모 (선택)</label>
+    <textarea id="diaryMemo" class="din dta" rows="2"></textarea>
+    <button type="button" class="btn primary" id="diarySave">💾 <span id="diarySaveLbl">일기 저장</span></button>
+    <div class="dlist" id="diaryList"></div>
+  </div>
+</section>
+
+<p class="notes">
+  <span id="noteOffline">인터넷이 없어도 열려요</span> · <span id="notePrivacy">사진과 입력은 폰 안에서만 · 개인정보 0%</span><br />
+  <span id="noteAi">그림·안내 AI 생성(전부) · 무료 폰트(OFL)</span><br />
+  <span id="noteFoot">와글한국여행 · 여행자와 사장님 사이의 작은 통역</span>
+</p>
+
+<!-- ══ 화면 가득 큰 카드 (내 언어 작게 · 가게 언어 아주 크게) ══ -->
+<div class="bigcard" id="bigCard" role="dialog" aria-modal="true" aria-labelledby="bigBody" hidden>
+  <div class="bigbar">
+    <button type="button" class="circ" id="bigBackTop" aria-label="뒤로">◀</button>
+    <span class="hint" id="bigHint">사장님께 화면을 보여 주세요</span>
+    <button type="button" class="listenPill" id="bigSpeak" aria-label="읽어 주기">🔊 <span id="bigSpeakLbl">듣기(한글로 읽기)</span></button>
+  </div>
+  <div class="bigbody" id="bigBody"></div>
+  <div class="bigfoot">
+    <button type="button" class="bigback" id="bigBack">◀ <span id="bigBackLbl">뒤로</span></button>
+    <p class="bighint" id="bigHint2">폰 뒤로가기(◀)도 똑같이 됩니다</p>
+  </div>
+</div>
+
+<!-- ══ 음식 → 1·2·3·4단계 주문 연습 ══ -->
+<div class="bigcard stepcard" id="stepCard" role="dialog" aria-modal="true" aria-labelledby="stepBody" hidden>
+  <div class="bigbar">
+    <button type="button" class="circ" id="stepBackTop" aria-label="뒤로">◀</button>
+    <span class="hint" id="stepHint">주문 연습</span>
+    <span class="stepnum" id="stepNum">1 / 4</span>
+  </div>
+  <div class="stepdots" id="stepDots" aria-hidden="true"></div>
+  <div class="bigbody" id="stepBody"></div>
+  <div class="bigfoot">
+    <div class="choices" id="stepOpts" hidden></div>
+    <button type="button" class="listenPill" id="stepSpeak">🔊 <span id="stepSpeakLbl">듣기(한글로 읽기)</span></button>
+    <button type="button" class="bigback" id="stepNext">다음 단계 →</button>
+    <div class="minirow">
+      <button type="button" class="mini" id="stepFull">전체 큰 카드로 보기</button>
+      <button type="button" class="mini" id="stepDesc">🍲 음식 설명</button>
+    </div>
+    <div class="minirow">
+      <button type="button" class="mini" id="stepAdd">🧺 <span id="stepAddLbl">조합에 담기</span></button>
+      <button type="button" class="mini" id="stepDiary" hidden>📝 <span id="stepDiaryLbl">식사 일기 쓰기</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 설치 안내 ══ -->
+<div class="modal" id="installModal" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="instTitle">
+    <h3 id="instTitle">📲 홈 화면에 앱처럼 꺼내 두기</h3>
+    <p class="note" id="instNote">한 번 꺼내 두면 아이콘만 눌러 바로 열려요. 인터넷이 없어도 열립니다.</p>
+    <ol class="isteps">
+      <li><b id="instS1H">크롬 · 삼성 인터넷</b><span id="instS1">오른쪽 위 ⋮ → 홈 화면에 추가</span></li>
+      <li><b id="instS2H">카톡 같은 인앱 브라우저</b><span id="instS2">⋮ → 다른 브라우저(크롬)로 열기</span></li>
+      <li><b id="instS3H">아이폰 · 아이패드(사파리)</b><span id="instS3">공유(□↑) → 홈 화면에 추가</span></li>
+    </ol>
+    <div class="mrow"><button type="button" class="btn primary" id="instOk">알겠어요</button></div>
+  </div>
+</div>
+
+<button type="button" class="cbpeek" id="comboPeek" hidden>🧺 <span class="pk">조합 보기</span> <b id="comboPeekN">0</b></button>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   와글한국여행 (Wagul Korea Trip) — 5개 언어 주문 카드 · 그림 조합 주문
+   · 서버 0원 · 개인정보 0% · 폰 안에서만 동작
+   ══════════════════════════════════════════════════════════ */
+"use strict";
+
+/* ── 언어 ── */
+var LANGS = [
+  {code:'ko', flag:'🇰🇷', name:'한국어', short:'한국어', tts:'ko-KR'},
+  {code:'en', flag:'🇺🇸', name:'English', short:'EN', tts:'en-US'},
+  {code:'zh', flag:'🇨🇳', name:'中文', short:'中文', tts:'zh-CN'},
+  {code:'ja', flag:'🇯🇵', name:'日本語', short:'日本語', tts:'ja-JP'},
+  {code:'fr', flag:'🇫🇷', name:'Français', short:'FR', tts:'fr-FR'}
+];
+var TTS = {ko:'ko-KR', en:'en-US', zh:'zh-CN', ja:'ja-JP', fr:'fr-FR'};
+
+/* ── 화면 글 (5개 언어) ── */
+var UI = {
+ ko:{appTitle:'와글한국여행', tagline:'내 말로 고르고, 가게 말로 크게 보여 주세요', myLang:'내 언어', shopLang:'가게 언어',
+  sound:'소리', bigText:'큰 글씨', share:'공유', install:'설치',
+  secOrder:'먼저 이 다섯 마디', secOrderS:'문장을 누르면 화면 가득 큰 카드로 열려요',
+  secMore:'더 쓰는 말', secMoreS:'물·이거·계산처럼 짧게 쓰는 말',
+  secSign:'🪧 간판에서 찾아보세요', secSignS:'길에서 본 한글 간판을 누르면 무슨 가게인지 알려 드려요',
+  signDishes:'대표 음식 — 누르면 설명·주문 연습', signPractice:'주문 연습', signHint:'간판과 같은 글자예요',
+  signKindFood:'🍽 음식점', signKindShop:'🏪 음식점 아님', signItems:'파는 물건 — 누르면 설명',
+  secFood:'🍲 음식 설명', secFoodS:'누르면 1→2→3→4단계 주문 연습이 열려요',
+  secScan:'📷 메뉴판 찍기', secScanS:'사진 한 장이면 그림 메뉴로 바뀌어요',
+  secIngr:'🥩 재료·알레르기', secIngrS:'먹지 못하는 재료가 있으면 꼭 물어보세요',
+  showStaff:'사장님께 화면을 보여 주세요', tapBig:'카드를 누르면 화면 가득 커져요',
+  tip:'문장을 누르면 화면 가득 큰 카드로 열려요',
+  back:'뒤로', listen:'읽어 주기', meaning:'뜻', say:'발음',
+  spicy:'매움', notSpicy:'안 매움',
+  meatPork:'돼지고기', meatBeef:'소고기', meatChicken:'닭고기', meatSeafood:'해산물', meatEgg:'달걀', meatNone:'고기 없음',
+  scanTake:'사진 찍기 · 앨범에서 고르기', scanSample:'샘플 메뉴판으로 미리 보기',
+  scanNote:'메뉴판을 찍으면 글자를 읽어 그림 메뉴 카드로 바꿔 드려요. 사진은 폰 밖으로 나가지 않아요.',
+  scanReading:'사진 읽는 중…', scanPreparing:'글자 읽기 준비 중… (처음 한 번은 조금 걸려요)',
+  scanFound:'{n}개 음식을 찾았어요', scanNone:'사진에서 아는 음식 이름을 찾지 못했어요',
+  scanNoneHint:'메뉴 이름이 잘 보이게 다시 찍거나, 위의 음식 설명에서 찾아보세요',
+  scanRetry:'다시 찍기', scanClear:'지우기', scanSampleTag:'샘플 메뉴판', scanMenuTitle:'그림 메뉴',
+  scanOffline:'인터넷이 없어 글자를 못 읽어요',
+  installTitle:'📲 홈 화면에 앱처럼 꺼내 두기',
+  installNote:'한 번 꺼내 두면 아이콘만 눌러 바로 열려요. 인터넷이 없어도 열립니다.',
+  instS1H:'크롬 · 삼성 인터넷', instS1:'오른쪽 위 ⋮ → 홈 화면에 추가(또는 앱 설치)',
+  instS2H:'카톡 같은 인앱 브라우저', instS2:'⋮ → 다른 브라우저(크롬)로 열기',
+  instS3H:'아이폰 · 아이패드(사파리)', instS3:'공유(□↑) → 홈 화면에 추가', ok:'알겠어요',
+  shareText:'🍽️ 와글한국여행 — 5개 언어 주문 카드\n한국 음식·카페 메뉴와 주문 연습, 식사 일기까지! 설치 없이 링크만 누르면 열려요.',
+  copied:'공유 문구를 복사했어요. 카톡에 붙여넣기 하세요',
+  shareFail:'복사가 안 되면 주소창의 링크를 복사해 보내 주세요',
+  offline:'인터넷이 없어도 열려요', privacy:'사진과 입력은 폰 안에서만 · 개인정보 0%',
+  ai:'그림·안내 AI 생성(전부) · 무료 폰트(OFL)',
+  foot:'와글한국여행 · 여행자와 사장님 사이의 작은 통역',
+  noVoice:'이 기기에는 그 언어의 음성이 없어요', backHint:'폰 뒤로가기(◀)도 똑같이 됩니다', showHint:'사장님께 화면을 보여 주세요',
+  photoAlt:'고른 메뉴판 사진', installed:'홈 화면에 앱을 꺼내 두었어요 📲', installStart:'설치를 시작했어요 📲', alreadyInstalled:'이미 홈 화면에 설치되어 있어요 📲',
+  secPpl:'🧑‍🤝‍🧑 몇 분이세요?', secPplS:'가게에 들어가면 먼저 이 한마디', pplUnit:'명',
+  secDrink:'🍶 술·음료', secDrinkS:'소주·맥주·막걸리도 한 잔', drinkTag:'음료',
+  secCafe:'☕ 카페 메뉴', secCafeS:'커피·디저트도 이렇게 주문해요',
+  secCombo:'🧺 주문 조합', secComboS:'그림을 톡톡 눌러 담으면 문장이 완성돼요',
+  comboEmpty:'👥 인원 · 🍲 음식 · 🧊 요청을 눌러 담아 보세요',
+  comboSpeak:'듣기', comboFull:'크게 보여 주기', comboReset:'비우기',
+  comboAddLbl:'조합에 담기', comboAdded:'조합에 담았어요', comboPeek:'조합 보기',
+  secTransit:'🚌 교통 길찾기', secTransitS:'버스·택시·지하철, 목적지만 넣으면 바로',
+  tBus:'버스', tTaxi:'택시', tSubway:'지하철', tTo:'도착', tFromNow:'📍 지금 있는 곳에서 출발해요',
+  tToPh:'예: 명동',
+  tGo:'길찾기 열기', tGoTaxi:'기사님께 보여 주기', tNaver:'네이버지도', tGoogle:'구글맵',
+  tNote:'도착지만 넣으면 지금 있는 곳에서 출발하는 길이 지도 앱에 열려요',
+  tNeedTo:'도착지를 먼저 적어 주세요', tExDest:'명동',
+  tphAsk:'이 버스 {d} 가나요?', tphOff:'{d}에서 내려 주세요.', tphCard:'티머니 교통카드 어디서 사나요?',
+  tphTaxi:'기사님, {d}에 가 주세요. 감사합니다.', tphTaxiStay:'기사님, 이 주소로 가 주세요. 감사합니다.',
+  tStay:'숙소', stayTitle:'내 숙소 주소', staySub:'한 번 저장해 두면 언제든 택시로',
+  stayPh:'숙소 한글 주소 붙여넣기', staySave:'저장', staySaved:'숙소 주소를 저장했어요',
+  stayTaxi:'택시로 숙소 가기', stayGo:'숙소 길찾기', stayEdit:'수정', stayNeed:'숙소 주소를 먼저 저장해 주세요',
+  txDrop:'내려줄 곳', txTapNav:'주소를 누르면 내비게이션이 열려요', txNow:'지금 내 위치',
+  txLocating:'위치를 확인하는 중…', txMapMe:'내 위치 지도 보기', txNoLoc:'위치를 가져오지 못했어요',
+  txCoords:'현재 좌표',
+  slogan:'여행하기 제일 아름답고 편리한 나라', wSeoul:'서울', wxLow:'최저', wxHigh:'최고', wxTxt:'날씨',
+  secDiary:'📝 식사 일기', secDiaryS:'집에 가서도 오늘 먹은 맛을 기억해요',
+  diaryOpen:'메모장 펼치기', diaryClose:'메모장 접기', diaryNameLbl:'음식·가게 이름',
+  diaryMemoLbl:'오늘의 맛 일기 (선택)', diarySaveLbl:'일기 저장', diarySaved:'식사 일기를 저장했어요',
+  diaryEmpty:'아직 저장한 일기가 없어요', diaryNeedName:'음식이나 가게 이름을 적어 주세요',
+  diaryPh:'예: 순두부찌개 · 김해 식당', stepDiaryLbl:'식사 일기 쓰기', deleteLbl:'지우기',
+  practice:'주문 연습', stepGreet:'1 · 인사', stepOrder:'2 · 주문', stepAsk:'3 · 요청', stepPay:'4 · 계산·인사',
+  nextStep:'다음 단계 →', stepAgain:'처음부터 다시 →', viewBigCard:'전체 큰 카드로 보기', dishDescBtn:'🍲 음식 설명',
+  trySay:'🔊 를 누르고 따라 말해 보세요', listenKo:'듣기(한글로 읽기)', listenIn:'듣기({l})',
+  noTTS:'이 폰에서는 읽어 주기를 쓸 수 없어요'},
+ en:{appTitle:'Wagul Korea Trip', tagline:'Pick in your language. Show it big in theirs.', myLang:'My language', shopLang:'Staff language',
+  sound:'Sound', bigText:'Big text', share:'Share', install:'Install',
+  secOrder:'Five phrases to start', secOrderS:'Tap a card to open it full screen',
+  secMore:'More words', secMoreS:'Short ones — water, this one, the bill',
+  secSign:'🪧 Find it on the sign', secSignS:'Tap a Korean sign to see what kind of shop it is',
+  signDishes:'What they serve — tap for info and order practice', signPractice:'Order practice', signHint:'The same word as the sign',
+  signKindFood:'🍽 Restaurant', signKindShop:'🏪 Not a restaurant', signItems:'What they sell — tap for info',
+  secFood:'🍲 Food guide', secFoodS:'Tap a dish to practise ordering it step by step',
+  secScan:'📷 Scan a menu', secScanS:'One photo becomes a picture menu',
+  secIngr:'🥩 Ingredients & allergies', secIngrS:'Always ask if you cannot eat something',
+  showStaff:'Show this screen to the staff', tapBig:'Tap a card to make it fill the screen',
+  tip:'Tap a phrase to open it full screen',
+  back:'Back', listen:'Listen', meaning:'Meaning', say:'Say it',
+  spicy:'Spicy', notSpicy:'Not spicy',
+  meatPork:'Pork', meatBeef:'Beef', meatChicken:'Chicken', meatSeafood:'Seafood', meatEgg:'Egg', meatNone:'No meat',
+  scanTake:'Take a photo · choose from album', scanSample:'Try with a sample menu',
+  scanNote:'Your photo is read on this phone and turned into picture menu cards. It never leaves the phone.',
+  scanReading:'Reading the photo…', scanPreparing:'Getting ready to read… (the first time takes a little longer)',
+  scanFound:'{n} dishes found', scanNone:'No dish names I know were found in the photo',
+  scanNoneHint:'Try again with the names clearly in view, or look them up in the food guide above',
+  scanRetry:'Try again', scanClear:'Clear', scanSampleTag:'Sample menu', scanMenuTitle:'Picture menu',
+  scanOffline:'No internet, so the text cannot be read',
+  installTitle:'📲 Keep it on your home screen',
+  installNote:'Once it is there, one tap opens it — even without internet.',
+  instS1H:'Chrome · Samsung Internet', instS1:'⋮ at the top right → Add to Home screen',
+  instS2H:'Inside KakaoTalk etc.', instS2:'⋮ → Open in browser (Chrome)',
+  instS3H:'iPhone · iPad (Safari)', instS3:'Share (□↑) → Add to Home Screen', ok:'Got it',
+  shareText:'🍽️ Wagul Korea Trip — ordering cards in 5 languages\nKorean food and cafe menus, order practice and a meal diary. No install — just tap the link.',
+  copied:'Share text copied. Paste it into KakaoTalk.',
+  shareFail:'If copying fails, copy the link from the address bar instead.',
+  offline:'Opens without internet', privacy:'Photos and typing stay on your phone · no personal data',
+  ai:'Art and text AI-generated · free OFL fonts',
+  foot:'Wagul Korea Trip · a small interpreter between traveller and host',
+  noVoice:'This device has no voice for that language', backHint:'The phone back button (◀) works too', showHint:'Show this screen to the staff',
+  photoAlt:'Chosen menu photo', installed:'Added to your home screen 📲', installStart:'Installation started 📲', alreadyInstalled:'This app is already on your home screen 📲',
+  secPpl:'🧑‍🤝‍🧑 How many people?', secPplS:'Say this first when you walk in', pplUnit:'',
+  secDrink:'🍶 Drinks', secDrinkS:'Soju, beer, makgeolli and more', drinkTag:'Drink',
+  secCafe:'☕ Cafe menu', secCafeS:'Coffee and dessert, ordered the same way',
+  secCombo:'🧺 Your order', secComboS:'Tap the pictures and the sentence builds itself',
+  comboEmpty:'Tap people · dishes · requests to build your order',
+  comboSpeak:'Listen', comboFull:'Show big', comboReset:'Clear',
+  comboAddLbl:'Add to order', comboAdded:'Added to your order', comboPeek:'See order',
+  secTransit:'🚌 Getting around', secTransitS:'Bus, taxi or subway — just add where you go',
+  tBus:'Bus', tTaxi:'Taxi', tSubway:'Subway', tTo:'To', tFromNow:'📍 Starting from your current location',
+  tToPh:'e.g. Myeongdong',
+  tGo:'Open directions', tGoTaxi:'Show the driver', tNaver:'Naver Map', tGoogle:'Google Maps',
+  tNote:'Add a destination and the map opens the route from where you are now',
+  tNeedTo:'Please write the destination first', tExDest:'Myeongdong',
+  tphAsk:'Does this bus go to {d}?', tphOff:'Please let me off at {d}.', tphCard:'Where can I buy a T-money card?',
+  tphTaxi:'Driver, please take me to {d}. Thank you.', tphTaxiStay:'Driver, please take me to this address. Thank you.',
+  tStay:'Stay', stayTitle:'My accommodation', staySub:'Save it once, then a taxi any time',
+  stayPh:'Hotel address in Korean', staySave:'Save', staySaved:'Address saved',
+  stayTaxi:'Taxi to my stay', stayGo:'Directions to my stay', stayEdit:'Edit', stayNeed:'Save your stay address first',
+  txDrop:'Drop-off', txTapNav:'Tap the address to open navigation', txNow:'Where I am now',
+  txLocating:'Checking your location…', txMapMe:'Show my location', txNoLoc:'Could not get your location',
+  txCoords:'Coordinates',
+  slogan:'The most beautiful and convenient country to travel', wSeoul:'Seoul', wxLow:'low', wxHigh:'high', wxTxt:'Weather',
+  secDiary:'📝 Meal diary', secDiaryS:'Remember what you ate when you get home',
+  diaryOpen:'Open the notepad', diaryClose:'Close the notepad', diaryNameLbl:'Dish or restaurant',
+  diaryMemoLbl:'Your taste note (optional)', diarySaveLbl:'Save', diarySaved:'Diary saved',
+  diaryEmpty:'No diary entries yet', diaryNeedName:'Please write the dish or restaurant',
+  diaryPh:'e.g. Soft tofu stew · a restaurant in Busan', stepDiaryLbl:'Write a diary', deleteLbl:'Delete',
+  practice:'Order practice', stepGreet:'1 · Hello', stepOrder:'2 · Order', stepAsk:'3 · Ask', stepPay:'4 · Pay & thanks',
+  nextStep:'Next step →', stepAgain:'Start again →', viewBigCard:'Show full-screen card', dishDescBtn:'🍲 Dish info',
+  trySay:'Tap 🔊 and say it out loud', listenKo:'Listen (Korean)', listenIn:'Listen ({l})',
+  noTTS:'This phone cannot read it aloud'},
+ zh:{appTitle:'Wagul 韩国旅行', tagline:'用我的语言点，用店里的语言放大给店员看', myLang:'我的语言', shopLang:'店员语言',
+  sound:'声音', bigText:'大字', share:'分享', install:'安装',
+  secOrder:'先看这五句', secOrderS:'点一下就能全屏放大',
+  secMore:'还有这些', secMoreS:'水、这个、结账等短句',
+  secSign:'🪧 看招牌找店', secSignS:'点一下街上看到的韩文招牌，就知道是什么店',
+  signDishes:'常见菜品 — 点一下看介绍和点餐练习', signPractice:'点餐练习', signHint:'和招牌上的字一样',
+  signKindFood:'🍽 餐厅', signKindShop:'🏪 不是餐厅', signItems:'卖的东西 — 点一下看介绍',
+  secFood:'🍲 菜品介绍', secFoodS:'点一下菜品，就能按步骤练习点餐',
+  secScan:'📷 拍菜单', secScanS:'一张照片变成图片菜单',
+  secIngr:'🥩 食材·过敏', secIngrS:'有不能吃的东西一定要问',
+  showStaff:'请把这个画面给店员看', tapBig:'点卡片就会全屏放大',
+  tip:'点一下句子，就会全屏放大',
+  back:'返回', listen:'朗读', meaning:'意思', say:'发音',
+  spicy:'辣', notSpicy:'不辣',
+  meatPork:'猪肉', meatBeef:'牛肉', meatChicken:'鸡肉', meatSeafood:'海鲜', meatEgg:'鸡蛋', meatNone:'无肉',
+  scanTake:'拍照 · 从相册选择', scanSample:'用示例菜单试试',
+  scanNote:'照片只在这部手机里读取，变成图片菜单卡片，不会上传。',
+  scanReading:'正在读取照片…', scanPreparing:'正在准备识别…（第一次会久一点）',
+  scanFound:'找到 {n} 道菜', scanNone:'照片里没有找到我认识的菜名',
+  scanNoneHint:'请让菜名清楚地出现在画面里再拍一次，或在上面的菜品介绍里找找',
+  scanRetry:'再拍一次', scanClear:'清除', scanSampleTag:'示例菜单', scanMenuTitle:'图片菜单',
+  scanOffline:'没有网络，无法读取文字',
+  installTitle:'📲 添加到主屏幕',
+  installNote:'添加后点一下图标就能打开，没有网络也能用。',
+  instS1H:'安卓 Chrome · 三星浏览器', instS1:'右上角 ⋮ → 添加到主屏幕',
+  instS2H:'在 KakaoTalk 等应用内', instS2:'⋮ → 用浏览器打开',
+  instS3H:'iPhone · iPad（Safari）', instS3:'分享（□↑）→ 添加到主屏幕', ok:'知道了',
+  shareText:'🍽️ Wagul 韩国旅行 — 5 种语言的常用句卡片\n韩国美食·咖啡菜单、点餐练习、用餐日记。不用安装，点链接就能用。',
+  copied:'已复制分享内容，粘贴到聊天里发送吧',
+  shareFail:'如果复制不了，请复制地址栏里的链接',
+  offline:'没有网络也能打开', privacy:'照片和输入只留在手机里 · 不收个人信息',
+  ai:'图片·文字为 AI 生成 · 使用免费字体(OFL)',
+  foot:'Wagul 韩国旅行 · 旅客和店家之间的小翻译',
+  noVoice:'这台设备没有这种语言的声音', backHint:'手机返回键（◀）也一样', showHint:'请把这个画面给店员看',
+  photoAlt:'选好的菜单照片', installed:'已添加到主屏幕 📲', installStart:'已开始安装 📲', alreadyInstalled:'已经安装在主屏幕上了 📲',
+  secPpl:'🧑‍🤝‍🧑 几位？', secPplS:'进店第一句', pplUnit:'位',
+  secDrink:'🍶 酒水', secDrinkS:'烧酒、啤酒、米酒', drinkTag:'饮品',
+  secCafe:'☕ 咖啡菜单', secCafeS:'咖啡和甜点也这样点',
+  secCombo:'🧺 我的点单', secComboS:'点一点图片，句子自动拼好',
+  comboEmpty:'点人数 · 菜品 · 要求，拼出你的点单',
+  comboSpeak:'朗读', comboFull:'全屏显示', comboReset:'清空',
+  comboAddLbl:'加入点单', comboAdded:'已加入点单', comboPeek:'看我的点单',
+  secTransit:'🚌 交通问路', secTransitS:'公交·出租·地铁，填上目的地就行',
+  tBus:'公交', tTaxi:'出租车', tSubway:'地铁', tTo:'到达', tFromNow:'📍 从现在的位置出发',
+  tToPh:'例：明洞',
+  tGo:'打开路线', tGoTaxi:'给司机看', tNaver:'Naver地图', tGoogle:'谷歌地图',
+  tNote:'只填目的地，地图就从你现在的位置打开路线',
+  tNeedTo:'请先填写目的地', tExDest:'明洞',
+  tphAsk:'这趟公交去{d}吗？', tphOff:'请让我在{d}下车。', tphCard:'在哪里可以买T-money交通卡？',
+  tphTaxi:'司机，请带我去{d}。谢谢。', tphTaxiStay:'司机，请去这个地址。谢谢。',
+  tStay:'住宿', stayTitle:'我的住宿地址', staySub:'保存一次，随时打车回去',
+  stayPh:'住宿韩文地址', staySave:'保存', staySaved:'已保存住宿地址',
+  stayTaxi:'打车回住宿', stayGo:'回住宿路线', stayEdit:'修改', stayNeed:'请先保存住宿地址',
+  txDrop:'下车地点', txTapNav:'点地址即可打开导航', txNow:'我现在的位置',
+  txLocating:'正在确认位置…', txMapMe:'查看我的位置', txNoLoc:'无法获取位置',
+  txCoords:'当前坐标',
+  slogan:'最适合旅行、最美又最便利的国家', wSeoul:'首尔', wxLow:'最低', wxHigh:'最高', wxTxt:'天气',
+  secDiary:'📝 用餐日记', secDiaryS:'回家后也能想起今天吃了什么',
+  diaryOpen:'展开记事本', diaryClose:'收起记事本', diaryNameLbl:'菜名或店名',
+  diaryMemoLbl:'今天的味道（可选）', diarySaveLbl:'保存日记', diarySaved:'日记已保存',
+  diaryEmpty:'还没有保存的日记', diaryNeedName:'请填写菜名或店名',
+  diaryPh:'例：嫩豆腐汤 · 釜山的餐厅', stepDiaryLbl:'写用餐日记', deleteLbl:'删除',
+  practice:'点餐练习', stepGreet:'1 · 打招呼', stepOrder:'2 · 点菜', stepAsk:'3 · 请求', stepPay:'4 · 结账·道谢',
+  nextStep:'下一步 →', stepAgain:'重新开始 →', viewBigCard:'全屏大卡片', dishDescBtn:'🍲 菜品介绍',
+  trySay:'按 🔊 跟着读一遍', listenKo:'朗读（韩语）', listenIn:'朗读（{l}）',
+  noTTS:'这部手机无法朗读'},
+ ja:{appTitle:'Wagul 韓国旅行', tagline:'自分の言葉で選んで、お店の言葉で大きく見せる', myLang:'自分の言語', shopLang:'お店の言語',
+  sound:'音声', bigText:'大きな文字', share:'共有', install:'インストール',
+  secOrder:'まずはこの5つ', secOrderS:'タップすると全画面の大きなカードになります',
+  secMore:'ほかの言葉', secMoreS:'水・これ・お会計などの短い言葉',
+  secSign:'🪧 看板で探す', secSignS:'街で見た韓国語の看板をタップすると、どんなお店か分かります',
+  signDishes:'代表的な料理 — タップで説明と注文れんしゅう', signPractice:'注文れんしゅう', signHint:'看板と同じ文字です',
+  signKindFood:'🍽 飲食店', signKindShop:'🏪 飲食店ではありません', signItems:'売っている物 — タップで説明',
+  secFood:'🍲 料理の説明', secFoodS:'タップすると1→2→3→4の注文れんしゅうが開きます',
+  secScan:'📷 メニューを撮る', secScanS:'写真1枚で絵メニューに変わります',
+  secIngr:'🥩 材料・アレルギー', secIngrS:'食べられないものがあれば必ず聞いてください',
+  showStaff:'店員さんにこの画面を見せてください', tapBig:'カードをタップすると全画面で大きくなります',
+  tip:'文をタップすると全画面の大きなカードになります',
+  back:'戻る', listen:'読み上げ', meaning:'意味', say:'発音',
+  spicy:'辛い', notSpicy:'辛くない',
+  meatPork:'豚肉', meatBeef:'牛肉', meatChicken:'鶏肉', meatSeafood:'海鮮', meatEgg:'卵', meatNone:'肉なし',
+  scanTake:'写真を撮る・アルバムから選ぶ', scanSample:'サンプルメニューで試す',
+  scanNote:'写真はこのスマホの中で読み取り、絵メニューのカードにします。外には送りません。',
+  scanReading:'写真を読み取り中…', scanPreparing:'文字読み取りの準備中…（初回は少し時間がかかります）',
+  scanFound:'{n}品見つかりました', scanNone:'写真から知っている料理名が見つかりませんでした',
+  scanNoneHint:'料理名がはっきり写るように撮り直すか、上の料理の説明から探してください',
+  scanRetry:'撮り直す', scanClear:'消す', scanSampleTag:'サンプルメニュー', scanMenuTitle:'絵メニュー',
+  scanOffline:'インターネットがないため文字を読めません',
+  installTitle:'📲 ホーム画面にアプリとして置く',
+  installNote:'一度置けばアイコンをタップするだけで開きます。インターネットがなくても開きます。',
+  instS1H:'Android Chrome・Samsung Internet', instS1:'右上の ⋮ → ホーム画面に追加',
+  instS2H:'KakaoTalk などのアプリ内', instS2:'⋮ → ブラウザで開く',
+  instS3H:'iPhone・iPad（Safari）', instS3:'共有（□↑）→ ホーム画面に追加', ok:'わかりました',
+  shareText:'🍽️ Wagul 韓国旅行 — 5言語の注文カード\n韓国料理とカフェのメニュー、注文れんしゅう、食事日記まで。インストール不要、リンクを開くだけ。',
+  copied:'共有文をコピーしました。チャットに貼り付けて送ってください',
+  shareFail:'コピーできないときはアドレスバーのリンクをコピーしてください',
+  offline:'インターネットがなくても開きます', privacy:'写真も入力もスマホの中だけ · 個人情報なし',
+  ai:'絵・文章はAI生成 · 無料フォント(OFL)',
+  foot:'Wagul 韓国旅行 · 旅人とお店をつなぐ小さな通訳',
+  noVoice:'この端末にはその言語の音声がありません', backHint:'スマホの戻るボタン（◀）でも同じです', showHint:'店員さんにこの画面を見せてください',
+  photoAlt:'選んだメニューの写真', installed:'ホーム画面に追加しました 📲', installStart:'インストールを開始しました 📲', alreadyInstalled:'すでにホーム画面に入っています 📲',
+  secPpl:'🧑‍🤝‍🧑 何名様ですか？', secPplS:'お店に入ったらまずこの一言', pplUnit:'名',
+  secDrink:'🍶 お酒・飲み物', secDrinkS:'焼酎・ビール・マッコリ', drinkTag:'飲み物',
+  secCafe:'☕ カフェメニュー', secCafeS:'コーヒーもデザートもこの言い方で',
+  secCombo:'🧺 注文のまとめ', secComboS:'絵をタップすると文章ができます',
+  comboEmpty:'人数・料理・お願いをタップしてまとめましょう',
+  comboSpeak:'読み上げ', comboFull:'大きく見せる', comboReset:'クリア',
+  comboAddLbl:'まとめに追加', comboAdded:'まとめに追加しました', comboPeek:'まとめを見る',
+  secTransit:'🚌 交通の行き方', secTransitS:'バス・タクシー・地下鉄、行き先を入れるだけ',
+  tBus:'バス', tTaxi:'タクシー', tSubway:'地下鉄', tTo:'到着', tFromNow:'📍 今いる場所から出発します',
+  tToPh:'例：明洞',
+  tGo:'経路を開く', tGoTaxi:'運転手さんに見せる', tNaver:'Naverマップ', tGoogle:'Googleマップ',
+  tNote:'行き先を入れると、今いる場所からの経路が地図で開きます',
+  tNeedTo:'先に行き先を入れてください', tExDest:'明洞',
+  tphAsk:'このバスは{d}に行きますか？', tphOff:'{d}で降ろしてください。', tphCard:'T-moneyカードはどこで買えますか？',
+  tphTaxi:'運転手さん、{d}までお願いします。ありがとうございます。', tphTaxiStay:'運転手さん、この住所までお願いします。ありがとうございます。',
+  tStay:'宿', stayTitle:'泊まる場所の住所', staySub:'一度保存すればいつでもタクシーで',
+  stayPh:'宿の韓国語住所', staySave:'保存', staySaved:'住所を保存しました',
+  stayTaxi:'宿までタクシー', stayGo:'宿までの経路', stayEdit:'変更', stayNeed:'先に宿の住所を保存してください',
+  txDrop:'降りる場所', txTapNav:'住所を押すとナビが開きます', txNow:'今いる場所',
+  txLocating:'位置を確認しています…', txMapMe:'今の場所を見る', txNoLoc:'位置を取得できません',
+  txCoords:'現在の座標',
+  slogan:'旅するのにいちばん美しくて便利な国', wSeoul:'ソウル', wxLow:'最低', wxHigh:'最高', wxTxt:'天気',
+  secDiary:'📝 食事日記', secDiaryS:'家に帰ってからも今日の味を思い出せます',
+  diaryOpen:'メモを開く', diaryClose:'メモを閉じる', diaryNameLbl:'料理・店名',
+  diaryMemoLbl:'今日の味メモ（任意）', diarySaveLbl:'保存する', diarySaved:'食事日記を保存しました',
+  diaryEmpty:'まだ保存した日記はありません', diaryNeedName:'料理名か店名を入れてください',
+  diaryPh:'例：スンドゥブチゲ・釜山の食堂', stepDiaryLbl:'食事日記を書く', deleteLbl:'削除',
+  practice:'注文れんしゅう', stepGreet:'1 · あいさつ', stepOrder:'2 · 注文', stepAsk:'3 · お願い', stepPay:'4 · 会計・お礼',
+  nextStep:'次のステップ →', stepAgain:'はじめから →', viewBigCard:'全画面カードで見る', dishDescBtn:'🍲 料理の説明',
+  trySay:'🔊 を押して声に出してみましょう', listenKo:'読み上げ（韓国語）', listenIn:'読み上げ（{l}）',
+  noTTS:'この端末では読み上げができません'},
+ fr:{appTitle:'Wagul Corée Voyage', tagline:'Choisissez dans votre langue, montrez-le en grand dans la leur.', myLang:'Ma langue', shopLang:'Langue du restaurant',
+  sound:'Son', bigText:'Grands caractères', share:'Partager', install:'Installer',
+  secOrder:'Cinq phrases pour commencer', secOrderS:'Touchez une carte pour l\'ouvrir en plein écran',
+  secMore:'D\'autres mots', secMoreS:'Courts — eau, ce plat, l\'addition',
+  secSign:'🪧 Reconnaître les enseignes', secSignS:'Touchez une enseigne coréenne pour voir quel commerce c\'est',
+  signDishes:'Ce qu\'ils servent — touchez pour l\'info et l\'entraînement', signPractice:'Entraînement', signHint:'Le même mot que l\'enseigne',
+  signKindFood:'🍽 Restaurant', signKindShop:'🏪 Pas un restaurant', signItems:'Ce qu\'ils vendent — touchez pour l\'info',
+  secFood:'🍲 Guide des plats', secFoodS:'Touchez un plat pour répéter la commande étape par étape',
+  secScan:'📷 Photographier le menu', secScanS:'Une photo devient un menu en images',
+  secIngr:'🥩 Ingrédients et allergies', secIngrS:'Demandez toujours si vous ne pouvez pas manger quelque chose',
+  showStaff:'Montrez cet écran au personnel', tapBig:'Touchez une carte pour la faire remplir l\'écran',
+  tip:'Touchez une phrase pour l\'ouvrir en plein écran',
+  back:'Retour', listen:'Écouter', meaning:'Sens', say:'Prononciation',
+  spicy:'Épicé', notSpicy:'Non épicé',
+  meatPork:'Porc', meatBeef:'Bœuf', meatChicken:'Poulet', meatSeafood:'Fruits de mer', meatEgg:'Œuf', meatNone:'Sans viande',
+  scanTake:'Prendre une photo · choisir dans l\'album', scanSample:'Essayer avec un menu d\'exemple',
+  scanNote:'La photo est lue sur ce téléphone et transformée en menu illustré. Elle ne quitte jamais l\'appareil.',
+  scanReading:'Lecture de la photo…', scanPreparing:'Préparation de la lecture… (la première fois, un peu plus long)',
+  scanFound:'{n} plats trouvés', scanNone:'Aucun nom de plat connu n\'a été trouvé sur la photo',
+  scanNoneHint:'Reprenez la photo avec les noms bien visibles, ou cherchez dans le guide des plats ci-dessus',
+  scanRetry:'Reprendre', scanClear:'Effacer', scanSampleTag:'Menu d\'exemple', scanMenuTitle:'Menu illustré',
+  scanOffline:'Pas d\'internet : impossible de lire le texte',
+  installTitle:'📲 Garder l\'app sur l\'écran d\'accueil',
+  installNote:'Une fois installée, une touche suffit — même sans internet.',
+  instS1H:'Chrome · Samsung Internet', instS1:'⋮ en haut à droite → Ajouter à l\'écran d\'accueil',
+  instS2H:'Dans KakaoTalk, etc.', instS2:'⋮ → Ouvrir dans le navigateur',
+  instS3H:'iPhone · iPad (Safari)', instS3:'Partager (□↑) → Sur l\'écran d\'accueil', ok:'Compris',
+  shareText:'🍽️ Wagul Corée Voyage — cartes de commande en 5 langues\nPlats et cafés coréens, entraînement à la commande et journal des repas. Sans installation, ouvrez le lien.',
+  copied:'Texte copié. Collez-le dans votre messagerie.',
+  shareFail:'Si la copie échoue, copiez le lien depuis la barre d\'adresse.',
+  offline:'S\'ouvre sans internet', privacy:'Photos et saisie restent sur votre téléphone · aucune donnée personnelle',
+  ai:'Illustrations et textes générés par IA · polices libres (OFL)',
+  foot:'Wagul Corée Voyage · un petit interprète entre le voyageur et le restaurant',
+  noVoice:'Cet appareil n\'a pas de voix pour cette langue', backHint:'Le bouton retour du téléphone (◀) fait pareil', showHint:'Montrez cet écran au personnel',
+  photoAlt:'Photo du menu choisie', installed:'Ajoutée à l\'écran d\'accueil 📲', installStart:'Installation lancée 📲', alreadyInstalled:'Déjà sur votre écran d\'accueil 📲',
+  secPpl:'🧑‍🤝‍🧑 Combien de personnes ?', secPplS:'La première phrase en entrant', pplUnit:'',
+  secDrink:'🍶 Boissons', secDrinkS:'Soju, bière, makgeolli', drinkTag:'Boisson',
+  secCafe:'☕ Carte du café', secCafeS:'Café et desserts, même méthode',
+  secCombo:'🧺 Votre commande', secComboS:'Touchez les images, la phrase se construit',
+  comboEmpty:'Touchez personnes · plats · demandes',
+  comboSpeak:'Écouter', comboFull:'Afficher en grand', comboReset:'Effacer',
+  comboAddLbl:'Ajouter', comboAdded:'Ajouté à la commande', comboPeek:'Voir la commande',
+  secTransit:'🚌 Se déplacer', secTransitS:'Bus, taxi ou métro — indiquez la destination',
+  tBus:'Bus', tTaxi:'Taxi', tSubway:'Métro', tTo:'À', tFromNow:'📍 Départ de votre position actuelle',
+  tToPh:'ex. Myeongdong',
+  tGo:'Ouvrir l itinéraire', tGoTaxi:'Montrer au chauffeur', tNaver:'Naver Map', tGoogle:'Google Maps',
+  tNote:'Indiquez la destination : l itinéraire s ouvre depuis votre position',
+  tNeedTo:'Indiquez d abord la destination', tExDest:'Myeongdong',
+  tphAsk:'Ce bus va-t-il à {d} ?', tphOff:'Laissez-moi descendre à {d}.', tphCard:'Où puis-je acheter une carte T-money ?',
+  tphTaxi:'Chauffeur, à {d}, s\'il vous plaît. Merci.', tphTaxiStay:'Chauffeur, à cette adresse, s\'il vous plaît. Merci.',
+  tStay:'Hôtel', stayTitle:'Mon hébergement', staySub:'Enregistrez-le une fois, puis un taxi à tout moment',
+  stayPh:'Adresse en coréen', staySave:'Enregistrer', staySaved:'Adresse enregistrée',
+  stayTaxi:'Taxi vers mon hébergement', stayGo:'Itinéraire vers mon hébergement', stayEdit:'Modifier', stayNeed:'Enregistrez d abord votre adresse',
+  txDrop:'Dépose', txTapNav:'Touchez l adresse pour ouvrir le GPS', txNow:'Ma position actuelle',
+  txLocating:'Localisation en cours…', txMapMe:'Voir ma position', txNoLoc:'Position indisponible',
+  txCoords:'Coordonnées',
+  slogan:'Le pays le plus beau et le plus pratique pour voyager', wSeoul:'Séoul', wxLow:'min', wxHigh:'max', wxTxt:'Météo',
+  secDiary:'📝 Journal des repas', secDiaryS:'Souvenez-vous de ce que vous avez mangé',
+  diaryOpen:'Ouvrir le carnet', diaryClose:'Fermer le carnet', diaryNameLbl:'Plat ou restaurant',
+  diaryMemoLbl:'Votre note de goût (facultatif)', diarySaveLbl:'Enregistrer', diarySaved:'Journal enregistré',
+  diaryEmpty:'Aucune entrée pour le moment', diaryNeedName:'Indiquez le plat ou le restaurant',
+  diaryPh:'ex. Ragoût de tofu · un restaurant à Busan', stepDiaryLbl:'Écrire le journal', deleteLbl:'Supprimer',
+  practice:'Entraînement à la commande', stepGreet:'1 · Bonjour', stepOrder:'2 · Commander', stepAsk:'3 · Demander', stepPay:'4 · Addition et merci',
+  nextStep:'Étape suivante →', stepAgain:'Recommencer →', viewBigCard:'Carte plein écran', dishDescBtn:'🍲 Info du plat',
+  trySay:'Touchez 🔊 et répétez à voix haute', listenKo:'Écouter (coréen)', listenIn:'Écouter ({l})',
+  noTTS:'Ce téléphone ne peut pas lire à voix haute'}
+};
+
+/* ── 문장 (그룹: core 5 · more 4 · ingr 4) ──
+   t=각 언어 문장 · lat=로마자/병음 발음 · kor=한글 발음 */
+var PHRASES = [
+ {id:'hello', icon:'👋', groups:['core'],
+  t:{ko:'안녕하세요.', en:'Hello.', zh:'您好。', ja:'こんにちは。', fr:'Bonjour.'},
+  lat:{ko:'annyeonghaseyo', zh:'nín hǎo', ja:'konnichiwa', en:'hello', fr:'bonjour'},
+  kor:{en:'헬로', zh:'닌 하오', ja:'콘니치와', fr:'봉주르'}},
+ {id:'menu', icon:'🍽️', groups:['core'],
+  t:{ko:'여기 메뉴판 좀 주세요.', en:'Could I see the menu, please?', zh:'麻烦给我看一下菜单。', ja:'メニューを拝見できますか？', fr:'Puis-je voir la carte, s\'il vous plaît ?'},
+  lat:{ko:'yeogi menyupan jom juseyo', zh:'máfan gěi wǒ kàn yíxià càidān', ja:'menyū o haiken dekimasu ka?', en:'could i see the menu please', fr:'puis-je voir la carte sil vous plait'},
+  kor:{en:'쿠드 아이 씨 더 메뉴, 플리즈', zh:'마판 게이 워 칸 이샤 차이단', ja:'메뉴오 하이켄 데키마스카', fr:'퓌즈 장 브와르 라 카르트'}},
+ {id:'spicy', icon:'🌶️', groups:['core'],
+  t:{ko:'이 음식 맵나요?', en:'Is this dish spicy?', zh:'这道菜辣吗？', ja:'この料理は辛いですか？', fr:'Ce plat est-il épicé ?'},
+  lat:{ko:'i eumsik maemnayo?', zh:'zhè dào cài là ma?', ja:'kono ryōri wa karai desu ka?', en:'is this dish spicy', fr:'se pla ètil épisé'},
+  kor:{en:'이즈 디스 디시 스파이시?', zh:'저 다오 차이 라 마?', ja:'코노 료리와 카라이 데스카?', fr:'스 플라 에틸 에피세?'}},
+ {id:'price', icon:'💰', groups:['core'],
+  t:{ko:'얼마인가요?', en:'How much is it?', zh:'请问多少钱？', ja:'いくらですか？', fr:'Combien ça coûte, s\'il vous plaît ?'},
+  lat:{ko:'eolmaingayo?', zh:'qǐngwèn duōshao qián?', ja:'ikura desu ka?', en:'how much is it', fr:'kongbyang sa kout'},
+  kor:{en:'하우 머치 이즈 잇?', zh:'칭원 둬사오 치엔?', ja:'이쿠라 데스카?', fr:'콩비앙 싸 쿠트?'}},
+ {id:'thanks', icon:'🙏', groups:['core'],
+  t:{ko:'감사합니다.', en:'Thank you very much.', zh:'谢谢您。', ja:'ありがとうございます。', fr:'Merci beaucoup.'},
+  lat:{ko:'gamsahamnida', zh:'xièxie nín', ja:'arigatō gozaimasu', en:'thank you very much', fr:'merci beaucoup'},
+  kor:{en:'땡큐 베리 머치', zh:'셰셰 닌', ja:'아리가토 고자이마스', fr:'메르시 보쿠'}},
+ {id:'water', icon:'💧', groups:['more'],
+  t:{ko:'물 한 잔 주시겠어요?', en:'Could I have a glass of water, please?', zh:'请给我一杯水。', ja:'お水を一杯いただけますか？', fr:'Puis-je avoir un verre d\'eau, s\'il vous plaît ?'},
+  lat:{ko:'mul han jan jusigesseoyo?', zh:'qǐng gěi wǒ yì bēi shuǐ', ja:'omizu o ippai itadakemasu ka?', en:'could i have a glass of water please', fr:'puis-je avoir un verre deau'},
+  kor:{en:'쿠드 아이 해브 어 글라스 오브 워터', zh:'칭 게이 워 이 베이 슈이', ja:'오미즈오 입파이 이타다케마스카', fr:'퓌즈 장 아부아르 앙 베르 도'}},
+ {id:'this', icon:'👉', groups:['more'],
+  t:{ko:'이것 하나 주세요.', en:'I would like this one, please.', zh:'请给我这个。', ja:'これを一つください。', fr:'Je voudrais ceci, s\'il vous plaît.'},
+  lat:{ko:'igeot hana juseyo', zh:'qǐng gěi wǒ zhège', ja:'kore o hitotsu kudasai', en:'i would like this one please', fr:'je voudré ssi'},
+  kor:{en:'아이 우드 라이크 디스 원', zh:'칭 게이 워 저거', ja:'코레오 히토츠 쿠다사이', fr:'즈 브르드레 스시'}},
+ {id:'notspicy', icon:'🥵', groups:['more','ingr'],
+  short:{ko:'안 맵게', en:'Not spicy', zh:'不辣', ja:'辛くない', fr:'Sans piment'},
+  t:{ko:'안 맵게 해 주세요.', en:'Could you make it not spicy, please?', zh:'请做得不辣。', ja:'辛くしないでください。', fr:'Sans piment, s\'il vous plaît.'},
+  lat:{ko:'an maepge hae juseyo', zh:'qǐng zuò de bú là', ja:'karaku shinai de kudasai', en:'could you make it not spicy please', fr:'san piman'},
+  kor:{en:'쿠드 유 메이크 잇 낫 스파이시', zh:'칭 줘 더 부 라', ja:'카라쿠 시나이데 쿠다사이', fr:'상 피망'}},
+ {id:'bill', icon:'🧾', groups:['more'],
+  t:{ko:'계산해 주세요.', en:'Could I have the bill, please?', zh:'请结账。', ja:'お会計をお願いします。', fr:'L\'addition, s\'il vous plaît.'},
+  lat:{ko:'gyesanhae juseyo', zh:'qǐng jiézhàng', ja:'okaikei o onegaishimasu', en:'could i have the bill please', fr:'ladisyon'},
+  kor:{en:'쿠드 아이 해브 더 빌', zh:'칭 제장', ja:'오카이케오 오네가이시마스', fr:'라디시옹'}},
+ {id:'pork', icon:'🐖', groups:['ingr'],
+  t:{ko:'이 음식에 돼지고기가 들어가나요?', en:'Does this dish contain pork?', zh:'这道菜里有猪肉吗？', ja:'この料理に豚肉は入っていますか？', fr:'Ce plat contient-il du porc ?'},
+  lat:{ko:'i eumsige dwaejigogi deureoganayo?', zh:'zhè dào cài lǐ yǒu zhūròu ma?', ja:'kono ryōri ni butaniku wa haitte imasu ka?', en:'does this dish contain pork', fr:'se pla kontyentil du por'},
+  kor:{en:'더스 디스 디시 컴테인 포크?', zh:'저 다오 차이 리 요우 주러우 마?', ja:'코노 료리니 부타니쿠와 하잇테이마스카?', fr:'스 플라 콩티엔틸 뒤 포르?'}},
+ {id:'beef', icon:'🐄', groups:['ingr'],
+  t:{ko:'이 음식은 소고기인가요?', en:'Is this dish beef?', zh:'这道菜是牛肉吗？', ja:'この料理は牛肉ですか？', fr:'Est-ce que ce plat est au bœuf ?'},
+  lat:{ko:'i eumsigeun sogogiingayo?', zh:'zhè dào cài shì niúròu ma?', ja:'kono ryōri wa gyūniku desu ka?', en:'is this dish beef', fr:'esk se pla è o beuf'},
+  kor:{en:'이즈 디스 디시 비프?', zh:'저 다오 차이 스 니우러우 마?', ja:'코노 료리와 규니쿠 데스카?', fr:'에스크 스 플라 에 오 뵈프?'}},
+ {id:'seafood', icon:'🦐', groups:['ingr'],
+  t:{ko:'이 음식에 해산물이 들어가나요?', en:'Does this dish contain seafood?', zh:'这道菜里有海鲜吗？', ja:'この料理に海鮮は入っていますか？', fr:'Ce plat contient-il des fruits de mer ?'},
+  lat:{ko:'i eumsige haesanmuri deureoganayo?', zh:'zhè dào cài lǐ yǒu hǎixiān ma?', ja:'kono ryōri ni kaisen wa haitte imasu ka?', en:'does this dish contain seafood', fr:'se pla kontyentil dé frwi de mer'},
+  kor:{en:'더스 디스 디시 컴테인 씨푸드?', zh:'저 다오 차이 리 요우 하이시엔 마?', ja:'코노 료리니 카이센와 하잇테이마스카?', fr:'스 플라 콩티엔틸 데 프뤼 드 메르?'}},
+ {id:'noice', icon:'🧊', groups:['drink'],
+  t:{ko:'얼음은 빼 주세요.', en:'No ice, please.', zh:'请不要放冰。', ja:'氷を抜いてください。', fr:'Sans glaçons, s\'il vous plaît.'},
+  lat:{ko:'eoreumeun ppae juseyo', zh:'qǐng búyào fàng bīng', ja:'kōri o nuite kudasai', en:'no ice please', fr:'san glason'},
+  kor:{en:'노 아이스, 플리즈', zh:'칭 부야오 팡 빙', ja:'코리오 누이테 쿠다사이', fr:'상 글라송'}},
+ {id:'ice', icon:'🧊', groups:['cafe'],
+  short:{ko:'아이스', en:'Iced', zh:'冰的', ja:'アイス', fr:'Glaçons'},
+  t:{ko:'아이스로 주세요.', en:'Iced, please.', zh:'请给我冰的。', ja:'アイスでお願いします。', fr:'Avec des glaçons, s\'il vous plaît.'},
+  lat:{ko:'aiseuro juseyo', zh:'qǐng gěi wǒ bīng de', ja:'aisu de onegaishimasu', en:'iced please', fr:'avek dé glason'},
+  kor:{en:'아이스드, 플리즈', zh:'칭 게이 워 빙 더', ja:'아이스데 오네가이시마스', fr:'아베크 데 글라송'}},
+ {id:'hot', icon:'☕', groups:['cafe'],
+  short:{ko:'따뜻하게', en:'Hot', zh:'热的', ja:'ホット', fr:'Chaud'},
+  t:{ko:'따뜻한 걸로 주세요.', en:'Hot, please.', zh:'请给我热的。', ja:'ホットでお願いします。', fr:'Chaud, s\'il vous plaît.'},
+  lat:{ko:'ttatteutan geollo juseyo', zh:'qǐng gěi wǒ rè de', ja:'hotto de onegaishimasu', en:'hot please', fr:'sho'},
+  kor:{en:'핫, 플리즈', zh:'칭 게이 워 러 더', ja:'홋토데 오네가이시마스', fr:'쇼'}},
+ {id:'here', icon:'🍽️', groups:['cafe'],
+  short:{ko:'먹고 가요', en:'For here', zh:'店里吃', ja:'店内', fr:'Sur place'},
+  t:{ko:'여기서 먹고 갈게요.', en:'For here, please.', zh:'在店里吃。', ja:'店内でいただきます。', fr:'Sur place, s\'il vous plaît.'},
+  lat:{ko:'yeogiseo meokgo galgeyo', zh:'zài diàn lǐ chī', ja:'tennai de itadakimasu', en:'for here please', fr:'sur plas'},
+  kor:{en:'포 히어, 플리즈', zh:'자이 디엔 리 츠', ja:'텐나이데 이타다키마스', fr:'쉬르 플라스'}},
+ {id:'takeout', icon:'🛍️', groups:['cafe'],
+  short:{ko:'포장', en:'Take away', zh:'打包', ja:'持ち帰り', fr:'À emporter'},
+  t:{ko:'포장해 주세요.', en:'To take away, please.', zh:'请打包。', ja:'お持ち帰りでお願いします。', fr:'À emporter, s\'il vous plaît.'},
+  lat:{ko:'pojanghae juseyo', zh:'qǐng dǎbāo', ja:'omochikaeri de onegaishimasu', en:'to take away please', fr:'a anporter'},
+  kor:{en:'투 테이크 어웨이', zh:'칭 다바오', ja:'오모치카에리데 오네가이시마스', fr:'아 앙포르테'}},
+ {id:'glass', icon:'🥛', groups:['drink'],
+  t:{ko:'잔 하나 더 주시겠어요?', en:'Could I have one more glass, please?', zh:'请再给我一个杯子。', ja:'グラスをもう一ついただけますか？', fr:'Puis-je avoir un verre de plus, s\'il vous plaît ?'},
+  lat:{ko:'jan hana deo jusigesseoyo?', zh:'qǐng zài gěi wǒ yígè bēizi', ja:'gurasu o mō hitotsu itadakemasu ka?', en:'could i have one more glass please', fr:'puis-je avoir un verre de plus'},
+  kor:{en:'쿠드 아이 해브 원 모어 글라스', zh:'칭 자이 게이 워 이거 베이즈', ja:'구라스오 모 히토츠 이타다케마스카', fr:'퓌즈 장 아부아르 앙 베르 드 플뤼스'}}
+];
+
+/* ── 음식 36종 (이름·설명 5개 언어 · 매움 0~3 · 고기 종류) ── */
+var DISHES = [
+{id:'kimchi-jjigae', img:'./food/kimchi-jjigae.webp', art:'pot', tone:'red', spice:2, meats:['pork'], rom:'kimchi-jjigae',
+ n:{ko:'김치찌개',en:'Kimchi stew',zh:'泡菜汤',ja:'キムチチゲ',fr:'Ragoût au kimchi'},
+ d:{ko:'잘 익은 김치와 돼지고기를 끓인 얼큰한 찌개예요. 밥과 함께 먹어요.',
+    en:'A spicy stew of ripe kimchi and pork, eaten with rice.',
+    zh:'用发酵泡菜和猪肉煮的辣汤，配米饭吃。',
+    ja:'熟成キムチと豚肉を煮た辛いチゲ。ご飯と一緒に。',
+    fr:'Un ragoût épicé au kimchi et au porc, à manger avec du riz.'},
+ a:['김치찌게','kimchi jjigae','kimchi-jjigae','kimchi stew','キムチチゲ','泡菜汤','泡菜鍋']},
+{id:'doenjang-jjigae', img:'./food/doenjang-jjigae.webp', art:'pot', tone:'brown', spice:1, meats:['pork'], rom:'doenjang-jjigae',
+ n:{ko:'된장찌개',en:'Soybean paste stew',zh:'大酱汤',ja:'テンジャンチゲ',fr:'Ragoût de pâte de soja'},
+ d:{ko:'된장으로 끓인 구수한 찌개예요. 두부·애호박·감자가 들어가요.',
+    en:'A savory stew of fermented soybean paste with tofu, zucchini and potato.',
+    zh:'用大酱煮的香浓汤，里面有豆腐、西葫芦和土豆。',
+    ja:'味噌（テンジャン）で煮たコクのあるチゲ。豆腐・ズッキーニ・じゃがいも入り。',
+    fr:'Un ragoût savoureux à la pâte de soja, tofu, courgette et pomme de terre.'},
+ a:['된장찌게','doenjang jjigae','soybean paste stew','テンジャンチゲ','大酱汤']},
+{id:'sundubu-jjigae', img:'./food/sundubu-jjigae.webp', art:'pot', tone:'red', spice:2, meats:['egg','seafood'], rom:'sundubu-jjigae',
+ n:{ko:'순두부찌개',en:'Soft tofu stew',zh:'嫩豆腐汤',ja:'スンドゥブチゲ',fr:'Ragoût de tofu soyeux'},
+ d:{ko:'부드러운 순두부를 넣고 얼큰하게 끓여 달걀을 풀어 넣은 찌개예요.',
+    en:'A spicy stew with soft tofu and a cracked egg.',
+    zh:'放嫩豆腐煮的辣汤，还会打一个鸡蛋。',
+    ja:'やわらかい純豆腐を入れた辛いチゲ。卵を落として食べます。',
+    fr:'Un ragoût épicé au tofu soyeux avec un œuf.'},
+ a:['순두부','sundubu','soft tofu stew','スンドゥブ','嫩豆腐汤']},
+{id:'bibimbap', img:'./food/bibimbap.webp', art:'rice', tone:'veg', spice:1, meats:['beef','egg'], rom:'bibimbap',
+ n:{ko:'비빔밥',en:'Bibimbap',zh:'拌饭',ja:'ビビンバ',fr:'Bibimbap'},
+ d:{ko:'밥 위에 고기·나물·달걀을 올리고 고추장에 비벼 먹어요.',
+    en:'Rice with beef, vegetables and egg — mix it with chili paste.',
+    zh:'米饭上放牛肉、蔬菜和鸡蛋，加辣椒酱拌着吃。',
+    ja:'ご飯に牛肉・ナムル・卵をのせ、コチュジャンで混ぜて食べます。',
+    fr:'Riz, bœuf, légumes et œuf, à mélanger avec de la pâte de piment.'},
+ a:['비빔빱','bibimbap','ビビンバ','拌饭']},
+{id:'bulgogi', img:'./food/bulgogi.webp', art:'grill', tone:'beef', spice:0, meats:['beef'], rom:'bulgogi',
+ n:{ko:'불고기',en:'Bulgogi (marinated beef)',zh:'韩式烤牛肉',ja:'プルコギ',fr:'Bulgogi (bœuf mariné)'},
+ d:{ko:'간장 양념에 재운 소고기를 채소와 볶은 달콤한 요리예요.',
+    en:'Soy-marinated beef stir-fried with vegetables — sweet and savory.',
+    zh:'用酱油腌好的牛肉和蔬菜一起炒，味道香甜。',
+    ja:'醤油だれに漬けた牛肉を野菜と炒めた甘辛い料理。',
+    fr:'Bœuf mariné à la sauce soja, sauté avec des légumes, doux et savoureux.'},
+ a:['불고기정식','bulgogi','プルコギ','烤牛肉']},
+{id:'samgyeopsal', img:'./food/samgyeopsal.webp', art:'grill', tone:'pork', spice:0, meats:['pork'], rom:'samgyeopsal',
+ n:{ko:'삼겹살',en:'Grilled pork belly',zh:'五花肉烧烤',ja:'サムギョプサル',fr:'Poitrine de porc grillée'},
+ d:{ko:'두툼한 돼지고기를 테이블에서 직접 구워 상추·마늘과 먹어요.',
+    en:'Thick pork belly grilled at your table, eaten with lettuce and garlic.',
+    zh:'厚厚的猪五花肉在桌上自己烤，用生菜和蒜包着吃。',
+    ja:'厚切り豚バラ肉をテーブルで焼いて、レタスとニンニクで包んで食べます。',
+    fr:'De la poitrine de porc épaisse grillée à table, avec salade et ail.'},
+ a:['삼겹살2인분','samgyeopsal','pork belly','サムギョプサル','五花肉']},
+{id:'jeyuk', img:'./food/jeyuk.webp', art:'grill', tone:'red', spice:3, meats:['pork'], rom:'jeyuk-bokkeum',
+ n:{ko:'제육볶음',en:'Spicy stir-fried pork',zh:'辣炒猪肉',ja:'ジェユクポックム',fr:'Porc sauté épicé'},
+ d:{ko:'돼지고기를 매콤한 고추장 양념에 볶은 요리예요. 밥과 잘 어울려요.',
+    en:'Pork stir-fried in a spicy chili paste sauce — great with rice.',
+    zh:'猪肉用辣味辣椒酱炒成，很下饭。',
+    ja:'豚肉を甘辛いコチュジャンだれで炒めた料理。ご飯によく合います。',
+    fr:'Du porc sauté dans une sauce pimentée — parfait avec du riz.'},
+ a:['제육','jeyuk bokkeum','spicy pork','ジェユク','辣炒猪肉']},
+{id:'tteokbokki', img:'./food/tteokbokki.webp', art:'tteok', tone:'red', spice:3, meats:[], rom:'tteokbokki',
+ n:{ko:'떡볶이',en:'Tteokbokki (spicy rice cakes)',zh:'辣炒年糕',ja:'トッポッキ',fr:'Tteokbokki'},
+ d:{ko:'쫄깃한 떡을 매콤달콤한 소스에 끓인 분식이에요. 꽤 매워요.',
+    en:'Chewy rice cakes in a sweet-and-spicy sauce — quite hot.',
+    zh:'有嚼劲的年糕煮在甜辣酱里，比较辣。',
+    ja:'もちもちの餅を甘辛いソースで煮た料理。けっこう辛いです。',
+    fr:'Des gâteaux de riz moelleux dans une sauce sucrée-piquante — assez fort.'},
+ a:['떡볶기','tteokbokki','topokki','トッポッキ','辣炒年糕']},
+{id:'naengmyeon', img:'./food/naengmyeon.webp', art:'noodles', tone:'cold', spice:1, meats:['beef','egg'], rom:'naengmyeon',
+ n:{ko:'냉면',en:'Cold buckwheat noodles',zh:'冷面',ja:'冷麺',fr:'Nouilles froides'},
+ d:{ko:'차가운 육수에 메밀면·오이·달걀을 담은 시원한 국수예요.',
+    en:'Chilled buckwheat noodles in cold broth with cucumber and egg.',
+    zh:'冷汤里放荞麦面、黄瓜和鸡蛋的清凉面食。',
+    ja:'冷たいスープにそば粉の麺・きゅうり・卵を入れた冷たい麺。',
+    fr:'Nouilles de sarrasin froides dans un bouillon glacé, concombre et œuf.'},
+ a:['물냉면','비빔냉면','naengmyeon','cold noodles','冷麺','冷面']},
+{id:'japchae', img:'./food/japchae.webp', art:'noodles', tone:'soy', spice:0, meats:['beef'], rom:'japchae',
+ n:{ko:'잡채',en:'Stir-fried glass noodles',zh:'杂菜（炒粉丝）',ja:'チャプチェ',fr:'Nouilles de patate douce sautées'},
+ d:{ko:'당면과 채소·소고기를 간장 양념에 볶은 잔치 음식이에요. 맵지 않아요.',
+    en:'Sweet potato noodles stir-fried with vegetables and beef in soy sauce — not spicy.',
+    zh:'红薯粉丝和蔬菜、牛肉用酱油炒成，不辣。',
+    ja:'春雨と野菜・牛肉を醤油で炒めた料理。辛くありません。',
+    fr:'Nouilles de patate douce sautées avec légumes et bœuf à la sauce soja — non épicé.'},
+ a:['잡채밥','japchae','chapchae','チャプチェ','杂菜']},
+{id:'pajeon', img:'./food/pajeon.webp', art:'pancake', tone:'gold', spice:0, meats:['seafood'], rom:'pajeon',
+ n:{ko:'파전',en:'Green onion pancake',zh:'葱饼',ja:'ネギチヂミ',fr:'Galette aux ciboules'},
+ d:{ko:'쪽파를 넣고 부친 바삭한 전이에요. 해물파전도 있어요.',
+    en:'A crispy green onion pancake; a seafood version is also served.',
+    zh:'放小葱煎的酥脆煎饼，也有海鲜葱饼。',
+    ja:'青ねぎを入れて焼いたサクサクのチヂミ。海鮮入りもあります。',
+    fr:'Une galette croustillante aux ciboules ; version aux fruits de mer aussi.'},
+ a:['해물파전','김치전','pajeon','haemul pajeon','green onion pancake','チヂミ','葱饼']},
+{id:'gimbap', img:'./food/gimbap.webp', art:'roll', tone:'green', spice:0, meats:['egg'], rom:'gimbap',
+ n:{ko:'김밥',en:'Gimbap (rice rolls)',zh:'紫菜包饭',ja:'キンパ',fr:'Gimbap (rouleaux de riz)'},
+ d:{ko:'밥과 채소·달걀·햄을 김에 말아 한입 크기로 썬 음식이에요.',
+    en:'Rice, vegetables, egg and ham rolled in seaweed, sliced bite-size.',
+    zh:'米饭、蔬菜、鸡蛋和火腿用紫菜卷起，切成一口大小。',
+    ja:'ご飯・野菜・卵・ハムを海苔で巻いて一口大に切った料理。',
+    fr:'Riz, légumes, œuf et jambon roulés dans une algue, coupés en bouchées.'},
+ a:['김밥2줄','kimbap','gimbap','キンパ','紫菜包饭']},
+{id:'ramyeon', img:'./food/ramyeon.webp', art:'noodles', tone:'red', spice:2, meats:['egg'], rom:'ramyeon',
+ n:{ko:'라면',en:'Ramyeon (instant noodles)',zh:'方便面',ja:'ラーメン',fr:'Ramyeon (nouilles instantanées)'},
+ d:{ko:'매콤한 국물에 끓인 라면이에요. 달걀이나 치즈를 올려 주기도 해요.',
+    en:'Korean instant noodles in a spicy broth, often with an egg.',
+    zh:'辣味汤里煮的韩国方便面，常加鸡蛋。',
+    ja:'辛いスープで煮た韓国式インスタント麺。卵をのせることも。',
+    fr:'Nouilles instantanées coréennes dans un bouillon épicé, souvent avec un œuf.'},
+ a:['라면사리','ramen','ramyeon','ラーメン','拉面','方便面']},
+{id:'donkkaseu', img:'./food/donkkaseu.webp', art:'cutlet', tone:'gold', spice:0, meats:['pork'], rom:'donkkaseu',
+ n:{ko:'돈까스',en:'Pork cutlet',zh:'炸猪排',ja:'とんかつ',fr:'Escalope panée'},
+ d:{ko:'돼지고기에 빵가루를 입혀 바삭하게 튀긴 커틀릿이에요. 소스와 함께 나와요.',
+    en:'A breaded, deep-fried pork cutlet served with sauce.',
+    zh:'猪肉裹面包糠炸得酥脆，配酱汁一起吃。',
+    ja:'豚肉にパン粉をつけて揚げたカツ。ソースをかけていただきます。',
+    fr:'Une escalope de porc panée et frite, servie avec une sauce.'},
+ a:['돈가스','돈카츠','donkatsu','tonkatsu','pork cutlet','とんかつ','炸猪排']},
+{id:'galbitang', img:'./food/galbitang.webp', art:'soup', tone:'clear', spice:0, meats:['beef'], rom:'galbitang',
+ n:{ko:'갈비탕',en:'Beef short rib soup',zh:'排骨汤',ja:'カルビタン',fr:'Soupe de côtes de bœuf'},
+ d:{ko:'소갈비를 오래 끓여 낸 맑은 국물 요리예요. 밥을 말아 먹어요.',
+    en:'A clear soup simmered for hours with beef short ribs, served with rice.',
+    zh:'牛排骨长时间熬出的清汤，配米饭吃。',
+    ja:'牛カルビをじっくり煮込んだ澄んだスープ。ご飯を入れて食べます。',
+    fr:'Un bouillon clair mijoté avec des côtes de bœuf, servi avec du riz.'},
+ a:['갈비탕밥','galbitang','short rib soup','カルビタン','排骨汤']},
+{id:'kalguksu', img:'./food/kalguksu.webp', art:'noodles', tone:'clear', spice:0, meats:[], rom:'kalguksu',
+ n:{ko:'칼국수',en:'Knife-cut noodle soup',zh:'刀削面',ja:'カルグクス',fr:'Soupe de nouilles coupées'},
+ d:{ko:'밀가루 반죽을 칼로 썰어 넣은 국수예요. 따뜻한 국물에 애호박을 넣어요.',
+    en:'Hand-cut wheat noodles in a warm broth with zucchini.',
+    zh:'手切面条配热汤和西葫芦。',
+    ja:'小麦粉の生地を包丁で切った麺を、温かいスープで。ズッキーニ入り。',
+    fr:'Nouilles de blé coupées à la main dans un bouillon chaud, avec courgette.'},
+ a:['칼국수2인분','kalguksu','knife noodles','カルグクス','刀削面']},
+{id:'chicken', img:'./food/chicken.webp', art:'chicken', tone:'gold', spice:1, meats:['chicken'], rom:'chikin',
+ n:{ko:'치킨',en:'Korean fried chicken',zh:'韩式炸鸡',ja:'韓国フライドチキン',fr:'Poulet frit coréen'},
+ d:{ko:'바삭하게 튀긴 닭고기에 양념을 입힌 치킨이에요. 맥주와 잘 어울려요.',
+    en:'Crispy fried chicken, plain or coated in a sweet-spicy sauce.',
+    zh:'炸得酥脆的鸡肉，有原味和甜辣酱味。',
+    ja:'サクサクのフライドチキン。プレーンと甘辛だれがあります。',
+    fr:'Poulet frit croustillant, nature ou en sauce sucrée-piquante.'},
+ a:['후라이드','양념치킨','fried chicken','chicken','炸鸡','チキン']},
+{id:'mandu', img:'./food/mandu.webp', art:'dumpling', tone:'cream', spice:0, meats:['pork'], rom:'mandu',
+ n:{ko:'만두',en:'Dumplings',zh:'饺子',ja:'マンドゥ',fr:'Raviolis coréens'},
+ d:{ko:'얇은 피에 고기와 채소를 넣어 찌거나 튀긴 만두예요.',
+    en:'Thin-skinned dumplings with meat and vegetables, steamed or fried.',
+    zh:'薄皮包肉和蔬菜，蒸或炸的饺子。',
+    ja:'薄い皮で肉と野菜を包んだマンドゥ。蒸し or 揚げ。',
+    fr:'Raviolis à la pâte fine, viande et légumes, cuits vapeur ou frits.'},
+ a:['군만두','찐만두','mandu','dumplings','マンドゥ','饺子']},
+{id:'gukbap', art:'soup', tone:'milky', spice:1, meats:['pork'], rom:'dwaeji-gukbap',
+ n:{ko:'돼지국밥',en:'Pork soup with rice',zh:'猪肉汤饭',ja:'テジクッパ',fr:'Soupe de porc avec riz'},
+ d:{ko:'돼지 사골 국물에 밥을 말아 먹는 든든한 한 그릇이에요. 부산에서 유명해요.',
+    en:'Rice in a rich pork broth — a filling Busan specialty.',
+    zh:'浓郁猪骨汤里泡饭，釜山名吃，很管饱。',
+    ja:'豚骨スープにご飯を入れて食べる釜山名物。',
+    fr:'Du riz dans un bouillon de porc riche — spécialité de Busan.'},
+ a:['국밥','순대국밥','gukbap','pork soup','クッパ','汤饭']},
+{id:'jjajangmyeon', art:'noodles', tone:'black', spice:0, meats:['pork'], rom:'jjajangmyeon',
+ n:{ko:'짜장면',en:'Black bean noodles',zh:'炸酱面',ja:'チャジャンミョン',fr:'Nouilles à la sauce de haricot noir'},
+ d:{ko:'춘장을 볶아 만든 검은 소스에 면을 비벼 먹는 한국식 중국 음식이에요.',
+    en:'Noodles in a savory black bean sauce — Korean-Chinese comfort food.',
+    zh:'黑色炸酱拌面，韩式中餐的代表。',
+    ja:'黒いチャジャンソースを絡めた麺。韓国式中華の定番。',
+    fr:'Nouilles avec une sauce noire aux haricots — plat sino-coréen.'},
+ a:['자장면','jajangmyeon','jjajangmyeon','black bean noodles','チャジャンミョン','炸酱面']},
+{id:'jjambbong', art:'noodles', tone:'red', spice:2, meats:['seafood'], rom:'jjambbong',
+ n:{ko:'짬뽕',en:'Spicy seafood noodle soup',zh:'海鲜辣汤面',ja:'チャンポン',fr:'Soupe de nouilles épicée aux fruits de mer'},
+ d:{ko:'해산물과 채소를 넣고 얼큰하게 끓인 국수예요.',
+    en:'A spicy noodle soup with seafood and vegetables.',
+    zh:'海鲜和蔬菜煮的辣汤面。',
+    ja:'海鮮と野菜を入れた辛いスープ麺。',
+    fr:'Une soupe de nouilles épicée aux fruits de mer et légumes.'},
+ a:['짬뽕밥','jjampong','champong','チャンポン','海鲜面']},
+{id:'tangsuyuk', art:'cutlet', tone:'sauce', spice:0, meats:['pork'], rom:'tangsuyuk',
+ n:{ko:'탕수육',en:'Sweet and sour pork',zh:'糖醋肉',ja:'タンスユク',fr:'Porc aigre-doux'},
+ d:{ko:'튀긴 돼지고기에 새콤달콤한 소스를 곁들인 요리예요.',
+    en:'Deep-fried pork with a sweet-and-sour sauce.',
+    zh:'炸猪肉配酸甜酱汁。',
+    ja:'揚げた豚肉に甘酸っぱいあんをかけた料理。',
+    fr:'Du porc frit avec une sauce aigre-douce.'},
+ a:['탕수육(소)','sweet and sour pork','タンスユク','糖醋肉']},
+{id:'galbi', art:'grill', tone:'beef', spice:0, meats:['beef'], rom:'galbi',
+ n:{ko:'갈비',en:'Grilled beef ribs',zh:'烤排骨',ja:'カルビ',fr:'Côtes de bœuf grillées'},
+ d:{ko:'양념한 소갈비를 구워 먹는 요리예요. 달콤한 간장 양념이에요.',
+    en:'Marinated beef ribs grilled at the table — sweet soy marinade.',
+    zh:'腌好的牛排骨干烤，甜酱油味。',
+    ja:'たれに漬けた牛カルビを焼いて食べます。甘い醤油だれ。',
+    fr:'Côtes de bœuf marinées et grillées — marinade soja sucrée.'},
+ a:['소갈비','양념갈비','galbi','beef ribs','カルビ','烤排骨']},
+{id:'samgyetang', img:'./food/samgyetang.webp', art:'soup', tone:'milky', spice:0, meats:['chicken'], rom:'samgyetang',
+ n:{ko:'삼계탕',en:'Ginseng chicken soup',zh:'参鸡汤',ja:'サムゲタン',fr:'Poulet au ginseng'},
+ d:{ko:'어린 닭에 인삼·찹쌀을 넣고 푹 끓인 보양식이에요. 맵지 않아요.',
+    en:'A young chicken stuffed with ginseng and sticky rice, simmered — not spicy.',
+    zh:'小鸡里放人参和糯米炖的滋补汤，不辣。',
+    ja:'若鶏に高麗人参・もち米を詰めて煮込んだ滋養食。辛くありません。',
+    fr:'Un jeune poulet farci au ginseng et riz gluant, mijoté — non épicé.'},
+ a:['삼계탕1인분','samgyetang','ginseng chicken','サムゲタン','参鸡汤']},
+{id:'seolleongtang', img:'./food/seolleongtang.webp', art:'soup', tone:'milky', spice:0, meats:['beef'], rom:'seolleongtang',
+ n:{ko:'설렁탕',en:'Beef bone soup',zh:'牛骨汤',ja:'ソルロンタン',fr:'Soupe d\'os de bœuf'},
+ d:{ko:'소뼈를 오래 끓인 뽀얀 국물에 밥을 말아 먹어요. 소금·파로 간을 해요.',
+    en:'Milky beef bone broth with rice, seasoned with salt and green onion.',
+    zh:'牛骨熬成的乳白汤，泡饭吃，用盐和葱调味。',
+    ja:'牛骨を長時間煮込んだ白いスープにご飯を入れて。塩とねぎで味を調整。',
+    fr:'Bouillon d\'os de bœuf crémeux avec du riz, salé et parsemé de ciboule.'},
+ a:['설렁탕밥','seolleongtang','beef bone soup','ソルロンタン','牛骨汤']},
+{id:'yukgaejang', art:'soup', tone:'red', spice:2, meats:['beef'], rom:'yukgaejang',
+ n:{ko:'육개장',en:'Spicy beef soup',zh:'辣牛肉汤',ja:'ユッケジャン',fr:'Soupe de bœuf épicée'},
+ d:{ko:'소고기와 대파·고사리를 넣고 얼큰하게 끓인 국물 요리예요.',
+    en:'A spicy soup with shredded beef, green onion and fernbrake.',
+    zh:'牛肉、大葱和蕨菜煮的辣汤。',
+    ja:'牛肉・長ねぎ・ぜんまいを入れた辛いスープ。',
+    fr:'Une soupe épicée au bœuf effilé, ciboule et fougère.'},
+ a:['육개장밥','yukgaejang','spicy beef soup','ユッケジャン','辣牛肉汤']},
+{id:'budae-jjigae', img:'./food/budae-jjigae.webp', art:'pot', tone:'red', spice:2, meats:['pork'], rom:'budae-jjigae',
+ n:{ko:'부대찌개',en:'Army stew',zh:'部队锅',ja:'プデチゲ',fr:'Ragoût de l\'armée'},
+ d:{ko:'햄·소시지·라면·김치를 넣고 끓인 얼큰한 찌개예요.',
+    en:'A spicy stew with ham, sausage, noodles and kimchi.',
+    zh:'火腿、香肠、方便面和泡菜煮的辣汤。',
+    ja:'ハム・ソーセージ・麺・キムチを入れた辛いチゲ。',
+    fr:'Un ragoût épicé avec jambon, saucisse, nouilles et kimchi.'},
+ a:['부대찌게','budae jjigae','army stew','プデチゲ','部队锅']},
+{id:'jjimdak', art:'grill', tone:'soy', spice:1, meats:['chicken'], rom:'jjimdak',
+ n:{ko:'안동찜닭',en:'Braised chicken with noodles',zh:'安东炖鸡',ja:'アンドンチムタク',fr:'Poulet braisé aux nouilles'},
+ d:{ko:'닭고기와 채소·당면을 간장 양념에 졸인 요리예요. 달콤짭짤해요.',
+    en:'Chicken, vegetables and glass noodles braised in soy sauce — sweet and savory.',
+    zh:'鸡肉、蔬菜和粉丝用酱油炖成，甜咸口味。',
+    ja:'鶏肉・野菜・春雨を醤油だれで煮込んだ料理。甘辛い味。',
+    fr:'Poulet, légumes et nouilles braisés à la sauce soja — doux et salé.'},
+ a:['찜닭','jjimdak','braised chicken','チムタク','炖鸡']},
+{id:'tteokguk', art:'soup', tone:'clear', spice:0, meats:['beef'], rom:'tteokguk',
+ n:{ko:'떡국',en:'Rice cake soup',zh:'年糕汤',ja:'トック',fr:'Soupe aux gâteaux de riz'},
+ d:{ko:'가래떡을 얇게 썰어 맑은 국물에 끓인 떡국이에요. 설날에 먹어요.',
+    en:'Sliced rice cakes simmered in a clear broth — a New Year dish.',
+    zh:'切片年糕煮的清汤，过年吃。',
+    ja:'薄切りの餅を澄んだスープで煮た料理。お正月に食べます。',
+    fr:'Gâteaux de riz en rondelles dans un bouillon clair — plat du Nouvel An.'},
+ a:['떡국1인분','tteokguk','rice cake soup','トック','年糕汤']},
+{id:'kimchi-bokkeumbap', art:'rice', tone:'red', spice:1, meats:['egg'], rom:'kimchi-bokkeumbap',
+ n:{ko:'김치볶음밥',en:'Kimchi fried rice',zh:'泡菜炒饭',ja:'キムチチャーハン',fr:'Riz sauté au kimchi'},
+ d:{ko:'김치와 밥을 볶아 달걀을 올린 볶음밥이에요. 살짝 매워요.',
+    en:'Fried rice with kimchi, topped with a fried egg — mildly spicy.',
+    zh:'泡菜炒饭上面加煎蛋，微辣。',
+    ja:'キムチとご飯を炒めて卵をのせたチャーハン。少し辛いです。',
+    fr:'Riz sauté au kimchi, surmonté d\'un œuf — légèrement épicé.'},
+ a:['볶음밥','kimchi fried rice','チャーハン','炒饭']},
+{id:'bibim-guksu', art:'noodles', tone:'red', spice:2, meats:[], rom:'bibim-guksu',
+ n:{ko:'비빔국수',en:'Spicy cold noodles',zh:'拌冷面',ja:'ビビングクス',fr:'Nouilles froides épicées'},
+ d:{ko:'가느다란 국수에 매콤한 양념을 비벼 먹는 여름 음식이에요.',
+    en:'Thin noodles mixed with a spicy sauce — a summer favorite.',
+    zh:'细面拌辣酱，夏天常吃。',
+    ja:'細い麺を甘辛いたれで和えて食べる夏の料理。',
+    fr:'Fines nouilles mélangées à une sauce piquante — plat d\'été.'},
+ a:['bibim guksu','ビビングクス','拌面']},
+{id:'janchi-guksu', art:'noodles', tone:'clear', spice:0, meats:['egg'], rom:'janchi-guksu',
+ n:{ko:'잔치국수',en:'Warm noodle soup',zh:'喜面',ja:'チャンチグクス',fr:'Soupe de nouilles claire'},
+ d:{ko:'맑은 멸치 국물에 국수를 말아 먹는 따뜻한 국수예요.',
+    en:'Warm wheat noodles in a clear anchovy broth.',
+    zh:'鳀鱼清汤里泡细面的暖汤面。',
+    ja:'煮干しの澄んだスープに素麺を入れた温かい麺。',
+    fr:'Nouilles de blé dans un bouillon clair d\'anchois.'},
+ a:['국수','janchi guksu','noodle soup','ククス','喜面']},
+{id:'jokbal', art:'grill', tone:'soy', spice:0, meats:['pork'], rom:'jokbal',
+ n:{ko:'족발',en:'Braised pig\'s trotters',zh:'猪蹄',ja:'チョッパル',fr:'Pieds de porc braisés'},
+ d:{ko:'돼지 족발을 간장 양념에 졸여 썰어 낸 요리예요. 쫀득한 식감이에요.',
+    en:'Pork trotters braised in soy sauce and sliced — chewy and rich.',
+    zh:'猪蹄用酱油炖煮后切片，口感弹牙。',
+    ja:'豚足を醤油だれで煮込んで切った料理。コリコリした食感。',
+    fr:'Pieds de porc braisés à la sauce soja, tranchés — texture fondante.'},
+ a:['jokbal','pig trotters','チョッパル','猪蹄']},
+{id:'bossam', art:'grill', tone:'pork', spice:0, meats:['pork'], rom:'bossam',
+ n:{ko:'보쌈',en:'Boiled pork wraps',zh:'白切肉',ja:'ポッサム',fr:'Porc bouilli en feuilles'},
+ d:{ko:'삶은 돼지고기를 김치·상추에 싸 먹는 요리예요. 맵지 않아요.',
+    en:'Sliced boiled pork wrapped in kimchi or lettuce — not spicy.',
+    zh:'白煮猪肉用泡菜或生菜包着吃，不辣。',
+    ja:'ゆでた豚肉をキムチやレタスで包んで食べます。辛くありません。',
+    fr:'Porc bouilli tranché, à enrouler dans du kimchi ou de la salade — non épicé.'},
+ a:['bossam','boiled pork','ポッサム','白切肉']},
+{id:'dak-galbi', img:'./food/dak-galbi.webp', art:'grill', tone:'red', spice:2, meats:['chicken'], rom:'dak-galbi',
+ n:{ko:'닭갈비',en:'Spicy chicken stir-fry',zh:'辣炒鸡排',ja:'タッカルビ',fr:'Poulet sauté épicé'},
+ d:{ko:'닭고기와 채소를 고추장 양념에 볶아 먹는 요리예요. 매콤해요.',
+    en:'Chicken and vegetables stir-fried in a spicy chili sauce.',
+    zh:'鸡肉和蔬菜用辣椒酱炒，微辣。',
+    ja:'鶏肉と野菜をコチュジャンだれで炒めた料理。ピリ辛。',
+    fr:'Poulet et légumes sautés dans une sauce pimentée.'},
+ a:['닭갈비2인분','dakgalbi','dak galbi','タッカルビ','辣炒鸡排']},
+{id:'gyeranjjim', art:'pot', tone:'egg', spice:0, meats:['egg'], rom:'gyeran-jjim',
+ n:{ko:'계란찜',en:'Steamed egg',zh:'蒸蛋',ja:'ケランチム',fr:'Œufs à la vapeur'},
+ d:{ko:'달걀을 풀어 뚝배기에 쪄 낸 부드러운 반찬이에요. 맵지 않아요.',
+    en:'Fluffy steamed egg in a pot — a mild side dish.',
+    zh:'鸡蛋打散蒸成的嫩滑小菜，不辣。',
+    ja:'溶き卵を土鍋で蒸したふわふわの副菜。辛くありません。',
+    fr:'Œufs battus cuits à la vapeur dans un pot — accompagnement doux.'},
+ a:['계란찜','gyeranjjim','steamed egg','ケランチム','蒸蛋']},
+{id:'dolsot-bibimbap', img:'./food/dolsot-bibimbap.webp', art:'rice', tone:'red', spice:1, meats:['beef','egg'], rom:'dolsot-bibimbap',
+ n:{ko:'돌솥비빔밥',en:'Bibimbap in a hot stone pot',zh:'石锅拌饭',ja:'石焼ビビンバ',fr:'Bibimbap en pot de pierre'},
+ d:{ko:'뜨거운 돌솥에 밥과 나물·고추장을 담아 바닥의 누룽지까지 즐기는 비빔밥이에요.',
+    en:'Bibimbap served in a sizzling stone pot, with crispy rice at the bottom.',
+    zh:'装在滚烫石锅里的拌饭，锅巴又香又脆。',
+    ja:'熱い石鍋に入ったビビンバ。底のご飯がおこげになって香ばしい。',
+    fr:'Bibimbap servi dans un pot de pierre brûlant, avec un riz croustillant au fond.'},
+ a:['돌솥비빔밥','dolsot bibimbap','stone pot bibimbap','石焼ビビンバ','石锅拌饭']},
+{id:'bibim-naengmyeon', img:'./food/bibim-naengmyeon.webp', art:'noodles', tone:'red', spice:2, meats:['egg'], rom:'bibim-naengmyeon',
+ n:{ko:'비빔냉면',en:'Spicy cold noodles (bibim)',zh:'拌冷面',ja:'ビビン冷麺',fr:'Nouilles froides épicées'},
+ d:{ko:'차가운 면에 매콤한 양념장을 비벼 먹는 냉면이에요. 국물은 없어요.',
+    en:'Chilled noodles mixed with a spicy sauce, without broth.',
+    zh:'凉面拌上辣酱，没有汤。',
+    ja:'冷たい麺に辛いタレを混ぜて食べる冷麺。スープなし。',
+    fr:'Nouilles froides mélangées à une sauce pimentée, sans bouillon.'},
+ a:['비빔냉면','bibim naengmyeon','spicy cold noodles','ビビン冷麺','拌冷面']},
+{id:'soju', img:'./food/soju.webp', kind:'drink', em:'🍶', art:'soup', tone:'clear', spice:0, meats:[], rom:'soju',
+ n:{ko:'소주',en:'Soju',zh:'烧酒',ja:'焼酎（ソジュ）',fr:'Soju'},
+ d:{ko:'한국에서 가장 많이 마시는 투명한 증류주예요. 도수가 높으니 천천히 드세요.',
+    en:'The most common clear spirit in Korea. It is strong, so sip it slowly.',
+    zh:'韩国最常见的透明蒸馏酒，度数较高，请慢慢喝。',
+    ja:'韓国で一番よく飲まれる透明な蒸留酒。度数是高めなのでゆっくり。',
+    fr:'L alcool blanc le plus courant en Corée. Il est fort, buvez doucement.'},
+ order:{ko:'소주 한 병 주세요.', en:'One bottle of soju, please.', zh:'请给我一瓶烧酒。', ja:'焼酎を一本ください。', fr:'Une bouteille de soju, s\'il vous plaît.'},
+ a:['소주','soju','焼酎','烧酒']},
+{id:'beer', img:'./food/beer.webp', kind:'drink', em:'🍺', art:'soup', tone:'gold', spice:0, meats:[], rom:'maekju',
+ n:{ko:'맥주',en:'Beer',zh:'啤酒',ja:'ビール',fr:'Bière'},
+ d:{ko:'시원한 생맥주나 병맥주예요. 안주와 함께 드시면 좋아요.',
+    en:'Cold draft or bottled beer, good with snacks.',
+    zh:'冰镇生啤或瓶装啤酒，配下酒菜很好。',
+    ja:'冷たい生ビールや瓶ビール。おつまみと一緒に。',
+    fr:'Bière pression ou en bouteille, bien fraîche.'},
+ order:{ko:'맥주 한 병 주세요.', en:'One beer, please.', zh:'请给我一瓶啤酒。', ja:'ビールを一本ください。', fr:'Une bière, s\'il vous plaît.'},
+ a:['맥주','생맥주','beer','draft beer','ビール','啤酒']},
+{id:'makgeolli', img:'./food/makgeolli.webp', kind:'drink', em:'🥛', art:'soup', tone:'milky', spice:0, meats:[], rom:'makgeolli',
+ n:{ko:'막걸리',en:'Makgeolli (rice wine)',zh:'米酒（马格利）',ja:'マッコリ',fr:'Makgeolli (vin de riz)'},
+ d:{ko:'쌀로 빚은 뿌연 막걸리예요. 달큰하고 도수가 낮아요.',
+    en:'Cloudy rice wine, lightly sweet and low in alcohol.',
+    zh:'大米酿的浑浊米酒，微甜，度数低。',
+    ja:'米で造った濁り酒。甘くて度数は低め。',
+    fr:'Vin de riz trouble, légèrement sucré et peu alcoolisé.'},
+ order:{ko:'막걸리 한 병 주세요.', en:'One bottle of makgeolli, please.', zh:'请给我一瓶米酒。', ja:'マッコリを一本ください。', fr:'Une bouteille de makgeolli, s\'il vous plaît.'},
+ a:['막걸리','makgeolli','makguli','マッコリ','马格利']},
+{id:'soda', img:'./food/soda.webp', kind:'drink', em:'🥤', art:'soup', tone:'cold', spice:0, meats:[], rom:'kolla saida',
+ n:{ko:'콜라·사이다',en:'Cola or cider (soda)',zh:'可乐·雪碧',ja:'コーラ・サイダー',fr:'Cola ou limonade'},
+ d:{ko:'탄산음료예요. 콜라와 사이다 중에서 고르세요.',
+    en:'Fizzy drinks — choose cola or cider.',
+    zh:'碳酸饮料，可选可乐或雪碧。',
+    ja:'炭酸飲料。コーラかサイダーをどうぞ。',
+    fr:'Boissons gazeuses — cola ou limonade.'},
+ order:{ko:'콜라 한 잔 주세요.', en:'A cola, please.', zh:'请给我一杯可乐。', ja:'コーラを一杯ください。', fr:'Un cola, s\'il vous plaît.'},
+ a:['콜라','사이다','cola','cider','soda','コーラ','可乐']},
+{id:'water', img:'./food/water.webp', kind:'drink', em:'💧', art:'soup', tone:'clear', spice:0, meats:[], rom:'mul',
+ n:{ko:'물',en:'Water',zh:'水',ja:'お水',fr:'Eau'},
+ d:{ko:'식당에서 물은 보통 무료예요. 셀프로 떠 오는 곳도 많아요.',
+    en:'Water is usually free in Korean restaurants, often self-service.',
+    zh:'韩国餐厅的水通常免费，很多是自助。',
+    ja:'韓国の食堂のお水はふつう無料。セルフの店も多いです。',
+    fr:'L eau est généralement gratuite au restaurant, souvent en libre-service.'},
+ order:{ko:'물 한 잔 주시겠어요?', en:'A glass of water, please.', zh:'请给我一杯水。', ja:'お水を一杯いただけますか？', fr:'Un verre d\'eau, s\'il vous plaît.'},
+ a:['물','생수','water','お水','水']},
+{id:'americano', img:'./food/americano.webp', kind:'cafe', unit:'glass', em:'☕', art:'soup', tone:'black', spice:0, meats:[], rom:'amerikano',
+ n:{ko:'아메리카노',en:'Americano',zh:'美式咖啡',ja:'アメリカーノ',fr:'Americano'},
+ d:{ko:'진한 에스프레소에 물을 더한 커피예요. 아이스와 핫 중에 고르세요.',
+    en:'Espresso with hot water. Choose iced or hot.',
+    zh:'浓缩咖啡加水，可选冰的或热的。',
+    ja:'エスプレッソにお湯を注いだコーヒー。アイスかホットを選べます。',
+    fr:'Espresso allongé à l eau. Iced ou chaud, au choix.'},
+ order:{ko:'아메리카노 한 잔 주세요.', en:'One americano, please.', zh:'请给我一杯美式咖啡。', ja:'アメリカーノを一杯ください。', fr:'Un americano, s\'il vous plaît.'},
+ a:['아메리카노','americano','아아','美式咖啡','アメリカーノ']},
+{id:'cafe-latte', img:'./food/cafe-latte.webp', kind:'cafe', unit:'glass', em:'🥛', art:'soup', tone:'milky', spice:0, meats:[], rom:'kape ratte',
+ n:{ko:'카페라떼',en:'Cafe latte',zh:'拿铁',ja:'カフェラテ',fr:'Café latte'},
+ d:{ko:'에스프레소에 우유를 듬뿍 넣은 부드러운 커피예요.',
+    en:'Espresso with plenty of steamed milk.',
+    zh:'浓缩咖啡加大量牛奶，口感柔滑。',
+    ja:'エスプレッソにミルクをたっぷり入れたまろやかなコーヒー。',
+    fr:'Espresso avec beaucoup de lait, tout en douceur.'},
+ order:{ko:'카페라떼 한 잔 주세요.', en:'One cafe latte, please.', zh:'请给我一杯拿铁。', ja:'カフェラテを一杯ください。', fr:'Un café latte, s\'il vous plaît.'},
+ a:['카페라떼','카페라테','cafe latte','latte','拿铁','カフェラテ']},
+{id:'vanilla-latte', img:'./food/vanilla-latte.webp', kind:'cafe', unit:'glass', em:'🍦', art:'soup', tone:'cream', spice:0, meats:[], rom:'banilla ratte',
+ n:{ko:'바닐라라떼',en:'Vanilla latte',zh:'香草拿铁',ja:'バニララテ',fr:'Latte à la vanille'},
+ d:{ko:'바닐라 향이 달콤한 라떼예요. 크림이 올라가기도 해요.',
+    en:'A sweet vanilla latte, often topped with cream.',
+    zh:'香甜的香草拿铁，上面常加奶油。',
+    ja:'バニラの甘い香りのラテ。クリームがのることも。',
+    fr:'Un latte sucré à la vanille, souvent avec de la crème.'},
+ order:{ko:'바닐라라떼 한 잔 주세요.', en:'One vanilla latte, please.', zh:'请给我一杯香草拿铁。', ja:'バニララテを一杯ください。', fr:'Un latte à la vanille, s\'il vous plaît.'},
+ a:['바닐라라떼','vanilla latte','香草拿铁','バニララテ']},
+{id:'matcha-latte', img:'./food/matcha-latte.webp', kind:'cafe', unit:'glass', em:'🍵', art:'soup', tone:'green', spice:0, meats:[], rom:'nokcha ratte',
+ n:{ko:'녹차라떼',en:'Green tea latte',zh:'绿茶拿铁',ja:'抹茶ラテ',fr:'Latte au thé vert'},
+ d:{ko:'녹차 가루와 우유를 섞은 라떼예요. 쌉쌀하고 달콤해요.',
+    en:'Green tea powder with milk — lightly bitter and sweet.',
+    zh:'绿茶粉加牛奶，微苦又香甜。',
+    ja:'抹茶とミルクを合わせたラテ。ほろ苦くて甘い。',
+    fr:'Thé vert en poudre avec du lait, légèrement amer et sucré.'},
+ order:{ko:'녹차라떼 한 잔 주세요.', en:'One green tea latte, please.', zh:'请给我一杯绿茶拿铁。', ja:'抹茶ラテを一杯ください。', fr:'Un latte au thé vert, s\'il vous plaît.'},
+ a:['녹차라떼','말차라떼','green tea latte','matcha latte','绿茶拿铁','抹茶ラテ']},
+{id:'yuja-tea', img:'./food/yuja-tea.webp', kind:'cafe', unit:'glass', em:'🍋', art:'soup', tone:'gold', spice:0, meats:[], rom:'yuja cha',
+ n:{ko:'유자차',en:'Citron tea',zh:'柚子茶',ja:'ゆず茶',fr:'Thé au citron coréen'},
+ d:{ko:'유자청을 뜨거운 물에 풀어 마시는 달콤새콤한 차예요.',
+    en:'Sweet and tangy citron marmalade tea, served hot.',
+    zh:'柚子酱冲热水，酸甜的茶。',
+    ja:'柚子の砂糖漬けをお湯に溶かした甘酸っぱいお茶。',
+    fr:'Thé sucré et acidulé à la confiture de cédrat.'},
+ order:{ko:'유자차 한 잔 주세요.', en:'One citron tea, please.', zh:'请给我一杯柚子茶。', ja:'ゆず茶を一杯ください。', fr:'Un thé au citron, s\'il vous plaît.'},
+ a:['유자차','citron tea','yuja tea','柚子茶','ゆず茶']},
+{id:'bingsu', img:'./food/bingsu.webp', kind:'cafe', unit:'piece', em:'🍧', art:'soup', tone:'milky', spice:0, meats:[], rom:'patbingsu',
+ n:{ko:'팥빙수',en:'Shaved ice with red beans',zh:'红豆刨冰',ja:'パッピンス',fr:'Glace pilée aux haricots rouges'},
+ d:{ko:'얼음을 갈아 팥·떡·연유를 올린 시원한 디저트예요. 여름에 인기예요.',
+    en:'Shaved ice with sweet red beans, rice cakes and condensed milk.',
+    zh:'刨冰上加红豆、年糕和炼乳，夏天很受欢迎。',
+    ja:'氷を削って小豆・餅・練乳をのせた冷たいデザート。夏に人気。',
+    fr:'Glace pilée avec haricots rouges sucrés, gâteaux de riz et lait concentré.'},
+ order:{ko:'팥빙수 하나 주세요.', en:'One shaved ice, please.', zh:'请给我一份红豆刨冰。', ja:'パッピンスを一つください。', fr:'Une glace pilée, s\'il vous plaît.'},
+ a:['팥빙수','빙수','bingsu','patbingsu','红豆刨冰','パッピンス']},
+{id:'cake', img:'./food/cake.webp', kind:'cafe', unit:'piece', em:'🍰', art:'cutlet', tone:'cream', spice:0, meats:[], rom:'keiku',
+ n:{ko:'케이크·디저트',en:'Cake and dessert',zh:'蛋糕·甜点',ja:'ケーキ・デザート',fr:'Gâteau et desserts'},
+ d:{ko:'카페에서 커피와 함께 먹는 케이크와 디저트예요. 진열장에서 고르세요.',
+    en:'Cakes and desserts to have with coffee — pick from the display.',
+    zh:'配咖啡吃的蛋糕和甜点，从展示柜里挑。',
+    ja:'コーヒーと一緒に楽しむケーキやデザート。ショーケースから選びます。',
+    fr:'Gâteaux et desserts à prendre avec le café, à choisir en vitrine.'},
+ order:{ko:'케이크 하나 주세요.', en:'One slice of cake, please.', zh:'请给我一块蛋糕。', ja:'ケーキを一つください。', fr:'Une part de gâteau, s\'il vous plaît.'},
+ a:['케이크','디저트','cake','dessert','蛋糕','ケーキ']}
+];
+var FEATURED = ['kimchi-jjigae','doenjang-jjigae','sundubu-jjigae','budae-jjigae','galbitang','seolleongtang',
+  'samgyetang','bibimbap','dolsot-bibimbap','bulgogi','samgyeopsal','jeyuk','dak-galbi','tteokbokki','gimbap',
+  'ramyeon','mandu','naengmyeon','bibim-naengmyeon','kalguksu','pajeon','japchae','chicken','donkkaseu'];
+var DRINKS = ['soju','beer','makgeolli','soda','water'];
+var CAFE = ['americano','cafe-latte','vanilla-latte','matcha-latte','yuja-tea','bingsu','cake'];
+/* 술은 병, 음료·커피는 잔, 음식은 하나 */
+var UNITS = {soju:'bottle', beer:'bottle', makgeolli:'bottle', soda:'glass', water:'glass'};
+var EM = {pot:'🍲', soup:'🥣', rice:'🍚', grill:'🔥', noodles:'🍜', pancake:'🥞', roll:'🍙',
+          cutlet:'🍖', chicken:'🍗', dumpling:'🥟', tteok:'🌶️'};
+
+/* ── 🪧 간판에서 찾아보세요 (길에서 본 한글 간판 → 내 언어 설명)
+   ko = 간판에 큼직하게 쓰는 한글 · alt = 간판에 같이 쓰이는 말 · kind = food(음식점) / shop(음식점 아님)
+   n = 무슨 가게인지 · d = 한 줄 설명 · pic = 카드에 보여 줄 그림(음식 id 또는 {art,tone}) · dishes = 대표 음식 */
+var SIGNS = [
+{id:'sikdang', em:'🍽️', ko:'식당', alt:'밥집', kind:'food', pic:'kimchi-jjigae',
+ n:{ko:'식당(밥집)', en:'Restaurant (meal house)', zh:'餐厅（饭馆）', ja:'食堂（ごはん屋）', fr:'Restaurant (repas)'},
+ d:{ko:'집밥 같은 한 끼를 파는 동네 음식점이에요. 문 앞 메뉴판을 보고 들어가면 돼요.',
+    en:'A neighbourhood restaurant for home-style meals — check the menu board by the door and walk in.',
+    zh:'卖家常饭菜的社区小餐厅，先看门口的菜单再进去。',
+    ja:'家庭的な食事を出す街の食堂。入口のメニューを見てから入りましょう。',
+    fr:'Un petit restaurant de quartier qui sert des repas maison — regardez le menu à l\'entrée.'},
+ dishes:['kimchi-jjigae','doenjang-jjigae','bibimbap','jeyuk']},
+
+{id:'galbi', em:'🍖', ko:'갈비', alt:'', kind:'food', pic:'galbi',
+ n:{ko:'갈비집 · 고기구이', en:'Beef rib restaurant', zh:'排骨店', ja:'カルビ店', fr:'Restaurant de côtes'},
+ d:{ko:'양념한 소갈비를 불에 구워 먹는 집이에요. 다른 한 끼보다 값이 조금 비싼 편이에요.',
+    en:'Marinated beef ribs grilled at your table — a little pricier than other meals.',
+    zh:'把腌好的牛排骨烤着吃的店，价格比其他餐稍贵。',
+    ja:'味付けした牛カルビを焼いて食べる店。ほかの食事より少し値が張ります。',
+    fr:'Des côtes de bœuf marinées à griller soi-même — un peu plus cher que les autres repas.'},
+ dishes:['galbi','samgyeopsal']},
+
+{id:'bwipe', em:'🍱', ko:'뷔페', alt:'', kind:'food', pic:null,
+ n:{ko:'뷔페', en:'Buffet', zh:'自助餐', ja:'ビュッフェ', fr:'Buffet'},
+ d:{ko:'한 값으로 여러 음식을 원하는 만큼 담아 먹는 집이에요. 접시를 들고 줄을 서요.',
+    en:'Pay once, then fill your plate as often as you like — take a plate and join the line.',
+    zh:'付一次钱就能随便取吃的自助餐，拿盘子排队取餐。',
+    ja:'一度払えば好きなだけ取って食べられる店。皿を持って並びます。',
+    fr:'On paie une fois puis on se sert à volonté — prenez une assiette et faites la queue.'},
+ dishes:[]},
+
+{id:'tang', em:'🥣', ko:'탕', alt:'국', kind:'food', pic:'seolleongtang',
+ n:{ko:'탕·국 요리', en:'Soup and broth house', zh:'汤类专门店', ja:'スープ（タン）専門店', fr:'Soupes et bouillons'},
+ d:{ko:'설렁탕·곰탕·감자탕처럼 오래 끓인 국물 요리를 파는 집이에요.',
+    en:'Long-simmered soups — seolleongtang, gomtang, gamjatang.',
+    zh:'卖长时间熬煮的汤，如雪浓汤、牛骨汤、土豆排骨汤。',
+    ja:'長く煮込んだスープ料理の店。ソルロンタン・コムタン・カムジャタンなど。',
+    fr:'Des soupes longuement mijotées : seolleongtang, gomtang, gamjatang.'},
+ dishes:['seolleongtang','galbitang','yukgaejang']},
+
+{id:'jangeo', em:'🐟', ko:'장어', alt:'', kind:'food', pic:{art:'grill', tone:'gold'},
+ n:{ko:'장어구이', en:'Grilled eel restaurant', zh:'烤鳗鱼店', ja:'うなぎ料理店', fr:'Restaurant d\'anguille grillée'},
+ d:{ko:'민물장어를 불에 구워 먹는 집이에요. 여름 보양식으로 많이 찾아요.',
+    en:'Freshwater eel grilled at the table — a popular summer pick-me-up.',
+    zh:'把淡水鳗鱼烤着吃的店，夏天很多人来补身体。',
+    ja:'淡水のうなぎを焼いて食べる店。夏のスタミナ料理として人気です。',
+    fr:'De l\'anguille d\'eau douce grillée — un plat d\'été très apprécié.'},
+ dishes:[]},
+
+{id:'nakji', em:'🐙', ko:'낙지', alt:'', kind:'food', pic:{art:'pot', tone:'red'},
+ n:{ko:'낙지 요리', en:'Octopus restaurant', zh:'章鱼料理店', ja:'タコ料理店', fr:'Restaurant de poulpe'},
+ d:{ko:'낙지를 볶거나 데쳐 내는 집이에요. 매운 낙지볶음이 유명해요.',
+    en:'Octopus stir-fried or boiled — spicy nakji-bokkeum is the classic.',
+    zh:'把章鱼炒着或烫着吃的店，辣炒章鱼最有名。',
+    ja:'タコを炒めたり茹でたりして出す店。辛いタコ炒めが有名です。',
+    fr:'Du poulpe sauté ou blanchi — le nakji-bokkeum épicé est le classique.'},
+ dishes:[]},
+
+{id:'donkkaseu', em:'🍖', ko:'돈까스', alt:'', kind:'food', pic:'donkkaseu',
+ n:{ko:'돈까스·튀김', en:'Pork cutlet shop', zh:'炸猪排店', ja:'とんかつ店', fr:'Côtelette panée'},
+ d:{ko:'돼지고기를 빵가루에 묻혀 튀긴 돈까스를 파는 집이에요. 밥과 샐러드가 함께 나와요.',
+    en:'Breaded pork cutlet, served with rice and salad.',
+    zh:'卖裹面包糠炸的猪排，一般配米饭和沙拉。',
+    ja:'パン粉をつけて揚げた豚カツの店。ご飯とサラダが付きます。',
+    fr:'Côtelette de porc panée et frite, servie avec riz et salade.'},
+ dishes:['donkkaseu']},
+
+{id:'jeongsik', em:'🍚', ko:'정식', alt:'한정식', kind:'food', pic:{art:'rice', tone:'veg'},
+ n:{ko:'정식·한정식', en:'Set meal (hanjeongsik)', zh:'定食·韩定食', ja:'定食・韓定食', fr:'Repas complet (hanjeongsik)'},
+ d:{ko:'밥·국·반찬이 한 상에 차려지는 정식이에요. "한정식"은 반찬이 더 많은 코스예요.',
+    en:'Rice, soup and side dishes on one table — hanjeongsik is the larger course version.',
+    zh:'米饭、汤和小菜一起上桌的定食，“韩定食”是菜更多的套餐。',
+    ja:'ご飯・スープ・おかずが並ぶ定食。「韓定食」はおかずが多いコースです。',
+    fr:'Riz, soupe et accompagnements sur une table — le hanjeongsik est la version en cours complet.'},
+ dishes:['dolsot-bibimbap','doenjang-jjigae']},
+
+{id:'hoegwan', em:'🏛️', ko:'회관', alt:'관', kind:'food', pic:'doenjang-jjigae',
+ n:{ko:'회관·관', en:'Banquet-style restaurant (…gwan)', zh:'会馆式餐馆', ja:'会館（食堂）', fr:'Restaurant de type « …gwan »'},
+ d:{ko:'"○○회관"은 단체 손님도 받는 큰 식당이에요. 정식·백반을 많이 팔아요. "관"만 붙기도 해요.',
+    en:'A "…회관" sign marks a large restaurant that seats groups too — usually serving set meals.',
+    zh:'挂“회관”的店是可以接待团体的大餐厅，多卖定食。',
+    ja:'「○○회관」は団体も入れる大きめの食堂。定食を出す店が多いです。',
+    fr:'Une enseigne « …회관 » est un grand restaurant qui accueille aussi les groupes — souvent des repas complets.'},
+ dishes:['doenjang-jjigae','jeyuk','bibimbap']},
+
+{id:'gukbap', em:'🍲', ko:'국밥', alt:'', kind:'food', pic:'gukbap',
+ n:{ko:'국밥', en:'Rice in hot soup', zh:'汤饭', ja:'クッパ（スープご飯）', fr:'Riz au bouillon'},
+ d:{ko:'뜨거운 국물에 밥을 말아 먹는 집이에요. 돼지국밥이 가장 흔해요.',
+    en:'Rice in hot broth — pork gukbap is the most common.',
+    zh:'把米饭泡在热汤里吃，猪肉汤饭最常见。',
+    ja:'熱いスープにご飯を入れて食べる店。豚肉のクッパが一番よく見かけます。',
+    fr:'Du riz dans un bouillon chaud — le gukbap au porc est le plus courant.'},
+ dishes:['gukbap','seolleongtang','galbitang']},
+
+{id:'bibimbap', em:'🥗', ko:'비빔밥', alt:'', kind:'food', pic:'bibimbap',
+ n:{ko:'비빔밥', en:'Bibimbap (rice bowl)', zh:'拌饭', ja:'ビビンバ', fr:'Bibimbap'},
+ d:{ko:'밥에 고기·나물·달걀을 올리고 고추장에 비벼 먹는 집이에요.',
+    en:'Rice with beef, vegetables and egg, mixed with chili paste.',
+    zh:'米饭上放牛肉、蔬菜和鸡蛋，加辣椒酱拌着吃。',
+    ja:'ご飯に牛肉・ナムル・卵をのせ、コチュジャンで混ぜて食べます。',
+    fr:'Riz, bœuf, légumes et œuf à mélanger avec de la pâte de piment.'},
+ dishes:['bibimbap','dolsot-bibimbap']},
+
+{id:'gogi', em:'🔥', ko:'고기', alt:'구이', kind:'food', pic:'samgyeopsal',
+ n:{ko:'고깃집 · 구이', en:'Korean BBQ', zh:'烤肉店', ja:'焼肉店', fr:'Barbecue coréen'},
+ d:{ko:'상에서 직접 고기를 구워 먹는 집이에요. 삼겹살이 가장 흔해요.',
+    en:'Grill the meat yourself at the table — pork belly is the usual order.',
+    zh:'在桌上自己烤肉吃，五花肉最常见。',
+    ja:'テーブルで肉を焼いて食べる店。サムギョプサルが定番です。',
+    fr:'On grille la viande à table — la poitrine de porc est l\'incontournable.'},
+ dishes:['samgyeopsal','bulgogi']},
+
+{id:'hoetjip', em:'🍣', ko:'횟집', alt:'생선회', kind:'food', pic:null,
+ n:{ko:'횟집·생선회', en:'Raw fish (sashimi) shop', zh:'生鱼片店', ja:'刺身の店（フェ）', fr:'Poisson cru (sashimi)'},
+ d:{ko:'싱싱한 생선회를 파는 집이에요. 회를 시키면 밥과 국도 함께 나와요.',
+    en:'Fresh fish sliced to order — rice and soup usually come with it.',
+    zh:'卖新鲜生鱼片的店，点生鱼片通常配米饭和汤。',
+    ja:'新鮮な刺身を出す店。刺身を頼むとご飯とスープも付くことが多いです。',
+    fr:'Du poisson très frais découpé à la commande — riz et soupe souvent inclus.'},
+ dishes:[]},
+
+{id:'chobap', em:'🍣', ko:'초밥', alt:'스시', kind:'food', pic:{art:'roll', tone:'green'},
+ n:{ko:'초밥·스시', en:'Sushi restaurant', zh:'寿司店', ja:'寿司屋', fr:'Restaurant de sushis'},
+ d:{ko:'초밥을 파는 일식집이에요. 회전초밥집은 접시 색으로 값을 계산해요.',
+    en:'A Japanese sushi restaurant — at conveyor-belt places you pay by plate colour.',
+    zh:'卖寿司的日式店，回转寿司按盘子颜色算钱。',
+    ja:'寿司の店。回転寿司は皿の色で値段が決まります。',
+    fr:'Un restaurant japonais de sushis — au tapis roulant, on paie selon la couleur des assiettes.'},
+ dishes:[]},
+
+{id:'jjigae', em:'🥘', ko:'찌개', alt:'전골', kind:'food', pic:'kimchi-jjigae',
+ n:{ko:'찌개·전골', en:'Stew and hot pot', zh:'汤锅·火锅', ja:'チゲ・鍋', fr:'Ragoût et marmite'},
+ d:{ko:'한 가지 재료로 끓인 찌개, 여럿이 나눠 먹는 전골이에요. 밥과 함께 나와요.',
+    en:'A one-pot stew (jjigae) or a bigger pot to share (jeongol), served with rice.',
+    zh:'一人份的汤锅（찌개）或大家分食的火锅（전골），一般配米饭。',
+    ja:'一人用のチゲ、みんなで分ける鍋（チョンゴル）。ご飯と一緒に出ます。',
+    fr:'Un ragoût en pot (jjigae) ou une marmite à partager (jeongol), servi avec du riz.'},
+ dishes:['kimchi-jjigae','sundubu-jjigae','budae-jjigae']},
+
+{id:'bunsik', em:'🍢', ko:'분식', alt:'', kind:'food', pic:'tteokbokki',
+ n:{ko:'분식', en:'Snack bar', zh:'小吃店', ja:'軽食店（粉食）', fr:'Snack coréen'},
+ d:{ko:'떡볶이·김밥·라면 같은 간단한 음식을 값싸게 파는 집이에요.',
+    en:'Cheap, quick snack food — tteokbokki, gimbap and ramyeon.',
+    zh:'便宜卖炒年糕、紫菜包饭、方便面等小吃的店。',
+    ja:'トッポッキ・キンパ・ラーメンなどを安く出す軽食店。',
+    fr:'De quoi grignoter pour trois fois rien — tteokbokki, gimbap, ramyeon.'},
+ dishes:['tteokbokki','gimbap','ramyeon']},
+
+{id:'guksu', em:'🍜', ko:'국수', alt:'칼국수', kind:'food', pic:'kalguksu',
+ n:{ko:'국수·칼국수', en:'Noodle shop', zh:'面条店', ja:'麺類店（カルククス）', fr:'Restaurant de nouilles'},
+ d:{ko:'손칼국수·잔치국수·비빔국수를 파는 면 요리 집이에요.',
+    en:'Hand-cut noodle soup, thin noodles in broth, or spicy mixed noodles.',
+    zh:'卖手擀面（칼국수）、清汤面和拌面的面食店。',
+    ja:'手打ち麺（カルククス）、温かい麺、混ぜ麺などを出す店。',
+    fr:'Nouilles coupées à la main en soupe, nouilles fines au bouillon ou mélangées.'},
+ dishes:['kalguksu','janchi-guksu','bibim-guksu','naengmyeon']},
+
+{id:'myeonok', em:'🍥', ko:'면옥', alt:'옥', kind:'food', pic:'naengmyeon',
+ n:{ko:'면옥·냉면집', en:'Cold noodle house (myeonok)', zh:'冷面馆', ja:'冷麺屋（ミョンオク）', fr:'Maison de nouilles froides'},
+ d:{ko:'간판에 "옥"이 붙으면 오래된 냉면·만둣국 집이 많아요. "면옥"은 냉면집이에요.',
+    en:'An "…옥" sign often marks an old noodle house — myeonok means a cold-noodle restaurant.',
+    zh:'招牌带“옥”字的多是老面馆，“면옥”就是卖冷面的店。',
+    ja:'「…옥」の看板は昔ながらの麺屋に多いです。「면옥」は冷麺の店。',
+    fr:'Une enseigne en « …옥 » désigne souvent une vieille maison de nouilles ; myeonok = nouilles froides.'},
+ dishes:['naengmyeon','bibim-naengmyeon','mandu']},
+
+{id:'chicken', em:'🍗', ko:'치킨', alt:'호프', kind:'food', pic:'chicken',
+ n:{ko:'치킨·호프', en:'Fried chicken and beer', zh:'炸鸡·啤酒屋', ja:'チキンとビール', fr:'Poulet frit et bière'},
+ d:{ko:'후라이드·양념치킨에 맥주를 곁들이는 집이에요. 밤에는 배달도 해요.',
+    en:'Korean fried chicken with beer — most places deliver at night too.',
+    zh:'炸鸡配啤酒的店，晚上大多也送外卖。',
+    ja:'フライドチキンとビールの店。夜は配達もしてくれます。',
+    fr:'Poulet frit coréen et bière — la plupart livrent aussi le soir.'},
+ dishes:['chicken','beer']},
+
+{id:'pocha', em:'🍶', ko:'포차', alt:'주점', kind:'food', pic:'soju',
+ n:{ko:'포차·주점·술집', en:'Pub / drinking spot', zh:'酒馆·小酒摊', ja:'居酒屋・飲み屋', fr:'Bistrot à alcool'},
+ d:{ko:'"포차"는 길거리 술집, "주점"은 술을 파는 집이에요. 안주를 곁들여 술을 마셔요.',
+    en:'Pocha is an informal street-side drinking spot; jujeom is a bar. You order snacks with the drinks.',
+    zh:'“포차”是路边小酒摊，“주점”是卖酒的店，点下酒菜配着喝。',
+    ja:'「포차」は屋台風の飲み屋、「주점」は酒を出す店。おつまみと一緒に飲みます。',
+    fr:'Un pocha est un bistrot de rue, un jujeom un bar — on boit avec de petits plats.'},
+ dishes:['soju','beer','makgeolli','pajeon']},
+
+{id:'junghwa', em:'🥟', ko:'중화요리', alt:'반점', kind:'food', pic:'jjajangmyeon',
+ n:{ko:'중화요리·반점', en:'Korean-Chinese restaurant', zh:'中华料理店', ja:'中華料理店', fr:'Restaurant chino-corréen'},
+ d:{ko:'짜장면·짬뽕·탕수육을 파는 한국식 중국집이에요. "반점"도 중국집 간판이에요.',
+    en:'Korean-Chinese food — jjajangmyeon, jjambbong and sweet-and-sour pork. "반점" also means a Chinese restaurant.',
+    zh:'卖炸酱面、辣海鲜面、糖醋肉的韩式中华料理店，“반점”也是中华料理的招牌。',
+    ja:'チャジャンミョン・チャンポン・タンスユクの韓国式中華料理店。「반점」も中華料理店のこと。',
+    fr:'Cuisine sino-corréenne : jjajangmyeon, jjambbong, porc aigre-doux. « 반점 » désigne aussi un restaurant chinois.'},
+ dishes:['jjajangmyeon','jjambbong','tangsuyuk','mandu']},
+
+{id:'cafe', em:'☕', ko:'카페', alt:'커피', kind:'food', pic:'cafe-latte',
+ n:{ko:'카페·커피', en:'Cafe', zh:'咖啡厅', ja:'カフェ', fr:'Café'},
+ d:{ko:'커피·차·디저트를 파는 집이에요. 먼저 주문하고 자리에 앉아요.',
+    en:'Coffee, tea and dessert — order at the counter first, then sit down.',
+    zh:'卖咖啡、茶和甜点，先点单再找位子坐。',
+    ja:'コーヒー・お茶・デザートの店。先に注文してから席に座ります。',
+    fr:'Café, thé et desserts — commandez d\'abord au comptoir, puis asseyez-vous.'},
+ dishes:['americano','cafe-latte','yuja-tea','cake']},
+
+{id:'bakery', em:'🥐', ko:'빵집', alt:'베이커리', kind:'food', pic:'cake',
+ n:{ko:'빵집·베이커리', en:'Bakery', zh:'面包店', ja:'パン屋', fr:'Boulangerie'},
+ d:{ko:'갓 구운 빵과 케이크를 파는 집이에요. 쟁반에 담아 계산대로 가요.',
+    en:'Freshly baked bread and cakes — put your pick on a tray and pay at the counter.',
+    zh:'卖现烤面包和蛋糕，把面包放在托盘上到柜台结账。',
+    ja:'焼きたてのパンとケーキの店。トレーに取ってレジで払います。',
+    fr:'Pain et gâteaux du jour — posez votre choix sur un plateau et payez à la caisse.'},
+ dishes:['cake']},
+
+{id:'pyeonuijeom', em:'🏪', ko:'편의점', alt:'', kind:'shop', pic:null,
+ n:{ko:'편의점', en:'Convenience store (24h)', zh:'便利店（24小时）', ja:'コンビニ（24時間）', fr:'Supérette (24 h)'},
+ d:{ko:'음식점이 아니라 24시간 여는 가게예요. 물·간식·교통카드 충전을 여기서 해요.',
+    en:'Not a restaurant — a shop open 24 hours for water, snacks and T-money top-ups.',
+    zh:'不是餐厅，是24小时营业的便利店，水、零食、交通卡充值都在这里。',
+    ja:'飲食店ではなく24時間営業の店。水・おやつ・交通カードのチャージもここで。',
+    fr:'Ce n\'est pas un restaurant mais une supérette ouverte 24 h : eau, en-cas et recharge de carte.'},
+ dishes:['water','soda','ramyeon']},
+
+{id:'mart', em:'🛒', ko:'마트', alt:'슈퍼', kind:'shop', pic:null,
+ n:{ko:'마트·슈퍼', en:'Mart / grocery store', zh:'超市', ja:'スーパー・マート', fr:'Supérette / supermarché'},
+ d:{ko:'음식점이 아니라 물건을 파는 가게예요. 물·과일·생활용품을 살 수 있어요.',
+    en:'Not a restaurant — a grocery shop for water, fruit and daily goods.',
+    zh:'不是餐厅，是卖东西的超市，可以买水、水果和日用品。',
+    ja:'飲食店ではなく物を売る店。水・果物・日用品が買えます。',
+    fr:'Ce n\'est pas un restaurant mais une épicerie : eau, fruits, produits du quotidien.'},
+ dishes:['water','soda']},
+
+{id:'yakguk', em:'💊', ko:'약국', alt:'', kind:'shop', pic:null,
+ n:{ko:'약국', en:'Pharmacy', zh:'药局', ja:'薬局', fr:'Pharmacie'},
+ d:{ko:'음식점이 아니라 약국이에요. 약이 필요하면 "약국" 글자를 찾아 들어가면 돼요.',
+    en:'Not a restaurant — a pharmacy. Look for the 약국 sign when you need medicine.',
+    zh:'不是餐厅，是药局。需要买药时找“약국”两个字的招牌。',
+    ja:'飲食店ではなく薬局です。薬が必要なときは「약국」の看板を探してください。',
+    fr:'Ce n\'est pas un restaurant mais une pharmacie — repérez l\'enseigne 약국.'},
+ dishes:[]}
+];
+
+/* ── 큰 그림(음식 SVG 일러스트) — 외부 파일 없이 오프라인 ── */
+var TONE = {
+  red:{broth:'#E4572E', deep:'#C13C1C', light:'#F68B5E'},
+  brown:{broth:'#9A6A34', deep:'#7A4E22', light:'#C08A4C'},
+  clear:{broth:'#F3E4C4', deep:'#E3CFA6', light:'#FFF6E2'},
+  milky:{broth:'#FBF1DC', deep:'#EDDCBC', light:'#FFFCF3'},
+  egg:{broth:'#F7DF9E', deep:'#E9C468', light:'#FFEFC2'},
+  cold:{broth:'#E8E3D2', deep:'#D6CDB4', light:'#F8F5EA'},
+  soy:{broth:'#7A5A2E', deep:'#5E4322', light:'#A8814B'},
+  black:{broth:'#4A3A32', deep:'#33261F', light:'#6E5548'},
+  gold:{broth:'#D9A227', deep:'#B8841A', light:'#F0C655'},
+  green:{broth:'#2E7D5B', deep:'#205B41', light:'#4FA37C'},
+  pork:{broth:'#B87A5A', deep:'#97603F', light:'#D49B7C'},
+  beef:{broth:'#8C4A34', deep:'#6E3524', light:'#B06B50'},
+  sauce:{broth:'#C4622B', deep:'#A04B1B', light:'#E08A50'},
+  veg:{broth:'#6FA34A', deep:'#557F35', light:'#8FC46A'},
+  cream:{broth:'#F2E2BE', deep:'#DCC79E', light:'#FFF7E4'}
+};
+function svgWrap(inner){ return '<svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">'+inner+'</svg>'; }
+function steam(x,y){
+  return '<path d="M'+x+' '+(y+12)+'c-4 3 4 6 0 11M'+(x+8)+' '+(y+14)+'c-3.4 2.6 3.4 5 0 9" stroke="#E4CDA6" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".85"/>';
+}
+function artPot(t){
+  var c=TONE[t]||TONE.red;
+  return svgWrap(
+    '<ellipse cx="50" cy="88" rx="35" ry="5" fill="#000" opacity=".07"/>'+ steam(34,20)+
+    '<rect x="14" y="44" width="8" height="12" rx="3" fill="#2E2E30"/><rect x="78" y="44" width="8" height="12" rx="3" fill="#2E2E30"/>'+
+    '<path d="M20 44h60l-5 33a10 10 0 0 1-10 8H35a10 10 0 0 1-10-8z" fill="#3A3A3C"/>'+
+    '<path d="M20 44h60l-1 7H21z" fill="#4B4B4E"/>'+
+    '<ellipse cx="50" cy="45" rx="29" ry="8" fill="#2C2C2E"/>'+
+    '<ellipse cx="50" cy="45" rx="25" ry="6.4" fill="'+c.broth+'"/>'+
+    '<ellipse cx="42" cy="44" rx="4" ry="2" fill="'+c.light+'" opacity=".7"/>'+
+    '<rect x="38" y="41" width="9" height="7" rx="1.6" fill="#FFF3D8"/>'+
+    '<rect x="55" y="42" width="8" height="6" rx="1.4" fill="#FFF3D8" opacity=".95"/>'+
+    '<circle cx="50" cy="49" r="1.5" fill="#4F9A46"/><circle cx="60" cy="48" r="1.3" fill="#4F9A46"/>'+
+    '<circle cx="36" cy="48" r="1.2" fill="#4F9A46"/><circle cx="47" cy="43" r="1.1" fill="#F0C04A"/>'+
+    '<path d="M26 74h48" stroke="'+c.deep+'" stroke-width="2" opacity=".35" stroke-linecap="round"/>'
+  );
+}
+function artSoup(t){
+  var c=TONE[t]||TONE.milky;
+  return svgWrap(
+    '<ellipse cx="50" cy="88" rx="34" ry="5" fill="#000" opacity=".07"/>'+ steam(33,20)+
+    '<path d="M18 48h64c0 20-13 34-32 34S18 68 18 48z" fill="#FAF7F0"/>'+
+    '<ellipse cx="50" cy="48" rx="32" ry="8" fill="#EFE8DA"/>'+
+    '<ellipse cx="50" cy="48" rx="27" ry="6.2" fill="'+c.broth+'"/>'+
+    '<ellipse cx="41" cy="47" rx="7" ry="3" fill="'+c.light+'" opacity=".8"/>'+
+    '<ellipse cx="58" cy="49" rx="6" ry="2.6" fill="'+c.light+'" opacity=".6"/>'+
+    '<rect x="38" y="45" width="8" height="5" rx="2" fill="#B0684A"/>'+
+    '<rect x="54" y="46" width="7" height="4.6" rx="2" fill="#9A5538"/>'+
+    '<circle cx="49" cy="44" r="1.2" fill="#4F9A46"/><circle cx="64" cy="46" r="1.1" fill="#4F9A46"/>'+
+    '<circle cx="33" cy="46" r="1" fill="#4F9A46"/>'+
+    '<path d="M20 60c8 6 52 6 60 0" stroke="#E6D9C0" stroke-width="2.2" fill="none"/>'
+  );
+}
+function artRice(t){
+  var c=TONE[t]||TONE.veg;
+  return svgWrap(
+    '<ellipse cx="50" cy="88" rx="33" ry="5" fill="#000" opacity=".07"/>'+ steam(34,16)+
+    '<path d="M16 50h68c0 21-14 36-34 36S16 71 16 50z" fill="#F7F3E9"/>'+
+    '<ellipse cx="50" cy="50" rx="34" ry="9" fill="#E9E1D1"/>'+
+    '<ellipse cx="50" cy="48" rx="28" ry="7.4" fill="#FFF9EC"/>'+
+    '<ellipse cx="50" cy="45" rx="21" ry="8" fill="#FFFDF6"/>'+
+    '<circle cx="39" cy="43" r="5" fill="#5C9B46"/><circle cx="44" cy="40" r="4" fill="#71B356"/>'+
+    '<circle cx="60" cy="43" r="4.6" fill="#E08A3C"/><circle cx="56" cy="39" r="3.6" fill="#C86E2A"/>'+
+    '<circle cx="50" cy="48" r="5.4" fill="#F2C84B"/><circle cx="50" cy="48" r="2.2" fill="#E1A62C"/>'+
+    '<rect x="60" y="47" width="9" height="4" rx="1.6" fill="#9A5538"/><rect x="34" y="48" width="8" height="3.6" rx="1.5" fill="#8C4A34"/>'+
+    '<circle cx="58" cy="37" r="1.6" fill="#D94B32"/>'+
+    '<path d="M18 66c9 6 55 6 64 0" stroke="#E6DCC8" stroke-width="2.2" fill="none"/>'
+  );
+}
+function artGrill(t){
+  var c=TONE[t]||TONE.beef;
+  return svgWrap(
+    '<ellipse cx="50" cy="86" rx="35" ry="5" fill="#000" opacity=".08"/>'+ steam(35,16)+
+    '<ellipse cx="50" cy="58" rx="34" ry="21" fill="#2F2F31"/>'+
+    '<ellipse cx="50" cy="56" rx="30" ry="17.5" fill="#3E3E41"/>'+
+    '<path d="M30 52h14a5 5 0 0 1 5 5v6a5 5 0 0 1-5 5H30a5 5 0 0 1-5-5v-6a5 5 0 0 1 5-5z" fill="'+c.broth+'"/>'+
+    '<path d="M55 48h14a5 5 0 0 1 5 5v6a5 5 0 0 1-5 5H55a5 5 0 0 1-5-5v-6a5 5 0 0 1 5-5z" fill="'+c.deep+'"/>'+
+    '<path d="M42 66h16a4 4 0 0 1 4 4v2a4 4 0 0 1-4 4H42a4 4 0 0 1-4-4v-2a4 4 0 0 1 4-4z" fill="'+c.light+'"/>'+
+    '<path d="M31 55h10M56 51h10" stroke="#FFFFFF" stroke-width="1.6" opacity=".35" stroke-linecap="round"/>'+
+    '<path d="M74 66c4-2 8-1 9 3-3 1-7 0-9-3z" fill="#5C9B46"/>'+
+    '<circle cx="26" cy="66" r="2.2" fill="#D94B32"/>'
+  );
+}
+function artNoodles(t){
+  var c=TONE[t]||TONE.clear;
+  return svgWrap(
+    '<ellipse cx="50" cy="88" rx="33" ry="5" fill="#000" opacity=".07"/>'+ steam(35,14)+
+    '<path d="M16 48h68c0 22-14 37-34 37S16 70 16 48z" fill="#FAF6EC"/>'+
+    '<ellipse cx="50" cy="48" rx="34" ry="9" fill="#EDE4D2"/>'+
+    '<ellipse cx="50" cy="48" rx="29" ry="7" fill="'+c.broth+'"/>'+
+    '<path d="M30 47c5-5 10 4 15-1s10 4 15-1 8 3 11 0" stroke="#FFF8E6" stroke-width="3" fill="none" stroke-linecap="round" opacity=".95"/>'+
+    '<path d="M30 53c5-5 10 4 15-1s10 4 15-1 8 3 11 0" stroke="#FFF8E6" stroke-width="2.6" fill="none" stroke-linecap="round" opacity=".8"/>'+
+    '<ellipse cx="38" cy="45" rx="6" ry=".0" fill="none"/>'+
+    '<path d="M34 42a6 6 0 0 1 12 0z" fill="#FFFDF6"/><circle cx="40" cy="42" r="2.4" fill="#F2C84B"/>'+
+    '<rect x="57" y="44" width="9" height="4" rx="1.6" fill="#7FB364"/>'+
+    '<rect x="56" y="50" width="8" height="3.4" rx="1.4" fill="#94C275"/>'+
+    '<circle cx="48" cy="52" r="1.3" fill="#D94B32"/>'+
+    '<path d="M18 64c9 7 55 7 64 0" stroke="#E6DAC4" stroke-width="2.2" fill="none"/>'+
+    '<path d="M64 22l14-12" stroke="#C9A46A" stroke-width="2.6" stroke-linecap="round"/><path d="M68 24l14-12" stroke="#C9A46A" stroke-width="2.6" stroke-linecap="round"/>'
+  );
+}
+function artPancake(t){
+  var c=TONE[t]||TONE.gold;
+  return svgWrap(
+    '<ellipse cx="50" cy="86" rx="34" ry="5" fill="#000" opacity=".07"/>'+ steam(38,18)+
+    '<ellipse cx="50" cy="60" rx="34" ry="20" fill="#F5EFE2"/>'+
+    '<ellipse cx="50" cy="57" rx="29" ry="16.5" fill="'+c.deep+'"/>'+
+    '<ellipse cx="50" cy="55" rx="27" ry="15" fill="'+c.broth+'"/>'+
+    '<path d="M36 50c5-3 10 2 15-1s10 2 14-1" stroke="#5C9B46" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+
+    '<path d="M34 58c6-2 10 3 15 0s10 2 15-1" stroke="#5C9B46" stroke-width="2.6" fill="none" stroke-linecap="round"/>'+
+    '<circle cx="46" cy="63" r="2" fill="#D94B32"/><circle cx="60" cy="61" r="1.8" fill="#D94B32"/>'+
+    '<circle cx="38" cy="54" r="1.6" fill="#D94B32"/>'+
+    '<path d="M22 66c8 5 48 5 56 0" stroke="#E7DCC4" stroke-width="2" fill="none"/>'+
+    '<circle cx="26" cy="52" r="3" fill="#C4622B" opacity=".7"/>'
+  );
+}
+function artRoll(t){
+  var c=TONE[t]||TONE.green;
+  function slice(x,y,r){
+    return '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="#2C3E2E"/>'+
+           '<circle cx="'+x+'" cy="'+y+'" r="'+(r-3)+'" fill="#FFF9EC"/>'+
+           '<rect x="'+(x-r/2.2)+'" y="'+(y-2.2)+'" width="'+(r/1.1)+'" height="4.4" rx="1.6" fill="'+c.broth+'"/>'+
+           '<rect x="'+(x-2)+'" y="'+(y-r/2.6)+'" width="4" height="'+(r/2)+'" rx="1.4" fill="#E08A3C"/>'+
+           '<circle cx="'+(x+3)+'" cy="'+(y+3.4)+'" r="1.5" fill="#F2C84B"/>';
+  }
+  return svgWrap('<ellipse cx="50" cy="84" rx="33" ry="5" fill="#000" opacity=".07"/>'+
+    '<ellipse cx="50" cy="66" rx="33" ry="12" fill="#F4EDDE"/>'+
+    slice(32,50,15)+slice(62,44,15)+slice(52,68,15));
+}
+function artCutlet(t){
+  var c=TONE[t]||TONE.gold;
+  return svgWrap('<ellipse cx="50" cy="86" rx="34" ry="5" fill="#000" opacity=".07"/>'+ steam(40,18)+
+    '<ellipse cx="50" cy="62" rx="35" ry="19" fill="#F5EFE2"/>'+
+    '<ellipse cx="50" cy="58" rx="30" ry="15.5" fill="#EDE5D4"/>'+
+    '<path d="M30 48h16a6 6 0 0 1 6 6v10a6 6 0 0 1-6 6H30a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6z" fill="'+c.deep+'"/>'+
+    '<path d="M33 51h13a4 4 0 0 1 4 4v7a4 4 0 0 1-4 4H33a4 4 0 0 1-4-4v-7a4 4 0 0 1 4-4z" fill="'+c.broth+'"/>'+
+    '<path d="M58 46h16a6 6 0 0 1 6 6v10a6 6 0 0 1-6 6H58a6 6 0 0 1-6-6V52a6 6 0 0 1 6-6z" fill="'+c.deep+'"/>'+
+    '<path d="M61 49h13a4 4 0 0 1 4 4v7a4 4 0 0 1-4 4H61a4 4 0 0 1-4-4v-7a4 4 0 0 1 4-4z" fill="'+c.broth+'"/>'+
+    '<path d="M34 56h10M62 54h10" stroke="#FFF3D0" stroke-width="1.8" opacity=".7" stroke-linecap="round"/>'+
+    '<ellipse cx="30" cy="70" rx="7" ry="3" fill="#B85C2A" opacity=".85"/>'+
+    '<path d="M74 70c4-2 8-1 9 3-3 1-7 0-9-3z" fill="#5C9B46"/>');
+}
+function artChicken(t){
+  var c=TONE[t]||TONE.gold;
+  return svgWrap('<ellipse cx="50" cy="86" rx="32" ry="5" fill="#000" opacity=".07"/>'+ steam(38,16)+
+    '<ellipse cx="50" cy="68" rx="33" ry="15" fill="#F5EFE2"/>'+
+    '<ellipse cx="50" cy="65" rx="29" ry="12.5" fill="#EDE5D4"/>'+
+    '<path d="M36 34c12-6 24 2 24 14 0 9-7 16-16 16s-16-6-16-15c0-6 3-11 8-15z" fill="'+c.deep+'"/>'+
+    '<path d="M39 37c10-4 19 2 19 12 0 7-6 13-13 13s-13-5-13-12c0-5 3-9 7-13z" fill="'+c.broth+'"/>'+
+    '<path d="M31 61l-8 8" stroke="#FFF6E2" stroke-width="6" stroke-linecap="round"/>'+
+    '<circle cx="22" cy="71" r="4.4" fill="#FFF6E2"/><circle cx="20" cy="74" r="3.6" fill="#FFF6E2"/>'+
+    '<path d="M46 44c4-2 8 0 9 4" stroke="#FFF0C8" stroke-width="2" fill="none" opacity=".6" stroke-linecap="round"/>'+
+    '<circle cx="66" cy="58" r="4" fill="#D94B32" opacity=".85"/><circle cx="72" cy="66" r="3" fill="#D94B32" opacity=".7"/>'+
+    '<path d="M62 74c5-2 9 0 10 4-4 1-8 0-10-4z" fill="#5C9B46"/>');
+}
+function artDumpling(t){
+  var c=TONE[t]||TONE.cream;
+  function dump(x,y,s,rot){
+    return '<g transform="translate('+x+' '+y+') rotate('+rot+')">'+
+      '<path d="M-16 4a16 12 0 0 1 32 0c0 7-7 12-16 12S-16 11-16 4z" fill="'+c.broth+'"/>'+
+      '<path d="M-16 4a16 12 0 0 1 32 0" fill="none" stroke="'+c.deep+'" stroke-width="1.6"/>'+
+      '<path d="M-11 2l3 5 3-5 3 5 3-5 3 5 3-5" stroke="'+c.deep+'" stroke-width="1.4" fill="none" stroke-linecap="round"/>'+
+      '</g>';
+  }
+  return svgWrap('<ellipse cx="50" cy="84" rx="34" ry="5" fill="#000" opacity=".07"/>'+ steam(38,14)+
+    '<ellipse cx="50" cy="66" rx="35" ry="16" fill="#F5EFE2"/>'+
+    '<ellipse cx="50" cy="62" rx="30" ry="13" fill="#EDE5D4"/>'+
+    dump(34,56,1,-8)+dump(62,52,1,9)+dump(48,68,1,2)+
+    '<ellipse cx="26" cy="72" rx="6" ry="2.6" fill="#8A5A2B" opacity=".5"/>');
+}
+function artTteok(t){
+  var c=TONE[t]||TONE.red;
+  return svgWrap('<ellipse cx="50" cy="86" rx="33" ry="5" fill="#000" opacity=".07"/>'+ steam(36,18)+
+    '<path d="M17 50h66c0 20-13 34-33 34S17 70 17 50z" fill="#F7F1E4"/>'+
+    '<ellipse cx="50" cy="50" rx="33" ry="9" fill="#E9DFCC"/>'+
+    '<ellipse cx="50" cy="50" rx="28" ry="7" fill="'+c.broth+'"/>'+
+    '<ellipse cx="40" cy="49" rx="5" ry="3.2" fill="#FFF9EC"/><ellipse cx="54" cy="47" rx="5" ry="3.2" fill="#FFF9EC"/>'+
+    '<ellipse cx="62" cy="52" rx="4.6" ry="3" fill="#FFF9EC"/><ellipse cx="46" cy="54" rx="4.4" ry="3" fill="#FFF9EC"/>'+
+    '<path d="M56 40l6-6 6 6-3 4h-6z" fill="#E8B44A"/>'+
+    '<circle cx="34" cy="45" r="1.4" fill="#4F9A46"/><circle cx="65" cy="45" r="1.3" fill="#4F9A46"/>'+
+    '<path d="M19 62c9 6 53 6 62 0" stroke="#E6D9C0" stroke-width="2.2" fill="none"/>');
+}
+var ART = {pot:artPot, soup:artSoup, rice:artRice, grill:artGrill, noodles:artNoodles, pancake:artPancake, roll:artRoll, cutlet:artCutlet, chicken:artChicken, dumpling:artDumpling, tteok:artTteok};
+function dishArt(d, cls){
+  if(d.img) return '<span class="art '+(cls||'')+'"><img src="'+d.img+'" alt="" loading="lazy" decoding="async" /></span>';
+  return '<span class="art '+(cls||'')+'">'+(ART[d.art]||artSoup)(d.tone)+'</span>';
+}
+
+/* ══════ 상태 · 도움 함수 ══════ */
+function $(s, r){ return (r||document).querySelector(s); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; }); }
+function ui(k){ var d = UI[my] || UI.ko; return (k in d && d[k] != null) ? d[k] : (UI.ko[k] || ''); }
+function isLang(x){ return !!x && LANGS.some(function (l){ return l.code === x; }); }
+
+var KEY = {my:'dining_my_v1', shop:'dining_shop_v1', snd:'dining_sound_v1', big:'dining_big_v1'};
+var my = 'ko', shop = 'en', soundOn = true, bigOn = false;
+
+/* 기본값 = 한국을 찾은 여행자 흐름: 내 언어 EN · 가게 언어 한국어
+   (폰 언어가 中文·日本語·Français면 그 말을 내 언어로 쓰고, 언제든 5개국어 자유 전환·⇄ 바꾸기) */
+try{
+  var savedMy = localStorage.getItem(KEY.my);
+  if(isLang(savedMy)) my = savedMy;
+  else {
+    var nav = (navigator.language || 'en').slice(0,2).toLowerCase();
+    my = (isLang(nav) && nav !== 'ko') ? nav : 'en';
+  }
+  var savedShop = localStorage.getItem(KEY.shop);
+  shop = isLang(savedShop) ? savedShop : 'ko';
+  if(shop === my) shop = (my === 'ko' ? 'en' : 'ko');
+  /* v1 기본값(내 언어 ko · 가게 en)이 그대로 남아 있으면 새 기본값으로 한 번만 옮긴다 */
+  if(localStorage.getItem('dining_def_v2') !== '1'){
+    if(my === 'ko' && shop === 'en'){
+      my = 'en'; shop = 'ko';
+      try{ localStorage.setItem(KEY.my, my); localStorage.setItem(KEY.shop, shop); }catch(e){}
+    }
+    localStorage.setItem('dining_def_v2', '1');
+  }
+  soundOn = localStorage.getItem(KEY.snd) !== 'off';
+  bigOn = localStorage.getItem(KEY.big) === 'on';
+}catch(e){}
+
+function savePrefs(){ try{ localStorage.setItem(KEY.my, my); localStorage.setItem(KEY.shop, shop); }catch(e){} }
+
+var MEATS = {pork:'🐖', beef:'🐄', chicken:'🐓', seafood:'🦐', egg:'🥚'};
+function badges(d){
+  var out = '';
+  if(d.kind === 'drink') return '<span class="bd">🍶 '+esc(ui('drinkTag'))+'</span>';
+  if(d.kind === 'cafe') return '';
+  if(d.spice >= 2) out += '<span class="bd sp">🌶️ '+esc(ui('spicy'))+'</span>';
+  else if(d.spice === 1) out += '<span class="bd sp">🌶 '+esc(ui('spicy'))+'</span>';
+  else out += '<span class="bd nosp">🌿 '+esc(ui('notSpicy'))+'</span>';
+  var ms = d.meats || [];
+  if(!ms.length) out += '<span class="bd">🌱 '+esc(ui('meatNone'))+'</span>';
+  ms.forEach(function(m){ out += '<span class="bd">'+(MEATS[m]||'')+' '+esc(ui('meat'+m.charAt(0).toUpperCase()+m.slice(1)))+'</span>'; });
+  return out;
+}
+function pronOf(p, target){
+  if(target === my) return '';
+  if(my === 'ko') return p.kor[target] || '';
+  return p.lat[target] || '';
+}
+
+/* ══════ 화면 그리기 ══════ */
+function applyUI(){
+  document.documentElement.lang = my;
+  document.title = ui('appTitle');
+  $('#appTitle').textContent = ui('appTitle');
+  $('#tagline').textContent = ui('tagline');
+  $('#myLangLbl').textContent = ui('myLang');
+  $('#shopLangLbl').textContent = ui('shopLang');
+  $('#soundLbl').textContent = ui('sound');
+  $('#bigLbl').textContent = ui('bigText');
+  $('#shareLbl').textContent = ui('share');
+  $('#installLbl').textContent = ui('install');
+  $('#showStaff').textContent = ui('showStaff');
+  $('#tapBig').textContent = ui('tapBig');
+  $('#secOrderH').textContent = ui('secOrder');
+  $('#secOrderS').textContent = ui('secOrderS');
+  $('#secMoreH').textContent = ui('secMore');
+  $('#secMoreS').textContent = ui('secMoreS');
+  $('#secSignH').textContent = ui('secSign');
+  $('#secSignS').textContent = ui('secSignS');
+  $('#secPplH').textContent = ui('secPpl');
+  $('#secPplS').textContent = ui('secPplS');
+  $('#secDrinkH').textContent = ui('secDrink');
+  $('#secDrinkS').textContent = ui('secDrinkS');
+  $('#slogan').textContent = ui('slogan');
+  try{ renderWx(); }catch(e){}
+  $('#secTransitH').textContent = ui('secTransit');
+  $('#secTransitS').textContent = ui('secTransitS');
+  $('#tToLbl').textContent = ui('tTo');
+  $('#tModeRow [data-mode="stay"] b').textContent = ui('tStay');
+  $('#stayTitle').textContent = ui('stayTitle');
+  $('#staySub').textContent = ui('staySub');
+  $('#stayAddr').placeholder = ui('stayPh');
+  $('#staySaveLbl').textContent = ui('staySave');
+  $('#stayTaxiLbl').textContent = ui('stayTaxi');
+  $('#stayGoLbl').textContent = ui('stayGo');
+  $('#stayEditLbl').textContent = ui('stayEdit');
+  try{ renderStay(); }catch(e){}
+  $('#tTo').placeholder = ui('tToPh');
+  $('#tFromNow').textContent = ui('tFromNow');
+  $('#tNaverLbl').textContent = ui('tNaver');
+  $('#tGoogleLbl').textContent = ui('tGoogle');
+  $('#tNote').textContent = ui('tNote');
+  $('#tModeRow [data-mode="taxi"] b').textContent = ui('tTaxi');
+  $('#tModeRow [data-mode="subway"] b').textContent = ui('tSubway');
+  $('#tGoLbl').textContent = (tMode === 'taxi') ? ui('tGoTaxi') : ui('tGo');
+  try{ renderTransit(); }catch(e){}
+  $('#secCafeH').textContent = ui('secCafe');
+  $('#secCafeS').textContent = ui('secCafeS');
+  $('#secComboH').textContent = ui('secCombo');
+  $('#secComboS').textContent = ui('secComboS');
+  $('#comboEmpty').textContent = ui('comboEmpty');
+  $('#comboSpeakLbl').textContent = ui('comboSpeak');
+  $('#comboFullLbl').textContent = ui('comboFull');
+  $('#comboResetLbl').textContent = ui('comboReset');
+  $('#stepAddLbl').textContent = ui('comboAddLbl');
+  $('#comboPeek .pk').textContent = ui('comboPeek');
+  $('#secDiaryH').textContent = ui('secDiary');
+  $('#secDiaryS').textContent = ui('secDiaryS');
+  $('#diaryNameLbl').textContent = ui('diaryNameLbl');
+  $('#diaryMemoLbl').textContent = ui('diaryMemoLbl');
+  $('#diarySaveLbl').textContent = ui('diarySaveLbl');
+  $('#stepDiaryLbl').textContent = ui('stepDiaryLbl');
+  try{ $('#diaryName').placeholder = ui('diaryPh'); }catch(e){}
+  try{ $('#diaryToggleLbl').textContent = $('#diaryBody').hidden ? ui('diaryOpen') : ui('diaryClose'); }catch(e){}
+  try{ if(!$('#diaryBody').hidden) renderDiary(); }catch(e){}
+  $('#secFoodH').textContent = ui('secFood');
+  $('#secFoodS').textContent = ui('secFoodS');
+  $('#secScanH').textContent = ui('secScan');
+  $('#secScanS').textContent = ui('secScanS');
+  $('#secIngrH').textContent = ui('secIngr');
+  $('#secIngrS').textContent = ui('secIngrS');
+  $('#scanTakeLbl').textContent = ui('scanTake');
+  $('#scanSampleLbl').textContent = ui('scanSample');
+  $('#scanNote').textContent = ui('scanNote');
+  $('#scanClear').textContent = ui('scanClear');
+  $('#scanPvTag').textContent = ui('scanSampleTag');
+  $('#scanPv').alt = ui('photoAlt');
+  $('#bigHint').textContent = ui('showHint');
+  $('#bigHint2').textContent = ui('backHint');
+  $('#bigBackLbl').textContent = ui('back');
+  $('#bigBackTop').setAttribute('aria-label', ui('back'));
+  $('#bigSpeak').setAttribute('aria-label', ui('listen'));
+  $('#bigSpeakLbl').textContent = listenLabel();
+  $('#stepSpeakLbl').textContent = listenLabel();
+  $('#stepSpeak').setAttribute('aria-label', ui('listen'));
+  $('#stepFull').textContent = ui('viewBigCard');
+  $('#stepDesc').textContent = ui('dishDescBtn');
+  $('#stepBackTop').setAttribute('aria-label', ui('back'));
+  $('#swapBtn').setAttribute('aria-label', ui('myLang') + ' ⇄ ' + ui('shopLang'));
+  $('#shareBtn').setAttribute('aria-label', ui('share'));
+  $('#installBtn').setAttribute('aria-label', ui('install'));
+  $('#instTitle').textContent = ui('installTitle');
+  $('#instNote').textContent = ui('installNote');
+  $('#instS1H').textContent = ui('instS1H'); $('#instS1').textContent = ui('instS1');
+  $('#instS2H').textContent = ui('instS2H'); $('#instS2').textContent = ui('instS2');
+  $('#instS3H').textContent = ui('instS3H'); $('#instS3').textContent = ui('instS3');
+  $('#instOk').textContent = ui('ok');
+  $('#noteOffline').textContent = ui('offline');
+  $('#notePrivacy').textContent = ui('privacy');
+  $('#noteAi').textContent = ui('ai');
+  $('#noteFoot').textContent = ui('foot');
+  $('#scanBtn').setAttribute('aria-label', ui('scanTake'));
+  $('#sampleBtn').setAttribute('aria-label', ui('scanSample'));
+  document.body.classList.toggle('bigtext', bigOn);
+  if(stepState) renderStep();
+}
+
+function renderChips(){
+  function chip(l, attr, on){
+    return '<button type="button" class="lchip'+(on?' on':'')+'" data-'+attr+'="'+l.code+'" aria-pressed="'+(on?'true':'false')+'">'
+      + '<span class="fl" aria-hidden="true">'+l.flag+'</span>' + esc(l.short) + '</button>';
+  }
+  $('#myChips').innerHTML = LANGS.map(function(l){ return chip(l, 'my', l.code === my); }).join('');
+  $('#shopChips').innerHTML = LANGS.map(function(l){ return chip(l, 'shop', l.code === shop); }).join('');
+}
+
+function phraseCard(p, extra){
+  var target = p.t[shop] || p.t.en;
+  var mine = p.t[my] || p.t.en;
+  var pr = pronOf(p, shop);
+  return '<button type="button" class="say'+(extra||'')+'" data-say="'+p.id+'" aria-label="'+esc(target)+'">'
+    + '<span class="ic" aria-hidden="true">'+p.icon+'</span>'
+    + '<span class="tx"><span class="wt">'+esc(target)+'</span>'
+    + (shop !== my ? '<span class="sm">'+esc(mine)+'</span>' : '')
+    + (pr ? '<span class="pr">'+esc(ui('say'))+' · '+esc(pr)+'</span>' : '')
+    + '</span><span class="go" aria-hidden="true">›</span></button>';
+}
+function emOf(d){ return d.em || EM[d.art] || '🍽️'; }
+function foodCard(d){
+  var name = d.n[shop] || d.n.en, mine = d.n[my] || d.n.en;
+  return '<div class="food">'
+    + '<button type="button" class="fmain" data-dish="'+d.id+'" aria-label="'+esc(name)+'">'
+    + dishArt(d)
+    + '<span class="nm"><i class="em" aria-hidden="true">'+emOf(d)+'</i> '+esc(name)+'</span>'
+    + (shop !== my ? '<span class="nm2">'+esc(mine)+'</span>' : '')
+    + '<span class="badges">'+badges(d)+'</span></button>'
+    + '<button type="button" class="fadd" data-add="'+d.id+'" aria-label="'+esc(name)+' · '+esc(ui('comboAddLbl'))+'">＋</button>'
+    + '</div>';
+}
+function renderPhrases(){
+  $('#coreList').innerHTML = PHRASES.filter(function(p){ return p.groups.indexOf('core') >= 0; }).map(function(p){ return phraseCard(p); }).join('');
+  $('#moreList').innerHTML = PHRASES.filter(function(p){ return p.groups.indexOf('more') >= 0; }).map(function(p){ return phraseCard(p); }).join('');
+  $('#ingrList').innerHTML = PHRASES.filter(function(p){ return p.groups.indexOf('ingr') >= 0; }).map(function(p){ return phraseCard(p); }).join('');
+}
+function renderFood(){
+  var list = FEATURED.map(function(id){ return DISHES.filter(function(d){ return d.id === id; })[0]; }).filter(Boolean);
+  $('#foodNum').textContent = list.length;
+  $('#foodGrid').innerHTML = list.map(foodCard).join('');
+  var drinks = DRINKS.map(function(id){ return DISHES.filter(function(d){ return d.id === id; })[0]; }).filter(Boolean);
+  $('#drinkGrid').innerHTML = drinks.map(foodCard).join('');
+  var cafe = CAFE.map(function(id){ return DISHES.filter(function(d){ return d.id === id; })[0]; }).filter(Boolean);
+  $('#cafeGrid').innerHTML = cafe.map(foodCard).join('');
+  $('#cafeList').innerHTML = PHRASES.filter(function(p){ return p.groups.indexOf('cafe') >= 0; })
+    .map(function(p){ return phraseCard(p); }).join('');
+  renderPeople();
+  renderCombo();
+}
+function renderPeople(){
+  var unit = ui('pplUnit');
+  var html = [1,2,3,4,5].map(function(n){
+    var t = peopleText(n);
+    return '<button type="button" class="ppl" data-ppl="' + n + '" aria-label="' + esc(t[shop] || t.en) + '">'
+      + '<b>' + (n === 5 ? '5+' : n) + '</b>' + '<i>' + esc(unit || '👥') + '</i></button>';
+  }).join('');
+  $('#pplRow').innerHTML = html;
+}
+function renderSigns(){
+  var grid = $('#signGrid'); if(!grid) return;
+  grid.innerHTML = SIGNS.map(function(s){
+    var mine = s.n[my] || s.n.en;
+    var kind = ui(s.kind === 'shop' ? 'signKindShop' : 'signKindFood');
+    return '<button type="button" class="sign" data-sign="' + s.id + '" aria-label="'
+      + esc(s.ko + (s.alt ? ' · ' + s.alt : '') + ' — ' + kind + ' — ' + mine) + '">'
+      + '<span class="sem" aria-hidden="true">' + s.em + '</span>'
+      + '<b class="sb" lang="ko">' + esc(s.ko) + '</b>'
+      + (s.alt ? '<span class="salt" lang="ko">' + esc(s.alt) + '</span>' : '')
+      + '</button>';
+  }).join('');
+  $('#signNum').textContent = SIGNS.length;
+}
+function renderAll(){ applyUI(); renderChips(); renderPhrases(); renderFood(); renderSigns(); renderScan(); }
+
+/* ══════ 큰 카드 / 주문 연습 · 뒤로가기(popstate) ══════ */
+var bigText = '', bigLang = 'ko', stepState = null, STEPN = 4;
+var bigEl = $('#bigCard'), stepEl = $('#stepCard');
+var guardOn = false;                 /* 우리가 history에 쌓은 항목 1개 */
+
+function pushGuard(){
+  if(guardOn) return;
+  guardOn = true;
+  try{ history.pushState({wagle:1}, '', location.href); }catch(e){}
+}
+function dropGuard(){
+  if(!guardOn) return false;
+  try{ history.back(); return true; }catch(e){ guardOn = false; return false; }
+}
+
+/* 글씨 길이에 맞춰 '화면 가득' 크기로 — 5개 언어 모두 넘치지 않게 */
+function lineCount(el){
+  try{
+    var r = document.createRange(); r.selectNodeContents(el);
+    var rects = r.getClientRects(), n = 0, prev = null;
+    for(var i = 0; i < rects.length; i++){
+      if(rects[i].height < 1) continue;
+      if(prev === null || Math.abs(rects[i].top - prev) > 2){ n++; prev = rects[i].top; }
+    }
+    return Math.max(1, n);
+  }catch(e){ return 1; }
+}
+function fitIn(body){
+  if(!body) return;
+  var el = body.querySelector('.bigtext') || body.querySelector('.bigname');
+  if(!el) return;
+  var avail = body.clientHeight - 8;
+  if(avail < 120) return;
+  var isName = el.className.indexOf('bigname') >= 0;
+  var txt = (el.textContent || '').trim();
+  var maxLines = isName ? 2 : Math.max(2, Math.min(6, Math.ceil(txt.length / 16)));
+  var size = isName ? Math.min(Math.round(window.innerWidth * 0.17), 76)
+                    : Math.min(Math.round(window.innerWidth * 0.235), 150);
+  el.style.fontSize = size + 'px';
+  var guard = 0;
+  while(size > 14 && guard++ < 120){
+    var over = body.scrollHeight > body.clientHeight + 1
+            || body.scrollWidth > body.clientWidth + 1     /* 가로로 삐져나가지 않게 */
+            || el.getBoundingClientRect().height > avail
+            || lineCount(el) > maxLines;                   /* 줄이 너무 많이 늘어나지 않게 */
+    if(!over) break;
+    size -= 2; el.style.fontSize = size + 'px';
+  }
+}
+function fitSoon(which){
+  var tries = 0;
+  (function go(){
+    if(which === 'big' ? bigEl.hidden : stepEl.hidden) return;
+    var body = which === 'big' ? $('#bigBody') : $('#stepBody');
+    if(body.clientHeight < 140 && tries++ < 6){ setTimeout(go, 70); return; }
+    fitIn(body);
+  })();
+  setTimeout(function(){ fitIn(which === 'big' ? $('#bigBody') : $('#stepBody')); }, 160);
+}
+window.addEventListener('resize', function(){
+  if(!bigEl.hidden) fitIn($('#bigBody'));
+  if(!stepEl.hidden) fitIn($('#stepBody'));
+});
+window.addEventListener('orientationchange', function(){
+  setTimeout(function(){
+    if(!bigEl.hidden) fitIn($('#bigBody'));
+    if(!stepEl.hidden) fitIn($('#stepBody'));
+  }, 260);
+});
+
+/* 카드 속 = 위에 내 언어(작게) · 가운데 가게 언어(아주 크게) */
+function twoLang(t, cls){
+  var mine = t[my] || t.en || '', theirs = t[shop] || t.en || '';
+  var html = '';
+  if(shop !== my) html += '<div class="bigmine"><span class="bigmlb">' + esc(ui('myLang')) + '</span>'
+    + '<span class="bigmytx">' + esc(mine) + '</span></div>';
+  return html + '<p class="bigtext ' + (cls || '') + '">' + esc(theirs) + '</p>';
+}
+function listenLabel(){
+  if(shop === 'ko') return ui('listenKo');
+  var l = LANGS.filter(function(x){ return x.code === shop; })[0];
+  return ui('listenIn').replace('{l}', l ? l.short : '');
+}
+
+function showBig(html, text, lang){
+  stepEl.hidden = true;
+  $('#bigBody').innerHTML = html;
+  bigEl.hidden = false;
+  document.body.style.overflow = 'hidden';
+  try{ $('#bigBody').scrollTop = 0; }catch(e){}
+  bigText = text; bigLang = lang || 'ko';
+  try{ $('#bigSpeakLbl').textContent = (bigLang === 'ko') ? ui('listenKo') : listenLabel(); }catch(e){}
+  try{ $('#bigHint').textContent = ui('showHint'); }catch(e){}
+  pushGuard();
+  fitSoon('big');
+  if(soundOn) speak(bigText, bigLang);
+}
+function hideBig(){
+  if(bigEl.hidden) return;
+  bigEl.hidden = true;
+  if(stepEl.hidden) document.body.style.overflow = '';
+  stopSpeak();
+}
+function closeBig(){
+  if(bigEl.hidden) return;
+  hideBig();
+  dropGuard();
+}
+
+/* ══════ 🧺 주문 조합 (그림 톡톡 → 5개국어 공손한 문장) ══════ */
+var GREET = {ko:'안녕하세요.', en:'Hello.', zh:'您好。', ja:'こんにちは。', fr:'Bonjour.'};
+var UNITW = {
+  piece:{ko:'하나', en:'one', zh:'一份', ja:'一つ', fr:'un'},
+  bottle:{ko:'한 병', en:'one bottle of', zh:'一瓶', ja:'一本', fr:'une bouteille de'},
+  glass:{ko:'한 잔', en:'one glass of', zh:'一杯', ja:'一杯', fr:'un verre de'}
+};
+var REQDEF = ['notspicy','ice','hot','here','takeout'];
+var combo = {people:0, items:[], reqs:[]};
+var ATTACH = {notspicy:1};
+
+function dishById(id){ return DISHES.filter(function(d){ return d.id === id; })[0]; }
+function unitOf(d){ return d.unit || UNITS[d.id] || 'piece'; }
+function lowerFirst(x){
+  x = String(x || '');
+  if(/^Korean\b/.test(x)) return x;            /* Korean fried chicken 등 고유 표기는 그대로 */
+  return x.charAt(0).toLowerCase() + x.slice(1);
+}
+function itemPhrase(d, lang){
+  var u = unitOf(d), n = d.n;
+  if(lang === 'ko') return n.ko + ' ' + UNITW[u].ko;
+  if(lang === 'en') return UNITW[u].en + ' ' + lowerFirst(n.en);
+  if(lang === 'zh') return UNITW[u].zh + n.zh;
+  if(lang === 'ja') return n.ja + 'を' + UNITW[u].ja;
+  var fr = UNITW[u].fr + ' ' + lowerFirst(n.fr);
+  return fr.replace(/ de eau/i, " d'eau").replace(/ de Eau/i, " d'eau");
+}
+function orderLine(names, lang){
+  if(lang === 'en') return 'I would like ' + names.join(' and ') + ', please.';
+  if(lang === 'zh') return '请给我' + names.join('、') + '。';
+  if(lang === 'ja') return names.join('、') + 'をお願いします。';
+  if(lang === 'fr') return 'Je voudrais ' + names.join(' et ') + ", s'il vous plaît.";
+  return names.join(', ') + ' 주세요.';
+}
+function comboText(){
+  var items = combo.items.map(dishById).filter(Boolean);
+  var reqs = combo.reqs.map(phraseById).filter(Boolean);
+  var out = {};
+  ['ko','en','zh','ja','fr'].forEach(function(lang){
+    if(!(items.length || reqs.length || combo.people)){ out[lang] = ''; return; }
+    var parts = [GREET[lang]];
+    if(combo.people) parts.push(peopleText(combo.people)[lang]);
+    if(items.length){
+      var names = items.map(function(d){ return itemPhrase(d, lang); });
+      var attach = (reqs.length && ATTACH[reqs[0].id]) ? reqs[0] : null;
+      if(lang === 'ko' && attach && names.length > 1){
+        parts.push(names[0] + ' ' + attach.t.ko.replace(/\s*주세요\.?$/, ' 주시고,'));
+        parts.push(names.slice(1).join(', ') + ' 주세요.');
+      } else {
+        parts.push(orderLine(names, lang));
+      }
+      reqs.forEach(function(r){
+        if(lang === 'ko' && attach && r === attach && names.length > 1) return;
+        parts.push(r.t[lang]);
+      });
+    } else {
+      reqs.forEach(function(r){ parts.push(r.t[lang]); });
+    }
+    out[lang] = parts.filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
+  });
+  return out;
+}
+function comboAdd(id){
+  var i = combo.items.indexOf(id);
+  if(i >= 0){ combo.items.splice(i, 1); }
+  else { combo.items.push(id); toast(ui('comboAdded')); }
+  renderCombo();
+}
+function comboReq(id){
+  var has = combo.reqs.indexOf(id) >= 0;
+  if(id === 'here' || id === 'takeout'){
+    combo.reqs = combo.reqs.filter(function(x){ return x !== 'here' && x !== 'takeout'; });
+  }
+  if(!has) combo.reqs.push(id);
+  renderCombo();
+}
+function comboRemove(key){
+  var p = String(key).split(':'), kind = p[0], id = p.slice(1).join(':');
+  if(kind === 'p') combo.people = 0;
+  else if(kind === 'i') combo.items = combo.items.filter(function(x){ return x !== id; });
+  else combo.reqs = combo.reqs.filter(function(x){ return x !== id; });
+  renderCombo();
+}
+function comboClear(){
+  combo = {people:0, items:[], reqs:[]};
+  renderCombo();
+}
+function renderCombo(){
+  if(!$('#comboTray')) return;
+  var tray = [];
+  if(combo.people) tray.push({k:'p', em:'👥', lbl: combo.people + (ui('pplUnit') || ''), id:'people'});
+  combo.items.forEach(function(id){ var d = dishById(id); if(d) tray.push({k:'i', em:emOf(d), lbl:d.n[my] || d.n.en, id:id}); });
+  combo.reqs.forEach(function(id){ var ph = phraseById(id); if(ph) tray.push({k:'r', em:ph.icon, lbl:(ph.short && ph.short[my]) || ph.t[my] || ph.t.en, id:id}); });
+  $('#comboTray').innerHTML = tray.map(function(t){
+    return '<span class="cbitem"><span class="cbe">' + t.em + '</span><span class="cbl">' + esc(t.lbl) + '</span>'
+      + '<button type="button" class="cbx" data-rm="' + t.k + ':' + esc(t.id) + '" aria-label="' + esc(ui('deleteLbl')) + '">×</button></span>';
+  }).join('');
+  var has = !!(combo.people || combo.items.length || combo.reqs.length);
+  var t = comboText();
+  $('#comboEmpty').hidden = has;
+  $('#comboText').hidden = !has;
+  $('#comboText').textContent = has ? (t[shop] || t.en) : '';
+  $('#comboMy').hidden = !has || shop === my;
+  $('#comboMy').textContent = has ? (t[my] || '') : '';
+  ['#comboSpeak', '#comboFull', '#comboReset'].forEach(function(sel){ $(sel).hidden = !has; });
+  $('#comboPeek').hidden = !has;
+  $('#comboPeekN').textContent = combo.items.length + combo.reqs.length + (combo.people ? 1 : 0);
+  $('#comboReqs').innerHTML = REQDEF.map(function(id){
+    var ph = phraseById(id); if(!ph) return '';
+    var on = combo.reqs.indexOf(id) >= 0;
+    return '<button type="button" class="cbreq' + (on ? ' on' : '') + '" data-req="' + id + '" aria-pressed="' + (on ? 'true' : 'false') + '">'
+      + ph.icon + ' ' + esc(ph.t[my] || ph.t.en) + '</button>';
+  }).join('');
+  var btns = document.querySelectorAll('.fadd');
+  for(var i = 0; i < btns.length; i++){
+    btns[i].classList.toggle('on', combo.items.indexOf(btns[i].getAttribute('data-add')) >= 0);
+  }
+}
+/* ══════ 오늘 날씨 (Open-Meteo · 0원 · 실패하면 조용히 숨김) ══════ */
+var WXKEY = 'dining_wx_v1', wxData = null;
+function wxIcon(code){
+  if(code === 0) return '☀️';
+  if(code <= 2) return '🌤️';
+  if(code === 3) return '☁️';
+  if(code === 45 || code === 48) return '🌫️';
+  if(code >= 51 && code <= 57) return '🌦️';
+  if(code >= 61 && code <= 67) return '🌧️';
+  if(code >= 71 && code <= 77) return '❄️';
+  if(code >= 80 && code <= 82) return '🌧️';
+  if(code >= 85 && code <= 86) return '❄️';
+  if(code >= 95) return '⛈️';
+  return '⛅';
+}
+function renderWx(){
+  var el = $('#wxBadge'); if(!el) return;
+  if(!wxData){ el.hidden = true; return; }
+  var city = ui('wSeoul');
+  el.innerHTML = '<span class="wxi">' + wxIcon(wxData.code) + '</span>'
+    + '<b>' + esc(city) + ' ' + Math.round(wxData.t) + '°</b>'
+    + '<span class="wxc">' + esc(ui('wxLow')) + ' ' + Math.round(wxData.lo) + '° · '
+    + esc(ui('wxHigh')) + ' ' + Math.round(wxData.hi) + '°</span>';
+  el.hidden = false;
+  el.setAttribute('aria-label', ui('wxTxt') + ': ' + city + ' ' + Math.round(wxData.t) + '°');
+}
+function loadWx(){
+  try{
+    var raw = localStorage.getItem(WXKEY);
+    if(raw){
+      var c = JSON.parse(raw);
+      if(c && c.ts && (Date.now() - c.ts) < 30 * 60 * 1000 && typeof c.t === 'number'){
+        wxData = c; renderWx();
+        return;
+      }
+    }
+  }catch(e){}
+  var lat = 37.5665, lon = 126.9780;
+  var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon
+    + '&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FSeoul&forecast_days=1';
+  try{
+    fetch(url).then(function(r){ return r.json(); }).then(function(j){
+      if(!j || !j.current || typeof j.current.temperature_2m !== 'number') return;
+      var d = j.daily || {};
+      wxData = {
+        t: j.current.temperature_2m,
+        code: j.current.weather_code,
+        lo: (d.temperature_2m_min && d.temperature_2m_min[0] != null) ? d.temperature_2m_min[0] : j.current.temperature_2m,
+        hi: (d.temperature_2m_max && d.temperature_2m_max[0] != null) ? d.temperature_2m_max[0] : j.current.temperature_2m,
+        ts: Date.now()
+      };
+      try{ localStorage.setItem(WXKEY, JSON.stringify(wxData)); }catch(e){}
+      renderWx();
+    }).catch(function(){});
+  }catch(e){}
+}
+
+/* ══════ 🚌 교통 길찾기 ══════ */
+var tMode = 'subway';
+var PLACES = [
+  {ko:'인천공항', addr:'인천광역시 영종구 공항로 272 (제1여객터미널)', en:'Incheon Airport', zh:'仁川机场', ja:'仁川空港', fr:'Aéroport d Incheon',
+   line:{ko:'공항철도 인천공항1터미널역', en:'Airport Railroad · Incheon Airport T1', zh:'机场铁路 仁川机场1号航站楼', ja:'空港鉄道 仁川空港1ターミナル', fr:'Airport Railroad · Incheon T1'}},
+  {ko:'서울역', addr:'서울특별시 용산구 한강대로 405', en:'Seoul Station', zh:'首尔站', ja:'ソウル駅', fr:'Gare de Séoul',
+   line:{ko:'1·4호선·공항철도 서울역', en:'Lines 1·4 · Airport Railroad', zh:'1·4号线·机场铁路', ja:'1·4号線・空港鉄道', fr:'Lignes 1·4 · Airport Railroad'}},
+  {ko:'명동', addr:'서울특별시 중구 퇴계로 126 (명동역)', en:'Myeongdong', zh:'明洞', ja:'明洞', fr:'Myeongdong',
+   line:{ko:'4호선 명동역', en:'Line 4 · Myeongdong Stn.', zh:'4号线 明洞站', ja:'4号線 明洞駅', fr:'Ligne 4 · Myeongdong'}},
+  {ko:'홍대입구', addr:'서울특별시 마포구 양화로 160 (홍대입구역)', en:'Hongdae', zh:'弘大入口', ja:'弘大入口', fr:'Hongdae',
+   line:{ko:'2호선·공항철도 홍대입구역', en:'Line 2 · Airport Railroad', zh:'2号线·机场铁路', ja:'2号線・空港鉄道', fr:'Ligne 2 · Airport Railroad'}},
+  {ko:'경복궁', addr:'서울특별시 종로구 사직로 161', en:'Gyeongbokgung', zh:'景福宫', ja:'景福宮', fr:'Gyeongbokgung',
+   line:{ko:'3호선 경복궁역', en:'Line 3 · Gyeongbokgung Stn.', zh:'3号线 景福宫站', ja:'3号線 景福宮駅', fr:'Ligne 3 · Gyeongbokgung'}},
+  {ko:'강남역', addr:'서울특별시 강남구 강남대로 396', en:'Gangnam Station', zh:'江南站', ja:'江南駅', fr:'Gangnam',
+   line:{ko:'2호선·신분당선 강남역', en:'Line 2 · Shinbundang Line', zh:'2号线·新盆唐线', ja:'2号線・新盆唐線', fr:'Ligne 2 · Shinbundang'}},
+  {ko:'부산역', addr:'부산광역시 동구 중앙대로 206', en:'Busan Station', zh:'釜山站', ja:'釜山駅', fr:'Gare de Busan',
+   line:{ko:'1호선·KTX 부산역', en:'Line 1 · KTX Busan', zh:'1号线·KTX 釜山站', ja:'1号線・KTX 釜山駅', fr:'Ligne 1 · KTX Busan'}},
+  {ko:'해운대', addr:'부산광역시 해운대구 해운대해변로 264', en:'Haeundae Beach', zh:'海云台', ja:'海雲台', fr:'Haeundae',
+   line:{ko:'2호선 해운대역', en:'Line 2 · Haeundae Stn.', zh:'2号线 海云台站', ja:'2号線 海雲台駅', fr:'Ligne 2 · Haeundae'}}
+];
+function TPL(lang, key, dest){
+  var d = UI[lang] || UI.ko;
+  var t = (key in d && d[key]) ? d[key] : (UI.ko[key] || '');
+  return String(t).replace('{d}', dest || '');
+}
+function tDest(){
+  var v = ($('#tTo') && $('#tTo').value || '').trim();
+  return v || TPL('ko', 'tExDest');
+}
+function tFromVal(){ return ''; }   /* 출발 = 지금 있는 곳(지도 앱이 현재 위치로 계산) */
+function renderTransit(){
+  if(!$('#tPlaceRow')) return;
+  var cur = ($('#tTo').value || '').trim();
+  $('#tPlaceRow').innerHTML = PLACES.map(function(pl){
+    var on = (cur === pl.ko);
+    var ln = pl.line ? (pl.line[my] || pl.line.ko) : '';
+    return '<button type="button" class="tchip' + (on ? ' on' : '') + '" data-place="' + esc(pl.ko) + '"'
+      + ' aria-label="' + esc((pl[my] || pl.ko) + (ln ? ' · ' + ln : '')) + '">'
+      + '<b>' + esc(pl[my] || pl.ko) + '</b>' + (ln ? '<i>🚇 ' + esc(ln) + '</i>' : '') + '</button>';
+  }).join('');
+  var hit = null;
+  for(var i = 0; i < PLACES.length; i++){ if(PLACES[i].ko === cur){ hit = PLACES[i]; break; } }
+  $('#tLine').hidden = !hit;
+  if(hit) $('#tLine').textContent = '🚇 ' + ((hit.line && (hit.line[my] || hit.line.ko)) || '');
+  var dest = tDest();
+  var items = [['tphAsk', '🚌'], ['tphOff', '🚏'], ['tphCard', '💳']];
+  $('#tPhrases').innerHTML = items.map(function(it){
+    var ko = TPL('ko', it[0], dest), mine = TPL(my, it[0], localizePlace(dest));
+    return '<button type="button" class="say" data-tph="' + it[0] + '" aria-label="' + esc(ko) + '">'
+      + '<span class="ic" aria-hidden="true">' + it[1] + '</span>'
+      + '<span class="tx"><span class="wt">' + esc(ko) + '</span>'
+      + (my !== 'ko' ? '<span class="sm">' + esc(mine) + '</span>' : '') + '</span>'
+      + '<span class="go" aria-hidden="true">›</span></button>';
+  }).join('');
+  $('#tGoLbl').textContent = (tMode === 'taxi') ? ui('tGoTaxi') : ui('tGo');
+}
+function mapUrl(kind, from, to){
+  var enc = encodeURIComponent;
+  if(kind === 'naver') return 'https://map.naver.com/p/search/' + enc(to);
+  var tm = (tMode === 'taxi') ? 'driving' : 'transit';
+  var u = 'https://www.google.com/maps/dir/?api=1&destination=' + enc(to) + '&travelmode=' + tm;
+  if(from) u += '&origin=' + enc(from);
+  return u;
+}
+function openUrl(u){
+  try{
+    var w = window.open(u, '_blank', 'noopener');
+    if(!w) location.href = u;
+  }catch(e){ try{ location.href = u; }catch(e2){} }
+}
+/* 🚕 기사님께 보여 주는 큰 한글 카드 — 내 위치 + 내려줄 곳 주소 */
+var STAYKEY = 'dining_stay_v1', lastTxAddr = '', lastTxCoords = null;
+function stayAddr(){ try{ return (localStorage.getItem(STAYKEY) || '').trim(); }catch(e){ return ''; } }
+function renderStay(){
+  if(!$('#staySaved')) return;
+  var a = stayAddr();
+  $('#staySaved').hidden = !a;
+  $('#stayEdit').hidden = !!a;
+  if(a) $('#stayAddrTxt').textContent = a;
+}
+function saveStay(){
+  var v = ($('#stayAddr').value || '').trim();
+  if(!v){ toast(ui('stayNeed')); try{ $('#stayAddr').focus(); }catch(e){} return; }
+  try{ localStorage.setItem(STAYKEY, v); }catch(e){}
+  renderStay();
+  try{ $('#stayAddr').value = ''; }catch(e){}
+  toast(ui('staySaved'));
+}
+function localizePlace(nameKo){
+  var pl = placeByName(nameKo);
+  return pl ? (pl[my] || pl.ko) : nameKo;
+}
+function placeByName(name){
+  for(var i = 0; i < PLACES.length; i++){ if(PLACES[i].ko === name) return PLACES[i]; }
+  return null;
+}
+function reverseKo(lat, lon, cb){
+  var url = 'https://nominatim.openstreetmap.org/reverse?format=json&zoom=18&addressdetails=1&accept-language=ko&lat=' + lat + '&lon=' + lon;
+  var done = false;
+  var fin = function(txt){ if(done) return; done = true; cb(txt); };
+  var to = setTimeout(function(){ fin(''); }, 7000);
+  try{
+    fetch(url, {headers:{'Accept':'application/json'}})
+      .then(function(r){ return r.json(); })
+      .then(function(j){
+        clearTimeout(to);
+        var a = (j && j.address) || {};
+        var parts = [];
+        if(a.state) parts.push(a.state);
+        if(a.city && a.city !== a.state) parts.push(a.city);
+        if(a.borough || a.suburb) parts.push(a.borough || a.suburb);
+        if(a.road) parts.push(a.road + (a.house_number ? ' ' + a.house_number : ''));
+        fin(parts.length ? parts.join(' ') : ((j && j.display_name) || ''));
+      })
+      .catch(function(){ clearTimeout(to); fin(''); });
+  }catch(e){ clearTimeout(to); fin(''); }
+}
+function txMyLocText(txt, coords){
+  if(txt) return txt;
+  if(coords) return (ui('txCoords') || '') + ' ' + coords.lat.toFixed(4) + ', ' + coords.lon.toFixed(4);
+  return ui('txNoLoc');
+}
+function showTaxiCard(nameKo, addrKo){
+  var ko = nameKo ? TPL('ko', 'tphTaxi', nameKo) : UI.ko.tphTaxiStay;
+  var mine = nameKo ? TPL(my, 'tphTaxi', localizePlace(nameKo)) : TPL(my, 'tphTaxiStay');
+  lastTxAddr = addrKo || '';
+  var html = '';
+  if(my !== 'ko') html += '<div class="bigmine"><span class="bigmlb">' + esc(ui('myLang')) + '</span>'
+    + '<span class="bigmytx">' + esc(mine) + '</span></div>';
+  html += '<p class="bigtext' + (ko.length > 22 ? ' l' : '') + '">' + esc(ko) + '</p>';
+  if(addrKo){
+    html += '<div class="txblock"><span class="txlb">' + esc(ui('txDrop')) + '</span>'
+      + '<button type="button" class="bigaddr" data-taxi-nav="1">' + esc(addrKo) + '</button>'
+      + '<span class="txhint">' + esc(ui('txTapNav')) + '</span></div>';
+  }
+  html += '<div class="txblock"><span class="txlb">' + esc(ui('txNow')) + '</span>'
+    + '<span class="txloc" id="txLoc">' + esc(ui('txLocating')) + '</span>'
+    + '<button type="button" class="txmapbtn" id="txLocBtn" hidden>📍 ' + esc(ui('txMapMe')) + '</button></div>';
+  showBig(html, ko, 'ko');
+  lastTxCoords = null;
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(function(pos){
+      var co = {lat: pos.coords.latitude, lon: pos.coords.longitude};
+      lastTxCoords = co;
+      var btn = document.getElementById('txLocBtn');
+      if(btn) btn.hidden = false;
+      reverseKo(co.lat, co.lon, function(a2){
+        var el = document.getElementById('txLoc');
+        if(el) el.textContent = txMyLocText(a2, co);
+      });
+    }, function(){
+      var el = document.getElementById('txLoc');
+      if(el) el.textContent = ui('txNoLoc');
+    }, {enableHighAccuracy:true, timeout:8000, maximumAge:60000});
+  } else {
+    var el0 = document.getElementById('txLoc');
+    if(el0) el0.textContent = ui('txNoLoc');
+  }
+}
+function showTransitBig(key){
+  var dest = tDest(), ko = TPL('ko', key, dest), mine = TPL(my, key, dest);
+  var html = '';
+  if(my !== 'ko') html += '<div class="bigmine"><span class="bigmlb">' + esc(ui('myLang')) + '</span>'
+    + '<span class="bigmytx">' + esc(mine) + '</span></div>';
+  html += '<p class="bigtext' + (ko.length > 22 ? ' l' : '') + '">' + esc(ko) + '</p>';
+  showBig(html, ko, 'ko');
+}
+function peopleText(n){
+  var wEn = ['', 'one', 'two', 'three', 'four', 'five'];
+  var wFr = ['', 'une', 'deux', 'trois', 'quatre', 'cinq'];
+  return {
+    ko: n + '명입니다.',
+    en: (n === 1 ? 'A table for one, please.' : 'A table for ' + wEn[n] + ', please.'),
+    zh: n + '位。',
+    ja: n + '名です。',
+    fr: (n === 1 ? 'Une table pour une personne, s\'il vous plaît.' : 'Une table pour ' + wFr[n] + ' personnes, s\'il vous plaît.')
+  };
+}
+function openPeople(n){
+  var t = peopleText(n), target = t[shop] || t.en;
+  var len = target.length, cls = len > 24 ? 'm' : (len > 13 ? 'l' : '');
+  showBig(twoLang(t, cls), target, shop);
+}
+function openPhrase(p){
+  var target = p.t[shop] || p.t.en, len = target.length, cls = len > 22 ? 'm' : (len > 13 ? 'l' : '');
+  showBig(twoLang(p.t, cls), target, shop);
+}
+/* 🪧 간판 카드 — 음식점인지 다른 가게인지 먼저, 간판 글자는 한글로 크게, 설명은 내 언어로 */
+function signPic(s){
+  if(typeof s.pic === 'string'){
+    var d = dishById(s.pic);
+    if(d) return dishArt(d, 'lg');
+  } else if(s.pic){
+    return dishArt(s.pic, 'lg');
+  }
+  return '<span class="signem" aria-hidden="true">' + s.em + '</span>';
+}
+function openSign(s){
+  var name = s.n[my] || s.n.en, desc = s.d[my] || s.d.en;
+  var html = '<span class="signkind ' + (s.kind === 'shop' ? 'isshop' : 'isfood') + '">'
+    + esc(ui(s.kind === 'shop' ? 'signKindShop' : 'signKindFood')) + '</span>'
+    + signPic(s)
+    + '<p class="bigname" lang="ko">' + esc(s.ko) + '</p>'
+    + (s.alt ? '<p class="signalt" lang="ko">' + esc(s.alt) + '</p>' : '')
+    + (my !== 'ko' ? '<div class="bigmine"><span class="bigmlb">' + esc(ui('myLang')) + '</span>'
+        + '<span class="bigmytx">' + esc(name) + '</span></div>' : '')
+    + '<p class="bigdesc">' + esc(desc) + '</p>';
+  var list = (s.dishes || []).map(dishById).filter(Boolean);
+  if(list.length){
+    html += '<p class="sdhead">' + esc(ui(s.kind === 'shop' ? 'signItems' : 'signDishes')) + '</p><div class="signdishes">'
+      + list.map(function(d){
+          var t = d.n[shop] || d.n.en, m = d.n[my] || d.n.en;
+          return '<button type="button" class="sdpill" data-sign-dish="' + d.id + '" aria-label="' + esc(m) + '">'
+            + '<i aria-hidden="true">' + emOf(d) + '</i>' + esc(t)
+            + (shop !== my ? '<span class="sp">' + esc(m) + '</span>' : '') + '</button>';
+        }).join('') + '</div>';
+  }
+  showBig(html, s.ko, 'ko');
+  try{ $('#bigHint').textContent = ui('signHint'); }catch(e){}
+}
+function openDish(d, withPractice){
+  var name = d.n[shop] || d.n.en, mine = d.n[my] || d.n.en, desc = d.d[shop] || d.d.en;
+  var html = dishArt(d, 'lg');
+  if(shop !== my) html += '<div class="bigmine"><span class="bigmlb">' + esc(ui('myLang')) + '</span>'
+    + '<span class="bigmytx">' + esc(mine) + '</span></div>';
+  html += '<p class="bigname">' + esc(name) + '</p>';
+  html += '<div class="badges">' + badges(d) + '</div>';
+  html += '<p class="bigdesc">' + esc(desc) + '</p>';
+  if(withPractice) html += '<button type="button" class="sdprac" data-prac="' + d.id + '">🍲 '
+    + esc(ui('signPractice')) + '</button>';
+  showBig(html, name + '. ' + desc, shop);
+}
+
+/* ── 음식 → 1 인사 · 2 주문 · 3 요청 · 4 계산/인사 ── */
+function phraseById(id){ return PHRASES.filter(function(x){ return x.id === id; })[0]; }
+function orderSentence(d){
+  if(d.order) return d.order;
+  return {ko:d.n.ko + ' 하나 주세요.', en:d.n.en + ', please.', zh:'请给我一份' + d.n.zh + '。',
+          ja:d.n.ja + 'を一つください。', fr:d.n.fr + ", s'il vous plaît."};
+}
+function stepsOf(d){
+  var third = (d.kind === 'drink')
+    ? [phraseById('noice'), phraseById('glass')]
+    : [phraseById('notspicy'), phraseById('spicy')];
+  return [
+    {t:phraseById('hello').t},
+    {t:orderSentence(d)},
+    {opts:third},
+    {opts:[phraseById('price'), phraseById('thanks')]}
+  ];
+}
+function stepT(step){
+  if(!step) return {};
+  return step.opts ? step.opts[stepState.picks[stepState.i]].t : step.t;
+}
+function renderStep(){
+  if(!stepState) return;
+  var d = stepState.d, i = stepState.i, step = stepsOf(d)[i], t = stepT(step);
+  $('#stepHint').textContent = (d.n[my] || d.n.en) + ' · ' + ui('practice');
+  $('#stepNum').textContent = (i + 1) + ' / ' + STEPN;
+  $('#stepDots').innerHTML = [0,1,2,3].map(function(k){
+    return '<i class="' + (k === i ? 'on' : (k < i ? 'done' : '')) + '"></i>';
+  }).join('');
+  $('#stepBody').innerHTML = twoLang(t, '') + '<p class="steptip">' + esc(ui('trySay')) + '</p>';
+  var opts = $('#stepOpts');
+  if(step.opts){
+    opts.hidden = false;
+    opts.innerHTML = step.opts.map(function(o, k){
+      return '<button type="button" class="choice' + (stepState.picks[i] === k ? ' on' : '') + '" data-pick="' + k + '">'
+        + '<span class="ct">' + esc(o.t[shop] || o.t.en) + '</span>'
+        + (shop !== my ? '<span class="cm">' + esc(o.t[my] || o.t.en) + '</span>' : '') + '</button>';
+    }).join('');
+  } else { opts.hidden = true; opts.innerHTML = ''; }
+  $('#stepSpeakLbl').textContent = listenLabel();
+  $('#stepNext').textContent = (i === STEPN - 1 ? ui('stepAgain') : ui('nextStep'));
+  $('#stepDiary').hidden = (i !== STEPN - 1);
+  $('#stepAdd').style.gridColumn = (i === STEPN - 1) ? '' : '1 / -1';
+  $('#stepFull').textContent = ui('viewBigCard');
+  $('#stepDesc').textContent = ui('dishDescBtn');
+  bigText = t[shop] || t.en; bigLang = shop;
+  fitSoon('step');
+}
+function openPractice(d, i){
+  stepState = {d:d, i:(i || 0), picks:[0,0,0,0]};
+  lastDishName = d.n[my] || d.n.en || '';
+  bigEl.hidden = true;
+  stepEl.hidden = false;
+  document.body.style.overflow = 'hidden';
+  pushGuard();
+  renderStep();
+  if(soundOn) speak(bigText, shop);
+}
+function hideStep(){
+  if(stepEl.hidden) return;
+  stepEl.hidden = true;
+  stepState = null;
+  if(bigEl.hidden) document.body.style.overflow = '';
+  stopSpeak();
+}
+function closeStep(){ hideStep(); dropGuard(); }
+function gotoStep(i){
+  if(!stepState) return;
+  stepState.i = Math.max(0, Math.min(STEPN - 1, i));
+  renderStep();
+  if(soundOn) speak(bigText, shop);
+}
+window.addEventListener('popstate', function(){
+  guardOn = false;
+  if(!stepEl.hidden){ hideStep(); return; }
+  if(!bigEl.hidden){ hideBig(); return; }
+  document.body.style.overflow = '';
+});
+
+/* ══════ 소리 (Web Speech API · 0원 · 오프라인) ══════ */
+var voices = [];
+function loadVoices(){ try{ voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : []; }catch(e){ voices = []; } }
+if('speechSynthesis' in window){ loadVoices(); try{ window.speechSynthesis.onvoiceschanged = loadVoices; }catch(e){} }
+function stopSpeak(){ try{ if(window.speechSynthesis) window.speechSynthesis.cancel(); }catch(e){} }
+function speak(text, lang){
+  var ss = window.speechSynthesis;
+  if(!ss || typeof SpeechSynthesisUtterance === 'undefined'){ toast(ui('noTTS')); return; }
+  if(!voices.length) loadVoices();
+  try{
+    ss.cancel();
+    try{ ss.resume(); }catch(e){}
+    var code = TTS[lang] || 'en-US';
+    var u = new SpeechSynthesisUtterance(String(text));
+    u.lang = code;
+    u.rate = .9; u.pitch = 1;
+    var pre = code.slice(0,2).toLowerCase(), hit = null;
+    for(var i = 0; i < voices.length; i++){
+      var vl = String(voices[i].lang || '').toLowerCase().replace('_','-');
+      if(vl.indexOf(pre) === 0){ hit = voices[i]; break; }
+    }
+    if(hit) u.voice = hit;
+    else if(voices.length) toast(ui('noVoice'));   /* 목소리가 없으면 안내하고, 그래도 한 번 시도 */
+    u.onerror = function(ev){
+      var er = ev && ev.error;
+      if(er === 'interrupted' || er === 'canceled') return;
+      toast(ui('noTTS'));
+    };
+    ss.speak(u);
+  }catch(e){ toast(ui('noTTS')); }
+}
+
+/* ══════ 토스트 · 설치 · 공유 ══════ */
+var toastT = null;
+function toast(msg){
+  var el = $('#toast');
+  el.textContent = msg;
+  el.classList.add('on');
+  clearTimeout(toastT);
+  toastT = setTimeout(function(){ el.classList.remove('on'); }, 2600);
+}
+/* ══════ 📝 식사 일기 (폰 안 localStorage · 5개국어) ══════ */
+var DKEY = 'dining_diary_v1', lastDishName = '';
+var LOC = {ko:'ko-KR', en:'en-US', zh:'zh-CN', ja:'ja-JP', fr:'fr-FR'};
+function diaryList(){
+  try{ var a = JSON.parse(localStorage.getItem(DKEY) || '[]'); return Object.prototype.toString.call(a) === '[object Array]' ? a : []; }
+  catch(e){ return []; }
+}
+function diaryStore(list){
+  try{ localStorage.setItem(DKEY, JSON.stringify(list.slice(-300))); }
+  catch(e){ toast(ui('noTTS')); }
+}
+function ymd(d){
+  d = d || new Date();
+  return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+}
+function fmtDate(key){
+  try{
+    var q = String(key).split('-');
+    return new Date(+q[0], +q[1] - 1, +q[2]).toLocaleDateString(LOC[my] || 'en-US',
+      {year:'numeric', month:'long', day:'numeric', weekday:'short'});
+  }catch(e){ return key; }
+}
+function renderDiary(){
+  var box = $('#diaryList'); if(!box) return;
+  var items = diaryList();
+  if(!items.length){ box.innerHTML = '<p class="dempty">' + esc(ui('diaryEmpty')) + '</p>'; return; }
+  var dates = [], by = {};
+  items.forEach(function(it){
+    var k = it.date || ymd(new Date(it.ts || Date.now()));
+    if(!by[k]){ by[k] = []; dates.push(k); }
+    by[k].push(it);
+  });
+  dates.sort().reverse();
+  var html = '';
+  dates.forEach(function(dt){
+    html += '<p class="ddate"><span>' + esc(fmtDate(dt)) + '</span><span>' + by[dt].length + '</span></p>';
+    by[dt].slice().reverse().forEach(function(it){
+      html += '<div class="ditem"><div class="dh"><b>' + esc(it.name || '') + '</b>'
+        + '<button type="button" class="ddel" data-del="' + esc(it.id) + '" aria-label="' + esc(ui('deleteLbl')) + '">✕</button></div>'
+        + (it.memo ? '<p class="dmemo">' + esc(it.memo) + '</p>' : '') + '</div>';
+    });
+  });
+  box.innerHTML = html;
+}
+function saveDiaryEntry(){
+  var nameEl = $('#diaryName'), memoEl = $('#diaryMemo');
+  var name = (nameEl.value || '').trim();
+  if(!name){ toast(ui('diaryNeedName')); try{ nameEl.focus(); }catch(e){} return; }
+  var now = new Date(), list = diaryList();
+  list.push({id:'d' + now.getTime() + Math.floor(Math.random() * 1000), ts:now.getTime(), date:ymd(now),
+             name:name, memo:(memoEl.value || '').trim()});
+  diaryStore(list);
+  memoEl.value = '';
+  toast(ui('diarySaved'));
+  renderDiary();
+}
+function setDiaryOpen(open){
+  var body = $('#diaryBody');
+  body.hidden = !open;
+  $('#diaryToggle').setAttribute('aria-expanded', open ? 'true' : 'false');
+  $('#diaryToggleLbl').textContent = open ? ui('diaryClose') : ui('diaryOpen');
+  if(open){
+    if(!$('#diaryName').value && lastDishName) $('#diaryName').value = lastDishName;
+    renderDiary();
+  }
+}
+function showInstall(){ $('#installModal').hidden = false; }
+function hideInstall(){ $('#installModal').hidden = true; }
+function isStandalone(){
+  try{ return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; }catch(e){ return false; }
+}
+var deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', function(e){
+  if(e && e.preventDefault) e.preventDefault();
+  deferredPrompt = e;
+});
+function onInstall(){
+  if(isStandalone()){ toast(ui('alreadyInstalled')); return; }
+  if(deferredPrompt){
+    var dp = deferredPrompt; deferredPrompt = null;
+    try{
+      dp.prompt();
+      if(dp.userChoice && dp.userChoice.then) dp.userChoice.then(function(r){
+        if(r && r.outcome === 'accepted') toast(ui('installStart'));
+      }, function(){});
+      return;
+    }catch(e){}
+  }
+  showInstall();
+}
+window.addEventListener('appinstalled', function(){ toast(ui('installed')); deferredPrompt = null; });
+
+var SHARE_URL = 'https://starpicklife-design.github.io/dining/';
+function legacyCopy(text, done, fail){
+  try{
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly','');
+    ta.style.cssText = 'position:fixed;left:-9999px;top:0';
+    document.body.appendChild(ta); ta.select();
+    var ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    (ok ? done : fail)();
+  }catch(e){ fail(); }
+}
+function shareApp(){
+  var payload = {title: ui('appTitle'), text: ui('shareText'), url: SHARE_URL};
+  var nav = navigator, usable = true;
+  try{ if(nav.canShare && !nav.canShare(payload)) usable = false; }catch(e){}
+  if(nav.share && usable){
+    try{
+      nav.share(payload).then(function(){}, function(err){
+        if(err && err.name === 'AbortError') return;
+        copyShare(payload);
+      });
+      return;
+    }catch(e){}
+  }
+  copyShare(payload);
+}
+function copyShare(payload){
+  var full = payload.text + '\n\n' + payload.url;
+  var done = function(){ toast(ui('copied')); };
+  var fail = function(){ toast(ui('shareFail')); };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(full).then(done, function(){ legacyCopy(full, done, fail); });
+  } else legacyCopy(full, done, fail);
+}
+
+/* ══════ 📷 메뉴판 사진 → 그림 메뉴 (온디바이스 OCR) ══════ */
+var scanItems = [], scanSource = '', tessP = null, workerCache = null, scanToken = 0;
+function norm(s){ return String(s || '').toLowerCase().replace(/[\s\-_.,:;!?'"()\[\]{}\u00b7\u2027\u3001\u3002\uff0c]/g, ''); }
+function aliasesOf(d){
+  var out = [d.n.ko, d.n.en, d.n.zh.replace(/（.*?）/g,''), d.n.ja];
+  (d.a || []).forEach(function(x){ out.push(x); });
+  return out.map(norm).filter(function(x){ return x.length >= 2; });
+}
+/* 글자 하나쯤 틀리게 읽힌 이름도 찾아내기 (한글 이름만, 3글자 이상) */
+function lev(a, b){
+  if(Math.abs(a.length - b.length) > 2) return 9;
+  var prev = [], cur = [], i, j;
+  for(j = 0; j <= b.length; j++) prev[j] = j;
+  for(i = 1; i <= a.length; i++){
+    cur = [i];
+    for(j = 1; j <= b.length; j++){
+      cur[j] = Math.min(prev[j] + 1, cur[j-1] + 1, prev[j-1] + (a.charAt(i-1) === b.charAt(j-1) ? 0 : 1));
+    }
+    prev = cur;
+  }
+  return prev[b.length];
+}
+function findDishes(text){
+  var t = norm(text).slice(0, 4000), hits = [];
+  var tokens = [], tokensAt = [], tg = t.match(/[\uAC00-\uD7A3]{2,}/g) || [];
+  var cursor = 0;
+  tg.forEach(function(tk){
+    var at = t.indexOf(tk, cursor);
+    if(at < 0) at = cursor;
+    tokens.push(tk); tokensAt.push(at); cursor = at + tk.length;
+  });
+  DISHES.forEach(function(d){
+    var alias = aliasesOf(d), best = '', at = -1;
+    alias.forEach(function(a){
+      var k = t.indexOf(a);
+      if(k >= 0 && a.length > best.length){ best = a; at = k; }
+    });
+    if(!best){
+      /* 한글 덩어리(토큰)만 비교 — 같은 글자 수에서 한 글자 틀린 경우 */
+      for(var k2 = 0; k2 < alias.length && !best; k2++){
+        var al = alias[k2];
+        if(al.length < 3 || !/^[\uAC00-\uD7A3]+$/.test(al)) continue;
+        for(var q2 = 0; q2 < tokens.length; q2++){
+          if(tokens[q2].length === al.length && lev(tokens[q2], al) <= 1){
+            best = al; at = tokensAt[q2]; break;
+          }
+        }
+      }
+    }
+    if(best) hits.push({d:d, a:best, i:at});
+  });
+  /* 긴 이름이 이기는 규칙: '갈비탕'이 있으면 '갈비'는 따로 세지 않는다 */
+  hits = hits.filter(function(h){
+    return !hits.some(function(o){ return o !== h && o.a.length > h.a.length && o.a.indexOf(h.a) >= 0; });
+  });
+  hits.sort(function(x,y){ return x.i - y.i; });
+  var seen = {};
+  return hits.filter(function(h){ if(seen[h.d.id]) return false; seen[h.d.id] = 1; return true; }).map(function(h){ return h.d; });
+}
+function dishByName(name){
+  var n = norm(name);
+  var hit = DISHES.filter(function(d){ return aliasesOf(d).indexOf(n) >= 0; })[0];
+  return hit || null;
+}
+function withTimeout(p, ms, tag){
+  return new Promise(function(res, rej){
+    var t = setTimeout(function(){ rej(new Error(tag || 'timeout')); }, ms);
+    p.then(function(v){ clearTimeout(t); res(v); }, function(e){ clearTimeout(t); rej(e); });
+  });
+}
+function loadTesseract(){
+  if(window.Tesseract) return Promise.resolve(window.Tesseract);
+  if(tessP) return tessP;
+  tessP = new Promise(function(res, rej){
+    var s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js';
+    s.onload = function(){ window.Tesseract ? res(window.Tesseract) : rej(new Error('no-tesseract')); };
+    s.onerror = function(){ tessP = null; rej(new Error('net')); };
+    document.head.appendChild(s);
+    setTimeout(function(){ if(!window.Tesseract){ tessP = null; rej(new Error('timeout')); } }, 14000);
+  });
+  return tessP;
+}
+function downscale(file, max){
+  return new Promise(function(res, rej){
+    var url = URL.createObjectURL(file), img = new Image();
+    img.onload = function(){
+      var s = Math.min(1, max / Math.max(img.width, img.height));
+      var w = Math.max(1, Math.round(img.width * s)), h = Math.max(1, Math.round(img.height * s));
+      var c = document.createElement('canvas'); c.width = w; c.height = h;
+      var ctx = c.getContext('2d');
+      ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h);
+      ctx.drawImage(img, 0, 0, w, h);
+      URL.revokeObjectURL(url);
+      try{ res(c.toDataURL('image/jpeg', .92)); }catch(e){ rej(e); }
+    };
+    img.onerror = function(){ URL.revokeObjectURL(url); rej(new Error('img')); };
+    img.src = url;
+  });
+}
+function scanProg(pct, msg){
+  $('#scanProg').hidden = false;
+  $('#scanBar').style.width = Math.max(0, Math.min(100, pct)) + '%';
+  $('#scanMsg').textContent = msg;
+}
+function scanPreview(src, isSample){
+  var w = $('#scanPvWrap');
+  $('#scanPv').src = src;
+  $('#scanPvTag').hidden = !isSample;
+  w.hidden = false;
+}
+function renderScan(){
+  var box = $('#scanRes');
+  if(!scanItems.length){ box.hidden = true; $('#scanResBody').innerHTML = ''; return; }
+  box.hidden = false;
+  $('#scanClear').textContent = ui('scanClear');
+  var msg = ui('scanFound').replace('{n}', scanItems.length);
+  if(scanSource === 'sample') msg += ' · ' + ui('scanSampleTag');
+  $('#scanResBody').innerHTML = '<p class="scanmsg">' + esc(msg) + '</p><div class="grid">' + scanItems.map(foodCard).join('') + '</div>';
+}
+function scanFail(msg){
+  $('#scanProg').hidden = false;
+  $('#scanBar').style.width = '0%';
+  $('#scanMsg').textContent = msg;
+  scanItems = [];
+  renderScan();
+}
+function useSample(){
+  var list = ['김치찌개','된장찌개','순두부찌개','비빔밥','불고기','삼겹살','제육볶음','떡볶이','냉면','잡채','파전','김밥','라면','돈까스','갈비탕','칼국수','치킨','만두'];
+  scanItems = list.map(dishByName).filter(Boolean);
+  scanSource = 'sample';
+  $('#scanProg').hidden = true;
+  scanPreview('./sample-menu.jpg', true);
+  renderScan();
+  scanItems.length && $('#scanRes').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+function handlePhoto(file){
+  if(!file) return;
+  scanSource = 'photo';
+  scanToken++;
+  var me = scanToken;
+  if(navigator.onLine === false){
+    scanFail(ui('scanOffline'));
+    return;
+  }
+  scanProg(3, ui('scanPreparing'));
+  (async function(){
+    try{
+      var dataUrl = await withTimeout(downscale(file, 1600), 15000, 'img');
+      if(me !== scanToken) return;
+      scanPreview(dataUrl, false);
+      scanProg(8, ui('scanReading'));
+      var T = await withTimeout(loadTesseract(), 15000, 'load');
+      if(me !== scanToken) return;
+      if(!workerCache){
+        workerCache = await withTimeout(T.createWorker('kor+eng', 1, {logger:function(m){
+          if(!m || me !== scanToken) return;
+          if(m.status === 'recognizing text') scanProg(10 + Math.round((m.progress || 0) * 85), ui('scanReading'));
+        }}), 32000, 'worker');
+      }
+      if(me !== scanToken) return;
+      var r = await withTimeout(workerCache.recognize(dataUrl), 60000, 'ocr');
+      if(me !== scanToken) return;
+      var text = (r && r.data && r.data.text) || '';
+      var found = findDishes(text);
+      scanProg(100, found.length ? ui('scanFound').replace('{n}', found.length) : ui('scanNone'));
+      scanItems = found;
+      renderScan();
+      if(!found.length){
+        $('#scanMsg').textContent = ui('scanNone') + ' — ' + ui('scanNoneHint');
+      }
+    }catch(err){
+      if(me !== scanToken) return;
+      if(workerCache){ try{ workerCache.terminate(); }catch(e){} workerCache = null; }
+      scanFail(ui('scanNoneHint'));
+    }
+  })();
+}
+
+/* ══════ 이벤트 ══════ */
+$('#myChips').addEventListener('click', function(e){
+  var b = e.target.closest('[data-my]'); if(!b) return;
+  var v = b.getAttribute('data-my'); if(!isLang(v) || v === my) return;
+  my = v;
+  if(shop === my) shop = (my === 'ko' ? 'en' : 'ko');
+  savePrefs(); renderAll();
+});
+$('#shopChips').addEventListener('click', function(e){
+  var b = e.target.closest('[data-shop]'); if(!b) return;
+  var v = b.getAttribute('data-shop'); if(!isLang(v) || v === shop) return;
+  shop = v;
+  if(my === shop) my = (shop === 'ko' ? 'en' : 'ko');
+  savePrefs(); renderAll();
+});
+$('#swapBtn').addEventListener('click', function(){
+  var t = my; my = shop; shop = t;
+  savePrefs(); renderAll();
+});
+$('#soundBtn').addEventListener('click', function(){
+  soundOn = !soundOn;
+  this.setAttribute('aria-pressed', soundOn ? 'true' : 'false');
+  try{ localStorage.setItem(KEY.snd, soundOn ? 'on' : 'off'); }catch(e){}
+  if(!soundOn) stopSpeak();
+  else speak(ui('sound'), my);
+});
+$('#bigBtn').addEventListener('click', function(){
+  bigOn = !bigOn;
+  document.documentElement.classList.toggle('big', bigOn);
+  this.setAttribute('aria-pressed', bigOn ? 'true' : 'false');
+  try{ localStorage.setItem(KEY.big, bigOn ? 'on' : 'off'); }catch(e){}
+});
+$('#shareBtn').addEventListener('click', shareApp);
+$('#installBtn').addEventListener('click', onInstall);
+$('#instOk').addEventListener('click', hideInstall);
+$('#installModal').addEventListener('click', function(e){ if(e.target === this) hideInstall(); });
+
+$('#bigBackTop').addEventListener('click', closeBig);
+$('#bigBack').addEventListener('click', closeBig);
+$('#bigSpeak').addEventListener('click', function(){ speak(bigText, bigLang); });
+
+$('#stepBackTop').addEventListener('click', function(){ if(stepState && stepState.i > 0) gotoStep(stepState.i - 1); else closeStep(); });
+$('#stepSpeak').addEventListener('click', function(){ speak(bigText, shop); });
+$('#stepNext').addEventListener('click', function(){
+  if(!stepState) return;
+  gotoStep(stepState.i === STEPN - 1 ? 0 : stepState.i + 1);
+});
+$('#stepOpts').addEventListener('click', function(e){
+  var b = e.target.closest('[data-pick]'); if(!b || !stepState) return;
+  var k = parseInt(b.getAttribute('data-pick'), 10) || 0;
+  stepState.picks[stepState.i] = k;
+  renderStep();
+  if(soundOn) speak(bigText, shop);
+});
+$('#stepFull').addEventListener('click', function(){
+  if(!stepState) return;
+  var t = stepT(stepsOf(stepState.d)[stepState.i]);
+  var len = (t[shop] || t.en || '').length, cls = len > 22 ? 'm' : (len > 13 ? 'l' : '');
+  showBig(twoLang(t, cls), t[shop] || t.en, shop);
+});
+$('#stepDesc').addEventListener('click', function(){ if(stepState) openDish(stepState.d); });
+
+$('#coreList').addEventListener('click', onSayClick);
+$('#moreList').addEventListener('click', onSayClick);
+$('#ingrList').addEventListener('click', onSayClick);
+function onSayClick(e){
+  var b = e.target.closest('[data-say]'); if(!b) return;
+  var p = PHRASES.filter(function(x){ return x.id === b.getAttribute('data-say'); })[0];
+  if(p) openPhrase(p);
+}
+$('#pplRow').addEventListener('click', function(e){
+  var b = e.target.closest('[data-ppl]'); if(!b) return;
+  var n = parseInt(b.getAttribute('data-ppl'), 10) || 2;
+  combo.people = n;
+  renderCombo();
+  openPeople(n);
+});
+function onDishClick(e){
+  var b = e.target.closest('[data-dish]'); if(!b) return;
+  var d = DISHES.filter(function(x){ return x.id === b.getAttribute('data-dish'); })[0];
+  if(d) openPractice(d, 0);
+}
+$('#signGrid').addEventListener('click', function(e){
+  var b = e.target.closest('[data-sign]'); if(!b) return;
+  var s = SIGNS.filter(function(x){ return x.id === b.getAttribute('data-sign'); })[0];
+  if(s) openSign(s);
+});
+$('#foodGrid').addEventListener('click', onDishClick);
+$('#drinkGrid').addEventListener('click', onDishClick);
+$('#scanResBody').addEventListener('click', onDishClick);
+
+document.addEventListener('keydown', function(e){
+  if(e.key !== 'Escape') return;
+  if(!stepEl.hidden) closeStep();
+  else if(!bigEl.hidden) closeBig();
+});
+
+document.addEventListener('click', function(e){
+  var sd = e.target.closest('[data-sign-dish]');
+  if(sd){ var sdd = dishById(sd.getAttribute('data-sign-dish')); if(sdd) openDish(sdd, true); return; }
+  var sp = e.target.closest('[data-prac]');
+  if(sp){ var spd = dishById(sp.getAttribute('data-prac')); if(spd) openPractice(spd, 0); return; }
+  var a = e.target.closest('[data-add]');
+  if(a){ e.preventDefault(); comboAdd(a.getAttribute('data-add')); return; }
+  var r = e.target.closest('[data-req]');
+  if(r){ comboReq(r.getAttribute('data-req')); return; }
+  var x = e.target.closest('[data-rm]');
+  if(x){ comboRemove(x.getAttribute('data-rm')); return; }
+});
+$('#comboSpeak').addEventListener('click', function(){
+  var t = comboText(); speak(t[shop] || t.en, shop);
+});
+$('#comboFull').addEventListener('click', function(){
+  var t = comboText(), txt = t[shop] || t.en;
+  var cls = txt.length > 40 ? 'm' : (txt.length > 22 ? 'l' : '');
+  showBig(twoLang(t, cls), txt, shop);
+});
+$('#comboReset').addEventListener('click', comboClear);
+$('#comboPeek').addEventListener('click', function(){
+  try{ $('#secComboH').scrollIntoView({behavior:'smooth', block:'start'}); }catch(err){}
+});
+$('#stepAdd').addEventListener('click', function(){
+  if(!stepState) return;
+  if(combo.items.indexOf(stepState.d.id) < 0) combo.items.push(stepState.d.id);
+  renderCombo();
+  toast(ui('comboAdded'));
+});
+
+$('#tModeRow').addEventListener('click', function(e){
+  var b = e.target.closest('[data-mode]'); if(!b) return;
+  tMode = b.getAttribute('data-mode');
+  var all = this.querySelectorAll('[data-mode]');
+  for(var i = 0; i < all.length; i++){
+    var on = all[i] === b;
+    all[i].classList.toggle('on', on);
+    all[i].setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
+  renderTransit();
+});
+$('#staySave').addEventListener('click', saveStay);
+$('#stayAddr').addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); saveStay(); } });
+$('#stayEditBtn').addEventListener('click', function(){
+  $('#stayEdit').hidden = false;
+  $('#staySaved').hidden = true;
+  $('#stayAddr').value = stayAddr();
+  try{ $('#stayAddr').focus(); }catch(e){}
+});
+$('#stayTaxi').addEventListener('click', function(){
+  var a = stayAddr();
+  if(!a){ toast(ui('stayNeed')); return; }
+  showTaxiCard('', a);
+});
+$('#stayGo').addEventListener('click', function(){
+  var a = stayAddr();
+  if(!a){ toast(ui('stayNeed')); return; }
+  openUrl('https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(a) + '&travelmode=transit');
+});
+document.addEventListener('click', function(e){
+  var nav = e.target.closest('[data-taxi-nav]');
+  if(nav){
+    var to = lastTxAddr || ($('#tTo').value || '').trim();
+    if(to) openUrl('https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(to) + '&travelmode=driving');
+    return;
+  }
+  var me = e.target.closest('#txLocBtn');
+  if(me && lastTxCoords){
+    openUrl('https://www.google.com/maps?q=' + lastTxCoords.lat + ',' + lastTxCoords.lon);
+    return;
+  }
+});
+$('#tPlaceRow').addEventListener('click', function(e){
+  var b = e.target.closest('[data-place]'); if(!b) return;
+  $('#tTo').value = b.getAttribute('data-place');
+  renderTransit();
+});
+$('#tTo').addEventListener('input', renderTransit);
+$('#tGo').addEventListener('click', function(){
+  var to = ($('#tTo').value || '').trim();
+  if(!to){ toast(ui('tNeedTo')); try{ $('#tTo').focus(); }catch(e){} return; }
+  if(tMode === 'taxi'){
+    var pl = placeByName(to);
+    showTaxiCard(to, pl ? pl.addr : '');
+    return;
+  }
+  openUrl(mapUrl('google', tFromVal(), to));
+});
+$('#tGoogle').addEventListener('click', function(){
+  var to = ($('#tTo').value || '').trim();
+  if(!to){ toast(ui('tNeedTo')); try{ $('#tTo').focus(); }catch(e){} return; }
+  openUrl(mapUrl('google', tFromVal(), to));
+});
+$('#tNaver').addEventListener('click', function(){
+  var to = ($('#tTo').value || '').trim();
+  if(!to){ toast(ui('tNeedTo')); try{ $('#tTo').focus(); }catch(e){} return; }
+  openUrl(mapUrl('naver', tFromVal(), to));
+});
+$('#tPhrases').addEventListener('click', function(e){
+  var b = e.target.closest('[data-tph]'); if(!b) return;
+  showTransitBig(b.getAttribute('data-tph'));
+});
+
+$('#diaryToggle').addEventListener('click', function(){ setDiaryOpen($('#diaryBody').hidden); });
+$('#diarySave').addEventListener('click', saveDiaryEntry);
+$('#diaryList').addEventListener('click', function(e){
+  var b = e.target.closest('[data-del]'); if(!b) return;
+  var id = b.getAttribute('data-del');
+  var list = diaryList().filter(function(it){ return it.id !== id; });
+  diaryStore(list); renderDiary();
+});
+$('#stepDiary').addEventListener('click', function(){
+  closeStep();
+  $('#diaryName').value = lastDishName || '';
+  setDiaryOpen(true);
+  setTimeout(function(){ try{ $('#diaryName').scrollIntoView({behavior:'smooth', block:'center'}); }catch(e){} }, 160);
+});
+
+$('#scanBtn').addEventListener('click', function(){
+  var inp = $('#menuPhoto');
+  try{ inp.value = ''; }catch(e){}
+  try{ inp.click(); }catch(err){ try{ inp.style.position='static'; inp.click(); }catch(e){} }
+});
+$('#menuPhoto').addEventListener('change', function(e){
+  var f = null; try{ f = (e.target.files || [])[0]; }catch(err){}
+  try{ e.target.value = ''; }catch(err){}
+  handlePhoto(f);
+});
+$('#sampleBtn').addEventListener('click', useSample);
+$('#scanClear').addEventListener('click', function(){
+  scanToken++;
+  scanItems = []; scanSource = '';
+  $('#scanPvWrap').hidden = true;
+  $('#scanProg').hidden = true;
+  renderScan();
+});
+
+/* ══════ 시작 ══════ */
+document.documentElement.classList.toggle('big', bigOn);
+$('#soundBtn').setAttribute('aria-pressed', soundOn ? 'true' : 'false');
+$('#bigBtn').setAttribute('aria-pressed', bigOn ? 'true' : 'false');
+renderAll();
+loadWx();
+
+/* 서비스 워커 (오프라인 · https 에서만) */
+if('serviceWorker' in navigator && location.protocol !== 'file:'){
+  try{ navigator.serviceWorker.register('./sw.js').catch(function(){}); }catch(e){}
+}
+</script>
+</body>
+</html>

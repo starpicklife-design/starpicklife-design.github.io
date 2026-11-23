@@ -1,0 +1,116 @@
+/* 와글 식탁 통역 · 가벼운 Service Worker
+   - 홈 화면 설치 요건 충족 + 인터넷이 끊겨도 주문 카드가 열리도록 앱 껍데기만 캐시
+   - 외부(다른 사이트) 요청은 절대 건드리지 않음 · 개인정보 0%
+   - index.html은 항상 네트워크 우선 → 새 버전이 바로 반영됨
+   - 메뉴판 사진 OCR(Tesseract.js CDN)은 그대로 통과 */
+
+const CACHE = 'wagle-dining-v3';
+const SHELL = [
+  './',
+  './index.html',
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png',
+  './icon-maskable-512.png',
+  './apple-touch-icon.png',
+  './home-dining.webp',
+  './home-dining.jpg',
+  './sample-menu.jpg'
+];
+/* 그림 메뉴 · 음료 · 카페 사진 (하나씩 담아 실패해도 앱은 그대로 열림) */
+const IMAGES = [
+  './food/americano.webp',
+  './food/beer.webp',
+  './food/bibim-naengmyeon.webp',
+  './food/bibimbap.webp',
+  './food/bingsu.webp',
+  './food/budae-jjigae.webp',
+  './food/bulgogi.webp',
+  './food/cafe-latte.webp',
+  './food/cake.webp',
+  './food/chicken.webp',
+  './food/dak-galbi.webp',
+  './food/doenjang-jjigae.webp',
+  './food/dolsot-bibimbap.webp',
+  './food/donkkaseu.webp',
+  './food/galbitang.webp',
+  './food/gimbap.webp',
+  './food/japchae.webp',
+  './food/jeyuk.webp',
+  './food/kalguksu.webp',
+  './food/kimchi-jjigae.webp',
+  './food/makgeolli.webp',
+  './food/mandu.webp',
+  './food/matcha-latte.webp',
+  './food/naengmyeon.webp',
+  './food/pajeon.webp',
+  './food/ramyeon.webp',
+  './food/samgyeopsal.webp',
+  './food/samgyetang.webp',
+  './food/seolleongtang.webp',
+  './food/soda.webp',
+  './food/soju.webp',
+  './food/sundubu-jjigae.webp',
+  './food/tteokbokki.webp',
+  './food/vanilla-latte.webp',
+  './food/water.webp',
+  './food/yuja-tea.webp'
+];
+
+self.addEventListener('install', (event) => {
+  self.skipWaiting();
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE);
+    await cache.addAll(SHELL).catch(() => { /* 일부 파일이 없어도 설치는 계속 */ });
+    await Promise.all(IMAGES.map((u) => cache.add(u).catch(() => {})));
+  })());
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)));
+    try { await self.clients.claim(); } catch (e) {}
+  })());
+});
+
+self.addEventListener('fetch', (event) => {
+  const req = event.request;
+  if (req.method !== 'GET') return;
+
+  let url;
+  try { url = new URL(req.url); } catch (e) { return; }
+  if (url.origin !== self.location.origin) return; // 외부 요청(OCR 엔진 등)은 그대로 통과
+
+  if (req.mode === 'navigate') {
+    event.respondWith((async () => {
+      try {
+        const fresh = await fetch(req);
+        if (fresh && fresh.ok) {
+          const cache = await caches.open(CACHE);
+          cache.put('./index.html', fresh.clone()).catch(() => {});
+        }
+        return fresh;
+      } catch (e) {
+        const cache = await caches.open(CACHE);
+        return (await cache.match('./index.html')) ||
+               (await cache.match('./')) ||
+               new Response('와글 식탁 통역 · 인터넷이 없어 열지 못했어요. / Wagul Dining · offline.', {
+                 status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+               });
+      }
+    })());
+    return;
+  }
+
+  if (/\.(png|svg|webp|jpe?g|webmanifest|ico|json)$/i.test(url.pathname)) {
+    event.respondWith((async () => {
+      const cache = await caches.open(CACHE);
+      const hit = await cache.match(req);
+      if (hit) return hit;
+      const res = await fetch(req);
+      if (res && res.ok) cache.put(req, res.clone()).catch(() => {});
+      return res;
+    })());
+  }
+});
