@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#7A4A25" />
+<!-- build: 2026-11-23 wagle-care v1 · 아침·점심·저녁·자기 전 약 큰 버튼 체크(시각 기록·다시 누르면 취소) · 물 잔 수 · 산책·혈압/컨디션 · 복용 시간·알림 소리(Web Audio) · 약 이름·메모 · 최근 7일 기록 · 병원 약 남은 날(D-Day, 30·60·90·100일분·직접 입력) + 7일 이하 알림 카드 · 큰 글씨·한/영·공유·설치·뒤로가기 · 기록은 기기에만 -->
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="와글 효도 약통" />
+<meta name="description" content="와글 효도 약통 — 어르신 약·물·생활 챙김표. 아침·점심·저녁·자기 전 약 체크, 물 잔 수, 혈압·산책, 병원 약 남은 날(D-Day) 미리 알림. 기록은 이 기기에만 저장, 광고 없음." />
+<title>와글 효도 약통 · 약·물·생활 챙김표</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 120%27%3E%3Crect width=%27120%27 height=%27120%27 rx=%2726%27 fill=%27%23FFF9EF%27/%3E%3Crect x=%2722%27 y=%2750%27 width=%2776%27 height=%2742%27 rx=%2710%27 fill=%27%23F6C878%27 stroke=%27%23A9702E%27 stroke-width=%275%27/%3E%3Cpath d=%27M22 62h76%27 stroke=%27%23A9702E%27 stroke-width=%275%27/%3E%3Ccircle cx=%2742%27 cy=%2777%27 r=%277%27 fill=%27%23C9553D%27/%3E%3Ccircle cx=%2760%27 cy=%2777%27 r=%277%27 fill=%27%23E8A23C%27/%3E%3Ccircle cx=%2778%27 cy=%2777%27 r=%277%27 fill=%27%235C9E6E%27/%3E%3C/svg%3E" />
+<style>
+:root{
+  --cream:#FFF9EF; --cream2:#FCF0DE; --card:#FFFFFF; --ink:#2E2118; --ink2:#7A6555;
+  --brown:#7A4A25; --brown2:#9A6535; --line:#EDDCC3;
+  --green:#2F7A4F; --green-bg:#E9F7ED; --green-line:#8FCBA4;
+  --amber:#F2B65C; --amber-bg:#FFF3DC; --amber-line:#D9A34A; --amber-ink:#6B4512;
+  --red:#B93A2B; --red-bg:#FDECE8; --red-line:#E0A196;
+  --blue:#2B6E9E; --blue-bg:#EAF4FB; --blue-line:#A9CBE0;
+  --shadow:0 2px 10px rgba(94,60,26,.09);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:18px;-webkit-text-size-adjust:100%}
+html.big{font-size:22px}
+body{margin:0;background:var(--cream);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  line-height:1.42;padding-bottom:2.4rem}
+[hidden]{display:none !important}
+button{font-family:inherit;cursor:pointer;color:inherit}
+input{font-family:inherit;font-size:1.02rem;color:var(--ink)}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #2E8A82;outline-offset:2px}
+
+/* ── 머리말 ─────────────────────────────── */
+.top{background:linear-gradient(180deg,#7A4A25,#8B5629);color:#FFF8EC;
+  padding:calc(.42rem + env(safe-area-inset-top)) .62rem .5rem;
+  box-shadow:0 3px 12px rgba(80,50,22,.22)}
+.brand{display:flex;align-items:center;gap:.4rem}
+.logo{font-size:1.45rem;line-height:1;flex:0 0 auto;filter:drop-shadow(0 1px 1px rgba(0,0,0,.25))}
+.btxt{flex:1 1 auto;min-width:0}
+.brand h1{margin:0;font-size:1.06rem;line-height:1.16;letter-spacing:-.03em;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand .sub{margin:.05rem 0 0;font-size:.66rem;line-height:1.2;opacity:.88;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fam{display:flex;align-items:center;flex:0 0 auto;height:1.75rem;margin:0 .1rem}
+.fam svg{display:block;height:100%;width:auto;transform-origin:50% 92%;animation:famwave 3.8s ease-in-out infinite}
+@keyframes famwave{0%,100%{transform:rotate(-2.4deg)}50%{transform:rotate(2.4deg) translateY(-1px)}}
+@media (prefers-reduced-motion:reduce){.fam svg{animation:none}}
+.topbtns{display:flex;gap:.3rem;flex:0 0 auto}
+.topbtns button{border:1px solid rgba(255,248,236,.5);background:rgba(255,255,255,.14);color:#FFF8EC;
+  border-radius:.75rem;padding:.3rem .5rem;font-size:.72rem;font-weight:800;line-height:1.1;min-height:2.2rem;white-space:nowrap}
+.topbtns button:active{transform:translateY(1px)}
+@media (max-width:379px){ .fam{display:none} }
+html.big .brand h1{font-size:.92rem}
+html.big .brand .sub{font-size:.58rem}
+html.big .topbtns button{font-size:.64rem;padding:.26rem .38rem}
+html.big .fam{display:none}
+
+/* ── 표지 그림 ──────────────────────────── */
+.hero{position:relative;margin:.5rem .5rem 0;border-radius:1.05rem;overflow:hidden;background:var(--cream2);box-shadow:var(--shadow)}
+.hero img{display:block;width:100%;height:6.2rem;object-fit:cover;object-position:50% 32%}
+html.big .hero img{height:5.3rem}
+.herocap{position:absolute;left:0;right:0;bottom:0;padding:.32rem .62rem .34rem;
+  background:linear-gradient(0deg,rgba(67,40,17,.86),rgba(67,40,17,.06));
+  color:#FFF9EF;font-size:.72rem;font-weight:800;letter-spacing:-.02em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html.big .herocap{font-size:.66rem}
+
+/* ── 날짜 · 요약 · 도구 ─────────────────── */
+.datebar{display:flex;align-items:center;gap:.4rem;margin:.5rem .5rem .38rem}
+.dwrap{flex:1 1 auto;min-width:0}
+.dtoday{font-size:1.08rem;font-weight:900;letter-spacing:-.04em;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dtoday small{font-size:.82rem;font-weight:800;color:var(--brown2);margin-left:.16rem}
+.dsum{margin-top:.14rem;font-size:.76rem;font-weight:700;color:var(--ink2);display:flex;gap:.32rem;flex-wrap:wrap}
+.dsum b{color:var(--green)}
+.tools{display:flex;gap:.28rem;flex:0 0 auto}
+.tools button{border:1px solid var(--line);background:#fff;border-radius:.7rem;padding:.34rem .46rem;
+  font-size:.7rem;font-weight:800;min-height:2.2rem;white-space:nowrap;box-shadow:0 1px 3px rgba(94,60,26,.06)}
+html.big .dtoday{font-size:1rem}
+html.big .tools button{font-size:.62rem;padding:.3rem .36rem}
+
+/* ── 공통 카드 ──────────────────────────── */
+.card{background:var(--card);border:1px solid var(--line);border-radius:1.05rem;
+  box-shadow:var(--shadow);padding:.62rem .66rem;margin:0 .5rem .52rem}
+.secthead{display:flex;align-items:center;justify-content:space-between;gap:.4rem;margin-bottom:.42rem}
+.secthead h2{margin:0;font-size:.92rem;font-weight:900;letter-spacing:-.03em;line-height:1.2}
+.smallbtn{border:1px solid var(--amber-line);background:var(--amber-bg);color:var(--amber-ink);
+  border-radius:.7rem;padding:.32rem .54rem;font-size:.74rem;font-weight:900;min-height:2.2rem;white-space:nowrap}
+.hint{margin:.34rem 0 0;font-size:.68rem;line-height:1.35;color:var(--ink2)}
+
+/* ── 알림 카드 (약 떨어질 때) ───────────── */
+.alertcard{margin:0 .5rem .52rem;border:2px solid var(--red-line);background:var(--red-bg);
+  border-radius:1.05rem;padding:.6rem .68rem;box-shadow:0 3px 12px rgba(160,50,30,.14)}
+.alertcard.warn{border-color:var(--amber-line);background:var(--amber-bg);box-shadow:0 3px 12px rgba(160,110,30,.14)}
+.alhead{font-size:.95rem;font-weight:900;color:var(--red);letter-spacing:-.03em;line-height:1.22}
+.alertcard.warn .alhead{color:var(--amber-ink)}
+.albody{margin-top:.26rem;font-size:.8rem;font-weight:700;line-height:1.42;color:var(--ink)}
+.albody b{font-weight:900}
+.algo{margin-top:.4rem;width:100%;border:1px solid var(--red-line);background:#fff;border-radius:.72rem;
+  padding:.46rem;font-size:.8rem;font-weight:900;min-height:2.5rem;color:var(--red)}
+.alertcard.warn .algo{border-color:var(--amber-line);color:var(--amber-ink)}
+
+/* ── 약 체크 4칸 ────────────────────────── */
+.dosegrid{display:grid;grid-template-columns:1fr 1fr;gap:.46rem}
+.dose{position:relative;display:flex;flex-direction:column;gap:.12rem;text-align:left;
+  border:2px solid var(--line);background:#fff;border-radius:1rem;padding:.5rem .54rem .48rem;
+  min-height:5.5rem;box-shadow:0 2px 6px rgba(94,60,26,.07);transition:background .16s,border-color .16s,transform .1s}
+.dose:active{transform:scale(.985)}
+.dhead{display:flex;align-items:center;gap:.24rem;min-width:0}
+.demoji{font-size:1.06rem;line-height:1;flex:0 0 auto}
+.dname{font-size:.9rem;font-weight:900;letter-spacing:-.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dtime{font-size:1.06rem;font-weight:900;color:var(--brown2);line-height:1.1;letter-spacing:-.02em}
+.dmed{font-size:.72rem;font-weight:700;color:var(--ink2);line-height:1.25;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:keep-all}
+.dstat{margin-top:auto;font-size:.72rem;font-weight:800;color:var(--ink2);line-height:1.25}
+.dose.done{background:var(--green-bg);border-color:var(--green-line)}
+.dose.done .dtime{color:var(--green)}
+.dose.done .dstat{color:var(--green)}
+.dose.done .dmed{color:#3F6B4F}
+.dcheck{position:absolute;top:.34rem;right:.4rem;font-size:1.06rem;line-height:1;display:none}
+.dose.done .dcheck{display:block}
+.dose.done .dhead{padding-right:1.1rem}
+html.big .dose{min-height:5.7rem;padding:.46rem .48rem}
+html.big .dname{font-size:.82rem}
+html.big .dtime{font-size:.98rem}
+html.big .dstat,html.big .dmed{font-size:.64rem}
+
+/* ── 물 마시기 ──────────────────────────── */
+.watercard{border-color:var(--blue-line);background:linear-gradient(180deg,#FBFDFF,#F2F8FD)}
+.wtop{display:flex;align-items:flex-end;justify-content:space-between;gap:.4rem}
+.wlabel{font-size:.9rem;font-weight:900;letter-spacing:-.03em}
+.wcount{font-size:1.75rem;font-weight:900;color:var(--blue);line-height:1;letter-spacing:-.03em}
+.wcount small{font-size:.78rem;font-weight:800;color:var(--ink2);margin-left:.12rem}
+.wglasses{display:flex;gap:.2rem;margin:.4rem 0 .44rem;flex-wrap:wrap;align-items:center}
+.wglasses span{display:block;width:.7rem;height:.94rem;color:#CFDFEA}
+.wglasses span svg{display:block;width:100%;height:100%}
+.wglasses span.on{color:#3E8FC2}
+.wglasses span.plus{width:auto;height:auto;font-size:.66rem;font-weight:900;color:var(--blue)}
+.wbtns{display:flex;gap:.36rem}
+.wplus{flex:1 1 auto;border:2px solid var(--blue-line);background:#fff;color:var(--blue);
+  border-radius:.85rem;padding:.52rem .4rem;font-size:.94rem;font-weight:900;min-height:3.05rem;letter-spacing:-.03em}
+.wplus:active{background:#E3F1FB}
+.wminus{flex:0 0 auto;width:3.05rem;border:1px solid var(--line);background:#fff;border-radius:.85rem;
+  font-size:1.15rem;font-weight:900;color:var(--ink2);min-height:3.05rem}
+.wlast{margin:.3rem 0 0;font-size:.68rem;font-weight:700;color:var(--ink2)}
+html.big .wplus{font-size:.84rem}
+html.big .wcount{font-size:1.55rem}
+html.big .wlabel{font-size:.84rem}
+
+/* ── 산책 · 혈압/컨디션 ─────────────────── */
+.lifebtns{display:flex;flex-direction:column;gap:.4rem}
+.bigbtn{display:flex;align-items:center;gap:.46rem;width:100%;text-align:left;
+  border:2px solid var(--line);background:#fff;border-radius:.9rem;padding:.5rem .56rem;min-height:3.1rem;
+  transition:background .16s,border-color .16s}
+.bigbtn .bi{font-size:1.24rem;line-height:1;flex:0 0 auto}
+.bigbtn .bt{flex:1 1 auto;min-width:0}
+.bigbtn .bt b{display:block;font-size:.9rem;font-weight:900;letter-spacing:-.03em;line-height:1.2}
+.bigbtn .bt span{display:block;font-size:.7rem;font-weight:700;color:var(--ink2);line-height:1.25;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bigbtn.on{background:var(--green-bg);border-color:var(--green-line)}
+.bigbtn.on .bt b{color:var(--green)}
+.bigbtn.on .bt span{color:#3F6B4F}
+.bigbtn .bchk{font-size:1.1rem;flex:0 0 auto}
+html.big .bigbtn .bt b{font-size:.82rem}
+html.big .bigbtn .bt span{font-size:.64rem}
+html.big .bigbtn .bi{font-size:1.1rem}
+
+/* ── 병원 약 D-Day ──────────────────────── */
+.medlist{display:flex;flex-direction:column;gap:.42rem}
+.med{border:1px solid var(--line);background:#fff;border-radius:.9rem;padding:.5rem .56rem}
+.medtop{display:flex;align-items:center;gap:.3rem}
+.medname{font-size:.94rem;font-weight:900;letter-spacing:-.03em;min-width:0;flex:1 1 auto;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dbadge{flex:0 0 auto;font-size:.92rem;font-weight:900;letter-spacing:-.02em;border-radius:.62rem;
+  padding:.16rem .46rem;background:var(--green-bg);color:var(--green);border:1px solid var(--green-line)}
+.dbadge.warn{background:var(--amber-bg);color:var(--amber-ink);border-color:var(--amber-line)}
+.dbadge.urgent{background:var(--red-bg);color:var(--red);border-color:var(--red-line)}
+.medsub{margin-top:.18rem;font-size:.72rem;font-weight:700;color:var(--ink2);line-height:1.3}
+.medbar{height:.34rem;border-radius:.3rem;background:#F1E6D6;overflow:hidden;margin:.34rem 0 .3rem}
+.medbar i{display:block;height:100%;background:linear-gradient(90deg,#8FCBA4,#2F7A4F);border-radius:.3rem}
+.medbar i.warn{background:linear-gradient(90deg,#F6CE86,#D9922E)}
+.medbar i.urgent{background:linear-gradient(90deg,#EFA79C,#B93A2B)}
+.mednext{font-size:.7rem;font-weight:700;color:var(--ink2);line-height:1.4;margin-top:.24rem}
+.apptline{display:flex;align-items:center;gap:.28rem;flex-wrap:wrap;margin-top:.3rem;
+  background:#FFF6E4;border:1px solid #F0DCB8;border-radius:.62rem;padding:.28rem .42rem}
+.apptlabel{font-size:.66rem;font-weight:900;color:var(--brown);flex:0 0 auto}
+.apptdate{font-size:.76rem;font-weight:900;color:var(--ink);flex:1 1 auto;min-width:0}
+.apptbadge{font-size:.7rem;font-weight:900;border-radius:.5rem;padding:.04rem .34rem;flex:0 0 auto;
+  background:#fff;border:1px solid var(--green-line);color:var(--green)}
+.apptbadge.warn{background:var(--amber-bg);border-color:var(--amber-line);color:var(--amber-ink)}
+.apptbadge.urgent{background:var(--red-bg);border-color:var(--red-line);color:var(--red)}
+html.big .apptlabel{font-size:.58rem}
+html.big .apptdate{font-size:.68rem}
+html.big .apptbadge{font-size:.62rem}
+.alarmnote{margin-top:.3rem;padding:.34rem .44rem;border-radius:.6rem;background:var(--amber-bg);
+  border:1px solid var(--amber-line);color:var(--amber-ink);font-size:.66rem;line-height:1.42}
+.mednext b{color:var(--brown);font-weight:900}
+.medact{display:flex;gap:.2rem;flex:0 0 auto}
+.medact button{border:1px solid var(--line);background:#FFFDF8;border-radius:.55rem;width:2.1rem;height:2.1rem;
+  font-size:.84rem;line-height:1;display:flex;align-items:center;justify-content:center}
+.medempty{border:1px dashed var(--line);border-radius:.9rem;padding:.7rem .5rem;text-align:center;
+  font-size:.78rem;font-weight:700;color:var(--ink2);line-height:1.4;background:#FFFCF6}
+html.big .medname{font-size:.86rem}
+html.big .dbadge{font-size:.82rem}
+html.big .medsub,html.big .mednext{font-size:.64rem}
+
+/* ── 7일 기록 ───────────────────────────── */
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:.16rem}
+.wcell{display:flex;flex-direction:column;align-items:center;gap:.08rem;padding:.32rem .04rem .28rem;
+  border:1px solid var(--line);border-radius:.62rem;background:#FFFDF9;min-width:0}
+.wcell.today{border-color:var(--brown2);background:var(--amber-bg);box-shadow:0 0 0 1px var(--brown2) inset}
+.wday{font-size:.62rem;font-weight:800;color:var(--ink2);line-height:1}
+.wnum{font-size:.82rem;font-weight:900;line-height:1.1}
+.dots{display:flex;gap:.1rem;margin-top:.06rem}
+.dot{width:.3rem;height:.3rem;border-radius:50%;background:#E7DAC6;display:block}
+.dot.on{background:var(--green)}
+.wwater{font-size:.58rem;font-weight:800;color:var(--blue);line-height:1;white-space:nowrap}
+.wlegend{display:flex;gap:.5rem;margin-top:.36rem;font-size:.64rem;font-weight:700;color:var(--ink2);flex-wrap:wrap}
+.wlegend i{display:inline-block;width:.3rem;height:.3rem;border-radius:50%;background:var(--green);margin-right:.16rem;vertical-align:middle}
+
+/* ── 설정(접이식) ───────────────────────── */
+details.settings{margin:0 .5rem .52rem;border:1px solid var(--line);border-radius:1.05rem;background:#FFFDF8;box-shadow:var(--shadow);padding:0;overflow:hidden}
+details.settings>summary{list-style:none;display:flex;align-items:center;gap:.4rem;padding:.62rem .66rem;
+  font-size:.9rem;font-weight:900;letter-spacing:-.03em;cursor:pointer;background:#FFFDF8}
+details.settings>summary::-webkit-details-marker{display:none}
+details.settings>summary .caret{margin-left:auto;font-size:.8rem;color:var(--ink2);transition:transform .2s}
+details.settings[open]>summary .caret{transform:rotate(180deg)}
+.setbody{padding:.1rem .66rem .68rem;border-top:1px solid var(--line)}
+.setrow{padding:.44rem 0;border-bottom:1px dashed var(--line)}
+.setrow:last-of-type{border-bottom:0}
+.setlabel{font-size:.82rem;font-weight:900;color:var(--brown);margin-bottom:.22rem}
+.flds{display:grid;grid-template-columns:1fr 1fr;gap:.3rem .36rem}
+.fld{display:flex;flex-direction:column;gap:.14rem;min-width:0}
+.fld.full{grid-column:1 / -1}
+.fld>span{font-size:.64rem;font-weight:800;color:var(--ink2);line-height:1.2}
+.fld input{border:1px solid var(--line);background:#FFFDF8;border-radius:.6rem;padding:.44rem .5rem;
+  font-size:1rem;font-weight:700;min-height:2.5rem;width:100%}
+.fld input[type=time]{font-weight:900}
+.soundrow{display:flex;align-items:center;gap:.4rem;width:100%;border:2px solid var(--line);background:#fff;
+  border-radius:.8rem;padding:.44rem .54rem;min-height:2.9rem;margin-top:.44rem}
+.soundrow .si{font-size:1.1rem}
+.soundrow .st{flex:1 1 auto;text-align:left;font-size:.84rem;font-weight:900}
+.soundrow b{font-size:.78rem;font-weight:900;color:var(--ink2);border-radius:2rem;padding:.18rem .5rem;background:#F1E6D6}
+.soundrow.on{border-color:var(--green-line);background:var(--green-bg)}
+.soundrow.on b{background:#CDEBD6;color:var(--green)}
+.testbtn{width:100%;margin-top:.32rem;border:1px solid var(--line);background:#fff;border-radius:.7rem;
+  padding:.44rem;font-size:.76rem;font-weight:800;min-height:2.6rem;color:var(--ink2)}
+.noteline{margin-top:.42rem;border-radius:.7rem;background:var(--amber-bg);border:1px solid var(--amber-line);
+  padding:.44rem .52rem;font-size:.7rem;font-weight:700;line-height:1.42;color:var(--amber-ink)}
+
+/* ── 아래 안내 ──────────────────────────── */
+.foot{margin:.7rem .75rem 0;padding-bottom:1.6rem;font-size:.66rem;line-height:1.55;color:var(--ink2);text-align:center}
+.foot b{color:var(--brown);font-weight:900}
+.foot .disc{margin-top:.34rem;font-size:.64rem;line-height:1.45}
+
+/* ── 알림 배너 ──────────────────────────── */
+.banner{position:fixed;inset:0;z-index:60;background:rgba(45,28,12,.55);display:flex;align-items:flex-start;
+  justify-content:center;padding:1.1rem .7rem;overflow:auto}
+.bcard{width:100%;max-width:26rem;background:#FFFDF7;border:3px solid var(--amber-line);border-radius:1.3rem;
+  padding:1rem .9rem .9rem;box-shadow:0 14px 40px rgba(40,20,5,.35);text-align:center;
+  animation:pop .25s ease-out}
+@keyframes pop{from{transform:scale(.94);opacity:.6}to{transform:scale(1);opacity:1}}
+@media (prefers-reduced-motion:reduce){.bcard{animation:none}}
+.bemoji{font-size:2.6rem;line-height:1}
+.btitle{margin:.34rem 0 .1rem;font-size:1.24rem;font-weight:900;letter-spacing:-.04em;color:var(--brown);line-height:1.24}
+.bsub{margin:.2rem 0 0;font-size:.92rem;font-weight:800;color:var(--ink);line-height:1.4}
+.bsub b{color:var(--green)}
+.bbtns{display:flex;flex-direction:column;gap:.4rem;margin-top:.8rem}
+.bbtns .okbtn{border:2px solid var(--green-line);background:var(--green-bg);color:var(--green);
+  border-radius:.9rem;padding:.68rem;font-size:1.02rem;font-weight:900;min-height:3.2rem}
+.bbtns .laterbtn{border:1px solid var(--line);background:#fff;color:var(--ink2);
+  border-radius:.9rem;padding:.56rem;font-size:.86rem;font-weight:800;min-height:2.8rem}
+
+/* ── 모달 ───────────────────────────────── */
+.modal{position:fixed;inset:0;z-index:70;background:rgba(45,28,12,.5);display:flex;align-items:center;
+  justify-content:center;padding:.8rem;overflow:auto}
+.mcard{width:100%;max-width:26rem;background:#FFFDF8;border-radius:1.2rem;padding:.8rem .78rem .78rem;
+  box-shadow:0 16px 44px rgba(40,20,5,.35);max-height:calc(100vh - 1.6rem);overflow:auto}
+.mhead{display:flex;align-items:center;gap:.4rem;margin-bottom:.5rem}
+.mhead h3{margin:0;flex:1 1 auto;font-size:1rem;font-weight:900;letter-spacing:-.03em}
+.mhead .x{border:1px solid var(--line);background:#fff;width:2.2rem;height:2.2rem;border-radius:.6rem;
+  font-size:.9rem;line-height:1}
+.mrow{display:grid;grid-template-columns:1fr 1fr;gap:.36rem}
+.mfld{display:flex;flex-direction:column;gap:.16rem;margin-bottom:.42rem}
+.mfld>span{font-size:.7rem;font-weight:800;color:var(--ink2)}
+.mfld input{border:1px solid var(--line);background:#fff;border-radius:.65rem;padding:.5rem .55rem;
+  font-size:1rem;font-weight:800;min-height:2.8rem;width:100%}
+.chipwrap{display:grid;grid-template-columns:repeat(4,1fr);gap:.3rem;margin:.1rem 0 .1rem}
+.chip{border:1.5px solid var(--amber-line);background:#fff;color:var(--amber-ink);border-radius:.7rem;
+  padding:.44rem .1rem;font-size:.78rem;font-weight:900;min-height:2.7rem;white-space:nowrap}
+.chip.on{background:var(--amber);border-color:#B5802C;color:#3E2705;box-shadow:0 0 0 2px rgba(242,182,92,.35) inset}
+.moods{display:grid;grid-template-columns:repeat(3,1fr);gap:.3rem}
+.mood{border:1.5px solid var(--line);background:#fff;border-radius:.7rem;padding:.44rem .1rem;
+  font-size:.8rem;font-weight:900;min-height:2.9rem;line-height:1.15}
+.mood.on{border-color:var(--green-line);background:var(--green-bg);color:var(--green)}
+.msave{width:100%;margin-top:.3rem;border:2px solid var(--green-line);background:var(--green-bg);color:var(--green);
+  border-radius:.85rem;padding:.62rem;font-size:1rem;font-weight:900;min-height:3.1rem}
+.mcancel{width:100%;margin-top:.34rem;border:1px solid var(--line);background:#fff;color:var(--ink2);
+  border-radius:.85rem;padding:.5rem;font-size:.86rem;font-weight:800;min-height:2.7rem}
+.mhelp{margin:.2rem 0 .44rem;font-size:.72rem;font-weight:700;color:var(--ink2);line-height:1.4}
+.installsteps{margin:.2rem 0 .2rem;padding-left:1.1rem;font-size:.82rem;font-weight:700;line-height:1.55}
+.installsteps li{margin-bottom:.26rem}
+.installsteps b{color:var(--brown)}
+.iosbox{margin-top:.4rem;font-size:.78rem;line-height:1.5;font-weight:700;color:var(--ink2);
+  border-radius:.7rem;background:var(--cream2);padding:.5rem .6rem}
+.confirmmsg{font-size:.9rem;font-weight:800;line-height:1.45;margin:.2rem 0 .7rem}
+.confirmmsg b{color:var(--red)}
+.danger{width:100%;border:2px solid var(--red-line);background:var(--red-bg);color:var(--red);
+  border-radius:.85rem;padding:.6rem;font-size:.96rem;font-weight:900;min-height:3rem}
+
+/* ── 토스트 ─────────────────────────────── */
+.toast{position:fixed;left:50%;bottom:1.1rem;transform:translateX(-50%) translateY(1rem);z-index:90;
+  max-width:calc(100vw - 1.4rem);background:rgba(46,33,24,.95);color:#FFF9EF;border-radius:1rem;
+  padding:.55rem .8rem;font-size:.8rem;font-weight:800;line-height:1.35;text-align:center;
+  opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">💊</span>
+    <div class="btxt">
+      <h1 id="brandTitle">와글 효도 약통</h1>
+      <p class="sub" id="subTitle">약 · 물 · 생활 챙김표</p>
+    </div>
+    <span class="fam" aria-hidden="true">
+      <svg viewBox="0 0 150 74" xmlns="http://www.w3.org/2000/svg">
+        <g>
+          <ellipse cx="34" cy="66" rx="20" ry="4" fill="#3A2A1C" opacity=".18"/>
+          <ellipse cx="34" cy="40" rx="22" ry="24" fill="#FFF8EC"/>
+          <ellipse cx="18" cy="24" rx="9" ry="8.5" fill="#FBE6C9"/><ellipse cx="50" cy="24" rx="9" ry="8.5" fill="#FBE6C9"/>
+          <ellipse cx="34" cy="42" rx="18" ry="17" fill="#FFFDF6"/>
+          <ellipse cx="14" cy="46" rx="5" ry="7" fill="#F6E2C4"/><ellipse cx="54" cy="46" rx="5" ry="7" fill="#F6E2C4"/>
+          <circle cx="28" cy="40" r="3" fill="#2C1F18"/><circle cx="40" cy="40" r="3" fill="#2C1F18"/>
+          <ellipse cx="34" cy="46" rx="2" ry="1.6" fill="#E8857C"/>
+          <ellipse cx="22" cy="46" rx="3.4" ry="2.4" fill="#F4A09A" opacity=".5"/><ellipse cx="46" cy="46" rx="3.4" ry="2.4" fill="#F4A09A" opacity=".5"/>
+        </g>
+        <g>
+          <ellipse cx="82" cy="67" rx="19" ry="3.8" fill="#3A2A1C" opacity=".18"/>
+          <ellipse cx="82" cy="42" rx="21" ry="23" fill="#F3C179"/>
+          <ellipse cx="67" cy="26" rx="8.5" ry="8" fill="#F7D49B"/><ellipse cx="97" cy="26" rx="8.5" ry="8" fill="#F7D49B"/>
+          <ellipse cx="82" cy="44" rx="17" ry="16" fill="#F8D9A8"/>
+          <ellipse cx="63" cy="48" rx="4.8" ry="6.6" fill="#F0C58C"/><ellipse cx="101" cy="48" rx="4.8" ry="6.6" fill="#F0C58C"/>
+          <circle cx="76" cy="42" r="3" fill="#2C1F18"/><circle cx="88" cy="42" r="3" fill="#2C1F18"/>
+          <ellipse cx="82" cy="48" rx="2" ry="1.6" fill="#E8857C"/>
+          <path d="M69 33 C67 22 78 18 84 19 C93 20 99 26 97 34 C94 28 90 29 87 26 C83 33 76 27 73 31 C71 29 70 31 69 33Z" fill="#2E2320"/>
+        </g>
+        <g>
+          <ellipse cx="122" cy="67" rx="16" ry="3.4" fill="#3A2A1C" opacity=".16"/>
+          <ellipse cx="122" cy="52" rx="17" ry="18" fill="#FFEFD6"/>
+          <ellipse cx="110" cy="39" rx="7" ry="6.6" fill="#FBDFB4"/><ellipse cx="134" cy="39" rx="7" ry="6.6" fill="#FBDFB4"/>
+          <ellipse cx="122" cy="54" rx="14" ry="13" fill="#FFF6E5"/>
+          <ellipse cx="107" cy="57" rx="4" ry="5.4" fill="#F7D8AC"/><ellipse cx="137" cy="57" rx="4" ry="5.4" fill="#F7D8AC"/>
+          <circle cx="117" cy="52" r="2.6" fill="#2C1F18"/><circle cx="127" cy="52" r="2.6" fill="#2C1F18"/>
+          <ellipse cx="122" cy="57.5" rx="1.8" ry="1.4" fill="#E8857C"/>
+        </g>
+      </svg>
+    </span>
+    <div class="topbtns">
+      <button type="button" id="bigBtn" aria-pressed="false" aria-label="큰 글씨로 보기">👴 큰 글씨</button>
+      <button type="button" id="langBtn" aria-label="English / 한국어">EN</button>
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <picture>
+    <source srcset="./home-care.webp" type="image/webp" />
+    <img src="./home-care.jpg" width="1400" height="1120" alt="따뜻한 아침, 와글가족 햄스터들이 물 한 잔과 약통, 과일을 나누며 건강을 챙기는 그림" />
+  </picture>
+  <div class="herocap" id="heroCap">와글가족이 오늘도 함께 챙겨요 💛</div>
+</div>
+
+<div class="datebar">
+  <div class="dwrap">
+    <div class="dtoday" id="dateText">오늘</div>
+    <div class="dsum" id="sumText"></div>
+  </div>
+  <div class="tools">
+    <button type="button" id="shareBtn" aria-label="이 앱 공유하기">📤 공유</button>
+    <button type="button" id="installBtn" aria-haspopup="dialog" aria-label="앱 설치 안내">📲 설치</button>
+  </div>
+</div>
+
+<div id="ddayAlert" hidden></div>
+
+<section class="card" aria-labelledby="doseTitle">
+  <div class="secthead">
+    <h2 id="doseTitle">💊 오늘의 약</h2>
+  </div>
+  <div class="dosegrid" id="doseGrid"></div>
+</section>
+
+<section class="card watercard" aria-labelledby="waterTitle">
+  <div class="wtop">
+    <div>
+      <div class="wlabel" id="waterTitle">💧 물 마시기</div>
+      <div class="wlast" id="waterLast"></div>
+    </div>
+    <div class="wcount"><b id="waterCount">0</b><small id="waterGoal">/ 8잔</small></div>
+  </div>
+  <div class="wglasses" id="waterGlasses" aria-hidden="true"></div>
+  <div class="wbtns">
+    <button type="button" class="wplus" id="waterPlus">💧 한 잔 마셨다</button>
+    <button type="button" class="wminus" id="waterMinus" aria-label="한 잔 줄이기">−</button>
+  </div>
+</section>
+
+<section class="card" aria-labelledby="lifeTitle">
+  <div class="secthead"><h2 id="lifeTitle">🚶 생활 챙김</h2></div>
+  <div class="lifebtns">
+    <button type="button" class="bigbtn" id="walkBtn" aria-pressed="false">
+      <span class="bi" aria-hidden="true">🚶</span>
+      <span class="bt"><b id="walkTitle">산책 다녀왔어요</b><span id="walkSub">오늘 한 번 걸어 보세요</span></span>
+      <span class="bchk" id="walkChk" aria-hidden="true"></span>
+    </button>
+    <button type="button" class="bigbtn" id="bpBtn" aria-haspopup="dialog">
+      <span class="bi" aria-hidden="true">🩺</span>
+      <span class="bt"><b id="bpTitle2">혈압 · 컨디션 적기</b><span id="bpSub">아직 기록이 없어요</span></span>
+      <span class="bchk" aria-hidden="true">✏️</span>
+    </button>
+  </div>
+</section>
+
+<section class="card" id="ddaySec" aria-labelledby="ddayTitle">
+  <div class="secthead">
+    <h2 id="ddayTitle">🏥 병원 약 남은 날</h2>
+    <button type="button" class="smallbtn" id="addMed">＋ 추가</button>
+  </div>
+  <div class="medlist" id="medList"></div>
+  <p class="hint" id="ddayHint">약 받은 날과 일수를 적으면 다음 병원 갈 날을 미리 알려 드려요.</p>
+  <p class="hint alarmnote" id="alarmNote">앱을 닫아 두면 이 앱의 알림은 울리지 않아요. 폰 기본 알람·캘린더(또는 피클 톡 알림)도 함께 써 주세요.</p>
+</section>
+
+<section class="card" aria-labelledby="weekTitle">
+  <div class="secthead"><h2 id="weekTitle">🗓 최근 7일 기록</h2></div>
+  <div class="week" id="week"></div>
+  <div class="wlegend" id="weekLegend"></div>
+</section>
+
+<details class="settings" id="settings">
+  <summary>
+    <span aria-hidden="true">⚙️</span><span id="setTitle">약 이름 · 시간 · 알림 설정</span>
+    <span class="caret" aria-hidden="true">▼</span>
+  </summary>
+  <div class="setbody" id="setBody"></div>
+</details>
+
+<p class="foot">
+  <b id="footBrand">와글 효도 약통</b> · <span id="footBy">별의별 살림 (StarPick)</span><br />
+  <span id="footPrivacy">모든 기록은 이 휴대폰에만 저장돼요 · 회원가입 없음 · 광고 없음</span>
+  <span class="disc" id="footDisc">이 앱은 복약을 도와주는 기록장이에요. 약 복용과 병원 일정은 꼭 의사·약사 선생님의 안내를 따라 주세요.</span>
+</p>
+
+<!-- ══ 약 시간 알림 배너 ══ -->
+<div class="banner" id="dueBanner" hidden>
+  <div class="bcard" role="dialog" aria-modal="true" aria-labelledby="dueTitle">
+    <div class="bemoji" id="dueEmoji" aria-hidden="true">☀️</div>
+    <div class="btitle" id="dueTitle">아침 약 시간이에요</div>
+    <p class="bsub" id="dueSub"></p>
+    <div class="bbtns">
+      <button type="button" class="okbtn" id="dueDone">✅ 먹었어요</button>
+      <button type="button" class="laterbtn" id="dueLater">⏰ 조금 있다가 할게요</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 혈압·컨디션 ══ -->
+<div class="modal" id="bpModal" hidden>
+  <div class="mcard" role="dialog" aria-modal="true" aria-labelledby="bpHead">
+    <div class="mhead">
+      <h3 id="bpHead">🩺 혈압 · 컨디션</h3>
+      <button type="button" class="x" data-close="bpModal" aria-label="닫기">✕</button>
+    </div>
+    <div class="mrow">
+      <label class="mfld"><span id="bpSysL">수축기 (높은 수)</span>
+        <input type="number" id="bpSys" inputmode="numeric" min="60" max="260" placeholder="120" /></label>
+      <label class="mfld"><span id="bpDiaL">이완기 (낮은 수)</span>
+        <input type="number" id="bpDia" inputmode="numeric" min="30" max="160" placeholder="80" /></label>
+    </div>
+    <div class="mfld"><span id="bpMoodL">오늘 컨디션</span>
+      <div class="moods" id="moods">
+        <button type="button" class="mood" data-mood="good">😊 좋아요</button>
+        <button type="button" class="mood" data-mood="ok">😐 보통</button>
+        <button type="button" class="mood" data-mood="tired">😟 힘들어요</button>
+      </div>
+    </div>
+    <p class="mhelp" id="bpHelp">혈압은 아침·저녁 같은 시간에 재면 좋아요. 숫자는 모르면 비워 두셔도 돼요.</p>
+    <button type="button" class="msave" id="bpSave">저장</button>
+    <button type="button" class="mcancel" data-close="bpModal">닫기</button>
+  </div>
+</div>
+
+<!-- ══ 병원 약 추가/수정 ══ -->
+<div class="modal" id="medModal" hidden>
+  <div class="mcard" role="dialog" aria-modal="true" aria-labelledby="medHead">
+    <div class="mhead">
+      <h3 id="medHead">🏥 병원 약 추가</h3>
+      <button type="button" class="x" data-close="medModal" aria-label="닫기">✕</button>
+    </div>
+    <label class="mfld"><span id="medNameL">약 이름</span>
+      <input type="text" id="medName" maxlength="24" placeholder="예) 혈압약" autocomplete="off" /></label>
+    <label class="mfld"><span id="medStartL">약 받은 날</span>
+      <input type="date" id="medStart" /></label>
+    <div class="mfld"><span id="medDaysL">며칠분인가요?</span>
+      <div class="chipwrap" id="dayChips">
+        <button type="button" class="chip" data-days="30">30일분</button>
+        <button type="button" class="chip" data-days="60">60일분</button>
+        <button type="button" class="chip" data-days="90">90일분</button>
+        <button type="button" class="chip" data-days="100">100일분</button>
+      </div>
+      <label class="fld"><span id="medDaysL2">직접 입력 (일)</span>
+        <input type="number" id="medDays" inputmode="numeric" min="1" max="365" placeholder="예) 100" /></label>
+    </div>
+    <div class="mrow">
+      <label class="mfld"><span id="medApptL">병원 예약일 (선택)</span>
+        <input type="date" id="medAppt" /></label>
+      <label class="mfld"><span id="medApptTimeL">예약 시간 (선택)</span>
+        <input type="time" id="medApptTime" /></label>
+    </div>
+    <p class="mhelp" id="medApptHelp" style="margin-top:-.1rem">비워 두면 약이 떨어지는 다음 날로 계산해요.</p>
+    <label class="mfld"><span id="medMemoL">메모 (선택)</span>
+      <input type="text" id="medMemo" maxlength="30" placeholder="예) 아침 1알" autocomplete="off" /></label>
+    <p class="mhelp" id="medHelp">받은 날 + 일수로 다음 병원 갈 날을 계산해요. 남은 날이 7일 이하가 되면 맨 위에 알림이 떠요.</p>
+    <button type="button" class="msave" id="medSave">저장</button>
+    <button type="button" class="mcancel" data-close="medModal">닫기</button>
+  </div>
+</div>
+
+<!-- ══ 확인 ══ -->
+<div class="modal" id="confirmModal" hidden>
+  <div class="mcard" role="dialog" aria-modal="true" aria-labelledby="confirmHead">
+    <div class="mhead">
+      <h3 id="confirmHead">확인</h3>
+      <button type="button" class="x" data-close="confirmModal" aria-label="닫기">✕</button>
+    </div>
+    <div class="confirmmsg" id="confirmMsg"></div>
+    <button type="button" class="danger" id="confirmYes">삭제</button>
+    <button type="button" class="mcancel" data-close="confirmModal" id="confirmNo">취소</button>
+  </div>
+</div>
+
+<!-- ══ 설치 안내 ══ -->
+<div class="modal" id="installModal" hidden>
+  <div class="mcard" role="dialog" aria-modal="true" aria-labelledby="installHead">
+    <div class="mhead">
+      <h3 id="installHead">📲 홈 화면에 앱으로 두기</h3>
+      <button type="button" class="x" data-close="installModal" aria-label="닫기">✕</button>
+    </div>
+    <p class="mhelp" id="installIntro">앱처럼 한 번 누르면 바로 열려요. 설치는 무료이고, 기록은 이 기기에만 저장돼요.</p>
+    <ol class="installsteps" id="installSteps">
+      <li>크롬 오른쪽 위 <b>⋮</b> 를 눌러요.</li>
+      <li><b>앱 설치</b> 또는 <b>홈 화면에 추가</b>를 눌러요.</li>
+      <li><b>설치</b>를 누르면 홈 화면에 생겨요.</li>
+    </ol>
+    <button type="button" class="msave" id="installGo">📲 지금 설치하기</button>
+    <a class="mcancel" id="chromeOpen" href="#" style="display:block;text-align:center;text-decoration:none;box-sizing:border-box" hidden>🌐 크롬으로 바로 열기</a>
+    <div class="iosbox" id="iosBox" hidden>아이폰은 사파리 아래쪽 <b>공유(⬆️)</b> → <b>홈 화면에 추가</b>를 눌러 주세요.</div>
+    <button type="button" class="mcancel" data-close="installModal">다음에 할게요</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<noscript><p style="padding:1rem;font-weight:800">이 앱은 자바스크립트가 필요해요. 브라우저 설정에서 자바스크립트를 켜주세요.</p></noscript>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   와글 효도 약통 · 약·물·생활 챙김표
+   · 모든 기록은 이 기기(localStorage)에만 저장 — 서버 전송 없음
+   · 사람 출연 없음(와글가족 햄스터 일러스트만)
+   ═══════════════════════════════════════════════════════════ */
+var $ = function(s){ return document.querySelector(s); };
+var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
+var KEY = 'wagleCareV1';
+var DAY = 86400000;
+var SLOTS = [
+  { id:'morning', emoji:'☀️', ko:'아침 약', en:'Morning', at:'08:00' },
+  { id:'noon',    emoji:'🍚', ko:'점심 약', en:'Noon',    at:'12:30' },
+  { id:'evening', emoji:'🌙', ko:'저녁 약', en:'Evening', at:'18:30' },
+  { id:'night',   emoji:'🛏️', ko:'자기 전 약', en:'Bedtime', at:'22:00' }
+];
+var WD = { ko:['일','월','화','수','목','금','토'], en:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'] };
+var MO = { ko:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+           en:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'] };
+
+/* ── 상태 ─────────────────────────────── */
+function defaults(){
+  var s = { v:1, big:false, lang:'ko', sound:true, slots:{}, water:{}, walk:{}, bp:{}, meds:[], history:{}, seen:{} };
+  SLOTS.forEach(function(x){ s.slots[x.id] = { at:x.at, name:'', memo:'', doneAt:null }; });
+  s.water = { date:'', count:0, goal:8, last:null };
+  s.walk  = { date:'', doneAt:null };
+  s.bp    = { date:'', sys:'', dia:'', mood:'', at:null };
+  return s;
+}
+var S = defaults();
+
+function load(){
+  var raw = null;
+  try { raw = localStorage.getItem(KEY); } catch(e){}
+  if(!raw) return;
+  var o;
+  try { o = JSON.parse(raw); } catch(e){ return; }
+  if(!o || typeof o !== 'object') return;
+  if(o.big) S.big = true;
+  if(o.lang === 'en') S.lang = 'en';
+  if(o.sound === false) S.sound = false;
+  if(o.slots && typeof o.slots === 'object'){
+    SLOTS.forEach(function(x){
+      var v = o.slots[x.id];
+      if(v && typeof v === 'object'){
+        if(/^\d{2}:\d{2}$/.test(v.at||'')) S.slots[x.id].at = v.at;
+        S.slots[x.id].name = typeof v.name === 'string' ? v.name : '';
+        S.slots[x.id].memo = typeof v.memo === 'string' ? v.memo : '';
+        S.slots[x.id].doneAt = typeof v.doneAt === 'string' ? v.doneAt : null;
+      }
+    });
+  }
+  if(o.water && typeof o.water === 'object'){
+    S.water.date = o.water.date || '';
+    S.water.count = Math.max(0, parseInt(o.water.count,10) || 0);
+    S.water.goal = Math.min(20, Math.max(1, parseInt(o.water.goal,10) || 8));
+    S.water.last = o.water.last || null;
+  }
+  if(o.walk && typeof o.walk === 'object'){
+    S.walk.date = o.walk.date || '';
+    S.walk.doneAt = o.walk.doneAt || null;
+  }
+  if(o.bp && typeof o.bp === 'object'){
+    S.bp.date = o.bp.date || '';
+    S.bp.sys = o.bp.sys == null ? '' : String(o.bp.sys);
+    S.bp.dia = o.bp.dia == null ? '' : String(o.bp.dia);
+    S.bp.mood = o.bp.mood || '';
+    S.bp.at = o.bp.at || null;
+  }
+  if(Array.isArray(o.meds)){
+    S.meds = o.meds.filter(function(m){
+      return m && typeof m.id === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(m.start||'') && (parseInt(m.days,10) > 0);
+    }).map(function(m){
+      return { id:m.id, name:String(m.name||'').slice(0,24), start:m.start,
+               days:Math.min(365, Math.max(1, parseInt(m.days,10))), memo:String(m.memo||'').slice(0,30),
+               appt:/^\d{4}-\d{2}-\d{2}$/.test(m.appt||'') ? m.appt : '',
+               apptTime:/^\d{2}:\d{2}$/.test(m.apptTime||'') ? m.apptTime : '' };
+    });
+  }
+  if(o.history && typeof o.history === 'object') S.history = o.history;
+  if(o.seen && typeof o.seen === 'object') S.seen = o.seen;
+}
+function save(){
+  try { syncHistory(); } catch(e){}
+  try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){}
+}
+function pad(n){ return String(n).padStart(2,'0'); }
+function dk(d){ return d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate()); }
+function todayKey(){ return dk(new Date()); }
+function parseKey(k){
+  var p = String(k||'').split('-').map(Number);
+  return new Date(p[0], (p[1]||1) - 1, p[2]||1);
+}
+function addDays(d, n){ var x = new Date(d.getTime()); x.setDate(x.getDate() + n); return x; }
+function hhmm(d){ return pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+/* 어르신이 읽기 쉬운 12시간 표기 — 오전 8:00 / 오후 12:30 (영어는 8:00 AM) */
+function fmtTime(hm){
+  var p = String(hm || '').split(':');
+  var h = parseInt(p[0], 10), m = p[1] || '00';
+  if(isNaN(h)) return hm || '';
+  if(EN()){
+    var ap = h < 12 ? 'AM' : 'PM', hh = h % 12; if(hh === 0) hh = 12;
+    return hh + ':' + m + ' ' + ap;
+  }
+  var ap2 = h < 12 ? '오전' : '오후', h2 = h % 12; if(h2 === 0) h2 = 12;
+  return ap2 + ' ' + h2 + ':' + m;
+}
+function esc(s){
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+  });
+}
+function EN(){ return S.lang === 'en'; }
+/* 공유 링크(?lang=en)로 들어오면 그 언어로 열기 */
+function qLang(){
+  try {
+    var m = /[?&]lang=([A-Za-z_-]+)/.exec(location.search || '');
+    if(m){ if(/^en/i.test(m[1])) return 'en'; if(/^ko/i.test(m[1])) return 'ko'; }
+  } catch(e){}
+  return null;
+}
+function L(ko, en){ return EN() ? en : ko; }
+
+function rollover(){
+  var t = todayKey();
+  if(S.water.date !== t){ S.water.date = t; S.water.count = 0; S.water.last = null; }
+  if(S.walk.date !== t){ S.walk.date = t; S.walk.doneAt = null; }
+  if(S.bp.date !== t){ S.bp.date = t; S.bp.sys = ''; S.bp.dia = ''; S.bp.mood = ''; S.bp.at = null; }
+}
+function isDone(id){
+  var a = S.slots[id] && S.slots[id].doneAt;
+  return !!a && a.slice(0,10) === todayKey();
+}
+function syncHistory(){
+  var t = todayKey(), h = S.history[t] || {};
+  SLOTS.forEach(function(x){
+    if(isDone(x.id)){
+      var a = S.slots[x.id].doneAt;
+      h[x.id] = a.length >= 16 ? a.slice(11,16) : '';
+    } else delete h[x.id];
+  });
+  h.water = S.water.count;
+  if(S.walk.doneAt) h.walk = S.walk.doneAt.slice(11,16); else delete h.walk;
+  S.history[t] = h;
+  var keys = Object.keys(S.history).sort();
+  while(keys.length > 60) delete S.history[keys.shift()];
+  // 알림 기록은 오늘 것만 남김
+  Object.keys(S.seen).forEach(function(k){ if(k.indexOf(t + '|') !== 0) delete S.seen[k]; });
+}
+
+/* ── 날짜·요약 ────────────────────────── */
+function renderDate(){
+  var d = new Date();
+  var txt = EN()
+    ? WD.en[d.getDay()] + ', ' + MO.en[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear()
+    : d.getFullYear() + '년 ' + (d.getMonth()+1) + '월 ' + d.getDate() + '일 <small>' + WD.ko[d.getDay()] + '요일</small>';
+  $('#dateText').innerHTML = txt;
+  renderSummary();
+}
+function renderSummary(){
+  var done = SLOTS.filter(function(x){ return isDone(x.id); }).length;
+  var w = S.water.count;
+  var parts = [];
+  parts.push(L('약 ', 'Meds ') + '<b>' + done + '/' + SLOTS.length + '</b>');
+  parts.push(L('물 ', 'Water ') + '<b>' + w + L('잔','') + '</b>');
+  if(S.walk.doneAt) parts.push('<b>' + L('산책 ✅','Walk ✅') + '</b>');
+  $('#sumText').innerHTML = parts.join('<span aria-hidden="true">·</span>');
+}
+
+/* ── 약 체크 4칸 ──────────────────────── */
+function slotTitle(x){ return EN() ? x.en : x.ko; }
+function renderDose(){
+  var grid = $('#doseGrid');
+  grid.innerHTML = SLOTS.map(function(x){
+    var st = S.slots[x.id], done = isDone(x.id);
+    var meta = [st.name, st.memo].filter(Boolean).join(' · ');
+    var stat = done
+      ? '✅ ' + fmtTime(st.doneAt.slice(11,16)) + L(' 복용', ' taken')
+      : L('눌러서 체크', 'Tap to check');
+    var aria = slotTitle(x) + ' ' + st.at + (meta ? ', ' + meta : '') + ', ' + (done ? L('복용 완료','taken') : L('아직 안 함','not yet'));
+    return '<button type="button" class="dose' + (done ? ' done' : '') + '" data-slot="' + x.id + '"'
+      + ' aria-pressed="' + (done ? 'true' : 'false') + '" aria-label="' + esc(aria) + '">'
+      + '<span class="dcheck" aria-hidden="true">✅</span>'
+      + '<span class="dhead"><span class="demoji" aria-hidden="true">' + x.emoji + '</span>'
+      + '<span class="dname">' + esc(slotTitle(x)) + '</span></span>'
+      + '<span class="dtime">' + esc(fmtTime(st.at)) + '</span>'
+      + '<span class="dmed"' + (meta ? '' : ' hidden') + '>' + esc(meta) + '</span>'
+      + '<span class="dstat">' + esc(stat) + '</span>'
+      + '</button>';
+  }).join('');
+  $$('#doseGrid .dose').forEach(function(b){
+    b.addEventListener('click', function(){ toggleSlot(b.dataset.slot); });
+  });
+}
+function toggleSlot(id){
+  var st = S.slots[id];
+  if(isDone(id)) st.doneAt = null;
+  else st.doneAt = todayKey() + 'T' + hhmm(new Date());
+  save();
+  renderDose(); renderSummary(); renderWeek();
+  if(!isDone(id)) { /* 취소 */ }
+  if(dueSlot && dueSlot === id && isDone(id)) closeDue(false);
+}
+
+/* ── 물 ──────────────────────────────── */
+function renderWater(){
+  var w = S.water.count, goal = S.water.goal || 8;
+  $('#waterCount').textContent = w;
+  $('#waterGoal').textContent = L(' / ' + goal + '잔', ' / ' + goal + ' cups');
+  var rows = '';
+  var show = Math.max(goal, Math.min(w, 12));
+  var drop = '<svg viewBox="0 0 12 16" aria-hidden="true"><path d="M6 1.4C6 1.4 1.5 7 1.5 10.1a4.5 4.5 0 0 0 9 0C10.5 7 6 1.4 6 1.4Z" fill="currentColor"/></svg>';
+  for(var i = 0; i < show; i++){
+    rows += '<span class="' + (i < w ? 'on' : '') + '" aria-hidden="true">' + drop + '</span>';
+  }
+  if(w > show) rows += '<span class="plus" aria-hidden="true">+' + (w - show) + '</span>';
+  $('#waterGlasses').innerHTML = rows;
+  $('#waterLast').textContent = S.water.last
+    ? L('마지막 한 잔 ' + fmtTime(S.water.last), 'Last glass ' + fmtTime(S.water.last))
+    : L('오늘 아직 기록이 없어요', 'No water logged yet today');
+  renderSummary();
+}
+function addWater(n){
+  var w = Math.max(0, S.water.count + n);
+  S.water.count = w;
+  if(n > 0) S.water.last = hhmm(new Date());
+  save(); renderWater(); renderWeek();
+  if(n > 0 && w === (S.water.goal || 8)) toast(L('물 ' + w + '잔! 오늘 목표를 채웠어요 💙', w + ' glasses — goal reached! 💙'));
+}
+
+/* ── 산책 · 혈압 ──────────────────────── */
+function renderWalk(){
+  var done = !!S.walk.doneAt, b = $('#walkBtn');
+  b.classList.toggle('on', done);
+  b.setAttribute('aria-pressed', done ? 'true' : 'false');
+  $('#walkTitle').textContent = done ? L('산책 다녀왔어요', 'Walk done') : L('산책 다녀왔어요', 'I went for a walk');
+  $('#walkSub').textContent = done
+    ? '✅ ' + fmtTime(S.walk.doneAt.slice(11,16)) + L(' 완료 · 다시 누르면 취소', ' · tap again to undo')
+    : L('오늘 한 번 걸어 보세요', 'A short walk today');
+  $('#walkChk').textContent = done ? '✅' : '';
+  renderSummary();
+}
+$('#waterPlus').addEventListener('click', function(){ addWater(1); });
+$('#waterMinus').addEventListener('click', function(){ addWater(-1); });
+$('#walkBtn').addEventListener('click', function(){
+  if(S.walk.doneAt){
+    S.walk.doneAt = null;
+    toast(L('산책 기록을 취소했어요','Walk record removed'));
+  } else {
+    S.walk.doneAt = todayKey() + 'T' + hhmm(new Date());
+    S.walk.date = todayKey();
+    toast(L('산책 완료! 🚶 오늘도 수고하셨어요','Walk done! 🚶 nicely done today'));
+  }
+  save(); renderWalk(); renderWeek();
+});
+
+function renderBp(){
+  var b = S.bp, on = !!(b.at || b.sys || b.mood);
+  var bits = [];
+  if(b.sys && b.dia) bits.push(b.sys + '/' + b.dia);
+  else if(b.sys) bits.push(b.sys);
+  if(b.mood) bits.push(moodLabel(b.mood));
+  if(b.at) bits.push(fmtTime(b.at));
+  $('#bpSub').textContent = on ? bits.join(' · ') : L('아직 기록이 없어요', 'No record yet');
+}
+function moodLabel(m){ return m === 'good' ? L('좋아요','Good') : m === 'tired' ? L('힘들어요','Tired') : m === 'ok' ? L('보통','Okay') : ''; }
+
+/* ── 병원 약 D-Day ────────────────────── */
+function medCalc(m){
+  var start = parseKey(m.start);
+  var days = Math.max(1, parseInt(m.days,10) || 1);
+  var today = parseKey(todayKey());
+  var used = Math.round((today - start) / DAY) + 1;
+  var left = days - used;
+  return { days:days, used:used, left:left, last:addDays(start, days-1), next:addDays(start, days) };
+}
+/* 병원 예약일 — 적어 둔 예약일이 없으면 '약 떨어지는 다음 날'로 계산 */
+function apptInfo(m, c){
+  var d = m.appt ? parseKey(m.appt) : c.next;
+  return { date:d, left:Math.round((d - parseKey(todayKey())) / DAY), time:m.apptTime || '' };
+}
+function dText(d){ return EN() ? MO.en[d.getMonth()] + ' ' + d.getDate() : (d.getMonth()+1) + '월 ' + d.getDate() + '일'; }
+function dFull(d){ return dText(d) + (EN() ? ' (' + WD.en[d.getDay()] + ')' : '(' + WD.ko[d.getDay()] + ')'); }
+function dBadge(left){
+  if(left > 0) return 'D-' + left;
+  if(left === 0) return 'D-DAY';
+  return 'D+' + (-left);
+}
+function dClass(left){ return left <= 3 ? 'urgent' : left <= 7 ? 'warn' : 'ok'; }
+
+function renderMeds(){
+  var list = $('#medList');
+  if(!S.meds.length){
+    list.innerHTML = '<div class="medempty">' + L('아직 적은 병원 약이 없어요.<br>＋ 추가를 눌러 약 이름과 일수를 적어 주세요.',
+      'No hospital meds yet.<br>Tap ＋ Add to enter a name and days.') + '</div>';
+  } else {
+    list.innerHTML = S.meds.map(function(m){
+      var c = medCalc(m), cls = dClass(c.left);
+      var pct = Math.max(2, Math.min(100, Math.round(c.used / c.days * 100)));
+      var startTxt = dText(parseKey(m.start));
+      var sub = c.used < 1
+        ? L('시작 전 · ' + c.days + '일분 (' + startTxt + '부터)',
+            'Starts later · ' + c.days + ' days (from ' + startTxt + ')')
+        : L('오늘 ' + c.used + '일째 · ' + c.days + '일분 (' + startTxt + ' 시작)',
+            'Day ' + c.used + ' · ' + c.days + ' days (started ' + startTxt + ')');
+      if(m.memo) sub += ' · ' + m.memo;
+      var next;
+      if(c.left < 0){
+        next = L('약이 다 떨어졌어요 · 마지막 날 ' + dFull(c.last), 'Out of meds · last day ' + dFull(c.last));
+      } else if(c.left === 0){
+        next = L('오늘이 마지막 날 (' + dFull(c.last) + ')', 'Last day is today (' + dFull(c.last) + ')');
+      } else {
+        next = L('마지막 날 ' + dFull(c.last), 'Last day ' + dFull(c.last));
+      }
+      var ap = apptInfo(m, c);
+      var apText = dFull(ap.date) + (ap.time ? ' ' + fmtTime(ap.time) : '');
+      var apLine = '<div class="apptline"><span class="apptlabel">' + L('🏥 다음 병원 예약','🏥 Next appointment') + '</span>'
+        + '<span class="apptdate">' + esc(apText) + '</span>'
+        + '<span class="apptbadge ' + dClass(ap.left) + '">' + dBadge(ap.left) + '</span></div>';
+      return '<div class="med" data-med="' + esc(m.id) + '">'
+        + '<div class="medtop"><span class="medname">' + esc(m.name || L('병원 약','Hospital med')) + '</span>'
+        + '<span class="dbadge ' + cls + '">' + dBadge(c.left) + '</span>'
+        + '<span class="medact"><button type="button" data-edit="' + esc(m.id) + '" aria-label="' + L('고치기','Edit') + '">✏️</button>'
+        + '<button type="button" data-del="' + esc(m.id) + '" aria-label="' + L('지우기','Delete') + '">🗑️</button></span></div>'
+        + '<div class="medsub">' + esc(sub) + '</div>'
+        + '<div class="medbar"><i class="' + cls + '" style="width:' + pct + '%"></i></div>'
+        + '<div class="mednext">' + next + '</div>'
+        + apLine
+        + '</div>';
+    }).join('');
+  }
+  $$('#medList [data-edit]').forEach(function(b){
+    b.addEventListener('click', function(){ openMedModal(b.dataset.edit); });
+  });
+  $$('#medList [data-del]').forEach(function(b){
+    b.addEventListener('click', function(){ askDelete(b.dataset.del); });
+  });
+  renderDdayAlert();
+}
+function ddayItems(){
+  return S.meds.map(function(m){
+    var c = medCalc(m), a = apptInfo(m, c);
+    return { m:m, c:c, a:a };
+  });
+}
+function alertItems(){
+  return ddayItems()
+    .filter(function(x){ return x.c.left <= 7 || x.a.left <= 3; })
+    .sort(function(a, b){ return Math.min(a.c.left, a.a.left) - Math.min(b.c.left, b.a.left); });
+}
+function renderDdayAlert(){
+  var box = $('#ddayAlert'), items = alertItems();
+  if(!items.length){
+    box.hidden = true; box.innerHTML = '';
+    return;
+  }
+  var runout = items.some(function(x){ return x.c.left <= 7; });
+  var urgent = items.some(function(x){ return x.c.left <= 3 || x.a.left <= 0; });
+  var lines = items.map(function(x){
+    var c = x.c, a = x.a, nm = x.m.name || L('병원 약','Hospital med');
+    var out = '';
+    if(c.left <= 7){
+      var when = c.left < 0 ? L('이미 다 떨어졌어요', 'already run out')
+        : c.left === 0 ? L('오늘이 마지막 날', 'last day is today')
+        : L(c.left + '일 뒤 마지막', 'last day in ' + c.left + ' days');
+      out += '<div>' + esc(nm) + ' · <b>' + esc(when) + '</b> (' + esc(dText(c.last)) + ')</div>';
+    }
+    if(a.left <= 7 || c.left <= 7){
+      var apTxt = dFull(a.date) + (a.time ? ' ' + fmtTime(a.time) : '');
+      var apWhen = a.left < 0 ? L('예약일이 지났어요', 'appointment passed')
+        : a.left === 0 ? L('오늘이 예약일', 'appointment is today')
+        : dBadge(a.left);
+      out += '<div>' + esc(nm) + ' · ' + L('병원 예약', 'appointment') + ' <b>' + esc(apTxt) + '</b> · ' + esc(apWhen) + '</div>';
+    }
+    return out;
+  }).join('');
+  var head = runout
+    ? '⚠️ ' + L('약 떨어질 때가 됐어요! 병원 예약 챙기세요', 'Your meds are running out — book the hospital visit')
+    : '📅 ' + L('병원 예약이 가까워요', 'Your hospital appointment is coming up');
+  box.innerHTML = '<div class="alertcard' + (urgent ? '' : ' warn') + '" role="status">'
+    + '<div class="alhead">' + head + '</div>'
+    + '<div class="albody">' + lines + '</div>'
+    + '<button type="button" class="algo" id="alGo">' + L('약 목록 보기', 'See the med list') + '</button>'
+    + '</div>';
+  box.hidden = false;
+  $('#alGo').addEventListener('click', function(){
+    $('#ddaySec').scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+}
+
+/* ── 7일 기록 ────────────────────────── */
+function renderWeek(){
+  var wrap = $('#week'), base = new Date(), t = todayKey();
+  var html = '';
+  for(var i = 6; i >= 0; i--){
+    var d = addDays(base, -i), k = dk(d), h = S.history[k] || null;
+    var isToday = k === t;
+    var dots = SLOTS.map(function(x){
+      var on = isToday ? isDone(x.id) : !!(h && h[x.id]);
+      return '<i class="dot' + (on ? ' on' : '') + '" title="' + esc(slotTitle(x)) + '"></i>';
+    }).join('');
+    var water;
+    if(isToday) water = '💧' + S.water.count;
+    else if(h) water = '💧' + (parseInt(h.water,10) || 0);
+    else water = '–';
+    html += '<div class="wcell' + (isToday ? ' today' : '') + '">'
+      + '<span class="wday">' + WD[S.lang][d.getDay()] + '</span>'
+      + '<span class="wnum">' + d.getDate() + '</span>'
+      + '<span class="dots" aria-hidden="true">' + dots + '</span>'
+      + '<span class="wwater">' + water + '</span></div>';
+  }
+  wrap.innerHTML = html;
+  $('#weekLegend').innerHTML = L('<span><i></i>약 복용</span><span>💧 물 잔 수</span><span>– 기록 없음</span>',
+    '<span><i></i>Meds taken</span><span>💧 Glasses</span><span>– No record</span>');
+}
+
+/* ── 설정 ────────────────────────────── */
+function renderSettings(){
+  var body = $('#setBody');
+  body.innerHTML = SLOTS.map(function(x){
+    var st = S.slots[x.id];
+    return '<div class="setrow">'
+      + '<div class="setlabel">' + x.emoji + ' ' + esc(slotTitle(x)) + '</div>'
+      + '<div class="flds">'
+      + '<label class="fld full"><span>' + L('알림 시각','Reminder time') + '</span>'
+      + '<input type="time" data-at="' + x.id + '" value="' + esc(st.at) + '" aria-label="' + esc(slotTitle(x) + ' ' + L('알림 시각','reminder time')) + '"></label>'
+      + '<label class="fld full"><span>' + L('약 이름','Medicine name') + '</span>'
+      + '<input type="text" data-name="' + x.id + '" maxlength="20" value="' + esc(st.name) + '" placeholder="' + L('예) 혈압약','e.g. Blood pressure pill') + '"></label>'
+      + '<label class="fld full"><span>' + L('메모','Note') + '</span>'
+      + '<input type="text" data-memo="' + x.id + '" maxlength="24" value="' + esc(st.memo) + '" placeholder="' + L('예) 식후 30분','e.g. 30 min after meal') + '"></label>'
+      + '</div></div>';
+  }).join('')
+  + '<button type="button" class="soundrow' + (S.sound ? ' on' : '') + '" id="soundBtn" aria-pressed="' + (S.sound ? 'true' : 'false') + '">'
+  + '<span class="si" aria-hidden="true">🔔</span><span class="st">' + L('알림 소리 켜기','Reminder sound') + '</span>'
+  + '<b>' + (S.sound ? L('켜짐','On') : L('꺼짐','Off')) + '</b></button>'
+  + '<button type="button" class="testbtn" id="testSound">🔊 ' + L('소리 미리 듣기','Hear the sound') + '</button>'
+  + '<div class="noteline">' + L('앱을 닫아 두면 이 앱의 알림은 울리지 않아요. 폰 기본 알람·캘린더(또는 피클 톡 알림)도 함께 써 주세요.',
+      'Reminders only sound while this screen is open. Please also use your phone’s alarm and calendar (or Pickle chat alerts).') + '</div>';
+
+  $$('#setBody input[data-at]').forEach(function(inp){
+    inp.addEventListener('change', function(){
+      var v = inp.value;
+      if(!/^\d{2}:\d{2}$/.test(v)) return;
+      S.slots[inp.dataset.at].at = v;
+      save(); renderDose();
+      toast(L('알림 시각을 ' + fmtTime(v) + '로 바꿨어요', 'Reminder set to ' + fmtTime(v)));
+    });
+  });
+  $$('#setBody input[data-name]').forEach(function(inp){
+    inp.addEventListener('input', function(){
+      S.slots[inp.dataset.name].name = inp.value.slice(0,20);
+      save(); renderDose();
+    });
+  });
+  $$('#setBody input[data-memo]').forEach(function(inp){
+    inp.addEventListener('input', function(){
+      S.slots[inp.dataset.memo].memo = inp.value.slice(0,24);
+      save(); renderDose();
+    });
+  });
+  $('#soundBtn').addEventListener('click', function(){
+    S.sound = !S.sound; save(); renderSettings();
+    toast(S.sound ? L('알림 소리를 켰어요 🔔','Reminder sound on 🔔') : L('알림 소리를 껐어요','Reminder sound off'));
+    if(S.sound) chime(1);
+  });
+  $('#testSound').addEventListener('click', function(){ chime(1); });
+}
+
+/* ── 알림 소리 (Web Audio) ─────────────── */
+var AC = null;
+function audioCtx(){
+  if(AC) return AC;
+  var C = window.AudioContext || window.webkitAudioContext;
+  if(!C) return null;
+  try { AC = new C(); } catch(e){ return null; }
+  return AC;
+}
+function unlockAudio(){
+  var ac = audioCtx();
+  if(ac && ac.state === 'suspended') ac.resume().catch(function(){});
+}
+document.addEventListener('pointerdown', unlockAudio, true);
+document.addEventListener('keydown', unlockAudio, true);
+
+function chime(times){
+  var ac = audioCtx();
+  if(!ac) return;
+  if(ac.state === 'suspended') ac.resume().catch(function(){});
+  var t0 = ac.currentTime + 0.02;
+  var notes = [659.25, 783.99, 987.77]; /* 미·솔·시 — 부드러운 차임 */
+  for(var i = 0; i < (times || 3); i++){
+    notes.forEach(function(f, j){
+      var t = t0 + i * 1.15 + j * 0.24;
+      var o = ac.createOscillator(), g = ac.createGain();
+      o.type = 'sine'; o.frequency.value = f;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.linearRampToValueAtTime(0.22, t + 0.03);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.8);
+      o.connect(g); g.connect(ac.destination);
+      o.start(t); o.stop(t + 0.85);
+    });
+  }
+}
+
+/* ── 약 시간 배너 ─────────────────────── */
+var dueSlot = null;
+function showDue(id){
+  var x = SLOTS.filter(function(s){ return s.id === id; })[0];
+  if(!x) return;
+  var st = S.slots[id];
+  var t = todayKey();
+  S.seen[t + '|' + id] = 1; save();
+  dueSlot = id;
+  $('#dueEmoji').textContent = x.emoji;
+  $('#dueTitle').textContent = EN()
+    ? ('Time for your ' + x.en.toLowerCase() + ' medicine (' + fmtTime(st.at) + ')')
+    : (slotTitle(x) + ' 시간이에요 (' + fmtTime(st.at) + ')');
+  var meta = [st.name, st.memo].filter(Boolean).join(' · ');
+  $('#dueSub').innerHTML = (meta ? esc(meta) + '<br>' : '') + L('드셨으면 아래 버튼을 눌러 주세요.', 'Tap below once you have taken it.');
+  $('#dueBanner').hidden = false;
+  navPushLayer('due', function(){ closeDue(true); });
+  if(S.sound) chime(2);
+}
+function closeDue(fromBack){
+  if($('#dueBanner').hidden) return;
+  $('#dueBanner').hidden = true;
+  dueSlot = null;
+  if(!fromBack) navConsume('due');
+}
+$('#dueDone').addEventListener('click', function(){
+  if(dueSlot){
+    var id = dueSlot;
+    if(!isDone(id)){
+      S.slots[id].doneAt = todayKey() + 'T' + hhmm(new Date());
+      save(); renderDose(); renderSummary(); renderWeek();
+      toast(L('복용 완료로 기록했어요 ✅','Recorded as taken ✅'));
+    }
+  }
+  closeDue(false);
+});
+$('#dueLater').addEventListener('click', function(){ closeDue(false); });
+
+/* ── 알림 점검 ────────────────────────── */
+var lastTick = '', curDay = todayKey();
+function tick(){
+  var t = todayKey();
+  if(t !== curDay){
+    curDay = t; rollover(); save();
+    renderDate(); renderDose(); renderWater(); renderWalk(); renderBp(); renderWeek(); renderMeds();
+  }
+  var now = new Date(), hm = hhmm(now);
+  if(hm === lastTick) return;
+  lastTick = hm;
+  if(!S.sound) return;
+  SLOTS.forEach(function(x){
+    var st = S.slots[x.id];
+    if(st.at === hm && !isDone(x.id) && !S.seen[t + '|' + x.id] && $('#dueBanner').hidden){
+      showDue(x.id);
+    }
+  });
+}
+function catchUp(){
+  if(!S.sound) return;
+  var now = new Date(), nowMin = now.getHours() * 60 + now.getMinutes(), t = todayKey();
+  var best = null, bestMin = -1;
+  SLOTS.forEach(function(x){
+    var st = S.slots[x.id];
+    var p = (st.at || '').split(':').map(Number);
+    var atMin = p[0] * 60 + p[1];
+    if(isDone(x.id) || S.seen[t + '|' + x.id]) return;
+    if(atMin <= nowMin && nowMin - atMin <= 180 && atMin > bestMin){ best = x.id; bestMin = atMin; }
+  });
+  if(best) showDue(best);
+}
+
+/* ── 혈압·컨디션 모달 ─────────────────── */
+var moodPick = '';
+function openBp(){
+  moodPick = S.bp.mood || '';
+  $('#bpSys').value = S.bp.sys || '';
+  $('#bpDia').value = S.bp.dia || '';
+  renderMoods();
+  openModal('bpModal');
+}
+function renderMoods(){
+  $$('#moods .mood').forEach(function(b){ b.classList.toggle('on', b.dataset.mood === moodPick); });
+}
+$$('#moods .mood').forEach(function(b){
+  b.addEventListener('click', function(){ moodPick = b.dataset.mood; renderMoods(); });
+});
+$('#bpSave').addEventListener('click', function(){
+  var sys = $('#bpSys').value.trim(), dia = $('#bpDia').value.trim();
+  if(!sys && !dia && !moodPick){
+    toast(L('혈압 숫자나 컨디션 중 하나는 적어 주세요','Please enter a blood pressure number or how you feel'));
+    return;
+  }
+  S.bp.sys = sys.slice(0,3); S.bp.dia = dia.slice(0,3);
+  S.bp.mood = moodPick; S.bp.at = hhmm(new Date()); S.bp.date = todayKey();
+  save(); renderBp(); closeModal('bpModal', false);
+  toast(L('혈압·컨디션을 저장했어요 🩺','Saved 🩺'));
+});
+$('#bpBtn').addEventListener('click', openBp);
+
+/* ── 병원 약 모달 ─────────────────────── */
+var editingMed = null, apptAuto = true;
+function suggestedAppt(start, days){
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(start || '')) return '';
+  var d = parseInt(days, 10);
+  if(!(d >= 1)) return '';
+  return dk(addDays(parseKey(start), Math.min(365, d)));
+}
+function syncApptAuto(){
+  if(!apptAuto) return;
+  $('#medAppt').value = suggestedAppt($('#medStart').value, $('#medDays').value);
+}
+function openMedModal(id){
+  editingMed = id || null;
+  var m = id ? S.meds.filter(function(x){ return x.id === id; })[0] : null;
+  $('#medHead').textContent = m ? L('🏥 병원 약 고치기','🏥 Edit hospital med') : L('🏥 병원 약 추가','🏥 Add hospital med');
+  $('#medName').value = m ? m.name : '';
+  $('#medStart').value = m ? m.start : todayKey();
+  $('#medDays').value = m ? m.days : '';
+  $('#medMemo').value = m ? m.memo : '';
+  $('#medApptTime').value = m ? (m.apptTime || '') : '';
+  apptAuto = !(m && m.appt);
+  $('#medAppt').value = m ? (m.appt || suggestedAppt(m.start, m.days)) : '';
+  markDayChips(m ? m.days : 0);
+  openModal('medModal');
+  setTimeout(function(){ $('#medName').focus(); }, 120);
+}
+function markDayChips(days){
+  $$('#dayChips .chip').forEach(function(c){
+    c.classList.toggle('on', String(c.dataset.days) === String(days));
+  });
+}
+$$('#dayChips .chip').forEach(function(c){
+  c.addEventListener('click', function(){
+    $('#medDays').value = c.dataset.days;
+    markDayChips(c.dataset.days);
+    syncApptAuto();
+  });
+});
+$('#medDays').addEventListener('input', function(){ markDayChips($('#medDays').value); syncApptAuto(); });
+$('#medStart').addEventListener('change', syncApptAuto);
+$('#medAppt').addEventListener('input', function(){ apptAuto = false; });
+$('#medSave').addEventListener('click', function(){
+  var name = $('#medName').value.trim();
+  var start = $('#medStart').value;
+  var days = parseInt($('#medDays').value,10);
+  var memo = $('#medMemo').value.trim();
+  if(!name){ toast(L('약 이름을 적어 주세요','Please enter the medicine name')); $('#medName').focus(); return; }
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(start)){ toast(L('약 받은 날을 골라 주세요','Please pick the date you got it')); return; }
+  if(!(days >= 1 && days <= 365)){ toast(L('며칠분인지 적어 주세요 (1~365일)','Enter days (1–365)')); $('#medDays').focus(); return; }
+  var appt = /^\d{4}-\d{2}-\d{2}$/.test($('#medAppt').value) ? $('#medAppt').value : suggestedAppt(start, days);
+  var apptTime = /^\d{2}:\d{2}$/.test($('#medApptTime').value) ? $('#medApptTime').value : '';
+  if(editingMed){
+    S.meds.forEach(function(m){
+      if(m.id === editingMed){ m.name = name.slice(0,24); m.start = start; m.days = days; m.memo = memo.slice(0,30); m.appt = appt; m.apptTime = apptTime; }
+    });
+  } else {
+    S.meds.push({ id:'m' + Date.now() + Math.random().toString(36).slice(2,6), name:name.slice(0,24), start:start, days:days, memo:memo.slice(0,30), appt:appt, apptTime:apptTime });
+  }
+  save(); renderMeds(); closeModal('medModal', false);
+  toast(L('병원 약을 저장했어요 🏥','Saved 🏥'));
+  if(editingMed) editingMed = null;
+});
+$('#addMed').addEventListener('click', function(){ openMedModal(null); });
+
+function askDelete(id){
+  var m = S.meds.filter(function(x){ return x.id === id; })[0];
+  if(!m) return;
+  $('#confirmMsg').innerHTML = L('“' + esc(m.name) + '” 기록을 지울까요?', 'Delete “' + esc(m.name) + '”?');
+  pendingDelete = id;
+  openModal('confirmModal');
+}
+var pendingDelete = null;
+$('#confirmYes').addEventListener('click', function(){
+  if(pendingDelete){
+    S.meds = S.meds.filter(function(x){ return x.id !== pendingDelete; });
+    pendingDelete = null; save(); renderMeds(); closeModal('confirmModal', false);
+    toast(L('지웠어요','Deleted'));
+  }
+});
+$('#confirmNo').addEventListener('click', function(){ pendingDelete = null; closeModal('confirmModal', false); });
+
+/* ── 모달 공통 ────────────────────────── */
+function openModal(id){
+  var el = $('#' + id);
+  if(!el) return;
+  el.hidden = false;
+  navPushLayer('modal:' + id, function(){ closeModal(id, true); });
+  var f = el.querySelector('input,button');
+  if(f) setTimeout(function(){ try{ f.focus(); }catch(e){} }, 60);
+}
+function closeModal(id, fromBack){
+  var el = $('#' + id);
+  if(!el || el.hidden) return;
+  el.hidden = true;
+  if(!fromBack) navConsume('modal:' + id);
+}
+$$('[data-close]').forEach(function(b){
+  b.addEventListener('click', function(){ closeModal(b.dataset.close, false); });
+});
+$$('.modal').forEach(function(m){
+  m.addEventListener('click', function(e){ if(e.target === m) closeModal(m.id, false); });
+});
+document.addEventListener('keydown', function(e){
+  if(e.key !== 'Escape') return;
+  var open = $$('.modal').filter(function(m){ return !m.hidden; }).pop();
+  if(open) closeModal(open.id, false);
+  else if(!$('#dueBanner').hidden) closeDue(false);
+});
+
+/* ── 안드로이드 뒤로가기 ──────────────── */
+var navLayers = [], navQuiet = 0, navBackBusy = false, navBackQueue = 0, navPopping = false;
+function navPushLayer(key, close){
+  if(navPopping) return;
+  try { history.pushState({ wagleCare: navLayers.length + 1 }, '', location.href); }
+  catch(e){ return; }
+  navLayers.push({ key:key, close:close });
+}
+function navPumpBack(){
+  if(navBackBusy || navBackQueue <= 0) return;
+  navBackBusy = true; navQuiet++; navBackQueue--;
+  try { history.back(); }
+  catch(e){ navQuiet = Math.max(0, navQuiet - 1); navBackBusy = false; navPumpBack(); return; }
+  setTimeout(function(){
+    if(navBackBusy){ navBackBusy = false; navQuiet = Math.max(0, navQuiet - 1); navPumpBack(); }
+  }, 900);
+}
+function navBackOnce(){ navBackQueue++; navPumpBack(); }
+function navDropLayers(test){
+  var removed = 0;
+  for(var i = navLayers.length - 1; i >= 0; i--){
+    if(test(navLayers[i])){ navLayers.splice(i, 1); removed++; }
+  }
+  for(var k = 0; k < removed; k++) navBackOnce();
+  return removed;
+}
+function navConsume(key){
+  if(navPopping) return 0;
+  return navDropLayers(function(l){ return l.key === key; });
+}
+window.addEventListener('popstate', function(){
+  if(navQuiet > 0){ navQuiet--; navBackBusy = false; navPumpBack(); return; }
+  var top = navLayers.pop();
+  if(!top) return; /* 첫 화면 — 브라우저가 알아서 뒤로 감 */
+  navPopping = true;
+  try { if(typeof top.close === 'function') top.close(); }
+  catch(e){}
+  finally { navPopping = false; }
+});
+
+/* ── 큰 글씨 · 언어 ───────────────────── */
+function applyBig(){
+  document.documentElement.classList.toggle('big', !!S.big);
+  $('#bigBtn').setAttribute('aria-pressed', S.big ? 'true' : 'false');
+  $('#bigBtn').textContent = S.big ? L('👴 보통 글씨','👴 Normal') : L('👴 큰 글씨','👴 Big text');
+  $('#bigBtn').setAttribute('aria-label', S.big ? L('보통 글씨로 보기','Show normal text') : L('큰 글씨로 보기','Show larger text'));
+}
+$('#bigBtn').addEventListener('click', function(){
+  S.big = !S.big; save(); applyBig();
+  toast(S.big ? L('글씨를 크게 보여요','Showing larger text') : L('글씨를 보통 크기로','Back to normal text'));
+});
+
+function applyLang(){
+  document.documentElement.lang = S.lang;
+  document.title = EN() ? 'Wagul Care · meds, water & daily care' : '와글 효도 약통 · 약·물·생활 챙김표';
+  $('#brandTitle').textContent = L('와글 효도 약통','Wagul Care');
+  $('#subTitle').textContent = L('약 · 물 · 생활 챙김표','Meds · water · daily care');
+  $('#heroCap').textContent = L('와글가족이 오늘도 함께 챙겨요 💛','The Wagul family is looking after you 💛');
+  $('#shareBtn').textContent = L('📤 공유','📤 Share');
+  $('#installBtn').textContent = L('📲 설치','📲 Install');
+  $('#langBtn').textContent = EN() ? 'KO' : 'EN';
+  $('#doseTitle').textContent = L('💊 오늘의 약','💊 Today’s meds');
+  $('#waterTitle').textContent = L('💧 물 마시기','💧 Water');
+  $('#waterPlus').textContent = L('💧 한 잔 마셨다','💧 I had a glass');
+  $('#lifeTitle').textContent = L('🚶 생활 챙김','🚶 Daily care');
+  $('#bpTitle2').textContent = L('혈압 · 컨디션 적기','Blood pressure & how I feel');
+  $('#ddayTitle').textContent = L('🏥 병원 약 남은 날','🏥 Hospital meds left');
+  $('#addMed').textContent = L('＋ 추가','＋ Add');
+  $('#ddayHint').textContent = L('약 받은 날과 일수를 적으면 다음 병원 갈 날을 미리 알려 드려요.',
+    'Enter the pickup date and days — we will tell you the next hospital visit date.');
+  $('#weekTitle').textContent = L('🗓 최근 7일 기록','🗓 Last 7 days');
+  $('#setTitle').textContent = L('약 이름 · 시간 · 알림 설정','Medicine names · times · alerts');
+  $('#footBrand').textContent = L('와글 효도 약통','Wagul Care');
+  $('#footBy').textContent = L('별의별 살림 (StarPick)','StarPick');
+  $('#footPrivacy').textContent = L('모든 기록은 이 휴대폰에만 저장돼요 · 회원가입 없음 · 광고 없음',
+    'All records stay on this phone · no sign-up · no ads');
+  $('#footDisc').textContent = L('이 앱은 복약을 도와주는 기록장이에요. 약 복용과 병원 일정은 꼭 의사·약사 선생님의 안내를 따라 주세요.',
+    'This app is a care diary. Always follow your doctor’s and pharmacist’s advice.');
+  /* 혈압 모달 */
+  $('#bpHead').textContent = L('🩺 혈압 · 컨디션','🩺 Blood pressure & how I feel');
+  $('#bpSysL').textContent = L('수축기 (높은 수)','Systolic (top)');
+  $('#bpDiaL').textContent = L('이완기 (낮은 수)','Diastolic (bottom)');
+  $('#bpMoodL').textContent = L('오늘 컨디션','How I feel today');
+  $$('#moods .mood').forEach(function(b){
+    b.textContent = b.dataset.mood === 'good' ? L('😊 좋아요','😊 Good')
+      : b.dataset.mood === 'ok' ? L('😐 보통','😐 Okay') : L('😟 힘들어요','😟 Tired');
+  });
+  $('#bpHelp').textContent = L('혈압은 아침·저녁 같은 시간에 재면 좋아요. 숫자는 모르면 비워 두셔도 돼요.',
+    'Measuring at the same times each day helps. You can leave the numbers blank.');
+  $('#bpSave').textContent = L('저장','Save');
+  $('#bpModal .mcancel').textContent = L('닫기','Close');
+  /* 약 모달 */
+  $('#medHead').textContent = editingMed ? L('🏥 병원 약 고치기','🏥 Edit hospital med') : L('🏥 병원 약 추가','🏥 Add hospital med');
+  $('#medNameL').textContent = L('약 이름','Medicine name');
+  $('#medName').placeholder = L('예) 혈압약','e.g. Blood pressure pill');
+  $('#medStartL').textContent = L('약 받은 날','Date you got it');
+  $('#medDaysL').textContent = L('며칠분인가요?','How many days?');
+  $$('#dayChips .chip').forEach(function(c){ c.textContent = c.dataset.days + L('일분',' days'); });
+  $('#medDaysL2').textContent = L('직접 입력 (일)','Or type the days');
+  $('#medDays').placeholder = L('예) 100','e.g. 100');
+  $('#medApptL').textContent = L('병원 예약일 (선택)','Appointment date (optional)');
+  $('#medApptTimeL').textContent = L('예약 시간 (선택)','Appointment time (optional)');
+  $('#medApptHelp').textContent = L('비워 두면 약이 떨어지는 다음 날로 계산해요.',
+    'Leave blank to use the day the meds run out.');
+  $('#alarmNote').textContent = L('앱을 닫아 두면 이 앱의 알림은 울리지 않아요. 폰 기본 알람·캘린더(또는 피클 톡 알림)도 함께 써 주세요.',
+    'Reminders only sound while this screen is open. Please also use your phone’s alarm and calendar (or Pickle chat alerts).');
+  $('#medMemoL').textContent = L('메모 (선택)','Note (optional)');
+  $('#medMemo').placeholder = L('예) 아침 1알','e.g. 1 pill in the morning');
+  $('#medHelp').textContent = L('받은 날 + 일수로 다음 병원 갈 날을 계산해요. 남은 날이 7일 이하가 되면 맨 위에 알림이 떠요.',
+    'We calculate the next visit from the date and days. A banner appears at the top when 7 days or fewer remain.');
+  $('#medSave').textContent = L('저장','Save');
+  $('#medModal .mcancel').textContent = L('닫기','Close');
+  /* 확인 모달 */
+  $('#confirmHead').textContent = L('확인','Confirm');
+  $('#confirmYes').textContent = L('삭제','Delete');
+  $('#confirmNo').textContent = L('취소','Cancel');
+  /* 설치 모달 */
+  $('#installHead').textContent = L('📲 홈 화면에 앱으로 두기','📲 Add to your home screen');
+  $('#installIntro').textContent = L('앱처럼 한 번 누르면 바로 열려요. 설치는 무료이고, 기록은 이 기기에만 저장돼요.',
+    'Opens with one tap, like an app. Free to install and records stay on this device.');
+  $('#installSteps').innerHTML = L(
+    '<li>크롬 오른쪽 위 <b>⋮</b> 를 눌러요.</li><li><b>앱 설치</b> 또는 <b>홈 화면에 추가</b>를 눌러요.</li><li><b>설치</b>를 누르면 홈 화면에 생겨요.</li>',
+    '<li>Tap <b>⋮</b> at the top right of Chrome.</li><li>Tap <b>Install app</b> or <b>Add to Home screen</b>.</li><li>Tap <b>Install</b> and it appears on your home screen.</li>');
+  $('#installGo').textContent = L('📲 지금 설치하기','📲 Install now');
+  $('#iosBox').innerHTML = L('아이폰은 사파리 아래쪽 <b>공유(⬆️)</b> → <b>홈 화면에 추가</b>를 눌러 주세요.',
+    'On iPhone: tap <b>Share (⬆️)</b> at the bottom of Safari → <b>Add to Home Screen</b>.');
+  $('#chromeOpen').textContent = L('🌐 크롬으로 바로 열기','🌐 Open in Chrome');
+  $('#installModal .mcancel:last-child').textContent = L('다음에 할게요','Maybe later');
+  /* 배너 */
+  if(dueSlot){
+    var x = SLOTS.filter(function(s){ return s.id === dueSlot; })[0];
+    if(x) $('#dueTitle').textContent = EN() ? ('Time for your ' + x.en.toLowerCase() + ' medicine (' + fmtTime(S.slots[x.id].at) + ')')
+      : (slotTitle(x) + ' 시간이에요 (' + fmtTime(S.slots[x.id].at) + ')');
+  }
+  $('#dueDone').textContent = L('✅ 먹었어요','✅ I took it');
+  $('#dueLater').textContent = L('⏰ 조금 있다가 할게요','⏰ Later');
+  applyBig();
+}
+$('#langBtn').addEventListener('click', function(){
+  S.lang = EN() ? 'ko' : 'en';
+  save(); applyLang(); renderAll();
+  toast(EN() ? 'English' : '한국어');
+});
+
+/* ── 공유 ───────────────────────────── */
+var SHARE_BASE = 'https://starpicklife-design.github.io/care/';
+function shareText(){
+  return L('💊 와글 효도 약통 — 어르신 약·물·생활 챙김표\n아침·점심·저녁·자기 전 약을 큰 버튼으로 톡 누르면 시각이 기록되고, 물 잔 수·산책·혈압도 함께 챙겨요.\n병원 약은 100일분처럼 적어 두면 다음 병원 갈 날을 미리 알려 드려요. 설치·회원가입 없이 링크만 누르면 열려요 😊',
+    '💊 Wagul Care — a meds, water & daily care chart for seniors\nTap a big button for morning, noon, evening and bedtime meds and the time is recorded. Water, walks and blood pressure too.\nEnter 100 days of hospital meds and we will remind you before the next visit. No install or sign-up needed 😊');
+}
+function shareApp(){
+  var payload = { title: L('와글 효도 약통','Wagul Care'), text: shareText(), url: SHARE_BASE + (EN() ? '?lang=en' : '') };
+  var nav = navigator, usable = true;
+  try { if(nav.canShare && !nav.canShare(payload)) usable = false; } catch(e){}
+  if(nav.share && usable){
+    try {
+      var r = nav.share(payload);
+      if(r && r.then) r.then(function(){}, function(err){
+        if(err && err.name === 'AbortError') return;
+        copyShare(payload);
+      });
+      return;
+    } catch(e){}
+  }
+  copyShare(payload);
+}
+function copyShare(p){
+  var full = p.text + '\n\n' + p.url;
+  var done = function(){ toast(L('공유 문구와 링크를 복사했어요! 카톡에 붙여넣기 하세요','Copied — paste it into KakaoTalk')); };
+  var fail = function(){ toast(L('복사가 안 되면 주소창의 링크를 복사해 보내 주세요','If copying fails, copy the link from the address bar')); };
+  var legacy = function(){
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = full; ta.style.position = 'fixed'; ta.style.left = '-9999px';
+      document.body.appendChild(ta); ta.select();
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      ok ? done() : fail();
+    } catch(e){ fail(); }
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(full).then(done, legacy);
+  } else legacy();
+}
+$('#shareBtn').addEventListener('click', shareApp);
+
+/* ── 설치 ───────────────────────────── */
+var deferredPrompt = null, installedApp = false;
+function standaloneNow(){
+  try {
+    if(window.matchMedia && (window.matchMedia('(display-mode: standalone)').matches || window.matchMedia('(display-mode: minimal-ui)').matches)) return true;
+  } catch(e){}
+  if(navigator.standalone === true) return true;
+  if(/^android-app:\/\//i.test(document.referrer || '')) return true;
+  return false;
+}
+function syncInstallBtn(){ $('#installBtn').hidden = installedApp || standaloneNow(); }
+function isAndroid(){ return /Android/i.test(navigator.userAgent || ''); }
+function inAppBrowser(){ return /KAKAOTALK|Instagram|NAVER|FBAN|FBAV|Line\//i.test(navigator.userAgent || ''); }
+$('#installBtn').addEventListener('click', function(){
+  if(deferredPrompt){
+    var dp = deferredPrompt; deferredPrompt = null;
+    try {
+      dp.prompt();
+      if(dp.userChoice && dp.userChoice.then){
+        dp.userChoice.then(function(r){
+          if(r && r.outcome === 'accepted') toast(L('설치를 시작했어요 📲','Installation started 📲'));
+          else toast(L('언제든 📲 설치를 다시 누르면 안내해 드려요','Tap 📲 Install anytime for the steps'));
+          syncInstallBtn();
+        }).catch(function(){});
+      }
+    } catch(e){ openModal('installModal'); }
+    return;
+  }
+  openModal('installModal');
+});
+$('#installGo').addEventListener('click', function(){
+  if(deferredPrompt){
+    var dp = deferredPrompt; deferredPrompt = null;
+    try { dp.prompt(); closeModal('installModal', false); syncInstallBtn(); return; } catch(e){}
+  }
+  toast(L('크롬 오른쪽 위 ⋮ → 홈 화면에 추가를 눌러 주세요','Chrome ⋮ → Add to Home screen'));
+});
+window.addEventListener('beforeinstallprompt', function(e){
+  if(e && e.preventDefault) e.preventDefault();
+  deferredPrompt = e; syncInstallBtn();
+});
+window.addEventListener('appinstalled', function(){
+  installedApp = true; deferredPrompt = null; syncInstallBtn();
+  toast(L('홈 화면에 앱을 꺼내 두었어요 📲','Added to your home screen 📲'));
+});
+function applyChromeOpen(){
+  var btn = $('#chromeOpen');
+  var show = isAndroid() && !standaloneNow();
+  btn.hidden = !show;
+  if(show){
+    var host = location.host || 'starpicklife-design.github.io';
+    var path = location.pathname || '/care/';
+    var q = /[?&]lang=/i.test(location.search) ? location.search : (EN() ? '?lang=en' : '');
+    btn.href = 'intent://' + host + path + q + '#Intent;scheme=https;package=com.android.chrome;end';
+  }
+  $('#iosBox').hidden = !/iPhone|iPad|iPod/i.test(navigator.userAgent || '');
+}
+
+/* ── 토스트 ─────────────────────────── */
+var toastTimer = null;
+function toast(msg){
+  var el = $('#toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ el.classList.remove('show'); }, 2600);
+}
+
+/* ── 전체 그리기 ─────────────────────── */
+function renderAll(){
+  rollover();
+  applyLang();
+  renderDate();
+  renderDose();
+  renderWater();
+  renderWalk();
+  renderBp();
+  renderMeds();
+  renderWeek();
+  renderSettings();
+  syncInstallBtn();
+  applyChromeOpen();
+}
+
+/* ── 시작 ───────────────────────────── */
+load();
+var ql = qLang();
+if(ql) S.lang = ql;
+if(todayKey() !== S.water.date || todayKey() !== S.walk.date || todayKey() !== S.bp.date) rollover();
+renderAll();
+save();
+setTimeout(catchUp, 900);
+tick();
+setInterval(tick, 15000);
+window.addEventListener('focus', function(){ tick(); });
+document.addEventListener('visibilitychange', function(){ if(!document.hidden){ unlockAudio(); tick(); } });
+
+if('serviceWorker' in navigator && location.protocol !== 'file:'){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('./sw.js').catch(function(){});
+  });
+}
+</script>
+</body>
+</html>
