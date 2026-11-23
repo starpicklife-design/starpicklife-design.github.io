@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#3E2C22" />
-<!-- build: 2026-11-23 wagle-table v27 · 카페 메인 상단 = ☕ 와글가족 카페! 인사말 한 줄 + 📤 공유·🔔 소리·📲 설치 세 알약이 같은 줄 오른쪽(기본·큰 글씨·EN·카톡 인앱 모두 아랫줄로 안 내려감) · 🌐 크롬 → 📲 설치로 통일(인앱은 intent://로 크롬, 아이폰 사파리는 설치 안내 창) · v26 그림·3화면 그대로 -->
+<!-- build: 2026-11-23 wagle-table v29 · '메뉴 추가' 카드의 검은 버튼을 한 줄 50:50 두 칸으로 — 왼쪽 '＋ 메뉴 넣기' / 오른쪽 '📋 메뉴 보기 (N)'(등록 메뉴 개수)를 누르면 자판·붙박이(html.kbdock)를 닫고 ★ 즐겨찾기만·🗑️ 메뉴 지우기 줄 + 메뉴 목록이 화면 맨 위부터 → 바로 이름·가격 수정·−/＋ 주문 · 이모지(빠른 메뉴) 칩은 자판을 띄우지 않음(이름·가격칸을 직접 눌렀을 때만) · v28 ⭐ 별점·한줄 메모·🍽️ 내 맛집·맛카페 수첩 · v27 메인 세 알약(📤·🔔·📲) 한 줄 그대로 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
@@ -200,6 +200,86 @@ html.big .homebtns{gap:.38rem}
 html.big .hbtn{min-height:3rem;padding:.4rem .7rem}
 html.big .homeList{margin:.7rem 0 0}
 html.big .hchip{min-height:2.6rem;padding:.34rem .62rem}
+
+/* ══ v28 · ⭐ 별점(1~5) · 한줄 메모 · 🍽️ 맛집/☕ 맛카페 수첩 ══
+   · 가게 화면 맨 위 카드에서 ★ 하나만 톡 = 바로 저장 (같은 별을 한 번 더 누르면 지움)
+   · 수첩(#savedView)은 메뉴판 가게 목록과 따로 살아서, 가게를 지워도 상호·별점·메모가 남는다 */
+.ratecard{background:#fff;border:2px solid var(--line);border-radius:1rem;padding:.5rem .6rem .56rem;
+  margin:0 0 .55rem;box-shadow:var(--shadow)}
+.rhead{display:flex;align-items:center;gap:.3rem;margin:0 0 .18rem}
+.rtitle{flex:1 1 auto;min-width:0;margin:0;font-size:.9rem;font-weight:900;color:var(--coffee);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.02em}
+.rtitle b{font-weight:900}
+.rbook{flex:0 0 auto;background:#FFF3DA;border:2px solid #C98A2E;color:#5E3E0C;border-radius:2rem;
+  padding:0 .5rem;min-height:2.1rem;font-size:.74rem;font-weight:900;white-space:nowrap;letter-spacing:-.02em}
+.rbook:active{transform:translateY(1px);background:#FFE9BD}
+.rrow{display:flex;flex-wrap:wrap;align-items:center;gap:.3rem .4rem}
+.rstars{display:flex;align-items:center;gap:.02rem;flex:0 0 auto}
+.rstar{display:inline-flex;align-items:center;justify-content:center;width:2.5rem;height:2.7rem;
+  background:none;border:0;padding:0;font-size:1.6rem;line-height:1;color:#D9C8AC;border-radius:.6rem}
+.rstar.on{color:#E9A81B;text-shadow:0 1px 0 rgba(140,80,0,.16)}
+.rstar:active{transform:scale(.9);background:#FFF6E4}
+.rstar:focus-visible{outline:3px solid #2E8A82;outline-offset:1px}
+.rscore{flex:0 0 auto;font-size:.78rem;font-weight:900;color:#8A6A22;min-width:3.2rem}
+.rtag{display:flex;align-items:center;gap:.22rem;flex:0 0 auto}
+.rtagb{background:#F6EEDD;border:2px solid var(--line);color:#6B5B4C;border-radius:2rem;
+  padding:0 .46rem;min-height:2.1rem;font-size:.74rem;font-weight:900;white-space:nowrap;letter-spacing:-.02em}
+.rtagb.on{background:#FFE3A8;border-color:#B0730E;color:#4A2C05}
+.rtagb:active{transform:translateY(1px)}
+.rmemo{flex:1 1 9rem;min-width:0;display:flex;align-items:center;gap:.3rem}
+.rmemo input{flex:1 1 auto;min-width:0;border:2px solid var(--line);border-radius:.7rem;
+  padding:.28rem .55rem;font-size:.86rem;font-weight:700;background:#FFFCF3;min-height:2.4rem}
+.rmemo input:focus{outline:3px solid #C98A2E;outline-offset:1px;background:#fff}
+.rstate{flex:0 0 auto;font-size:.72rem;font-weight:900;color:#2E7D5B;opacity:0;transition:opacity .18s}
+.rstate.on{opacity:1}
+
+/* 🍽️ 내 맛집·맛카페 수첩 — 카페 메인 위에 한 겹 더 열리는 화면 */
+#savedView{display:none;max-width:34rem;margin:0 auto;padding:.15rem .75rem 1.4rem}
+body.atsaved #savedView{display:block}
+body.atsaved main{display:none}
+body.atsaved #homeView{display:none}
+body.atsaved .chipline,body.atsaved .storerow{display:none}
+body.atsaved #bar{display:none}
+body.atsaved{padding-bottom:1.4rem}
+.svHead{display:flex;align-items:baseline;gap:.4rem;margin:.5rem .1rem .45rem}
+.svHead h2{margin:0;font-size:1.04rem;font-weight:900;color:var(--coffee);letter-spacing:-.03em}
+.svCount{font-size:.78rem;font-weight:900;color:#8B7A6B;background:#F6EEDD;border-radius:1rem;padding:.06rem .45rem}
+.svCount:empty{display:none}
+.svSegs{display:flex;flex-direction:column;gap:.32rem;margin:0 0 .55rem}
+.svseg{display:flex;gap:.26rem}
+.svsegbtn{flex:1 1 0;background:#fff;border:2px solid var(--line);color:#6B5B4C;border-radius:.8rem;
+  padding:.28rem .26rem;min-height:2.5rem;font-size:.8rem;font-weight:900;letter-spacing:-.02em;line-height:1.12}
+.svsegbtn.on{background:#FFE3A8;border-color:#B0730E;color:#4A2C05;box-shadow:0 2px 0 #D9A227}
+.svsegbtn:active{transform:translateY(1px)}
+.svsegbtn:focus-visible{outline:3px solid #2E8A82;outline-offset:1px}
+.svstate{margin:-.25rem 0 .45rem;font-size:.76rem;font-weight:900;color:#2E7D5B;opacity:0;transition:opacity .18s}
+.svstate.on{opacity:1}
+.svList{margin:0}
+.svcard{background:#fff;border:2px solid var(--line);border-radius:1rem;padding:.46rem .58rem .54rem;
+  margin:0 0 .5rem;box-shadow:var(--shadow)}
+.svtop{display:flex;align-items:flex-start;gap:.3rem}
+.svname{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:.04rem;
+  background:none;border:0;padding:0;text-align:left}
+.svname .svn{font-size:.98rem;font-weight:900;color:var(--coffee);letter-spacing:-.02em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.svname .svgo{font-size:.7rem;font-weight:900;color:#2E8A82}
+.svname .svgo.off{color:#A8562E}
+.svname:focus-visible{outline:3px solid #2E8A82;outline-offset:2px;border-radius:.4rem}
+.svdel{flex:0 0 auto;background:#FFD9D4;border:2px solid #C4564A;color:#8A2E22;border-radius:2rem;
+  padding:0 .46rem;min-height:2.2rem;font-size:.78rem;font-weight:900}
+.svdel:active{transform:translateY(1px)}
+.svwhen{flex:0 0 auto;font-size:.72rem;font-weight:800;color:#A08E7E;margin-left:auto}
+.svmemo{width:100%;margin-top:.34rem;border:2px solid var(--line);border-radius:.7rem;
+  padding:.28rem .55rem;font-size:.86rem;font-weight:700;background:#FFFCF3;min-height:2.4rem}
+.svmemo:focus{outline:3px solid #C98A2E;outline-offset:1px;background:#fff}
+.hchip.book{border-color:#C98A2E;background:#FFF3DA;color:#5E3E0C}
+.hchip .hrate{font-size:.72rem;font-weight:900;color:#8A6A22;background:#FFE9BD;border-radius:1rem;padding:.06rem .32rem}
+html.big .rstar{width:2.4rem;height:2.9rem;font-size:1.7rem}
+html.big .rscore{font-size:.8rem;min-width:0}
+html.big .rscore,html.big .rtagb{font-size:.84rem}
+html.big .svsegbtn{font-size:.86rem}
+html.big .svmemo,html.big .rmemo input{font-size:.94rem}
+html.big .svname .svn{font-size:1.06rem}
 
 /* ── 본문 ── */
 main{padding:.7rem .75rem 0;max-width:34rem;margin:0 auto}
@@ -406,6 +486,37 @@ html.big .qtbtn{min-height:2.3rem;font-size:.78rem}
   border:2px solid var(--line);background:#FAF4E9;margin:.3rem 0}
 .row2{display:flex;gap:.5rem;margin-top:.65rem}
 .row2 .btn{flex:1}
+/* ── v29 · '＋ 메뉴 넣기 | 📋 메뉴 보기 (N)' — 한 줄 50:50 두 칸 ──
+   · 좁은 폰·큰 글씨·영어에서도 두 줄로 깨지지 않게 글씨를 살짝 줄이고 nowrap */
+.addrow{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin:0}
+.addrow .btn{min-width:0;padding:.6rem .22rem;white-space:nowrap;overflow:hidden;
+  font-size:.94rem;letter-spacing:-.03em;gap:.12rem}
+.addrow .viewmenu{background:#FFF9EC;border-color:#C9A46B;color:#5B3E1C;box-shadow:0 2px 6px rgba(201,164,107,.18)}
+.addrow .viewmenu:active{transform:translateY(1px);background:#FBEED3}
+/* 등록된 메뉴 개수 — 버튼 글씨보다 한 단계 작게 */
+.addrow .vnum{font-size:.82em;font-weight:900;opacity:.92;letter-spacing:-.02em}
+.addrow .vnum.zero{opacity:.55}
+html.big .addrow .btn{font-size:.8rem;padding:.6rem .12rem;letter-spacing:-.045em}
+html.big .addrow .vnum{font-size:.76em}
+@media (max-width:359px){.addrow{gap:.35rem}.addrow .btn{font-size:.86rem;padding:.6rem .1rem}}
+/* 좁은 폰 + 큰 글씨 + 영어 + 메뉴가 100개 넘을 때도 한 줄에 — 두 버튼만 살짝 작게 */
+@media (max-width:389px){
+  html.big .addrow{gap:.35rem}
+  html.big .addrow .btn{font-size:.76rem;letter-spacing:-.05em;padding:.6rem .1rem}
+}
+/* 입력 중 붙박이(kbdock) 카드에서도 2칸 그대로 — 이 규칙이 .panel .btn 보다 뒤에 있어 우선 */
+html.kbdock .kbdockcard .panel .addrow .btn{font-size:.94rem;min-height:2.8rem;padding:.45rem .2rem}
+html.big.kbdock .kbdockcard .panel .addrow .btn{font-size:.76rem;padding:.45rem .1rem;letter-spacing:-.05em}
+/* '📋 메뉴 보기' 뒤 위쪽 메뉴판이 살짝 빛나 어디로 왔는지 알려 준다 */
+.storebar.flash{animation:menubarflash 1.2s ease-out}
+#listHead.flash{animation:listheadflash 1.2s ease-out}
+@keyframes listheadflash{0%{box-shadow:0 0 0 3px rgba(201,164,107,.55);border-bottom-color:#C9A46B}
+  100%{box-shadow:0 0 0 0 rgba(201,164,107,0);border-bottom-color:var(--line)}}
+@keyframes menubarflash{0%{background:#FFF1D8;box-shadow:0 0 0 0 rgba(201,164,107,.55)}
+  70%{box-shadow:0 0 0 .45rem rgba(201,164,107,0)}
+  100%{background:transparent;box-shadow:none}}
+@media (prefers-reduced-motion: reduce){.storebar.flash{animation:none;background:#FFF1D8}
+  #listHead.flash{animation:none;box-shadow:0 0 0 3px rgba(201,164,107,.55)}}
 .cands{display:flex;flex-direction:column;gap:.45rem}
 .cand{display:grid;grid-template-columns:2.4rem 1fr 5.2rem 2.4rem;align-items:center;gap:.3rem}
 .cand input[type=checkbox]{width:1.7rem;height:1.7rem;accent-color:var(--coffee);justify-self:center}
@@ -1304,6 +1415,28 @@ html.big .isteps li>span{font-size:1rem}
   <p class="homeHint" id="homeHint">💡 카페를 누르면 메뉴판이 열리고, 폰 뒤로가기(◀)나 <b>🏠 홈</b>으로 언제든 이 화면에 와요.</p>
 </section>
 
+<!-- ══ v28 · 🍽️ 내 맛집·맛카페 수첩 — 별점·한줄 메모를 모아 두는 곳(메뉴판에서 가게를 지워도 남음) ══ -->
+<section id="savedView" aria-label="내 맛집·맛카페 수첩">
+  <div class="svHead">
+    <h2 id="svTitle">🍽️ 내 맛집·맛카페 수첩</h2>
+    <span class="svCount" id="svCount"></span>
+  </div>
+  <div class="svSegs">
+    <div class="svseg" role="group" aria-label="정렬">
+      <button type="button" class="svsegbtn on" data-svsort="stars" aria-pressed="true">⭐ 별점 높은 순</button>
+      <button type="button" class="svsegbtn" data-svsort="recent" aria-pressed="false">🕒 최근 방문 순</button>
+    </div>
+    <div class="svseg" role="group" aria-label="맛집·맛카페 고르기">
+      <button type="button" class="svsegbtn on" data-svtag="all" aria-pressed="true">전체</button>
+      <button type="button" class="svsegbtn" data-svtag="food" aria-pressed="false">🍽️ 맛집</button>
+      <button type="button" class="svsegbtn" data-svtag="cafe" aria-pressed="false">☕ 맛카페</button>
+    </div>
+  </div>
+  <p class="svstate" id="svState" aria-live="polite"></p>
+  <div id="svList" class="svList"></div>
+  <p class="homeHint" id="svHint">💡 별점·메모는 이 폰에만 저장돼요. 메뉴판에서 가게를 지워도 수첩에는 상호가 그대로 남고, 다시 누르면 메뉴판을 새로 만들 수 있어요.</p>
+</section>
+
 <main>
   <div class="storebar" id="storebar">
     <span id="menuCount" class="count">메뉴 0개</span>
@@ -1312,6 +1445,26 @@ html.big .isteps li>span{font-size:1rem}
       <button type="button" id="clearAll" class="clearall" aria-label="메뉴와 주문 수량 전부 지우기">🧹 올클리어</button>
     </div>
   </div>
+
+  <!-- ══ v28 · ⭐ 이 가게 별점(1~5) · 한줄 메모 — 메뉴판 화면 맨 위 ══ -->
+  <section class="ratecard" id="rateCard" aria-label="이 가게 별점과 한줄 메모">
+    <div class="rhead">
+      <h2 class="rtitle"><span id="rateLabel">⭐ 별점</span> <b id="rateName">가게</b></h2>
+      <button type="button" class="rbook" id="rateBook" aria-label="내 맛집·맛카페 수첩 열기">🍽️ 수첩 보기</button>
+    </div>
+    <div class="rrow">
+      <div class="rstars" id="rateStars" role="group" aria-label="별점 1~5점"></div>
+      <span class="rscore" id="rateScore" aria-live="polite"></span>
+    </div>
+    <div class="rrow" style="margin-top:.34rem">
+      <div class="rtag" id="rateTag" role="group" aria-label="맛집·맛카페 구분"></div>
+      <div class="rmemo">
+        <input id="rateMemo" type="text" maxlength="60" autocomplete="off"
+               placeholder="한줄 메모 (예: 아아 맛있음, 주차 편함)" aria-label="방문 한줄 메모">
+        <span class="rstate" id="rateState" aria-live="polite"></span>
+      </div>
+    </div>
+  </section>
 
   <!-- 등록된 가게가 0개일 때의 기본 화면 -->
   <section class="card nostore" id="noStore" hidden>
@@ -1368,7 +1521,11 @@ html.big .isteps li>span{font-size:1rem}
       <form id="addForm" autocomplete="off">
         <input id="newName" placeholder="메뉴 이름 (예: 대추차)" aria-label="메뉴 이름">
         <input id="newPrice" placeholder="가격 (예: 6000)" inputmode="numeric" aria-label="가격">
-        <button type="submit" class="btn primary" id="addSubmit">＋ 메뉴 넣기</button>
+        <!-- v29 · 한 줄 50:50 — 왼쪽 '＋ 메뉴 넣기' / 오른쪽 '📋 메뉴 보기 (N)' -->
+        <div class="addrow">
+          <button type="submit" class="btn primary" id="addSubmit">＋ 메뉴 넣기</button>
+          <button type="button" class="btn viewmenu" id="viewMenu" aria-label="위쪽 메뉴판 보기"><span id="viewMenuTxt">📋 메뉴 보기</span> <span class="vnum" id="viewNum">(0)</span></button>
+        </div>
       </form>
     </div>
 
@@ -1893,7 +2050,7 @@ function applyLang(){
   try{ sndLabel(); }catch(e){}
   setTxt('#homeInstallBtn','📲 설치','📲 Install');
   setAttr('#homeInstallBtn','aria-label','앱 설치 안내','How to install the app');
-  setTxt('#hbAdd','카페 추가하기','Add a Cafe');
+  setTxt('#hbAdd','카페·맛집 추가하기','Add a Café or Restaurant');
   setTxt('#hbAddS','새 카페 이름을 넣고 시작','Name a new cafe to start');
   setTxt('#hbOrder','주문하기','Order');
   setTxt('#hbOrderS','메뉴 넣고 바로 주문 담기','Add items and take the order');
@@ -1949,6 +2106,8 @@ function applyLang(){
   setTxt('#addCard [data-tab="manual"]','직접 입력','Type In');
   setTxt('#addCard [data-tab="photo"]','📷 사진으로','📷 Photo');
   setTxt('#addSubmit','＋ 메뉴 넣기','＋ Add Menu');
+  setTxt('#viewMenuTxt','📋 메뉴 보기','📋 View Menu');
+  setAttr('#viewMenu','aria-label','위쪽 메뉴판 보기','See the menu list above');
   setAttr('#newName','placeholder','메뉴 이름 (예: 대추차)','Menu name (e.g. Latte)');
   setAttr('#newName','aria-label','메뉴 이름','Menu name');
   setAttr('#newPrice','placeholder','가격 (예: 6000)','Price (e.g. 6000)');
@@ -2058,6 +2217,7 @@ function applyLang(){
   if($('#confirmModal') && $('#confirmModal').hidden){ setTxt('#confTitle','확인','Confirm'); setTxt('#confOk','예','Yes'); }
   if($('#nameModal') && $('#nameModal').hidden) setTxt('#nameTitle','새 가게','New Shop');
   if($('#delStoreModal') && !$('#delStoreModal').hidden){ try{ renderDelPicker(); }catch(e){} }
+  try{ nbApplyLang(); }catch(e){}          /* v28 · ⭐ 별점·한줄 메모·🍽️ 수첩 글자도 언어에 맞춰 */
   }catch(e){ /* 화면 글자 하나가 없어도 앱 전체가 멈추지 않게 */ }
 }
 
@@ -2081,7 +2241,8 @@ function render(){
 function fitPad(){
   const bar=$('#bar');
   if(!bar) return;
-  document.body.style.paddingBottom = atHome? '1.2rem' : (bar.offsetHeight+24)+'px';
+  const savedNow=document.body.classList.contains('atsaved');
+  document.body.style.paddingBottom = (atHome||savedNow)? '1.4rem' : (bar.offsetHeight+24)+'px';
   placeToast();
 }
 /* 토스트는 하단 바 위에 → 입력 중(자판 올라옴)엔 자판 바로 위로 — 자판에 가리지 않게 */
@@ -2100,6 +2261,13 @@ function renderChips(){
   /* ＋ 새 가게는 가게 탭 바로 뒤에 — 탭 줄에서 같이 줄바꿔 폭을 다 쓴다 */
   + `<button type="button" id="addStoreChip" class="chip add" data-act="newstore" aria-label="${L('새 가게 만들기','Create a new shop')}">${L('＋ 새 가게','＋ New Shop')}</button>`;
 }
+/* ── v29 · 📋 메뉴 보기 (N) — '메뉴 추가' 카드의 오른쪽 칸에 지금 등록된 메뉴 개수를 보여 준다 ── */
+function renderViewCount(n){
+  const v=$('#viewNum');
+  if(!v) return;
+  v.textContent='('+(n||0)+')';
+  v.classList.toggle('zero', !n);
+}
 function renderMenu(){
   const st=store();
   if(!st){ renderNoStore(); return; }
@@ -2108,6 +2276,7 @@ function renderMenu(){
   $('#menuCount').textContent = EN()
     ? (st.menus.length+(st.menus.length===1?' item':' items'))
     : ('메뉴 '+st.menus.length+'개');
+  renderViewCount(st.menus.length);
   const ca=$('#clearAll');
   if(ca){
     ca.disabled = !st.menus.length;
@@ -2197,6 +2366,7 @@ function renderNoStore(){
   const box=$('#noStore');
   if(box) box.hidden=false;
   const mc=$('#menuCount'); if(mc) mc.textContent = L('메뉴 0개','0 items');
+  renderViewCount(0);
   ['#starFilter','#bulkBtn','#clearAll','#addJump','#summaryBtn'].forEach(function(sel){
     const el=$(sel); if(el) el.disabled=true;
   });
@@ -2231,34 +2401,49 @@ function renderHome(){
   if(!box) return;
   if(!S.stores.length){
     box.innerHTML='<div class="hlisthead">'+L('내 카페','My cafes')+'</div>'
-      +'<p class="hlistnote">'+L('아직 카페가 없어요. 위의 <b>🏪 카페 추가하기</b>로 첫 카페를 만들어 보세요.',
-        'No cafes yet — tap <b>🏪 Add a Cafe</b> above to make your first one.')+'</p>';
+      +'<div class="hchips">'+nbChipHtml()+'</div>'
+      +'<p class="hlistnote">'+L('아직 카페가 없어요. 위의 <b>🏪 카페·맛집 추가하기</b>로 첫 카페를 만들어 보세요.',
+        'No places yet — tap <b>🏪 Add a Café or Restaurant</b> above to make your first one.')+'</p>';
     return;
   }
   box.innerHTML='<div class="hlisthead">'+L('내 카페 목록 — 누르면 메뉴판이 열려요','My cafes — tap to open a menu')+'</div>'
     +'<div class="hchips">'
+    + nbChipHtml()
     + S.stores.map(function(s){
+        var rn=nbFindLive(s.id);
         return '<button type="button" class="hchip'+(s.id===S.cur?' on':'')+'" data-hshop="'+s.id+'">'
           + esc(dn(s.name))
+          + (rn && rn.s? '<span class="hrate">★'+rn.s+'</span>' : '')
           + '<span class="hcnt">'+(EN()? String(s.menus.length) : (s.menus.length+'개'))+'</span>'
           + '</button>';
       }).join('')
     + '<button type="button" class="hchip new" data-home="add">'+L('＋ 새 카페','＋ New Cafe')+'</button>'
     + '</div>';
 }
+/* v28 · 🍽️ 내 맛집 수첩 칩 — 카페 목록 맨 앞, 수첩에 쌓인 곳 수를 함께 */
+function nbChipHtml(){
+  var n=(typeof NB!=='undefined' && NB.items)? NB.items.length : 0;
+  return '<button type="button" class="hchip book" data-openbook="1"'
+    + ' aria-label="'+L('내 맛집·맛카페 수첩 열기','Open my food and café notebook')+'">'
+    + '<span aria-hidden="true">🍽️</span>' + L('내 맛집 수첩','My Places')
+    + (n? '<span class="hcnt">'+n+'</span>' : '')
+    + '</button>';
+}
 function goHome(){
   atHome=true;
   try{ document.body.classList.add('athome'); }catch(e){}
+  try{ document.body.classList.remove('atsaved'); }catch(e){}
   try{ document.documentElement.classList.remove('kbdock'); }catch(e){}
   renderHome();
   try{ window.scrollTo(0,0); }catch(e){}
   try{ fitPad(); }catch(e){}
 }
 /* 카페 메인 → 메뉴판 화면 (뒤로가기 1층 쌓기) */
-function openMenuView(){
+function openMenuView(fromSaved){
   atHome=false;
   try{ document.body.classList.remove('athome'); }catch(e){}
-  navPushLayer('menuv', function(){ goHome(); });
+  try{ document.body.classList.remove('atsaved'); }catch(e){}
+  navPushLayer('menuv', function(){ if(fromSaved) showSavedScreen(); else goHome(); });
   render();
   try{ window.scrollTo(0,0); }catch(e){}
 }
@@ -2296,9 +2481,412 @@ document.addEventListener('click', function(e){
 });
 $('#homeBtn').addEventListener('click', function(){
   if(atHome) return;
-  goHome();
+  var wasSaved=false;
+  try{ wasSaved=document.body.classList.contains('atsaved'); }catch(e){}
+  goHome();                                               /* 화면은 언제나 카페 메인으로 */
+  if(wasSaved){ try{ navConsume('saved'); }catch(e){} }   /* 수첩에서 왔으면 수첩 기록도 함께 소비 */
   try{ navConsume('menuv'); }catch(e){}
 });
+
+/* ══════ ⭐ v28 · 별점(1~5) · 한줄 메모 · 🍽️ 맛집/☕ 맛카페 수첩 ══════
+   · 수첩(NB)은 메뉴판 가게 목록(S.stores)과 따로 산다 → 가게를 지워도 상호·별점·메모가 남는다
+   · 항목의 열쇠(key) = 그 가게의 id(sid). 가게가 사라지면 살아 있는 가게와 맞지 않아 '메뉴판 없음'
+     → 수첩에서 누르면 같은 이름·같은 id 로 메뉴판을 다시 만들어 바로 연다(새 메뉴를 담을 수 있음)
+   · 저장 위치 = 이 폰의 localStorage(menu_notebook_v1) · 서버로 보내지 않음
+   · 별점은 ★ 하나만 톡 = 바로 저장, 같은 별을 한 번 더 톡 = 별점 지움 */
+const NBKEY='menu_notebook_v1', NBSORTK='menu_nb_sort_v1', NBTAGK='menu_nb_tag_v1';
+var NB={v:1, items:[]};
+var nbSort='stars', nbTagF='all';
+function nbKey(it){ return it.sid || ('x:'+it.id); }
+function nbFind(key){
+  for(var i=0;i<NB.items.length;i++){ if(nbKey(NB.items[i])===key) return NB.items[i]; }
+  return null;
+}
+function nbFindLive(sid){
+  if(!sid) return null;
+  for(var i=0;i<NB.items.length;i++){ if(NB.items[i].sid===sid) return NB.items[i]; }
+  return null;
+}
+function nbStoreOf(key){ return S.stores.filter(function(s){ return s.id===key; })[0] || null; }
+function nbSave(){ try{ localStorage.setItem(NBKEY, JSON.stringify(NB)); }catch(e){} }
+function nbGuessTag(name){ return /(카페|cafe|coffee|커피|디저트|dessert|☕)/i.test(String(name||''))? 'cafe':'food'; }
+function nbSafeName(name){
+  return String(name==null? '':name).replace(/\s+/g,' ').trim().slice(0,40);
+}
+(function nbBoot(){
+  try{
+    var raws=localStorage.getItem(NBSORTK); if(raws==='recent'||raws==='stars') nbSort=raws;
+    var rawf=localStorage.getItem(NBTAGK); if(rawf==='food'||rawf==='cafe'||rawf==='all') nbTagF=rawf;
+  }catch(e){}
+  var raw=null;
+  try{ raw=localStorage.getItem(NBKEY); }catch(e){}
+  if(!raw) return;
+  var d=null;
+  try{ d=JSON.parse(raw); }catch(e){ d=null; }
+  var arr=(d && Array.isArray(d.items))? d.items : (Array.isArray(d)? d : []);
+  var seen={};
+  arr.forEach(function(x){
+    if(!x || typeof x!=='object') return;
+    var sid=String(x.sid||'').trim();
+    var name=nbSafeName(x.name);
+    var s=parseInt(x.s,10); s=(s>=1&&s<=5)? s : 0;
+    var m=String(x.m==null? '':x.m).replace(/[\r\n\t]+/g,' ').trim().slice(0,60);
+    var tag=(x.tag==='cafe')? 'cafe' : 'food';
+    var tagSet=!!x.tagSet;
+    var at=parseInt(x.at,10)||0;
+    if(!name) return;
+    if(!s && !m && !tagSet) return;            /* 별점도 메모도 구분도 없으면 수첩에 두지 않는다 */
+    var key=sid || ('x:'+String(x.id||uid()));
+    if(seen[key]) return;
+    seen[key]=1;
+    NB.items.push({id:String(x.id||uid()), sid:sid, name:name, s:s, m:m, at:at, tag:tag, tagSet:tagSet});
+  });
+})();
+function nbNew(sid, name){
+  var it={id:uid(), sid:String(sid||''), name:nbSafeName(name)||L('이름 없는 가게','Unnamed place'),
+          s:0, m:'', at:0, tag:nbGuessTag(name), tagSet:false};
+  NB.items.push(it);
+  return it;
+}
+function nbPrune(it){
+  if(!it) return false;
+  if(!it.s && !String(it.m||'').trim() && !it.tagSet){
+    NB.items=NB.items.filter(function(x){ return x!==it; });
+    return true;
+  }
+  return false;
+}
+function nbWhen(ms){
+  if(!ms) return '';
+  var d=new Date(ms), n=new Date();
+  var same=d.getFullYear()===n.getFullYear();
+  if(EN()) return same? ((d.getMonth()+1)+'/'+d.getDate()) : (d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate());
+  return same? ((d.getMonth()+1)+'월 '+d.getDate()+'일') : (d.getFullYear()+'.'+(d.getMonth()+1)+'.'+d.getDate()+'.');
+}
+function nbScoreText(s){
+  return s? L(s+'점', s+(s===1? ' star':' stars')) : L('아직 별점 없음','No rating yet');
+}
+function nbStarsHtml(s){
+  var out='';
+  for(var i=1;i<=5;i++){
+    out+='<button type="button" class="rstar'+(s>=i?' on':'')+'" data-nbstar="'+i+'"'
+       +' aria-pressed="'+(s===i?'true':'false')+'"'
+       +' aria-label="'+i+L('점',' stars')+(s===i? L(' — 다시 누르면 지워져요',' — tap again to clear'):'')+'">'
+       + (s>=i? '★':'☆') + '</button>';
+  }
+  return out;
+}
+function nbTagHtml(tag){
+  var f=(tag!=='cafe'), c=(tag==='cafe');
+  return '<button type="button" class="rtagb'+(f?' on':'')+'" data-nbtag="food" aria-pressed="'+(f?'true':'false')+'">🍽️ '+L('맛집','Food')+'</button>'
+       + '<button type="button" class="rtagb'+(c?' on':'')+'" data-nbtag="cafe" aria-pressed="'+(c?'true':'false')+'">☕ '+L('맛카페','Café')+'</button>';
+}
+/* ── 메뉴판 화면 맨 위 별점 카드 ── */
+function renderRateCard(){
+  var card=$('#rateCard'); if(!card) return;
+  var st=store();
+  if(!st){ card.hidden=true; return; }
+  card.hidden=false;
+  var it=nbFindLive(st.id);
+  var s=it? it.s:0, tag=it? it.tag : nbGuessTag(st.name);
+  var nm=$('#rateName'); if(nm) nm.textContent=dn(st.name);
+  var sb=$('#rateStars');
+  if(sb){ sb.setAttribute('data-nbfor', st.id); sb.innerHTML=nbStarsHtml(s); }
+  var sc=$('#rateScore'); if(sc) sc.textContent=nbScoreText(s);
+  var tb=$('#rateTag');
+  if(tb){ tb.setAttribute('data-nbfor', st.id); tb.innerHTML=nbTagHtml(tag); }
+  var mi=$('#rateMemo');
+  if(mi && document.activeElement!==mi) mi.value = it? it.m : '';
+}
+/* ── 수첩 화면 ── */
+function nbRows(){
+  var list=NB.items.slice();
+  if(nbTagF!=='all') list=list.filter(function(it){ return it.tag===nbTagF; });
+  list.sort(function(a,b){
+    if(nbSort==='recent') return (b.at||0)-(a.at||0) || (b.s-a.s);
+    return (b.s-a.s) || ((b.at||0)-(a.at||0));
+  });
+  return list;
+}
+function nbCard(it){
+  var key=nbKey(it), live=!!nbStoreOf(key), s=it.s;
+  var when=it.at? (L('최근 ','Last ')+nbWhen(it.at)) : '';
+  return '<div class="svcard" data-nbcard="'+esc(key)+'">'
+    + '<div class="svtop">'
+    +   '<button type="button" class="svname" data-nbopen="'+esc(key)+'">'
+    +     '<span class="svn">'+esc(dn(it.name))+'</span>'
+    +     '<span class="svgo'+(live?'':' off')+'" aria-hidden="true">'+(live? L('▶ 메뉴판 열기','▶ Open menu') : L('＋ 메뉴판 다시 만들기','＋ Recreate menu'))+'</span>'
+    +   '</button>'
+    +   '<button type="button" class="svdel" data-nbdel="'+esc(key)+'" aria-label="'+esc(dn(it.name))+L(' 수첩에서 지우기',' — remove from the notebook')+'">🗑️</button>'
+    + '</div>'
+    + '<div class="rrow">'
+    +   '<div class="rstars" data-nbfor="'+esc(key)+'" role="group" aria-label="'+esc(dn(it.name))+L(' 별점',' rating')+'">'+nbStarsHtml(s)+'</div>'
+    +   '<span class="rscore">'+nbScoreText(s)+'</span>'
+    + '</div>'
+    + '<div class="rrow" style="margin-top:.3rem" data-nbfor="'+esc(key)+'">'
+    +   '<div class="rtag" role="group" aria-label="'+esc(dn(it.name))+L(' 구분',' group')+'">'+nbTagHtml(it.tag)+'</div>'
+    +   '<span class="svwhen">'+esc(when)+'</span>'
+    + '</div>'
+    + '<input class="svmemo" type="text" maxlength="60" autocomplete="off" data-nbmemo="'+esc(key)+'" value="'+esc(it.m)+'"'
+    +   ' placeholder="'+L('한줄 메모 (예: 아아 맛있음, 주차 편함)','One-line memo (e.g. great iced coffee, easy parking)')+'"'
+    +   ' aria-label="'+esc(dn(it.name))+L(' 한줄 메모',' memo')+'">'
+    + '</div>';
+}
+function renderSaved(){
+  var list=$('#svList'); if(!list) return;
+  var rows=nbRows();
+  var cnt=$('#svCount');
+  if(cnt) cnt.textContent = rows.length? (EN()? rows.length+(rows.length===1?' place':' places') : rows.length+'곳') : '';
+  $$('[data-svsort]').forEach(function(b){
+    var on=b.getAttribute('data-svsort')===nbSort;
+    b.classList.toggle('on', on); b.setAttribute('aria-pressed', on?'true':'false');
+  });
+  $$('[data-svtag]').forEach(function(b){
+    var on=b.getAttribute('data-svtag')===nbTagF;
+    b.classList.toggle('on', on); b.setAttribute('aria-pressed', on?'true':'false');
+  });
+  if(!rows.length){
+    var msg = NB.items.length
+      ? L('이 구분에 맞는 곳이 아직 없어요. <b>전체</b>를 눌러 다른 곳도 봐요.','Nothing in this group yet — tap <b>All</b> to see everything.')
+      : L('수첩이 비어 있어요. 메뉴판에서 가게를 열고 <b>⭐</b>를 한 번만 톡 누르면 여기에 모여요.','Your notebook is empty — open a shop, then tap <b>⭐</b> once.');
+    list.innerHTML='<div class="empty">'
+      +'<span class="emini" aria-hidden="true"><svg viewBox="0 0 160 130"><use href="#wg-trio"/></svg></span>'
+      +'<span class="etxt">'+msg+'</span>'
+      +'</div>';
+    return;
+  }
+  list.innerHTML=rows.map(nbCard).join('');
+}
+function nbRefresh(){
+  try{ renderRateCard(); }catch(e){}
+  try{ renderSaved(); }catch(e){}
+  try{ if(atHome) renderHome(); }catch(e){}
+}
+/* 저장했어요 ✓ — 두 화면의 작은 글씨를 함께 깜박임 */
+var nbStateT=null;
+function nbState(){
+  ['#rateState','#svState'].forEach(function(sel){
+    var el=$(sel); if(!el) return;
+    el.textContent = L('저장했어요 ✓','Saved ✓');
+    el.classList.add('on');
+  });
+  clearTimeout(nbStateT);
+  nbStateT=setTimeout(function(){
+    ['#rateState','#svState'].forEach(function(sel){ var el=$(sel); if(el) el.classList.remove('on'); });
+    setTimeout(function(){
+      ['#rateState','#svState'].forEach(function(sel){ var el=$(sel); if(el && !el.classList.contains('on')) el.textContent=''; });
+    }, 260);
+  }, 1500);
+}
+/* ── 별점 · 구분 · 메모 쓰기 ── */
+function nbTapStar(key, n){
+  if(!(n>=1&&n<=5)) return;
+  var it=nbFind(key), st=nbStoreOf(key);
+  if(!it){
+    if(!st) return;
+    it=nbNew(st.id, st.name);
+  }
+  it.at=Date.now();
+  if(it.s===n){ it.s=0; toast(L('별점을 지웠어요','Rating cleared')); }
+  else { it.s=n; toast(L('⭐ '+n+'점 저장했어요','⭐ Saved '+n+' star'+(n===1?'':'s'))); }
+  nbPrune(it);
+  nbSave();
+  try{ chime('tap'); }catch(e){}
+  nbRefresh();
+}
+function nbTapTag(key, tag){
+  var it=nbFind(key), st=nbStoreOf(key);
+  if(!it){
+    if(!st) return;
+    it=nbNew(st.id, st.name);
+  }
+  it.tag = (tag==='cafe')? 'cafe' : 'food';
+  it.tagSet = true;
+  it.at = Date.now();
+  nbSave();
+  try{ chime('tap'); }catch(e){}
+  nbRefresh();
+  toast(it.tag==='cafe'? L('☕ 맛카페로 저장했어요','☕ Saved as a café') : L('🍽️ 맛집으로 저장했어요','🍽️ Saved as a restaurant'));
+}
+function nbMemoInput(key, name, value, src){
+  var v=String(value==null? '':value).replace(/[\r\n\t]+/g,' ').slice(0,60);
+  var it=nbFind(key);
+  if(!it){
+    if(!v.trim()) return;                      /* 별점 없이 빈 메모만으로는 수첩에 만들지 않음 */
+    var st=nbStoreOf(key);
+    if(!st && !nbSafeName(name)) return;
+    it=nbNew(key, nbSafeName(name) || (st? st.name : ''));
+  }
+  it.m=v;
+  if(v.trim() || it.s) it.at=Date.now();
+  nbSave();
+  /* 같은 항목의 다른 화면 입력칸도 같은 글자로 (지금 쓰고 있는 칸은 건드리지 않음) */
+  var mi=$('#rateMemo'), cur=store();
+  if(mi && cur && cur.id===key && mi!==src && document.activeElement!==mi) mi.value=v;
+  $$('[data-nbmemo]').forEach(function(el){
+    if(el.getAttribute('data-nbmemo')===key && el!==src && document.activeElement!==el) el.value=v;
+  });
+  nbState();
+}
+function nbClearMemoPrune(key){
+  var it=nbFind(key); if(!it) return;
+  var before=NB.items.length;
+  nbPrune(it);
+  nbSave();
+  if(NB.items.length!==before) nbRefresh();
+}
+/* ── 수첩 열기 / 항목 누르기 / 항목 지우기 ── */
+function showSavedScreen(){
+  atHome=false;
+  try{ document.body.classList.remove('athome'); }catch(e){}
+  try{ document.body.classList.add('atsaved'); }catch(e){}
+  try{ document.documentElement.classList.remove('kbdock'); }catch(e){}
+  try{ renderSaved(); }catch(e){}
+  try{ window.scrollTo(0,0); }catch(e){}
+  try{ fitPad(); }catch(e){}
+}
+function showMenuScreen(){
+  atHome=false;
+  try{ document.body.classList.remove('athome'); }catch(e){}
+  try{ document.body.classList.remove('atsaved'); }catch(e){}
+  try{ render(); }catch(e){}
+  try{ window.scrollTo(0,0); }catch(e){}
+  try{ fitPad(); }catch(e){}
+}
+/* 카페 메인(또는 메뉴판) → 수첩 : 뒤로가기 1층을 쌓고, 그 층을 닫으면 원래 화면으로 */
+function openSaved(){
+  if(document.body.classList.contains('atsaved')){ try{ window.scrollTo(0,0); }catch(e){} return; }
+  var back = atHome? 'home' : 'menu';
+  navPushLayer('saved', function(){ if(back==='home') goHome(); else showMenuScreen(); });
+  showSavedScreen();
+}
+/* 메뉴판 위 ⭐ 카드의 '🍽️ 수첩 보기' */
+var rateBookBtn=$('#rateBook');
+if(rateBookBtn) rateBookBtn.addEventListener('click', function(){ openSaved(); });
+function nbOpen(key){
+  var it=nbFind(key); if(!it) return;
+  var st=nbStoreOf(key);
+  if(!st){
+    /* 메뉴판이 지워졌던 가게 — 같은 이름·같은 id 로 메뉴판을 다시 만들어 바로 연다 */
+    var sid=(key.indexOf('x:')===0)? '' : key;
+    st={id: sid||uid(), name:it.name, unit:(it.tag==='cafe'? '잔':'개'), sym:'₩', menus:[]};
+    if(!sid) it.sid=st.id;
+    S.stores.push(st);
+    S.cur=st.id;
+    save();
+    toast(L('"'+dn(it.name)+'" 메뉴판을 새로 만들었어요. 메뉴를 넣어 보세요 🙂','Recreated the "'+dn(it.name)+'" menu — add its items 🙂'));
+  } else {
+    S.cur=st.id; save();
+  }
+  var fromSaved = document.body.classList.contains('atsaved');
+  openMenuView(fromSaved);
+}
+function nbAskDelete(key){
+  var it=nbFind(key); if(!it) return;
+  var nm=dn(it.name);
+  askConfirm(L('수첩에서 지울까요?','Remove from the notebook?'),
+    L('"'+nm+'" 의 별점·메모를 수첩에서 지웁니다. 메뉴판은 그대로 남아요. 되돌릴 수 없어요.',
+      '"'+nm+'" and its rating/memo will be removed from the notebook. Its menu stays as it is. This cannot be undone.'),
+    L('지우기','Remove'), function(){
+      NB.items=NB.items.filter(function(x){ return nbKey(x)!==key; });
+      nbSave();
+      nbRefresh();
+      toast(L('수첩에서 지웠어요','Removed from the notebook'));
+    });
+}
+/* 가게 이름을 바꾸면 수첩의 상호도 함께 */
+function nbOnRename(sid, name){
+  var it=nbFindLive(sid);
+  if(!it) return;
+  var v=nbSafeName(name);
+  if(!v || it.name===v) return;
+  it.name=v;
+  nbSave();
+}
+/* ── 수첩 화면·카드의 글자를 지금 언어로 ── */
+function nbApplyLang(){
+  setTxt('#rateLabel','⭐ 별점','⭐ Rating');
+  setTxt('#rateBook','🍽️ 수첩 보기','🍽️ Notebook');
+  setAttr('#rateMemo','placeholder', L('한줄 메모 (예: 아아 맛있음, 주차 편함)','One-line memo (e.g. great iced coffee, easy parking)'));
+  setAttr('#rateMemo','aria-label', L('방문 한줄 메모','One-line visit memo'));
+  setAttr('#rateStars','aria-label', L('별점 1~5점','Rating, 1 to 5'));
+  setAttr('#rateTag','aria-label', L('맛집·맛카페 구분','Restaurant or café'));
+  setAttr('#rateCard','aria-label', L('이 가게 별점과 한줄 메모','Rating and memo for this shop'));
+  setAttr('#rateBook','aria-label', L('내 맛집·맛카페 수첩 열기','Open my food and café notebook'));
+  setTxt('#svTitle','🍽️ 내 맛집·맛카페 수첩','🍽️ My Food & Café Notebook');
+  setHTML('#svHint',
+    '💡 별점·메모는 이 폰에만 저장돼요. 메뉴판에서 가게를 지워도 수첩에는 상호가 그대로 남고, 다시 누르면 메뉴판을 새로 만들 수 있어요.',
+    '💡 Ratings and memos stay on this phone only. Deleting a shop from the menu keeps its name here — tap it to recreate the menu.');
+  setTxt('[data-svsort="stars"]','⭐ 별점 높은 순','⭐ Top rated');
+  setTxt('[data-svsort="recent"]','🕒 최근 방문 순','🕒 Most recent');
+  setTxt('[data-svtag="all"]','전체','All');
+  setTxt('[data-svtag="food"]','🍽️ 맛집','🍽️ Food');
+  setTxt('[data-svtag="cafe"]','☕ 맛카페','☕ Café');
+  try{ renderRateCard(); }catch(e){}
+  try{ renderSaved(); }catch(e){}
+}
+/* ── 수첩 화면의 손짓(탭) ── */
+document.addEventListener('click', function(e){
+  var t=e.target;
+  if(!t || !t.closest) return;
+  var sb=t.closest('[data-nbstar]');
+  if(sb){
+    var h=sb.closest('[data-nbfor]');
+    if(h) nbTapStar(h.getAttribute('data-nbfor'), parseInt(sb.getAttribute('data-nbstar'),10));
+    return;
+  }
+  var tg=t.closest('[data-nbtag]');
+  if(tg){
+    var h2=tg.closest('[data-nbfor]');
+    if(h2) nbTapTag(h2.getAttribute('data-nbfor'), tg.getAttribute('data-nbtag'));
+    return;
+  }
+  var op=t.closest('[data-nbopen]');
+  if(op){ nbOpen(op.getAttribute('data-nbopen')); return; }
+  var dl=t.closest('[data-nbdel]');
+  if(dl){ nbAskDelete(dl.getAttribute('data-nbdel')); return; }
+  var bk=t.closest('[data-openbook]');
+  if(bk){ openSaved(); return; }
+  var so=t.closest('[data-svsort]');
+  if(so){
+    var v=so.getAttribute('data-svsort');
+    nbSort=(v==='recent')? 'recent':'stars';
+    try{ localStorage.setItem(NBSORTK, nbSort); }catch(err){}
+    renderSaved();
+    return;
+  }
+  var ft=t.closest('[data-svtag]');
+  if(ft){
+    var v2=ft.getAttribute('data-svtag');
+    nbTagF=(v2==='food'||v2==='cafe')? v2 : 'all';
+    try{ localStorage.setItem(NBTAGK, nbTagF); }catch(err){}
+    renderSaved();
+  }
+});
+/* 한줄 메모 — 쓰는 즉시 저장 (별점과 같은 곳에) */
+document.addEventListener('input', function(e){
+  var t=e.target;
+  if(!t || !t.getAttribute) return;
+  if(t.id==='rateMemo'){
+    var st=store(); if(!st) return;
+    nbMemoInput(st.id, st.name, t.value, t);
+    return;
+  }
+  var k=t.getAttribute('data-nbmemo');
+  if(k){
+    var it=nbFind(k);
+    nbMemoInput(k, it? it.name : '', t.value, t);
+  }
+});
+/* 메모를 다 지우고 별점도 없으면 수첩에서 조용히 빼기 (칸을 떠날 때) */
+document.addEventListener('blur', function(e){
+  var t=e.target;
+  if(!t || !t.getAttribute) return;
+  var k=null;
+  if(t.id==='rateMemo'){ var st=store(); k=st? st.id : null; }
+  else k=t.getAttribute('data-nbmemo');
+  if(k) nbClearMemoPrune(k);
+}, true);
 function visibleMenus(st){ return st && st.menus ? st.menus : []; }
 function clearSel(){
   const was=selMode;
@@ -2750,6 +3338,7 @@ function doName(){
   }
   const st=store();
   st.name=v;
+  try{ nbOnRename(st.id, v); }catch(e){}   /* v28 · 수첩에 저장된 상호도 함께 */
   hideModal('nameModal'); save(); render();
   toast(L('이름을 바꿨어요','Name updated'));
 }
@@ -2965,6 +3554,57 @@ function clearAllMenus(){
 }
 /* ── 아래 '메뉴 추가' 카드로 부드럽게 내려가 이름 칸에 바로 커서 */
 $('#addJump').addEventListener('click', jumpToAdd);
+
+/* ── v29 · 📋 메뉴 보기 — 자판·위쪽 붙박이(html.kbdock)를 닫고 위쪽 메뉴 목록으로 ──
+   · 포커스된 입력칸에서 커서를 떼면 안드로이드 자판이 내려간다
+   · 붙박이 카드를 바로 풀고 dockScrollY(보던 자리로 되돌리는 값)도 버려서
+     엉켜 아래 '메뉴 추가' 카드로 되돌아가지 않게 한다 */
+$('#viewMenu').addEventListener('click', jumpToMenuBoard);
+function jumpToMenuBoard(){
+  if(!store()){ askName('new'); return; }
+  if(typeof selMode!=='undefined' && selMode) finishSel();
+  const ae=document.activeElement;
+  if(ae && ae!==document.body && ae.blur){ try{ ae.blur(); }catch(e){} }
+  const root=document.documentElement;
+  if(root.classList.contains('kbdock')){
+    try{ root.classList.remove('kbdock'); }catch(e){}
+    const kc=document.querySelector('.kbdockcard');
+    if(kc) kc.classList.remove('kbdockcard');
+    dockScrollY=null;
+  }
+  const reduce=!!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const go=function(){
+    const lh=$('#listHead'), list=$('#menuList'), sb=$('#storebar');
+    if(!list && !lh && !sb) return;
+    const hdr=document.querySelector('header.top');
+    const off=((hdr && hdr.offsetParent!==null)? hdr.getBoundingClientRect().height : 0)+6;
+    /* v29 · 메뉴판 '목록'이 화면 맨 위부터 — ★ 즐겨찾기만·🗑️ 메뉴 지우기 줄을 헤더 바로 아래에 두고
+       그 아래로 메뉴 카드(눌러 이름·가격 수정 · −/＋ 주문)가 바로 보이게 한다
+       · #listHead는 sticky라 이미 붙어 있으면 top이 헤더 높이로 나오므로, 붙지 않는 #menuList 위치로 계산 */
+    let y=null;
+    if(list){
+      const lhh=(lh && !lh.hidden)? lh.offsetHeight : 0;
+      y=list.getBoundingClientRect().top + window.pageYOffset - off - lhh;
+    }else if(lh || sb){
+      y=(lh || sb).getBoundingClientRect().top + window.pageYOffset - off;
+    }
+    if(y==null) return;
+    y=Math.max(0, Math.round(y));
+    if(Math.abs(window.pageYOffset - y) > 2){
+      try{ window.scrollTo({top:y, behavior: reduce? 'auto':'smooth'}); }
+      catch(e){ try{ window.scrollTo(0,y); }catch(e2){} }
+    }
+    const hi=lh || sb;
+    if(!hi) return;
+    hi.classList.remove('flash');
+    void hi.offsetWidth;
+    hi.classList.add('flash');
+    clearTimeout(jumpToMenuBoard._t);
+    jumpToMenuBoard._t=setTimeout(function(){ hi.classList.remove('flash'); }, 1400);
+  };
+  requestAnimationFrame(function(){ requestAnimationFrame(go); });
+  setTimeout(go, reduce? 90 : 300);
+}
 $('#clearAll').addEventListener('click', clearAllMenus);
 $('#noStoreNew').addEventListener('click', ()=>askName('new'));
 function jumpToAdd(){
@@ -2983,13 +3623,7 @@ function jumpToAdd(){
   catch(e){ window.scrollTo(0,y); }
   sec.classList.add('flash');
   setTimeout(()=>{ sec.classList.remove('flash'); }, 1500);
-  setTimeout(()=>{
-    const on=$('#addCard .tab.on');
-    const tab=on? on.dataset.tab : 'manual';
-    const el=$(tab==='paste'? '#pasteArea' : (tab==='photo'? '#addCard .tab.on' : '#newName'));
-    if(!el) return;
-    try{ el.focus({preventScroll:true}); }catch(e){ try{ el.focus(); }catch(_){} }
-  }, reduce? 60 : 460);
+  /* v29 · 자판은 사용자가 이름칸·가격칸을 직접 눌렀을 때만 — 여기서는 커서를 넣지 않는다 */
 }
 
 $('#bigBtn').addEventListener('click', ()=>{
@@ -3165,17 +3799,17 @@ function combChip(type,key){
   }
   combApply();
 }
-/* 식사·디저트 — 완성된 메뉴 한 번에 채우고 가격칸으로 (v22 그대로) */
+/* 식사·디저트 — 완성된 메뉴 한 번에 채우고 가격칸으로 (v22 그대로)
+   v29 · 이모지 칩을 누를 뿐이므로 커서(자판)는 건드리지 않는다 — 이름만 채운다 */
 function combMeal(item){
   if(!item) return;
   if(!store()){ askName('new'); return; }
   switchTab('manual');
   var name=L(item[2],item[3]);
   combReset();
-  var nEl=$('#newName'), pEl=$('#newPrice');
+  var nEl=$('#newName');
   if(!nEl) return;
   nEl.value=name;
-  try{ pEl.focus({preventScroll:true}); }catch(e){ try{ pEl.focus(); }catch(_){} }
   toast(L('"'+name+'" 이름을 채웠어요 — 가격만 넣고 ＋ 메뉴 넣기',
           '"'+name+'" filled in — add a price and tap ＋ Add Menu'));
 }
