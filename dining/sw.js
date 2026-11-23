@@ -3,9 +3,11 @@
    - 외부(다른 사이트) 요청은 절대 건드리지 않음 · 개인정보 0%
    - index.html은 항상 네트워크 우선 → 새 버전이 바로 반영됨
    - v4: 📍 내 위치 주소 · 🪧 간판 45종 2초 알림 · 🗣️ 여기 어떤 곳이에요? 배너
+   - v5: 언어 버튼 5칸 꽉 채우기(가로 5등분) · 표지 흰 문구칸 삭제 · 좌우 여백 줄임 · 자동번역 방지(notranslate)
+   - v6: 간판 버튼 안 그림(이모지) 삭제 → 글씨만 큼직하게 · 글자 사이/줄 사이 여유(letter-spacing·line-height) · 영어 모드 검수
    - 메뉴판 사진 OCR(Tesseract.js CDN)은 그대로 통과 */
 
-const CACHE = 'wagle-dining-v4';
+const CACHE = 'wagle-dining-v6';
 const SHELL = [
   './',
   './index.html',

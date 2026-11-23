@@ -4,7 +4,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#8E241A" />
-<!-- build: 2026-11-23 와글한국여행 (Wagul Korea Trip) v4 · 5개 언어(한·영·중·일·프) · 📍 내 위치 주소(폰 GPS → 한글 주소·영문 주소·좌표 · 📋 복사·꾹 눌러 복사 · 🍽️ 주변 식당/☕ 카페 · 🚕 기사님께 크게) · 🪧 간판에서 찾아보세요(간판 45종 → 누르면 2초 내 언어 알림·길게 누르면 자세히·그림·대표 음식 주문 연습) · 내 언어 작게/가게 언어 크게 · 🧺 그림 조합 주문(인원·음식·요청 → 공손한 문장) · 🔊 한글 읽기 · 🍲 음식 24종 사진 · 🍶 술·음료 5종 · ☕ 카페 7종 · 1→2→3→4 주문 연습 · 📷 메뉴판 사진 → 그림 메뉴 · 🚕 택시(내 위치·내려줄 곳 주소) 🚇 지하철 · 🏨 숙소 저장 · 📝 식사 일기 · 실시간 날씨 · Android 뒤로가기(popstate) -->
+<meta name="google" content="notranslate" />
+<!-- build: 2026-11-23 와글한국여행 (Wagul Korea Trip) v6 · v6: 간판 버튼 안 그림 삭제·글자 사이 여유·영어 모드 검수 · 5개 언어(한·영·중·일·프) · 📍 내 위치 주소(폰 GPS → 한글 주소·영문 주소·좌표 · 📋 복사·꾹 눌러 복사 · 🍽️ 주변 식당/☕ 카페 · 🚕 기사님께 크게) · 🪧 간판에서 찾아보세요(간판 45종 → 누르면 2초 내 언어 알림·길게 누르면 자세히·그림·대표 음식 주문 연습) · 내 언어 작게/가게 언어 크게 · 🧺 그림 조합 주문(인원·음식·요청 → 공손한 문장) · 🔊 한글 읽기 · 🍲 음식 24종 사진 · 🍶 술·음료 5종 · ☕ 카페 7종 · 1→2→3→4 주문 연습 · 📷 메뉴판 사진 → 그림 메뉴 · 🚕 택시(내 위치·내려줄 곳 주소) 🚇 지하철 · 🏨 숙소 저장 · 📝 식사 일기 · 실시간 날씨 · Android 뒤로가기(popstate) -->
 <link rel="manifest" href="./manifest.json" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -21,29 +22,29 @@
   --shadow:0 2px 10px rgba(90,60,35,.10);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{font-size:17px}
-html.big{font-size:21px}
-html.big .lchip{font-size:10.5px;padding:3px 5px;min-height:30px}
-html.big .lchip .fl{font-size:12px}
-html.big .langrow .lb{font-size:11px}
+html{font-size:18px}
+html.big{font-size:22px}
+html.big .lchip{font-size:13px;padding:4px 3px;min-height:40px;gap:3px}
+html.big .lchip .fl{font-size:13.5px}
+html.big .langrow .lb{font-size:12px}
 html.big .sechd{flex-wrap:wrap;gap:.15rem .34rem}
-html.big .sechd .sub{flex:1 1 100%;font-size:.68rem}
-html.big .sechd h2{font-size:.95rem}
+html.big .sechd .sub{flex:1 1 100%;font-size:.76rem}
+html.big .sechd h2{font-size:1.1rem}
 body{margin:0;background:var(--cream);color:var(--ink);
   font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Noto Sans CJK KR","Malgun Gothic","Hiragino Sans","Microsoft YaHei","Noto Sans",Arial,Helvetica,sans-serif;
-  line-height:1.42;-webkit-text-size-adjust:100%;padding-bottom:2.2rem}
+  line-height:1.5;-webkit-text-size-adjust:100%;padding-bottom:2.2rem}
 button{font-family:inherit;cursor:pointer;color:inherit;border:0;background:none}
 img,svg{display:block}
 [hidden]{display:none !important}
 
 /* ── 상단 머리 ── */
-.top{background:linear-gradient(180deg,#FFF1DC 0%,#FFF8EC 100%);padding:.45rem .68rem .46rem;border-bottom:1px solid var(--line)}
+.top{background:linear-gradient(180deg,#FFF1DC 0%,#FFF8EC 100%);padding:.42rem .4rem .44rem;border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:.42rem}
 .logo{font-size:1.45rem;line-height:1}
 .bh{min-width:0;flex:1 1 auto}
-.bh h1{font-size:1.02rem;margin:0;font-weight:900;letter-spacing:-.025em;line-height:1.2;
+.bh h1{font-size:1.02rem;margin:0;font-weight:900;letter-spacing:-.008em;line-height:1.26;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.bh .tag{font-size:.66rem;color:var(--ink2);margin:.12rem 0 0;line-height:1.25;
+.bh .tag{font-size:.66rem;color:var(--ink2);margin:.14rem 0 0;line-height:1.4;letter-spacing:.005em;
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .toolsTop{display:flex;align-items:center;gap:.26rem;flex:0 0 auto}
 .pill{display:flex;align-items:center;gap:.2rem;background:#fff;border:2px solid #D8C3A2;color:#4A3524;
@@ -52,12 +53,12 @@ img,svg{display:block}
 .pill.inst{background:linear-gradient(180deg,#FFD873,#F0B33A);border-color:#A9690A;color:#3E2C22}
 .langrow{display:flex;flex-direction:column;align-items:stretch;gap:.16rem;margin-top:.34rem}
 .langrow .lb{font-size:.62rem;font-weight:900;color:var(--ink2);white-space:nowrap;line-height:1.1;letter-spacing:.01em}
-.chips{display:flex;flex-wrap:nowrap;gap:.1rem;flex:1 1 auto;min-width:0;width:100%;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:1px}
+.chips{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;flex:1 1 auto;min-width:0;width:100%;padding-bottom:1px}
 .chips::-webkit-scrollbar{display:none}
-.lchip{display:flex;align-items:center;gap:.12rem;flex:0 0 auto;background:#fff;border:2px solid #E3D1B4;border-radius:2rem;
-  padding:.14rem .26rem;font-size:.67rem;font-weight:900;white-space:nowrap;min-height:1.78rem;line-height:1.1;color:#4A3524;
+.lchip{display:flex;align-items:center;justify-content:center;gap:.12rem;min-width:0;background:#fff;border:2px solid #E3D1B4;border-radius:2rem;
+  padding:.26rem .18rem;font-size:.73rem;font-weight:900;white-space:nowrap;min-height:2.05rem;line-height:1.1;color:#4A3524;
   box-shadow:0 1px 3px rgba(90,60,35,.08)}
-.lchip .fl{font-size:.8rem;line-height:1}
+.lchip .fl{font-size:.82rem;line-height:1}
 .lchip.on{background:var(--red);border-color:var(--red2);color:#fff;box-shadow:0 2px 7px rgba(142,36,26,.30)}
 .lchip.on .fl{filter:saturate(1.1)}
 .langrow.shop .lchip.on{background:#3E2C22;border-color:#241811}
@@ -71,22 +72,16 @@ img,svg{display:block}
 .tgl[aria-pressed="true"]{background:#FFF1DA;border-color:#D7AE6A;color:#6B3E08}
 .tgl[aria-pressed="true"] .sw{background:var(--gold)}
 .tgl[aria-pressed="true"] .sw::after{left:.85rem}
-.tipbar{font-size:.68rem;color:#8A6A3E;font-weight:800;margin:.42rem 0 0;display:flex;align-items:center;gap:.25rem}
+.tipbar{font-size:.68rem;color:#8A6A3E;font-weight:800;line-height:1.45;letter-spacing:.01em;margin:.45rem 0 0;display:flex;align-items:center;gap:.25rem}
 
 /* ── 표지 그림 ── */
-.hero{margin:.6rem .7rem 0;border-radius:1.05rem;overflow:hidden;background:#FBEED8;box-shadow:var(--shadow);position:relative}
+.hero{margin:.55rem .4rem 0;border-radius:1.05rem;overflow:hidden;background:#FBEED8;box-shadow:var(--shadow);position:relative}
 .hero img{width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:center 56%}
-.heroCap{display:flex;align-items:center;gap:.4rem;background:#FFFDF8;border:1px solid var(--line);border-top:0;
-  border-radius:0 0 1.05rem 1.05rem;padding:.45rem .6rem;margin-top:-1px}
-.heroCap .hb{flex:1 1 auto;min-width:0}
-.heroCap .h1{font-size:.82rem;font-weight:900;line-height:1.25;display:block}
-.heroCap .h2{font-size:.68rem;color:var(--ink2);display:block;margin-top:.1rem;line-height:1.25}
-.heroCap .ho{font-size:1.25rem}
 
-.slogan{margin:.5rem .8rem 0;text-align:center;font-size:.76rem;font-weight:900;letter-spacing:.01em;
-  color:#8E241A;line-height:1.35}
+.slogan{margin:.45rem .4rem 0;text-align:center;font-size:.76rem;font-weight:900;letter-spacing:.015em;
+  color:#8E241A;line-height:1.5}
 .slogan::before,.slogan::after{content:'·';margin:0 .35rem;color:#D9A227}
-.wxwrap{display:flex;justify-content:center;margin:.34rem .8rem 0}
+.wxwrap{display:flex;justify-content:center;margin:.32rem .4rem 0}
 .wx{display:inline-flex;align-items:center;gap:.34rem;background:#FFFDF8;border:1.5px solid #EFD8AF;border-radius:1rem;
   padding:.24rem .6rem;font-size:.72rem;font-weight:900;color:#5E4A3B;line-height:1.2;box-shadow:0 1px 4px rgba(90,60,35,.07)}
 .wx b{font-weight:900;color:#2B211A}
@@ -94,11 +89,11 @@ img,svg{display:block}
 .wx .wxi{font-size:.95rem;line-height:1}
 
 /* ── 구역 ── */
-section{margin:.95rem .7rem 0}
-.sechd{display:flex;align-items:flex-end;gap:.4rem;margin-bottom:.45rem}
-.sechd h2{font-size:1.02rem;margin:0;font-weight:900;letter-spacing:-.025em;line-height:1.2}
-.sechd .sub{font-size:.68rem;color:var(--ink2);line-height:1.2;flex:1 1 auto;min-width:0}
-.sechd .num{font-size:.7rem;font-weight:900;color:#fff;background:var(--red);border-radius:1rem;padding:.1rem .4rem;flex:0 0 auto}
+section{margin:.9rem .4rem 0}
+.sechd{display:flex;flex-wrap:wrap;align-items:flex-end;gap:.12rem .4rem;margin-bottom:.5rem}
+.sechd h2{font-size:1.08rem;margin:0;font-weight:900;letter-spacing:0;line-height:1.34;flex:1 1 auto;min-width:0}
+.sechd .sub{font-size:.76rem;color:var(--ink2);line-height:1.5;letter-spacing:.012em;flex:1 1 100%;order:3;min-width:0}
+.sechd .num{font-size:.76rem;font-weight:900;color:#fff;background:var(--red);border-radius:1rem;padding:.1rem .4rem;flex:0 0 auto;order:2}
 
 /* ── 문장 카드 ── */
 .say{display:flex;width:100%;text-align:left;gap:.5rem;align-items:center;background:var(--card);
@@ -108,15 +103,15 @@ section{margin:.95rem .7rem 0}
 .say .ic{font-size:1.3rem;width:2.15rem;height:2.15rem;display:grid;place-items:center;background:#FFF1DA;
   border-radius:.65rem;flex:0 0 auto;line-height:1}
 .say .tx{flex:1 1 auto;min-width:0}
-.say .wt{display:block;font-size:1.24rem;font-weight:900;letter-spacing:-.02em;line-height:1.24;word-break:keep-all}
-.say .sm{display:block;font-size:.7rem;color:var(--ink2);margin-top:.12rem;line-height:1.25}
+.say .wt{display:block;font-size:1.24rem;font-weight:900;letter-spacing:-.005em;line-height:1.3;word-break:keep-all}
+.say .sm{display:block;font-size:.7rem;color:var(--ink2);margin-top:.16rem;line-height:1.42;letter-spacing:.005em}
 .say .pr{display:inline-block;font-size:.68rem;font-weight:800;color:#8A6A3E;background:#FFF1DA;
   border-radius:.5rem;padding:.06rem .34rem;margin-top:.16rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .say .go{font-size:.95rem;opacity:.4;flex:0 0 auto}
 .core .say{border-color:#E4CBA6;background:linear-gradient(180deg,#FFFDF8,#FFF8EA);padding:.65rem .62rem}
-.core .say .wt{font-size:1.46rem;line-height:1.22}
+.core .say .wt{font-size:1.46rem;line-height:1.3;letter-spacing:-.005em}
 .core .say .ic{font-size:1.5rem;width:2.4rem;height:2.4rem}
-.divline{display:flex;align-items:center;gap:.5rem;margin:.2rem 0 .5rem;color:#A78A61;font-size:.66rem;font-weight:900}
+.divline{display:flex;align-items:center;gap:.5rem;margin:.25rem 0 .55rem;color:#A78A61;font-size:.66rem;font-weight:900;letter-spacing:.015em;line-height:1.45}
 .divline::before,.divline::after{content:"";flex:1 1 auto;height:1px;background:var(--line)}
 
 /* ── 음식 카드 (그림) ── */
@@ -131,8 +126,8 @@ section{margin:.95rem .7rem 0}
   box-shadow:0 1px 5px rgba(90,60,35,.18);z-index:2}
 .fadd.on{background:var(--red);border-color:var(--red2);color:#fff}
 .nm .em{font-style:normal;font-size:1.02em;margin-right:.1rem}
-.food .nm{font-size:.88rem;font-weight:900;line-height:1.2;letter-spacing:-.02em;word-break:keep-all}
-.food .nm2{font-size:.64rem;color:var(--ink2);line-height:1.15;word-break:keep-all}
+.food .nm{font-size:.88rem;font-weight:900;line-height:1.34;letter-spacing:0;word-break:keep-all}
+.food .nm2{font-size:.64rem;color:var(--ink2);line-height:1.34;letter-spacing:.005em;word-break:keep-all}
 .art{width:4.35rem;height:4.35rem;border-radius:50%;display:grid;place-items:center;
   background:radial-gradient(circle at 50% 32%,#FFF9EA 0%,#FFE9C8 70%,#FBDDB4 100%);
   border:2px solid #F6E3C4;flex:0 0 auto;overflow:hidden}
@@ -146,21 +141,21 @@ section{margin:.95rem .7rem 0}
 
 /* ── 🪧 간판에서 찾아보세요 (한글 간판 글자 버튼 · 3칸) ── */
 .sechd.signhd{flex-wrap:wrap;align-items:center;gap:.08rem .4rem}
-.sechd.signhd h2{flex:1 1 auto;white-space:nowrap;font-size:.98rem}
-.sechd.signhd .sub{flex:1 1 100%;order:3;font-size:.66rem}
+.sechd.signhd h2{flex:1 1 auto;white-space:nowrap;font-size:1.04rem}
+.sechd.signhd .sub{flex:1 1 100%;order:3;font-size:.74rem;line-height:1.5;letter-spacing:.012em}
 .sechd.signhd .num{order:2}
 @media (max-width:360px){ .sechd.signhd h2{font-size:.88rem} }
 .signs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.34rem}
-.sign{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.04rem;
-  min-width:0;min-height:3.15rem;padding:.4rem .18rem .34rem;border-radius:.7rem;
+.sign{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.06rem;
+  min-width:0;min-height:3.2rem;padding:.46rem .2rem .42rem;border-radius:.7rem;
   background:linear-gradient(180deg,#463229 0%,#2B211A 100%);border:2px solid #7E5433;
   box-shadow:0 2px 7px rgba(40,26,16,.22),inset 0 1px 0 rgba(255,220,160,.18);color:#FFF3DA}
 .sign:active{transform:translateY(1px);box-shadow:0 1px 3px rgba(40,26,16,.22)}
-.sign .sem{font-size:.86rem;line-height:1;opacity:.95;margin-bottom:.06rem}
-.sign .sb{font-size:1.16rem;font-weight:900;letter-spacing:-.045em;line-height:1.1;word-break:keep-all;
+/* v6: 간판 버튼 안 그림(이모지) 삭제 → 글씨만 큼직하게 */
+.sign .sb{font-size:1.34rem;font-weight:900;letter-spacing:.005em;line-height:1.22;word-break:keep-all;
   text-shadow:0 0 11px rgba(255,190,90,.40)}
-.sign .salt{font-size:.6rem;font-weight:900;color:#E8C79A;line-height:1.05;letter-spacing:-.02em}
-.signhint{font-size:.66rem;font-weight:800;color:#8A6A3E;line-height:1.35;margin:.45rem 0 0;text-align:center}
+.sign .salt{font-size:.66rem;font-weight:900;color:#E8C79A;line-height:1.28;letter-spacing:.01em;margin-top:.06rem}
+.signhint{font-size:.68rem;font-weight:800;color:#8A6A3E;line-height:1.55;letter-spacing:.01em;margin:.5rem 0 0;text-align:center}
 /* 🗣️ 여기 어떤 곳이에요? — 큰 배너(누르면 한국어 음성 + 큰 카드) */
 .askbtn{display:flex;align-items:center;gap:.55rem;width:100%;text-align:left;margin-top:.55rem;
   background:linear-gradient(180deg,#E4572E,#C0392B);border:2.5px solid #8E241A;border-radius:1rem;
@@ -173,22 +168,31 @@ section{margin:.95rem .7rem 0}
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .askbtn .ag{font-size:1.25rem;flex:0 0 auto}
 /* 🪧 간판 빠른 알림 — 화면 가운데, 내 언어로 2초만, 손가락은 그대로 통과 */
-.signtip{position:fixed;left:50%;top:50%;transform:translate(-50%,-46%) scale(.92);
-  z-index:115;pointer-events:none;opacity:0;transition:opacity .16s ease,transform .18s ease;
-  background:linear-gradient(180deg,#FFFDF6,#FFEFD4);color:#2B211A;border:3px solid #C0392B;border-radius:1.3rem;
-  padding:.8rem 1.25rem 1rem;box-shadow:0 18px 46px rgba(30,18,10,.5);
-  min-width:64%;max-width:90vw;text-align:center}
+.signtip{position:fixed;left:50%;top:50%;transform:translate(-50%,-46%) scale(.94);
+  z-index:115;pointer-events:none;opacity:0;transition:opacity .18s ease,transform .2s ease;
+  background:linear-gradient(180deg,#FFFDF6,#FFEFD4);color:#2B211A;border:3px solid #C0392B;border-radius:1.6rem;
+  padding:1.1rem 1.15rem 1.25rem;box-shadow:0 20px 54px rgba(30,18,10,.52);
+  width:min(92vw,27rem);max-width:92vw;max-height:88vh;overflow:hidden;text-align:center}
 .signtip.on{opacity:1;transform:translate(-50%,-50%) scale(1)}
-.signtip .k{display:inline-block;font-size:.9rem;font-weight:900;line-height:1.2;letter-spacing:-.01em;
-  color:#8E241A;background:#FFE2C8;border:1.5px solid #E8A680;border-radius:1rem;padding:.16rem .58rem}
-.signtip .w{display:block;font-size:2.3rem;font-weight:900;line-height:1.15;margin-top:.28rem;
-  color:#7A2A0E;letter-spacing:-.045em;word-break:keep-all}
-.signtip .w i{display:block;font-style:normal;font-size:1rem;font-weight:800;color:#6A5647;
-  margin-top:.16rem;letter-spacing:0;line-height:1.3;word-break:keep-all}
-html.big .sign .sb{font-size:1.06rem}
-html.big .sign .salt{font-size:.56rem}
-html.big .sign .sem{font-size:.8rem}
-@media (max-width:360px){ .sign .sb{font-size:1.02rem} .sign .salt{font-size:.56rem} }
+.signtip .k{display:inline-block;font-size:1.04rem;font-weight:900;line-height:1.3;letter-spacing:.01em;
+  color:#8E241A;background:#FFE2C8;border:1.5px solid #E8A680;border-radius:1rem;padding:.24rem .78rem}
+.signtip .w{display:block;font-size:3.15rem;font-weight:900;line-height:1.2;margin-top:.5rem;
+  color:#7A2A0E;letter-spacing:-.01em;word-break:keep-all}
+.signtip .ex{display:block;font-size:1.42rem;font-weight:900;color:#8A3B14;margin-top:.42rem;
+  letter-spacing:.015em;line-height:1.42;word-break:keep-all}
+.signtip .ex::before{content:"· ";color:#D9A227;font-weight:900}
+.signtip .ex::after{content:" ·";color:#D9A227;font-weight:900}
+.signtip .dsc{display:block;font-size:1.06rem;font-weight:800;color:#5E4A3B;
+  margin-top:.6rem;letter-spacing:.012em;line-height:1.58;word-break:keep-all}
+.signtip .w i{display:block;font-style:normal;font-size:1.06rem;font-weight:800;color:#6A5647;
+  margin-top:.5rem;letter-spacing:.012em;line-height:1.55;word-break:keep-all}
+@media (max-width:360px){ .signtip{padding:.95rem .95rem 1.05rem} .signtip .w{font-size:2.7rem}
+  .signtip .ex{font-size:1.24rem} .signtip .dsc{font-size:1rem} }
+html.big .sign{min-height:3.4rem;padding:.44rem .12rem .4rem}
+html.big .sign .sb{font-size:1.26rem}
+html.big .sign .salt{font-size:.62rem}
+@media (max-width:360px){ .sign{min-height:3rem;padding:.4rem .14rem .36rem} .sign .sb{font-size:1.16rem} .sign .salt{font-size:.6rem}
+  html.big .sign .sb{font-size:1.08rem} html.big .sign .salt{font-size:.56rem} }
 
 /* 간판 카드 — 음식점인지 다른 가게인지 뱃지 */
 .signkind{display:inline-flex;align-items:center;gap:.26rem;border-radius:1rem;padding:.2rem .7rem;
@@ -257,13 +261,17 @@ html.big .sign .sem{font-size:.8rem}
   font-size:1.05rem;display:grid;place-items:center;font-weight:900;flex:0 0 auto;box-shadow:0 2px 6px rgba(90,60,35,.12)}
 .circ:active{transform:translateY(1px)}
 .circ.on{background:var(--red);color:#fff;border-color:var(--red2)}
-.bigbar .hint{flex:1 1 auto;text-align:center;font-size:.74rem;color:#7A5A32;font-weight:900;line-height:1.2;min-width:0}
+.bigbar .hint{flex:1 1 auto;text-align:center;font-size:.78rem;color:#7A5A32;font-weight:900;line-height:1.4;letter-spacing:.02em;min-width:0}
 .bigbody{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem;
   overflow:auto;padding:.3rem .1rem;text-align:center}
-.bigtext{font-size:5.2rem;font-weight:900;line-height:1.16;letter-spacing:-.03em;word-break:keep-all;
+.bigtext{font-size:5.2rem;font-weight:900;line-height:1.16;letter-spacing:-.01em;word-break:keep-all;
   text-wrap:balance;margin:0;overflow-wrap:normal;max-width:100%}
-.bigtext.l{font-size:clamp(1.7rem,8.4vw,2.9rem);line-height:1.28}
-.bigtext.m{font-size:clamp(1.36rem,6.2vw,2.1rem);line-height:1.34}
+.bigtext.l{font-size:clamp(1.82rem,8.8vw,3rem);line-height:1.34;letter-spacing:0}
+.bigtext.m{font-size:clamp(1.46rem,6.6vw,2.2rem);line-height:1.4;letter-spacing:0}
+/* 3단 큰 카드 맨 아래 — 한국어 보조 한 줄 */
+.bigaux{font-size:clamp(1.06rem,4.6vw,1.5rem);font-weight:900;color:#6A3A14;
+  background:#FFF4E2;border:2px solid #E8CFA9;border-radius:1rem;padding:.42rem 1rem;margin:.1rem 0 0;
+  letter-spacing:.03em;line-height:1.5;word-break:keep-all;max-width:100%;box-shadow:0 1px 5px rgba(120,80,30,.10)}
 .bigname{font-size:3rem;font-weight:900;line-height:1.18;letter-spacing:-.03em;margin:0;word-break:keep-all;overflow-wrap:normal;max-width:100%}
 .bigpron{font-size:1rem;font-weight:800;color:#8A5A20;background:#FFF3DC;border:2px solid #EFD8AF;border-radius:1rem;
   padding:.22rem .7rem;max-width:100%;line-height:1.35}
@@ -273,12 +281,12 @@ html.big .sign .sem{font-size:.8rem}
 .bigback{display:flex;align-items:center;justify-content:center;gap:.35rem;background:#3E2C22;color:#FFF6E4;
   border-radius:.85rem;padding:.7rem;font-size:1rem;font-weight:900;width:100%;min-height:3rem;box-shadow:0 3px 10px rgba(40,26,16,.25)}
 .bigback:active{transform:translateY(1px)}
-.bighint{font-size:.68rem;color:#8A6A3E;text-align:center;font-weight:800;margin:0}
+.bighint{font-size:.74rem;color:#8A6A3E;text-align:center;font-weight:800;margin:.1rem 0 0;letter-spacing:.025em;line-height:1.55}
 
 /* ── 내 언어(작게) + 가게 언어(아주 크게) ── */
-.bigmine{display:flex;flex-direction:column;align-items:center;gap:.06rem;max-width:100%;flex:0 0 auto}
-.bigmlb{font-size:.6rem;font-weight:900;letter-spacing:.02em;color:#A2835A;line-height:1.1}
-.bigmytx{font-size:1.26rem;font-weight:900;color:#5E4A3B;line-height:1.26;word-break:keep-all;
+.bigmine{display:flex;flex-direction:column;align-items:center;gap:.1rem;max-width:100%;flex:0 0 auto}
+.bigmlb{font-size:.66rem;font-weight:900;letter-spacing:.04em;color:#A2835A;line-height:1.35}
+.bigmytx{font-size:1.4rem;font-weight:900;color:#5E4A3B;line-height:1.4;letter-spacing:.01em;word-break:keep-all;
   display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;max-width:21rem}
 .listenPill{display:flex;align-items:center;justify-content:center;gap:.3rem;flex:0 0 auto;
   background:linear-gradient(180deg,#FFD873,#F0B33A);border:2px solid #A9690A;color:#3E2C22;
@@ -468,7 +476,7 @@ html.big .lochint small{font-size:.54rem}
 .mini.wide{width:100%;margin-top:.4rem}
 
 /* ── 안내·모달·토스트 ── */
-.notes{margin:1.1rem .9rem .4rem;font-size:.66rem;color:#8E7457;line-height:1.6;text-align:center}
+.notes{margin:1.1rem .4rem .4rem;font-size:.66rem;color:#8E7457;line-height:1.6;text-align:center}
 .notes b{color:#6A5647}
 .modal{position:fixed;inset:0;z-index:95;background:rgba(43,33,26,.45);display:flex;align-items:flex-end;justify-content:center;padding:0}
 .modal[hidden]{display:none}
@@ -487,18 +495,67 @@ html.big .lochint small{font-size:.54rem}
 .toast.on{opacity:1;transform:translate(-50%,0)}
 .sronly{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 @media (max-width:360px){
-  .lchip{font-size:9.6px;padding:2px 4px;min-height:26px}
-  .lchip .fl{font-size:11px}
+  html{font-size:17px}
+  .lchip{font-size:10.6px;padding:3px 3px;min-height:32px}
+  .lchip .fl{font-size:11.5px}
+  html.big .lchip{font-size:11.4px;padding:3px 2px;min-height:36px;gap:2px}
+  html.big .lchip .fl{font-size:12px}
   .sechd{flex-wrap:wrap;gap:.15rem .3rem}
-  .sechd .sub{flex:1 1 100%;font-size:.66rem}
-  .sechd h2{font-size:.96rem}
+  .sechd .sub{flex:1 1 100%;font-size:.7rem}
+  .sechd h2{font-size:1rem}
 }
 @media (max-width:350px){
-  html{font-size:16px}
-  .lchip{font-size:.7rem;padding:.2rem .38rem}
+  html{font-size:16.5px}
+  .lchip{font-size:10px;padding:2px 2px;min-height:28px}
   .bh .tag{display:none}
-  .core .say .wt{font-size:1.3rem}
+  .core .say .wt{font-size:1.34rem}
 }
+
+/* ══════ v6: 글자 사이·줄 사이 숨통 트기 + 한 단계 큰 글씨 ══════ */
+.bh .tag,.sechd .sub,.tipbar,.signhint,.tnote,.lochint,.scanbox .note,
+.notes,.divline,.steptip,.cbmy,.locbtn .lt span,.waitnote{letter-spacing:.012em;line-height:1.55}
+.bh .tag{font-size:.72rem}
+.sechd h2{letter-spacing:0;line-height:1.32;font-size:1.08rem}
+.sechd .sub{font-size:.76rem;line-height:1.5}
+.sechd.signhd .sub{font-size:.74rem}
+.sechd .num{font-size:.76rem}
+.tipbar{font-size:.74rem}
+.signhint{font-size:.76rem}
+.tnote,.lochint{font-size:.74rem}
+.scanbox .note{font-size:.76rem}
+.notes{font-size:.72rem}
+.slogan{font-size:.8rem;letter-spacing:.02em;line-height:1.55}
+.say .wt{letter-spacing:.002em;line-height:1.34;font-size:1.3rem}
+.say .sm{letter-spacing:.008em;line-height:1.45;font-size:.76rem}
+.core .say .wt{font-size:1.54rem;line-height:1.32}
+.food .nm{letter-spacing:.002em;line-height:1.36;font-size:.92rem}
+.food .nm2{letter-spacing:.008em;line-height:1.36;font-size:.7rem}
+.bd{font-size:.62rem}
+.sign .sb{font-size:1.46rem;letter-spacing:.01em;line-height:1.24}
+.sign .salt{font-size:.7rem;letter-spacing:.015em;line-height:1.32}
+.askbtn .atx b{letter-spacing:-.005em;line-height:1.28;font-size:1.18rem}
+.askbtn .atx span{letter-spacing:.012em;line-height:1.42;font-size:.78rem}
+.choice .cm,.sdpill,.cbitem .cbl,.staytx span{letter-spacing:.008em;line-height:1.4}
+.choice .cm{font-size:.68rem}
+.sdpill{font-size:.88rem}
+.ppl b{font-size:1.54rem}
+.ppl i{font-size:.66rem}
+.locbtn .lt b{font-size:1.1rem}
+.locbtn .lt span{font-size:.76rem}
+.staytx b{font-size:1rem}
+html.big .sechd h2{font-size:1.12rem}
+html.big .sechd .sub{font-size:.78rem}
+html.big .sign .sb{font-size:1.26rem}
+html.big .sign .salt{font-size:.64rem}
+@media (max-width:360px){
+  .sign .sb{font-size:1.34rem}
+  .sign .salt{font-size:.66rem}
+  .sechd h2{font-size:1rem}
+  .sechd .sub{font-size:.72rem}
+  .core .say .wt{font-size:1.4rem}
+  html.big .sign .sb{font-size:1.14rem}
+}
+.notes{margin-top:1.2rem}
 </style>
 </head>
 <body>
@@ -541,13 +598,6 @@ html.big .lochint small{font-size:.54rem}
     <img id="heroArt" src="./home-dining.jpg" width="1200" height="774"
          alt="따뜻한 식당 테이블에 모여 김치찌개·비빔밥·파전을 함께 먹는 와글가족 햄스터 가족" />
   </picture>
-  <div class="heroCap">
-    <div class="hb">
-      <span class="h1" id="showStaff">사장님께 화면을 보여 주세요</span>
-      <span class="h2" id="tapBig">카드를 누르면 화면 가득 커져요</span>
-    </div>
-    <span class="ho" aria-hidden="true">👉</span>
-  </div>
 </div>
 
 <p class="slogan" id="slogan">여행하기 제일 아름답고 편리한 나라</p>
@@ -563,7 +613,7 @@ html.big .lochint small{font-size:.54rem}
     <span class="num" id="signNum">45</span>
   </div>
   <div class="signs" id="signGrid" role="group" aria-labelledby="secSignH"></div>
-  <p class="signhint" id="secSignHint">간판을 누르면 2초 동안 무슨 가게인지 알려 드려요 · 길게 누르면 자세히</p>
+  <p class="signhint" id="secSignHint">간판을 누르면 3초 동안 무슨 가게인지 알려 드려요 · 길게 누르면 자세히</p>
   <!-- 🗣️ 큰 배너 — 누르면 한국어로 바로 물어 봐요 -->
   <button type="button" class="askbtn" id="askPlaceBtn" aria-label="여기 어떤 곳이에요? · 한국어로 물어 보기">
     <span class="ae" aria-hidden="true">🗣️</span>
@@ -887,7 +937,7 @@ var UI = {
   secOrder:'먼저 이 다섯 마디', secOrderS:'문장을 누르면 화면 가득 큰 카드로 열려요',
   secMore:'더 쓰는 말', secMoreS:'물·이거·계산처럼 짧게 쓰는 말',
   secSign:'🪧 간판에서 찾아보세요', secSignS:'길에서 본 한글 간판을 누르면 무슨 가게인지 알려 드려요',
-  signTapHint:'간판을 누르면 2초 동안 무슨 가게인지 알려 드려요 · 길게 누르면 자세히',
+  signTapHint:'간판을 누르면 3초 동안 무슨 가게인지 알려 드려요 · 길게 누르면 자세히',
   askKo:'여기 어떤 곳이에요?', askSay:'실례지만, 여기 어떤 곳이에요?',
   askMine:'여기 어떤 곳이에요?', askLbl:'한국어로 물어 보기',
   signDishes:'대표 음식 — 누르면 설명·주문 연습', signPractice:'주문 연습', signHint:'간판과 같은 글자예요',
@@ -966,7 +1016,7 @@ var UI = {
   secOrder:'Five phrases to start', secOrderS:'Tap a card to open it full screen',
   secMore:'More words', secMoreS:'Short ones — water, this one, the bill',
   secSign:'🪧 Find it on the sign', secSignS:'Tap a Korean sign to see what kind of shop it is',
-  signTapHint:'Tap a sign — the answer shows for 2 seconds · press and hold for details',
+  signTapHint:'Tap a sign — the answer shows for 3 seconds · press and hold for details',
   askKo:'여기 어떤 곳이에요?', askSay:'실례지만, 여기 어떤 곳이에요?',
   askMine:'Excuse me, what kind of place is this?', askLbl:'Ask in Korean',
   signDishes:'What they serve — tap for info and order practice', signPractice:'Order practice', signHint:'The same word as the sign',
@@ -1045,7 +1095,7 @@ var UI = {
   secOrder:'先看这五句', secOrderS:'点一下就能全屏放大',
   secMore:'还有这些', secMoreS:'水、这个、结账等短句',
   secSign:'🪧 看招牌找店', secSignS:'点一下街上看到的韩文招牌，就知道是什么店',
-  signTapHint:'点一下招牌，2秒显示是什么店 · 长按看详情',
+  signTapHint:'点一下招牌，3秒显示是什么店 · 长按看详情',
   askKo:'여기 어떤 곳이에요?', askSay:'실례지만, 여기 어떤 곳이에요?',
   askMine:'请问，这里是什么地方？', askLbl:'用韩语问一下',
   signDishes:'常见菜品 — 点一下看介绍和点餐练习', signPractice:'点餐练习', signHint:'和招牌上的字一样',
@@ -1124,7 +1174,7 @@ var UI = {
   secOrder:'まずはこの5つ', secOrderS:'タップすると全画面の大きなカードになります',
   secMore:'ほかの言葉', secMoreS:'水・これ・お会計などの短い言葉',
   secSign:'🪧 看板で探す', secSignS:'街で見た韓国語の看板をタップすると、どんなお店か分かります',
-  signTapHint:'看板を押すと2秒だけ種類を表示 · 長押しで詳しく',
+  signTapHint:'看板を押すと3秒だけ種類を表示 · 長押しで詳しく',
   askKo:'여기 어떤 곳이에요?', askSay:'실례지만, 여기 어떤 곳이에요?',
   askMine:'すみません、ここはどんなお店ですか？', askLbl:'韓国語で聞く',
   signDishes:'代表的な料理 — タップで説明と注文れんしゅう', signPractice:'注文れんしゅう', signHint:'看板と同じ文字です',
@@ -1203,7 +1253,7 @@ var UI = {
   secOrder:'Cinq phrases pour commencer', secOrderS:'Touchez une carte pour l\'ouvrir en plein écran',
   secMore:'D\'autres mots', secMoreS:'Courts — eau, ce plat, l\'addition',
   secSign:'🪧 Reconnaître les enseignes', secSignS:'Touchez une enseigne coréenne pour voir quel commerce c\'est',
-  signTapHint:'Touchez une enseigne : 2 secondes d\'explication · appui long pour le détail',
+  signTapHint:'Touchez une enseigne : 3 secondes d\'explication · appui long pour le détail',
   askKo:'여기 어떤 곳이에요?', askSay:'실례지만, 여기 어떤 곳이에요?',
   askMine:'Excusez-moi, c’est quel genre d’endroit ?', askLbl:'Demander en coréen',
   signDishes:'Ce qu\'ils servent — touchez pour l\'info et l\'entraînement', signPractice:'Entraînement', signHint:'Le même mot que l\'enseigne',
@@ -1790,7 +1840,7 @@ var EM = {pot:'🍲', soup:'🥣', rice:'🍚', grill:'🔥', noodles:'🍜', pa
    ko = 간판에 큼직하게 쓰는 한글 · alt = 간판에 같이 쓰이는 말 · kind = food(음식점) / shop(음식점 아님)
    n = 무슨 가게인지 · d = 한 줄 설명 · pic = 카드에 보여 줄 그림(음식 id 또는 {art,tone}) · dishes = 대표 음식 */
 var SIGNS = [
-{id:'sikdang', em:'🍽️', ko:'식당', alt:'밥집', kind:'food', pic:'kimchi-jjigae',
+{id:'sikdang', ex:'김치찌개 · 된장찌개 · 비빔밥', em:'🍽️', ko:'식당', alt:'밥집', kind:'food', pic:'kimchi-jjigae',
  n:{ko:'식당(밥집)', en:'Restaurant (meal house)', zh:'餐厅（饭馆）', ja:'食堂（ごはん屋）', fr:'Restaurant (repas)'},
  d:{ko:'집밥 같은 한 끼를 파는 동네 음식점이에요. 문 앞 메뉴판을 보고 들어가면 돼요.',
     en:'A neighbourhood restaurant for home-style meals — check the menu board by the door and walk in.',
@@ -1799,7 +1849,7 @@ var SIGNS = [
     fr:'Un petit restaurant de quartier qui sert des repas maison — regardez le menu à l\'entrée.'},
  dishes:['kimchi-jjigae','doenjang-jjigae','bibimbap','jeyuk']},
 
-{id:'galbi', em:'🍖', ko:'갈비', alt:'', kind:'food', pic:'galbi',
+{id:'galbi', ex:'갈비 · 삼겹살 구이', em:'🍖', ko:'갈비', alt:'', kind:'food', pic:'galbi',
  n:{ko:'갈비집 · 고기구이', en:'Beef rib restaurant', zh:'排骨店', ja:'カルビ店', fr:'Restaurant de côtes'},
  d:{ko:'양념한 소갈비를 불에 구워 먹는 집이에요. 다른 한 끼보다 값이 조금 비싼 편이에요.',
     en:'Marinated beef ribs grilled at your table — a little pricier than other meals.',
@@ -1808,7 +1858,7 @@ var SIGNS = [
     fr:'Des côtes de bœuf marinées à griller soi-même — un peu plus cher que les autres repas.'},
  dishes:['galbi','samgyeopsal']},
 
-{id:'bwipe', em:'🍱', ko:'뷔페', alt:'', kind:'food', pic:null,
+{id:'bwipe', ex:'한식·양식 뷔페', em:'🍱', ko:'뷔페', alt:'', kind:'food', pic:null,
  n:{ko:'뷔페', en:'Buffet', zh:'自助餐', ja:'ビュッフェ', fr:'Buffet'},
  d:{ko:'한 값으로 여러 음식을 원하는 만큼 담아 먹는 집이에요. 접시를 들고 줄을 서요.',
     en:'Pay once, then fill your plate as often as you like — take a plate and join the line.',
@@ -1817,7 +1867,7 @@ var SIGNS = [
     fr:'On paie une fois puis on se sert à volonté — prenez une assiette et faites la queue.'},
  dishes:[]},
 
-{id:'tang', em:'🥣', ko:'탕', alt:'국', kind:'food', pic:'seolleongtang',
+{id:'tang', ex:'설렁탕 · 갈비탕 · 육개장', em:'🥣', ko:'탕', alt:'국', kind:'food', pic:'seolleongtang',
  n:{ko:'탕·국 요리', en:'Soup and broth house', zh:'汤类专门店', ja:'スープ（タン）専門店', fr:'Soupes et bouillons'},
  d:{ko:'설렁탕·곰탕·감자탕처럼 오래 끓인 국물 요리를 파는 집이에요.',
     en:'Long-simmered soups — seolleongtang, gomtang, gamjatang.',
@@ -1826,7 +1876,7 @@ var SIGNS = [
     fr:'Des soupes longuement mijotées : seolleongtang, gomtang, gamjatang.'},
  dishes:['seolleongtang','galbitang','yukgaejang']},
 
-{id:'jangeo', em:'🐟', ko:'장어', alt:'', kind:'food', pic:{art:'grill', tone:'gold'},
+{id:'jangeo', ex:'장어구이 · 장어탕', em:'🐟', ko:'장어', alt:'', kind:'food', pic:{art:'grill', tone:'gold'},
  n:{ko:'장어구이', en:'Grilled eel restaurant', zh:'烤鳗鱼店', ja:'うなぎ料理店', fr:'Restaurant d\'anguille grillée'},
  d:{ko:'민물장어를 불에 구워 먹는 집이에요. 여름 보양식으로 많이 찾아요.',
     en:'Freshwater eel grilled at the table — a popular summer pick-me-up.',
@@ -1835,7 +1885,7 @@ var SIGNS = [
     fr:'De l\'anguille d\'eau douce grillée — un plat d\'été très apprécié.'},
  dishes:[]},
 
-{id:'nakji', em:'🐙', ko:'낙지', alt:'', kind:'food', pic:{art:'pot', tone:'red'},
+{id:'nakji', ex:'낙지볶음 · 산낙지', em:'🐙', ko:'낙지', alt:'', kind:'food', pic:{art:'pot', tone:'red'},
  n:{ko:'낙지 요리', en:'Octopus restaurant', zh:'章鱼料理店', ja:'タコ料理店', fr:'Restaurant de poulpe'},
  d:{ko:'낙지를 볶거나 데쳐 내는 집이에요. 매운 낙지볶음이 유명해요.',
     en:'Octopus stir-fried or boiled — spicy nakji-bokkeum is the classic.',
@@ -1844,7 +1894,7 @@ var SIGNS = [
     fr:'Du poulpe sauté ou blanchi — le nakji-bokkeum épicé est le classique.'},
  dishes:[]},
 
-{id:'donkkaseu', em:'🍖', ko:'돈까스', alt:'', kind:'food', pic:'donkkaseu',
+{id:'donkkaseu', ex:'돈까스 · 튀김', em:'🍖', ko:'돈까스', alt:'', kind:'food', pic:'donkkaseu',
  n:{ko:'돈까스·튀김', en:'Pork cutlet shop', zh:'炸猪排店', ja:'とんかつ店', fr:'Côtelette panée'},
  d:{ko:'돼지고기를 빵가루에 묻혀 튀긴 돈까스를 파는 집이에요. 밥과 샐러드가 함께 나와요.',
     en:'Breaded pork cutlet, served with rice and salad.',
@@ -1853,7 +1903,7 @@ var SIGNS = [
     fr:'Côtelette de porc panée et frite, servie avec riz et salade.'},
  dishes:['donkkaseu']},
 
-{id:'jeongsik', em:'🍚', ko:'정식', alt:'한정식', kind:'food', pic:{art:'rice', tone:'veg'},
+{id:'jeongsik', ex:'한정식 · 백반', em:'🍚', ko:'정식', alt:'한정식', kind:'food', pic:{art:'rice', tone:'veg'},
  n:{ko:'정식·한정식', en:'Set meal (hanjeongsik)', zh:'定食·韩定食', ja:'定食・韓定食', fr:'Repas complet (hanjeongsik)'},
  d:{ko:'밥·국·반찬이 한 상에 차려지는 정식이에요. "한정식"은 반찬이 더 많은 코스예요.',
     en:'Rice, soup and side dishes on one table — hanjeongsik is the larger course version.',
@@ -1862,7 +1912,7 @@ var SIGNS = [
     fr:'Riz, soupe et accompagnements sur une table — le hanjeongsik est la version en cours complet.'},
  dishes:['dolsot-bibimbap','doenjang-jjigae']},
 
-{id:'hoegwan', em:'🏛️', ko:'회관', alt:'관', kind:'food', pic:'doenjang-jjigae',
+{id:'hoegwan', ex:'정식 · 백반', em:'🏛️', ko:'회관', alt:'관', kind:'food', pic:'doenjang-jjigae',
  n:{ko:'회관·관', en:'Banquet-style restaurant (…gwan)', zh:'会馆式餐馆', ja:'会館（食堂）', fr:'Restaurant de type « …gwan »'},
  d:{ko:'"○○회관"은 단체 손님도 받는 큰 식당이에요. 정식·백반을 많이 팔아요. "관"만 붙기도 해요.',
     en:'A "…회관" sign marks a large restaurant that seats groups too — usually serving set meals.',
@@ -1871,7 +1921,7 @@ var SIGNS = [
     fr:'Une enseigne « …회관 » est un grand restaurant qui accueille aussi les groupes — souvent des repas complets.'},
  dishes:['doenjang-jjigae','jeyuk','bibimbap']},
 
-{id:'gukbap', em:'🍲', ko:'국밥', alt:'', kind:'food', pic:'gukbap',
+{id:'gukbap', ex:'돼지국밥 · 국밥', em:'🍲', ko:'국밥', alt:'', kind:'food', pic:'gukbap',
  n:{ko:'국밥', en:'Rice in hot soup', zh:'汤饭', ja:'クッパ（スープご飯）', fr:'Riz au bouillon'},
  d:{ko:'뜨거운 국물에 밥을 말아 먹는 집이에요. 돼지국밥이 가장 흔해요.',
     en:'Rice in hot broth — pork gukbap is the most common.',
@@ -1880,7 +1930,7 @@ var SIGNS = [
     fr:'Du riz dans un bouillon chaud — le gukbap au porc est le plus courant.'},
  dishes:['gukbap','seolleongtang','galbitang']},
 
-{id:'bibimbap', em:'🥗', ko:'비빔밥', alt:'', kind:'food', pic:'bibimbap',
+{id:'bibimbap', ex:'비빔밥 · 돌솥비빔밥', em:'🥗', ko:'비빔밥', alt:'', kind:'food', pic:'bibimbap',
  n:{ko:'비빔밥', en:'Bibimbap (rice bowl)', zh:'拌饭', ja:'ビビンバ', fr:'Bibimbap'},
  d:{ko:'밥에 고기·나물·달걀을 올리고 고추장에 비벼 먹는 집이에요.',
     en:'Rice with beef, vegetables and egg, mixed with chili paste.',
@@ -1889,7 +1939,7 @@ var SIGNS = [
     fr:'Riz, bœuf, légumes et œuf à mélanger avec de la pâte de piment.'},
  dishes:['bibimbap','dolsot-bibimbap']},
 
-{id:'gogi', em:'🔥', ko:'고기', alt:'구이', kind:'food', pic:'samgyeopsal',
+{id:'gogi', ex:'삼겹살 · 불고기', em:'🔥', ko:'고기', alt:'구이', kind:'food', pic:'samgyeopsal',
  n:{ko:'고깃집 · 구이', en:'Korean BBQ', zh:'烤肉店', ja:'焼肉店', fr:'Barbecue coréen'},
  d:{ko:'상에서 직접 고기를 구워 먹는 집이에요. 삼겹살이 가장 흔해요.',
     en:'Grill the meat yourself at the table — pork belly is the usual order.',
@@ -1898,7 +1948,7 @@ var SIGNS = [
     fr:'On grille la viande à table — la poitrine de porc est l\'incontournable.'},
  dishes:['samgyeopsal','bulgogi']},
 
-{id:'hoetjip', em:'🍣', ko:'횟집', alt:'생선회', kind:'food', pic:null,
+{id:'hoetjip', ex:'생선회 · 물회', em:'🍣', ko:'횟집', alt:'생선회', kind:'food', pic:null,
  n:{ko:'횟집·생선회', en:'Raw fish (sashimi) shop', zh:'生鱼片店', ja:'刺身の店（フェ）', fr:'Poisson cru (sashimi)'},
  d:{ko:'싱싱한 생선회를 파는 집이에요. 회를 시키면 밥과 국도 함께 나와요.',
     en:'Fresh fish sliced to order — rice and soup usually come with it.',
@@ -1907,8 +1957,8 @@ var SIGNS = [
     fr:'Du poisson très frais découpé à la commande — riz et soupe souvent inclus.'},
  dishes:[]},
 
-{id:'chobap', em:'🍣', ko:'초밥', alt:'스시', kind:'food', pic:{art:'roll', tone:'green'},
- n:{ko:'초밥·스시', en:'Sushi restaurant', zh:'寿司店', ja:'寿司屋', fr:'Restaurant de sushis'},
+{id:'chobap', ex:'초밥 · 회전초밥', em:'🍣', ko:'초밥', alt:'', kind:'food', pic:{art:'roll', tone:'green'},
+ n:{ko:'초밥', en:'Sushi restaurant', zh:'寿司店', ja:'寿司屋', fr:'Restaurant de sushis'},
  d:{ko:'초밥을 파는 일식집이에요. 회전초밥집은 접시 색으로 값을 계산해요.',
     en:'A Japanese sushi restaurant — at conveyor-belt places you pay by plate colour.',
     zh:'卖寿司的日式店，回转寿司按盘子颜色算钱。',
@@ -1916,7 +1966,7 @@ var SIGNS = [
     fr:'Un restaurant japonais de sushis — au tapis roulant, on paie selon la couleur des assiettes.'},
  dishes:[]},
 
-{id:'jjigae', em:'🥘', ko:'찌개', alt:'전골', kind:'food', pic:'kimchi-jjigae',
+{id:'jjigae', ex:'김치찌개 · 순두부찌개', em:'🥘', ko:'찌개', alt:'전골', kind:'food', pic:'kimchi-jjigae',
  n:{ko:'찌개·전골', en:'Stew and hot pot', zh:'汤锅·火锅', ja:'チゲ・鍋', fr:'Ragoût et marmite'},
  d:{ko:'한 가지 재료로 끓인 찌개, 여럿이 나눠 먹는 전골이에요. 밥과 함께 나와요.',
     en:'A one-pot stew (jjigae) or a bigger pot to share (jeongol), served with rice.',
@@ -1925,7 +1975,7 @@ var SIGNS = [
     fr:'Un ragoût en pot (jjigae) ou une marmite à partager (jeongol), servi avec du riz.'},
  dishes:['kimchi-jjigae','sundubu-jjigae','budae-jjigae']},
 
-{id:'bunsik', em:'🍢', ko:'분식', alt:'', kind:'food', pic:'tteokbokki',
+{id:'bunsik', ex:'떡볶이 · 김밥 · 라면', em:'🍢', ko:'분식', alt:'', kind:'food', pic:'tteokbokki',
  n:{ko:'분식', en:'Snack bar', zh:'小吃店', ja:'軽食店（粉食）', fr:'Snack coréen'},
  d:{ko:'떡볶이·김밥·라면 같은 간단한 음식을 값싸게 파는 집이에요.',
     en:'Cheap, quick snack food — tteokbokki, gimbap and ramyeon.',
@@ -1934,7 +1984,7 @@ var SIGNS = [
     fr:'De quoi grignoter pour trois fois rien — tteokbokki, gimbap, ramyeon.'},
  dishes:['tteokbokki','gimbap','ramyeon']},
 
-{id:'guksu', em:'🍜', ko:'국수', alt:'칼국수', kind:'food', pic:'kalguksu',
+{id:'guksu', ex:'칼국수 · 잔치국수 · 국수', em:'🍜', ko:'국수', alt:'칼국수', kind:'food', pic:'kalguksu',
  n:{ko:'국수·칼국수', en:'Noodle shop', zh:'面条店', ja:'麺類店（カルククス）', fr:'Restaurant de nouilles'},
  d:{ko:'손칼국수·잔치국수·비빔국수를 파는 면 요리 집이에요.',
     en:'Hand-cut noodle soup, thin noodles in broth, or spicy mixed noodles.',
@@ -1943,7 +1993,7 @@ var SIGNS = [
     fr:'Nouilles coupées à la main en soupe, nouilles fines au bouillon ou mélangées.'},
  dishes:['kalguksu','janchi-guksu','bibim-guksu','naengmyeon']},
 
-{id:'myeonok', em:'🍥', ko:'면옥', alt:'옥', kind:'food', pic:'naengmyeon',
+{id:'myeonok', ex:'냉면 · 만두', em:'🍥', ko:'면옥', alt:'옥', kind:'food', pic:'naengmyeon',
  n:{ko:'면옥·냉면집', en:'Cold noodle house (myeonok)', zh:'冷面馆', ja:'冷麺屋（ミョンオク）', fr:'Maison de nouilles froides'},
  d:{ko:'간판에 "옥"이 붙으면 오래된 냉면·만둣국 집이 많아요. "면옥"은 냉면집이에요.',
     en:'An "…옥" sign often marks an old noodle house — myeonok means a cold-noodle restaurant.',
@@ -1952,7 +2002,7 @@ var SIGNS = [
     fr:'Une enseigne en « …옥 » désigne souvent une vieille maison de nouilles ; myeonok = nouilles froides.'},
  dishes:['naengmyeon','bibim-naengmyeon','mandu']},
 
-{id:'chicken', em:'🍗', ko:'치킨', alt:'호프', kind:'food', pic:'chicken',
+{id:'chicken', ex:'후라이드 · 호프', em:'🍗', ko:'치킨', alt:'호프', kind:'food', pic:'chicken',
  n:{ko:'치킨·호프', en:'Fried chicken and beer', zh:'炸鸡·啤酒屋', ja:'チキンとビール', fr:'Poulet frit et bière'},
  d:{ko:'후라이드·양념치킨에 맥주를 곁들이는 집이에요. 밤에는 배달도 해요.',
     en:'Korean fried chicken with beer — most places deliver at night too.',
@@ -1961,7 +2011,7 @@ var SIGNS = [
     fr:'Poulet frit coréen et bière — la plupart livrent aussi le soir.'},
  dishes:['chicken','beer']},
 
-{id:'pocha', em:'🍶', ko:'포차', alt:'주점', kind:'food', pic:'soju',
+{id:'pocha', ex:'소주 · 맥주 · 파전', em:'🍶', ko:'포차', alt:'주점', kind:'food', pic:'soju',
  n:{ko:'포차·주점·술집', en:'Pub / drinking spot', zh:'酒馆·小酒摊', ja:'居酒屋・飲み屋', fr:'Bistrot à alcool'},
  d:{ko:'"포차"는 길거리 술집, "주점"은 술을 파는 집이에요. 안주를 곁들여 술을 마셔요.',
     en:'Pocha is an informal street-side drinking spot; jujeom is a bar. You order snacks with the drinks.',
@@ -1970,7 +2020,7 @@ var SIGNS = [
     fr:'Un pocha est un bistrot de rue, un jujeom un bar — on boit avec de petits plats.'},
  dishes:['soju','beer','makgeolli','pajeon']},
 
-{id:'junghwa', em:'🥟', ko:'중화요리', alt:'반점', kind:'food', pic:'jjajangmyeon',
+{id:'junghwa', ex:'짜장면 · 짬뽕 · 탕수육', em:'🥟', ko:'중화요리', alt:'반점', kind:'food', pic:'jjajangmyeon',
  n:{ko:'중화요리·반점', en:'Korean-Chinese restaurant', zh:'中华料理店', ja:'中華料理店', fr:'Restaurant chino-corréen'},
  d:{ko:'짜장면·짬뽕·탕수육을 파는 한국식 중국집이에요. "반점"도 중국집 간판이에요.',
     en:'Korean-Chinese food — jjajangmyeon, jjambbong and sweet-and-sour pork. "반점" also means a Chinese restaurant.',
@@ -1979,7 +2029,7 @@ var SIGNS = [
     fr:'Cuisine sino-corréenne : jjajangmyeon, jjambbong, porc aigre-doux. « 반점 » désigne aussi un restaurant chinois.'},
  dishes:['jjajangmyeon','jjambbong','tangsuyuk','mandu']},
 
-{id:'cafe', em:'☕', ko:'카페', alt:'커피', kind:'food', pic:'cafe-latte',
+{id:'cafe', ex:'아메리카노 · 라떼 · 케이크', em:'☕', ko:'카페', alt:'커피', kind:'food', pic:'cafe-latte',
  n:{ko:'카페·커피', en:'Cafe', zh:'咖啡厅', ja:'カフェ', fr:'Café'},
  d:{ko:'커피·차·디저트를 파는 집이에요. 먼저 주문하고 자리에 앉아요.',
     en:'Coffee, tea and dessert — order at the counter first, then sit down.',
@@ -1988,8 +2038,8 @@ var SIGNS = [
     fr:'Café, thé et desserts — commandez d\'abord au comptoir, puis asseyez-vous.'},
  dishes:['americano','cafe-latte','yuja-tea','cake']},
 
-{id:'bakery', em:'🥐', ko:'빵집', alt:'베이커리', kind:'food', pic:'cake',
- n:{ko:'빵집·베이커리', en:'Bakery', zh:'面包店', ja:'パン屋', fr:'Boulangerie'},
+{id:'bakery', ex:'식빵 · 단팥빵 · 케이크', em:'🥐', ko:'빵집', alt:'제과점', kind:'food', pic:'cake',
+ n:{ko:'빵집·제과점', en:'Bakery', zh:'面包店', ja:'パン屋', fr:'Boulangerie'},
  d:{ko:'갓 구운 빵과 케이크를 파는 집이에요. 쟁반에 담아 계산대로 가요.',
     en:'Freshly baked bread and cakes — put your pick on a tray and pay at the counter.',
     zh:'卖现烤面包和蛋糕，把面包放在托盘上到柜台结账。',
@@ -1997,7 +2047,7 @@ var SIGNS = [
     fr:'Pain et gâteaux du jour — posez votre choix sur un plateau et payez à la caisse.'},
  dishes:['cake']},
 
-{id:'pyeonuijeom', em:'🏪', ko:'편의점', alt:'', kind:'shop', pic:null,
+{id:'pyeonuijeom', ex:'생수 · 컵라면 · 간식', em:'🏪', ko:'편의점', alt:'', kind:'shop', pic:null,
  n:{ko:'편의점', en:'Convenience store (24h)', zh:'便利店（24小时）', ja:'コンビニ（24時間）', fr:'Supérette (24 h)'},
  d:{ko:'음식점이 아니라 24시간 여는 가게예요. 물·간식·교통카드 충전을 여기서 해요.',
     en:'Not a restaurant — a shop open 24 hours for water, snacks and T-money top-ups.',
@@ -2006,7 +2056,7 @@ var SIGNS = [
     fr:'Ce n\'est pas un restaurant mais une supérette ouverte 24 h : eau, en-cas et recharge de carte.'},
  dishes:['water','soda','ramyeon']},
 
-{id:'mart', em:'🛒', ko:'마트', alt:'슈퍼', kind:'shop', pic:null,
+{id:'mart', ex:'식료품 · 생수 · 과일', em:'🛒', ko:'마트', alt:'슈퍼', kind:'shop', pic:null,
  n:{ko:'마트·슈퍼', en:'Mart / grocery store', zh:'超市', ja:'スーパー・マート', fr:'Supérette / supermarché'},
  d:{ko:'음식점이 아니라 물건을 파는 가게예요. 물·과일·생활용품을 살 수 있어요.',
     en:'Not a restaurant — a grocery shop for water, fruit and daily goods.',
@@ -2015,7 +2065,7 @@ var SIGNS = [
     fr:'Ce n\'est pas un restaurant mais une épicerie : eau, fruits, produits du quotidien.'},
  dishes:['water','soda']},
 
-{id:'yakguk', em:'💊', ko:'약국', alt:'', kind:'shop', pic:null,
+{id:'yakguk', ex:'상비약 · 처방약', em:'💊', ko:'약국', alt:'', kind:'shop', pic:null,
  n:{ko:'약국', en:'Pharmacy', zh:'药局', ja:'薬局', fr:'Pharmacie'},
  d:{ko:'음식점이 아니라 약국이에요. 약이 필요하면 "약국" 글자를 찾아 들어가면 돼요.',
     en:'Not a restaurant — a pharmacy. Look for the 약국 sign when you need medicine.',
@@ -2025,7 +2075,7 @@ var SIGNS = [
  dishes:[]},
 
 /* ── 길에서 자주 만나는 간판 (가게 이름 그대로) ── */
-{id:'samgyeop', em:'🥓', ko:'삼겹살', alt:'목살', kind:'food', pic:'samgyeopsal',
+{id:'samgyeop', ex:'삼겹살 · 목살', em:'🥓', ko:'삼겹살', alt:'목살', kind:'food', pic:'samgyeopsal',
  n:{ko:'삼겹살·목살 구이', en:'Pork belly BBQ', zh:'五花肉烤肉', ja:'サムギョプサル', fr:'Poitrine de porc grillée'},
  d:{ko:'두툼한 돼지고기를 불판에 구워 먹는 집이에요. 상추·깻잎에 싸서 먹어요.',
     en:'Thick pork belly grilled at your table, eaten wrapped in lettuce and perilla leaves.',
@@ -2034,7 +2084,7 @@ var SIGNS = [
     fr:'De la poitrine de porc épaisse grillée à table, à manger dans une feuille de laitue.'},
  dishes:['samgyeopsal','jeyuk']},
 
-{id:'bulgogi', em:'🥩', ko:'불고기', alt:'', kind:'food', pic:'bulgogi',
+{id:'bulgogi', ex:'불고기 · 비빔밥', em:'🥩', ko:'불고기', alt:'', kind:'food', pic:'bulgogi',
  n:{ko:'불고기', en:'Bulgogi (marinated beef)', zh:'烤牛肉（불고기）', ja:'プルコギ', fr:'Bulgogi (bœuf mariné)'},
  d:{ko:'얇게 썬 소고기를 양념에 재워 볶아 내는 집이에요. 달짝지근한 맛이라 아이도 잘 먹어요.',
     en:'Thin slices of beef marinated in a sweet soy sauce and cooked on a pan — mild, and kids like it.',
@@ -2043,7 +2093,7 @@ var SIGNS = [
     fr:'Du bœuf émincé mariné dans une sauce soja sucrée, cuit à la poêle — doux, parfait pour les enfants.'},
  dishes:['bulgogi','bibimbap']},
 
-{id:'gimbap', em:'🍙', ko:'김밥', alt:'', kind:'food', pic:'gimbap',
+{id:'gimbap', ex:'김밥 · 떡볶이', em:'🍙', ko:'김밥', alt:'', kind:'food', pic:'gimbap',
  n:{ko:'김밥', en:'Gimbap (rice roll)', zh:'紫菜包饭', ja:'キンパ（海苔巻き）', fr:'Gimbap (rouleau de riz)'},
  d:{ko:'밥과 채소를 김에 말아 한 줄씩 파는 집이에요. 값이 싸고 들고 다니며 먹기 좋아요.',
     en:'Rice and vegetables rolled in seaweed, sold by the roll — cheap and easy to eat on the go.',
@@ -2052,7 +2102,7 @@ var SIGNS = [
     fr:'Du riz et des légumes roulés dans une algue, vendus à la pièce — bon marché et facile à emporter.'},
  dishes:['gimbap','tteokbokki']},
 
-{id:'naengmyeon', em:'🍜', ko:'냉면', alt:'', kind:'food', pic:'naengmyeon',
+{id:'naengmyeon', ex:'물냉면 · 비빔냉면', em:'🍜', ko:'냉면', alt:'', kind:'food', pic:'naengmyeon',
  n:{ko:'냉면', en:'Cold noodles', zh:'冷面', ja:'冷麺', fr:'Nouilles froides'},
  d:{ko:'차가운 육수에 메밀면을 말아 내는 집이에요. 여름에 특히 많이 찾아요.',
     en:'Buckwheat noodles in icy broth — a favourite in summer.',
@@ -2061,7 +2111,7 @@ var SIGNS = [
     fr:'Des nouilles de sarrasin dans un bouillon glacé — très appréciées en été.'},
  dishes:['naengmyeon','bibim-naengmyeon','mandu']},
 
-{id:'mandu', em:'🥟', ko:'만두', alt:'', kind:'food', pic:'mandu',
+{id:'mandu', ex:'만두 · 칼국수', em:'🥟', ko:'만두', alt:'', kind:'food', pic:'mandu',
  n:{ko:'만두', en:'Dumplings', zh:'饺子', ja:'マンドゥ（餃子）', fr:'Raviolis coréens'},
  d:{ko:'고기·채소를 밀가루 피에 싸서 찌거나 군 만두를 파는 집이에요. 김치만두가 흔해요.',
     en:'Dumplings steamed or fried — kimchi dumplings are the usual kind.',
@@ -2070,7 +2120,7 @@ var SIGNS = [
     fr:'Des raviolis cuits à la vapeur ou poêlés — ceux au kimchi sont les plus courants.'},
  dishes:['mandu','kalguksu']},
 
-{id:'juk', em:'🥣', ko:'죽', alt:'', kind:'food', pic:{art:'soup', tone:'milky'},
+{id:'juk', ex:'전복죽 · 야채죽', em:'🥣', ko:'죽', alt:'', kind:'food', pic:{art:'soup', tone:'milky'},
  n:{ko:'죽', en:'Porridge', zh:'粥', ja:'お粥', fr:'Bouillie de riz'},
  d:{ko:'쌀을 오래 끓여 부드럽게 만든 죽을 파는 집이에요. 속이 안 좋을 때 먹기 좋아요.',
     en:'Rice cooked down until soft — gentle on the stomach when you are not feeling well.',
@@ -2079,7 +2129,7 @@ var SIGNS = [
     fr:'Du riz mijoté jusqu\'à devenir crémeux — parfait quand l\'estomac est fragile.'},
  dishes:[]},
 
-{id:'jokbal', em:'🍖', ko:'족발', alt:'보쌈', kind:'food', pic:'jokbal',
+{id:'jokbal', ex:'족발 · 보쌈', em:'🍖', ko:'족발', alt:'보쌈', kind:'food', pic:'jokbal',
  n:{ko:'족발·보쌈', en:'Pig trotters / boiled pork', zh:'猪蹄·白切肉', ja:'チョッパル・ポッサム', fr:'Pieds de porc / porc bouilli'},
  d:{ko:'돼지 족발을 삶아 얇게 썰어 내는 집이에요. 보쌈(삶은 돼지고기)은 쌈으로 먹어요.',
     en:'Boiled pig trotters sliced thin, and boiled pork (bossam) eaten in lettuce wraps.',
@@ -2088,7 +2138,7 @@ var SIGNS = [
     fr:'Des pieds de porc bouillis tranchés fin, et du porc bouilli (bossam) à manger en feuilles.'},
  dishes:['jokbal','bossam']},
 
-{id:'gopchang', em:'🔥', ko:'곱창', alt:'막창', kind:'food', pic:{art:'grill', tone:'red'},
+{id:'gopchang', ex:'곱창구이 · 막창', em:'🔥', ko:'곱창', alt:'막창', kind:'food', pic:{art:'grill', tone:'red'},
  n:{ko:'곱창·막창 구이', en:'Grilled beef intestines', zh:'烤肠（곱창）', ja:'コプチャン焼き', fr:'Intestins grillés (gopchang)'},
  d:{ko:'소·돼지 곱창을 불에 구워 먹는 집이에요. 쫄깃한 식감이 특징이에요.',
     en:'Beef or pork intestines grilled at the table — chewy and rich.',
@@ -2097,7 +2147,7 @@ var SIGNS = [
     fr:'Des intestins de bœuf ou de porc grillés à table — moelleux et riches.'},
  dishes:[]},
 
-{id:'dakgalbi', em:'🍗', ko:'닭갈비', alt:'', kind:'food', pic:'dak-galbi',
+{id:'dakgalbi', ex:'닭갈비 · 찜닭', em:'🍗', ko:'닭갈비', alt:'', kind:'food', pic:'dak-galbi',
  n:{ko:'닭갈비', en:'Spicy stir-fried chicken', zh:'辣炒鸡排', ja:'タッカルビ', fr:'Poulet épicé sauté'},
  d:{ko:'닭고기를 양배추·고구마와 함께 매콤하게 볶아 먹는 집이에요. 마지막에 볶음밥을 넣어요.',
     en:'Chicken stir-fried with cabbage and sweet potato in a spicy sauce — finish with fried rice.',
@@ -2106,7 +2156,7 @@ var SIGNS = [
     fr:'Du poulet sauté avec chou et patate douce dans une sauce piquante — finissez avec du riz sauté.'},
  dishes:['dak-galbi','jjimdak']},
 
-{id:'haejang', em:'🍲', ko:'해장국', alt:'', kind:'food', pic:{art:'soup', tone:'red'},
+{id:'haejang', ex:'해장국 · 국밥', em:'🍲', ko:'해장국', alt:'', kind:'food', pic:{art:'soup', tone:'red'},
  n:{ko:'해장국', en:'Hangover soup', zh:'醒酒汤', ja:'ヘジャンクク（二日酔いスープ）', fr:'Soupe anti-gueule de bois'},
  d:{ko:'선지·콩나물을 넣고 얼큰하게 끓인 국에 밥을 말아 먹는 집이에요. 아침에도 열어요.',
     en:'A spicy broth with bean sprouts served with rice — many open early in the morning.',
@@ -2115,7 +2165,7 @@ var SIGNS = [
     fr:'Un bouillon épicé aux pousses de soja servi avec du riz — beaucoup ouvrent tôt le matin.'},
  dishes:['gukbap','seolleongtang','yukgaejang']},
 
-{id:'gomtang', em:'🥣', ko:'곰탕', alt:'설렁탕', kind:'food', pic:'seolleongtang',
+{id:'gomtang', ex:'곰탕 · 설렁탕', em:'🥣', ko:'곰탕', alt:'설렁탕', kind:'food', pic:'seolleongtang',
  n:{ko:'곰탕·설렁탕', en:'Beef bone soup', zh:'牛骨汤（설렁탕）', ja:'コムタン・ソルロンタン', fr:'Bouillon d\'os de bœuf'},
  d:{ko:'소뼈를 오래 끓인 뽀얀 국물에 고기와 밥을 말아 먹는 집이에요. 소금·후추로 간을 해요.',
     en:'Milky broth from bones simmered for hours, with beef and rice — season it yourself with salt.',
@@ -2124,7 +2174,7 @@ var SIGNS = [
     fr:'Un bouillon blanc d\'os longuement mijoté, avec bœuf et riz — on sale soi-même.'},
  dishes:['seolleongtang','galbitang','gukbap']},
 
-{id:'samgyetang', em:'🐔', ko:'삼계탕', alt:'', kind:'food', pic:'samgyetang',
+{id:'samgyetang', ex:'삼계탕', em:'🐔', ko:'삼계탕', alt:'', kind:'food', pic:'samgyetang',
  n:{ko:'삼계탕', en:'Ginseng chicken soup', zh:'参鸡汤', ja:'参鶏湯（サムゲタン）', fr:'Poulet au ginseng'},
  d:{ko:'닭 뱃속에 찹쌀·인삼을 넣고 끓인 보양식을 파는 집이에요. 여름에 특히 많이 찾아요.',
     en:'A whole chicken stuffed with glutinous rice and ginseng — a summer energy dish.',
@@ -2133,7 +2183,7 @@ var SIGNS = [
     fr:'Un poulet farci au riz gluant et au ginseng — un plat fortifiant d\'été.'},
  dishes:['samgyetang']},
 
-{id:'jjimdak', em:'🍲', ko:'찜닭', alt:'', kind:'food', pic:'jjimdak',
+{id:'jjimdak', ex:'찜닭 · 닭갈비', em:'🍲', ko:'찜닭', alt:'', kind:'food', pic:'jjimdak',
  n:{ko:'찜닭', en:'Braised chicken and noodles', zh:'炖鸡（찜닭）', ja:'チムタク（鶏の煮込み）', fr:'Poulet braisé aux nouilles'},
  d:{ko:'닭고기·당면·채소를 간장 양념에 졸여 내는 집이에요. 한 그릇을 여럿이 나눠 먹어요.',
     en:'Chicken, glass noodles and vegetables braised in soy sauce — one pot to share.',
@@ -2142,7 +2192,7 @@ var SIGNS = [
     fr:'Du poulet, des nouilles de verre et des légumes braisés au soja — un plat à partager.'},
  dishes:['jjimdak','dak-galbi']},
 
-{id:'bindaetteok', em:'🥞', ko:'빈대떡', alt:'파전', kind:'food', pic:'pajeon',
+{id:'bindaetteok', ex:'빈대떡 · 파전', em:'🥞', ko:'빈대떡', alt:'파전', kind:'food', pic:'pajeon',
  n:{ko:'빈대떡·파전', en:'Mung bean / spring onion pancake', zh:'绿豆饼·葱饼', ja:'ピンデトック・チヂミ', fr:'Galette de haricot mungo / ciboule'},
  d:{ko:'녹두나 파를 반죽해 부쳐 내는 전을 파는 집이에요. 막걸리와 잘 어울려요.',
     en:'Savory pancakes fried on the spot — they go perfectly with makgeolli.',
@@ -2151,8 +2201,8 @@ var SIGNS = [
     fr:'Des galettes salées cuites à la poêle — parfaites avec du makgeolli.'},
  dishes:['pajeon','makgeolli']},
 
-{id:'bingsu', em:'🍧', ko:'빙수', alt:'디저트', kind:'food', pic:'bingsu',
- n:{ko:'빙수·디저트', en:'Shaved ice and dessert', zh:'刨冰·甜点', ja:'かき氷・デザート', fr:'Glace pilée et desserts'},
+{id:'bingsu', ex:'팥빙수 · 망고빙수 · 인절미빙수', em:'🍧', ko:'팥빙수', alt:'디저트', kind:'food', pic:'bingsu',
+ n:{ko:'팥빙수·디저트', en:'Shaved ice with red beans', zh:'红豆刳冰·甜点', ja:'パッピンス・デザート', fr:'Glace pilée aux haricots rouges'},
  d:{ko:'얼음을 갈아 팥·과일·우유를 올린 빙수를 파는 집이에요. 여름 간식으로 좋아요.',
     en:'Shaved ice topped with red beans, fruit and milk — a summer treat.',
     zh:'把冰刨碎后放上红豆、水果和牛奶的甜品店，夏天吃最合适。',
@@ -2160,7 +2210,7 @@ var SIGNS = [
     fr:'De la glace pilée avec haricots rouges, fruits et lait — la gourmandise d\'été.'},
  dishes:['bingsu','cake','americano']},
 
-{id:'byeongwon', em:'🏥', ko:'병원', alt:'의원', kind:'shop', pic:null,
+{id:'byeongwon', ex:'진찰 · 처방', em:'🏥', ko:'병원', alt:'의원', kind:'shop', pic:null,
  n:{ko:'병원·의원', en:'Clinic / hospital', zh:'医院·诊所', ja:'病院・クリニック', fr:'Clinique / hôpital'},
  d:{ko:'음식점이 아니라 병원이에요. "의원"은 동네 작은 병원이에요. 아플 때 이 간판을 찾으세요.',
     en:'Not a restaurant — a clinic. 의원 is a small neighbourhood doctor\'s office.',
@@ -2169,7 +2219,7 @@ var SIGNS = [
     fr:'Ce n\'est pas un restaurant mais un cabinet médical ; 의원 = un petit cabinet de quartier.'},
  dishes:[]},
 
-{id:'eunhaeng', em:'🏦', ko:'은행', alt:'ATM', kind:'shop', pic:null,
+{id:'eunhaeng', ex:'ATM · 환전', em:'🏦', ko:'은행', alt:'ATM', kind:'shop', pic:null,
  n:{ko:'은행·ATM', en:'Bank / ATM', zh:'银行·ATM', ja:'銀行・ATM', fr:'Banque / distributeur'},
  d:{ko:'음식점이 아니라 돈을 바꾸거나 찾는 곳이에요. 문 앞 ATM은 24시간일 때가 많아요.',
     en:'Not a restaurant — a bank for cash and exchange; the ATM outside is often open 24 hours.',
@@ -2178,7 +2228,7 @@ var SIGNS = [
     fr:'Ce n\'est pas un restaurant mais une banque (change, retrait) ; le distributeur dehors est souvent ouvert 24 h.'},
  dishes:[]},
 
-{id:'hwajangsil', em:'🚻', ko:'화장실', alt:'', kind:'shop', pic:null,
+{id:'hwajangsil', ex:'무료 화장실 · 세면', em:'🚻', ko:'화장실', alt:'', kind:'shop', pic:null,
  n:{ko:'화장실', en:'Toilet', zh:'洗手间', ja:'トイレ', fr:'Toilettes'},
  d:{ko:'음식점이 아니라 화장실이에요. 지하철역·건물 안에서 이 글자를 찾으면 돼요.',
     en:'Not a restaurant — a toilet. Look for this word inside stations and buildings.',
@@ -2187,7 +2237,7 @@ var SIGNS = [
     fr:'Pas un restaurant mais des toilettes — cherchez ce mot dans les stations et les bâtiments.'},
  dishes:[]},
 
-{id:'miyongsil', em:'💇', ko:'미용실', alt:'이발소', kind:'shop', pic:null,
+{id:'miyongsil', ex:'컷 · 파마', em:'💇', ko:'미용실', alt:'이발소', kind:'shop', pic:null,
  n:{ko:'미용실·이발소', en:'Hair salon / barber', zh:'理发店', ja:'美容室・理髪店', fr:'Salon de coiffure'},
  d:{ko:'음식점이 아니라 머리를 자르는 곳이에요. 값을 먼저 물어보고 앉으면 좋아요.',
     en:'Not a restaurant — a hair salon. Ask the price before you sit down.',
@@ -2453,8 +2503,6 @@ function applyUI(){
   $('#bigLbl').textContent = ui('bigText');
   $('#shareLbl').textContent = ui('share');
   $('#installLbl').textContent = ui('install');
-  $('#showStaff').textContent = ui('showStaff');
-  $('#tapBig').textContent = ui('tapBig');
   $('#secOrderH').textContent = ui('secOrder');
   $('#secOrderS').textContent = ui('secOrderS');
   $('#secMoreH').textContent = ui('secMore');
@@ -2540,6 +2588,8 @@ function applyUI(){
   $('#scanSampleLbl').textContent = ui('scanSample');
   $('#scanNote').textContent = ui('scanNote');
   $('#scanClear').textContent = ui('scanClear');
+  $('#scanMsg').textContent = ui('scanReading');
+  $('#scanResTitle').textContent = ui('scanMenuTitle');
   $('#scanPvTag').textContent = ui('scanSampleTag');
   $('#scanPv').alt = ui('photoAlt');
   $('#bigHint').textContent = ui('showHint');
@@ -2638,7 +2688,6 @@ function renderSigns(){
     var kind = ui(s.kind === 'shop' ? 'signKindShop' : 'signKindFood');
     return '<button type="button" class="sign" data-sign="' + s.id + '" aria-label="'
       + esc(s.ko + (s.alt ? ' · ' + s.alt : '') + ' — ' + kind + ' — ' + mine) + '">'
-      + '<span class="sem" aria-hidden="true">' + s.em + '</span>'
       + '<b class="sb" lang="ko">' + esc(s.ko) + '</b>'
       + (s.alt ? '<span class="salt" lang="ko">' + esc(s.alt) + '</span>' : '')
       + '</button>';
@@ -3252,17 +3301,28 @@ function peopleText(n){
   var wEn = ['', 'one', 'two', 'three', 'four', 'five'];
   var wFr = ['', 'une', 'deux', 'trois', 'quatre', 'cinq'];
   return {
-    ko: n + '명입니다.',
-    en: (n === 1 ? 'A table for one, please.' : 'A table for ' + wEn[n] + ', please.'),
+    ko: (n >= 5 ? '5명 이상입니다.' : n + '명입니다.'),
+    en: (n === 1 ? 'A table for one, please.' : 'A table for ' + (n >= 5 ? 'five or more' : wEn[n]) + ', please.'),
     zh: n + '位。',
     ja: n + '名です。',
-    fr: (n === 1 ? 'Une table pour une personne, s\'il vous plaît.' : 'Une table pour ' + wFr[n] + ' personnes, s\'il vous plaît.')
+    fr: (n === 1 ? 'Une table pour une personne, s\'il vous plaît.' : 'Une table pour ' + (n >= 5 ? 'cinq personnes ou plus' : wFr[n] + ' personnes') + ', s\'il vous plaît.')
   };
+}
+/* 3단 큰 카드의 맨 아래 — 한국어 보조 한 줄 (자리 안내) */
+function peopleAux(n){
+  if(n >= 5) return '5인 이상 테이블 주세요';
+  if(n === 1) return '1인 자리 주세요';
+  return n + '인 테이블 주세요';
 }
 function openPeople(n){
   var t = peopleText(n), target = t[shop] || t.en;
   var len = target.length, cls = len > 24 ? 'm' : (len > 13 ? 'l' : '');
-  showBig(twoLang(t, cls), target, shop);
+  var html = '';
+  if(my !== 'ko') html += '<div class="bigmine"><span class="bigmlb">' + esc(ui('myLang')) + '</span>'
+    + '<span class="bigmytx">' + esc(t[my] || t.en) + '</span></div>';
+  html += '<p class="bigtext ' + cls + '" lang="' + shop + '">' + esc(target) + '</p>';
+  html += '<p class="bigaux" lang="ko">' + esc(peopleAux(n)) + '</p>';
+  showBig(html, target, shop);
 }
 function openPhrase(p){
   var target = p.t[shop] || p.t.en, len = target.length, cls = len > 22 ? 'm' : (len > 13 ? 'l' : '');
@@ -3836,16 +3896,15 @@ var signTipT = null, signLongFired = false;
 function showSignTip(s){
   var el = $('#signTip'); if(!el) return;
   var kind = ui(s.kind === 'shop' ? 'signKindShop' : 'signKindFood');
-  var mine = String(s.n[my] || s.n.en || '');
-  /* "炖鸡（찜닭）"처럼 괄호 안에 한글을 또 넣은 이름은 괄호를 덜어 낸다 */
-  if(my !== 'ko') mine = mine.replace(/\s*[（(][^)）]*[가-힣][^)）]*[)）]\s*$/, '').trim();
-  el.innerHTML = '<span class="k">' + esc(kind) + '</span>'
-    + '<span class="w" lang="ko">' + esc(s.ko)
-    + ((my === 'ko' || !mine || mine === s.ko) ? ''
-        : '<i>' + (/[（(]/.test(mine) ? esc(mine) : '(' + esc(mine) + ')') + '</i>') + '</span>';
+  var ex = s.ex || '';                                  /* ② 대표 메뉴·품목 — 늘 한국어 */
+  var dsc = (s.d && (s.d[my] || s.d.en)) || '';          /* ③ 내 언어 설명 */
+  el.innerHTML = '<span class="k">' + esc(kind) + '</span>'                       /* ① 뱃지(내 언어) */
+    + '<span class="w" lang="ko">' + esc(s.ko) + '</span>'                         /* ② 우리 글자 크게 */
+    + (ex ? '<span class="ex" lang="ko">' + esc(ex) + '</span>' : '')
+    + (dsc ? '<span class="dsc">' + esc(dsc) + '</span>' : '');
   el.classList.add('on');
   clearTimeout(signTipT);
-  signTipT = setTimeout(function(){ el.classList.remove('on'); }, 2000);
+  signTipT = setTimeout(function(){ el.classList.remove('on'); }, 3000);   /* v6: 3초 */
 }
 (function(){
   var g = $('#signGrid'); if(!g) return;
