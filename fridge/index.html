@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#1E4A36" />
-<!-- build: 2026-11-23 와글가족장바구니 v17 · 첫 화면 아래 카드를 '🏠 우리 집 전체 내역'으로(보관 공간 5칸 품목을 칸별 알약으로 한눈에 · 칸 줄을 누르면 그 칸이 바로 열림 · 빈 칸은 '비어 있어요' 1줄 · 지붕 모달은 그대로) + 페이지 아래로 내려가면 오른쪽 아래에 '⬆️ 맨 위로' 버튼(한 번 누르면 부드럽게 맨 위로 · 홈·칸 화면 공통) · 안내 문구(토스트)가 버튼을 가리지 않게 위로 살짝 · 한국어/영어·큰 글씨 겹침·잘림 없음 · 캐시 v17 -->
+<!-- build: 2026-11-23 와글가족장바구니 v18 · '➕ 냉장고에 넣기' 위에 🥬 식재료 | 🍲 반찬류 | 🧂 소스 탭 추가(반찬류 18종: 배추김치·무김치·열무김치·파김치·멸치볶음·진미채·어묵볶음·계란말이·장조림·두부조림·콩나물무침·시금치나물·무생채·감자채볶음·깻잎장아찌·젓갈/명란·피클/단무지·미역줄기 · 소스·치즈 18종: 고추장·된장·간장·쌈장·참기름·들기름·케첩·마요네즈·머스타드·돈까스소스·굴소스·참치액·식초·올리고당·칠리/스리라차·슬라이스치즈·모짜렐라치즈·크림치즈 · 둘 다 3열 빈 칸 없음) → 탭을 누르면 그 버튼 판만 바뀌고 누르면 기존과 똑같이 냉장고에 바로 담김 · 한국어/영어·큰 글씨 겹침·잘림 없음 · 캐시 v18 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -417,8 +417,18 @@ html.big .recbtn.recmini{font-size:.72rem;padding:.12rem .42rem;min-height:2.05r
 .addhead{display:flex;align-items:center;gap:.3rem;margin:0 0 .34rem;flex-wrap:nowrap}
 .addhead h2{margin:0;flex:1 1 auto;min-width:0}
 html.big .quickhead{font-size:.62rem;padding:.08rem .28rem}
-/* 빠른 품목 버튼 — 한눈에 들어오게 작고 가지런한 칩 형태(4열) */
+/* 🥬 식재료 · 🍲 반찬류 · 🧂 소스 탭 — 세 칸을 꽉 채워 한 줄에 (큰 글씨에서도 한 줄) */
+.addtabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.22rem;margin:0 0 .4rem}
+.addtab{display:flex;align-items:center;justify-content:center;gap:.16rem;min-width:0;min-height:2.2rem;
+  padding:.14rem .08rem;border-radius:.6rem;border:2px solid #CFE0CC;background:#F7FBF6;color:#234C33;
+  font-size:.78rem;font-weight:900;line-height:1.1;letter-spacing:-.03em;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+.addtab[aria-pressed="true"]{background:#2F6B4F;border-color:#2F6B4F;color:#F2FAF3}
+.addtab:active{transform:translateY(1px)}
+html.big .addtab{font-size:.68rem;min-height:2.5rem;padding:.12rem .04rem;gap:.1rem}
+/* 빠른 품목 버튼 — 한눈에 들어오게 작고 가지런한 칩 형태(4열 · 반찬류/소스는 3열) */
 .quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.22rem;margin-bottom:.45rem}
+.quick.three{grid-template-columns:repeat(3,minmax(0,1fr))}
 .qbtn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.04rem;
   background:#F3FAF4;border:2px solid #BFD9C6;border-radius:.56rem;padding:.14rem .06rem;min-height:2.45rem;
   font-size:.71rem;font-weight:900;color:#234C33;line-height:1.08;overflow-wrap:anywhere;letter-spacing:-.02em}
@@ -884,6 +894,11 @@ html.big .dpdishes{font-size:.86rem}
         <h2 id="addTitle">➕ 품목 담기</h2>
         <span class="quickhead" id="quickHead">영양소 순서</span>
       </div>
+      <div class="addtabs" id="addTabs" role="group" aria-label="넣을 품목 종류">
+        <button type="button" class="addtab" data-tab="ing" aria-pressed="true">🥬 식재료</button>
+        <button type="button" class="addtab" data-tab="banchan" aria-pressed="false">🍲 반찬류</button>
+        <button type="button" class="addtab" data-tab="sauce" aria-pressed="false">🧂 소스</button>
+      </div>
       <div class="quick" id="quick"></div>
       <form id="addForm" autocomplete="off">
         <div class="field">
@@ -1047,6 +1062,7 @@ const ITEM_EN={'우유':'Milk','계란':'Eggs','빵':'Bread','식빵':'Bread','�
   '오이소박이':'Oi-sobagi','무말랭이':'Dried radish strips',
   '감자':'Potatoes','애호박':'Zucchini','단호박':'Pumpkin','소고기':'Beef','돼지고기':'Pork','닭':'Chicken','닭고기':'Chicken'};
 const MEMO_EN={'1L':'1L','한 판':'1 pack','한 단':'1 bunch','한 봉':'1 bag','1팩':'1 pack','1봉':'1 bag','500g':'500g'};
+let ITEM_EN_MORE=null;
 function dnSpace(n){ return EN()? (SPACE_EN[n]||n) : n; }
 /* 집 그림 라벨은 좁아서 실온보관바구니만 짧게 */
 function shortSpace(n){ return (n==='실온보관바구니')? L('실온보관','Pantry') : dnSpace(n); }
@@ -1057,7 +1073,14 @@ function houseLabel(n){
   if(n==='김치냉장고') return L('김치냉장고','Kimchi');
   return dnSpace(n);
 }
-function dnItem(n){ return EN()? (ITEM_EN[n]||n) : n; }
+function dnItem(n){
+  if(!EN()) return n;
+  if(!ITEM_EN_MORE){
+    ITEM_EN_MORE={};
+    QUICK.concat(BANCHAN,SAUCE).forEach(function(q){ ITEM_EN_MORE[q[1]]=q[2]; });
+  }
+  return ITEM_EN_MORE[n] || ITEM_EN[n] || n;
+}
 function dnMemo(m){ return EN()? (MEMO_EN[m]||m) : m; }
 
 /* ══════ 날짜 ══════ */
@@ -1258,6 +1281,27 @@ const QUICK=[
   ['🍎','사과','Apple'],['🍊','오렌지','Orange'],['🍌','바나나','Banana'],['🍇','과일류','Fruit'],
   ['🧂','양념/장','Sauces'],['💧','생수','Water'],['☕','커피/차','Coffee/tea'],['🥛','우유','Milk'],['🧃','주스','Juice']
 ];
+/* 🍲 반찬류 — 3열 그리드에 빈 칸 없이 (18종 = 3×6) */
+const BANCHAN=[
+  ['🥬','배추김치','Cabbage kimchi'],['🥗','무김치','Radish kimchi'],['🌿','열무김치','Yeolmu kimchi'],
+  ['🧅','파김치','Pa kimchi'],['🐟','멸치볶음','Anchovy stir-fry'],['🦑','진미채','Dried squid'],
+  ['🍢','어묵볶음','Fish cake'],['🍳','계란말이','Rolled omelette'],['🥩','장조림','Braised beef'],
+  ['🧈','두부조림','Braised tofu'],['🌱','콩나물무침','Bean sprout salad'],['🍃','시금치나물','Spinach namul'],
+  ['🥕','무생채','Radish salad'],['🥔','감자채볶음','Potato stir-fry'],['🍂','깻잎장아찌','Perilla leaf jangajji'],
+  ['🫙','젓갈/명란','Jeotgal / roe'],['🥒','피클/단무지','Pickles / danmuji'],['🌊','미역줄기','Seaweed stem']
+];
+/* 🧂 소스·치즈 — 3열 그리드에 빈 칸 없이 (18종 = 3×6) */
+const SAUCE=[
+  ['🌶️','고추장','Gochujang'],['🫘','된장','Doenjang'],['🍶','간장','Soy sauce'],
+  ['🥬','쌈장','Ssamjang'],['🫗','참기름','Sesame oil'],['🫒','들기름','Perilla oil'],
+  ['🍅','케첩','Ketchup'],['🥚','마요네즈','Mayonnaise'],['🌭','머스타드','Mustard'],
+  ['🥫','돈까스소스','Tonkatsu sauce'],['🦪','굴소스','Oyster sauce'],['🐟','참치액','Tuna sauce'],
+  ['🧴','식초','Vinegar'],['🍯','올리고당','Oligo syrup'],['🔥','칠리/스리라차','Chili / Sriracha'],
+  ['🧀','슬라이스치즈','Sliced cheese'],['🫕','모짜렐라치즈','Mozzarella'],['🥯','크림치즈','Cream cheese']
+];
+/* 탭: [키, 그림, 한국어, 영어] */
+const ADD_TABS=[['ing','🥬','식재료','Food'],['banchan','🍲','반찬류','Sides'],['sauce','🧂','소스','Sauces']];
+let addTab='ing';
 
 /* ══════ 🍳 만들 수 있는 요리 (0원 내장 사전 · 이 폰에서만 · 인터넷 필요 없음) ══════ */
 const DISHES={
@@ -1523,9 +1567,22 @@ function renderList(){
     box.appendChild(row);
   });
 }
+function tabList(){ return addTab==='banchan'? BANCHAN : (addTab==='sauce'? SAUCE : QUICK); }
+function renderAddTabs(){
+  const box=$('#addTabs'); if(!box) return;
+  box.setAttribute('aria-label', L('넣을 품목 종류','What to add'));
+  $$('#addTabs .addtab').forEach(function(b){
+    const d=ADD_TABS.filter(function(x){ return x[0]===b.dataset.tab; })[0]; if(!d) return;
+    b.textContent=d[1]+' '+L(d[2],d[3]);
+    b.setAttribute('aria-pressed', b.dataset.tab===addTab? 'true':'false');
+    b.setAttribute('aria-label', L(d[2]+' 버튼 모아 보기','Show '+d[3].toLowerCase()+' buttons'));
+  });
+}
 function renderQuick(){
   const box=$('#quick'); box.innerHTML='';
-  QUICK.forEach(function(q){
+  renderAddTabs();
+  box.classList.toggle('three', addTab!=='ing');
+  tabList().forEach(function(q){
     const b=document.createElement('button');
     b.type='button'; b.className='qbtn';
     b.innerHTML='<span class="qe" aria-hidden="true">'+(q[3]||esc(q[0]))+'</span><span class="ql"></span>';
@@ -1534,7 +1591,18 @@ function renderQuick(){
     b.addEventListener('click', function(){ addItem(q[1], joinMemo($('#addVolIn').value, $('#addMemo').value), true); });
     box.appendChild(b);
   });
+  if($('#quickHead')) $('#quickHead').textContent = addTab==='banchan'? L('한국 반찬','Side dishes')
+    : (addTab==='sauce'? L('소스·치즈','Sauces & cheese') : L('영양소 순서','Nutrient order'));
 }
+/* 탭을 누르면 아래 버튼 판만 바뀌어요(넣기·수량·기존 기능은 그대로) */
+$$('#addTabs .addtab').forEach(function(b){
+  b.addEventListener('click', function(){
+    if(addTab===b.dataset.tab) return;
+    addTab=b.dataset.tab;
+    renderQuick();
+    try{ b.scrollIntoView({block:'nearest'}); }catch(e){}
+  });
+});
 
 /* ══════ 빠른 용량 버튼 (1팩 · 1봉 · 500g · 1L) ══════ */
 const VOLS=[['1팩','1 pack'],['1봉','1 bag'],['500g','500g'],['1L','1L']];
