@@ -37,9 +37,9 @@
   }
   .wrap{
     max-width:34rem;margin:0 auto;
-    padding:1.2rem .95rem 2.4rem;
-    padding-top:calc(1.2rem + env(safe-area-inset-top));
-    padding-bottom:calc(2.4rem + env(safe-area-inset-bottom));
+    padding:.6rem .8rem 1.2rem;
+    padding-top:calc(.6rem + env(safe-area-inset-top));
+    padding-bottom:calc(1.2rem + env(safe-area-inset-bottom));
   }
 
   /* ── 머리말 ─────────────────────────── */
@@ -54,20 +54,20 @@
   .today{
     justify-self:stretch;align-self:stretch;
     display:flex;flex-direction:column;align-items:flex-start;justify-content:center;
-    margin:0;padding:.38rem .5rem;text-align:left;font-family:inherit;
-    background:#FFFDF7;border:1.5px solid var(--line);border-radius:.85rem;
-    box-shadow:0 .25rem .7rem rgba(58,40,25,.07);cursor:pointer;
+    margin:0;padding:.22rem .42rem;text-align:left;font-family:inherit;
+    background:#FFFDF7;border:1.5px solid var(--line);border-radius:.7rem;
+    box-shadow:0 .18rem .5rem rgba(58,40,25,.07);cursor:pointer;
     -webkit-tap-highlight-color:transparent;
     transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
   }
   .today:active{transform:scale(.97)}
   .today:focus-visible{outline:3px solid rgba(217,162,39,.55);outline-offset:2px}
   .today-date{
-    font-size:.8rem;font-weight:900;line-height:1.3;letter-spacing:-.035em;
+    font-size:.73rem;font-weight:900;line-height:1.28;letter-spacing:-.035em;
     color:var(--coffee);white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis;
   }
   .today-time,.today-wx{
-    font-size:.72rem;font-weight:800;line-height:1.34;letter-spacing:-.02em;
+    font-size:.63rem;font-weight:800;line-height:1.32;letter-spacing:-.02em;
     color:var(--ink2);white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis;
   }
   .today-time{margin-top:.04rem}
@@ -76,41 +76,41 @@
   .logobox{
     justify-self:center;align-self:stretch;
     display:flex;align-items:center;justify-content:center;
-    padding:.26rem .7rem;background:#fff;border:1.5px solid var(--line);border-radius:.9rem;
-    box-shadow:0 .25rem .7rem rgba(58,40,25,.08);
+    padding:.14rem .46rem;background:#fff;border:1.5px solid var(--line);border-radius:.7rem;
+    box-shadow:0 .18rem .5rem rgba(58,40,25,.08);
   }
-  .logobox img{display:block;width:3.05rem;height:3.05rem;border-radius:.62rem}
-  .brandline{display:flex;flex-direction:column;align-items:center;margin-top:.4rem}
+  .logobox img{display:block;width:2.25rem;height:2.25rem;border-radius:.5rem}
+  .brandline{display:flex;flex-direction:column;align-items:center;margin-top:.2rem}
   .brandline .wordmark{
-    margin:0;font-size:1.8rem;line-height:1.15;font-weight:900;
+    margin:0;font-size:1.4rem;line-height:1.14;font-weight:900;
     letter-spacing:-.045em;color:var(--coffee);
   }
   .brandline .latin{
-    margin:.06rem 0 0;font-size:.68rem;font-weight:800;letter-spacing:.32em;
-    color:var(--gold);text-indent:.32em;
+    margin:.04rem 0 0;font-size:.54rem;font-weight:800;letter-spacing:.3em;
+    color:var(--gold);text-indent:.3em;
   }
   html[data-lang="en"] .brandline .latin{display:none}
 
   /* ── 📷 QR · 🕊 마음 배지 ── */
   .qrbox{
     justify-self:stretch;align-self:stretch;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.14rem;
-    margin:0;padding:.24rem .26rem .2rem;
-    background:#fff;border:1.5px solid var(--line);border-radius:.75rem;
-    box-shadow:0 .25rem .7rem rgba(58,40,25,.10);cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.08rem;
+    margin:0;padding:.12rem .2rem .1rem;
+    background:#fff;border:1.5px solid var(--line);border-radius:.65rem;
+    box-shadow:0 .18rem .5rem rgba(58,40,25,.10);cursor:pointer;
     font-family:inherit;-webkit-tap-highlight-color:transparent;
     transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
   }
   .qrbox:active{transform:scale(.96)}
   .qrbox:focus-visible{outline:3px solid rgba(217,162,39,.55);outline-offset:3px}
-  .qrbox .qr-thumb{display:block;width:3.05rem;height:3.05rem;border-radius:.3rem;overflow:hidden;background:#fff}
+  .qrbox .qr-thumb{display:block;width:2.25rem;height:2.25rem;border-radius:.25rem;overflow:hidden;background:#fff}
   .qrbox .qr-thumb svg{display:block;width:100%;height:100%}
-  .qrbox .qr-cap{font-size:.5rem;font-weight:900;line-height:1;letter-spacing:.06em;color:#A08A6B}
-  .moods{display:flex;flex-wrap:wrap;justify-content:center;gap:.32rem;margin:.68rem 0 0}
+  .qrbox .qr-cap{font-size:.42rem;font-weight:900;line-height:1;letter-spacing:.06em;color:#A08A6B}
+  .moods{display:flex;flex-wrap:wrap;justify-content:center;gap:.28rem;margin:.34rem 0 0}
   .mood{
-    display:inline-flex;align-items:center;gap:.26rem;
-    margin:0;padding:.27rem .68rem;border-radius:999px;border:1.5px solid transparent;
-    font-family:inherit;font-size:.76rem;font-weight:900;letter-spacing:-.02em;line-height:1.4;
+    display:inline-flex;align-items:center;gap:.22rem;
+    margin:0;padding:.15rem .56rem;border-radius:999px;border:1.5px solid transparent;
+    font-family:inherit;font-size:.68rem;font-weight:900;letter-spacing:-.02em;line-height:1.4;
     cursor:pointer;-webkit-tap-highlight-color:transparent;
     transition:transform .16s ease, box-shadow .18s ease, opacity .18s ease, filter .18s ease;
   }
@@ -138,34 +138,34 @@
   .qrBig svg{display:block;width:100%;height:auto}
   .qrUrl{margin:0 0 .75rem;text-align:center;font-size:.72rem;font-weight:800;line-height:1.5;color:#8B7A63;word-break:break-all}
   .tagline{
-    margin:.6rem auto 0;max-width:24rem;color:var(--ink2);
-    font-size:.92rem;line-height:1.55;font-weight:700;
+    margin:.22rem auto 0;max-width:24rem;color:var(--ink2);
+    font-size:.8rem;line-height:1.4;font-weight:700;
   }
-  .badges{display:flex;flex-wrap:wrap;justify-content:center;gap:.38rem;margin:.75rem 0 0}
+  .badges{display:flex;flex-wrap:wrap;justify-content:center;gap:.26rem;margin:.32rem 0 0}
   .badge{
-    display:inline-flex;align-items:center;gap:.32rem;
+    display:inline-flex;align-items:center;gap:.24rem;
     background:var(--green-bg);color:#245740;border:1.5px solid var(--green-line);
-    border-radius:999px;padding:.3rem .78rem;font-size:.78rem;font-weight:900;
+    border-radius:999px;padding:.15rem .6rem;font-size:.68rem;font-weight:900;
     letter-spacing:-.01em;line-height:1.35;
   }
   .tip{
-    margin:.8rem 0 0;padding:.68rem .85rem;background:var(--cream2);
-    border:1.5px solid var(--line);border-radius:.95rem;
-    font-size:.81rem;line-height:1.5;color:#6B5B4C;font-weight:700;text-align:left;
+    margin:.38rem 0 0;padding:.36rem .6rem;background:var(--cream2);
+    border:1.5px solid var(--line);border-radius:.75rem;
+    font-size:.7rem;line-height:1.42;color:#6B5B4C;font-weight:700;text-align:left;
   }
   .tip b{color:var(--coffee)}
 
   /* ── 설정 버튼 ──────────────────────── */
   .controls{
-    display:flex;gap:.5rem;justify-content:center;
-    margin:.85rem 0 0;flex-wrap:wrap;
+    display:flex;gap:.4rem;justify-content:center;
+    margin:.4rem 0 0;flex-wrap:wrap;
   }
   .ctl{
-    flex:0 1 auto;min-height:2.75rem;min-width:0;
-    display:inline-flex;align-items:center;justify-content:center;gap:.35rem;
-    padding:.45rem 1rem;border-radius:.9rem;cursor:pointer;
+    flex:0 1 auto;min-height:2.25rem;min-width:0;
+    display:inline-flex;align-items:center;justify-content:center;gap:.3rem;
+    padding:.24rem .8rem;border-radius:.7rem;cursor:pointer;
     background:#fff;color:var(--ink2);border:2px solid var(--line);
-    font-family:inherit;font-size:.86rem;font-weight:900;letter-spacing:-.02em;
+    font-family:inherit;font-size:.76rem;font-weight:900;letter-spacing:-.02em;
     white-space:nowrap;
   }
   .ctl[aria-pressed="true"]{background:var(--coffee);border-color:var(--coffee);color:#FFF7E9}
@@ -173,14 +173,14 @@
 
   /* ── 📲 설치 · 🔗 공유 (맨 위 큰 버튼) ── */
   .cta{
-    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.5rem;
-    margin:.8rem 0 0;
+    display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.4rem;
+    margin:.42rem 0 0;
   }
   .cta.one{grid-template-columns:minmax(0,1fr)}
   .cta button{
-    display:flex;align-items:center;justify-content:center;gap:.3rem;
-    min-height:3rem;padding:.4rem .42rem;border-radius:.9rem;cursor:pointer;
-    font-family:inherit;font-size:.82rem;font-weight:900;letter-spacing:.07em;
+    display:flex;align-items:center;justify-content:center;gap:.26rem;
+    min-height:2.3rem;padding:.26rem .36rem;border-radius:.72rem;cursor:pointer;
+    font-family:inherit;font-size:.75rem;font-weight:900;letter-spacing:.05em;
     line-height:1.2;white-space:nowrap;
   }
   .cta button[hidden]{display:none}
@@ -245,87 +245,125 @@
   }
   .miniToast.show{opacity:1}
 
-  /* ── 앱 카드 ────────────────────────── */
+  /* ── 앱 카드 — 2열 콤팩트 (간격 좁게 · 카드 높이 낮게) ── */
   main{
-    margin-top:1rem;
-    display:grid;grid-template-columns:1fr;grid-auto-rows:1fr;gap:.85rem;
+    margin-top:.55rem;
+    display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem;
   }
   .app{
-    display:flex;flex-direction:column;justify-content:flex-start;
+    display:flex;flex-direction:column;gap:.12rem;
     background:var(--card);border:2px solid var(--orange);
-    border-radius:var(--r);padding:.9rem .9rem .8rem;
-    text-decoration:none;color:inherit;box-shadow:var(--shadow);
+    border-radius:.8rem;padding:.4rem .48rem .36rem;
+    text-decoration:none;color:inherit;box-shadow:0 .14rem .4rem rgba(58,40,25,.07);
     transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
-    -webkit-tap-highlight-color:transparent;
+    -webkit-tap-highlight-color:transparent;overflow:hidden;
   }
-  .app:hover,.app:focus-visible{transform:translateY(-2px);box-shadow:var(--shadow-hi);border-color:var(--orange-deep)}
+  .app:hover,.app:focus-visible{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--orange-deep)}
   .app:focus-visible{outline:3px solid rgba(217,162,39,.55);outline-offset:2px}
   .app:active{transform:translateY(0) scale(.995)}
-  .app-top{display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.75rem}
+  .app-main{
+    display:grid;grid-template-columns:auto minmax(0,1fr);
+    grid-template-areas:"ico title" "sub sub";
+    align-items:center;gap:.08rem .38rem;
+  }
   .ico{
-    flex:0 0 auto;width:3.15rem;height:3.15rem;border-radius:.9rem;margin-top:.1rem;
+    grid-area:ico;align-self:center;
+    width:2.45rem;height:2.45rem;border-radius:.58rem;margin:0;
     display:flex;align-items:center;justify-content:center;
-    font-size:1.85rem;line-height:1;
+    font-size:1.4rem;line-height:1;
     background:linear-gradient(160deg,#FFF3DC,#F9E5BE);
     border:1.5px solid #F0DFBB;
   }
-  .txt{flex:1 1 auto;min-width:0;padding:.1rem 0}
   .app h2{
-    margin:0 0 .18rem;font-size:1.14rem;line-height:1.3;font-weight:900;
-    letter-spacing:-.035em;color:var(--coffee);
+    grid-area:title;align-self:center;margin:0;min-width:0;
+    font-size:.79rem;line-height:1.24;font-weight:900;
+    letter-spacing:-.045em;color:var(--coffee);
   }
-  .app p{margin:.45rem 0 0;font-size:.86rem;line-height:1.5;min-height:3em;color:var(--ink2);font-weight:700}
+  .app p{
+    grid-area:sub;margin:0;font-size:.64rem;line-height:1.32;font-weight:700;color:var(--ink2);
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  }
+  /* 작고 아담한 ‘바로 열기 →’ 알약 배지 (카드 전체 너비 님지 않게) */
   .open{
-    margin-top:auto;display:flex;align-items:center;justify-content:center;gap:.4rem;
+    align-self:flex-end;margin-top:auto;
+    display:inline-flex;align-items:center;justify-content:center;gap:.16rem;
     background:linear-gradient(180deg,var(--gold-lite),var(--gold));
-    color:#33260D;font-weight:900;font-size:.98rem;letter-spacing:-.01em;
-    border-radius:.8rem;padding:.62rem .8rem;min-height:2.8rem;
-    box-shadow:0 .2rem .5rem rgba(217,162,39,.3);
+    color:#33260D;font-weight:900;font-size:.6rem;letter-spacing:-.01em;
+    border-radius:999px;padding:.08rem .44rem;line-height:1.5;
+    box-shadow:0 .08rem .24rem rgba(217,162,39,.28);
   }
   .open .arrow{font-size:.95em;transform:translateY(-.02em)}
   .app:hover .open,.app:focus-visible .open{filter:brightness(1.04)}
 
+  /* ── 글씨 크게(html.big): 어르신용 1열 큰 카드 ────── */
+  html.big main{grid-template-columns:1fr;gap:.55rem}
+  html.big .app{
+    gap:.24rem;padding:.7rem .78rem .62rem;border-radius:.95rem;
+    box-shadow:var(--shadow);
+  }
+  html.big .app-main{gap:.12rem .6rem}
+  html.big .ico{width:2.95rem;height:2.95rem;font-size:1.7rem;border-radius:.8rem}
+  html.big .app h2{font-size:1.02rem;line-height:1.3}
+  html.big .app p{font-size:.82rem;line-height:1.42;-webkit-line-clamp:3}
+  html.big .open{
+    align-self:stretch;margin-top:.16rem;
+    font-size:.88rem;padding:.3rem .7rem;min-height:2.2rem;border-radius:.7rem;
+  }
+
   /* ── 약속 · 꼬리말 ─────────────────── */
   .promise{
-    margin:1.5rem 0 0;padding:.95rem 1rem;background:#FFFDF7;
-    border:1.5px solid var(--line);border-radius:1rem;
-    font-size:.83rem;line-height:1.65;color:var(--ink2);
+    margin:1rem 0 0;padding:.55rem .68rem;background:#FFFDF7;
+    border:1.5px solid var(--line);border-radius:.8rem;
+    font-size:.71rem;line-height:1.5;color:var(--ink2);
   }
   .promise b{color:var(--coffee)}
   footer{
-    margin-top:1.6rem;text-align:center;
-    font-size:.76rem;line-height:1.75;color:#8B7A63;
+    margin-top:.85rem;text-align:center;
+    font-size:.66rem;line-height:1.6;color:#8B7A63;
   }
-  footer .fam{display:block;margin-top:.35rem;font-weight:900;color:#A08A6B;letter-spacing:-.01em}
+  footer .fam{display:block;margin-top:.2rem;font-weight:900;color:#A08A6B;letter-spacing:-.01em}
+
+  @media (max-width:23rem){
+    .app .ico{width:2.2rem;height:2.2rem;font-size:1.26rem}
+    .app h2{font-size:.75rem}
+    .app p{font-size:.62rem}
+  }
 
   @media (max-width:21.5rem){
     html{font-size:17px}
-    .hero{gap:.3rem}
-    .logobox{padding:.22rem .5rem}
-    .logobox img{width:2.72rem;height:2.72rem}
-    .brandline .wordmark{font-size:1.56rem}
-    .today{padding:.28rem .34rem .3rem;border-radius:.72rem}
-    .today-date{font-size:.68rem}
-    .today-time,.today-wx{font-size:.61rem}
-    .qrbox{padding:.2rem .22rem .16rem;border-radius:.65rem}
-    .qrbox .qr-thumb{width:2.85rem;height:2.85rem}
-    .qrbox .qr-cap{font-size:.45rem}
-    .moods{gap:.26rem;margin-top:.55rem}
-    .mood{padding:.23rem .56rem;font-size:.71rem;gap:.2rem}
-    html.big .cta{grid-template-columns:1fr}
-    html.big .logobox img{width:2.3rem;height:2.3rem}
-    html.big .brandline .wordmark{font-size:1.3rem}
-    html.big .today{padding:.24rem .28rem .26rem}
-    html.big .today-date{font-size:.6rem}
-    html.big .today-time,html.big .today-wx{font-size:.54rem}
-    html.big .qrbox{padding:.15rem .17rem .12rem}
-    html.big .qrbox .qr-thumb{width:2.35rem;height:2.35rem}
-    html.big .qrbox .qr-cap{font-size:.42rem}
-    html.big .mood{padding:.2rem .46rem;font-size:.65rem}
-    .ico{width:2.85rem;height:2.85rem;font-size:1.45rem;border-radius:.8rem}
-    .app{padding:.85rem .8rem .78rem}
-    .open{font-size:.92rem}
-    .ctl{padding:.42rem .8rem;font-size:.82rem}
+    .hero{gap:.28rem}
+    .logobox{padding:.1rem .38rem}
+    .logobox img{width:2rem;height:2rem}
+    .brandline .wordmark{font-size:1.24rem}
+    .today{padding:.18rem .3rem .2rem;border-radius:.62rem}
+    .today-date{font-size:.65rem}
+    .today-time,.today-wx{font-size:.56rem}
+    .qrbox{padding:.1rem .16rem .08rem;border-radius:.58rem}
+    .qrbox .qr-thumb{width:2rem;height:2rem}
+    .qrbox .qr-cap{font-size:.4rem}
+    .moods{gap:.22rem;margin-top:.3rem}
+    .mood{padding:.12rem .46rem;font-size:.62rem;gap:.18rem}
+    .tip{font-size:.65rem;padding:.32rem .5rem}
+    .ctl{padding:.2rem .62rem;font-size:.7rem;min-height:2.1rem}
+    /* 초소형 화면: 2열은 너무 좁아 1열 아담 카드 (아이콘·이름·버튼 한 줄) */
+    main{grid-template-columns:1fr;gap:.4rem}
+    .app{flex-direction:row;align-items:center;gap:.5rem;padding:.45rem .55rem}
+    .app-main{flex:1 1 auto;min-width:0;grid-template-areas:"ico title" "ico sub"}
+    .ico{width:2.4rem;height:2.4rem;font-size:1.32rem}
+    .app h2{font-size:.84rem}
+    .app p{font-size:.68rem}
+    .open{flex:0 0 auto;align-self:center;margin-top:0;font-size:.64rem;padding:.08rem .5rem}
+    /* 초소형 + 글씨 크게: 다시 1열 큰 카드 */
+    html.big .app{flex-direction:column;gap:.24rem;padding:.7rem .78rem .62rem}
+    html.big .app-main{grid-template-areas:"ico title" "sub sub"}
+    html.big .open{align-self:stretch;margin-top:.16rem;min-height:2.2rem;font-size:.88rem;padding:.3rem .7rem}
+    html.big .ico{width:2.6rem;height:2.6rem}
+    html.big .logobox img{width:1.85rem;height:1.85rem}
+    html.big .brandline .wordmark{font-size:1.15rem}
+    html.big .today-date{font-size:.56rem}
+    html.big .today-time,html.big .today-wx{font-size:.5rem}
+    html.big .qrbox .qr-thumb{width:1.85rem;height:1.85rem}
+    html.big .mood{padding:.1rem .4rem;font-size:.58rem}
   }
 </style>
 </head>
@@ -391,89 +429,73 @@
   <main>
 
     <a class="app" href="./menu/" data-app="table">
-      <div class="app-top">
+      <div class="app-main">
         <span class="ico" aria-hidden="true">☕</span>
-        <div class="txt">
-          <h2 data-ko="와글링 테이블" data-en="Wagling Table">와글링 테이블</h2>
-          <p data-ko="큰 글씨 메뉴판 · 어르신 주문 · 나누기 계산" data-en="Big-print menu · senior ordering · split the bill">큰 글씨 메뉴판 · 어르신 주문 · 나누기 계산</p>
-        </div>
+        <h2 data-ko="와글링 테이블" data-en="Wagling Table">와글링 테이블</h2>
+        <p data-ko="큰 글씨 메뉴판 · 계산" data-en="Big menu · split the bill">큰 글씨 메뉴판 · 계산</p>
       </div>
       <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
     </a>
 
     <a class="app" href="./elder-menu/" data-app="elder">
-      <div class="app-top">
+      <div class="app-main">
         <span class="ico" aria-hidden="true">👴</span>
-        <div class="txt">
-          <h2 data-ko="어르신용 와글링 테이블" data-en="Wagling Elder Table">어르신용 와글링 테이블</h2>
-          <p data-ko="그림 + 큰 글씨 · 어르신 혼자서도 카페 주문" data-en="Big pictures and big words · order on your own">그림 + 큰 글씨 · 어르신 혼자서도 카페 주문</p>
-        </div>
+        <h2 data-ko="어르신용 와글링 테이블" data-en="Wagling Elder Table">어르신용 와글링 테이블</h2>
+        <p data-ko="그림 + 큰 글씨 주문" data-en="Big pictures · order alone">그림 + 큰 글씨 주문</p>
       </div>
       <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
     </a>
 
     <a class="app" href="./fridge/" data-app="cart">
-      <div class="app-top">
+      <div class="app-main">
         <span class="ico" aria-hidden="true">🛒</span>
-        <div class="txt">
-          <h2 data-ko="와글링 장바구니" data-en="Wagling Cart">와글링 장바구니</h2>
-          <p data-ko="냉장고 · 냉동실 · 장보기 체크" data-en="Fridge · freezer · shopping checklist">냉장고 · 냉동실 · 장보기 체크</p>
-        </div>
+        <h2 data-ko="와글링 장바구니" data-en="Wagling Cart">와글링 장바구니</h2>
+        <p data-ko="냉장고 · 장보기 체크" data-en="Fridge · shopping list">냉장고 · 장보기 체크</p>
       </div>
       <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
     </a>
 
     <a class="app" href="./care/" data-app="pill">
-      <div class="app-top">
+      <div class="app-main">
         <span class="ico" aria-hidden="true">💊</span>
-        <div class="txt">
-          <h2 data-ko="와글링 효도 약통" data-en="Wagling Pill Box">와글링 효도 약통</h2>
-          <p data-ko="복약 알림 · 어르신 건강 체크" data-en="Medicine reminders · senior health check">복약 알림 · 어르신 건강 체크</p>
-        </div>
+        <h2 data-ko="와글링 효도 약통" data-en="Wagling Pill Box">와글링 효도 약통</h2>
+        <p data-ko="복약 알림 · 건강 체크" data-en="Pills · health check">복약 알림 · 건강 체크</p>
       </div>
       <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
     </a>
 
     <a class="app" href="./dining/" data-app="trip">
-      <div class="app-top">
+      <div class="app-main">
         <span class="ico" aria-hidden="true">🗺️</span>
-        <div class="txt">
-          <h2 data-ko="와글링 한국여행" data-en="Wagling Korea Trip">와글링 한국여행</h2>
-          <p data-ko="한국어 회화 · 식당 주문 · 길 안내" data-en="Korean phrases · restaurant ordering · directions">한국어 회화 · 식당 주문 · 길 안내</p>
-        </div>
+        <h2 data-ko="와글링 한국여행" data-en="Wagling Korea Trip">와글링 한국여행</h2>
+        <p data-ko="한국어 회화 · 길 안내" data-en="Phrases · directions">한국어 회화 · 길 안내</p>
       </div>
       <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
     </a>
 
     <a class="app" href="./party/" data-app="party">
-      <div class="app-top">
+      <div class="app-main">
         <span class="ico" aria-hidden="true">🎄</span>
-        <div class="txt">
-          <h2 data-ko="와글링 홀리데이 파티" data-en="Wagling Holiday Party">와글링 홀리데이 파티</h2>
-          <p data-ko="가족·친구 번호뽑기 · 사다리 · 파티게임" data-en="Number draw · ladder game · family party games">가족·친구 번호뽑기 · 사다리 · 파티게임</p>
-        </div>
+        <h2 data-ko="와글링 홀리데이 파티" data-en="Wagling Holiday Party">와글링 홀리데이 파티</h2>
+        <p data-ko="번호뽑기 · 사다리 게임" data-en="Draw · ladder games">번호뽑기 · 사다리 게임</p>
       </div>
       <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
     </a>
 
     <a class="app" href="./pronounce/" data-app="lang">
-      <div class="app-top">
+      <div class="app-main">
         <span class="ico" aria-hidden="true">🔤</span>
-        <div class="txt">
-          <h2 data-ko="와글링 외국어" data-en="Wagling Language">와글링 외국어</h2>
-          <p data-ko="영어·일본어·중국어 한글 발음 변환 · 소리 듣기" data-en="English · Japanese · Chinese in Korean sounds">영어·일본어·중국어 한글 발음 변환 · 소리 듣기</p>
-        </div>
+        <h2 data-ko="와글링 외국어" data-en="Wagling Language">와글링 외국어</h2>
+        <p data-ko="영·일·중 한글 발음" data-en="EN · JP · CN in Korean">영·일·중 한글 발음</p>
       </div>
       <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
     </a>
 
     <a class="app" href="./fit/" data-app="fit">
-      <div class="app-top">
+      <div class="app-main">
         <span class="ico" aria-hidden="true">🏃</span>
-        <div class="txt">
-          <h2 data-ko="와글링 운동" data-en="Wagling Fit">와글링 운동</h2>
-          <p data-ko="과식 별 · 걷기 코스 · 도장 달력" data-en="Snack stars · walking courses · stamp calendar">과식 별 · 걷기 코스 · 도장 달력</p>
-        </div>
+        <h2 data-ko="와글링 운동" data-en="Wagling Fit">와글링 운동</h2>
+        <p data-ko="걷기 · 도장 달력" data-en="Walks · stamps">걷기 · 도장 달력</p>
       </div>
       <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
     </a>
