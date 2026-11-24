@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#3E2C22" />
-<!-- build: 2026-11-24 wagle-language v1 · 영어·일본어·중국어(병음·한자)를 한글 발음으로 (사전 + 규칙 변환, 100% 브라우저 안) · 소리 듣기·천천히 0.7배속·발음 복사·예시 칩·최근 20개 · 큰 글씨 · 광고·개인정보 없음 -->
+<!-- build: 2026-11-24 wagle-language v3 · 영어·일본어·중국어(병음·한자)를 한글 발음으로 (사전 + 규칙 변환, 100% 브라우저 안) · 🎵 노래부르기 전용 화면(사진 찍어 가사 읽기 → 바로 한글) · 📋 복사한 글 붙여넣기 · 🎤 말로 입력 · 📷 사진 글자읽기(누를 때만 Tesseract 불러옴) · 🎵 노래·발음 연습(퍼블릭 도메인 동요·명곡 + 일반 어구만 · 저작권 있는 팝송 가사 없음) · 소리 듣기·천천히 0.7배속·발음 복사·최근 20개 · 큰 글씨 · 광고·개인정보 없음 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
@@ -118,6 +118,81 @@ textarea#src:focus{border-color:var(--lc);box-shadow:0 0 0 3px var(--lc-bg);outl
 .act.clear{background:#F7EEE2;color:#6E5B4B;border-color:#D9C7B1}
 .act:active{transform:translateY(1px)}
 
+/* ── 🎵 노래부르기 첫 버튼 ── */
+.songcta{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.04rem;
+  width:100%;min-height:3.8rem;margin:0 0 .62rem;border-radius:1rem;border:2px solid #B9791C;
+  background:linear-gradient(180deg,#FFEBBB,#F7CB72);color:#553306;
+  box-shadow:0 3px 12px rgba(180,120,20,.24);letter-spacing:-.035em}
+.songcta-main{font-size:1.14rem;font-weight:900;line-height:1.16}
+.songcta-sub{font-size:.68rem;font-weight:800;opacity:.85;line-height:1.2}
+.songcta:active{transform:translateY(1px)}
+
+/* ── 🎵 노래부르기 전용 화면 ── */
+.singview{padding-bottom:.4rem}
+.singback{display:inline-flex;align-items:center;justify-content:center;gap:.3rem;
+  min-height:2.7rem;padding:0 .85rem;margin:0 0 .55rem;border-radius:2rem;
+  background:#F7EEE2;border:2px solid #D9C7B1;color:#5C4534;font-size:.88rem;font-weight:900}
+.singback:active{transform:translateY(1px)}
+.singtitle{margin:0;font-size:1.2rem;font-weight:900;letter-spacing:-.04em;line-height:1.22;color:var(--brown)}
+.singtitle small{display:block;margin-top:.12rem;font-size:.72rem;font-weight:800;color:var(--ink3);letter-spacing:-.02em}
+.singlangs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.36rem;margin:.6rem 0 .6rem}
+.singlangs button{min-height:2.6rem;border-radius:.78rem;border:2px solid var(--line);background:var(--card);
+  font-size:.86rem;font-weight:900;letter-spacing:-.03em;color:var(--ink)}
+.singlangs button[aria-pressed="true"]{background:var(--lc-bg);border-color:var(--lc);color:var(--lc)}
+.singpick{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;width:100%;
+  min-height:5.4rem;border-radius:1rem;border:2px solid #7CC3AA;
+  background:linear-gradient(180deg,#EAF8F1,#D5EFE2);color:#14563F;
+  font-size:1.12rem;font-weight:900;letter-spacing:-.04em;line-height:1.2;
+  box-shadow:0 3px 12px rgba(30,120,90,.16);padding:.4rem .5rem}
+.singpick small{font-size:.68rem;font-weight:800;opacity:.82;letter-spacing:-.02em}
+.singpick.busy{background:#FBF1E1;border-color:#D9A227;color:#6B4708;font-size:.95rem;
+  white-space:normal;word-break:keep-all;gap:0}
+.singpick[disabled]{opacity:.85}
+.singpick:active{transform:translateY(1px)}
+.singpaste{display:block;width:100%;min-height:2.8rem;margin:.44rem 0 0;border-radius:.8rem;
+  border:2px solid #E2CFB6;background:#FFFCF5;color:#6E5B4B;font-size:.82rem;font-weight:900;letter-spacing:-.03em}
+.singpaste:active{transform:translateY(1px)}
+.singhint{margin:.55rem 0 .7rem;font-size:.7rem;line-height:1.45;font-weight:800;color:var(--ink3);letter-spacing:-.02em}
+.singcard{margin-bottom:.62rem}
+.singout{font-size:1.62rem;font-weight:900;line-height:1.5;letter-spacing:-.02em;color:var(--ink);
+  white-space:pre-wrap;overflow-wrap:anywhere;min-height:2.6rem}
+.singout.empty{font-size:.86rem;font-weight:800;color:var(--ink3)}
+.singacts{display:grid;grid-template-columns:1fr 1fr;gap:.42rem;margin-top:.55rem}
+.singorig{margin:.55rem 0 0;padding-top:.5rem;border-top:1.5px dashed var(--line);
+  font-size:.74rem;line-height:1.5;color:var(--ink2);white-space:pre-wrap;overflow-wrap:anywhere}
+.singorig b{display:block;font-size:.62rem;font-weight:900;color:var(--ink3);letter-spacing:-.02em;margin-bottom:.14rem}
+@media (max-width:359px){
+  .singout{font-size:1.4rem}
+  .singpick{font-size:1rem;min-height:5rem}
+  .singtitle{font-size:1.08rem}
+  .songcta-main{font-size:1.04rem}
+}
+
+/* ── 📋 붙여넣기 · 🎤 말로 입력 · 📷 사진 글자읽기 ── */
+.quickbar{display:grid;gap:.4rem;margin:0 0 .5rem}
+.qbtn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.02rem;width:100%;
+  min-height:2.7rem;border-radius:.85rem;border:2px solid;font-size:.9rem;font-weight:900;
+  letter-spacing:-.035em;line-height:1.18;text-align:center;padding:.26rem .4rem;white-space:nowrap}
+.qbtn small{font-size:.58rem;font-weight:800;opacity:.78;letter-spacing:-.01em;line-height:1.15;white-space:nowrap}
+.qbtn:active{transform:translateY(1px)}
+.qbtn[disabled]{opacity:.8}
+.qrow{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;min-width:0}
+.qbtn.paste{background:linear-gradient(180deg,#FFF6DF,#FFE9B8);color:#6B4708;border-color:#D9A227;
+  min-height:3rem;font-size:1rem;box-shadow:0 2px 7px rgba(196,140,15,.16)}
+.qbtn.mic{background:#EAF3FB;color:#1F5578;border-color:#BCD8EE}
+.qbtn.photo{background:#E9F6F0;color:#1E6550;border-color:#7CC3AA}
+.qbtn.mic.listening{background:#FBE1E5;color:#9B2440;border-color:#E28E9F;white-space:normal;font-size:.82rem}
+/* 진행률·듣는 중 글자가 길어도 잘리지 않게 */
+.qbtn.photo.busy{white-space:normal;font-size:.72rem;line-height:1.25;background:#EAF6F0;text-align:center}
+.qbtn.photo.busy span{display:block;overflow-wrap:anywhere}
+@media (max-width:359px){
+  .qbtn{font-size:.82rem;padding:.24rem .3rem}
+  .qbtn.paste{font-size:.9rem}
+  .qbtn small{font-size:.54rem}
+  .qbtn.mic.listening{font-size:.74rem}
+  .qbtn.photo.busy{font-size:.66rem}
+}
+
 /* 결과 */
 .resultcard{border-color:var(--lc-line);position:relative;overflow:hidden}
 .resultcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:.3rem;background:var(--lc)}
@@ -143,6 +218,13 @@ textarea#src:focus{border-color:var(--lc);box-shadow:0 0 0 3px var(--lc-bg);outl
 .chip:active{transform:translateY(1px);background:var(--lc-bg)}
 .chip.zh{color:#1F5E4A}
 .chip.ja{color:#8E3348}
+/* 🎵 팝송 한 줄 — 길어도 잘리지 않고 줄바꿈 */
+.chip.song{display:block;width:100%;white-space:normal;text-align:left;
+  border-radius:.75rem;padding:.46rem .62rem;font-size:.84rem;line-height:1.4;
+  background:#FFFCF3;border-color:#E9D3B4;letter-spacing:-.02em}
+.chip.song::before{content:"♪ ";color:#B07A1E;font-weight:900}
+.exmini{margin:0 0 .3rem;font-size:.66rem;line-height:1.35;font-weight:800;color:var(--ink3);letter-spacing:-.02em}
+.songgrp{background:#FFFAF0;border:1.5px dashed #EBD3AE;border-radius:.8rem;padding:.44rem .44rem .46rem}
 
 /* 최근 기록 */
 .hitem{display:flex;align-items:center;gap:.34rem;margin-top:.38rem}
@@ -222,6 +304,7 @@ textarea#src:focus{border-color:var(--lc);box-shadow:0 0 0 3px var(--lc-bg);outl
 </header>
 
 <main id="main" data-lang="auto">
+<div id="homeView">
   <section class="tabs" id="langTabs" role="tablist" aria-label="언어 선택">
     <button type="button" class="tab" role="tab" data-lang="auto" aria-selected="true"><span class="tname"><i class="langmark auto">✦</i>자동 감지</span><small>알아서 척척</small></button>
     <button type="button" class="tab" role="tab" data-lang="en" aria-selected="false"><span class="tname"><i class="langmark en">A</i>영어</span><small>English</small></button>
@@ -229,11 +312,24 @@ textarea#src:focus{border-color:var(--lc);box-shadow:0 0 0 3px var(--lc-bg);outl
     <button type="button" class="tab" role="tab" data-lang="zh" aria-selected="false"><span class="tname"><i class="langmark zh">中</i>중국어</span><small>병음·한자</small></button>
   </section>
 
+  <button type="button" class="songcta" id="singBtn">
+    <span class="songcta-main">🎵 노래부르기</span>
+    <span class="songcta-sub">사진으로 가사 읽기 · 찍으면 한글로</span>
+  </button>
+
   <section class="card">
     <div class="crow">
       <label class="lbl" for="src">외국어 입력</label>
       <span class="badge" id="detectBadge"></span>
     </div>
+    <div class="quickbar">
+      <button type="button" class="qbtn paste" id="pasteBtn">📋 복사한 글 붙여넣기<small>유튜브·검색에서 복사한 가사를 그대로</small></button>
+      <div class="qrow">
+        <button type="button" class="qbtn mic" id="micBtn" aria-pressed="false">🎤 말로 입력하기<small>말하면 글로 적어요</small></button>
+        <button type="button" class="qbtn photo" id="photoBtn">📷 사진 글자읽기<small>찍은 사진·앨범</small></button>
+      </div>
+    </div>
+    <input type="file" id="ocrFile" accept="image/*" hidden />
     <textarea id="src" rows="3" placeholder="예) Thank you very much / ありがとうございます / 谢谢 / xièxie" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
     <div class="acts">
       <button type="button" class="act speak" id="speakBtn">🔊 소리 듣기</button>
@@ -257,6 +353,20 @@ textarea#src:focus{border-color:var(--lc);box-shadow:0 0 0 3px var(--lc-bg);outl
 
   <section class="card">
     <div class="crow"><h2>바로 눌러 보기</h2></div>
+    <div class="exgrp songgrp">
+      <span class="exlab">🎵 노래·발음 연습</span>
+      <p class="exmini">누르면 한글 발음으로 바뀌고, 소리로도 들려드려요</p>
+      <div class="chips">
+        <button type="button" class="chip song" data-lang="en" data-song="1" data-text="Happy birthday to you">Happy birthday to you</button>
+        <button type="button" class="chip song" data-lang="en" data-song="1" data-text="Amazing grace, how sweet the sound">Amazing grace, how sweet the sound</button>
+        <button type="button" class="chip song" data-lang="en" data-song="1" data-text="Should auld acquaintance be forgot">Should auld acquaintance be forgot</button>
+        <button type="button" class="chip song" data-lang="en" data-song="1" data-text="Twinkle, twinkle, little star">Twinkle, twinkle, little star</button>
+        <button type="button" class="chip song" data-lang="en" data-song="1" data-text="Row, row, row your boat">Row, row, row your boat</button>
+        <button type="button" class="chip song" data-lang="en" data-song="1" data-text="I miss you so much">I miss you so much</button>
+        <button type="button" class="chip song" data-lang="en" data-song="1" data-text="Hold my hand tonight">Hold my hand tonight</button>
+        <button type="button" class="chip song" data-lang="en" data-song="1" data-text="Thank you for your love">Thank you for your love</button>
+      </div>
+    </div>
     <div class="exgrp">
       <span class="exlab">✈️ 여행</span>
       <div class="chips">
@@ -285,7 +395,6 @@ textarea#src:focus{border-color:var(--lc);box-shadow:0 0 0 3px var(--lc-bg);outl
       <span class="exlab">🎵 노래 가사</span>
       <div class="chips">
         <button type="button" class="chip" data-lang="en" data-text="I love you">I love you</button>
-        <button type="button" class="chip" data-lang="en" data-text="You are my sunshine">You are my sunshine</button>
         <button type="button" class="chip" data-lang="en" data-text="Forever and ever">Forever and ever</button>
       </div>
     </div>
@@ -317,7 +426,36 @@ textarea#src:focus{border-color:var(--lc);box-shadow:0 0 0 3px var(--lc-bg);outl
     <div id="histList"></div>
   </section>
 
-  <p class="foot">와글링 외국어 · Wagling Language<br />변환은 이 기기 안에서만, 인터넷이 없어도 됩니다.<br />광고·개인정보 수집 없음</p>
+  <p class="foot">와글링 외국어 · Wagling Language<br />한글 변환은 이 기기 안에서, 인터넷이 없어도 됩니다.<br />사진 글자읽기만 인터넷이 필요해요 · 사진은 보내지 않아요<br />광고·개인정보 수집 없음</p>
+</div><!-- /homeView -->
+
+  <section id="singView" class="singview" hidden>
+    <button type="button" class="singback" id="singBack">← 돌아가기</button>
+    <h2 class="singtitle">🎵 노래부르기<small>사진으로 가사 읽기</small></h2>
+    <div class="singlangs" id="singLangs" role="group" aria-label="가사 언어">
+      <button type="button" data-slang="en" aria-pressed="true">영어</button>
+      <button type="button" data-slang="ja" aria-pressed="false">일본어</button>
+      <button type="button" data-slang="zh" aria-pressed="false">중국어</button>
+    </div>
+    <button type="button" class="singpick" id="singPick">📷 가사 사진 찍기 / 사진 고르기<small>가사가 크게 보이게 찍어 주세요</small></button>
+    <input type="file" id="singFile" accept="image/*" hidden />
+    <button type="button" class="singpaste" id="singPaste">📋 복사한 가사 붙여넣기</button>
+    <p class="singhint" id="singHint">사진을 고르면 글자를 읽어 한글 발음으로 바로 적어 드려요. (사진 읽기는 인터넷이 필요해요 · 사진은 보내지 않아요)</p>
+    <section class="card resultcard singcard" id="singCard" hidden>
+      <div class="inner">
+        <div class="crow">
+          <span class="lbl">한글 발음</span>
+          <span class="badge" id="singBadge"></span>
+        </div>
+        <div class="singout empty" id="singOut" aria-live="polite">사진을 찍거나 고르면 여기에 한글로 적힙니다</div>
+        <div class="singacts">
+          <button type="button" class="act speak" id="singSpeak">🔊 소리 듣기</button>
+          <button type="button" class="act slow" id="singSlow">🐢 천천히<small>0.7배속</small></button>
+        </div>
+        <div class="singorig" id="singOrig" hidden></div>
+      </div>
+    </section>
+  </section>
 </main>
 
 <div id="toast" role="status" aria-live="polite"></div>
@@ -993,6 +1131,13 @@ golden=골든
 silver=실버
 precious=프레셔스
 endless=엔들리스
+little=리틀
+twinkle=트윙클
+row=로우
+grace=그레이스
+auld=올드
+acquaintance=어콰인턴스
+forgot=포겟
 crazy=크레이지
 question=퀘스천
 animal=애니멀
@@ -1121,6 +1266,16 @@ see you=시 유
 i am=아임
 i'm=아임
 you are=유 아
+
+/* 🎵 노래·발음 연습 칸 — 한 줄 통째로 (퍼블릭 도메인·일반 어구) */
+happy birthday to you=해피 버스데이 투 유
+amazing grace how sweet the sound=어메이징 그레이스 하우 스위트 더 사운드
+should auld acquaintance be forgot=슈드 올드 어콰인턴스 비 포겟
+twinkle twinkle little star=트윙클 트윙클 리틀 스타
+row row row your boat=로우 로우 로우 유어 보트
+i miss you so much=아이 미스 유 소 머치
+hold my hand tonight=홀드 마이 핸드 투나이트
+thank you for your love=땡큐 포 유어 러브
 `);
 
 /* ════════════════════════════════════════════
@@ -2331,12 +2486,12 @@ var elHist = $('#histList');
 var elMain = $('#main');
 
 var toastTimer = null;
-function toast(msg){
+function toast(msg, ms){
   var t = $('#toast');
   t.textContent = msg;
   t.classList.add('on');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(function(){ t.classList.remove('on'); }, 1900);
+  toastTimer = setTimeout(function(){ t.classList.remove('on'); }, ms || 1900);
 }
 
 function readSave(key, fallback){
@@ -2493,20 +2648,16 @@ if ('speechSynthesis' in window) {
   refreshVoices();
   try { window.speechSynthesis.addEventListener('voiceschanged', refreshVoices); } catch (e) {}
 }
-function speak(rate){
-  var text = elSrc.value.trim();
-  if (!text) { toast('먼저 외국어를 적어 주세요'); elSrc.focus(); return; }
+function speakText(text, lang, rate){
+  text = String(text || '').trim();
+  if (!text) { toast('먼저 외국어를 적어 주세요'); return; }
   if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
     toast('이 브라우저는 소리 듣기를 지원하지 않아요');
     return;
   }
-  var lang = (UI.last.src === text && UI.last.lang) ? UI.last.lang : ((UI.lang === 'auto') ? detectLang(text) : UI.lang);
-  var say = text;
-  if (lang === 'zh' && !/[\u4e00-\u9fff]/.test(text)) {
-    say = text; /* 병음은 그대로 읽힘 */
-  }
+  if (!LANG_NAME[lang]) lang = detectLang(text);
   try { window.speechSynthesis.cancel(); } catch (e) {}
-  var u = new SpeechSynthesisUtterance(say);
+  var u = new SpeechSynthesisUtterance(text);
   u.lang = SPEECH_LANG[lang] || 'en-US';
   u.rate = rate || 1;
   u.pitch = 1;
@@ -2520,6 +2671,12 @@ function speak(rate){
   u.onerror = function(){ toast('이 기기에 ' + (LANG_NAME[lang] || '') + ' 목소리가 없어 소리를 못 냈어요. 폰의 음성 설정을 확인해 주세요'); };
   window.speechSynthesis.speak(u);
   toast(rate && rate < 1 ? '천천히(0.7배속)로 들려드려요' : '소리로 들려드려요');
+}
+function speak(rate){
+  var text = elSrc.value.trim();
+  if (!text) { toast('먼저 외국어를 적어 주세요'); elSrc.focus(); return; }
+  var lang = (UI.last.src === text && UI.last.lang) ? UI.last.lang : ((UI.lang === 'auto') ? detectLang(text) : UI.lang);
+  speakText(text, lang, rate);
 }
 
 /* 복사 */
@@ -2546,6 +2703,350 @@ function copyOut(){
     navigator.clipboard.writeText(out).then(done, fallback);
   } else fallback();
 }
+
+/* ════════════════════════════════════════════
+   7. 📋 붙여넣기 · 🎤 말로 입력 · 📷 사진 글자읽기
+   ════════════════════════════════════════════ */
+var elPaste = $('#pasteBtn'), elMic = $('#micBtn'), elPhoto = $('#photoBtn'), elFile = $('#ocrFile');
+var MIC_IDLE = '🎤 말로 입력하기<small>말하면 글로 적어요</small>';
+var MIC_ON = '🎙️ 듣고 있어요...<small>다시 누르면 멈춤</small>';
+var PHOTO_IDLE = '📷 사진 글자읽기<small>찍은 사진·앨범</small>';
+
+function scrollToResult(){
+  try { elOut.scrollIntoView({ behavior:'smooth', block:'center' }); }
+  catch (e) { try { elOut.scrollIntoView(); } catch (e2) {} }
+}
+/* 붙여넣기·말·사진으로 들어온 글은 바로 한글로 바꾸고 결과를 보여 준다 */
+function applyIncoming(text, msg){
+  text = String(text || '').replace(/\r\n?/g, '\n').trim();
+  if (!text) return false;
+  elSrc.value = text;
+  lastRendered = '';
+  render(true);
+  scrollToResult();
+  toast(msg || '한글로 바꿨어요', 2600);
+  return true;
+}
+
+/* ── 📋 복사한 글 붙여넣기 ── */
+function manualPaste(){
+  try {
+    elSrc.focus();
+    var n = elSrc.value.length;
+    elSrc.setSelectionRange(n, n);
+  } catch (e) {}
+  toast('입력칸을 길게 눌러 붙여넣기 해주세요', 3400);
+}
+function pasteTap(){
+  if (!(navigator.clipboard && navigator.clipboard.readText)) { manualPaste(); return; }
+  navigator.clipboard.readText().then(function(t){
+    if (!t || !t.trim()) {
+      elSrc.focus();
+      toast('복사해 둔 글자가 없어요. 가사를 먼저 복사해 주세요', 3400);
+      return;
+    }
+    applyIncoming(t, '복사한 글을 한글로 바꿨어요');
+  }, function(){
+    manualPaste();
+  });
+}
+
+/* ── 🎤 말로 입력하기 ── */
+var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+var recog = null, listening = false;
+function micUI(on){
+  listening = !!on;
+  elMic.innerHTML = on ? MIC_ON : MIC_IDLE;
+  elMic.classList.toggle('listening', !!on);
+  elMic.setAttribute('aria-pressed', on ? 'true' : 'false');
+}
+function micTap(){
+  if (!SR) {
+    toast('이 브라우저는 말로 입력을 지원하지 않아요. 크롬(Chrome)에서 열어 주세요', 3600);
+    return;
+  }
+  if (listening) { try { recog && recog.stop(); } catch (e) {} return; }
+  var lang = (UI.lang === 'auto') ? 'en' : UI.lang;
+  try { recog = new SR(); } catch (e) { toast('말로 입력을 시작하지 못했어요', 3200); return; }
+  recog.lang = SPEECH_LANG[lang] || 'en-US';
+  recog.interimResults = true;
+  recog.continuous = false;
+  recog.maxAlternatives = 1;
+  var heard = '';
+  recog.onstart = function(){ micUI(true); };
+  recog.onresult = function(ev){
+    var txt = '';
+    try {
+      for (var i = 0; i < ev.results.length; i++) txt += ev.results[i][0].transcript + ' ';
+    } catch (e) {}
+    txt = txt.replace(/\s+/g, ' ').trim();
+    if (txt) { heard = txt; elSrc.value = txt; render(); }
+  };
+  recog.onerror = function(ev){
+    micUI(false);
+    var code = (ev && ev.error) || '';
+    if (code === 'not-allowed' || code === 'service-not-allowed') toast('마이크 사용을 허락해 주세요', 3600);
+    else if (code === 'no-speech') toast('잘 못 들었어요. 다시 눌러 말해 주세요', 3200);
+    else if (code === 'network') toast('말로 입력은 인터넷이 필요해요. 연결을 확인해 주세요', 3600);
+    else if (code !== 'aborted') toast('말로 입력을 못 했어요. 다시 해볼까요?', 3200);
+  };
+  recog.onend = function(){
+    micUI(false);
+    if (heard) { render(true); scrollToResult(); toast('말한 대로 한글로 바꿨어요', 2600); }
+    else if (!elSrc.value.trim()) toast('말이 잘 안 들렸어요. 다시 눌러 말해 주세요', 3200);
+  };
+  micUI(true);
+  try { recog.start(); }
+  catch (e) { micUI(false); toast('말로 입력을 시작하지 못했어요', 3200); }
+}
+
+/* ── 📷 사진에서 글자 읽기 (누를 때만 Tesseract 불러옴) ── */
+var TESS_URL = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
+var tessPromise = null, ocrBusy = false;
+function loadTesseract(){
+  if (window.Tesseract) return Promise.resolve(window.Tesseract);
+  if (tessPromise) return tessPromise;
+  tessPromise = new Promise(function(resolve, reject){
+    var s = document.createElement('script');
+    s.src = TESS_URL;
+    s.async = true;
+    s.onload = function(){
+      if (window.Tesseract) resolve(window.Tesseract);
+      else reject(new Error('Tesseract 없음'));
+    };
+    s.onerror = function(){ reject(new Error('불러오기 실패')); };
+    document.head.appendChild(s);
+  });
+  tessPromise.catch(function(){ tessPromise = null; });
+  return tessPromise;
+}
+function photoUI(txt){
+  elPhoto.classList.add('busy');
+  elPhoto.innerHTML = '<span>' + txt + '</span>';
+}
+function photoIdle(){
+  ocrBusy = false;
+  elPhoto.disabled = false;
+  elPhoto.classList.remove('busy');
+  elPhoto.innerHTML = PHOTO_IDLE;
+}
+function ocrLang(){
+  if (UI.lang === 'ja') return 'jpn';
+  if (UI.lang === 'zh') return 'chi_sim';
+  return 'eng';
+}
+function photoTap(){
+  if (ocrBusy) return;
+  if (navigator.onLine === false) {
+    toast('사진 글자읽기는 인터넷 연결이 필요해요', 3600);
+    return;
+  }
+  try { elFile.value = ''; } catch (e) {}
+  elFile.click();
+}
+function runOcr(file){
+  if (!file) return;
+  if (navigator.onLine === false) {
+    toast('사진 글자읽기는 인터넷 연결이 필요해요', 3600);
+    return;
+  }
+  ocrBusy = true;
+  elPhoto.disabled = true;
+  photoUI('📷 준비하고 있어요...');
+  loadTesseract().then(function(T){
+    return T.recognize(file, ocrLang(), {
+      logger: function(m){
+        var st = (m && m.status) || '';
+        var pct = (m && typeof m.progress === 'number') ? Math.round(m.progress * 100) : 0;
+        if (ocrBusy) {
+          if (st === 'recognizing text') photoUI('📷 글자를 읽고 있어요... ' + Math.max(1, pct) + '%');
+          else if (/loading|initializ/i.test(st)) photoUI('📷 준비하고 있어요... ' + (pct ? pct + '%' : ''));
+        }
+      }
+    });
+  }).then(function(res){
+    var text = ((res && res.data && res.data.text) || '').replace(/\r\n?/g, '\n').trim();
+    photoIdle();
+    if (!text) {
+      toast('사진에서 글자를 못 찾았어요. 글자가 크게 보이게 다시 찍어 주세요', 3800);
+      return;
+    }
+    applyIncoming(text, '사진에서 글자를 읽어 한글로 바꿨어요');
+  }).catch(function(){
+    photoIdle();
+    toast('사진 글자읽기를 못 했어요. 인터넷 연결을 확인해 주세요', 3600);
+  });
+}
+
+elPaste.addEventListener('click', pasteTap);
+elMic.addEventListener('click', micTap);
+elPhoto.addEventListener('click', photoTap);
+elFile.addEventListener('change', function(){
+  var f = elFile.files && elFile.files[0];
+  if (f) runOcr(f);
+});
+
+/* ════════════════════════════════════════════
+   8. 🎵 노래부르기 — 사진으로 가사 읽기 전용 화면
+   ════════════════════════════════════════════ */
+var elHomeView = $('#homeView'), elSingView = $('#singView'), elSingBtn = $('#singBtn');
+var elSingBack = $('#singBack'), elSingLangs = $('#singLangs'), elSingPick = $('#singPick');
+var elSingFile = $('#singFile'), elSingPasteBtn = $('#singPaste'), elSingCard = $('#singCard');
+var elSingOut = $('#singOut'), elSingBadge = $('#singBadge'), elSingOrig = $('#singOrig');
+var elSingSpeak = $('#singSpeak'), elSingSlow = $('#singSlow'), elSingHint = $('#singHint');
+var SING_IDLE = '📷 가사 사진 찍기 / 사진 고르기<small>가사가 크게 보이게 찍어 주세요</small>';
+var singLang = 'en', singText = '', singOrigLabel = '원문 (사진에서 읽은 그대로)', singScrollY = 0, singBusy = false, singIn = false;
+
+function setSingLang(lang){
+  singLang = LANG_NAME[lang] ? lang : 'en';
+  $$('button', elSingLangs).forEach(function(b){
+    b.setAttribute('aria-pressed', b.getAttribute('data-slang') === singLang ? 'true' : 'false');
+  });
+  if (singIn) elMain.setAttribute('data-lang', singLang);
+  if (singText) singRender();
+}
+function singRender(){
+  if (!singText) return;
+  var r = convert(singText, singLang);
+  /* 고른 언어와 사진 속 언어가 다르면 알아서 알아듣기 */
+  if (!r.out || r.out === singText) {
+    var r2 = convert(singText, 'auto');
+    if (r2.out && r2.out !== singText) r = r2;
+  }
+  elSingOut.textContent = r.out || '—';
+  elSingOut.classList.toggle('empty', !r.out);
+  elSingBadge.textContent = LANG_BADGE[r.lang] || LANG_LABEL[r.lang];
+  elSingOrig.innerHTML = '';
+  var bb = document.createElement('b');
+  bb.textContent = singOrigLabel;
+  elSingOrig.appendChild(bb);
+  elSingOrig.appendChild(document.createTextNode(singText));
+  elSingOrig.hidden = false;
+  elSingCard.hidden = false;
+  elSingHint.hidden = true;
+}
+function singApply(text, msg, origLabel){
+  text = String(text || '').replace(/\r\n?/g, '\n').trim();
+  if (!text) return false;
+  singText = text;
+  if (origLabel) singOrigLabel = origLabel;
+  singRender();
+  try { elSingCard.scrollIntoView({ behavior:'smooth', block:'center' }); } catch (e) {}
+  toast(msg || '한글로 바꿨어요', 2800);
+  return true;
+}
+function showSing(on){
+  on = !!on;
+  if (on === singIn) return;
+  singIn = on;
+  if (on) {
+    singScrollY = window.pageYOffset || 0;
+    elHomeView.hidden = true;
+    elSingView.hidden = false;
+    elMain.setAttribute('data-lang', singLang);
+    window.scrollTo(0, 0);
+    try { elSingBack.focus(); } catch (e) {}
+  } else {
+    elSingView.hidden = true;
+    elHomeView.hidden = false;
+    elMain.setAttribute('data-lang', UI.lang);
+    window.scrollTo(0, singScrollY || 0);
+  }
+}
+function singOcrLabel(txt){
+  elSingPick.classList.add('busy');
+  elSingPick.textContent = txt;
+}
+function singPhotoIdle(){
+  singBusy = false;
+  elSingPick.disabled = false;
+  elSingPick.classList.remove('busy');
+  elSingPick.innerHTML = SING_IDLE;
+}
+function singOcrLang(){
+  if (singLang === 'ja') return 'jpn';
+  if (singLang === 'zh') return 'chi_sim';
+  return 'eng';
+}
+function singPickTap(){
+  if (singBusy) return;
+  if (navigator.onLine === false) {
+    toast('사진 글자읽기는 인터넷 연결이 필요해요', 3600);
+    return;
+  }
+  try { elSingFile.value = ''; } catch (e) {}
+  elSingFile.click();
+}
+function runSingOcr(file){
+  if (!file) return;
+  if (navigator.onLine === false) {
+    toast('사진 글자읽기는 인터넷 연결이 필요해요', 3600);
+    return;
+  }
+  singBusy = true;
+  elSingPick.disabled = true;
+  elSingPick.classList.add('busy');
+  elSingPick.textContent = '📷 준비하고 있어요...';
+  loadTesseract().then(function(T){
+    return T.recognize(file, singOcrLang(), {
+      logger: function(m){
+        if (!singBusy) return;
+        var st = (m && m.status) || '';
+        var pct = (m && typeof m.progress === 'number') ? Math.round(m.progress * 100) : 0;
+        if (st === 'recognizing text') singOcrLabel('📷 글자를 읽고 있어요... ' + Math.max(1, pct) + '%');
+        else if (/loading|initializ/i.test(st)) singOcrLabel('📷 준비하고 있어요... ' + (pct ? pct + '%' : ''));
+      }
+    });
+  }).then(function(res){
+    var text = ((res && res.data && res.data.text) || '').replace(/\r\n?/g, '\n').trim();
+    singPhotoIdle();
+    if (!text) {
+      toast('사진에서 글자를 못 찾았어요. 가사가 크게 보이게 다시 찍어 주세요', 3800);
+      return;
+    }
+    singApply(text, '사진에서 가사를 읽어 한글로 적었어요', '원문 (사진에서 읽은 그대로)');
+  }).catch(function(){
+    singPhotoIdle();
+    toast('사진 글자읽기를 못 했어요. 인터넷 연결을 확인해 주세요', 3600);
+  });
+}
+function singPasteTap(){
+  if (!(navigator.clipboard && navigator.clipboard.readText)) {
+    toast('붙여넣기를 못 했어요. 첫 화면 입력칸을 길게 눌러 주세요', 3600);
+    return;
+  }
+  navigator.clipboard.readText().then(function(t){
+    if (!t || !t.trim()) {
+      toast('복사해 둔 가사가 없어요. 먼저 가사를 복사해 주세요', 3600);
+      return;
+    }
+    singApply(t, '복사한 가사를 한글로 바꿨어요', '원문 (붙여넣은 가사 그대로)');
+  }, function(){
+    toast('붙여넣기를 못 했어요. 첫 화면 입력칸을 길게 눌러 주세요', 3600);
+  });
+}
+elSingBtn.addEventListener('click', function(){ showSing(true); });
+elSingBack.addEventListener('click', function(){ showSing(false); });
+$$('button', elSingLangs).forEach(function(b){
+  b.addEventListener('click', function(){ setSingLang(b.getAttribute('data-slang')); });
+});
+elSingPick.addEventListener('click', singPickTap);
+elSingFile.addEventListener('change', function(){
+  var f = elSingFile.files && elSingFile.files[0];
+  if (f) runSingOcr(f);
+});
+elSingPasteBtn.addEventListener('click', singPasteTap);
+elSingSpeak.addEventListener('click', function(){
+  if (!singText) { toast('먼저 가사 사진을 찍어 주세요'); return; }
+  speakText(singText, singLang, 1);
+});
+elSingSlow.addEventListener('click', function(){
+  if (!singText) { toast('먼저 가사 사진을 찍어 주세요'); return; }
+  speakText(singText, singLang, 0.7);
+});
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Escape' && singIn) showSing(false);
+});
 
 /* 이벤트 연결 */
 $$('.tab', $('#langTabs')).forEach(function(tab){
@@ -2590,10 +3091,16 @@ $$('.chip').forEach(function(chip){
   chip.addEventListener('click', function(){
     var text = chip.getAttribute('data-text') || chip.textContent;
     var lang = chip.getAttribute('data-lang') || 'auto';
+    var song = chip.getAttribute('data-song');
     elSrc.value = text;
     setLang(lang, true);
     render(true);
-    toast('예시를 바꿔 봤어요');
+    if (song) {
+      scrollToResult();
+      speak(1);
+    } else {
+      toast('예시를 바꿔 봤어요');
+    }
   });
 });
 
@@ -2746,7 +3253,8 @@ try {
 /* 검수용 */
 window.WP = {
   convert:convert, detectLang:detectLang, enWord:enWord, enConvert:enConvert,
-  jaConvert:jaConvert, zhConvert:zhConvert, pinyinToHangul:pinyinToHangul, UI:UI
+  jaConvert:jaConvert, zhConvert:zhConvert, pinyinToHangul:pinyinToHangul, UI:UI,
+  showSing:showSing, singApply:singApply, setSingLang:setSingLang, isSing:function(){ return singIn; }
 };
 })();
 </script>
