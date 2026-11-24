@@ -1,0 +1,2569 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#3E2C22" />
+<!-- build: 2026-11-24 wagle-language v1 · 영어·일본어·중국어(병음·한자)를 한글 발음으로 (사전 + 규칙 변환, 100% 브라우저 안) · 소리 듣기·천천히 0.7배속·발음 복사·예시 칩·최근 20개 · 큰 글씨 · 광고·개인정보 없음 -->
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="와글링 외국어" />
+<meta name="description" content="와글링 외국어(Wagling Language) — 영어·일본어·중국어(병음·한자)를 한글 발음으로 바꿔 주는 앱. 소리 듣기, 천천히 듣기, 발음 복사, 최근 기록. 변환은 이 기기 안에서, 인터넷 없이도 됩니다." />
+<title>와글링 외국어 · 영어·일본어·중국어를 한글로</title>
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+<style>
+:root{
+  --cream:#FFF9F0; --cream2:#FCF0DE; --card:#FFFFFF; --ink:#2F231C; --ink2:#6E5B4B; --ink3:#9C8674;
+  --brown:#3E2C22; --brown2:#281B14; --accent:#C0562B; --gold:#D9A227; --line:#EBDCC6;
+  --lc:#C0562B; --lc-bg:#FBEDE3; --lc-line:#E9C8B4;
+  --shadow:0 2px 10px rgba(70,45,25,.09);
+}
+main[data-lang="en"]{--lc:#3477AE;--lc-bg:#EAF3FB;--lc-line:#BCD8EE}
+main[data-lang="ja"]{--lc:#BB4E64;--lc-bg:#FCEDF0;--lc-line:#EFC4CE}
+main[data-lang="zh"]{--lc:#2C8267;--lc-bg:#E9F6F0;--lc-line:#B2DDCC}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none !important}
+html{font-size:18px;-webkit-text-size-adjust:100%}
+html.big{font-size:22px}
+html,body{margin:0;padding:0}
+body{
+  min-height:100vh;background:var(--cream);color:var(--ink);
+  font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",system-ui,-apple-system,sans-serif;
+  line-height:1.45;word-break:keep-all;overflow-wrap:break-word;overflow-x:hidden;
+  padding-bottom:calc(1.2rem + env(safe-area-inset-bottom));
+}
+button{font-family:inherit;color:inherit;cursor:pointer;border:0;background:none}
+input,textarea{font-family:inherit;color:var(--ink);min-width:0}
+button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--lc);outline-offset:2px}
+
+/* ── 머리말 ─────────────────────────────── */
+.top{
+  position:sticky;top:0;z-index:20;color:#FFF8EC;
+  background:linear-gradient(180deg,#4B352A 0%,#3E2C22 62%,#372419 100%);
+  padding:calc(.46rem + env(safe-area-inset-top)) .62rem .52rem;
+  box-shadow:0 3px 14px rgba(45,28,18,.24);
+}
+.brand{display:flex;align-items:center;gap:.42rem}
+.logo{
+  flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  width:2.15rem;height:2.15rem;border-radius:.72rem;
+  background:rgba(255,248,236,.16);border:1.5px solid rgba(255,248,236,.4);
+  font-size:1.02rem;font-weight:900;line-height:1;color:#FFE9C4;
+}
+.btxt{flex:1 1 auto;min-width:0}
+.brand h1{margin:0;font-size:1.12rem;line-height:1.15;letter-spacing:-.035em;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand .sub{margin:.06rem 0 0;font-size:.66rem;line-height:1.2;font-weight:700;opacity:.9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bigtoggle{display:flex;align-items:center;gap:.3rem;white-space:nowrap;flex:0 0 auto;
+  background:rgba(255,248,236,.12);border:2px solid rgba(255,248,236,.34);color:#FFF8EC;border-radius:2rem;
+  padding:.16rem .32rem .16rem .44rem;font-size:.7rem;font-weight:900;min-height:2.1rem}
+.bigtoggle .sw{width:1.75rem;height:1rem;border-radius:1rem;background:rgba(255,248,236,.28);position:relative;transition:.15s}
+.bigtoggle .sw::after{content:"";position:absolute;top:.1rem;left:.1rem;width:.8rem;height:.8rem;border-radius:50%;background:#FFF8EC;transition:.15s}
+.bigtoggle[aria-pressed="true"] .sw{background:var(--gold)}
+.bigtoggle[aria-pressed="true"] .sw::after{left:.85rem}
+@media (max-width:359px){
+  .brand{gap:.3rem}.brand h1{font-size:1rem}
+  .bigtoggle{font-size:.62rem;padding:.14rem .26rem .14rem .36rem}
+}
+
+/* ── 본문 ─────────────────────────────── */
+main{max-width:34rem;margin:0 auto;padding:.65rem .62rem 0}
+.card{background:var(--card);border:2px solid var(--line);border-radius:1.05rem;padding:.8rem .78rem .82rem;box-shadow:var(--shadow);margin-bottom:.62rem}
+
+/* 언어 탭 2×2 — 320px에서도 넘치지 않게 */
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin:0 0 .62rem}
+.tab{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.08rem;
+  background:var(--card);border:2px solid var(--line);border-radius:.9rem;
+  padding:.38rem .3rem;font-size:.88rem;font-weight:900;min-height:2.95rem;
+  letter-spacing:-.035em;line-height:1.12;color:var(--ink);box-shadow:0 1px 4px rgba(80,50,25,.05)}
+.tab small{font-size:.6rem;font-weight:800;color:var(--ink3);letter-spacing:-.02em;line-height:1.1}
+.langmark{display:inline-flex;align-items:center;justify-content:center;width:1.32rem;height:1.32rem;
+  border-radius:.4rem;font-size:.73rem;font-weight:900;line-height:1;margin-right:.26rem;
+  vertical-align:-.2rem;background:#F3E7D7;color:#5C4534;font-style:normal}
+.langmark.en{background:#DCEBF8;color:#26618F}
+.langmark.ja{background:#FAE1E7;color:#A63A53}
+.langmark.zh{background:#DDF0E8;color:#1E6B54}
+.langmark.auto{background:#F8E4D7;color:#A84A24}
+.tname{display:inline-flex;align-items:center;justify-content:center;min-width:0}
+.tab[aria-selected="true"]{background:var(--lc-bg);border-color:var(--lc);box-shadow:0 2px 9px rgba(0,0,0,.07)}
+.tab[aria-selected="true"] small{color:var(--lc);opacity:.85}
+.tab:active{transform:translateY(1px)}
+
+/* 입력 */
+.crow{display:flex;align-items:center;gap:.4rem;margin-bottom:.4rem;min-width:0}
+.crow h2,.lbl{margin:0;font-size:.86rem;font-weight:900;letter-spacing:-.03em;color:var(--brown);flex:1 1 auto;min-width:0}
+.badge{flex:0 0 auto;font-size:.66rem;font-weight:900;letter-spacing:-.02em;
+  background:var(--lc-bg);color:var(--lc);border:1.5px solid var(--lc-line);
+  border-radius:2rem;padding:.14rem .46rem;white-space:nowrap;max-width:60%;overflow:hidden;text-overflow:ellipsis}
+.badge:empty{display:none}
+textarea#src{
+  display:block;width:100%;min-height:5.6rem;
+  border:2px solid var(--line);border-radius:.8rem;padding:.55rem .65rem;
+  font-size:1.02rem;line-height:1.5;background:#FFFDF8;resize:vertical;
+}
+textarea#src::placeholder{color:#B3A08C;font-size:.92rem}
+textarea#src:focus{border-color:var(--lc);box-shadow:0 0 0 3px var(--lc-bg);outline:none}
+
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:.42rem;margin-top:.5rem}
+.act{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.02rem;
+  min-height:2.8rem;border-radius:.82rem;border:2px solid;font-size:.88rem;font-weight:900;
+  letter-spacing:-.035em;white-space:nowrap;padding:.16rem .3rem;line-height:1.15}
+.act small{font-size:.58rem;font-weight:800;opacity:.8;letter-spacing:0}
+.act.speak{background:var(--brown);color:#FFF8EC;border-color:var(--brown2);box-shadow:0 2px 7px rgba(45,28,18,.2)}
+.act.slow{background:#FFF3D6;color:#6B4708;border-color:#D9A227}
+.act.copy{background:#E9F6F0;color:#1E6550;border-color:#7CC3AA}
+.act.clear{background:#F7EEE2;color:#6E5B4B;border-color:#D9C7B1}
+.act:active{transform:translateY(1px)}
+
+/* 결과 */
+.resultcard{border-color:var(--lc-line);position:relative;overflow:hidden}
+.resultcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:.3rem;background:var(--lc)}
+.resultcard .inner{padding-left:.3rem}
+.out{font-size:1.45rem;font-weight:800;line-height:1.52;letter-spacing:-.015em;color:var(--ink);
+  overflow-wrap:anywhere;white-space:pre-wrap;min-height:3.1rem}
+.out.empty{font-size:.95rem;font-weight:700;color:var(--ink3);letter-spacing:-.02em}
+.echo{margin-top:.42rem;padding-top:.4rem;border-top:1.5px dashed var(--line);
+  font-size:.8rem;line-height:1.4;color:var(--ink2);overflow-wrap:anywhere;white-space:pre-wrap}
+.echo b{font-weight:900;color:var(--ink3);font-size:.68rem;letter-spacing:-.02em;margin-right:.2rem}
+.hint{margin-top:.4rem;font-size:.68rem;line-height:1.35;color:var(--ink3);letter-spacing:-.02em}
+
+/* 예시 칩 */
+.exgrp{margin-top:.46rem}
+.exgrp:first-of-type{margin-top:.2rem}
+.exlab{display:inline-flex;align-items:center;font-size:.7rem;font-weight:900;color:#8A6A4C;
+  background:#FBF1E1;border:1px solid #EBD9BE;border-radius:.45rem;padding:.06rem .38rem;margin-bottom:.26rem;letter-spacing:-.02em}
+.exlab .langmark{width:.98rem;height:.98rem;font-size:.56rem;margin-right:.18rem;vertical-align:0;border-radius:.28rem}
+.chips{display:flex;flex-wrap:wrap;gap:.32rem}
+.chip{background:#FFFDF6;border:1.6px solid var(--line);border-radius:2rem;
+  padding:.24rem .56rem;font-size:.78rem;font-weight:800;min-height:2.05rem;
+  white-space:nowrap;color:#453226;letter-spacing:-.02em}
+.chip:active{transform:translateY(1px);background:var(--lc-bg)}
+.chip.zh{color:#1F5E4A}
+.chip.ja{color:#8E3348}
+
+/* 최근 기록 */
+.hitem{display:flex;align-items:center;gap:.34rem;margin-top:.38rem}
+.hload{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:.06rem;
+  background:#FFFDF8;border:1.6px solid var(--line);border-radius:.72rem;padding:.36rem .58rem;text-align:left}
+.hload .hsrc{font-size:.7rem;font-weight:800;color:var(--ink3);max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hload .hout{font-size:.92rem;font-weight:900;color:var(--ink);max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hload:active{background:#FFF6E9}
+.hdel{flex:0 0 auto;width:2.35rem;height:2.5rem;border-radius:.68rem;border:1.6px solid #E5CFC2;
+  background:#FBF1EA;color:#A2543B;font-size:.95rem;font-weight:900}
+.hdel:active{background:#F6E1D7}
+.hclear{font-size:.68rem;font-weight:900;color:#9A5B45;background:#FBF1EA;border:1.5px solid #E5CFC2;
+  border-radius:2rem;padding:.14rem .5rem;white-space:nowrap}
+.empty2{font-size:.82rem;color:var(--ink3);font-weight:700;padding:.3rem 0 .1rem}
+
+.foot{margin:.2rem .2rem 1rem;text-align:center;font-size:.68rem;line-height:1.4;color:#A08A76;letter-spacing:-.02em}
+
+/* 토스트 */
+#toast{position:fixed;left:50%;bottom:calc(1.1rem + env(safe-area-inset-bottom));transform:translate(-50%,1.4rem);
+  background:rgba(46,32,23,.95);color:#FFF8EC;font-size:.84rem;font-weight:900;letter-spacing:-.02em;
+  padding:.5rem .95rem;border-radius:2rem;box-shadow:0 6px 18px rgba(40,25,15,.3);
+  opacity:0;pointer-events:none;transition:.22s;z-index:60;max-width:calc(100vw - 2rem);text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){#toast{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">가</span>
+    <div class="btxt">
+      <h1>와글링 외국어</h1>
+      <p class="sub">외국어를 한글로</p>
+    </div>
+    <button type="button" id="bigBtn" class="bigtoggle" aria-pressed="false" aria-label="큰 글씨로 보기">
+      👴 큰 글씨 <span class="sw" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<main id="main" data-lang="auto">
+  <section class="tabs" id="langTabs" role="tablist" aria-label="언어 선택">
+    <button type="button" class="tab" role="tab" data-lang="auto" aria-selected="true"><span class="tname"><i class="langmark auto">✦</i>자동 감지</span><small>알아서 척척</small></button>
+    <button type="button" class="tab" role="tab" data-lang="en" aria-selected="false"><span class="tname"><i class="langmark en">A</i>영어</span><small>English</small></button>
+    <button type="button" class="tab" role="tab" data-lang="ja" aria-selected="false"><span class="tname"><i class="langmark ja">あ</i>일본어</span><small>日本語</small></button>
+    <button type="button" class="tab" role="tab" data-lang="zh" aria-selected="false"><span class="tname"><i class="langmark zh">中</i>중국어</span><small>병음·한자</small></button>
+  </section>
+
+  <section class="card">
+    <div class="crow">
+      <label class="lbl" for="src">외국어 입력</label>
+      <span class="badge" id="detectBadge"></span>
+    </div>
+    <textarea id="src" rows="3" placeholder="예) Thank you very much / ありがとうございます / 谢谢 / xièxie" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
+    <div class="acts">
+      <button type="button" class="act speak" id="speakBtn">🔊 소리 듣기</button>
+      <button type="button" class="act slow" id="slowBtn">🐢 천천히<small>0.7배속</small></button>
+      <button type="button" class="act copy" id="copyBtn">📋 발음 복사</button>
+      <button type="button" class="act clear" id="clearBtn">🗑️ 지우기</button>
+    </div>
+  </section>
+
+  <section class="card resultcard">
+    <div class="inner">
+      <div class="crow">
+        <span class="lbl">한글 발음</span>
+        <span class="badge" id="resLang"></span>
+      </div>
+      <div id="out" class="out empty" aria-live="polite">위에 입력하면 바로 한글로 바뀝니다</div>
+      <div id="srcEcho" class="echo" hidden></div>
+      <p class="hint" id="hint" hidden></p>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="crow"><h2>바로 눌러 보기</h2></div>
+    <div class="exgrp">
+      <span class="exlab">✈️ 여행</span>
+      <div class="chips">
+        <button type="button" class="chip" data-lang="en" data-text="Where is the bathroom?">Where is the bathroom?</button>
+        <button type="button" class="chip" data-lang="en" data-text="How much is it?">How much is it?</button>
+        <button type="button" class="chip" data-lang="en" data-text="I need help">I need help</button>
+      </div>
+    </div>
+    <div class="exgrp">
+      <span class="exlab">☕ 카페</span>
+      <div class="chips">
+        <button type="button" class="chip" data-lang="en" data-text="Coffee please">Coffee please</button>
+        <button type="button" class="chip" data-lang="en" data-text="This is delicious">This is delicious</button>
+        <button type="button" class="chip" data-lang="en" data-text="Check please">Check please</button>
+      </div>
+    </div>
+    <div class="exgrp">
+      <span class="exlab">👋 인사</span>
+      <div class="chips">
+        <button type="button" class="chip" data-lang="en" data-text="Thank you very much">Thank you very much</button>
+        <button type="button" class="chip" data-lang="en" data-text="Nice to meet you">Nice to meet you</button>
+        <button type="button" class="chip" data-lang="en" data-text="See you later">See you later</button>
+      </div>
+    </div>
+    <div class="exgrp">
+      <span class="exlab">🎵 노래 가사</span>
+      <div class="chips">
+        <button type="button" class="chip" data-lang="en" data-text="I love you">I love you</button>
+        <button type="button" class="chip" data-lang="en" data-text="You are my sunshine">You are my sunshine</button>
+        <button type="button" class="chip" data-lang="en" data-text="Forever and ever">Forever and ever</button>
+      </div>
+    </div>
+    <div class="exgrp">
+      <span class="exlab"><i class="langmark ja">あ</i>일본어</span>
+      <div class="chips">
+        <button type="button" class="chip ja" data-lang="ja" data-text="ありがとうございます">ありがとうございます</button>
+        <button type="button" class="chip ja" data-lang="ja" data-text="すみません">すみません</button>
+        <button type="button" class="chip ja" data-lang="ja" data-text="美味しい">美味しい</button>
+        <button type="button" class="chip ja" data-lang="ja" data-text="大丈夫です">大丈夫です</button>
+      </div>
+    </div>
+    <div class="exgrp">
+      <span class="exlab"><i class="langmark zh">中</i>중국어</span>
+      <div class="chips">
+        <button type="button" class="chip zh" data-lang="zh" data-text="你好">你好</button>
+        <button type="button" class="chip zh" data-lang="zh" data-text="谢谢">谢谢</button>
+        <button type="button" class="chip zh" data-lang="zh" data-text="多少钱">多少钱</button>
+        <button type="button" class="chip zh" data-lang="zh" data-text="xièxie">xièxie</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="crow">
+      <h2>최근 변환</h2>
+      <button type="button" class="hclear" id="clearHist">전체 삭제</button>
+    </div>
+    <div id="histList"></div>
+  </section>
+
+  <p class="foot">와글링 외국어 · Wagling Language<br />변환은 이 기기 안에서만, 인터넷이 없어도 됩니다.<br />광고·개인정보 수집 없음</p>
+</main>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+'use strict';
+
+/* ════════════════════════════════════════════
+   0. 한글 조합 도구
+   ════════════════════════════════════════════ */
+var CHO = 'ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ'.split('');
+var JUNG = 'ㅏㅐㅑㅒㅓㅔㅕㅖㅗㅘㅙㅚㅛㅜㅝㅞㅟㅠㅡㅢㅣ'.split('');
+var JONG = ['','ㄱ','ㄲ','ㄳ','ㄴ','ㄵ','ㄶ','ㄷ','ㄹ','ㄺ','ㄻ','ㄼ','ㄽ','ㄾ','ㄿ','ㅀ','ㅁ','ㅂ','ㅄ','ㅅ','ㅆ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
+
+function syl(c, j, o){
+  var ci = CHO.indexOf(c), ji = JUNG.indexOf(j), oi = JONG.indexOf(o || '');
+  if (ci < 0 || ji < 0) return '';
+  if (oi < 0) oi = 0;
+  return String.fromCharCode(0xAC00 + ((ci * 21) + ji) * 28 + oi);
+}
+/* 앞 글자에 받침을 붙인다. 이미 받침이 있으면 '은/음/읍'처럼 따로 붙인다. */
+function addCoda(s, coda){
+  if (!s) return s;
+  var ni = JONG.indexOf(coda);
+  if (ni <= 0) return s;
+  var last = s.charAt(s.length - 1);
+  var code = last.charCodeAt(0);
+  if (code < 0xAC00 || code > 0xD7A3) return s + syl('ㅇ','ㅡ',coda);
+  var idx = code - 0xAC00;
+  var ci = Math.floor(idx / 588);
+  var ji = Math.floor((idx - ci * 588) / 28);
+  var oi = idx % 28;
+  if (oi !== 0) return s + syl('ㅇ','ㅡ',coda);
+  return s.slice(0, -1) + String.fromCharCode(0xAC00 + (ci * 21 + ji) * 28 + ni);
+}
+function hasCodaLast(s){
+  if (!s) return false;
+  var code = s.charCodeAt(s.length - 1);
+  if (code < 0xAC00 || code > 0xD7A3) return false;
+  return (code - 0xAC00) % 28 !== 0;
+}
+
+/* ════════════════════════════════════════════
+   1. 사전 불러오기  (한 줄 = 영어=한글)
+   ════════════════════════════════════════════ */
+function parsePairs(txt){
+  var map = new Map();
+  txt.trim().split('\n').forEach(function(line){
+    line = line.trim();
+    if (!line || line.charAt(0) === '#') return;
+    var i = line.indexOf('=');
+    if (i < 0) return;
+    var k = line.slice(0, i).trim().toLowerCase();
+    var v = line.slice(i + 1).trim();
+    if (k && v) map.set(k, v);
+  });
+  return map;
+}
+
+/* ── 영어 단어 사전 (자주 쓰는 단어·회화·가사·여행) ── */
+var EN_DICT = parsePairs(`
+hello=헬로
+hi=하이
+hey=헤이
+goodbye=굿바이
+bye=바이
+good=굿
+morning=모닝
+night=나이트
+thanks=땡스
+thank=땡크
+sorry=쏘리
+please=플리즈
+yes=예스
+no=노
+okay=오케이
+ok=오케이
+sure=슈어
+welcome=웰컴
+congratulations=컨그래츄레이션스
+happy=해피
+birthday=버스데이
+luck=럭
+nice=나이스
+meet=미트
+see=시
+you=유
+your=유어
+you're=유어
+i=아이
+i'm=아임
+i'll=아일
+i've=아이브
+me=미
+my=마이
+we=위
+we're=위어
+our=아워
+they=데이
+they're=데어
+he=히
+she=시
+it=잇
+it's=잇츠
+this=디스
+that=댓
+that's=댓츠
+these=디즈
+those=도즈
+name=네임
+what=왓
+what's=왓츠
+where=웨어
+when=웬
+who=후
+why=와이
+how=하우
+which=위치
+the=더
+a=어
+an=언
+and=앤드
+or=오어
+but=벗
+of=오브
+to=투
+in=인
+on=온
+at=앳
+for=포
+with=위드
+from=프롬
+by=바이
+about=어바웃
+up=업
+down=다운
+out=아웃
+off=오프
+into=인투
+over=오버
+under=언더
+us=어스
+them=뎀
+their=데어
+its=잇츠
+does=더즈
+did=디드
+doing=두잉
+done=던
+going=고잉
+coming=커밍
+looking=룩킹
+learning=러닝
+weather=웨더
+nearest=니어리스트
+cost=코스트
+because=비코즈
+if=이프
+so=소
+then=덴
+than=댄
+is=이즈
+are=아
+am=앰
+was=워즈
+were=워
+be=비
+been=빈
+will=윌
+would=우드
+can=캔
+could=쿠드
+should=슈드
+must=머스트
+may=메이
+might=마이트
+don't=돈트
+doesn't=더즌트
+can't=캔트
+won't=원트
+let's=렛츠
+isn't=이즌트
+aren't=아른트
+wasn't=워즌트
+weren't=워런트
+haven't=해븐트
+hasn't=해즌트
+didn't=디든트
+couldn't=쿠든트
+wouldn't=우든트
+shouldn't=슈든트
+he's=히즈
+she's=시즈
+we've=위브
+they've=데이브
+i'd=아이드
+you'd=유드
+where's=웨어즈
+who's=후즈
+there's=데어즈
+here's=히어즈
+how's=하우즈
+gonna=거나
+wanna=워너
+much=머치
+many=매니
+very=베리
+really=리얼리
+too=투
+also=올소
+just=저스트
+only=온리
+all=올
+some=썸
+more=모어
+most=모스트
+now=나우
+later=레이터
+soon=순
+again=어게인
+always=올웨이즈
+never=네버
+maybe=메이비
+ever=에버
+together=투게더
+forever=포에버
+
+airport=에어포트
+airplane=에어플레인
+plane=플레인
+flight=플라이트
+ticket=티켓
+passport=패스포트
+luggage=러기지
+baggage=배기지
+hotel=호텔
+reservation=레저베이션
+check=체크
+room=룸
+key=키
+elevator=엘리베이터
+taxi=택시
+bus=버스
+train=트레인
+subway=서브웨이
+station=스테이션
+map=맵
+address=어드레스
+street=스트리트
+road=로드
+left=레프트
+right=라이트
+straight=스트레이트
+near=니어
+far=파
+here=히어
+there=데어
+help=헬프
+emergency=이머전시
+hospital=하스피털
+pharmacy=파머시
+police=폴리스
+restroom=레스트룸
+toilet=토일렛
+bathroom=배스룸
+entrance=엔트런스
+exit=엑시트
+open=오픈
+close=클로즈
+closed=클로즈드
+money=머니
+cash=캐시
+card=카드
+change=체인지
+cheap=칩
+expensive=익스펜시브
+discount=디스카운트
+receipt=리시트
+bag=백
+size=사이즈
+color=컬러
+water=워터
+food=푸드
+breakfast=브렉퍼스트
+lunch=런치
+dinner=디너
+menu=메뉴
+table=테이블
+chair=체어
+seat=시트
+order=오더
+bill=빌
+tip=팁
+delicious=딜리셔스
+spicy=스파이시
+sweet=스위트
+hot=핫
+cold=콜드
+ice=아이스
+coffee=커피
+tea=티
+beer=비어
+wine=와인
+juice=주스
+milk=밀크
+bread=브레드
+rice=라이스
+chicken=치킨
+beef=비프
+pork=포크
+fish=피시
+egg=에그
+salad=샐러드
+cake=케이크
+chocolate=초콜릿
+sandwich=샌드위치
+hamburger=햄버거
+pizza=피자
+pasta=파스타
+noodle=누들
+soup=수프
+fruit=프루트
+apple=애플
+banana=버내너
+orange=오렌지
+strawberry=스트로베리
+tomato=토마토
+potato=포테이토
+onion=어니언
+garlic=갈릭
+salt=솔트
+sugar=슈거
+pepper=페퍼
+butter=버터
+cheese=치즈
+coke=코크
+cola=콜라
+soda=소다
+bottle=보틀
+cup=컵
+glass=글라스
+fork=포크
+knife=나이프
+spoon=스푼
+plate=플레이트
+napkin=냅킨
+straw=스트로
+
+today=투데이
+tomorrow=투모로우
+yesterday=예스터데이
+afternoon=애프터눈
+evening=이브닝
+week=위크
+month=먼스
+year=이어
+time=타임
+hour=아워
+minute=미닛
+second=세컨드
+day=데이
+monday=먼데이
+tuesday=튜스데이
+wednesday=웬즈데이
+thursday=써스데이
+friday=프라이데이
+saturday=새터데이
+sunday=선데이
+january=재뉴어리
+february=페브루어리
+march=마치
+april=에이프릴
+june=준
+july=줄라이
+august=어거스트
+september=셉템버
+october=옥토버
+november=노벰버
+december=디셈버
+spring=스프링
+summer=서머
+autumn=오텀
+winter=윈터
+
+man=맨
+woman=우먼
+men=멘
+women=위민
+boy=보이
+girl=걸
+friend=프렌드
+family=패밀리
+mother=마더
+father=파더
+mom=맘
+dad=대드
+baby=베이비
+child=차일드
+children=칠드런
+brother=브라더
+sister=시스터
+husband=허즈번드
+wife=와이프
+teacher=티처
+student=스튜던트
+doctor=닥터
+nurse=너스
+driver=드라이버
+customer=커스터머
+people=피플
+person=퍼슨
+kid=키드
+son=선
+daughter=도터
+
+go=고
+come=컴
+look=룩
+eat=잇
+drink=드링크
+sleep=슬립
+wake=웨이크
+work=워크
+study=스터디
+play=플레이
+run=런
+walk=워크
+swim=스윔
+sing=싱
+dance=댄스
+read=리드
+write=라이트
+listen=리슨
+speak=스피크
+talk=토크
+say=세이
+tell=텔
+know=노우
+think=씽크
+want=원트
+need=니드
+like=라이크
+love=러브
+hate=헤이트
+make=메이크
+do=두
+have=해브
+get=겟
+give=기브
+take=테이크
+buy=바이
+sell=셀
+pay=페이
+find=파인드
+lose=루즈
+wait=웨이트
+stop=스탑
+start=스타트
+try=트라이
+learn=런
+teach=티치
+call=콜
+send=센드
+bring=브링
+keep=킵
+let=렛
+put=풋
+turn=턴
+show=쇼
+feel=필
+believe=빌리브
+remember=리멤버
+forget=포겟
+understand=언더스탠드
+ask=애스크
+answer=앤서
+live=리브
+die=다이
+cry=크라이
+laugh=래프
+smile=스마일
+dream=드림
+wish=위시
+hope=호프
+enjoy=인조이
+finish=피니시
+begin=비긴
+stay=스테이
+leave=리브
+arrive=어라이브
+travel=트래블
+visit=비짓
+cook=쿡
+clean=클린
+wash=워시
+wear=웨어
+carry=캐리
+
+bad=배드
+big=빅
+small=스몰
+new=뉴
+old=올드
+young=영
+sad=새드
+beautiful=뷰티풀
+pretty=프리티
+cute=큐트
+funny=퍼니
+easy=이지
+hard=하드
+fast=패스트
+slow=슬로우
+long=롱
+short=쇼트
+tall=톨
+rich=리치
+poor=푸어
+busy=비지
+tired=타이어드
+hungry=헝그리
+thirsty=써스티
+sick=식
+fine=파인
+great=그레이트
+amazing=어메이징
+perfect=퍼펙트
+different=디퍼런트
+same=세임
+real=리얼
+cool=쿨
+best=베스트
+wonderful=원더풀
+lonely=론리
+special=스페셜
+important=임포턴트
+dangerous=데인저러스
+safe=세이프
+quiet=콰이엇
+loud=라우드
+strong=스트롱
+weak=윅
+fat=팻
+thin=씬
+smart=스마트
+kind=카인드
+free=프리
+full=풀
+empty=엠프티
+dear=디어
+true=트루
+false=폴스
+right=라이트
+wrong=롱
+
+computer=컴퓨터
+phone=폰
+smartphone=스마트폰
+internet=인터넷
+email=이메일
+message=메시지
+photo=포토
+picture=픽처
+camera=카메라
+music=뮤직
+song=송
+movie=무비
+book=북
+story=스토리
+game=게임
+video=비디오
+screen=스크린
+battery=배터리
+charger=차저
+wifi=와이파이
+password=패스워드
+account=어카운트
+world=월드
+life=라이프
+heart=하트
+home=홈
+house=하우스
+car=카
+door=도어
+window=윈도우
+school=스쿨
+market=마켓
+store=스토어
+shop=샵
+country=컨트리
+city=시티
+ocean=오션
+sea=시
+sky=스카이
+sun=선
+moon=문
+star=스타
+rain=레인
+snow=스노우
+wind=윈드
+fire=파이어
+tree=트리
+flower=플라워
+dog=독
+cat=캣
+bird=버드
+robot=로봇
+holiday=홀리데이
+christmas=크리스마스
+party=파티
+present=프레전트
+gift=기프트
+letter=레터
+word=워드
+language=랭귀지
+english=잉글리시
+korean=코리안
+japanese=재퍼니즈
+chinese=차이니즈
+korea=코리아
+japan=재팬
+china=차이나
+america=아메리카
+seoul=서울
+busan=부산
+
+darling=달링
+honey=허니
+tonight=투나이트
+sunshine=선샤인
+feeling=필링
+dancing=댄싱
+dreaming=드리밍
+shining=샤이닝
+heartbeat=하트비트
+celebrate=셀레브레이트
+miracle=미라클
+promise=프로미스
+destiny=데스티니
+moment=모먼트
+memory=메모리
+glory=글로리
+victory=빅토리
+freedom=프리덤
+fireworks=파이어웍스
+rainbow=레인보우
+starlight=스타라이트
+moonlight=문라이트
+paradise=패러다이스
+heaven=헤븐
+angel=에인절
+butterfly=버터플라이
+diamond=다이아몬드
+golden=골든
+silver=실버
+precious=프레셔스
+endless=엔들리스
+crazy=크레이지
+question=퀘스천
+animal=애니멀
+elephant=엘리펀트
+mountain=마운틴
+river=리버
+garden=가든
+yellow=옐로
+purple=퍼플
+television=텔레비전
+restaurant=레스토랑
+internet=인터넷
+action=액션
+nation=네이션
+vision=비전
+future=퓨처
+nature=네이처
+pressure=프레셔
+pleasure=플레저
+measure=메저
+information=인포메이션
+education=에듀케이션
+culture=컬처
+structure=스트럭처
+temperature=템퍼러처
+famous=페이머스
+useful=유스풀
+careful=케어풀
+quickly=퀵리
+slowly=슬로울리
+happiness=해피니스
+kindness=카인드니스
+
+zero=제로
+one=원
+two=투
+three=쓰리
+four=포
+five=파이브
+six=식스
+seven=세븐
+eight=에이트
+nine=나인
+ten=텐
+eleven=일레븐
+twelve=트웰브
+twenty=트웬티
+thirty=써티
+forty=포티
+fifty=피프티
+hundred=헌드레드
+thousand=사우전드
+million=밀리언
+`);
+
+/* ── 영어 회화 문장 사전 (여러 단어를 한 번에) ── */
+var EN_PHRASES = parsePairs(`
+thank you very much=땡큐 베리 머치
+thank you so much=땡큐 쏘 머치
+thank you=땡큐
+coffee please=커피 플리즈
+water please=워터 플리즈
+i love you=아이 러브 유
+i miss you=아이 미스 유
+how much is it=하우 머치 이즈 잇
+how much=하우 머치
+how many=하우 매니
+where is the bathroom=웨어 이즈 더 배스룸
+where is the station=웨어 이즈 더 스테이션
+where is the hotel=웨어 이즈 더 호텔
+nice to meet you=나이스 투 미트 유
+good morning=굿모닝
+good night=굿나이트
+good luck=굿 럭
+i am sorry=아임 쏘리
+i'm sorry=아임 쏘리
+i am fine=아임 파인
+i'm fine=아임 파인
+i am fine thank you=아임 파인 땡큐
+i am hungry=아임 헝그리
+i am from korea=아이 앰 프롬 코리아
+see you later=시 유 레이터
+see you tomorrow=시 유 투모로우
+what time is it=왓 타임 이즈 잇
+i don't understand=아이 돈 언더스탠드
+i don't know=아이 돈 노우
+can you help me=캔 유 헬프 미
+i need help=아이 니드 헬프
+one more please=원 모어 플리즈
+let's go=렛츠 고
+oh my god=오 마이 갓
+excuse me=엑스큐즈 미
+no thank you=노 땡큐
+yes please=예스 플리즈
+what is your name=왓 이즈 유어 네임
+what's your name=왓츠 유어 네임
+where are you from=웨어 아 유 프롬
+how old are you=하우 올드 아 유
+what is this=왓 이즈 디스
+what's this=왓츠 디스
+i want this=아이 원트 디스
+this is delicious=디스 이즈 딜리셔스
+check please=체크 플리즈
+the bill please=더 빌 플리즈
+i would like=아이 우드 라이크
+have a nice day=해브 어 나이스 데이
+take care=테이크 케어
+long time no see=롱 타임 노 시
+no problem=노 프라블럼
+of course=오브 코스
+happy birthday=해피 버스데이
+do you speak english=두 유 스피크 잉글리시
+tell me=텔 미
+what time=왓 타임
+how are you=하우 아 유
+thank you for=땡큐 포
+i think=아이 씽크
+at the=앳 더
+of the=오브 더
+in the=인 더
+on the=온 더
+for the=포 더
+to the=투 더
+let me=렛 미
+see you=시 유
+i am=아임
+i'm=아임
+you are=유 아
+`);
+
+/* ════════════════════════════════════════════
+   2. 영어 → 한글 (사전 + 규칙)
+   ════════════════════════════════════════════ */
+var EN_ONSET = {b:'ㅂ',p:'ㅍ',m:'ㅁ',f:'ㅍ',d:'ㄷ',t:'ㅌ',n:'ㄴ',l:'ㄹ',g:'ㄱ',k:'ㅋ',h:'ㅎ',
+  j:'ㅈ',q:'ㅋ',r:'ㄹ',s:'ㅅ',v:'ㅂ',w:'ㅇ',x:'ㄱ',y:'ㅇ',z:'ㅈ',
+  sh:'ㅅ',ch:'ㅊ',th:'ㅅ',dh:'ㄷ',ng:'ㅇ',zh:'ㅈ',ks:'ㄱ',kw:'ㅋ'};
+var EN_CODA = {b:'ㅂ',p:'ㅍ',m:'ㅁ',f:'ㅍ',d:'ㄷ',t:'ㅅ',n:'ㄴ',l:'ㄹ',g:'ㄱ',k:'ㄱ',h:'',
+  j:'ㅈ',z:'ㅈ',s:'ㅅ',v:'ㅂ',sh:'ㅅ',ch:'ㅊ',th:'ㅅ',dh:'ㄷ',ng:'ㅇ',r:'ㄹ'};
+
+var EN_CONS = [
+  ['sch',['sk']], ['tch',['ch']], ['sh',['sh']], ['ch',['ch']], ['th',['th']],
+  ['ph',['f']], ['wh',['w']], ['ck',['k']], ['ng',['ng']], ['gh',[]], ['qu',['kw']],
+  ['x',['k','s']],
+  ['b',['b']],['c',['k']],['d',['d']],['f',['f']],['g',['g']],['h',['h']],['j',['j']],
+  ['k',['k']],['l',['l']],['m',['m']],['n',['n']],['p',['p']],['q',['k']],['r',['r']],
+  ['s',['s']],['t',['t']],['v',['v']],['w',['w']],['y',['y']],['z',['z']]
+];
+var EN_VOW = [
+  ['eigh',['ㅔ','ㅣ']], ['igh',['ㅏ','ㅣ']], ['ough',['ㅗ','ㅜ']], ['augh',['ㅗ']], ['eau',['ㅗ','ㅜ']],
+  ['air',['ㅔ','ㅓ']], ['ear',['ㅣ','ㅓ']], ['eer',['ㅣ','ㅓ']], ['our',['ㅏ','ㅜ','ㅓ']], ['oor',['ㅗ','ㅓ']],
+  ['ai',['ㅔ','ㅣ']], ['ay',['ㅔ','ㅣ']], ['ei',['ㅔ','ㅣ']], ['ey',['ㅔ','ㅣ']],
+  ['ea',['ㅣ']], ['ee',['ㅣ']], ['oa',['ㅗ']], ['oe',['ㅗ']], ['oo',['ㅜ']],
+  ['ou',['ㅏ','ㅜ']], ['ow',['ㅏ','ㅜ']], ['oi',['ㅗ','ㅣ']], ['oy',['ㅗ','ㅣ']],
+  ['au',['ㅗ']], ['aw',['ㅗ']], ['ew',['ㅠ']], ['ue',['ㅠ']], ['ui',['ㅜ','ㅣ']],
+  ['a',['ㅏ']], ['e',['ㅔ']], ['i',['ㅣ']], ['o',['ㅗ']], ['u',['ㅓ']], ['y',['ㅣ']]
+];
+var LONG_VOW = {'A':['ㅔ','ㅣ'], 'I':['ㅏ','ㅣ'], 'O':['ㅗ'], 'U':['ㅠ'], 'E':['ㅣ']};
+
+var W_GLIDE = {'ㅣ':'ㅟ','ㅔ':'ㅞ','ㅐ':'ㅙ','ㅏ':'ㅘ','ㅓ':'ㅝ','ㅗ':'ㅝ','ㅜ':'ㅜ','ㅡ':'ㅜ','ㅠ':'ㅠ'};
+var Y_GLIDE = {'ㅣ':'ㅣ','ㅔ':'ㅖ','ㅐ':'ㅒ','ㅏ':'ㅑ','ㅗ':'ㅛ','ㅜ':'ㅠ','ㅓ':'ㅕ','ㅡ':'ㅡ','ㅠ':'ㅠ'};
+
+function enTokenize(s){
+  var toks = [], i = 0;
+  while (i < s.length) {
+    var ch = s.charAt(i);
+    if ('AEIOU'.indexOf(ch) >= 0 || LONG_VOW[ch]) {
+      toks.push({t:'V', map:LONG_VOW[ch].slice(), raw:ch});
+      i++; continue;
+    }
+    var isV = 'aeiou'.indexOf(ch) >= 0 || (ch === 'y' && i > 0);
+    if (isV) {
+      var hit = null;
+      for (var k = 0; k < EN_VOW.length; k++) {
+        if (s.substr(i, EN_VOW[k][0].length) === EN_VOW[k][0]) { hit = EN_VOW[k]; break; }
+      }
+      if (hit) {
+        toks.push({t:'V', map:hit[1].slice(), raw:hit[0]});
+        i += hit[0].length;
+      } else {
+        toks.push({t:'V', map:['ㅣ'], raw:'i'}); i++;
+      }
+      continue;
+    }
+    var cHit = null;
+    for (var c = 0; c < EN_CONS.length; c++) {
+      if (s.substr(i, EN_CONS[c][0].length) === EN_CONS[c][0]) { cHit = EN_CONS[c]; break; }
+    }
+    if (!cHit) { i++; continue; }
+    for (var p = 0; p < cHit[1].length; p++) toks.push({t:'C', ph:cHit[1][p]});
+    i += cHit[0].length;
+  }
+  return toks;
+}
+
+function enOnsetJung(c, j){
+  if (c === 'w') return ['ㅇ', W_GLIDE[j] || 'ㅝ'];
+  if (c === 'y') return ['ㅇ', Y_GLIDE[j] || 'ㅕ'];
+  if (c === 'kw') return ['ㅋ', W_GLIDE[j] || 'ㅝ'];
+  return [EN_ONSET[c] || 'ㅇ', j];
+}
+
+function enMidCons(out, c){
+  if (!out) return syl(EN_ONSET[c] || 'ㅇ', 'ㅡ');
+  if (c === 'm' || c === 'n' || c === 'ng' || c === 'l' || c === 'r') {
+    var coda = c === 'r' ? 'ㄹ' : EN_CODA[c];
+    if (!hasCodaLast(out)) return addCoda(out, coda);
+    return out + syl(c === 'r' ? 'ㄹ' : (EN_ONSET[c] || 'ㅇ'), 'ㅡ');
+  }
+  return out + syl(EN_ONSET[c] || 'ㅇ', 'ㅡ');
+}
+
+function enTrailing(out, cons, magic){
+  var arr = cons.slice();
+  while (arr.length && (arr[arr.length - 1] === 'r' || arr[arr.length - 1] === 'h')) arr.pop();
+  if (!arr.length) return out;
+  var c0 = arr[0];
+  var rest = arr.slice(1);
+  if (c0 === 'm' || c0 === 'n' || c0 === 'ng' || c0 === 'l') {
+    out = hasCodaLast(out) ? out + syl('ㅇ','ㅡ',EN_CODA[c0]) : addCoda(out, EN_CODA[c0]);
+  } else if (c0 === 'r') {
+    out = hasCodaLast(out) ? out + syl('ㄹ','ㅡ') : addCoda(out, 'ㄹ');
+  } else if (c0 === 's' || c0 === 'z' || c0 === 'f' || c0 === 'v' || c0 === 'ch' || c0 === 'j') {
+    out += syl(EN_ONSET[c0] || 'ㅇ', 'ㅡ');
+  } else if (c0 === 't') {
+    out = hasCodaLast(out) ? out + syl('ㅌ','ㅡ') : addCoda(out, 'ㅅ');
+  } else if (c0 === 'd') {
+    out = hasCodaLast(out) ? out + syl('ㄷ','ㅡ') : addCoda(out, 'ㄷ');
+  } else if (magic) {
+    out += syl(EN_ONSET[c0] || 'ㅇ', 'ㅡ');
+  } else {
+    out = hasCodaLast(out) ? out + syl(EN_ONSET[c0] || 'ㅇ','ㅡ') : addCoda(out, EN_CODA[c0] || '');
+  }
+  for (var i = 0; i < rest.length; i++) {
+    var c = rest[i];
+    out += syl((c === 'l' || c === 'r') ? 'ㄹ' : (EN_ONSET[c] || 'ㅇ'), 'ㅡ');
+  }
+  return out;
+}
+
+var EN_SUFFIX = [
+  ['ation','에이션'], ['ition','이션'], ['tion','션'], ['sion','션'],
+  ['cious','셔스'], ['tious','셔스'], ['ture','처'], ['sure','저'], ['ous','어스'],
+  ['ing','잉'], ['ment','먼트'], ['ness','니스'], ['able','어블'], ['ible','이블'],
+  ['ally','얼리'], ['ful','풀'], ['less','리스'], ['ity','이티'], ['ly','리']
+];
+
+function enWord(word){
+  var s = String(word).toLowerCase().replace(/[’']/g, '').replace(/[^a-z]/g, '');
+  if (!s) return '';
+  s = s.replace(/^kn/, 'n').replace(/^wr/, 'r').replace(/^gn/, 'n').replace(/^ps/, 's');
+  /* 자주 쓰는 어미는 통째로 (question → 퀘스 + 션) */
+  for (var si = 0; si < EN_SUFFIX.length; si++) {
+    var suf = EN_SUFFIX[si][0];
+    if (s.length > suf.length + 2 && s.slice(-suf.length) === suf) {
+      var stem = enWord(s.slice(0, -suf.length));
+      if (stem) return stem + EN_SUFFIX[si][1];
+    }
+  }
+  var magic = false;
+  var mm = s.match(/([aeiou])([bcdfgklmnprstvz])e$/);
+  if (mm && s.length >= 4) {
+    var longMap = {a:'A', i:'I', o:'O', u:'U', e:'E'};
+    s = s.slice(0, s.length - 3) + longMap[mm[1]] + mm[2];
+    magic = true;
+  }
+  s = s.replace(/([bcdfghjklmnpqrstvwxz])\1+/g, '$1').replace(/rl|lr/g, 'l');
+  s = s.replace(/c(?=[eiy])/g, 's');   /* city 시티, face 페이스 */
+  var toks = enTokenize(s);
+  var out = '', i = 0;
+  while (i < toks.length) {
+    var cons = [];
+    while (i < toks.length && toks[i].t === 'C') { cons.push(toks[i].ph); i++; }
+    if (i >= toks.length) { out = enTrailing(out, cons, magic); break; }
+    var vmap = toks[i].map.slice(), raw = toks[i].raw;
+    i++;
+    /* 짧은 a는 닫힌 음절에서 ㅐ (cat 캣 / pasta 파스타 / banana 바나나) */
+    if (raw === 'a' && vmap.length === 1 && vmap[0] === 'ㅏ') {
+      var cnt = 0, j = i;
+      while (j < toks.length && toks[j].t === 'C') { cnt++; j++; }
+      if (j >= toks.length && cnt >= 1) vmap = ['ㅐ'];
+    }
+    var onset = 'ㅇ';
+    if (cons.length) {
+      var last = cons.pop();
+      for (var q = 0; q < cons.length; q++) out = enMidCons(out, cons[q]);
+      var comp = enOnsetJung(last, vmap[0]);
+      onset = comp[0];
+      vmap[0] = comp[1];
+    }
+    out += syl(onset, vmap[0]);
+    for (var v = 1; v < vmap.length; v++) out += syl('ㅇ', vmap[v]);
+  }
+  return out;
+}
+
+function enConvert(text){
+  var re = /[A-Za-z][A-Za-z'’\-]*/g;
+  var words = [], m;
+  while ((m = re.exec(text)) !== null) {
+    words.push({w:m[0], s:m.index, e:re.lastIndex});
+  }
+  if (!words.length) return text;
+  var pieces = [], i = 0;
+  while (i < words.length) {
+    var hit = null;
+    var maxN = Math.min(7, words.length - i);
+    for (var n = maxN; n >= 1; n--) {
+      var key = '';
+      for (var k = 0; k < n; k++) {
+        if (k) key += ' ';
+        key += words[i + k].w.toLowerCase().replace(/[’]/g, "'");
+      }
+      if (EN_PHRASES.has(key)) { hit = {txt:EN_PHRASES.get(key), n:n}; break; }
+    }
+    if (hit) {
+      pieces.push({s:words[i].s, e:words[i + hit.n - 1].e, txt:hit.txt});
+      i += hit.n;
+      continue;
+    }
+    var o = words[i];
+    var norm = o.w.toLowerCase().replace(/[’]/g, "'").replace(/^-+|-+$/g, '');
+    var t = EN_DICT.get(norm);
+    if (!t) t = EN_DICT.get(norm.replace(/[^a-z']/g, ''));
+    if (!t) t = enWord(norm);
+    if (!t) t = o.w;
+    pieces.push({s:o.s, e:o.e, txt:t});
+    i++;
+  }
+  var res = '', pos = 0;
+  for (var p = 0; p < pieces.length; p++) {
+    res += text.slice(pos, pieces[p].s) + pieces[p].txt;
+    pos = pieces[p].e;
+  }
+  res += text.slice(pos);
+  return res;
+}
+
+/* ════════════════════════════════════════════
+   3. 일본어 → 한글 (가나 100% + 한자 사전)
+   ════════════════════════════════════════════ */
+var KANA = {
+  'あ':'아','い':'이','う':'우','え':'에','お':'오',
+  'か':'카','き':'키','く':'쿠','け':'케','こ':'코',
+  'が':'가','ぎ':'기','ぐ':'구','げ':'게','ご':'고',
+  'さ':'사','し':'시','す':'스','せ':'세','そ':'소',
+  'ざ':'자','じ':'지','ず':'즈','ぜ':'제','ぞ':'조',
+  'た':'타','ち':'치','つ':'츠','て':'테','と':'토',
+  'だ':'다','ぢ':'지','づ':'즈','で':'데','ど':'도',
+  'な':'나','に':'니','ぬ':'누','ね':'네','の':'노',
+  'は':'하','ひ':'히','ふ':'후','へ':'헤','ほ':'호',
+  'ば':'바','び':'비','ぶ':'부','べ':'베','ぼ':'보',
+  'ぱ':'파','ぴ':'피','ぷ':'푸','ぺ':'페','ぽ':'포',
+  'ま':'마','み':'미','む':'무','め':'메','も':'모',
+  'や':'야','ゆ':'유','よ':'요',
+  'ら':'라','り':'리','る':'루','れ':'레','ろ':'로',
+  'わ':'와','ゐ':'이','ゑ':'에','を':'오','ん':'ㄴ','ゔ':'부',
+  'ぁ':'아','ぃ':'이','ぅ':'우','ぇ':'에','ぉ':'오','ゃ':'야','ゅ':'유','ょ':'요','ゎ':'와'
+};
+var YOON = {
+  'きゃ':'캬','きゅ':'큐','きょ':'쿄','ぎゃ':'갸','ぎゅ':'규','ぎょ':'교',
+  'しゃ':'샤','しゅ':'슈','しょ':'쇼','じゃ':'자','じゅ':'주','じょ':'조',
+  'ちゃ':'차','ちゅ':'추','ちょ':'초','ぢゃ':'자','ぢゅ':'주','ぢょ':'조',
+  'にゃ':'냐','にゅ':'뉴','にょ':'뇨','ひゃ':'햐','ひゅ':'휴','ひょ':'효',
+  'びゃ':'뱌','びゅ':'뷰','びょ':'뵤','ぴゃ':'퍄','ぴゅ':'퓨','ぴょ':'표',
+  'みゃ':'먀','みゅ':'뮤','みょ':'묘','りゃ':'랴','りゅ':'류','りょ':'료'
+};
+var YOON3 = {
+  'しぇ':'셰','じぇ':'제','ちぇ':'체','うぃ':'위','うぇ':'웨','うぉ':'워',
+  'てぃ':'티','でぃ':'디','とぅ':'투','どぅ':'두','つぁ':'차','つぃ':'치','つぇ':'체','つぉ':'초',
+  'ふぁ':'파','ふぃ':'피','ふぇ':'페','ふぉ':'포','ゔぁ':'바','ゔぃ':'비','ゔぇ':'베','ゔぉ':'보',
+  'くぁ':'콰','ぐぁ':'과','いぇ':'예'
+};
+
+var JA_DICT = parsePairs(`
+おはよう=오하요
+おはようございます=오하요 고자이마스
+こんにちは=곤니치와
+こんばんは=곤반와
+さようなら=사요나라
+すみません=스미마센
+ごめんなさい=고멘나사이
+ありがとう=아리가토
+ありがとうございます=아리가토 고자이마스
+いただきます=이타다키마스
+ごちそうさま=고치소사마
+はじめまして=하지메마시테
+よろしく=요로시쿠
+よろしくお願いします=요로시쿠 오네가이시마스
+大丈夫=다이조부
+大丈夫です=다이조부 데스
+元気=겐키
+美味しい=오이시이
+おいしい=오이시이
+日本語=니혼고
+日本=니혼
+韓国=칸코쿠
+東京=도쿄
+大阪=오사카
+京都=교토
+学校=갓코
+先生=센세이
+学生=가쿠세이
+友達=토모다치
+家族=카조쿠
+会社=카이샤
+仕事=시고토
+時間=지칸
+今日=쿄
+明日=아시타
+昨日=키노
+今=이마
+何=나니
+誰=다레
+どこ=도코
+ここ=코코
+そこ=소코
+水=미즈
+お茶=오차
+ご飯=고한
+食べる=타베루
+飲む=노무
+行く=이쿠
+来る=쿠루
+見る=미루
+聞く=키쿠
+話す=하나스
+読む=요무
+書く=카쿠
+買う=카우
+高い=타카이
+安い=야스이
+大きい=오오키이
+小さい=치이사이
+新しい=아타라시이
+古い=후루이
+好き=스키
+嫌い=키라이
+楽しい=타노시이
+嬉しい=우레시이
+悲しい=카나시이
+可愛い=카와이이
+綺麗=키레이
+電車=덴샤
+駅=에키
+空港=쿠코
+飛行機=히코키
+切符=킷푸
+荷物=니모츠
+部屋=헤야
+値段=네단
+円=엔
+お金=오카네
+電話=덴와
+名前=나마에
+天気=텐키
+雨=아메
+雪=유키
+花=하나
+猫=네코
+犬=이누
+心=코코로
+夢=유메
+愛=아이
+歌=우타
+音楽=온가쿠
+映画=에이가
+本=혼
+店=미세
+道=미치
+右=미기
+左=히다리
+前=마에
+後ろ=우시로
+上=우에
+下=시타
+中=나카
+外=소토
+勉強=벤쿄
+行=이
+気=키
+天=텐
+人=히토
+国=쿠니
+車=샤
+分=와카
+分かる=와카루
+良い=요이
+悪い=와루이
+暑い=아츠이
+寒い=사무이
+熱い=아츠이
+冷たい=츠메타이
+甘い=아마이
+辛い=카라이
+痛い=이타이
+旅行=료코
+一緒=잇쇼
+会=아
+母=하하
+父=치치
+兄=아니
+姉=아네
+弟=오토토
+妹=이모토
+食べます=타베마스
+飲みます=노미마스
+行きます=이키마스
+来ます=키마스
+見ます=미마스
+します=시마스
+です=데스
+ます=마스
+ました=마시타
+ません=마센
+ください=쿠다사이
+本当=혼토
+全然=젠젠
+結構=켓코
+曜日=요비
+毎日=마이니치
+毎朝=마이아사
+毎晩=마이반
+今晩=콘반
+今朝=케사
+先週=센슈
+来週=라이슈
+去年=쿄넨
+来年=라이넨
+午前=고젠
+午後=고고
+半分=한분
+コーヒー=커피
+ビール=비루
+ホテル=호텔
+タクシー=택시
+トイレ=토일레
+メニュー=메뉴
+カメラ=카메라
+パソコン=파소콘
+スマホ=스마호
+バス=바스
+コンビニ=콘비니
+レストラン=레스토랑
+チョコレート=초콜릿
+ケーキ=케이키
+`);
+
+var JA_KEYS = Array.from(JA_DICT.keys()).sort(function(a, b){ return b.length - a.length; });
+
+function toHira(ch){
+  var c = ch.charCodeAt(0);
+  if (c >= 0x30A1 && c <= 0x30F6) return String.fromCharCode(c - 0x60);
+  return ch;
+}
+function isKanaChar(ch){
+  var c = ch.charCodeAt(0);
+  return (c >= 0x3041 && c <= 0x3096) || (c >= 0x30A1 && c <= 0x30F6) || ch === 'ー';
+}
+function sokuonCoda(block){
+  var first = block.charAt(0);
+  if ('ㅋㄱ'.indexOf(first) >= 0) return 'ㄱ';
+  if ('ㅌㄷㅅㅊ'.indexOf(first) >= 0) return 'ㅅ';
+  if ('ㅍㅂ'.indexOf(first) >= 0) return 'ㅂ';
+  return 'ㅅ';
+}
+function lastJung(s){
+  if (!s) return '';
+  var code = s.charCodeAt(s.length - 1);
+  if (code < 0xAC00 || code > 0xD7A3) return '';
+  var idx = code - 0xAC00;
+  return JUNG[Math.floor((idx % 588) / 28)];
+}
+function jaKanaRun(run, ctx){
+  ctx = ctx || {};
+  var res = '', i = 0, soku = false;
+  while (i < run.length) {
+    var ch = toHira(run.charAt(i));
+    if (ch === 'っ') { soku = true; i++; continue; }
+    if (ch === 'ー') { i++; continue; }
+    if (ch === 'ん') { res = addCoda(res, 'ㄴ'); i++; continue; }
+    var prevCh = i > 0 ? toHira(run.charAt(i - 1)) : '';
+    var nextCh = toHira(run.charAt(i + 1) || '');
+    var hasBefore = (i > 0) || !!ctx.prev;
+    /* 조사 は는 '와', へ는 '에'로 읽는다 */
+    if (ch === 'は' && hasBefore && prevCh !== 'は' && prevCh !== 'っ' && nextCh !== 'ん') {
+      if (soku) { res = addCoda(res, 'ㅅ'); soku = false; }
+      res += '와'; i++; continue;
+    }
+    if (ch === 'へ' && hasBefore && prevCh !== 'へ' && nextCh !== 'ん' && (nextCh !== '' || ctx.after)) {
+      if (soku) { res = addCoda(res, 'ㅅ'); soku = false; }
+      res += '에'; i++; continue;
+    }
+    /* 장음: お단(ㅗ·ㅛ) 뒤의 う는 늘임표로 보고 생략 (とうきょう → 토쿄) */
+    if (ch === 'う') {
+      var lj = lastJung(res);
+      if (lj === 'ㅗ' || lj === 'ㅛ') { i++; continue; }
+    }
+    var c2 = ch + toHira(run.charAt(i + 1) || '');
+    var c3 = c2 + toHira(run.charAt(i + 2) || '');
+    var block = null, len = 1;
+    if (YOON3[c3]) { block = YOON3[c3]; len = 3; }
+    else if (YOON[c2]) { block = YOON[c2]; len = 2; }
+    else if (KANA[ch] && ch !== 'ん') { block = KANA[ch]; len = 1; }
+    if (!block) { res += run.charAt(i); i++; soku = false; continue; }
+    if (soku) { res = addCoda(res, sokuonCoda(block)); soku = false; }
+    res += block;
+    i += len;
+  }
+  return res;
+}
+function jaConvert(text){
+  var out = '', i = 0;
+  while (i < text.length) {
+    var hit = null;
+    for (var k = 0; k < JA_KEYS.length; k++) {
+      var key = JA_KEYS[k];
+      if (text.substr(i, key.length) === key) { hit = key; break; }
+    }
+    if (hit) { out += JA_DICT.get(hit); i += hit.length; continue; }
+    if (isKanaChar(text.charAt(i))) {
+      var j = i;
+      while (j < text.length && isKanaChar(text.charAt(j))) j++;
+      out += jaKanaRun(text.slice(i, j), {prev: out.length > 0, after: j < text.length});
+      i = j;
+      continue;
+    }
+    out += text.charAt(i);
+    i++;
+  }
+  return out;
+}
+
+/* ════════════════════════════════════════════
+   4. 중국어 → 한글 (한자 사전 + 병음 100%)
+   ════════════════════════════════════════════ */
+var ZH_DICT = parsePairs(`
+你好=니하오
+您好=닌하오
+大家好=따지아 하오
+谢谢=시에시에
+谢谢你=시에시에 니
+谢谢大家=시에시에 따지아
+再见=자이지엔
+对不起=뚜이부치
+没关系=메이관시
+不好意思=부하오이스
+不客气=부커치
+请问=칭원
+多少钱=뚜오샤오치엔
+太贵了=타이구이러
+便宜一点=피엔이 이뎬
+我要这个=워 야오 저거
+我不懂=워 부동
+你会说英语吗=니 후이 슈오 잉위 마
+我爱你=워 아이 니
+我喜欢你=워 시환 니
+早上好=자오상 하오
+晚上好=완상 하오
+晚安=완안
+生日快乐=성러 콰이라
+新年快乐=신녠 콰이라
+干杯=간베이
+好吃=하오츠
+很好=헌 하오
+太棒了=타이방러
+中国=중궈
+韩国=한궈
+日本=르번
+北京=베이징
+上海=상하이
+机场=지창
+火车站=훠처잔
+酒店=지우뎬
+洗手间=시서우지엔
+地铁=디톄
+出租车=추주처
+餐厅=찬팅
+菜单=차이단
+咖啡=카페이
+牛奶=니우나이
+啤酒=피지우
+可乐=커러
+米饭=미판
+面条=몐탸오
+不要辣=부야오 라
+辣的=라더
+服务员=푸우위안
+买单=마이단
+结账=지에장
+人民币=런민비
+手机=서우지
+充电器=충뎬치
+护照=후자오
+签证=치엔정
+行李=싱리
+我要去机场=워 야오 취 지창
+请问洗手间在哪=칭원 시서우지엔 자이 나
+加油=지아요우
+欢迎光临=환잉 광린
+没事=메이스
+等一下=덩이샤
+没有=메이요우
+可以=커이
+不行=부싱
+今天=진티엔
+明天=밍티엔
+昨天=쭈오티엔
+现在=시엔자이
+朋友=펑요우
+老师=라오스
+学生=쉐성
+家人=지아런
+妈妈=마마
+爸爸=바바
+我=워
+你=니
+您=닌
+他=타
+她=타
+好=하오
+是=스
+不=부
+的=더
+了=러
+人=런
+大=따
+小=샤오
+中=중
+国=궈
+上=상
+下=시아
+天=티엔
+水=슈이
+火=훠
+山=산
+心=신
+爱=아이
+家=지아
+学=쉐
+生=성
+日=르
+月=웨
+年=니엔
+时=스
+间=지엔
+吃=츠
+喝=허
+看=칸
+听=팅
+说=슈오
+去=취
+来=라이
+买=마이
+钱=치엔
+车=처
+路=루
+门=먼
+开=카이
+关=관
+谢=시에
+对=뚜이
+起=치
+没=메이
+系=시
+请=칭
+问=원
+多=뚜오
+少=샤오
+贵=구이
+便=피엔
+宜=이
+一=이
+二=얼
+三=산
+四=스
+五=우
+六=류
+七=치
+八=바
+九=지우
+十=스
+百=바이
+千=치엔
+万=완
+今=진
+明=밍
+早=자오
+晚=완
+快=콰이
+乐=러
+很=헌
+美=메이
+味=웨이
+食=스
+饭=판
+菜=차이
+茶=차
+酒=지우
+冰=빙
+热=러
+冷=렁
+新=신
+旧=지우
+高=가오
+低=디
+长=창
+短=돤
+白=바이
+黑=헤이
+红=훙
+蓝=란
+绿=뤼
+妈=마
+爸=바
+哥=거
+姐=지에
+弟=디
+妹=메이
+朋=펑
+友=요우
+老=라오
+师=스
+医=이
+店=뎬
+房=팡
+手=서우
+头=터우
+眼=옌
+耳=얼
+口=커우
+电=뎬
+话=화
+机=지
+飞=페이
+场=창
+站=잔
+药=야오
+病=빙
+名=밍
+字=즈
+数=수
+号=하오
+岁=쑤이
+海=하이
+河=허
+花=화
+草=차오
+木=무
+石=스
+金=진
+土=투
+风=펑
+雨=위
+雪=쉐
+云=윈
+星=싱
+光=광
+这=저
+个=거
+那=나
+哪=나
+里=리
+要=야오
+会=후이
+能=넝
+想=샹
+知=즈
+道=따오
+认=런
+识=스
+帮=방
+助=주
+给=게이
+杯=베이
+气=치
+兴=싱
+么=머
+什=선
+怎=전
+样=양
+走=저우
+到=따오
+回=후이
+出=추
+进=진
+打=다
+分=펀
+点=뎬
+半=반
+几=지
+块=콰이
+元=위안
+太=타이
+最=쭈이
+更=겅
+也=예
+都=도우
+还=하이
+就=지우
+和=허
+跟=건
+从=충
+向=샹
+做=쭈오
+用=융
+找=자오
+等=덩
+让=랑
+叫=지아오
+住=주
+坐=쭈오
+睡=슈이
+穿=촨
+洗=시
+教=지아오
+喜=시
+欢=환
+怕=파
+累=레이
+饿=어
+渴=커
+男=난
+女=뉘
+孩=하이
+子=즈
+父=푸
+母=무
+们=먼
+它=타
+前=치엔
+后=허우
+左=쭈오
+右=요우
+外=와이
+边=볜
+东=둥
+南=난
+西=시
+北=베이
+银=인
+行=싱
+船=촨
+晴=칭
+阴=인
+暖=누안
+午=우
+夜=예
+期=치
+零=링
+吗=마
+呢=너
+吧=바
+啊=아
+真=전
+非=페이
+常=창
+特=터
+别=볜
+需=쉬
+必=비
+窗=촹
+桌=쭈오
+椅=이
+床=촹
+厕=처
+所=쑤오
+纸=즈
+巾=진
+肉=러우
+鱼=위
+鸡=지
+牛=니우
+猪=주
+羊=양
+蛋=딴
+面=몐
+包=바오
+果=궈
+苹=핑
+奶=나이
+卖=마이
+两=량
+跑=파오
+讲=지앙
+答=다
+见=지엔
+觉=줴
+得=더
+送=쑹
+拿=나
+放=팡
+坏=콰이
+慢=만
+漂=퍄오
+亮=량
+帅=슈아이
+院=위안
+脑=나오
+视=스
+影=잉
+表=뱌오
+鞋=시에
+衣=이
+服=푸
+班=반
+课=커
+工=공
+作=쭈오
+事=스
+忙=망
+在=자이
+文=원
+英=잉
+语=위
+韩=한
+汤=탕
+盐=옌
+糖=탕
+油=요우
+醋=추
+辣=라
+这个=저거
+那个=나거
+哪个=나거
+这里=저리
+那里=나리
+哪里=나리
+在哪里=자이 나리
+什么=선머
+怎么=전머
+怎么样=전머양
+为什么=웨이선머
+一杯=이 베이
+给我=게이 워
+我要=워 야오
+我不要=워 부야오
+不会=부 후이
+认识=런스
+很高兴认识你=헌 가오싱 런스 니
+帮助=방주
+谢谢你的帮助=시에시에 니더 방주
+中文=중원
+英文=잉원
+英语=잉위
+韩语=한위
+天气=티엔치
+今天天气很好=진티엔 티엔치 헌 하오
+下雨=시아위
+下雪=시아쉐
+好喝=하오허
+很累=헌 레이
+很忙=헌 망
+医院=이위안
+药店=야오뎬
+超市=차오스
+商场=상창
+饭馆=판관
+鸡蛋=지단
+牛肉=니우러우
+猪肉=주러우
+鸡肉=지러우
+鱼肉=위러우
+苹果=핑궈
+西瓜=시과
+香蕉=샹자오
+白酒=바이지우
+热水=러수이
+冰水=빙수이
+一杯咖啡=이 베이 카페이
+我要一杯咖啡=워 야오 이 베이 카페이
+请给我=칭 게이 워
+请给我一杯水=칭 게이 워 이 베이 슈이
+不可以=부커이
+你好吗=니 하오 마
+我很好=워 헌 하오
+你呢=니 너
+明天见=밍티엔 지엔
+小心=샤오신
+救命=지우밍
+我饿了=워 어러
+我渴了=워 커러
+我累了=워 레이러
+我病了=워 빙러
+我不舒服=워 부슈푸
+`);
+
+var ZH_KEYS = Array.from(ZH_DICT.keys()).sort(function(a, b){ return b.length - a.length; });
+
+/* 병음 성조 부호 제거 */
+var TONE_MAP = {
+  'ā':'a','á':'a','ǎ':'a','à':'a','ē':'e','é':'e','ě':'e','è':'e',
+  'ī':'i','í':'i','ǐ':'i','ì':'i','ō':'o','ó':'o','ǒ':'o','ò':'o',
+  'ū':'u','ú':'u','ǔ':'u','ù':'u','ǖ':'ü','ǘ':'ü','ǚ':'ü','ǜ':'ü',
+  'ń':'n','ň':'n','ǹ':'n','ḿ':'m','ü':'ü'
+};
+function stripTones(s){
+  var out = '';
+  for (var i = 0; i < s.length; i++) {
+    var ch = s.charAt(i);
+    out += TONE_MAP[ch] || ch;
+  }
+  return out.toLowerCase().replace(/u:|v/g, 'ü').replace(/[^a-zü]/g, '');
+}
+
+var PY_STAND = {
+  'a':'아','o':'오','e':'어','ai':'아이','ei':'에이','ao':'아오','ou':'오우',
+  'an':'안','en':'언','ang':'앙','eng':'엉','er':'얼','ê':'에',
+  'yi':'이','ya':'야','ye':'예','yao':'야오','you':'유','yan':'옌','yin':'인',
+  'yang':'양','ying':'잉','yong':'융','yo':'요','yu':'위','yue':'웨','yuan':'위안','yun':'윈',
+  'wu':'우','wa':'와','wo':'워','wai':'와이','wei':'웨이','wan':'완','wen':'원','wang':'왕','weng':'웡'
+};
+var PY_FINAL = {
+  'a':{j:['ㅏ']}, 'o':{j:['ㅗ']}, 'e':{j:['ㅓ']}, 'i':{j:['ㅣ']}, 'u':{j:['ㅜ']}, 'ü':{j:['ㅟ']},
+  'ai':{j:['ㅏ','ㅣ']}, 'ei':{j:['ㅔ','ㅣ']}, 'ao':{j:['ㅏ','ㅗ']}, 'ou':{j:['ㅗ','ㅜ']},
+  'an':{j:['ㅏ'],c:'ㄴ'}, 'en':{j:['ㅓ'],c:'ㄴ'}, 'ang':{j:['ㅏ'],c:'ㅇ'}, 'eng':{j:['ㅓ'],c:'ㅇ'},
+  'ong':{j:['ㅗ'],c:'ㅇ'}, 'er':{j:['ㅓ'],c:'ㄹ'},
+  'ia':{j:['ㅣ','ㅏ']}, 'ie':{j:['ㅣ','ㅔ']}, 'iao':{j:['ㅣ','ㅏ','ㅗ']}, 'iu':{j:['ㅣ','ㅜ']},
+  'ian':{j:['ㅣ','ㅔ'],c:'ㄴ'}, 'in':{j:['ㅣ'],c:'ㄴ'}, 'iang':{j:['ㅣ','ㅏ'],c:'ㅇ'},
+  'ing':{j:['ㅣ'],c:'ㅇ'}, 'iong':{j:['ㅣ','ㅗ'],c:'ㅇ'},
+  'ua':{j:['ㅜ','ㅏ']}, 'uo':{j:['ㅜ','ㅗ']}, 'uai':{j:['ㅜ','ㅏ','ㅣ']}, 'ui':{j:['ㅜ','ㅣ']},
+  'uan':{j:['ㅜ','ㅏ'],c:'ㄴ'}, 'un':{j:['ㅜ'],c:'ㄴ'}, 'uang':{j:['ㅜ','ㅏ'],c:'ㅇ'}, 'ueng':{j:['ㅜ'],c:'ㅇ'},
+  'üe':{j:['ㅞ']}, 'üan':{j:['ㅟ','ㅔ'],c:'ㄴ'}, 'ün':{j:['ㅟ'],c:'ㄴ'}
+};
+var PY_INIT = {b:'ㅂ',p:'ㅍ',m:'ㅁ',f:'ㅍ',d:'ㄷ',t:'ㅌ',n:'ㄴ',l:'ㄹ',g:'ㄱ',k:'ㅋ',h:'ㅎ',
+  j:'ㅈ',q:'ㅊ',x:'ㅅ',zh:'ㅈ',ch:'ㅊ',sh:'ㅅ',r:'ㄹ',z:'ㅈ',c:'ㅊ',s:'ㅅ'};
+var PY_INIT_KEYS = ['zh','ch','sh','b','p','m','f','d','t','n','l','g','k','h','j','q','x','r','z','c','s'];
+var PY_SET = (function(){
+  var set = new Set();
+  Object.keys(PY_STAND).forEach(function(k){ set.add(k); });
+  PY_INIT_KEYS.forEach(function(ini){
+    Object.keys(PY_FINAL).forEach(function(fin){ set.add(ini + fin); });
+  });
+  return set;
+})();
+
+function pyBlock(cho, fin){
+  var j = fin.j;
+  var s = syl(cho, j[0], j.length === 1 ? (fin.c || '') : '');
+  for (var k = 1; k < j.length; k++) {
+    s += syl('ㅇ', j[k], k === j.length - 1 ? (fin.c || '') : '');
+  }
+  return s;
+}
+function pySyllable(sy){
+  if (PY_STAND[sy] !== undefined) return PY_STAND[sy];
+  var ini = '', rest = sy;
+  for (var i = 0; i < PY_INIT_KEYS.length; i++) {
+    var k = PY_INIT_KEYS[i];
+    if (sy.indexOf(k) === 0) { ini = k; rest = sy.slice(k.length); break; }
+  }
+  if (!ini) return null;
+  if (rest === 'i' && 'zh ch sh r z c s'.split(' ').indexOf(ini) >= 0) {
+    return syl(PY_INIT[ini], 'ㅡ');
+  }
+  var fin = PY_FINAL[rest];
+  if (!fin) return null;
+  return pyBlock(PY_INIT[ini], fin);
+}
+function segmentPinyin(word){
+  var out = [], i = 0;
+  while (i < word.length) {
+    var hit = null;
+    for (var len = Math.min(6, word.length - i); len >= 1; len--) {
+      var cand = word.substr(i, len);
+      if (PY_SET.has(cand)) { hit = cand; break; }
+    }
+    if (!hit) return null;
+    out.push(hit);
+    i += hit.length;
+  }
+  return out;
+}
+/* 병음 통짜 사전 (자주 쓰는 말은 더 정확하게) */
+var PY_WORDS = parsePairs(`
+xiexie=시에시에
+nihao=니하오
+zaijian=자이지엔
+duibuqi=뚜이부치
+meiguanxi=메이관시
+qingwen=칭원
+duoshaoqian=뚜오샤오치엔
+zhongguo=중궈
+zhongguoren=중궈런
+hanguo=한궈
+riben=르번
+beijing=베이징
+shanghai=상하이
+woaini=워 아이 니
+woxihuanni=워 시환 니
+zaoshanghao=자오상 하오
+wanshanghao=완상 하오
+shengrikuaile=성러 콰이라
+xinniankuaile=신녠 콰이라
+ganbei=간베이
+haochi=하오츠
+henhao=헌 하오
+jiayou=지아요우
+huanyingguanglin=환잉 광린
+bukeqi=부커치
+jintian=진티엔
+mingtian=밍티엔
+zuotian=쭈오티엔
+xianzai=시엔자이
+pengyou=펑요우
+laoshi=라오스
+xuesheng=쉐성
+jiaren=지아런
+`);
+
+function pinyinToHangul(str){
+  var words = str.split(/\s+/);
+  var res = [];
+  for (var w = 0; w < words.length; w++) {
+    var raw = words[w];
+    if (!raw) continue;
+    var clean = stripTones(raw.replace(/[0-9]/g, ''));
+    if (!clean) continue;
+    if (PY_WORDS.has(clean)) { res.push(PY_WORDS.get(clean)); continue; }
+    var seg = segmentPinyin(clean);
+    if (!seg) { res.push(raw); continue; }
+    var s = '';
+    for (var k = 0; k < seg.length; k++) {
+      var block = pySyllable(seg[k]);
+      s += block || seg[k];
+    }
+    res.push(s);
+  }
+  return res.join(' ');
+}
+function zhConvert(text){
+  var out = '', i = 0;
+  while (i < text.length) {
+    var ch = text.charAt(i);
+    if (/[\u4e00-\u9fff]/.test(ch)) {
+      var hit = null;
+      for (var k = 0; k < ZH_KEYS.length; k++) {
+        var key = ZH_KEYS[k];
+        if (text.substr(i, key.length) === key) { hit = key; break; }
+      }
+      if (hit) { out += ZH_DICT.get(hit); i += hit.length; continue; }
+      out += ch; i++; continue;
+    }
+    if (/[A-Za-zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜüńňǹḿv]/.test(ch)) {
+      var j = i;
+      while (j < text.length && /[A-Za-zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜüńňǹḿv0-9']/.test(text.charAt(j))) j++;
+      var run = text.slice(i, j);
+      if (/^\d+$/.test(run)) { out += run; }
+      else out += pinyinToHangul(run);
+      i = j;
+      continue;
+    }
+    out += ch; i++;
+  }
+  return out;
+}
+
+/* ════════════════════════════════════════════
+   5. 언어 자동 감지
+   ════════════════════════════════════════════ */
+function detectLang(text){
+  var t = (text || '').trim();
+  if (!t) return 'en';
+  if (/[\u3040-\u30ff]/.test(t)) return 'ja';
+  if (/[\u4e00-\u9fff]/.test(t)) return 'zh';
+  if (/[āáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜńňǹḿ]/.test(t)) return 'zh';
+  var latin = /[A-Za-z]/.test(t);
+  if (latin) {
+    var words = t.toLowerCase().replace(/[^a-z\s]/g, ' ').split(/\s+/).filter(Boolean);
+    if (words.length) {
+      var known = words.some(function(w){ return EN_DICT.has(w) || EN_PHRASES.has(w); });
+      if (!known) {
+        var allPinyin = words.every(function(w){ return /^[a-zü]+$/.test(w) && segmentPinyin(w) !== null; });
+        if (allPinyin) return 'zh';
+      }
+    }
+    return 'en';
+  }
+  return 'en';
+}
+
+function normalizePunct(s){
+  return s.replace(/。/g, '. ').replace(/、/g, ', ').replace(/，/g, ', ')
+    .replace(/！/g, '! ').replace(/？/g, '? ').replace(/：/g, ': ').replace(/；/g, '; ')
+    .replace(/「/g, '"').replace(/」/g, '"').replace(/『/g, '"').replace(/』/g, '"')
+    .replace(/・/g, '·').replace(/　/g, ' ');
+}
+
+function convert(text, lang){
+  if (!text || !text.trim()) return {out:'', lang:(lang === 'auto' ? 'en' : lang), note:''};
+  if (!/[A-Za-z\u3040-\u30ff\u4e00-\u9fff]/.test(text)) {
+    return {out:text, lang:(lang === 'auto' ? 'en' : lang), note:'바꿀 외국어 글자가 없어요. 영어·일본어·중국어로 적어 주세요.'};
+  }
+  var L = (lang === 'auto') ? detectLang(text) : lang;
+  var out = '';
+  if (L === 'ja') out = jaConvert(text);
+  else if (L === 'zh') out = zhConvert(text);
+  else out = enConvert(text);
+  var note = '';
+  if (L === 'ja' || L === 'zh') out = normalizePunct(out);
+  /* 고른 언어로 바뀌는 게 없으면(예: 중국어 탭에 영어) 알아서 다른 언어로 */
+  if (L !== 'en' && out === text && /[A-Za-z]/.test(text) && !/[\u3040-\u30ff\u4e00-\u9fff]/.test(text)) {
+    var d = detectLang(text);
+    if (d !== L) {
+      out = (d === 'zh') ? normalizePunct(zhConvert(text)) : (d === 'ja' ? normalizePunct(jaConvert(text)) : enConvert(text));
+      note = LANG_LABEL[L] + '로는 바뀌는 게 없어 ' + LANG_LABEL[d] + '로 보고 바꿨어요.';
+      L = d;
+    }
+  }
+  return {out:out.replace(/[ \t]{2,}/g, ' ').replace(/ +\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim(), lang:L, note:note};
+}
+
+/* ════════════════════════════════════════════
+   6. 화면 동작
+   ════════════════════════════════════════════ */
+var $ = function(sel, root){ return (root || document).querySelector(sel); };
+var $$ = function(sel, root){ return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
+
+var UI = {
+  lang: 'auto',
+  big: false,
+  last: {src:'', out:'', lang:'en'},
+  hist: []
+};
+var LANG_LABEL = {auto:'자동', en:'영어', ja:'일본어', zh:'중국어'};
+var LANG_BADGE = {auto:'자동 감지', en:'영어', ja:'일본어', zh:'중국어'};
+var LANG_NAME = {en:'영어', ja:'일본어', zh:'중국어'};
+var SPEECH_LANG = {en:'en-US', ja:'ja-JP', zh:'zh-CN'};
+
+var elSrc = $('#src');
+var elOut = $('#out');
+var elEcho = $('#srcEcho');
+var elBadge = $('#detectBadge');
+var elResLang = $('#resLang');
+var elHint = $('#hint');
+var elHist = $('#histList');
+var elMain = $('#main');
+
+var toastTimer = null;
+function toast(msg){
+  var t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('on');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.classList.remove('on'); }, 1900);
+}
+
+function readSave(key, fallback){
+  try {
+    var v = localStorage.getItem(key);
+    return v ? JSON.parse(v) : fallback;
+  } catch (e) { return fallback; }
+}
+function writeSave(key, val){
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {}
+}
+
+/* 큰 글씨 */
+function applyBig(on){
+  UI.big = !!on;
+  document.documentElement.classList.toggle('big', UI.big);
+  var b = $('#bigBtn');
+  b.setAttribute('aria-pressed', UI.big ? 'true' : 'false');
+  b.setAttribute('aria-label', UI.big ? '보통 글씨로 보기' : '큰 글씨로 보기');
+  writeSave('wagle-language-big', UI.big);
+}
+
+/* 언어 탭 */
+function setLang(lang, keepText){
+  UI.lang = lang;
+  elMain.setAttribute('data-lang', lang);
+  $$('.tab', $('#langTabs')).forEach(function(tab){
+    tab.setAttribute('aria-selected', tab.getAttribute('data-lang') === lang ? 'true' : 'false');
+  });
+  writeSave('wagle-language-lang', lang);
+  if (!keepText) render();
+}
+
+/* 최근 기록 */
+function loadHist(){
+  var h = readSave('wagle-language-history', []);
+  if (!Array.isArray(h)) h = [];
+  UI.hist = h.filter(function(x){ return x && x.src && x.out; }).slice(0, 20);
+}
+function saveHist(){ writeSave('wagle-language-history', UI.hist); }
+function addHist(src, out, lang){
+  if (!src || !out) return;
+  var clean = src.trim();
+  UI.hist = UI.hist.filter(function(x){ return !(x.src === clean && x.lang === lang); });
+  UI.hist.unshift({src:clean, out:out, lang:lang, t:Date.now()});
+  UI.hist = UI.hist.slice(0, 20);
+  saveHist();
+  renderHist();
+}
+function renderHist(){
+  elHist.innerHTML = '';
+  if (!UI.hist.length) {
+    var e = document.createElement('p');
+    e.className = 'empty2';
+    e.textContent = '아직 기록이 없어요. 한 번 바꾸면 여기에 쌓입니다.';
+    elHist.appendChild(e);
+    return;
+  }
+  UI.hist.forEach(function(item, idx){
+    var row = document.createElement('div');
+    row.className = 'hitem';
+
+    var load = document.createElement('button');
+    load.type = 'button';
+    load.className = 'hload';
+    load.setAttribute('aria-label', '이 기록 불러오기: ' + item.src);
+    var a = document.createElement('span');
+    a.className = 'hsrc';
+    a.textContent = item.src.replace(/\s+/g, ' ').slice(0, 60);
+    var b = document.createElement('span');
+    b.className = 'hout';
+    b.textContent = item.out.replace(/\s+/g, ' ').slice(0, 60);
+    load.appendChild(a);
+    load.appendChild(b);
+    load.addEventListener('click', function(){
+      elSrc.value = item.src;
+      setLang(item.lang, true);
+      render();
+      elSrc.focus();
+      toast('기록을 불러왔어요');
+    });
+
+    var del = document.createElement('button');
+    del.type = 'button';
+    del.className = 'hdel';
+    del.setAttribute('aria-label', '이 기록 지우기');
+    del.textContent = '✕';
+    del.addEventListener('click', function(){
+      var k = UI.hist.indexOf(item);
+      if (k >= 0) UI.hist.splice(k, 1);
+      saveHist();
+      renderHist();
+      toast('기록 하나를 지웠어요');
+    });
+
+    row.appendChild(load);
+    row.appendChild(del);
+    elHist.appendChild(row);
+  });
+}
+
+/* 결과 그리기 */
+var lastRendered = '';
+function render(addHistory){
+  var text = elSrc.value;
+  if (!text.trim()) {
+    UI.last = {src:'', out:'', lang:(UI.lang === 'auto' ? 'en' : UI.lang)};
+    elOut.textContent = '위에 입력하면 바로 한글로 바뀝니다';
+    elOut.classList.add('empty');
+    elEcho.hidden = true;
+    elResLang.textContent = '';
+    elHint.hidden = true;
+    elBadge.textContent = '';
+    return;
+  }
+  var r = convert(text, UI.lang);
+  UI.last = {src:text, out:r.out, lang:r.lang};  elOut.textContent = r.out || '—';
+  elOut.classList.toggle('empty', !r.out);
+  elResLang.textContent = LANG_BADGE[r.lang] || LANG_LABEL[r.lang];
+  elEcho.hidden = false;
+  elEcho.innerHTML = '';
+  var bb = document.createElement('b');
+  bb.textContent = '원문';
+  elEcho.appendChild(bb);
+  elEcho.appendChild(document.createTextNode(text));
+  elBadge.textContent = (UI.lang === 'auto') ? (LANG_LABEL[r.lang] + '로 인식') : '';
+  var hasHan = /[\u4e00-\u9fff]/.test(r.out);
+  if (r.note) {
+    elHint.hidden = false;
+    elHint.textContent = r.note;
+  } else if (r.lang === 'ja' && hasHan) {
+    elHint.hidden = false;
+    elHint.textContent = '사전에 없는 한자는 그대로 두었어요. 히라가나로 적으면 모두 바뀝니다.';
+  } else if (r.lang === 'zh' && hasHan) {
+    elHint.hidden = false;
+    elHint.textContent = '사전에 없는 한자는 그대로 두었어요. 병음으로 적으면 모두 바뀝니다.';
+  } else {
+    elHint.hidden = true;
+    elHint.textContent = '';
+  }
+  if (addHistory && r.out) {
+    var key = text.trim() + '|' + r.lang + '|' + r.out;
+    if (key !== lastRendered) { lastRendered = key; addHist(text, r.out, r.lang); }
+  }
+}
+
+/* 소리 */
+var voices = [];
+function refreshVoices(){
+  if (!('speechSynthesis' in window)) return;
+  try { voices = window.speechSynthesis.getVoices() || []; } catch (e) { voices = []; }
+}
+if ('speechSynthesis' in window) {
+  refreshVoices();
+  try { window.speechSynthesis.addEventListener('voiceschanged', refreshVoices); } catch (e) {}
+}
+function speak(rate){
+  var text = elSrc.value.trim();
+  if (!text) { toast('먼저 외국어를 적어 주세요'); elSrc.focus(); return; }
+  if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
+    toast('이 브라우저는 소리 듣기를 지원하지 않아요');
+    return;
+  }
+  var lang = (UI.last.src === text && UI.last.lang) ? UI.last.lang : ((UI.lang === 'auto') ? detectLang(text) : UI.lang);
+  var say = text;
+  if (lang === 'zh' && !/[\u4e00-\u9fff]/.test(text)) {
+    say = text; /* 병음은 그대로 읽힘 */
+  }
+  try { window.speechSynthesis.cancel(); } catch (e) {}
+  var u = new SpeechSynthesisUtterance(say);
+  u.lang = SPEECH_LANG[lang] || 'en-US';
+  u.rate = rate || 1;
+  u.pitch = 1;
+  refreshVoices();
+  var match = null;
+  for (var i = 0; i < voices.length; i++) {
+    var vl = (voices[i].lang || '').replace('_', '-').toLowerCase();
+    if (vl.indexOf(u.lang.toLowerCase().slice(0, 2)) === 0) { match = voices[i]; break; }
+  }
+  if (match) u.voice = match;
+  u.onerror = function(){ toast('이 기기에 ' + (LANG_NAME[lang] || '') + ' 목소리가 없어 소리를 못 냈어요. 폰의 음성 설정을 확인해 주세요'); };
+  window.speechSynthesis.speak(u);
+  toast(rate && rate < 1 ? '천천히(0.7배속)로 들려드려요' : '소리로 들려드려요');
+}
+
+/* 복사 */
+function copyOut(){
+  var out = UI.last.out || '';
+  if (!out) { toast('복사할 발음이 아직 없어요'); return; }
+  function done(){ toast('한글 발음을 복사했어요'); }
+  function fallback(){
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = out;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, out.length);
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      if (ok) done(); else toast('복사가 안 됐어요. 발음을 길게 눌러 복사해 주세요');
+    } catch (e) { toast('복사가 안 됐어요. 발음을 길게 눌러 복사해 주세요'); }
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(out).then(done, fallback);
+  } else fallback();
+}
+
+/* 이벤트 연결 */
+$$('.tab', $('#langTabs')).forEach(function(tab){
+  tab.addEventListener('click', function(){ setLang(tab.getAttribute('data-lang')); });
+});
+
+$('#bigBtn').addEventListener('click', function(){ applyBig(!UI.big); });
+$('#speakBtn').addEventListener('click', function(){ speak(1); });
+$('#slowBtn').addEventListener('click', function(){ speak(0.7); });
+$('#copyBtn').addEventListener('click', copyOut);
+$('#clearBtn').addEventListener('click', function(){
+  elSrc.value = '';
+  lastRendered = '';
+  try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch (e) {}
+  render();
+  elSrc.focus();
+  toast('지웠어요');
+});
+$('#clearHist').addEventListener('click', function(){
+  if (!UI.hist.length) { toast('지울 기록이 없어요'); return; }
+  UI.hist = [];
+  saveHist();
+  renderHist();
+  toast('최근 기록을 모두 지웠어요');
+});
+
+var inputTimer = null, commitTimer = null;
+function scheduleCommit(){
+  clearTimeout(commitTimer);
+  commitTimer = setTimeout(function(){
+    if (elSrc.value.trim()) render(true);
+  }, 1300);
+}
+elSrc.addEventListener('input', function(){
+  clearTimeout(inputTimer);
+  inputTimer = setTimeout(function(){ render(); }, 120);
+  scheduleCommit();
+});
+
+/* 예시 칩 */
+$$('.chip').forEach(function(chip){
+  chip.addEventListener('click', function(){
+    var text = chip.getAttribute('data-text') || chip.textContent;
+    var lang = chip.getAttribute('data-lang') || 'auto';
+    elSrc.value = text;
+    setLang(lang, true);
+    render(true);
+    toast('예시를 바꿔 봤어요');
+  });
+});
+
+/* 시작 */
+applyBig(readSave('wagle-language-big', false));
+loadHist();
+renderHist();
+var savedLang = readSave('wagle-language-lang', 'auto');
+if (LANG_LABEL[savedLang]) setLang(savedLang, true); else setLang('auto', true);
+render();
+
+/* 서비스 워커 */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('./sw.js').catch(function(){});
+  });
+}
+
+/* 검수용 */
+window.WP = {
+  convert:convert, detectLang:detectLang, enWord:enWord, enConvert:enConvert,
+  jaConvert:jaConvert, zhConvert:zhConvert, pinyinToHangul:pinyinToHangul, UI:UI
+};
+})();
+</script>
+</body>
+</html>
