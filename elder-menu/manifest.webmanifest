@@ -1,0 +1,35 @@
+{
+  "name": "어르신용 와글링 테이블",
+  "short_name": "어르신용 와글링 테이블",
+  "description": "어르신용 와글링 테이블 · Wagling Elder Table — 큰 그림과 큰 글씨로 고르는 카페 주문 (가격 없이 수량만)",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "id": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "background_color": "#FFF7E9",
+  "theme_color": "#3E2C22",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

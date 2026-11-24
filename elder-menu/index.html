@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#3E2C22" />
+<meta name="color-scheme" content="light" />
+<!-- build: 2026-11-24 · 어르신용 와글링 테이블 v1 (Wagling Elder Table)
+     · 와글링 테이블(menu/)은 그대로 두고, 어르신만 쓰는 전용 앱을 새로 만들었다
+     · 가격 없음 · 그림 + 큰 한글 이름 + －/＋ 만
+     · ☕ 따뜻한 음료(왼쪽) · 🧊 차가운 음료(오른쪽) 두 열
+     · 맨 아래 직접 입력칸(총 내역에만 반영)
+     · 하단 고정: 총 잔 수·목록 / 📢 주문서 크게 보기 / 🔊 소리로 읽어 주기 / 🔄 처음부터
+     · 큰 글씨(기본) ↔ 보통 글씨 토글 · 390px·320px 모바일 최적화 -->
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="어르신용 와글링 테이블" />
+<title>어르신용 와글링 테이블 · 큰 글씨 카페 주문</title>
+<script>/* 처음 그리기 전에 글씨 크기만 먼저 맞춘다(깜빡임 없이) */
+(function(){try{var d=JSON.parse(localStorage.getItem('wagling-elder-order-v1')||'{}');if(d&&d.big===false)document.documentElement.classList.remove('big');else document.documentElement.classList.add('big');}catch(e){document.documentElement.classList.add('big');}})();
+</script>
+<style>
+/* ══════ 기본 · 색 · 크기 ══════ */
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --cream:#FFF7E9; --paper:#FFFDF7; --ink:#241C16; --ink2:#5A4739;
+  --coffee:#3E2C22; --hot:#B2451B; --hot2:#D9612F; --hotBg:#FFF0DE; --hotLine:#E2B287;
+  --ice:#1B6685; --ice2:#2E86AB; --iceBg:#E9F4FB; --iceLine:#9DC8DC;
+  --line:#E7D9C6; --barH:0px;
+  --name:17px; --stepH:46px; --qtyW:42px; --barFs:15px; --headFs:16px; --pad:10px;
+}
+html.big{--name:20px;--stepH:52px;--qtyW:46px;--barFs:17px;--headFs:18px}
+@media (max-width:344px){
+  :root{--name:15.5px;--stepH:44px;--qtyW:34px;--barFs:14px;--headFs:15px;--pad:7px}
+  html.big{--name:17.5px;--stepH:48px;--qtyW:34px;--barFs:15.5px;--headFs:16.5px}
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--cream);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",sans-serif;
+  line-height:1.3;padding:0 0 calc(var(--barH) + 16px);
+  -webkit-font-smoothing:antialiased}
+button{font-family:inherit;color:inherit;cursor:pointer;touch-action:manipulation}
+img{display:block}
+[hidden]{display:none !important}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+:focus-visible{outline:3px solid #1F6F8B;outline-offset:2px}
+
+/* ══════ 위쪽 제목 줄 ══════ */
+.hdr{display:flex;align-items:center;gap:8px;padding:calc(9px + env(safe-area-inset-top)) var(--pad) 7px}
+.logo{width:36px;height:36px;border-radius:10px;flex:0 0 auto;box-shadow:0 1px 3px rgba(62,44,34,.16)}
+h1{margin:0;flex:1 1 auto;min-width:0;font-size:17px;line-height:1.18;letter-spacing:-.035em;
+  font-weight:900;color:var(--coffee);word-break:keep-all}
+html.big h1{font-size:19px}
+@media (max-width:344px){ h1{font-size:15.5px} html.big h1{font-size:17px} }
+.fontbtn{flex:0 0 auto;width:62px;min-height:46px;padding:3px 4px;border-radius:12px;
+  border:2px solid #D8C6B1;background:#FFFDF8;color:var(--coffee);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
+  box-shadow:0 1px 2px rgba(62,44,34,.08)}
+.fontbtn .fa{font-size:20px;font-weight:900;line-height:1}
+.fontbtn .fl{font-size:10.5px;font-weight:800;color:var(--ink2);line-height:1.1;letter-spacing:-.03em;white-space:nowrap}
+.fontbtn:active{transform:translateY(1px)}
+@media (max-width:344px){.fontbtn{width:56px;min-height:44px}.fontbtn .fa{font-size:18px}.fontbtn .fl{font-size:9.5px}}
+
+/* ══════ 두 구역 · 두 열 ══════ */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 var(--pad);align-items:start}
+.col{min-width:0;display:flex;flex-direction:column}
+.secHead{position:sticky;top:env(safe-area-inset-top);z-index:8;
+  display:flex;align-items:center;flex-wrap:wrap;gap:3px 4px;margin:0 0 7px;padding:7px 8px;border-radius:12px;
+  font-size:var(--headFs);font-weight:900;letter-spacing:-.03em;line-height:1.12;
+  border:2px solid;box-shadow:0 2px 6px rgba(62,44,34,.12);min-height:38px}
+.secHead .se{font-size:1.08em;flex:0 0 auto}
+.secHead .st{flex:0 1 auto;min-width:0;white-space:nowrap}
+.secHead .tag{flex:0 0 auto;font-size:11px;font-weight:900;letter-spacing:-.02em;line-height:1.1;
+  padding:2px 6px;border-radius:999px;background:rgba(255,255,255,.8);border:1px solid currentColor}
+.secHead.hot{background:linear-gradient(180deg,#FFEBD3,#FFDCB8);border-color:#D89A5D;color:#8A3D10}
+.secHead.ice{background:linear-gradient(180deg,#E6F5FD,#CFEAF7);border-color:#8DBFD9;color:#0F4F66}
+@media (max-width:364px){.secHead .tag{display:none}}
+@media (max-width:344px){.secHead{gap:3px;padding:6px 6px;min-height:34px}}
+
+.cards{display:flex;flex-direction:column;gap:8px;min-width:0}
+.card{position:relative;min-width:0;background:#fff;border:2px solid var(--line);border-radius:14px;
+  padding:6px 6px 7px;box-shadow:0 1px 3px rgba(62,44,34,.07);
+  transition:border-color .12s,background .12s,box-shadow .12s}
+.card .pic{height:86px;border-radius:10px;overflow:hidden;
+  background:radial-gradient(circle at 50% 62%,#FFEDD6 0%,#FFF9F0 72%)}
+.card.ice .pic{background:radial-gradient(circle at 50% 62%,#E2F2FB 0%,#F9FDFF 72%)}
+.card .pic svg{display:block;width:100%;height:100%}
+@media (max-width:344px){.card .pic{height:76px}}
+html.big .card .pic{height:90px}
+@media (max-width:344px){html.big .card .pic{height:78px}}
+
+.nm{font-size:var(--name);font-weight:900;color:#241C16;line-height:1.16;letter-spacing:-.04em;
+  text-align:center;word-break:keep-all;overflow-wrap:break-word;padding:5px 4px 6px;
+  min-height:calc(2.32em + 11px);display:flex;align-items:center;justify-content:center}
+.step{display:grid;grid-template-columns:1fr var(--qtyW) 1fr;align-items:center;gap:4px}
+.step button{height:var(--stepH);border-radius:10px;font-size:calc(var(--name) * 1.42);
+  font-weight:900;line-height:1;display:flex;align-items:center;justify-content:center;padding:0;
+  user-select:none;-webkit-user-select:none}
+.minus{background:#FFFDF8;border:2px solid #D8C6B1;color:#3E2C22}
+.minus:disabled{opacity:.32;border-color:#E7DCCB;color:#9A8674}
+.qty{font-size:calc(var(--name) * 1.18);font-weight:900;line-height:1;text-align:center;
+  color:#9A8674;font-variant-numeric:tabular-nums;height:calc(var(--stepH) * .8);
+  display:flex;align-items:center;justify-content:center;border-radius:9px;min-width:0}
+.card.hot .plus{background:linear-gradient(180deg,#E2703F,#B2451B);border:2px solid #8F3C1C;color:#FFF8EC;box-shadow:0 2px 0 #8F3C1C}
+.card.ice .plus{background:linear-gradient(180deg,#3E9BC1,#1B6685);border:2px solid #124C63;color:#F2FBFF;box-shadow:0 2px 0 #124C63}
+.card .plus:active,.card .minus:active{transform:translateY(2px);box-shadow:none}
+.card.hot.on{border-color:#C0562B;background:#FFF8EF;box-shadow:0 3px 10px rgba(178,69,27,.16)}
+.card.ice.on{border-color:#2E86AB;background:#F3FBFF;box-shadow:0 3px 10px rgba(27,102,133,.16)}
+.card.hot.on .qty{background:var(--hot);color:#fff}
+.card.ice.on .qty{background:var(--ice);color:#fff}
+
+/* ══════ 맨 아래 직접 입력칸 ══════ */
+.direct{display:grid;grid-template-columns:1fr auto auto auto;align-items:center;gap:6px;
+  margin:10px var(--pad) 0;padding:7px;background:#fff;border:2px dashed #D8C6B1;border-radius:14px}
+.direct input{min-width:0;width:100%;height:var(--stepH);border:2px solid #D8C6B1;border-radius:10px;
+  padding:0 10px;background:#FFFDF8;color:var(--ink);font-size:var(--name);font-weight:800;
+  letter-spacing:-.02em}
+.direct input::placeholder{color:#A3907D;font-weight:700}
+.direct button{width:var(--stepH);height:var(--stepH);border-radius:10px;font-size:calc(var(--name) * 1.42);
+  font-weight:900;line-height:1;display:flex;align-items:center;justify-content:center;padding:0}
+.direct .minus{background:#FFFDF8;border:2px solid #D8C6B1;color:#3E2C22}
+.direct .minus:disabled{opacity:.32;border-color:#E7DCCB;color:#9A8674}
+.direct .plus{background:linear-gradient(180deg,#E2703F,#B2451B);border:2px solid #8F3C1C;color:#FFF8EC;box-shadow:0 2px 0 #8F3C1C}
+.direct .plus:active,.direct .minus:active{transform:translateY(2px);box-shadow:none}
+.direct .qty{font-size:calc(var(--name) * 1.18);font-weight:900;line-height:1;text-align:center;
+  color:#9A8674;font-variant-numeric:tabular-nums;min-width:var(--qtyW);height:calc(var(--stepH) * .8);
+  display:flex;align-items:center;justify-content:center;border-radius:9px}
+.direct.on .qty{background:var(--hot);color:#fff}
+.direct.on{border-color:#C0562B;border-style:solid;background:#FFFCF7}
+
+/* ══════ 하단 고정 주문 요약 ══════ */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:60;max-width:560px;margin:0 auto;
+  background:var(--paper);border-top:3px solid var(--coffee);
+  box-shadow:0 -6px 20px rgba(40,26,16,.16);
+  padding:7px var(--pad) calc(7px + env(safe-area-inset-bottom));
+  display:flex;flex-direction:column;gap:6px}
+.brow{display:flex;align-items:center;gap:8px;min-height:24px;padding:0 2px}
+.btot{flex:0 0 auto;font-size:var(--barFs);font-weight:900;color:var(--ink2);white-space:nowrap;letter-spacing:-.02em}
+.btot b{font-size:calc(var(--barFs) * 1.8);color:var(--hot);margin:0 1px 0 2px;font-variant-numeric:tabular-nums}
+.blist{flex:1 1 auto;min-width:0;margin:0;font-size:calc(var(--barFs) * .96);font-weight:800;
+  color:#6B5747;line-height:1.24;letter-spacing:-.03em;word-break:keep-all;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.blist.empty{color:#9A8674;font-weight:700}
+.bsheet{width:100%;min-height:54px;border-radius:14px;border:2px solid #8F3C1C;
+  background:linear-gradient(180deg,#E2703F,#B2451B);color:#FFF8EC;
+  font-size:calc(var(--barFs) * 1.2);font-weight:900;letter-spacing:-.025em;
+  box-shadow:0 3px 0 #8F3C1C;display:flex;align-items:center;justify-content:center;gap:4px}
+.bsheet:active{transform:translateY(2px);box-shadow:none}
+.brow2{display:grid;grid-template-columns:1.22fr 1fr;gap:6px}
+.brow2 button{min-height:46px;border-radius:12px;border:2px solid #D8C6B1;background:#FFFDF8;
+  color:var(--coffee);font-size:calc(var(--barFs) * .98);font-weight:900;letter-spacing:-.03em;
+  display:flex;align-items:center;justify-content:center;gap:3px;padding:0 4px;white-space:nowrap}
+.brow2 button:active{transform:translateY(1px);background:#FBF1E2}
+@media (max-width:344px){
+  .bsheet{min-height:50px}
+  .brow2 button{min-height:44px}
+}
+
+/* ══════ 📢 주문서 크게 보기 (화면 가득) ══════ */
+.sheet{position:fixed;inset:0;z-index:120;display:flex;flex-direction:column;
+  background:linear-gradient(180deg,#FFFBF3,#FFF1DC);
+  padding:calc(8px + env(safe-area-inset-top)) 12px calc(10px + env(safe-area-inset-bottom));
+  overscroll-behavior:contain}
+.sheetTop{flex:0 0 auto;display:flex;align-items:center;gap:8px}
+.sheetTop h2{margin:0;flex:1 1 auto;min-width:0;font-size:20px;font-weight:900;
+  letter-spacing:-.03em;color:var(--coffee);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sheetClose{flex:0 0 auto;min-height:44px;padding:0 12px;border-radius:12px;border:2px solid #D8C6B1;
+  background:#fff;color:var(--coffee);font-size:15px;font-weight:900}
+.sheetBody{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:12px;text-align:center;padding:6px 2px;overflow:hidden}
+.sheetText{margin:0;font-weight:900;color:#1F1712;line-height:1.4;letter-spacing:-.035em;
+  word-break:keep-all;overflow-wrap:anywhere;font-size:31px}
+.sheetText .q{color:var(--hot);font-variant-numeric:tabular-nums}
+.sheetText .ask{white-space:nowrap}
+.sheetText.empty{color:#6B5747;font-weight:800}
+.sheetTot{margin:0;font-size:18px;font-weight:900;color:#7A3C14;letter-spacing:-.02em;
+  padding:8px 18px;border-radius:999px;background:#FFE9D2;border:2px solid #E2B287}
+.sheetHint{margin:0;font-size:13px;font-weight:800;color:#8B7867;letter-spacing:-.02em}
+.sheetBtns{flex:0 0 auto;display:grid;gap:7px}
+.sheetBtns button{min-height:52px;border-radius:14px;font-size:16px;font-weight:900;letter-spacing:-.02em;
+  display:flex;align-items:center;justify-content:center;gap:5px}
+.sheetBtns .go{background:linear-gradient(180deg,#E2703F,#B2451B);border:2px solid #8F3C1C;
+  color:#FFF8EC;box-shadow:0 3px 0 #8F3C1C}
+.sheetBtns .go:active{transform:translateY(2px);box-shadow:none}
+.sheetBtns .back{background:#FFFDF8;border:2px solid #D8C6B1;color:var(--coffee)}
+
+/* ══════ 되돌리기 알림 ══════ */
+.toast{position:fixed;left:var(--pad);right:var(--pad);bottom:calc(var(--barH) + 10px);z-index:130;
+  max-width:520px;margin:0 auto;display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:14px;
+  background:#3E2C22;color:#FFF6E8;font-size:15px;font-weight:800;letter-spacing:-.02em;
+  box-shadow:0 8px 24px rgba(0,0,0,.26)}
+.toast button{margin-left:auto;flex:0 0 auto;min-height:40px;padding:0 14px;border-radius:10px;
+  border:2px solid #FFE0B8;background:#FFF6E8;color:#3E2C22;font-weight:900;font-size:15px}
+
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+</style>
+</head>
+<body>
+
+<div class="sr" id="srStatus" role="status" aria-live="polite"></div>
+
+<header class="hdr">
+  <img class="logo" src="./icon-192.png" alt="" width="36" height="36" />
+  <h1>어르신용 와글링 테이블</h1>
+  <button type="button" id="fontBtn" class="fontbtn" aria-label="글씨를 보통 크기로 바꾸기">
+    <span class="fa" aria-hidden="true">가</span>
+    <span class="fl" aria-hidden="true">보통 글씨</span>
+  </button>
+</header>
+
+<main>
+  <div class="cols">
+    <section class="col" aria-labelledby="hotHead">
+      <h2 class="secHead hot" id="hotHead">
+        <span class="se" aria-hidden="true">☕</span><span class="st">따뜻한 음료</span><span class="tag">핫</span>
+      </h2>
+      <div class="cards" id="hotCards"></div>
+    </section>
+    <section class="col" aria-labelledby="iceHead">
+      <h2 class="secHead ice" id="iceHead">
+        <span class="se" aria-hidden="true">🧊</span><span class="st">차가운 음료</span><span class="tag">아이스</span>
+      </h2>
+      <div class="cards" id="iceCards"></div>
+    </section>
+  </div>
+
+  <div class="direct" id="directRow">
+    <input id="directInput" type="text" inputmode="text" autocomplete="off" maxlength="30"
+           placeholder="직접 입력" aria-label="직접 입력할 음료 이름" />
+    <button type="button" class="minus" id="directMinus" aria-label="직접 입력 수량 하나 빼기" disabled>−</button>
+    <span class="qty" id="directQty" aria-hidden="true">0</span>
+    <button type="button" class="plus" id="directPlus" aria-label="직접 입력 수량 하나 더하기">＋</button>
+  </div>
+</main>
+
+<div class="bar" id="bar">
+  <div class="brow">
+    <span class="btot">총 <b id="totNum">0</b>잔</span>
+    <p class="blist empty" id="totList">아직 담은 음료가 없어요</p>
+  </div>
+  <button type="button" class="bsheet" id="openSheet">📢 주문서 크게 보기</button>
+  <div class="brow2">
+    <button type="button" id="speakBtn">🔊 소리로 읽어 주기</button>
+    <button type="button" id="resetBtn">🔄 처음부터</button>
+  </div>
+</div>
+
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetH" tabindex="-1" hidden>
+  <div class="sheetTop">
+    <h2 id="sheetH">📢 주문서</h2>
+    <button type="button" class="sheetClose" id="closeSheet">✕ 닫기</button>
+  </div>
+  <div class="sheetBody" id="sheetBody">
+    <p class="sheetText" id="sheetText"></p>
+    <p class="sheetTot" id="sheetTot"></p>
+    <p class="sheetHint" id="sheetHint">이 화면을 직원에게 보여 주세요</p>
+  </div>
+  <div class="sheetBtns">
+    <button type="button" class="go" id="sheetSpeak">🔊 소리로 읽어 주기</button>
+    <button type="button" class="back" id="sheetBack">✔ 닫기</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden>
+  <span>처음부터 지웠어요</span>
+  <button type="button" id="undoBtn">되돌리기</button>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ════════════════════════════════════════════════════════════
+   0. 작은 도우미
+   ════════════════════════════════════════════════════════════ */
+var $ = function(s, r){ return (r || document).querySelector(s); };
+function esc(s){
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+function clampInt(n, lo, hi){ n = parseInt(n, 10); if(isNaN(n)) n = lo; return Math.max(lo, Math.min(hi, n)); }
+
+/* ════════════════════════════════════════════════════════════
+   1. 그림(일러스트) — 사람 없이, 큰 컵과 색으로만 구분
+      · 따뜻한 것: 김이 나는 머그·찻잔·유리컵
+      · 차가운 것: 얼음이 든 키 큰 유리컵
+   ════════════════════════════════════════════════════════════ */
+var L = '#4A3628';
+var gidSeq = 0;
+function svg(inner){
+  return '<svg viewBox="0 0 120 108" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">' + inner + '</svg>';
+}
+function steamSVG(b){
+  b = b || 40;
+  return '<g fill="none" stroke="#C6B39C" stroke-width="3.2" stroke-linecap="round" opacity=".9">'
+    + '<path d="M44 ' + b + ' q-6 -8 0 -14 q6 -7 0 -13"/>'
+    + '<path d="M59 ' + (b - 4) + ' q-6 -8 0 -14 q6 -7 0 -11"/>'
+    + '<path d="M73 ' + b + ' q-6 -8 0 -14 q6 -7 0 -13"/></g>';
+}
+function glassSteamSVG(){
+  return '<g fill="none" stroke="#C6B39C" stroke-width="3" stroke-linecap="round" opacity=".85">'
+    + '<path d="M46 23 q-5 -6 0 -11 q5 -5 0 -10"/>'
+    + '<path d="M60 21 q-5 -6 0 -11 q5 -5 0 -10"/>'
+    + '<path d="M74 23 q-5 -6 0 -11 q5 -5 0 -10"/></g>';
+}
+function iceSVG(){
+  return '<g stroke="#9CC6DA" stroke-width="1.8" fill="#F2FBFF" opacity=".92">'
+    + '<rect x="46" y="40" width="15" height="15" rx="4" transform="rotate(-14 53 47)"/>'
+    + '<rect x="60" y="52" width="14" height="14" rx="4" transform="rotate(12 67 59)"/>'
+    + '<rect x="48" y="63" width="13" height="13" rx="4" transform="rotate(-8 54 69)"/>'
+    + '<rect x="62" y="73" width="12" height="12" rx="3.5" transform="rotate(18 68 79)"/>'
+    + '</g>';
+}
+function strawSVG(color){
+  return '<path d="M74 25 L67 4" stroke="' + color + '" stroke-width="7" stroke-linecap="round"/>'
+    + '<path d="M73.2 24.4 L67.2 5.4" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity=".55"/>';
+}
+function condSVG(){
+  return '<g fill="#FFFFFF" opacity=".65">'
+    + '<circle cx="76" cy="58" r="2.1"/><circle cx="74.5" cy="70" r="1.7"/>'
+    + '<circle cx="50" cy="80" r="1.6"/></g>';
+}
+function citronSlice(x, y, rot){
+  return '<g transform="translate(' + x + ',' + y + ') rotate(' + rot + ')">'
+    + '<circle r="10.5" fill="#F7C63B" stroke="' + L + '" stroke-width="2.4"/>'
+    + '<circle r="6.2" fill="#FFE9A6"/>'
+    + '<g stroke="#DFA71F" stroke-width="1.3"><path d="M0 -6 V6"/><path d="M-6 0 H6"/>'
+    + '<path d="M-4.3 -4.3 L4.3 4.3"/><path d="M4.3 -4.3 L-4.3 4.3"/></g></g>';
+}
+function jujubeSVG(x, y, rot){
+  return '<g transform="translate(' + x + ',' + y + ') rotate(' + rot + ')">'
+    + '<ellipse rx="6.6" ry="4.2" fill="#6E2318" stroke="#3C110B" stroke-width="1.6"/>'
+    + '<ellipse cx="-1.7" cy="-1.3" rx="2" ry="1" fill="#A6563F" opacity=".85"/></g>';
+}
+function gingerSVG(x, y, rot){
+  return '<g transform="translate(' + x + ',' + y + ') rotate(' + rot + ')">'
+    + '<ellipse rx="5.4" ry="3.5" fill="#F4DDA6" stroke="#B89355" stroke-width="1.4"/>'
+    + '<path d="M-3 0 H3" stroke="#C9A567" stroke-width="1.2"/></g>';
+}
+function leafSVG(x, y, rot, size){
+  var k = size || 1;
+  return '<g transform="translate(' + x + ',' + y + ') rotate(' + rot + ') scale(' + k + ')">'
+    + '<path d="M0 0 q7 -6 14 -1 q-6 7 -14 1z" fill="#5B8A3C" stroke="#37602A" stroke-width="1.3"/>'
+    + '<path d="M2.5 0 q5 -1.5 9 -1.5" stroke="#37602A" stroke-width="1" fill="none"/></g>';
+}
+
+/* 머그컵 — 아메리카노·카페라떼 */
+function mugArt(o){
+  return svg(''
+    + '<ellipse cx="58" cy="101" rx="32" ry="4.5" fill="#D9C7B2" opacity=".5"/>'
+    + '<ellipse cx="56" cy="96" rx="36" ry="6.2" fill="#FFFDF8" stroke="' + L + '" stroke-width="3"/>'
+    + '<path d="M84 55 c11 0 16 5 16 12 c0 7 -5 12 -16 12" fill="none" stroke="' + L + '" stroke-width="4.2" stroke-linecap="round"/>'
+    + '<path d="M26 44 h58 v32 a15 15 0 0 1 -15 15 h-28 a15 15 0 0 1 -15 -15 z" fill="#FFFDF8" stroke="' + L + '" stroke-width="3.4" stroke-linejoin="round"/>'
+    + '<ellipse cx="55" cy="45" rx="26.5" ry="7.6" fill="' + o.top + '" stroke="' + L + '" stroke-width="3"/>'
+    + (o.art || '')
+    + '<path d="M34 66 q3 10 10 14" stroke="#EFE4D4" stroke-width="3.4" fill="none" stroke-linecap="round"/>'
+    + steamSVG(o.steam || 40)
+  );
+}
+
+/* 찻잔 — 유자차·생강차·대추차·쌍화차·녹차 */
+function cupArt(o){
+  return svg(''
+    + '<ellipse cx="60" cy="101" rx="34" ry="4.5" fill="#D9C7B2" opacity=".5"/>'
+    + '<ellipse cx="60" cy="95" rx="38" ry="6.4" fill="#FFFDF8" stroke="' + L + '" stroke-width="3"/>'
+    + '<path d="M84 57 c12 0 16 5 16 11 c0 6 -4 11 -16 11" fill="none" stroke="' + L + '" stroke-width="4" stroke-linecap="round"/>'
+    + '<path d="M30 51 h60 q-2 15 -10 22 q-8 7 -20 7 t-20 -7 q-8 -7 -10 -22 z" fill="#FFFDF8" stroke="' + L + '" stroke-width="3.4" stroke-linejoin="round"/>'
+    + '<ellipse cx="60" cy="51" rx="30" ry="8" fill="' + o.top + '" stroke="' + L + '" stroke-width="3"/>'
+    + (o.art || '')
+    + '<path d="M38 64 q3 8 9 12" stroke="#EFE4D4" stroke-width="3.2" fill="none" stroke-linecap="round"/>'
+    + steamSVG(o.steam || 45)
+  );
+}
+
+/* 키 큰 유리컵 — 아이스 음료 (고구마라떼는 따뜻한 유리컵으로도 쓴다) */
+function glassArt(o){
+  var gid = 'gd' + (++gidSeq);
+  return svg(''
+    + '<ellipse cx="60" cy="102" rx="24" ry="4" fill="#D9C7B2" opacity=".5"/>'
+    + '<defs><linearGradient id="' + gid + '" x1="0" y1="0" x2="0" y2="1">'
+    + '<stop offset="0" stop-color="' + o.top + '"/><stop offset="1" stop-color="' + o.bottom + '"/>'
+    + '</linearGradient></defs>'
+    + '<path d="M41 30 L44.5 90 q0 3.5 3.5 3.5 h24 q3.5 0 3.5 -3.5 L79 30 Z" fill="url(#' + gid + ')"/>'
+    + (o.ice ? iceSVG() : '')
+    + (o.inner || '')
+    + '<path d="M38 26 L42 92 q0 5 5 5 h26 q5 0 5 -5 L82 26 Z" fill="none" stroke="' + L + '" stroke-width="3.4" stroke-linejoin="round"/>'
+    + '<path d="M43.5 34 L47 86" stroke="#FFFFFF" stroke-width="4" opacity=".4" stroke-linecap="round"/>'
+    + '<ellipse cx="60" cy="26" rx="22" ry="6.4" fill="' + (o.rim || o.top) + '" stroke="' + L + '" stroke-width="3"/>'
+    + (o.art || '')
+    + (o.straw ? strawSVG(o.straw) : '')
+    + (o.garnish || '')
+    + (o.ice ? condSVG() : '')
+    + (o.steam ? glassSteamSVG() : '')
+  );
+}
+
+/* ════════════════════════════════════════════════════════════
+   2. 메뉴 — 이름만 (가격 없음)
+   ════════════════════════════════════════════════════════════ */
+var HOT = [
+  { id:'americano', name:'아메리카노', art:function(){
+      return mugArt({ top:'#4A2B1B',
+        art:'<ellipse cx="55" cy="44.4" rx="18" ry="4.3" fill="#B0713B" opacity=".55"/>'
+          + '<path d="M48 61 q7 4 13 0" stroke="#E4D6C3" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/>' });
+    } },
+  { id:'latte', name:'카페라떼', art:function(){
+      return mugArt({ top:'#EFD9B9',
+        art:'<path d="M55 40.4 c-2 -2.7 -6.4 -2 -6.4 1.3 c0 2.5 4.3 5.4 6.4 6.5 c2.1 -1.1 6.4 -4 6.4 -6.5 c0 -3.3 -4.4 -4 -6.4 -1.3 z" fill="#A56A38" opacity=".92"/>'
+          + '<ellipse cx="55" cy="44" rx="20" ry="4.7" fill="none" stroke="#DCC6A4" stroke-width="1.6"/>' });
+    } },
+  { id:'sweetpotato', name:'고구마라떼', art:function(){
+      return glassArt({ top:'#EFC078', rim:'#F9EACB', bottom:'#D2913F', steam:true,
+        art:'<path d="M46 27 q6 6 12 0 q5 -4 10 2 q2 3 6 1" stroke="#8A5A8E" stroke-width="2.6" fill="none" stroke-linecap="round" opacity=".9"/>',
+        inner:'<path d="M43.5 52 q17 5 33 0" stroke="#F9EACB" stroke-width="3" fill="none" opacity=".55"/>' });
+    } },
+  { id:'citron', name:'유자차', art:function(){
+      return cupArt({ top:'#F2B62C',
+        art:citronSlice(85, 43, -22)
+          + '<path d="M40 52 q6 -4 12 -2" stroke="#E0921C" stroke-width="2.6" fill="none" stroke-linecap="round" opacity=".85"/>'
+          + '<path d="M64 55 q5 -3 9 -1" stroke="#E0921C" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".7"/>' });
+    } },
+  { id:'ginger', name:'생강차', art:function(){
+      return cupArt({ top:'#E3A23A',
+        art:gingerSVG(52, 49, -16) + gingerSVG(69, 53, 12) + gingerSVG(60, 47, 40) });
+    } },
+  { id:'jujube', name:'대추차', art:function(){
+      return cupArt({ top:'#7E3220',
+        art:jujubeSVG(51, 48, -18) + jujubeSVG(66, 52, 14) + jujubeSVG(59, 46, 6) });
+    } },
+  { id:'ssanghwa', name:'쌍화차', art:function(){
+      return cupArt({ top:'#51301D',
+        art:'<circle cx="60" cy="50" r="8.4" fill="#F5C63C" stroke="#B98A2A" stroke-width="1.6"/>'
+          + '<ellipse cx="57.5" cy="47.5" rx="2.6" ry="1.6" fill="#FFF0B8" opacity=".9"/>'
+          + jujubeSVG(74, 53, 12) });
+    } },
+  { id:'greentea', name:'녹차', art:function(){
+      return cupArt({ top:'#7FA455',
+        art:leafSVG(50, 48, -18, 1.05) + leafSVG(70, 53, 160, 1) + leafSVG(92, 91, 22, .85) });
+    } }
+];
+
+var ICE = [
+  { id:'ice-americano', name:'아이스 아메리카노', art:function(){
+      return glassArt({ top:'#6B4326', rim:'#6B4326', bottom:'#37200F', ice:true, straw:'#C0562B' });
+    } },
+  { id:'ice-latte', name:'아이스 라떼', art:function(){
+      return glassArt({ top:'#BE9164', rim:'#D9BB92', bottom:'#F8EEDD', ice:true,
+        inner:'<path d="M44 74 q16 5 32 0" stroke="#FFFBF2" stroke-width="4" fill="none" opacity=".7"/>' });
+    } },
+  { id:'ice-citron', name:'아이스 유자차', art:function(){
+      return glassArt({ top:'#F8C63C', rim:'#F8C63C', bottom:'#EAAB1F', ice:true, garnish:citronSlice(78, 19, -20) });
+    } },
+  { id:'plum', name:'매실차', art:function(){
+      return glassArt({ top:'#C08339', rim:'#C08339', bottom:'#8A4A1B', ice:true,
+        garnish:'<g transform="translate(78,20)"><circle r="8.6" fill="#6E4B2A" stroke="' + L + '" stroke-width="2.2"/>'
+          + '<ellipse cx="-2.4" cy="-3" rx="2.8" ry="1.8" fill="#A87B4E"/>'
+          + '<path d="M2 -8 q6 -5 11 -2 q-5 6 -11 2z" fill="#5C8A3A" stroke="#3F6427" stroke-width="1.2"/></g>' });
+    } },
+  { id:'sikhye', name:'식혜', art:function(){
+      return glassArt({ top:'#F8F0D8', rim:'#FBF5E4', bottom:'#E8D9B4', ice:true,
+        inner:'<g fill="#FFFDF6" stroke="#D6C7A6" stroke-width="1">'
+          + '<ellipse cx="50" cy="86" rx="3.6" ry="2" transform="rotate(-18 50 86)"/>'
+          + '<ellipse cx="60" cy="89" rx="3.4" ry="1.9" transform="rotate(12 60 89)"/>'
+          + '<ellipse cx="55" cy="80" rx="3.2" ry="1.8" transform="rotate(-6 55 80)"/>'
+          + '<ellipse cx="67" cy="84" rx="3" ry="1.7" transform="rotate(24 67 84)"/>'
+          + '<ellipse cx="44" cy="78" rx="2.8" ry="1.6" transform="rotate(8 44 78)"/>'
+          + '<ellipse cx="63" cy="74" rx="2.6" ry="1.5" transform="rotate(-20 63 74)"/></g>' });
+    } },
+  { id:'sujeonggwa', name:'수정과', art:function(){
+      return glassArt({ top:'#8A3524', rim:'#8A3524', bottom:'#571C10', ice:true,
+        inner:'<g transform="rotate(20 67 40)"><rect x="63" y="26" width="6" height="27" rx="2.6" fill="#8B5A2B" stroke="#4E3116" stroke-width="1.6"/>'
+          + '<path d="M64.6 30 v19" stroke="#B98550" stroke-width="1.4"/></g>'
+          + '<ellipse cx="53" cy="34" rx="3" ry="2" fill="#FFF7E2" stroke="#D8C39A" stroke-width=".9"/>' });
+    } }
+];
+
+var ALL = HOT.concat(ICE);
+var ALL_IDS = ALL.map(function(d){ return d.id; });
+var DRINK = {};
+ALL.forEach(function(d){ DRINK[d.id] = d; });
+
+/* ════════════════════════════════════════════════════════════
+   3. 상태 — 폰 안에만 저장 (개인정보 없음)
+   ════════════════════════════════════════════════════════════ */
+var KEY = 'wagling-elder-order-v1';
+var state = { big:true, qty:{}, direct:{ text:'', qty:0 } };
+
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
+}
+function restore(){
+  try{
+    var d = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if(!d || typeof d !== 'object') return;
+    if(typeof d.big === 'boolean') state.big = d.big;
+    if(d.qty && typeof d.qty === 'object'){
+      for(var k in d.qty){
+        if(ALL_IDS.indexOf(k) < 0) continue;
+        var n = clampInt(d.qty[k], 0, 99);
+        if(n > 0) state.qty[k] = n;
+      }
+    }
+    if(d.direct && typeof d.direct === 'object'){
+      state.direct.text = String(d.direct.text == null ? '' : d.direct.text).slice(0, 30);
+      state.direct.qty = clampInt(d.direct.qty, 0, 99);
+      if(!state.direct.text.trim()) state.direct.qty = 0;
+    }
+  }catch(e){}
+}
+
+var qtyOf = function(id){ return state.qty[id] || 0; };
+
+/* ════════════════════════════════════════════════════════════
+   4. 카드 만들기
+   ════════════════════════════════════════════════════════════ */
+function cardHTML(d, kind){
+  var nm = esc(d.name);
+  return '<div class="card ' + kind + '" data-id="' + d.id + '">'
+    + '<div class="pic">' + d.art() + '</div>'
+    + '<div class="nm">' + nm + '</div>'
+    + '<div class="step">'
+    +   '<button type="button" class="minus" data-act="minus" data-id="' + d.id + '" aria-label="' + nm + ' 한 잔 빼기" disabled>−</button>'
+    +   '<span class="qty" data-qty="' + d.id + '" aria-hidden="true">0</span>'
+    +   '<button type="button" class="plus" data-act="plus" data-id="' + d.id + '" aria-label="' + nm + ' 한 잔 담기">＋</button>'
+    + '</div>'
+    + '</div>';
+}
+function buildCards(){
+  $('#hotCards').innerHTML = HOT.map(function(d){ return cardHTML(d, 'hot'); }).join('');
+  $('#iceCards').innerHTML = ICE.map(function(d){ return cardHTML(d, 'ice'); }).join('');
+}
+
+/* ════════════════════════════════════════════════════════════
+   5. 주문 내역 — 화면에 보이는 그대로의 이름으로
+   ════════════════════════════════════════════════════════════ */
+function hotLabel(name){ return '따뜻한 ' + name; }
+function iceLabel(name){ return name.indexOf('아이스') === 0 ? name : '아이스 ' + name; }
+
+function orderItems(){
+  var out = [];
+  HOT.forEach(function(d){ var q = qtyOf(d.id); if(q > 0) out.push({ label: hotLabel(d.name), qty: q }); });
+  ICE.forEach(function(d){ var q = qtyOf(d.id); if(q > 0) out.push({ label: iceLabel(d.name), qty: q }); });
+  var t = state.direct.text.trim();
+  if(t && state.direct.qty > 0) out.push({ label: t, qty: state.direct.qty, direct: true });
+  return out;
+}
+function totalCups(items){
+  return items.reduce(function(a, b){ return a + b.qty; }, 0);
+}
+function orderSentence(items){
+  if(!items.length) return '아직 담은 음료가 없어요';
+  return items.map(function(i){ return i.label + ' ' + i.qty + '잔'; }).join(', ') + ' 주세요';
+}
+
+/* ════════════════════════════════════════════════════════════
+   6. 화면 맞추기 — 카드 수량·하단 바·직접 입력
+   ════════════════════════════════════════════════════════════ */
+function syncCards(){
+  ALL.forEach(function(d){
+    var q = qtyOf(d.id);
+    var card = $('.card[data-id="' + d.id + '"]');
+    if(!card) return;
+    var qEl = $('.qty', card), minus = $('.minus', card);
+    if(qEl) qEl.textContent = q;
+    if(minus) minus.disabled = q <= 0;
+    card.classList.toggle('on', q > 0);
+  });
+}
+function syncDirect(force){
+  var inp = $('#directInput'), row = $('#directRow');
+  if(!inp) return;
+  if(force || document.activeElement !== inp) inp.value = state.direct.text;
+  var q = state.direct.qty > 0 && state.direct.text.trim() ? state.direct.qty : 0;
+  $('#directQty').textContent = q;
+  $('#directMinus').disabled = q <= 0;
+  row.classList.toggle('on', q > 0);
+}
+function updateBar(){
+  var items = orderItems(), total = totalCups(items);
+  $('#totNum').textContent = total;
+  var list = $('#totList');
+  if(items.length){
+    list.textContent = items.map(function(i){ return i.label + ' ' + i.qty; }).join(' · ');
+    list.classList.remove('empty');
+  }else{
+    list.textContent = '아직 담은 음료가 없어요';
+    list.classList.add('empty');
+  }
+  var live = $('#srStatus');
+  if(live) live.textContent = total ? ('총 ' + total + '잔 담김') : '담은 음료 없음';
+  if(!$('#sheet').hidden) renderSheet();
+}
+function afterChange(){
+  syncCards();
+  syncDirect(false);
+  updateBar();
+  save();
+}
+
+/* ════════════════════════════════════════════════════════════
+   7. 담기 · 빼기
+   ════════════════════════════════════════════════════════════ */
+function addDrink(id, delta){
+  if(ALL_IDS.indexOf(id) < 0) return;
+  var q = clampInt(qtyOf(id) + delta, 0, 99);
+  if(q > 0) state.qty[id] = q; else delete state.qty[id];
+  afterChange();
+}
+document.addEventListener('click', function(e){
+  var btn = e.target.closest ? e.target.closest('[data-act]') : null;
+  if(!btn) return;
+  var id = btn.getAttribute('data-id');
+  var delta = btn.getAttribute('data-act') === 'plus' ? 1 : -1;
+  addDrink(id, delta);
+});
+
+/* 직접 입력칸 — 적은 이름은 이번 주문·총 잔 수에만 담긴다 */
+var din = $('#directInput');
+din.addEventListener('input', function(){
+  var t = din.value.slice(0, 30);
+  state.direct.text = t;
+  if(!t.trim()) state.direct.qty = 0;
+  else if(state.direct.qty < 1) state.direct.qty = 1;
+  else state.direct.qty = clampInt(state.direct.qty, 1, 99);
+  afterChange();
+});
+din.addEventListener('blur', function(){
+  state.direct.text = din.value.trim();
+  if(!state.direct.text) state.direct.qty = 0;
+  syncDirect(true);
+  afterChange();
+});
+$('#directPlus').addEventListener('click', function(){
+  if(!state.direct.text.trim()){ din.focus(); return; }
+  state.direct.qty = clampInt(state.direct.qty + 1, 1, 99);
+  afterChange();
+});
+$('#directMinus').addEventListener('click', function(){
+  state.direct.qty = clampInt(state.direct.qty - 1, 0, 99);
+  afterChange();
+});
+
+/* ════════════════════════════════════════════════════════════
+   8. 📢 주문서 크게 보기
+   ════════════════════════════════════════════════════════════ */
+var lastFocus = null;
+function renderSheet(){
+  var items = orderItems(), total = totalCups(items);
+  var txt = $('#sheetText'), tot = $('#sheetTot'), hint = $('#sheetHint'), sp = $('#sheetSpeak');
+  if(!items.length){
+    txt.classList.add('empty');
+    txt.textContent = '아직 담은 음료가 없어요';
+    tot.hidden = true;
+    hint.textContent = '음료를 먼저 담아 주세요';
+    sp.disabled = true;
+    sp.style.opacity = '.45';
+  }else{
+    txt.classList.remove('empty');
+    txt.innerHTML = items.map(function(i){
+      return esc(i.label) + ' <b class="q">' + i.qty + '잔</b>';
+    }).join(', ') + ' <span class="ask">주세요</span>';
+    tot.hidden = false;
+    tot.textContent = '모두 ' + total + '잔';
+    hint.textContent = '이 화면을 직원에게 보여 주세요';
+    sp.disabled = false;
+    sp.style.opacity = '';
+  }
+  requestAnimationFrame(fitSheet);
+}
+function fitSheet(){
+  var body = $('#sheetBody'), txt = $('#sheetText');
+  if(!body || !txt || $('#sheet').hidden) return;
+  var base = window.innerWidth <= 344 ? 26 : 31;
+  var max = window.innerWidth <= 344 ? 33 : 40;
+  if(txt.classList.contains('empty')){ base = 26; max = 26; }   /* 빈 안내는 너무 크게 키우지 않는다 */
+  txt.style.fontSize = base + 'px';
+  var guard = 0;
+  while((body.scrollHeight > body.clientHeight + 1) && base > 17 && guard < 40){
+    base -= 1;
+    txt.style.fontSize = base + 'px';
+    guard++;
+  }
+  /* 자리가 남으면 더 키워 '화면 가득'에 가깝게 (넘치면 한 단계 되돌림) */
+  if(body.scrollHeight <= body.clientHeight + 1){
+    guard = 0;
+    while(base < max && guard < 40){
+      base += 1;
+      txt.style.fontSize = base + 'px';
+      if(body.scrollHeight > body.clientHeight + 1){
+        base -= 1;
+        txt.style.fontSize = base + 'px';
+        break;
+      }
+      guard++;
+    }
+  }
+}
+function openSheet(){
+  lastFocus = document.activeElement;
+  hideToast();                 /* '처음부터' 알림이 주문서 위에 뜨지 않게 */
+  renderSheet();
+  $('#sheet').hidden = false;
+  document.body.style.overflow = 'hidden';
+  var close = $('#closeSheet');
+  if(close) close.focus();
+}
+function closeSheet(){
+  $('#sheet').hidden = true;
+  document.body.style.overflow = '';
+  stopSpeak();
+  if(lastFocus && lastFocus.focus) { try{ lastFocus.focus(); }catch(e){} }
+}
+$('#openSheet').addEventListener('click', openSheet);
+$('#closeSheet').addEventListener('click', closeSheet);
+$('#sheetBack').addEventListener('click', closeSheet);
+$('#sheet').addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){ e.preventDefault(); closeSheet(); }
+});
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape' && !$('#sheet').hidden) closeSheet();
+});
+
+/* ════════════════════════════════════════════════════════════
+   9. 🔊 소리로 읽어 주기 — 또박또박 천천히 (한국어)
+      · 안드로이드는 getVoices()에 설치 안 된 음성까지 올라와서
+        음성을 콕 집으면 무음이 된다 → lang 만 넘긴다
+      · 말이 시작되지 않은 채 speaking=true 로 굳으면 한 번 풀고 다시
+   ════════════════════════════════════════════════════════════ */
+var voices = [], speakGen = 0, speakTimer = null, speakGuard = null, speakBtnEl = null;
+var IS_ANDROID = /Android/i.test(navigator.userAgent || '');
+function loadVoices(){ try{ voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : []; }catch(e){ voices = []; } }
+if('speechSynthesis' in window){ loadVoices(); try{ window.speechSynthesis.onvoiceschanged = loadVoices; }catch(e){} }
+
+function stopSpeak(){
+  speakGen++;
+  try{ clearTimeout(speakTimer); clearTimeout(speakGuard); }catch(e){}
+  try{ if(window.speechSynthesis) window.speechSynthesis.cancel(); }catch(e){}
+  restoreSpeakBtn();
+}
+function restoreSpeakBtn(){
+  if(!speakBtnEl) return;
+  var label = speakBtnEl.getAttribute('data-label') || '🔊 소리로 읽어 주기';
+  speakBtnEl.textContent = label;
+  speakBtnEl.removeAttribute('data-busy');
+  speakBtnEl = null;
+}
+function speak(text, btn){
+  var ss = window.speechSynthesis;
+  if(!ss || typeof SpeechSynthesisUtterance === 'undefined') return;
+  var t = String(text == null ? '' : text);
+  if(!t) return;
+  if(!voices.length) loadVoices();
+  if(btn){
+    if(speakBtnEl && speakBtnEl !== btn) restoreSpeakBtn();
+    speakBtnEl = btn;
+    if(!btn.getAttribute('data-label')) btn.setAttribute('data-label', btn.textContent.trim());
+    btn.textContent = '🔊 읽는 중…';
+  }
+  var gen = ++speakGen, tries = 0;
+  try{ clearTimeout(speakTimer); clearTimeout(speakGuard); }catch(e){}
+  function make(){
+    var u = new SpeechSynthesisUtterance(t);
+    u.lang = 'ko-KR';
+    u.rate = 0.8;          /* 어르신이 듣기 편하게 천천히 */
+    u.pitch = 1;
+    u.volume = 1;
+    if(!IS_ANDROID){
+      var hit = null;
+      for(var i = 0; i < voices.length; i++){
+        var vl = String(voices[i].lang || '').toLowerCase().replace(/_/g, '-');
+        if(vl.indexOf('ko') === 0){ hit = voices[i]; break; }
+      }
+      if(hit) u.voice = hit;
+    }
+    return u;
+  }
+  function fire(){
+    if(gen !== speakGen) return;
+    tries++;
+    var u = make(), started = false;
+    u.onstart = function(){ started = true; };
+    u.onend = function(){ if(gen === speakGen) restoreSpeakBtn(); };
+    u.onerror = function(){ if(gen === speakGen) restoreSpeakBtn(); };
+    try{ ss.speak(u); }catch(e){ restoreSpeakBtn(); return; }
+    try{ clearTimeout(speakGuard); }catch(e){}
+    speakGuard = setTimeout(function(){
+      if(gen !== speakGen || started) return;
+      if(tries >= 2){ restoreSpeakBtn(); return; }
+      try{ if(ss.speaking || ss.pending) ss.cancel(); }catch(e){}
+      setTimeout(function(){ fire(); }, 150);
+    }, 1600);
+  }
+  try{
+    if(ss.speaking || ss.pending || ss.paused){
+      ss.cancel();
+      if(ss.paused){ try{ ss.resume(); }catch(e){} }
+      speakTimer = setTimeout(fire, 130);
+    }else{
+      fire();
+    }
+  }catch(e){ fire(); }
+}
+$('#speakBtn').addEventListener('click', function(){
+  speak(orderSentence(orderItems()) + (orderItems().length ? '' : ' 음료를 먼저 담아 주세요.'), this);
+});
+$('#sheetSpeak').addEventListener('click', function(){
+  var items = orderItems();
+  if(!items.length) return;
+  speak(orderSentence(items), this);
+});
+
+/* ════════════════════════════════════════════════════════════
+   10. 🔄 처음부터 (지우고 6초 동안 되돌리기)
+   ════════════════════════════════════════════════════════════ */
+var undoSnap = null, undoTimer = null;
+function showToast(){
+  var t = $('#toast');
+  t.hidden = false;
+  clearTimeout(undoTimer);
+  undoTimer = setTimeout(hideToast, 6000);
+}
+function hideToast(){
+  $('#toast').hidden = true;
+  undoSnap = null;
+  clearTimeout(undoTimer);
+}
+$('#resetBtn').addEventListener('click', function(){
+  var items = orderItems();
+  if(!items.length && !state.direct.text && !totalCups(items)) { return; }
+  undoSnap = JSON.stringify(state);
+  state.qty = {};
+  state.direct = { text:'', qty:0 };
+  syncDirect(true);
+  afterChange();
+  showToast();
+});
+$('#undoBtn').addEventListener('click', function(){
+  if(undoSnap){
+    try{
+      var d = JSON.parse(undoSnap);
+      state.qty = d.qty || {};
+      state.direct = d.direct || { text:'', qty:0 };
+      state.big = d.big !== false;
+      applyBig();
+      syncDirect(true);
+      afterChange();
+    }catch(e){}
+  }
+  hideToast();
+});
+
+/* ════════════════════════════════════════════════════════════
+   11. 큰 글씨 ↔ 보통 글씨
+   ════════════════════════════════════════════════════════════ */
+var fontBtn = $('#fontBtn');
+function applyBig(){
+  document.documentElement.classList.toggle('big', !!state.big);
+  fontBtn.setAttribute('aria-label', state.big ? '글씨를 보통 크기로 바꾸기' : '글씨를 크게 바꾸기');
+  $('.fl', fontBtn).textContent = state.big ? '보통 글씨' : '큰 글씨';
+  requestAnimationFrame(function(){ measureBar(); if(!$('#sheet').hidden) fitSheet(); });
+}
+fontBtn.addEventListener('click', function(){
+  state.big = !state.big;
+  applyBig();
+  save();
+});
+
+/* ════════════════════════════════════════════════════════════
+   12. 하단 바 높이 → 본문 여백 (가려지지 않게)
+   ════════════════════════════════════════════════════════════ */
+function measureBar(){
+  var bar = $('#bar');
+  if(!bar) return;
+  var h = Math.round(bar.getBoundingClientRect().height);
+  document.documentElement.style.setProperty('--barH', h + 'px');
+}
+if(window.ResizeObserver){ try{ new ResizeObserver(measureBar).observe($('#bar')); }catch(e){ window.addEventListener('resize', measureBar); } }
+else{ window.addEventListener('resize', measureBar); }
+window.addEventListener('orientationchange', function(){ setTimeout(measureBar, 120); });
+
+/* ════════════════════════════════════════════════════════════
+   13. 시작
+   ════════════════════════════════════════════════════════════ */
+restore();
+buildCards();
+applyBig();
+syncCards();
+syncDirect(true);
+updateBar();
+measureBar();
+setTimeout(measureBar, 60);
+window.addEventListener('load', function(){ measureBar(); });
+
+if('serviceWorker' in navigator && /^https?:$/.test(location.protocol)){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('./sw.js').catch(function(){});
+  });
+}
+
+})();
+</script>
+</body>
+</html>
