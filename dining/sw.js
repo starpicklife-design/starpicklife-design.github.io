@@ -1,4 +1,4 @@
-/* 와글 식탁 통역 · 가벼운 Service Worker
+/* 와글링 한국여행 · 가벼운 Service Worker
    - 홈 화면 설치 요건 충족 + 인터넷이 끊겨도 주문 카드가 열리도록 앱 껍데기만 캐시
    - 외부(다른 사이트) 요청은 절대 건드리지 않음 · 개인정보 0%
    - index.html은 항상 네트워크 우선 → 새 버전이 바로 반영됨
@@ -11,7 +11,7 @@
    - v10: 🍽️ Eat 탭 음식 24종·술/음료 5종도 그림을 누르면 +1(카페와 통일) · 안내 문구 5개국어 통일 · 주문 연습은 하단 조합 카드 칩의 '연습' 버튼으로
    - 메뉴판 사진 OCR(Tesseract.js CDN)은 그대로 통과 */
 
-const CACHE = 'wagle-dining-v10';
+const CACHE = 'wagle-dining-v11';
 const SHELL = [
   './',
   './index.html',
@@ -116,7 +116,7 @@ self.addEventListener('fetch', (event) => {
         const cache = await caches.open(CACHE);
         return (await cache.match('./index.html')) ||
                (await cache.match('./')) ||
-               new Response('와글 식탁 통역 · 인터넷이 없어 열지 못했어요. / Wagul Dining · offline.', {
+               new Response('와글링 한국여행 · 인터넷이 없어 열지 못했어요. / Wagling Korea Trip · offline.', {
                  status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' }
                });
       }

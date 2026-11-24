@@ -1,7 +1,7 @@
 {
-  "name": "와글테이블",
-  "short_name": "와글테이블",
-  "description": "큰 글씨 메뉴판 · 테이블 이벤트 · 와글테이블 QR 스티커",
+  "name": "와글링 테이블",
+  "short_name": "와글링 테이블",
+  "description": "큰 글씨 메뉴판 · 테이블 이벤트 · 와글링 테이블 QR 스티커",
   "lang": "ko",
   "dir": "ltr",
   "start_url": "./",

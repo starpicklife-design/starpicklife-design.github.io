@@ -10,9 +10,9 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-<meta name="apple-mobile-web-app-title" content="와글 효도 약통" />
-<meta name="description" content="와글 효도 약통 — 어르신 약·물·생활 챙김표. 아침·점심·저녁·자기 전 약 체크, 물 잔 수, 혈압·산책, 병원 약 남은 날(D-Day) 미리 알림. 기록은 이 기기에만 저장, 광고 없음." />
-<title>와글 효도 약통 · 약·물·생활 챙김표</title>
+<meta name="apple-mobile-web-app-title" content="와글링 효도 약통" />
+<meta name="description" content="와글링 효도 약통 — 어르신 약·물·생활 챙김표. 아침·점심·저녁·자기 전 약 체크, 물 잔 수, 혈압·산책, 병원 약 남은 날(D-Day) 미리 알림. 기록은 이 기기에만 저장, 광고 없음." />
+<title>와글링 효도 약통 · 약·물·생활 챙김표</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 120%27%3E%3Crect width=%27120%27 height=%27120%27 rx=%2726%27 fill=%27%23FFF9EF%27/%3E%3Crect x=%2722%27 y=%2750%27 width=%2776%27 height=%2742%27 rx=%2710%27 fill=%27%23F6C878%27 stroke=%27%23A9702E%27 stroke-width=%275%27/%3E%3Cpath d=%27M22 62h76%27 stroke=%27%23A9702E%27 stroke-width=%275%27/%3E%3Ccircle cx=%2742%27 cy=%2777%27 r=%277%27 fill=%27%23C9553D%27/%3E%3Ccircle cx=%2760%27 cy=%2777%27 r=%277%27 fill=%27%23E8A23C%27/%3E%3Ccircle cx=%2778%27 cy=%2777%27 r=%277%27 fill=%27%235C9E6E%27/%3E%3C/svg%3E" />
 <style>
 :root{
@@ -53,6 +53,14 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid
   border-radius:.75rem;padding:.3rem .5rem;font-size:.72rem;font-weight:800;line-height:1.1;min-height:2.2rem;white-space:nowrap}
 .topbtns button:active{transform:translateY(1px)}
 @media (max-width:379px){ .fam{display:none} }
+/* 와글링 효도 약통 — 이름이 길어져 좁은 폰(390px)에서도 '…'로 잘리지 않게 (2026-11-24) */
+@media (max-width:430px){
+  .brand h1{font-size:.97rem;letter-spacing:-.045em}
+  .brand .sub{font-size:.63rem}
+  .fam{height:1.58rem;margin:0 .04rem}
+  .topbtns{gap:.24rem}
+  .topbtns button{padding:.3rem .4rem;font-size:.7rem}
+}
 html.big .brand h1{font-size:.92rem}
 html.big .brand .sub{font-size:.58rem}
 html.big .topbtns button{font-size:.64rem;padding:.26rem .38rem}
@@ -607,7 +615,7 @@ html.big .org .ot span{font-size:.6rem}
   <div class="brand">
     <span class="logo" aria-hidden="true">💊</span>
     <div class="btxt">
-      <h1 id="brandTitle">와글 효도 약통</h1>
+      <h1 id="brandTitle">와글링 효도 약통</h1>
       <p class="sub" id="subTitle">약 · 물 · 생활 챙김표</p>
     </div>
     <span class="fam" aria-hidden="true">
@@ -770,7 +778,7 @@ html.big .org .ot span{font-size:.6rem}
 </details>
 
 <p class="foot">
-  <b id="footBrand">와글 효도 약통</b> · <span id="footBy">별의별 살림 (StarPick)</span><br />
+  <b id="footBrand">와글링 효도 약통</b> · <span id="footBy">별의별 살림 (StarPick)</span><br />
   <span id="footPrivacy">모든 기록은 이 휴대폰에만 저장돼요 · 회원가입 없음 · 광고 없음</span>
   <span class="disc" id="footDisc">이 앱은 복약을 도와주는 기록장이에요. 약 복용과 병원 일정은 꼭 의사·약사 선생님의 안내를 따라 주세요.</span>
   <span class="disc" id="footWx">☀️ 날씨는 Open-Meteo에서 받아와요 — 위치를 허용하시면 지금 계신 곳 좌표만 보내고, 약·건강 기록은 보내지 않아요.</span>
@@ -1074,7 +1082,7 @@ html.big .org .ot span{font-size:.6rem}
 
 <script>
 /* ═══════════════════════════════════════════════════════════
-   와글 효도 약통 · 약·물·생활 챙김표
+   와글링 효도 약통 · 약·물·생활 챙김표
    · 모든 기록은 이 기기(localStorage)에만 저장 — 서버 전송 없음
    · 사람 출연 없음(와글가족 햄스터 일러스트만)
    ═══════════════════════════════════════════════════════════ */
@@ -1297,15 +1305,15 @@ function paintSosRows(){
 }
 function todayMsg(){
   var done = SLOTS.filter(function(x){ return isDone(x.id); }).length;
-  if(done >= SLOTS.length) return L('[와글 약통] 오늘 약 복용을 마쳤습니다 ✅', '[Wagul Care] All of today’s medicine has been taken ✅');
-  return L('[와글 약통] 오늘 약 ' + done + '/' + SLOTS.length + ' 복용했습니다.', '[Wagul Care] Today’s medicine ' + done + '/' + SLOTS.length + ' taken.');
+  if(done >= SLOTS.length) return L('[와글링 약통] 오늘 약 복용을 마쳤습니다 ✅', '[Wagling Care] All of today’s medicine has been taken ✅');
+  return L('[와글링 약통] 오늘 약 ' + done + '/' + SLOTS.length + ' 복용했습니다.', '[Wagling Care] Today’s medicine ' + done + '/' + SLOTS.length + ' taken.');
 }
 function weekMsg(){
   var items = alertItems().filter(function(x){ return x.c.left <= 7; });
   var left = items.length ? Math.min.apply(null, items.map(function(x){ return x.c.left; })) : 0;
   var dn = left < 0 ? ('D+' + (-left)) : left === 0 ? 'D-DAY' : ('D-' + left);
-  return L('[와글 약통] 어르신 약이 일주일 이내로 남았습니다 (' + dn + ').',
-           '[Wagul Care] The medicine runs out within a week (' + dn + ').');
+  return L('[와글링 약통] 어르신 약이 일주일 이내로 남았습니다 (' + dn + ').',
+           '[Wagling Care] The medicine runs out within a week (' + dn + ').');
 }
 function setSmsLink(el, body){
   if(!el) return;
@@ -1526,8 +1534,8 @@ function saveCompInline(){
 /* ── 매니저님께 드리는 어르신 건강 메모 (자동 생성) ─────── */
 function memoText(lead){
   var now = new Date(), out = [];
-  out.push(EN() ? '[Wagul Care] Hospital visit note'
-                : '[와글 효도 약통] 오늘 병원 동행 알림입니다');
+  out.push(EN() ? '[Wagling Care] Hospital visit note'
+                : '[와글링 효도 약통] 오늘 병원 동행 알림입니다');
   out.push(EN()
     ? WD.en[now.getDay()] + ', ' + MO.en[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear()
     : now.getFullYear() + '년 ' + (now.getMonth()+1) + '월 ' + now.getDate() + '일 (' + WD.ko[now.getDay()] + '요일)');
@@ -2928,8 +2936,8 @@ $('#bigBtn').addEventListener('click', function(){
 
 function applyLang(){
   document.documentElement.lang = S.lang;
-  document.title = EN() ? 'Wagul Care · meds, water & daily care' : '와글 효도 약통 · 약·물·생활 챙김표';
-  $('#brandTitle').textContent = L('와글 효도 약통','Wagul Care');
+  document.title = EN() ? 'Wagling Care · meds, water & daily care' : '와글링 효도 약통 · 약·물·생활 챙김표';
+  $('#brandTitle').textContent = L('와글링 효도 약통','Wagling Care');
   $('#subTitle').textContent = L('약 · 물 · 생활 챙김표','Meds · water · daily care');
   $('#heroCap').textContent = L('와글가족이 오늘도 함께 챙겨요 💛','The Wagul family is looking after you 💛');
   $('#shareBtn').textContent = L('📤 공유','📤 Share');
@@ -2946,7 +2954,7 @@ function applyLang(){
     'Enter the pickup date and days — we will tell you the next hospital visit date.');
   $('#weekTitle').textContent = L('🗓 최근 7일 기록','🗓 Last 7 days');
   $('#setTitle').textContent = L('약 이름 · 시간 · 알림 설정','Medicine names · times · alerts');
-  $('#footBrand').textContent = L('와글 효도 약통','Wagul Care');
+  $('#footBrand').textContent = L('와글링 효도 약통','Wagling Care');
   $('#footBy').textContent = L('별의별 살림 (StarPick)','StarPick');
   $('#footPrivacy').textContent = L('모든 기록은 이 휴대폰에만 저장돼요 · 회원가입 없음 · 광고 없음',
     'All records stay on this phone · no sign-up · no ads');
@@ -3118,11 +3126,11 @@ $('#langBtn').addEventListener('click', function(){
 /* ── 공유 ───────────────────────────── */
 var SHARE_BASE = 'https://starpicklife-design.github.io/care/';
 function shareText(){
-  return L('💊 와글 효도 약통 — 어르신 약·물·생활 챙김표\n아침·점심·저녁·자기 전 약을 큰 버튼으로 톡 누르면 시각이 기록되고, 물 잔 수·산책·혈압도 함께 챙겨요.\n병원 약은 100일분처럼 적어 두면 다음 병원 갈 날을 미리 알려 드리고, 약이 일주일치 남으면 보호자에게 문자 한 번으로 알려요.\n🚨 위급할 때 누르면 보호자 전화·문자와 119가 바로 나와요. 설치·회원가입 없이 링크만 누르면 열려요 😊',
-    '💊 Wagul Care — a meds, water & daily care chart for seniors\nTap a big button for morning, noon, evening and bedtime meds and the time is recorded. Water, walks and blood pressure too.\nEnter 100 days of hospital meds and we will remind you before the next visit — and text a guardian in one tap when a week is left.\n🚨 The emergency button offers a guardian call, an SOS text and 119. No install or sign-up needed 😊');
+  return L('💊 와글링 효도 약통 — 어르신 약·물·생활 챙김표\n아침·점심·저녁·자기 전 약을 큰 버튼으로 톡 누르면 시각이 기록되고, 물 잔 수·산책·혈압도 함께 챙겨요.\n병원 약은 100일분처럼 적어 두면 다음 병원 갈 날을 미리 알려 드리고, 약이 일주일치 남으면 보호자에게 문자 한 번으로 알려요.\n🚨 위급할 때 누르면 보호자 전화·문자와 119가 바로 나와요. 설치·회원가입 없이 링크만 누르면 열려요 😊',
+    '💊 Wagling Care — a meds, water & daily care chart for seniors\nTap a big button for morning, noon, evening and bedtime meds and the time is recorded. Water, walks and blood pressure too.\nEnter 100 days of hospital meds and we will remind you before the next visit — and text a guardian in one tap when a week is left.\n🚨 The emergency button offers a guardian call, an SOS text and 119. No install or sign-up needed 😊');
 }
 function shareApp(){
-  var payload = { title: L('와글 효도 약통','Wagul Care'), text: shareText(), url: SHARE_BASE + (EN() ? '?lang=en' : '') };
+  var payload = { title: L('와글링 효도 약통','Wagling Care'), text: shareText(), url: SHARE_BASE + (EN() ? '?lang=en' : '') };
   var nav = navigator, usable = true;
   try { if(nav.canShare && !nav.canShare(payload)) usable = false; } catch(e){}
   if(nav.share && usable){
