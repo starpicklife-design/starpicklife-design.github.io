@@ -1,0 +1,20 @@
+{
+  "name": "와글링 운세 · Wagling Fortune",
+  "short_name": "와글링 운세",
+  "description": "어르신도 쉽게 쓰는 오늘의 놀이 — 하루 운세(행운의 색·숫자·팁), 동전 던지기, 오늘의 타로카드 뽑기, 소리로 읽어 주기. 무료, 가입 없음, 광고 없음.",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "id": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "background_color": "#FFF9EF",
+  "theme_color": "#41307C",
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

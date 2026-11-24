@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#41307C" />
+<!-- build: 2026-11-24 와글링 운세 (Wagling Fortune) v1 · 어르신용 큰 글씨 기본
+     · 이름: 와글링 운세 (EN Wagling Fortune) · 가족 이름: 와글링 가족
+     · ☀️ 오늘의 하루 운세(한마디 + 행운의 색·숫자·시간·자리·팁) · 🪙 동전 던지기 · 🔮 오늘의 타로카드 뽑기(전체 흐름·일·금전운·마음·사람·조언)
+     · 🔊 소리로 읽어 주기(ko-KR · rate 0.85 · 안드로이드 무음 방지) · 🐹 와글가족 햄스터 마스코트
+     · 상단: 오늘 날짜·요일·시각 + 현재 위치 날씨(위치 미허용·오프라인이면 날짜·요일·시각만)
+     · 100% 무료 · 로그인 없음 · 광고 없음 · 사람/인체 그림 없음 · 밝고 기분 좋은 놀이형
+     · 기록은 이 기기(localStorage)에만 -->
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="와글링 운세" />
+<meta name="description" content="와글링 운세 — 어르신도 쉽게 쓰는 오늘의 놀이. 하루 운세(행운의 색·숫자·팁), 동전 던지기, 오늘의 타로카드 뽑기, 소리로 읽어 주기. 가입 없음, 광고 없음, 100% 무료." />
+<title>와글링 운세 · 오늘 하루 기분 좋은 놀이</title>
+<style>
+:root{
+  --cream:#FFF9EF; --cream2:#FDF1DE; --card:#FFFFFF; --ink:#1E2733; --ink2:#5A6675;
+  --violet:#4B3B8F; --violet2:#41307C; --violet3:#5C49B0; --violet-bg:#F1EDFB; --violet-line:#D9CFF2;
+  --gold:#D9A227; --gold2:#F3C95A; --gold-bg:#FFF7E3; --gold-line:#EBD093; --gold-ink:#7A5312;
+  --mint:#2E8B67; --mint-bg:#EAF7EF; --mint-line:#BFE4CE;
+  --sky:#2B6E9E; --sky-bg:#EAF4FB; --sky-line:#BFDCEF;
+  --line:#E7E1F0; --shadow:0 2px 10px rgba(58,44,107,.09);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:18px;-webkit-text-size-adjust:100%}
+html.big{font-size:21px}
+html,body{overflow-x:hidden}
+body{margin:0;background:var(--cream);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Segoe UI",sans-serif;
+  line-height:1.46;padding-bottom:calc(5rem + env(safe-area-inset-bottom));word-break:keep-all;overflow-wrap:break-word}
+[hidden]{display:none !important}
+button{font-family:inherit;cursor:pointer;color:inherit;border:0;background:none}
+button:focus-visible,[tabindex]:focus-visible{outline:3px solid #4B3B8F;outline-offset:2px}
+img,svg{max-width:100%}
+
+/* ── 머리말 ─────────────────────────────── */
+.top{background:linear-gradient(160deg,#41307C 0%,#54419C 62%,#6A55B8 100%);color:#FBF8FF;
+  padding:calc(.44rem + env(safe-area-inset-top)) .6rem .52rem;
+  box-shadow:0 3px 14px rgba(45,32,94,.28)}
+.brand{display:flex;align-items:center;gap:.44rem}
+.logo{font-size:1.55rem;line-height:1;flex:0 0 auto;filter:drop-shadow(0 1px 2px rgba(0,0,0,.26))}
+.btxt{flex:1 1 auto;min-width:0}
+.brand h1{margin:0;font-size:1.16rem;line-height:1.16;letter-spacing:-.03em;font-weight:900;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand .sub{margin:.08rem 0 0;font-size:.72rem;line-height:1.2;opacity:.94;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbtns{display:flex;gap:.26rem;flex:0 0 auto}
+.topbtns button{border:1px solid rgba(251,248,255,.55);background:rgba(255,255,255,.16);color:#FBF8FF;
+  border-radius:.7rem;padding:.32rem .48rem;font-size:.74rem;font-weight:800;line-height:1.1;min-height:2.6rem;white-space:nowrap}
+.topbtns button[aria-pressed="true"]{background:#FFF3D6;color:#5A3F0A;border-color:#FFF3D6}
+.topbtns button:active{transform:translateY(1px)}
+.tools{display:flex;gap:.34rem;margin-top:.42rem}
+.toolbtn{flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:center;gap:.26rem;
+  border:1px solid rgba(251,248,255,.5);background:rgba(255,255,255,.14);color:#FBF8FF;
+  border-radius:.72rem;padding:.4rem .4rem;min-height:2.8rem;font-size:.86rem;font-weight:800;
+  letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.toolbtn:active{transform:translateY(1px)}
+html.big .brand h1{font-size:1.04rem}
+html.big .brand .sub{font-size:.66rem}
+html.big .topbtns button{font-size:.68rem;padding:.28rem .38rem}
+html.big .toolbtn{font-size:.8rem}
+
+/* ── 날짜 · 날씨 바탕 위젯 ─────────────────── */
+.wxbar{margin:.48rem .5rem 0;display:flex;align-items:center;gap:.5rem;
+  background:linear-gradient(135deg,#FFFDF7,#FDF6E8);border:1px solid var(--gold-line);
+  border-radius:.9rem;padding:.46rem .62rem;box-shadow:var(--shadow)}
+.wxleft{flex:1 1 auto;min-width:0}
+.wxdate{display:block;font-size:.98rem;font-weight:900;letter-spacing:-.03em;color:#3A2C63;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wxtime{display:block;margin-top:.04rem;font-size:.78rem;font-weight:800;color:var(--ink2);letter-spacing:-.01em}
+.wxchip{flex:0 0 auto;display:inline-flex;align-items:center;gap:.24rem;max-width:54%;
+  border:1.5px dashed var(--gold-line);background:#FFFDF6;color:var(--gold-ink);
+  border-radius:999px;padding:.34rem .6rem;font-size:.8rem;font-weight:900;letter-spacing:-.02em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:2.4rem}
+.wxchip.on{border-style:solid;background:linear-gradient(135deg,#FFF6DF,#FFEFC9);color:#6E4A0C}
+.wxchip:active{transform:scale(.98)}
+
+/* ── 공통 ───────────────────────────────── */
+main{padding:0 .5rem .4rem}
+.tab{animation:fade .28s ease}
+@keyframes fade{from{opacity:.4}to{opacity:1}}
+h2.sec{margin:.8rem .1rem .3rem;font-size:1rem;font-weight:900;letter-spacing:-.03em;display:flex;align-items:baseline;gap:.34rem;flex-wrap:wrap}
+h2.sec small{font-size:.74rem;font-weight:700;color:var(--ink2);letter-spacing:-.01em}
+.lead{margin:.5rem .2rem .1rem;font-size:.86rem;line-height:1.5;font-weight:800;color:var(--ink2);letter-spacing:-.015em}
+
+/* ── 와글가족 햄스터 마스코트 ───────────────── */
+.mrow{display:flex;align-items:center;gap:.36rem;margin:.52rem 0 .1rem}
+.msay{position:relative;flex:1 1 auto;min-width:0;background:#fff;border:1.5px solid var(--violet-line);
+  border-radius:.95rem;padding:.5rem .6rem;font-size:.84rem;font-weight:800;color:#41307C;
+  line-height:1.42;letter-spacing:-.02em;box-shadow:0 1px 5px rgba(58,44,107,.06)}
+.msay:after{content:"";position:absolute;right:-.42rem;top:50%;transform:translateY(-50%);
+  width:0;height:0;border-top:.42rem solid transparent;border-bottom:.42rem solid transparent;
+  border-left:.46rem solid #fff}
+.mpic{flex:0 0 auto;width:4.6rem;height:4.6rem;display:flex;align-items:center;justify-content:center}
+.mpic svg{width:100%;height:100%;display:block}
+
+/* ── ☀️ 오늘의 하루 운세 ─────────────────── */
+.todaycard{position:relative;margin:.44rem 0 0;padding:.86rem .8rem .8rem;border-radius:1.1rem;overflow:hidden;
+  background:radial-gradient(120% 130% at 12% 0%,#5B47A6 0%,#41307C 52%,#332562 100%);
+  color:#FFFDF8;box-shadow:0 6px 20px rgba(52,37,104,.26);border:1px solid #57449B}
+.todaycard .spark{position:absolute;color:#F6D87A;opacity:.85;pointer-events:none}
+.todaycard .spark.s1{top:.34rem;right:.62rem;font-size:.9rem}
+.todaycard .spark.s2{top:1.6rem;right:1.9rem;font-size:.62rem;opacity:.6}
+.todaycard .spark.s3{bottom:.7rem;right:.5rem;font-size:.68rem;opacity:.45}
+.tlabel{display:inline-block;font-size:.76rem;font-weight:900;letter-spacing:.02em;
+  background:rgba(246,216,122,.18);border:1px solid rgba(246,216,122,.5);color:#FBE9B6;
+  border-radius:999px;padding:.2rem .56rem}
+.tquote{margin:.5rem 0 0;font-size:1.2rem;line-height:1.52;font-weight:900;letter-spacing:-.035em;
+  text-shadow:0 1px 2px rgba(24,15,54,.28)}
+.tquote.pop{animation:qpop .42s ease}
+@keyframes qpop{0%{transform:scale(.97);opacity:.35}60%{transform:scale(1.015)}100%{transform:scale(1);opacity:1}}
+.tdate{margin:.44rem 0 0;font-size:.78rem;font-weight:800;color:#D9CFF2;letter-spacing:-.01em}
+.todaycard .pinflag{margin:.36rem 0 0;display:none;font-size:.76rem;font-weight:900;color:#FBE9B6}
+.todaycard.pinned .pinflag{display:block}
+
+.luck{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem;margin:.5rem 0 0}
+.luck .tile{display:flex;align-items:center;gap:.44rem;min-width:0;
+  background:#fff;border:1px solid var(--line);border-radius:.86rem;padding:.5rem .54rem;box-shadow:var(--shadow)}
+.luck .tile .ti{flex:0 0 auto;font-size:1.3rem;line-height:1}
+.luck .tile .tt{min-width:0;flex:1 1 auto}
+.luck .tile b{display:block;font-size:.72rem;font-weight:800;color:var(--ink2);letter-spacing:-.01em}
+.luck .tile span{display:block;margin-top:.06rem;font-size:.94rem;font-weight:900;letter-spacing:-.03em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.swatch{display:inline-block;width:.8rem;height:.8rem;border-radius:999px;vertical-align:-.06rem;
+  margin-right:.18rem;border:1px solid rgba(0,0,0,.14);box-shadow:inset 0 0 0 1.5px #fff}
+.tipbox{margin:.44rem 0 0;padding:.56rem .64rem;border-radius:.86rem;
+  background:linear-gradient(135deg,#FFF8E6,#FFEFCB);border:1px dashed var(--gold-line)}
+.tipbox b{display:block;font-size:.76rem;font-weight:900;color:#7A5312;letter-spacing:-.01em}
+.tipbox p{margin:.16rem 0 0;font-size:.94rem;font-weight:800;line-height:1.46;letter-spacing:-.025em;color:#5D4108}
+
+.speakbtn{margin:.5rem 0 0;width:100%;min-height:3.2rem;border-radius:.92rem;display:flex;align-items:center;justify-content:center;gap:.32rem;
+  background:linear-gradient(135deg,#EAF7EF,#DDF1E6);border:1.5px solid var(--mint-line);color:#1F6B4C;
+  font-size:.95rem;font-weight:900;letter-spacing:-.03em}
+.speakbtn:active{transform:scale(.985)}
+.speakbtn[aria-pressed="true"]{background:linear-gradient(135deg,#FFF0DC,#FFE2B8);border-color:var(--gold-line);color:#7A5312}
+
+.btnrow{display:flex;gap:.4rem;margin:.48rem 0 0}
+.btnrow button{flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:center;gap:.24rem;
+  min-height:3.2rem;border-radius:.92rem;font-size:.95rem;font-weight:900;letter-spacing:-.03em;
+  padding:.4rem .38rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.btnrow button:active{transform:scale(.985)}
+.btn-main{background:linear-gradient(135deg,#5C49B0,#41307C);color:#FFFDF8;box-shadow:0 4px 12px rgba(65,48,124,.28)}
+.btn-sub{background:#fff;border:1.5px solid var(--violet-line);color:#41307C}
+.btn-sub[aria-pressed="true"]{background:#FFF3D6;border-color:var(--gold-line);color:#6E4A0C}
+
+/* ── 🪙 동전 ────────────────────────────── */
+.coincard{margin:.44rem 0 0;background:radial-gradient(120% 110% at 50% 0%,#FFFDF6,#FDF3DF 70%,#FBEACB);
+  border:1px solid var(--gold-line);border-radius:1.1rem;padding:.8rem .7rem .9rem;text-align:center;box-shadow:var(--shadow)}
+.clabel{margin:0;font-size:1rem;font-weight:900;letter-spacing:-.03em;color:#5D4108}
+.chint{margin:.24rem auto 0;max-width:19rem;font-size:.86rem;font-weight:800;line-height:1.46;color:#7A6242;letter-spacing:-.015em}
+.coinwrap{display:flex;justify-content:center;margin:.6rem 0 .1rem;perspective:900px}
+.coin{position:relative;width:10.4rem;height:10.4rem;perspective:900px;display:block;margin:0 auto}
+.cinner{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform}
+.coin.spin .cinner{animation:coinSpin 1.55s cubic-bezier(.24,.86,.3,1) forwards}
+@keyframes coinSpin{from{transform:rotateY(0deg)}to{transform:rotateY(var(--spin,0deg))}}
+.cface{position:absolute;inset:0;border-radius:999px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:.1rem;backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  border:.32rem solid #C9922A;
+  background:radial-gradient(120% 120% at 34% 26%,#FFE9A9 0%,#F2C356 46%,#D9A227 78%,#B47F16 100%);
+  box-shadow:inset 0 0 0 .22rem rgba(255,247,214,.7),0 8px 18px rgba(140,100,20,.28)}
+.cface .ce{font-size:2.4rem;line-height:1}
+.cface .ct{font-size:1.1rem;font-weight:900;letter-spacing:-.03em;color:#5B3D06;text-shadow:0 1px 0 rgba(255,247,214,.8)}
+.cface .cs{font-size:.68rem;font-weight:900;letter-spacing:.06em;color:#7A5312;opacity:.86}
+.ctail{transform:rotateY(180deg);border-color:#9C7CC0;
+  background:radial-gradient(120% 120% at 34% 26%,#F1E6FF 0%,#CDB6EE 46%,#A98BD6 78%,#8466B4 100%);
+  box-shadow:inset 0 0 0 .22rem rgba(255,255,255,.65),0 8px 18px rgba(90,60,140,.28)}
+.ctail .ct{color:#3F2A66}
+.ctail .cs{color:#5A4080}
+.cresult{margin:.6rem 0 0;min-height:.1rem}
+.cresult .rb{display:inline-block;font-size:.8rem;font-weight:900;letter-spacing:.02em;
+  padding:.2rem .66rem;border-radius:999px;background:#5B3D06;color:#FFEFC9}
+.cresult .rb.wait{background:#4A356F;color:#EFE6FF}
+.cresult p{margin:.4rem .1rem 0;font-size:.98rem;font-weight:800;line-height:1.5;letter-spacing:-.025em;color:#4B3A22}
+.cresult.show{animation:qpop .4s ease}
+.mainbtn{margin-top:.64rem;width:100%;min-height:3.3rem;border-radius:.95rem;font-size:1rem;font-weight:900;
+  letter-spacing:-.03em;color:#5B3D06;background:linear-gradient(135deg,#FFE49B,#F0BE49);
+  box-shadow:0 4px 14px rgba(190,140,30,.3)}
+.mainbtn:active{transform:scale(.985)}
+.mainbtn[disabled]{opacity:.7}
+.cnote{margin:.54rem auto 0;max-width:19rem;font-size:.78rem;line-height:1.46;font-weight:800;color:#8A7452;letter-spacing:-.01em}
+
+/* ── 🔮 타로 ────────────────────────────── */
+.deck{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.4rem;margin:.46rem 0 0}
+.tcard{position:relative;aspect-ratio:100/156;perspective:820px;padding:0;border:0;background:none;min-width:0;
+  transition:opacity .3s ease,transform .3s ease}
+.tcard .inner{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .62s cubic-bezier(.3,.9,.3,1)}
+.tcard.flip .inner{transform:rotateY(180deg)}
+.tcard.dim{opacity:.45}
+.tcard.lift{transform:translateY(-.16rem)}
+.tface{position:absolute;inset:0;border-radius:.64rem;overflow:hidden;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 4px 12px rgba(46,32,92,.22)}
+.tface.back{background:#3B2B72}
+.tface.front{transform:rotateY(180deg);background:linear-gradient(170deg,#FFFDF6,#FDF2DA);border:2px solid var(--gold-line)}
+.tface svg{display:block;width:100%;height:100%}
+.fwrap{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;padding:.2rem}
+.fwrap .fsym{width:60%;max-width:4.4rem}
+.fwrap .fname{font-size:.72rem;font-weight:900;letter-spacing:-.02em;color:#5B3D06;line-height:1.12;text-align:center}
+.fwrap .fno{position:absolute;top:.26rem;left:.32rem;font-size:.6rem;font-weight:900;color:#B08A3A;letter-spacing:.04em}
+html.big .fwrap .fname{font-size:.64rem}
+
+.shufflebtn{margin:.5rem 0 0;width:100%;min-height:3.2rem;border-radius:.92rem;display:flex;align-items:center;justify-content:center;gap:.3rem;
+  background:#fff;border:1.5px solid var(--violet-line);color:#41307C;font-size:.95rem;font-weight:900;letter-spacing:-.03em}
+.shufflebtn:active{transform:scale(.985)}
+
+.readcard{margin:.56rem 0 0;background:linear-gradient(170deg,#FFFDF7,#FFF8EC);
+  border:1px solid var(--gold-line);border-radius:1.05rem;padding:.74rem .74rem .8rem;box-shadow:0 4px 16px rgba(120,90,30,.12)}
+.readcard.show{animation:qpop .42s ease}
+.rhead{display:flex;align-items:center;gap:.6rem}
+.rart{flex:0 0 auto;width:3.6rem;height:3.6rem;border-radius:.9rem;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(120% 120% at 35% 28%,#FFF6DE,#FBE7BC);border:1.5px solid var(--gold-line)}
+.rart svg{width:2.4rem;height:2.4rem}
+.rtxt{flex:1 1 auto;min-width:0}
+.rlabel{display:block;font-size:.72rem;font-weight:900;color:#A07A1E;letter-spacing:.02em}
+.rname{margin:.08rem 0 0;font-size:1.14rem;font-weight:900;letter-spacing:-.035em;color:#4A3208;line-height:1.22}
+.rline{margin:.16rem 0 0;font-size:.86rem;font-weight:800;line-height:1.42;color:#7A6242;letter-spacing:-.015em}
+.rblocks{display:grid;gap:.42rem;margin:.62rem 0 0}
+.rblock{background:#fff;border:1px solid #F0E4C8;border-radius:.88rem;padding:.54rem .6rem}
+.rblock b{display:block;font-size:.8rem;font-weight:900;letter-spacing:-.01em;color:#8A6512}
+.rblock p{margin:.18rem 0 0;font-size:.94rem;font-weight:700;line-height:1.52;letter-spacing:-.02em;color:#3C3428}
+.rblock.work b{color:#2B6E9E}
+.rblock.heart b{color:#B0532F}
+.rblock.tip b{color:#2E8B67}
+
+/* ── 하단 탭 ────────────────────────────── */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;
+  background:rgba(255,253,247,.97);border-top:1px solid var(--line);
+  box-shadow:0 -2px 12px rgba(50,36,96,.1);
+  padding:.24rem .3rem calc(.24rem + env(safe-area-inset-bottom))}
+.tabbar .tbtn{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.04rem;
+  padding:.34rem .2rem .3rem;border-radius:.7rem;font-size:.74rem;font-weight:900;letter-spacing:-.02em;color:#6F6786;
+  min-height:3.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tabbar .tbtn .te{font-size:1.22rem;line-height:1.15}
+.tabbar .tbtn[aria-selected="true"]{color:#41307C;background:#F1EDFB}
+html.big .tabbar .tbtn{font-size:.68rem}
+
+/* ── 바닥 안내 ──────────────────────────── */
+.foot{margin:.9rem .1rem .4rem;padding:.62rem .68rem;border-radius:.9rem;background:#F7F3FC;border:1px solid #E4DDF3}
+.foot p{margin:0;font-size:.78rem;line-height:1.5;font-weight:800;color:#6C6383;letter-spacing:-.015em}
+.foot p + p{margin-top:.26rem}
+.foot b{color:#41307C}
+
+/* ── 토스트 ─────────────────────────────── */
+#toast{position:fixed;left:50%;bottom:calc(5.4rem + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(.6rem);
+  max-width:88vw;background:rgba(35,26,66,.95);color:#FFFDF8;font-size:.86rem;font-weight:800;letter-spacing:-.02em;
+  padding:.54rem .86rem;border-radius:.8rem;opacity:0;pointer-events:none;transition:opacity .22s ease,transform .22s ease;
+  z-index:60;text-align:center;line-height:1.42}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── 설치 안내 ──────────────────────────── */
+.imodal{position:fixed;inset:0;z-index:70;background:rgba(28,20,54,.5);display:flex;align-items:flex-end;justify-content:center;
+  padding:.7rem .7rem calc(.7rem + env(safe-area-inset-bottom))}
+.imcard{width:100%;max-width:34rem;max-height:92vh;overflow:auto;background:#FFFDF7;border-radius:1.1rem;
+  padding:.9rem .85rem .85rem;box-shadow:0 -4px 30px rgba(30,20,60,.3)}
+.imcard h2{margin:0 0 .3rem;font-size:1.06rem;font-weight:900;letter-spacing:-.03em;color:#33265F}
+.imcard .ilead{margin:0 0 .6rem;font-size:.86rem;line-height:1.5;font-weight:800;color:var(--ink2)}
+.imcard ol{margin:0 0 .6rem;padding-left:1.15rem;font-size:.92rem;line-height:1.56;color:#2A3A33;font-weight:800}
+.imcard li{margin:0 0 .5rem}
+.imcard li b{color:#41307C}
+.imcard .chrome{display:flex;align-items:center;justify-content:center;min-height:2.8rem;margin:0 0 .55rem;
+  border-radius:.8rem;background:var(--sky-bg);border:1.5px solid var(--sky-line);color:#1F5C86;
+  font-size:.9rem;font-weight:900;text-decoration:none}
+.imcard .mini{margin:0 0 .7rem;font-size:.76rem;line-height:1.5;color:#8B8A93;font-weight:800}
+.imcard .close{width:100%;min-height:3rem;border-radius:.8rem;background:#41307C;color:#FFFDF8;font-size:.98rem;font-weight:900}
+.imcard .close:active{transform:scale(.99)}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">🔮</span>
+    <div class="btxt">
+      <h1 data-i18n="appName">와글링 운세</h1>
+      <p class="sub" data-i18n="appSub">오늘 하루, 기분 좋은 놀이</p>
+    </div>
+    <div class="topbtns">
+      <button id="btnBig" type="button" aria-pressed="true">글씨 크게</button>
+      <button id="btnLang" type="button">EN</button>
+    </div>
+  </div>
+  <div class="tools">
+    <button type="button" class="toolbtn" id="installBtn" aria-haspopup="dialog" data-i18n="instPill">📲 설치</button>
+    <button type="button" class="toolbtn" id="shareBtn" data-i18n="sharePill">📤 공유</button>
+  </div>
+</header>
+
+<!-- 날짜 · 요일 · 시각 · (위치) 날씨 -->
+<div class="wxbar">
+  <div class="wxleft">
+    <b class="wxdate" id="wxDate">11월 24일 화요일</b>
+    <span class="wxtime" id="wxTime">오후 8:09</span>
+  </div>
+  <button type="button" class="wxchip" id="wxChip" data-i18n="wxAsk" hidden>🌤️ 날씨 보기</button>
+  <span class="wxchip on" id="wxNow" hidden>☀️</span>
+</div>
+
+<main>
+
+  <!-- ═════════ ☀️ 오늘의 하루 운세 ═════════ -->
+  <section id="tab-today" class="tab" role="tabpanel" aria-labelledby="nav-today">
+    <div class="mrow">
+      <div class="msay" id="msayToday">오늘도 좋은 하루야! 천천히 읽어 봐요.</div>
+      <div class="mpic" id="mpicToday" aria-hidden="true"></div>
+    </div>
+
+    <div class="todaycard" id="todayCard">
+      <span class="spark s1" aria-hidden="true">✦</span>
+      <span class="spark s2" aria-hidden="true">✧</span>
+      <span class="spark s3" aria-hidden="true">✦</span>
+      <span class="tlabel" data-i18n="todayLabel">☀️ 오늘의 하루 운세</span>
+      <p class="tquote" id="tQuote">오늘은 작은 친절이 큰 기쁨으로 돌아오는 날이에요.</p>
+      <p class="tdate" id="tDate">11월 24일 화요일</p>
+      <p class="pinflag" data-i18n="pinFlag">📌 오늘 고정 — 자정까지 이대로 보여 드려요</p>
+    </div>
+
+    <div class="luck">
+      <div class="tile"><span class="ti" aria-hidden="true">🎨</span>
+        <div class="tt"><b data-i18n="luckColor">행운의 색</b><span id="lColor"><i class="swatch" style="background:#8FD3AE"></i>민트빛 연두</span></div></div>
+      <div class="tile"><span class="ti" aria-hidden="true">🔢</span>
+        <div class="tt"><b data-i18n="luckNumber">행운의 숫자</b><span id="lNumber">7</span></div></div>
+      <div class="tile"><span class="ti" aria-hidden="true">⏰</span>
+        <div class="tt"><b data-i18n="luckTime">행운의 시간</b><span id="lTime">오후 3시쯤</span></div></div>
+      <div class="tile"><span class="ti" aria-hidden="true">📍</span>
+        <div class="tt"><b data-i18n="luckPlace">행운의 자리</b><span id="lPlace">창가 자리</span></div></div>
+    </div>
+
+    <div class="tipbox">
+      <b data-i18n="tipLabel">🍀 오늘의 작은 행운 팁</b>
+      <p id="lTip">누군가에게 문을 잡아 주거나 따뜻한 말 한마디를 건네 보세요.</p>
+    </div>
+
+    <button type="button" class="speakbtn" id="btnSpeakToday" aria-pressed="false" data-i18n="speak">🔊 소리로 읽어 주기</button>
+
+    <div class="btnrow">
+      <button type="button" class="btn-main" id="btnReroll" data-i18n="reroll">🎲 다시 뽑기</button>
+      <button type="button" class="btn-sub" id="btnPin" aria-pressed="false" data-i18n="pin">📌 오늘 고정하기</button>
+    </div>
+    <p class="lead" data-i18n="todayHint">마음에 들면 오늘 고정! 자정이 지나면 새 운세로 바뀌어요.</p>
+  </section>
+
+  <!-- ═════════ 🪙 동전 던지기 ═════════ -->
+  <section id="tab-coin" class="tab" role="tabpanel" aria-labelledby="nav-coin" hidden>
+    <div class="mrow">
+      <div class="msay" id="msayCoin">동전아, 오늘 어떻게 할까? 알려 줘!</div>
+      <div class="mpic" id="mpicCoin" aria-hidden="true"></div>
+    </div>
+
+    <div class="coincard">
+      <p class="clabel">🪙 <span data-i18n="coinTitle">동전 던지기</span></p>
+      <p class="chint" data-i18n="coinHint">망설여질 때, 동전에게 살짝 물어보세요.</p>
+
+      <div class="coinwrap">
+        <button type="button" class="coin" id="coin" aria-label="동전 던지기">
+          <span class="cinner">
+            <span class="cface chead">
+              <span class="ce" aria-hidden="true">☀️</span>
+              <span class="ct" data-i18n="coinHeads">예, 가자!</span>
+              <span class="cs">GO</span>
+            </span>
+            <span class="cface ctail">
+              <span class="ce" aria-hidden="true">🌙</span>
+              <span class="ct" data-i18n="coinTails">잠깐, 한 번 더</span>
+              <span class="cs">WAIT</span>
+            </span>
+          </span>
+        </button>
+      </div>
+
+      <button type="button" class="mainbtn" id="btnFlip" data-i18n="flipBtn">🪙 동전 던지기</button>
+      <div class="cresult" id="cResult" aria-live="polite"></div>
+      <p class="cnote" data-i18n="coinNote">던지는 건 재미로, 정하는 건 내 마음으로. 몇 번을 던져도 괜찮아요.</p>
+    </div>
+  </section>
+
+  <!-- ═════════ 🔮 오늘의 타로카드 뽑기 ═════════ -->
+  <section id="tab-tarot" class="tab" role="tabpanel" aria-labelledby="nav-tarot" hidden>
+    <div class="mrow">
+      <div class="msay" id="msayTarot">마음이 가는 카드를 하나 골라 보세요.</div>
+      <div class="mpic" id="mpicTarot" aria-hidden="true"></div>
+    </div>
+
+    <h2 class="sec"><span data-i18n="tarotHead">🔮 오늘의 타로카드 뽑기</span><small data-i18n="tarotSub">마음이 끌리는 카드 한 장</small></h2>
+    <p class="lead" data-i18n="tarotLead">세 장 중에서 손이 가는 카드를 하나 골라 보세요. 오늘의 이야기가 담겨 있어요.</p>
+
+    <div class="deck" id="deck"></div>
+    <button type="button" class="shufflebtn" id="btnShuffle" data-i18n="shuffle">🔄 다시 섞기</button>
+
+    <div class="readcard" id="readCard" hidden>
+      <div class="rhead">
+        <div class="rart" id="rArt" aria-hidden="true"></div>
+        <div class="rtxt">
+          <span class="rlabel" data-i18n="readLabel">오늘 뽑은 카드</span>
+          <h3 class="rname" id="rName">별 카드</h3>
+          <p class="rline" id="rLine">반짝이는 마음이 오늘을 밝혀요.</p>
+        </div>
+      </div>
+      <div class="rblocks">
+        <div class="rblock">
+          <b data-i18n="blkOverall">✨ 전체 흐름 · 오늘의 메시지</b>
+          <p id="rOverall"></p>
+        </div>
+        <div class="rblock work">
+          <b data-i18n="blkWork">💼 일 · 금전운</b>
+          <p id="rWork"></p>
+        </div>
+        <div class="rblock heart">
+          <b data-i18n="blkHeart">💛 마음 · 사람</b>
+          <p id="rHeart"></p>
+        </div>
+        <div class="rblock tip">
+          <b data-i18n="blkAdvice">🌿 오늘의 조언</b>
+          <p id="rAdvice"></p>
+        </div>
+      </div>
+      <button type="button" class="speakbtn" id="btnSpeakTarot" aria-pressed="false" data-i18n="speak">🔊 소리로 읽어 주기</button>
+    </div>
+  </section>
+
+  <div class="foot">
+    <p><b data-i18n="footT1">재미로 보는 오늘의 놀이예요.</b> <span data-i18n="footT2">무섭거나 걱정되는 이야기는 담지 않았어요. 결정은 언제나 내 마음이 해요.</span></p>
+    <p data-i18n="footT3">무료 · 광고 없음 · 회원가입 없음 · 기록은 이 기기에만 저장돼요.</p>
+  </div>
+
+</main>
+
+<nav class="tabbar" role="tablist" aria-label="와글링 운세 메뉴">
+  <button type="button" class="tbtn" id="nav-today" role="tab" aria-selected="true" aria-controls="tab-today" data-tab="today">
+    <span class="te" aria-hidden="true">☀️</span><span data-i18n="navToday">오늘</span></button>
+  <button type="button" class="tbtn" id="nav-coin" role="tab" aria-selected="false" aria-controls="tab-coin" data-tab="coin">
+    <span class="te" aria-hidden="true">🪙</span><span data-i18n="navCoin">동전</span></button>
+  <button type="button" class="tbtn" id="nav-tarot" role="tab" aria-selected="false" aria-controls="tab-tarot" data-tab="tarot">
+    <span class="te" aria-hidden="true">🔮</span><span data-i18n="navTarot">타로</span></button>
+</nav>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- 📲 홈 화면에 앱 설치 안내 -->
+<div class="imodal" id="instModal" role="dialog" aria-modal="true" aria-labelledby="instTitle" hidden>
+  <div class="imcard">
+    <h2 id="instTitle">📲 홈 화면에 앱으로 넣기</h2>
+    <p class="ilead" id="instLead">아이콘을 한 번 꺼내 두면 앱처럼 바로 열려요.</p>
+    <ol id="instSteps"></ol>
+    <a class="chrome" id="instChrome" href="#" hidden>🌐 크롬으로 바로 열기</a>
+    <p class="mini" id="instMini">새로 받는 파일은 없어요. 무료 · 광고 없음 · 개인정보 없음.</p>
+    <button type="button" class="close" id="instClose">확인</button>
+  </div>
+</div>
+
+<noscript><p style="margin:1rem;font-weight:800">와글링 운세는 자바스크립트가 필요해요. / Wagling Fortune needs JavaScript.</p></noscript>
+
+<script>
+(function () {
+  'use strict';
+
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var LS_KEY = 'waglingFortune.v1';
+  var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+
+  /* 어르신용: 처음 열면 큰 글씨가 기본 */
+  var S = { lang: 'ko', big: true, roll: 0, pin: null, lastCard: null };
+  try {
+    var raw = localStorage.getItem(LS_KEY);
+    if (raw) {
+      var o = JSON.parse(raw);
+      if (o && typeof o === 'object') {
+        S.lang = o.lang === 'en' ? 'en' : 'ko';
+        S.big = o.big !== false;
+        S.roll = Number(o.roll) || 0;
+        S.pin = (o.pin && typeof o.pin === 'object' && o.pin.d) ? { d: String(o.pin.d), r: Number(o.pin.r) || 0 } : null;
+        S.lastCard = typeof o.lastCard === 'string' ? o.lastCard : null;
+      }
+    }
+  } catch (e) {}
+  function save() {
+    try {
+      localStorage.setItem(LS_KEY, JSON.stringify({ lang: S.lang, big: S.big, roll: S.roll, pin: S.pin, lastCard: S.lastCard }));
+    } catch (e) {}
+  }
+
+  /* ══════════════════ 🐹 와글가족 햄스터 (사람 아님 · 벡터) ══════════════════ */
+  function hamster(mood) {
+    var arms = '';
+    if (mood === 'cheer') {
+      arms = '<ellipse cx="21" cy="54" rx="7.5" ry="10" fill="#F7E2C4" transform="rotate(-28 21 54)"/>' +
+             '<ellipse cx="99" cy="54" rx="7.5" ry="10" fill="#F7E2C4" transform="rotate(28 99 54)"/>';
+    } else if (mood === 'wave') {
+      arms = '<ellipse cx="25" cy="82" rx="7.5" ry="9" fill="#F7E2C4"/>' +
+             '<ellipse cx="100" cy="52" rx="7" ry="10" fill="#F7E2C4" transform="rotate(24 100 52)"/>';
+    } else {
+      arms = '<ellipse cx="26" cy="83" rx="7.5" ry="9" fill="#F7E2C4"/>' +
+             '<ellipse cx="94" cy="83" rx="7.5" ry="9" fill="#F7E2C4"/>';
+    }
+    var eyes = (mood === 'cheer')
+      ? '<path d="M43 59 q4 -4.6 8 0" fill="none" stroke="#3B2A1C" stroke-width="3.2"/>' +
+        '<path d="M69 59 q4 -4.6 8 0" fill="none" stroke="#3B2A1C" stroke-width="3.2"/>'
+      : '<circle cx="47" cy="59" r="3.8" fill="#3B2A1C" stroke="none"/>' +
+        '<circle cx="73" cy="59" r="3.8" fill="#3B2A1C" stroke="none"/>' +
+        '<circle cx="48.4" cy="57.4" r="1.3" fill="#FFFFFF" stroke="none"/>' +
+        '<circle cx="74.4" cy="57.4" r="1.3" fill="#FFFFFF" stroke="none"/>';
+    var spark = (mood === 'cheer')
+      ? '<g fill="#F3C95A" stroke="none"><path d="M104 26 l2.2 5.6 5.6 2.2 -5.6 2.2 -2.2 5.6 -2.2 -5.6 -5.6 -2.2 5.6 -2.2 Z"/>' +
+        '<path d="M16 34 l1.6 4 4 1.6 -4 1.6 -1.6 4 -1.6 -4 -4 -1.6 4 -1.6 Z"/></g>'
+      : '';
+    return '<svg viewBox="6 12 108 104" fill="none" stroke="#4A3728" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">' +
+      '<circle cx="36" cy="33" r="12" fill="#F3CBA6"/>' +
+      '<circle cx="84" cy="33" r="12" fill="#F3CBA6"/>' +
+      '<circle cx="36" cy="33" r="5.4" fill="#F7B4A6" stroke="none"/>' +
+      '<circle cx="84" cy="33" r="5.4" fill="#F7B4A6" stroke="none"/>' +
+      '<ellipse cx="60" cy="66" rx="34" ry="31" fill="#F7E2C4"/>' +
+      '<ellipse cx="60" cy="80" rx="18" ry="13" fill="#FFF8EC" stroke="none"/>' +
+      '<ellipse cx="60" cy="72" rx="17" ry="12" fill="#FFFCF5" stroke="none"/>' +
+      '<circle cx="35" cy="70" r="7.4" fill="#F6A79A" stroke="none" opacity=".55"/>' +
+      '<circle cx="85" cy="70" r="7.4" fill="#F6A79A" stroke="none" opacity=".55"/>' +
+      eyes +
+      '<path d="M60 66.6 l-3.6 -2.9 h7.2 z" fill="#E88E7A" stroke="none"/>' +
+      '<path d="M60 67.6 q-3 4.2 -6.6 1.2" stroke-width="2.2"/>' +
+      '<path d="M60 67.6 q3 4.2 6.6 1.2" stroke-width="2.2"/>' +
+      '<g stroke="#C2A485" stroke-width="1.6" opacity=".9">' +
+      '<path d="M31 72 l-8 -2"/><path d="M31 78 l-8 2"/>' +
+      '<path d="M89 72 l8 -2"/><path d="M89 78 l8 2"/></g>' +
+      arms +
+      '<ellipse cx="47" cy="97" rx="9" ry="6" fill="#F7E2C4"/>' +
+      '<ellipse cx="73" cy="97" rx="9" ry="6" fill="#F7E2C4"/>' +
+      spark +
+      '</svg>';
+  }
+  var MASCOT = { coin: 'mascotCoin', tarot: 'mascotTarot' };
+  function paintMascots() {
+    $('#mpicToday').innerHTML = hamster('wave');
+    $('#mpicCoin').innerHTML = hamster('cheer');
+    $('#mpicTarot').innerHTML = hamster('hi');
+  }
+  function paintMascotText() {
+    var d = currentDraw();
+    var f = d.fortune;
+    $('#msayToday').textContent = (S.lang === 'ko' && f.m) ? f.m : t('mascotToday');
+    $('#msayCoin').textContent = t(MASCOT.coin);
+    $('#msayTarot').textContent = t(MASCOT.tarot);
+  }
+
+  /* ══════════════════ 날짜 · 시각 ══════════════════ */
+  var DAY_KO = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+  var DAY_EN = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  var MON_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  function dateKey(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function dateText(d) {
+    if (S.lang === 'en') return MON_EN[d.getMonth()] + ' ' + d.getDate() + ', ' + DAY_EN[d.getDay()];
+    return (d.getMonth() + 1) + '월 ' + d.getDate() + '일 ' + DAY_KO[d.getDay()];
+  }
+  function timeText(d) {
+    var h = d.getHours(), m = d.getMinutes();
+    if (S.lang === 'en') return (h % 12 || 12) + ':' + pad(m) + ' ' + (h < 12 ? 'AM' : 'PM');
+    return (h < 12 ? '오전 ' : '오후 ') + (h % 12 || 12) + ':' + pad(m);
+  }
+  function paintClock() {
+    var d = new Date();
+    $('#wxDate').textContent = dateText(d);
+    $('#wxTime').textContent = timeText(d);
+    var td = $('#tDate');
+    if (td) td.textContent = dateText(d);
+  }
+
+  /* ══════════════════ ☀️ 오늘의 하루 운세 ══════════════════ */
+  var FORTUNES = [
+    { k: '오늘은 작은 친절이 큰 기쁨으로 돌아오는 날이에요.', t: '누군가에게 문을 잡아 주거나, 따뜻한 말 한마디를 건네 보세요.',
+      e: 'Small kindness comes back as big joy today.', et: 'Hold a door for someone, or say one warm word.',
+      m: '작은 친절이 큰 기쁨으로 돌아와요!' },
+    { k: '천천히 가도 괜찮아요. 오늘의 속도가 딱 맞는 속도예요.', t: '해야 할 일을 셋만 골라 보세요. 셋이면 충분해요.',
+      e: 'Slow is fine today — your pace is exactly right.', et: 'Pick just three things to do. Three is enough.',
+      m: '천천히 가도 괜찮아요.' },
+    { k: '마음에 걸렸던 일 하나, 오늘 5분만 손대 보세요.', t: '시작만 해도 생각보다 가벼워져요. 5분 타이머를 써 보세요.',
+      e: 'Give one nagging thing just five minutes today.', et: 'Starting makes it lighter. Try a five-minute timer.',
+      m: '5분만 해 보면 가벼워져요.' },
+    { k: '오늘은 웃음이 복을 부르는 날이에요.', t: '일부러라도 크게 한 번 웃어 보세요. 표정이 마음을 데려가요.',
+      e: 'Laughter brings good luck today.', et: 'Laugh out loud once, even on purpose.',
+      m: '오늘은 크게 한 번 웃어 봐요!' },
+    { k: '기다리던 소식이 조금 늦어도 괜찮아요. 좋은 건 늦게 와도 좋아요.', t: '오늘은 기다리는 동안 내 일 하나를 먼저 챙겨 주세요.',
+      e: 'Good news may be a little late — that is still good.', et: 'While waiting, take care of one thing of your own.',
+      m: '좋은 소식은 늦게 와도 좋아요.' },
+    { k: '오늘의 당신은 생각보다 잘하고 있어요.', t: '거울 앞에서 스스로에게 칭찬 한 번. 그게 오늘의 연료예요.',
+      e: 'You are doing better than you think today.', et: 'Compliment yourself once in the mirror.',
+      m: '오늘도 잘하고 있어요!' },
+    { k: '가까운 사람과의 짧은 대화가 오늘의 힘이 돼요.', t: '안부를 먼저 물어보세요. 먼저 건네는 말이 제일 따뜻해요.',
+      e: 'A short talk with someone close is today\'s strength.', et: 'Ask first how they are doing.',
+      m: '가족에게 먼저 안부를 물어봐요.' },
+    { k: '정리 한 칸이 마음 한 칸을 비워 줘요.', t: '서랍 하나, 가방 하나만 정리해 보세요. 그거면 충분해요.',
+      e: 'One tidy corner clears one corner of the heart.', et: 'Tidy one drawer or one bag. That is enough.',
+      m: '서랍 하나만 정리해 봐요.' },
+    { k: '오늘은 맛있는 걸 먹어도 괜찮은 날이에요.', t: '잘 먹는 것도 좋은 일이에요. 천천히, 맛있게 드세요.',
+      e: 'It is a good day to eat something delicious.', et: 'Eating well is a good thing. Slowly and happily.',
+      m: '맛있는 거 드세요!' },
+    { k: '누군가의 도움을 받아도 괜찮아요. 혼자 다 하지 않아도 돼요.', t: '오늘은 "같이 해요"라고 말해 보세요. 일이 가벼워져요.',
+      e: 'It is fine to accept help — you need not do it all.', et: 'Say "let\'s do it together" today.',
+      m: '혼자 다 하지 않아도 돼요.' },
+    { k: '작은 산책이 생각을 반듯하게 해 줘요.', t: '10분만 걸어 보세요. 돌아오는 길에 답이 보일지도 몰라요.',
+      e: 'A short walk straightens your thoughts.', et: 'Walk ten minutes. The answer may meet you on the way back.',
+      m: '10분만 걸어 봐요.' },
+    { k: '오늘의 행운은 조용해요. 대신 마음이 편안한 하루가 될 거예요.', t: '따뜻한 차 한 잔을 천천히. 오늘의 속도는 그 정도면 충분해요.',
+      e: 'Today\'s luck is quiet — and so is your heart.', et: 'Sip one warm cup slowly. That pace is enough.',
+      m: '오늘은 마음이 편안한 날이에요.' }
+  ];
+  var COLORS = [
+    { k: '민트빛 연두', e: 'mint green', hex: '#8FD3AE' },
+    { k: '맑은 하늘색', e: 'clear sky blue', hex: '#8EC8F0' },
+    { k: '아이보리', e: 'ivory', hex: '#F1E3C6' },
+    { k: '살구색', e: 'apricot', hex: '#F6C3A5' },
+    { k: '라벤더', e: 'lavender', hex: '#C9BDF0' },
+    { k: '금빛 노랑', e: 'golden yellow', hex: '#EBC75E' },
+    { k: '산호색', e: 'coral', hex: '#F6A79A' },
+    { k: '연분홍', e: 'soft pink', hex: '#F7C8D8' },
+    { k: '올리브빛', e: 'olive green', hex: '#B9CF8F' },
+    { k: '크림 노랑', e: 'cream yellow', hex: '#F8E7A8' }
+  ];
+  var NUMS = [1, 3, 5, 7, 8, 9, 11, 12, 17, 21, 24, 33];
+  var TIMES = [
+    { k: '아침 8시쯤', e: 'around 8 AM' }, { k: '오전 10시쯤', e: 'around 10 AM' },
+    { k: '점심 무렵', e: 'around noon' }, { k: '오후 3시쯤', e: 'around 3 PM' },
+    { k: '오후 4시쯤', e: 'around 4 PM' }, { k: '해 질 무렵', e: 'around sunset' },
+    { k: '저녁 7시쯤', e: 'around 7 PM' }
+  ];
+  var PLACES = [
+    { k: '창가 자리', e: 'a seat by the window' }, { k: '가까운 공원', e: 'a nearby park' },
+    { k: '익숙한 산책길', e: 'your usual walking path' }, { k: '따뜻한 차 한 잔 하는 곳', e: 'a warm cup of tea' },
+    { k: '부엌', e: 'the kitchen' }, { k: '동네 서점', e: 'the neighborhood bookshop' },
+    { k: '햇살 드는 마루', e: 'a sunny spot at home' }, { k: '집 앞 가게', e: 'the shop near home' }
+  ];
+  function hash(s) {
+    var h = 2166136261;
+    for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = (h * 16777619) >>> 0; }
+    return h >>> 0;
+  }
+  function todayKeyNow() { return dateKey(new Date()); }
+  function currentDraw() {
+    var key = todayKeyNow();
+    var pinOK = S.pin && S.pin.d === key;
+    var roll = pinOK ? S.pin.r : S.roll;
+    var seed = hash(key + '|' + roll);
+    return {
+      pinned: !!pinOK,
+      fortune: FORTUNES[seed % FORTUNES.length],
+      color: COLORS[(seed >>> 4) % COLORS.length],
+      num: NUMS[(seed >>> 9) % NUMS.length],
+      time: TIMES[(seed >>> 14) % TIMES.length],
+      place: PLACES[(seed >>> 19) % PLACES.length]
+    };
+  }
+  function renderToday(animate) {
+    var L = S.lang;
+    var d = currentDraw();
+    var f = d.fortune;
+    var q = $('#tQuote');
+    q.textContent = L === 'en' ? f.e : f.k;
+    $('#lColor').innerHTML = '<i class="swatch" style="background:' + d.color.hex + '"></i>' + (L === 'en' ? d.color.e : d.color.k);
+    $('#lNumber').textContent = String(d.num);
+    $('#lTime').textContent = L === 'en' ? d.time.e : d.time.k;
+    $('#lPlace').textContent = L === 'en' ? d.place.e : d.place.k;
+    $('#lTip').textContent = L === 'en' ? f.et : f.t;
+    $('#todayCard').classList.toggle('pinned', d.pinned);
+    var pin = $('#btnPin');
+    pin.setAttribute('aria-pressed', d.pinned ? 'true' : 'false');
+    pin.textContent = d.pinned ? t('pinOn') : t('pin');
+    paintMascotText();
+    if (animate) { q.classList.remove('pop'); void q.offsetWidth; q.classList.add('pop'); }
+  }
+
+  /* ══════════════════ 🔊 소리로 읽어 주기 ══════════════════ */
+  var speaking = false, audioCtx = null, speakToken = 0;
+  function unlockAudio() {
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (AC) {
+        if (!audioCtx) audioCtx = new AC();
+        if (audioCtx.state === 'suspended') { var p = audioCtx.resume(); if (p && p.catch) p.catch(function () {}); }
+        var buf = audioCtx.createBuffer(1, 1, 22050);
+        var src = audioCtx.createBufferSource();
+        src.buffer = buf; src.connect(audioCtx.destination); src.start(0);
+      }
+    } catch (e) {}
+  }
+  function cleanText(s) {
+    return String(s || '')
+      .replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{2190}-\u{21FF}\u{FE0F}\u{20E3}]/gu, '')
+      .replace(/[·•]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+  function splitSentences(text) {
+    var clean = cleanText(text);
+    if (!clean) return [];
+    var out = [];
+    var parts = clean.match(/[^.!?。！？]+[.!?。！？]?/g) || [clean];
+    parts.forEach(function (p) {
+      p = p.trim();
+      if (!p) return;
+      if (p.length <= 120) { out.push(p); return; }
+      p.split(/[,，、]\s*/).forEach(function (q2) {
+        q2 = q2.trim();
+        if (q2) out.push(q2);
+      });
+    });
+    return out;
+  }
+  function pickVoice(lang) {
+    try {
+      if (!window.speechSynthesis || !window.speechSynthesis.getVoices) return null;
+      var vs = window.speechSynthesis.getVoices() || [];
+      var want = lang.slice(0, 2).toLowerCase();
+      var best = null;
+      for (var i = 0; i < vs.length; i++) {
+        var v = vs[i];
+        if (!v || !v.lang) continue;
+        if (v.lang.toLowerCase().indexOf(want) === 0) {
+          if (!best) best = v;
+          if (v.localService) { best = v; break; }
+        }
+      }
+      return best;
+    } catch (e) { return null; }
+  }
+  function speakBtnState() {
+    $$('.speakbtn').forEach(function (b) {
+      b.setAttribute('aria-pressed', speaking ? 'true' : 'false');
+      b.textContent = speaking ? t('speakStop') : t('speak');
+    });
+  }
+  function stopSpeak() {
+    speaking = false;
+    speakToken++;
+    try { window.speechSynthesis.cancel(); } catch (e) {}
+    speakBtnState();
+  }
+  function speak(parts) {
+    if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
+      toast(t('noSpeak'));
+      return;
+    }
+    if (speaking) { stopSpeak(); return; }
+    unlockAudio();
+    try { window.speechSynthesis.cancel(); } catch (e) {}
+    var langTag = S.lang === 'en' ? 'en-US' : 'ko-KR';
+    var chunks = [];
+    parts.forEach(function (p) { splitSentences(p).forEach(function (x) { chunks.push(x); }); });
+    if (!chunks.length) return;
+    speaking = true;
+    speakBtnState();
+    var i = 0, started = false;
+    var myToken = ++speakToken;
+    setTimeout(function () {
+      if (myToken === speakToken && !started) { stopSpeak(); toast(t('speakFail')); }
+    }, 1600);
+    function next() {
+      if (!speaking) return;
+      if (i >= chunks.length) { speaking = false; speakBtnState(); return; }
+      var u = new SpeechSynthesisUtterance(chunks[i++]);
+      u.lang = langTag;
+      u.rate = 0.85;
+      u.pitch = 1.02;
+      u.volume = 1;
+      var v = pickVoice(langTag);
+      if (v) { try { u.voice = v; } catch (e) {} }
+      u.onstart = function () { started = true; };
+      u.onend = next;
+      u.onerror = function () { if (speaking) { speaking = false; speakBtnState(); } };
+      try {
+        window.speechSynthesis.speak(u);
+        if (window.speechSynthesis.paused) window.speechSynthesis.resume();
+      } catch (e) { speaking = false; speakBtnState(); }
+    }
+    next();
+  }
+  function speakToday() {
+    if (speaking) { stopSpeak(); return; }
+    var L = S.lang, d = currentDraw(), f = d.fortune;
+    speak([
+      t('speakTodayLead'),
+      L === 'en' ? f.e : f.k,
+      t('luckColor') + '. ' + (L === 'en' ? d.color.e : d.color.k) + '.',
+      t('luckNumber') + '. ' + d.num + '.',
+      t('luckTime') + '. ' + (L === 'en' ? d.time.e : d.time.k) + '.',
+      t('luckPlace') + '. ' + (L === 'en' ? d.place.e : d.place.k) + '.',
+      t('tipLabel') + '. ' + (L === 'en' ? f.et : f.t)
+    ]);
+  }
+  function speakTarot() {
+    if (speaking) { stopSpeak(); return; }
+    if (picked === null || !deck.length) { toast(t('pickFirst')); return; }
+    var c = TAROT[deck[picked]];
+    var L = S.lang;
+    speak([
+      t('readLabel') + '. ' + (L === 'en' ? c.en : c.ko) + '.',
+      L === 'en' ? c.line.e : c.line.k,
+      t('blkOverall') + '. ' + (L === 'en' ? c.overall.e : c.overall.k),
+      t('blkWork') + '. ' + (L === 'en' ? c.work.e : c.work.k),
+      t('blkHeart') + '. ' + (L === 'en' ? c.heart.e : c.heart.k),
+      t('blkAdvice') + '. ' + (L === 'en' ? c.advice.e : c.advice.k)
+    ]);
+  }
+
+  /* ══════════════════ 🪙 동전 ══════════════════ */
+  var COIN_HEAD = [
+    { k: '지금 마음이 가는 쪽으로 한 걸음! 오늘은 용기가 예쁜 결과를 만들어요.', e: 'Take the step your heart leans toward — today courage looks good on you.' },
+    { k: '좋아요, 가자! 준비된 사람에게 좋은 일이 찾아와요.', e: 'Yes, go! Good things find the person who is ready.' },
+    { k: '앞면이 나왔어요. 미루지 말고 오늘 한 번 시작해 보세요.', e: 'Heads! Do not put it off — start once today.' },
+    { k: '네, 해 보세요. 작게 시작해도 괜찮아요.', e: 'Yes, try it. Starting small is perfectly fine.' }
+  ];
+  var COIN_TAIL = [
+    { k: '잠깐, 5분만 더 생각해 봐요. 그 사이 답이 더 또렷해져요.', e: 'Wait — give it five more minutes. The answer gets clearer.' },
+    { k: '뒷면이 나왔어요. 오늘은 쉬어 가도 괜찮아요.', e: 'Tails. Resting a little today is allowed.' },
+    { k: '한 번 더 물어보세요. 두 번째 마음이 진짜 마음일 때가 많아요.', e: 'Ask once more — the second answer is often the true one.' },
+    { k: '지금은 아니어도 괜찮아요. 내일 아침에 다시 물어봐요.', e: 'Not now is still okay. Ask again tomorrow morning.' }
+  ];
+  var flipping = false;
+  function coinResult(heads) {
+    var L = S.lang;
+    var pool = heads ? COIN_HEAD : COIN_TAIL;
+    var pick = pool[Math.floor(Math.random() * pool.length)];
+    var box = $('#cResult');
+    box.dataset.heads = heads ? '1' : '0';
+    box.innerHTML = '<span class="rb' + (heads ? '' : ' wait') + '">' +
+      (heads ? t('coinHeadsTag') : t('coinTailsTag')) + '</span><p>' + (L === 'en' ? pick.e : pick.k) + '</p>';
+    box.classList.remove('show'); void box.offsetWidth; box.classList.add('show');
+    MASCOT.coin = heads ? 'mascotCoinHead' : 'mascotCoinTail';
+    $('#msayCoin').textContent = t(MASCOT.coin);
+    $('#mpicCoin').innerHTML = hamster(heads ? 'cheer' : 'wave');
+  }
+  function flipCoin() {
+    if (flipping) return;
+    flipping = true;
+    stopSpeak();
+    var coin = $('#coin'), inner = $('.cinner', coin);
+    var heads = Math.random() < 0.5;
+    var base = 1440 + Math.floor(Math.random() * 3) * 360;
+    var deg = base + (heads ? 0 : 180);
+    coin.style.setProperty('--spin', deg + 'deg');
+    coin.classList.remove('spin'); void coin.offsetWidth; coin.classList.add('spin');
+    $('#cResult').innerHTML = '';
+    $('#btnFlip').disabled = true;
+    var reduce = false;
+    try { reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    setTimeout(function () {
+      coin.classList.remove('spin');
+      inner.style.transform = 'rotateY(' + deg + 'deg)';
+      coinResult(heads);
+      $('#btnFlip').disabled = false;
+      flipping = false;
+    }, reduce ? 60 : 1600);
+  }
+
+  /* ══════════════════ 🔮 타로 — 상징 SVG (사람 없음) ══════════════════ */
+  function svgWrap(inner) {
+    return '<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3.6" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + inner + '</svg>';
+  }
+  var SYM = {
+    star: function () {
+      return svgWrap('<path d="M50 13 L60.2 38.6 L87.6 40.2 L66.4 57.9 L73.2 84.6 L50 69.8 L26.8 84.6 L33.6 57.9 L12.4 40.2 L39.8 38.6 Z" fill="currentColor" fill-opacity=".14"/>' +
+        '<path d="M80 16 l1.4 4 4 1.4 -4 1.4 -1.4 4 -1.4 -4 -4 -1.4 4 -1.4 Z" fill="currentColor" stroke-width="1.6"/>' +
+        '<circle cx="21" cy="24" r="1.8" fill="currentColor" stroke="none"/>');
+    },
+    sun: function () {
+      var rays = '';
+      for (var i = 0; i < 8; i++) {
+        var a = (i * 45) * Math.PI / 180;
+        rays += '<path d="M' + (50 + 29 * Math.cos(a)).toFixed(1) + ' ' + (50 + 29 * Math.sin(a)).toFixed(1) +
+          ' L' + (50 + 39 * Math.cos(a)).toFixed(1) + ' ' + (50 + 39 * Math.sin(a)).toFixed(1) + '"/>';
+      }
+      return svgWrap('<circle cx="50" cy="50" r="20" fill="currentColor" fill-opacity=".16"/>' + rays);
+    },
+    moon: function () {
+      return svgWrap('<path d="M63 14 a38 38 0 1 0 0 72 a30 30 0 0 1 0 -72 Z" fill="currentColor" fill-opacity=".14"/>' +
+        '<path d="M79 24 l1.2 3.4 3.4 1.2 -3.4 1.2 -1.2 3.4 -1.2 -3.4 -3.4 -1.2 3.4 -1.2 Z" fill="currentColor" stroke-width="1.4"/>' +
+        '<circle cx="78" cy="48" r="1.6" fill="currentColor" stroke="none"/>');
+    },
+    clover: function () {
+      return svgWrap('<circle cx="50" cy="35" r="14" fill="currentColor" fill-opacity=".15"/>' +
+        '<circle cx="65" cy="50" r="14" fill="currentColor" fill-opacity=".15"/>' +
+        '<circle cx="50" cy="65" r="14" fill="currentColor" fill-opacity=".15"/>' +
+        '<circle cx="35" cy="50" r="14" fill="currentColor" fill-opacity=".15"/>' +
+        '<path d="M50 62 q2 14 -2 24"/>' +
+        '<circle cx="50" cy="50" r="3" fill="currentColor" stroke="none"/>');
+    },
+    rainbow: function () {
+      return svgWrap('<path d="M12 76 a38 38 0 0 1 76 0" stroke-width="3.6"/>' +
+        '<path d="M22 76 a28 28 0 0 1 56 0" stroke-width="3"/>' +
+        '<path d="M32 76 a18 18 0 0 1 36 0" stroke-width="2.6"/>' +
+        '<circle cx="13" cy="80" r="5" fill="currentColor" fill-opacity=".18" stroke-width="2"/>' +
+        '<circle cx="87" cy="80" r="5" fill="currentColor" fill-opacity=".18" stroke-width="2"/>');
+    },
+    dove: function () {
+      return svgWrap('<path d="M20 60 C24 42 42 32 58 36 C70 39 76 48 74 56 C72 66 58 70 46 68 C36 66 24 66 20 60 Z" fill="currentColor" fill-opacity=".14"/>' +
+        '<path d="M56 38 C60 28 72 24 82 26" stroke-width="2.6"/>' +
+        '<path d="M74 56 L86 60 L76 64" stroke-width="2.4"/>' +
+        '<circle cx="66" cy="45" r="1.8" fill="currentColor" stroke="none"/>' +
+        '<path d="M40 68 q-2 12 4 18" stroke-width="2.4"/>');
+    },
+    tree: function () {
+      return svgWrap('<path d="M46 86 L46 58 L54 58 L54 86" fill="currentColor" fill-opacity=".18"/>' +
+        '<path d="M50 62 C36 62 26 52 26 40 C26 26 38 16 50 16 C62 16 74 26 74 40 C74 52 64 62 50 62 Z" fill="currentColor" fill-opacity=".14"/>' +
+        '<path d="M50 30 L50 52"/>');
+    },
+    sunflower: function () {
+      var petals = '';
+      for (var i = 0; i < 12; i++) {
+        petals += '<ellipse cx="50" cy="20" rx="7" ry="13" transform="rotate(' + (i * 30) + ' 50 50)" fill="currentColor" fill-opacity=".15"/>';
+      }
+      return svgWrap(petals + '<circle cx="50" cy="50" r="13" fill="currentColor" fill-opacity=".22"/>' +
+        '<path d="M50 63 L50 88" stroke-width="3"/>');
+    },
+    gift: function () {
+      return svgWrap('<rect x="22" y="46" width="56" height="40" rx="5" fill="currentColor" fill-opacity=".14"/>' +
+        '<rect x="18" y="34" width="64" height="14" rx="4" fill="currentColor" fill-opacity=".2"/>' +
+        '<path d="M50 34 L50 86" stroke-width="2.8"/>' +
+        '<path d="M50 34 C40 34 32 28 32 22 C32 17 38 15 42 18 C47 22 50 34 50 34 Z"/>' +
+        '<path d="M50 34 C60 34 68 28 68 22 C68 17 62 15 58 18 C53 22 50 34 50 34 Z"/>');
+    },
+    compass: function () {
+      return svgWrap('<circle cx="50" cy="50" r="34" fill="currentColor" fill-opacity=".1"/>' +
+        '<circle cx="50" cy="50" r="26" stroke-width="2"/>' +
+        '<path d="M50 26 L58 50 L50 74 L42 50 Z" fill="currentColor" fill-opacity=".2"/>' +
+        '<circle cx="50" cy="50" r="3" fill="currentColor" stroke="none"/>');
+    }
+  };
+
+  /* ══════════════════ 🔮 타로 — 카드 (쉬운 말 풀이) ══════════════════ */
+  var TAROT = [
+    {
+      id: 'star', sym: 'star', no: 'I', accent: '#C79A2E', ko: '별 카드', en: 'The Star', shortKo: '별', shortEn: 'Star',
+      line: { k: '반짝이는 마음이 오늘을 밝혀요.', e: 'A bright heart lights up today.' },
+      overall: {
+        k: '오늘은 마음속에 그린 그림이 조금 더 또렷해져요. 별은 언제나 제자리에서 빛나요. 서두르지 않아도 괜찮아요.',
+        e: 'The picture in your heart grows a little clearer today. The star keeps shining where it is. No need to rush.'
+      },
+      work: {
+        k: '해 두고 싶던 일 하나를 오늘 먼저 해 보세요. 큰 결심보다 작은 시작이 잘 맞아요. 돈은 크게 쓰기보다 오늘 나가는 곳을 한 번 살펴보세요.',
+        e: 'Do one thing you have been meaning to do, first today. A small start suits you better than a big promise. Look once at where money goes rather than spending big.'
+      },
+      heart: {
+        k: '먼저 안부를 물으면 이야기가 따뜻하게 열려요. 오래 연락 못 한 사람에게 짧은 문자 하나를 보내 보세요.',
+        e: 'Ask first how someone is and the talk opens warmly. Send one short message to someone you have not reached in a while.'
+      },
+      advice: {
+        k: '밤하늘을 잠깐 올려다보거나, 창밖을 30초만 바라보세요. 오늘의 답은 조용한 곳에서 잘 들려요.',
+        e: 'Look up at the sky for a moment, or out the window for thirty seconds. Today\'s answer is heard best in quiet places.'
+      }
+    },
+    {
+      id: 'sun', sym: 'sun', no: 'II', accent: '#D9A227', ko: '태양 카드', en: 'The Sun', shortKo: '태양', shortEn: 'Sun',
+      line: { k: '햇살 같은 따뜻한 기운이 와요.', e: 'Warm, sunny energy is with you.' },
+      overall: {
+        k: '햇살처럼 따뜻한 기운이 함께해요. 오늘은 웃는 얼굴이 제일 좋은 준비예요. 잘 풀리는 일이 하나쯤 생겨요.',
+        e: 'Warm sunny energy is with you. A smiling face is the best preparation today. Something goes well.'
+      },
+      work: {
+        k: '미뤄 둔 일을 기분 좋게 꺼내 보세요. 인사나 부탁처럼 말 한마디가 필요한 일이 잘 풀려요. 작은 성과도 크게 기뻐해 주세요.',
+        e: 'Bring out a postponed task with a light heart. Anything needing one spoken word goes well. Celebrate small wins.'
+      },
+      heart: {
+        k: '먼저 웃어 주면 상대도 따라 웃어요. 고마웠던 일을 오늘 그 사람에게 꼭 말해 보세요.',
+        e: 'Smile first and the other person smiles too. Tell someone today about a thing you were grateful for.'
+      },
+      advice: {
+        k: '햇살을 10분만 쬐어 보세요. 몸이 따뜻해지면 마음도 같이 풀려요.',
+        e: 'Stand in the sunlight for ten minutes. When the body warms, the heart loosens too.'
+      }
+    },
+    {
+      id: 'moon', sym: 'moon', no: 'III', accent: '#7B68B8', ko: '달 카드', en: 'The Moon', shortKo: '달', shortEn: 'Moon',
+      line: { k: '조용한 마음의 신호를 믿어 보세요.', e: 'Trust the quiet signal in your heart.' },
+      overall: {
+        k: '오늘은 마음이 조용히 알려 주는 것을 믿어 보세요. 서두르지 않을수록 더 잘 보여요. 저녁이 되면 마음이 포근해져요.',
+        e: 'Trust what your heart quietly tells you today. The less you rush, the more you see. The evening turns cozy.'
+      },
+      work: {
+        k: '결정은 내일 아침에 해도 괜찮아요. 오늘은 살펴보기만 하세요. 꼭 확인할 것만 오늘 확인해 두세요.',
+        e: 'You can decide tomorrow morning. Today, just look. Check today only what truly needs checking.'
+      },
+      heart: {
+        k: '말을 다 하지 않아도 통하는 사이가 있어요. 상대의 얼굴을 한 번 더 살펴봐 주세요. 따뜻한 눈빛도 충분한 말이 돼요.',
+        e: 'Some bonds do not need every word. Look once more at the other person\'s face — a warm glance is words enough.'
+      },
+      advice: {
+        k: '잠들기 전에 오늘 좋았던 일 세 가지를 떠올려 보세요. 마음이 포근해져요.',
+        e: 'Before sleep, recall three good things from today. The heart turns cozy.'
+      }
+    },
+    {
+      id: 'clover', sym: 'clover', no: 'IV', accent: '#5FA97F', ko: '네잎클로버 카드', en: 'The Clover', shortKo: '클로버', shortEn: 'Clover',
+      line: { k: '우연처럼 찾아오는 작은 행운.', e: 'Small luck arrives like a coincidence.' },
+      overall: {
+        k: '우연처럼 찾아오는 작은 행운이 오늘 곁에 있어요. 큰일이 아니어도 웃음 나는 작은 일이 하루를 채워 줘요.',
+        e: 'Small luck that feels like coincidence is beside you today. Even small things that make you smile fill the day.'
+      },
+      work: {
+        k: '찾던 것이 뜻밖의 곳에서 나올 수 있어요. 서랍이나 지난 메모, 익숙한 길을 한 번 더 살펴보세요. 있던 것을 다시 쓰는 게 오늘의 요령이에요.',
+        e: 'What you are looking for may appear somewhere unexpected. Check a drawer, an old note, a familiar path once more. Reusing what you have is today\'s trick.'
+      },
+      heart: {
+        k: '먼저 건넨 인사가 반가운 우연으로 돌아와요. 짧고 가벼운 안부가 오래 남아요.',
+        e: 'A greeting you give first returns as a happy coincidence. Short, light hellos stay longest.'
+      },
+      advice: {
+        k: '평소와 다른 길로 한 번 걸어 보세요. 작은 변화가 행운을 불러요.',
+        e: 'Walk a different way once. A small change invites luck.'
+      }
+    },
+    {
+      id: 'rainbow', sym: 'rainbow', no: 'V', accent: '#5C8FC4', ko: '무지개 카드', en: 'The Rainbow', shortKo: '무지개', shortEn: 'Rainbow',
+      line: { k: '걸렸던 것이 부드럽게 풀려요.', e: 'What was tangled gently loosens.' },
+      overall: {
+        k: '비 온 뒤 하늘처럼, 마음에 걸렸던 것이 부드럽게 풀려요. 한 번에 다 풀리지 않아도 괜찮아요. 오늘 한 가지가 풀리면 충분해요.',
+        e: 'Like the sky after rain, what was weighing on you loosens gently. It need not all untangle at once. One knot loosened today is enough.'
+      },
+      work: {
+        k: '미뤄 둔 연락이나 정리를 오늘 해 두면 속이 시원해요. 끝낸 일은 눈에 보이게 표시해 두세요.',
+        e: 'A postponed call or a bit of tidying clears your chest today. Mark finished things where you can see them.'
+      },
+      heart: {
+        k: '서운했던 마음을 짧게라도 꺼내 놓으면 사이가 한 뼘 가까워져요. 부드러운 말투로 한 문장이면 충분해요.',
+        e: 'Bring out a small hurt, even briefly, and the bond comes a step closer. A gentle tone, one sentence is enough.'
+      },
+      advice: {
+        k: '창문을 열고 공기를 한 번 바꿔 보세요. 기분 전환은 생각보다 가까이 있어요.',
+        e: 'Open a window and change the air once. A fresh mood is closer than you think.'
+      }
+    },
+    {
+      id: 'dove', sym: 'dove', no: 'VI', accent: '#7FA8BD', ko: '평화 카드', en: 'The Dove', shortKo: '평화', shortEn: 'Peace',
+      line: { k: '오늘의 복은 마음이 편안한 것.', e: 'Today\'s blessing is a calm heart.' },
+      overall: {
+        k: '오늘 가장 큰 복은 마음이 편안한 것이에요. 서두르지 않아도 일은 잘 흘러가요. 아무 일 없는 하루가 가장 좋은 하루일 때도 많아요.',
+        e: 'Today\'s greatest blessing is a peaceful heart. Nothing falls apart if you do not rush. A day with nothing special is often the best day.'
+      },
+      work: {
+        k: '일을 하나씩 차례대로 하면 실수가 줄어요. 쉬는 시간도 일의 일부예요. 다 못 해도 괜찮아요.',
+        e: 'One task at a time, in order, and mistakes shrink. Rest is part of the work. Not finishing everything is okay.'
+      },
+      heart: {
+        k: '잘 보이려고 애쓰지 않아도 괜찮아요. 편안한 사람이 오래 남아요. 억지로 웃지 않아도 돼요.',
+        e: 'You need not try hard to impress anyone. The comfortable person stays longest. You need not force a smile.'
+      },
+      advice: {
+        k: '따뜻한 물 한 잔을 천천히 드세요. 오늘의 속도는 그 정도면 충분해요.',
+        e: 'Sip one warm cup slowly. Today\'s pace is enough as it is.'
+      }
+    },
+    {
+      id: 'tree', sym: 'tree', no: 'VII', accent: '#5E9A6B', ko: '나무 카드', en: 'The Tree', shortKo: '나무', shortEn: 'Tree',
+      line: { k: '작은 씨앗이 조용히 자라고 있어요.', e: 'A small seed is quietly growing.' },
+      overall: {
+        k: '오늘 심은 작은 씨앗이 조용히 자라고 있어요. 눈에 안 보여도 자라고 있어요. 결과보다 오늘의 습관을 믿어 보세요.',
+        e: 'The small seed you planted is growing quietly. Even unseen, it grows. Trust today\'s habit more than today\'s result.'
+      },
+      work: {
+        k: '하루에 하나씩 쌓는 방식이 잘 맞아요. 크게 벌이기보다 꾸준히 하는 편이 좋아요. 오늘 한 칸만 채우면 내일이 가벼워져요.',
+        e: 'Building one thing a day suits you now. Steady beats big. Fill one square today and tomorrow feels lighter.'
+      },
+      heart: {
+        k: '가족이나 오랜 친구와 보내는 시간이 든든한 뿌리가 돼요. 오늘 한 사람에게 안부를 전해 보세요.',
+        e: 'Time with family or old friends becomes a sturdy root. Send one person a hello today.'
+      },
+      advice: {
+        k: '5분이라도 몸을 움직여 보세요. 몸이 튼튼하면 마음도 튼튼해져요.',
+        e: 'Move your body for even five minutes. A strong body keeps the heart strong.'
+      }
+    },
+    {
+      id: 'sunflower', sym: 'sunflower', no: 'VIII', accent: '#D9A227', ko: '해바라기 카드', en: 'The Sunflower', shortKo: '해바라기', shortEn: 'Sunflower',
+      line: { k: '좋은 쪽을 보는 마음이 운을 밝혀요.', e: 'Looking toward the good brightens your luck.' },
+      overall: {
+        k: '좋은 쪽을 바라보는 마음이 오늘의 운을 밝혀요. 기분이 조금 가라앉아도 괜찮아요. 고개를 들면 보이는 것이 달라져요.',
+        e: 'A heart that looks toward the good brightens today\'s luck. A slightly low mood is fine. Lift your head and the view changes.'
+      },
+      work: {
+        k: '누군가의 도움을 받아도 괜찮아요. 혼자 다 하지 않아도 돼요. 도와준 사람에게 고맙다고 말해 두세요.',
+        e: 'Accepting help is fine today. You need not do it all alone. Thank whoever helps.'
+      },
+      heart: {
+        k: '칭찬 한마디가 오래 남아요. 오늘 한 사람에게 "덕분이야"라고 꼭 말해 보세요.',
+        e: 'One compliment stays a long time. Tell one person today, "that was thanks to you."'
+      },
+      advice: {
+        k: '앞을 보고 걸어 보세요. 고개를 든 만큼 앞이 잘 보여요.',
+        e: 'Walk looking forward. Lifting your head widens the view.'
+      }
+    },
+    {
+      id: 'gift', sym: 'gift', no: 'IX', accent: '#C1738F', ko: '선물 카드', en: 'The Gift', shortKo: '선물', shortEn: 'Gift',
+      line: { k: '생각지 못한 반가운 소식이 와요.', e: 'A welcome surprise may come.' },
+      overall: {
+        k: '생각지 못한 반가운 소식이나 작은 선물이 오늘을 기분 좋게 해요. 기대하지 않은 곳에서 웃음이 와요. 받은 기쁨은 작게라도 나눠 보세요.',
+        e: 'Unexpected good news or a small gift sweetens today. A smile comes from somewhere you did not expect. Share the joy, even a little.'
+      },
+      work: {
+        k: '기다리던 답이 올 수 있어요. 알림을 한 번씩 확인해 보세요. 늦은 답은 미뤄진 게 아니라 준비 중인 거예요.',
+        e: 'An awaited reply may arrive. Check your messages now and then. A late answer is not lost — it is still being prepared.'
+      },
+      heart: {
+        k: '받는 것보다 건네는 마음이 더 빛나는 날이에요. 작은 것을 나눠 보세요.',
+        e: 'Giving shines brighter than receiving today. Share something small.'
+      },
+      advice: {
+        k: '고마운 사람에게 짧은 문자 하나를 보내 보세요. 답장이 없어도 괜찮아요. 마음은 이미 전해졌어요.',
+        e: 'Send one short message to someone you are grateful for. No reply needed — the heart already arrived.'
+      }
+    },
+    {
+      id: 'compass', sym: 'compass', no: 'X', accent: '#5C7FB8', ko: '나침반 카드', en: 'The Compass', shortKo: '나침반', shortEn: 'Compass',
+      line: { k: '마음의 방향이 조금 또렷해져요.', e: 'The direction in your heart clears a little.' },
+      overall: {
+        k: '어디로 갈지 헷갈릴 때, 오늘은 마음의 방향이 조금 또렷해져요. 정답을 찾기보다 좋아하는 쪽을 골라도 괜찮아요.',
+        e: 'When the way is unclear, today your inner direction sharpens a little. Rather than the right answer, choosing what you like is allowed.'
+      },
+      work: {
+        k: '할 일을 종이에 세 개만 적어 보세요. 세 개면 충분해요. 다 적으려 하면 오히려 손이 안 움직여요.',
+        e: 'Write just three tasks on paper. Three is enough. Trying to list everything keeps your hands still.'
+      },
+      heart: {
+        k: '내 마음이 원하는 것을 먼저 알아차려 주세요. 그래야 다른 사람에게도 잘 전해져요. 오늘은 나에게 한 번 물어보는 날이에요.',
+        e: 'Notice first what your own heart wants — then it reaches others well. Today, ask yourself once.'
+      },
+      advice: {
+        k: '10분 산책하며 "나는 지금 무엇이 좋은가" 한 번만 물어보세요. 답이 작아도 괜찮아요.',
+        e: 'On a ten-minute walk, ask once, "what feels good to me now?" A small answer is fine.'
+      }
+    }
+  ];
+
+  function deckOrder(seed) {
+    var arr = TAROT.map(function (c, i) { return i; });
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = (hash(String(seed) + '-' + i)) % (i + 1);
+      var tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+    }
+    return arr.slice(0, 3);
+  }
+  var deck = [];
+  var picked = null;
+
+  function cardBack() {
+    return '<svg viewBox="0 0 100 156" aria-hidden="true">' +
+      '<defs><linearGradient id="cbg" x1="0" y1="0" x2="1" y2="1">' +
+      '<stop offset="0" stop-color="#4B3A92"/><stop offset=".55" stop-color="#3B2B72"/><stop offset="1" stop-color="#2C1F58"/>' +
+      '</linearGradient></defs>' +
+      '<rect width="100" height="156" fill="url(#cbg)"/>' +
+      '<rect x="5" y="5" width="90" height="146" rx="6" fill="none" stroke="#E9C975" stroke-width="1.4" opacity=".9"/>' +
+      '<rect x="9" y="9" width="82" height="138" rx="4" fill="none" stroke="#E9C975" stroke-width=".6" opacity=".55"/>' +
+      '<g fill="#F2D98A" opacity=".92">' +
+      '<path d="M50 26 l2.4 6.6 6.6 2.4 -6.6 2.4 -2.4 6.6 -2.4 -6.6 -6.6 -2.4 6.6 -2.4 Z"/>' +
+      '<path d="M28 44 l1.5 4 4 1.5 -4 1.5 -1.5 4 -1.5 -4 -4 -1.5 4 -1.5 Z" opacity=".8"/>' +
+      '<path d="M72 44 l1.5 4 4 1.5 -4 1.5 -1.5 4 -1.5 -4 -4 -1.5 4 -1.5 Z" opacity=".8"/>' +
+      '<path d="M30 108 l1.6 4.4 4.4 1.6 -4.4 1.6 -1.6 4.4 -1.6 -4.4 -4.4 -1.6 4.4 -1.6 Z" opacity=".85"/>' +
+      '<path d="M70 108 l1.6 4.4 4.4 1.6 -4.4 1.6 -1.6 4.4 -1.6 -4.4 -4.4 -1.6 4.4 -1.6 Z" opacity=".85"/>' +
+      '<circle cx="50" cy="124" r="2.2"/><circle cx="50" cy="34" r="1.6"/>' +
+      '</g>' +
+      '<g opacity=".95">' +
+      '<circle cx="50" cy="78" r="21" fill="none" stroke="#E9C975" stroke-width="1.2" opacity=".55"/>' +
+      '<path d="M58 60 a17 17 0 1 0 0 36 a13 13 0 0 1 0 -36 Z" fill="#F2D98A" opacity=".9"/>' +
+      '<path d="M36 66 l1.3 3.6 3.6 1.3 -3.6 1.3 -1.3 3.6 -1.3 -3.6 -3.6 -1.3 3.6 -1.3 Z" fill="#F2D98A" opacity=".75"/>' +
+      '</g>' +
+      '<path d="M50 130 c8 8 8 12 0 18 c-8 -6 -8 -10 0 -18 Z" fill="none" stroke="#E9C975" stroke-width=".9" opacity=".5"/>' +
+      '</svg>';
+  }
+  function cardFront(c) {
+    return '<div class="fwrap" style="color:' + c.accent + '">' +
+      '<span class="fno">' + c.no + '</span>' +
+      '<span class="fsym">' + SYM[c.sym]() + '</span>' +
+      '<span class="fname" style="color:#6B4E10">' + (S.lang === 'en' ? c.shortEn : c.shortKo) + '</span>' +
+      '</div>' +
+      '<svg viewBox="0 0 100 156" aria-hidden="true" style="position:absolute;inset:0;height:100%">' +
+      '<rect x="5" y="5" width="90" height="146" rx="6" fill="none" stroke="#E2C071" stroke-width="1.4"/>' +
+      '<rect x="9" y="9" width="82" height="138" rx="4" fill="none" stroke="#EFDCB0" stroke-width=".8"/>' +
+      '</svg>';
+  }
+  function renderDeck() {
+    var box = $('#deck');
+    box.innerHTML = '';
+    deck.forEach(function (idx, pos) {
+      var c = TAROT[idx];
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'tcard';
+      b.setAttribute('data-pos', String(pos));
+      b.setAttribute('aria-label', t('pickCard') + ' ' + (pos + 1));
+      b.innerHTML = '<span class="inner">' +
+        '<span class="tface back">' + cardBack() + '</span>' +
+        '<span class="tface front">' + cardFront(c) + '</span>' +
+        '</span>';
+      b.addEventListener('click', function () { pickCard(pos); });
+      box.appendChild(b);
+    });
+  }
+  function paintReading(card, animate) {
+    var L = S.lang;
+    var rc = $('#readCard');
+    $('#rArt').innerHTML = SYM[card.sym]();
+    $('#rArt').style.color = card.accent;
+    $('#rName').textContent = L === 'en' ? card.en : card.ko;
+    $('#rLine').textContent = L === 'en' ? card.line.e : card.line.k;
+    $('#rOverall').textContent = L === 'en' ? card.overall.e : card.overall.k;
+    $('#rWork').textContent = L === 'en' ? card.work.e : card.work.k;
+    $('#rHeart').textContent = L === 'en' ? card.heart.e : card.heart.k;
+    $('#rAdvice').textContent = L === 'en' ? card.advice.e : card.advice.k;
+    rc.hidden = false;
+    if (animate) { rc.classList.remove('show'); void rc.offsetWidth; rc.classList.add('show'); }
+  }
+  function pickCard(pos) {
+    if (!deck.length) return;
+    stopSpeak();
+    if (picked !== null && picked !== pos) {
+      $$('#deck .tcard').forEach(function (el) { el.classList.remove('flip', 'dim', 'lift'); });
+    }
+    picked = pos;
+    $$('#deck .tcard').forEach(function (el, i) {
+      el.classList.toggle('flip', i === pos);
+      el.classList.toggle('dim', i !== pos);
+      el.classList.toggle('lift', i === pos);
+    });
+    MASCOT.tarot = 'mascotTarot';
+    $('#msayTarot').textContent = t('mascotTarot');
+    setTimeout(function () {
+      paintReading(TAROT[deck[pos]], true);
+      try { $('#readCard').scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (e) {}
+    }, 340);
+    S.lastCard = TAROT[deck[pos]].id; save();
+  }
+  function shuffleDeck() {
+    stopSpeak();
+    picked = null;
+    deck = deckOrder(hash(todayKeyNow() + '|tarot|' + S.roll + '|' + Date.now()));
+    renderDeck();
+    $('#readCard').hidden = true;
+    MASCOT.tarot = 'mascotShuffle';
+    $('#msayTarot').textContent = t('mascotShuffle');
+    toast(t('shuffled'));
+  }
+
+  /* ══════════════════ 🌤️ 날씨 (현재 위치) ══════════════════ */
+  var WX_KEY = 'waglingFortune.wx';
+  var WXMAP = [
+    { c: [0], k: '맑음', e: 'clear' }, { c: [1, 2], k: '구름 조금', e: 'partly cloudy' },
+    { c: [3], k: '흐림', e: 'cloudy' }, { c: [45, 48], k: '안개', e: 'foggy' },
+    { c: [51, 53, 55, 56, 57], k: '이슬비', e: 'drizzle' }, { c: [61, 63, 65, 66, 67], k: '비', e: 'rain' },
+    { c: [71, 73, 75, 77], k: '눈', e: 'snow' }, { c: [80, 81, 82], k: '소나기', e: 'showers' },
+    { c: [85, 86], k: '눈 소나기', e: 'snow showers' }, { c: [95, 96, 99], k: '천둥·비', e: 'thunderstorms' }
+  ];
+  var wxState = null, wxPermitted = false, wxDenied = false;
+  function wxIcon(code) {
+    if (code === 0 || code === 1) return '☀️';
+    if (code === 2 || code === 3) return '⛅';
+    if (code >= 45 && code <= 48) return '🌫️';
+    if (code >= 51 && code <= 67) return '🌧️';
+    if (code >= 71 && code <= 77) return '❄️';
+    if (code >= 80 && code <= 82) return '🌦️';
+    if (code >= 85 && code <= 86) return '🌨️';
+    if (code >= 95) return '⛈️';
+    return '🌤️';
+  }
+  function wxLabel(code) {
+    for (var i = 0; i < WXMAP.length; i++) if (WXMAP[i].c.indexOf(code) >= 0) return S.lang === 'en' ? WXMAP[i].e : WXMAP[i].k;
+    return S.lang === 'en' ? 'fair skies' : '고른 하늘';
+  }
+  function paintWx() {
+    var chip = $('#wxNow'), ask = $('#wxChip');
+    if (wxState && typeof wxState.temp === 'number') {
+      chip.textContent = wxIcon(wxState.code) + ' ' + Math.round(wxState.temp) + '° ' + wxLabel(wxState.code);
+      chip.hidden = false;
+      ask.hidden = true;
+      chip.title = t('wxLoc');
+    } else {
+      chip.hidden = true;
+      ask.hidden = wxDenied || !navigator.geolocation;
+    }
+  }
+  function wxCacheGet() {
+    try {
+      var raw = localStorage.getItem(WX_KEY);
+      if (!raw) return null;
+      var o = JSON.parse(raw);
+      if (!o || typeof o.temp !== 'number') return null;
+      if (!o.ts || Date.now() - o.ts > 60 * 60 * 1000) return null;
+      return o;
+    } catch (e) { return null; }
+  }
+  function fetchWx(lat, lon) {
+    if (typeof fetch !== 'function') return;
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat.toFixed(3) + '&longitude=' + lon.toFixed(3) +
+      '&current=temperature_2m,weather_code&timezone=auto';
+    var ctrl = null, opts = {};
+    try {
+      if (typeof AbortController === 'function') {
+        ctrl = new AbortController(); opts.signal = ctrl.signal;
+        setTimeout(function () { try { ctrl.abort(); } catch (e) {} }, 6000);
+      }
+    } catch (e) {}
+    fetch(url, opts).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+      if (!j || !j.current || typeof j.current.temperature_2m !== 'number') return;
+      wxState = { temp: j.current.temperature_2m, code: j.current.weather_code };
+      try { localStorage.setItem(WX_KEY, JSON.stringify({ ts: Date.now(), temp: wxState.temp, code: wxState.code })); } catch (e) {}
+      paintWx();
+    }).catch(function () { /* 오프라인·차단: 날짜·요일·시각만 남긴다 */ });
+  }
+  function askWeather() {
+    if (!navigator.geolocation) { wxPermitted = false; wxDenied = true; paintWx(); return; }
+    var ok = function (pos) {
+      if (!pos || !pos.coords) return;
+      wxPermitted = true;
+      fetchWx(pos.coords.latitude, pos.coords.longitude);
+    };
+    try {
+      navigator.geolocation.getCurrentPosition(ok, function () { wxPermitted = false; wxDenied = true; paintWx(); },
+        { enableHighAccuracy: false, timeout: 8000, maximumAge: 15 * 60 * 1000 });
+    } catch (e) { wxPermitted = false; wxDenied = true; paintWx(); }
+  }
+  function initWeather() {
+    var cached = wxCacheGet();
+    if (cached) wxState = { temp: cached.temp, code: cached.code };
+    try {
+      if (navigator.permissions && navigator.permissions.query) {
+        navigator.permissions.query({ name: 'geolocation' }).then(function (p) {
+          wxPermitted = p.state === 'granted';
+          wxDenied = p.state === 'denied';
+          paintWx();
+          if (wxPermitted) askWeather();
+        }).catch(function () { paintWx(); });
+      } else { paintWx(); }
+    } catch (e) { paintWx(); }
+    paintWx();
+  }
+
+  /* ══════════════════ 🌐 언어 · 🔍 큰 글씨 ══════════════════ */
+  var I18N = {
+    ko: {
+      appName: '와글링 운세', appSub: '오늘 하루, 기분 좋은 놀이',
+      instPill: '📲 설치', sharePill: '📤 공유',
+      big: '글씨 크게', bigOn: '글씨 보통',
+      wxAsk: '🌤️ 날씨 보기', wxLoc: '지금 계신 곳 날씨',
+      todayLabel: '☀️ 오늘의 하루 운세', pinFlag: '📌 오늘 고정 — 자정까지 이대로 보여 드려요',
+      luckColor: '행운의 색', luckNumber: '행운의 숫자', luckTime: '행운의 시간', luckPlace: '행운의 자리',
+      tipLabel: '🍀 오늘의 작은 행운 팁',
+      speak: '🔊 소리로 읽어 주기', speakStop: '⏹ 그만 듣기', noSpeak: '이 기기에서는 소리 읽기를 쓸 수 없어요.',
+      speakFail: '소리를 읽지 못했어요. 화면의 글을 천천히 읽어 보세요.',
+      speakTodayLead: '오늘의 운세를 천천히 읽어 드릴게요.',
+      pickFirst: '먼저 카드를 한 장 골라 주세요.',
+      reroll: '🎲 다시 뽑기', pin: '📌 오늘 고정하기', pinOn: '📌 고정 풀기',
+      todayHint: '마음에 들면 오늘 고정! 자정이 지나면 새 운세로 바뀌어요.',
+      coinTitle: '동전 던지기', coinHint: '망설여질 때, 동전에게 살짝 물어보세요.',
+      coinHeads: '예, 가자!', coinTails: '잠깐, 한 번 더', coinHeadsTag: '앞면이에요 · 예, 가자!', coinTailsTag: '뒷면이에요 · 잠깐, 한 번 더',
+      flipBtn: '🪙 동전 던지기', coinNote: '던지는 건 재미로, 정하는 건 내 마음으로. 몇 번을 던져도 괜찮아요.',
+      tarotHead: '🔮 오늘의 타로카드 뽑기', tarotSub: '마음이 끌리는 카드 한 장',
+      tarotLead: '세 장 중에서 손이 가는 카드를 하나 골라 보세요. 오늘의 이야기가 담겨 있어요.',
+      pickCard: '카드 고르기', shuffle: '🔄 다시 섞기', shuffled: '새로 섞었어요 🔮',
+      readLabel: '오늘 뽑은 카드',
+      blkOverall: '✨ 전체 흐름 · 오늘의 메시지', blkWork: '💼 일 · 금전운', blkHeart: '💛 마음 · 사람', blkAdvice: '🌿 오늘의 조언',
+      navToday: '오늘', navCoin: '동전', navTarot: '타로',
+      mascotToday: '오늘도 좋은 하루야! 천천히 읽어 봐요.',
+      mascotCoin: '동전아, 오늘 어떻게 할까? 알려 줘!',
+      mascotCoinHead: '앞면이야! 마음이 가는 쪽으로 가자!',
+      mascotCoinTail: '잠깐이야. 쉬어 가도 괜찮아.',
+      mascotTarot: '좋은 카드가 나왔어요. 천천히 읽어 보세요.',
+      mascotShuffle: '다시 섞었어요. 손이 가는 카드를 골라요.',
+      footT1: '재미로 보는 오늘의 놀이예요.', footT2: '무섭거나 걱정되는 이야기는 담지 않았어요. 결정은 언제나 내 마음이 해요.',
+      footT3: '무료 · 광고 없음 · 회원가입 없음 · 기록은 이 기기에만 저장돼요.',
+      docTitle: '와글링 운세 · 오늘 하루 기분 좋은 놀이',
+      pinToast: '오늘 운세를 고정했어요 📌', unpinToast: '고정을 풀었어요. 다시 뽑을 수 있어요.',
+      rerollToast: '새로 뽑았어요 ✨', rerollPinned: '고정을 풀고 새로 뽑았어요 ✨',
+      instTitle: '📲 홈 화면에 앱으로 넣기', instLead: '아이콘을 한 번 꺼내 두면 앱처럼 바로 열려요.',
+      instS1: '크롬·엣지(안드로이드): 오른쪽 위 <b>⋮</b> 메뉴를 열어요',
+      instS2: '크롬: <b>홈 화면에 추가</b>(또는 <b>앱 설치</b>)를 눌러요',
+      instS3: '이름을 확인하고 <b>추가</b>를 누르면 홈 화면에 아이콘이 생겨요',
+      instS4: '아이폰·아이패드(사파리): 아래 <b>공유(□↑)</b> → <b>홈 화면에 추가</b>',
+      instMini: '새로 받는 파일은 없어요. 무료 · 광고 없음 · 개인정보 없음.',
+      instOk: '확인', instChromeBtn: '🌐 크롬으로 바로 열기',
+      instAlready: '이미 앱처럼 열려 있어요 😊', installedMsg: '홈 화면에 넣었어요 📲',
+      shareTitle: '와글링 운세', shareText: '오늘 하루 기분 좋은 놀이 — 하루 운세 · 동전 던지기 · 타로카드 뽑기. 무료, 가입 없음.',
+      shareCopied: '주소를 복사했어요. 붙여넣기로 보내 주세요 📤', shareCopyFail: '공유 창을 열지 못했어요.',
+      instAria: '홈 화면에 앱 설치', shareAria: '앱 공유하기'
+    },
+    en: {
+      appName: 'Wagling Fortune', appSub: 'A happy little game for today',
+      instPill: '📲 Install', sharePill: '📤 Share',
+      big: 'Bigger text', bigOn: 'Normal text',
+      wxAsk: '🌤️ Show weather', wxLoc: 'Weather where you are',
+      todayLabel: '☀️ Today\'s little fortune', pinFlag: '📌 Pinned for today — it stays until midnight',
+      luckColor: 'Lucky color', luckNumber: 'Lucky number', luckTime: 'Lucky hour', luckPlace: 'Lucky spot',
+      tipLabel: '🍀 A little lucky tip for today',
+      speak: '🔊 Read it aloud', speakStop: '⏹ Stop reading', noSpeak: 'Reading aloud is not available on this device.',
+      speakFail: 'Could not read it aloud. Please read the text on screen slowly.',
+      speakTodayLead: 'I will read today\'s fortune slowly.',
+      pickFirst: 'Please pick a card first.',
+      reroll: '🎲 Draw again', pin: '📌 Pin for today', pinOn: '📌 Unpin',
+      todayHint: 'Like it? Pin it for today. At midnight a new fortune arrives.',
+      coinTitle: 'Coin toss', coinHint: 'When you hesitate, ask the coin.',
+      coinHeads: 'Yes, go!', coinTails: 'Wait a bit', coinHeadsTag: 'Heads · Yes, go!', coinTailsTag: 'Tails · Wait a bit',
+      flipBtn: '🪙 Toss the coin', coinNote: 'Toss for fun, decide with your heart. Toss as many times as you like.',
+      tarotHead: '🔮 Draw today\'s tarot card', tarotSub: 'One card your heart picks',
+      tarotLead: 'Choose one of the three cards your hand reaches for. Today\'s story is in it.',
+      pickCard: 'Pick card', shuffle: '🔄 Shuffle again', shuffled: 'Shuffled anew 🔮',
+      readLabel: 'Today\'s card',
+      blkOverall: '✨ The flow · today\'s message', blkWork: '💼 Work & money', blkHeart: '💛 Heart & people', blkAdvice: '🌿 Today\'s advice',
+      navToday: 'Today', navCoin: 'Coin', navTarot: 'Tarot',
+      mascotToday: 'Have a lovely day! Read it slowly.',
+      mascotCoin: 'Coin, what shall we do today? Tell me!',
+      mascotCoinHead: 'Heads! Go where your heart leans!',
+      mascotCoinTail: 'Tails. It is fine to rest a little.',
+      mascotTarot: 'A lovely card came out. Read it slowly.',
+      mascotShuffle: 'Shuffled again. Pick the card your hand reaches for.',
+      footT1: 'This is a playful fortune for fun.', footT2: 'No scary or worrying messages. You always make the decision.',
+      footT3: 'Free · no ads · no sign-up · everything stays on this device.',
+      docTitle: 'Wagling Fortune · a happy little game for today',
+      pinToast: 'Pinned today\'s fortune 📌', unpinToast: 'Unpinned — you can draw again.',
+      rerollToast: 'A new draw ✨', rerollPinned: 'Unpinned and drew again ✨',
+      instTitle: '📲 Put it on your home screen', instLead: 'Keep the icon once and it opens like an app.',
+      instS1: 'Chrome or Edge (Android): open the <b>⋮</b> menu at the top right',
+      instS2: 'Chrome: tap <b>Add to home screen</b> (or <b>Install app</b>)',
+      instS3: 'Check the name and tap <b>Add</b> — the icon appears on your home screen',
+      instS4: 'iPhone or iPad (Safari): <b>Share (□↑)</b> → <b>Add to Home Screen</b>',
+      instMini: 'Nothing extra is downloaded. Free · no ads · no personal data.',
+      instOk: 'OK', instChromeBtn: '🌐 Open in Chrome',
+      instAlready: 'It is already open like an app 😊', installedMsg: 'Added to your home screen 📲',
+      shareTitle: 'Wagling Fortune', shareText: 'A happy little game for today — daily fortune, coin toss, tarot card. Free, no sign-up.',
+      shareCopied: 'Link copied. Paste it to share 📤', shareCopyFail: 'Could not open the share sheet.',
+      instAria: 'Install app on home screen', shareAria: 'Share this app'
+    }
+  };
+  function t(key) { return (I18N[S.lang] && I18N[S.lang][key]) || I18N.ko[key] || ''; }
+
+  function applyStatic() {
+    document.documentElement.lang = S.lang;
+    document.title = t('docTitle');
+    $$('[data-i18n]').forEach(function (el) { el.textContent = t(el.getAttribute('data-i18n')); });
+    var bl = $('#btnLang');
+    bl.textContent = S.lang === 'ko' ? 'EN' : '한글';
+    bl.setAttribute('aria-label', S.lang === 'ko' ? 'Switch to English' : '한국어로 보기');
+    var bb = $('#btnBig');
+    bb.textContent = S.big ? t('bigOn') : t('big');
+    bb.setAttribute('aria-pressed', S.big ? 'true' : 'false');
+    $('#installBtn').setAttribute('aria-label', t('instAria'));
+    $('#shareBtn').setAttribute('aria-label', t('shareAria'));
+    $('#coin').setAttribute('aria-label', t('flipBtn'));
+    paintClock();
+    speakBtnState();
+  }
+  function renderAll() {
+    applyStatic();
+    renderToday(false);
+    renderDeck();
+    if (picked !== null && deck.length) {
+      var c = TAROT[deck[picked]];
+      if (c) {
+        paintReading(c, false);
+        $$('#deck .tcard').forEach(function (el, i) {
+          el.classList.toggle('flip', i === picked);
+          el.classList.toggle('dim', i !== picked);
+          el.classList.toggle('lift', i === picked);
+        });
+      }
+    }
+    paintWx();
+  }
+
+  /* ══════════════════ 알림 · 탭 ══════════════════ */
+  var toastT = null;
+  function toast(msg) {
+    var el = $('#toast');
+    el.textContent = msg;
+    el.classList.add('on');
+    clearTimeout(toastT);
+    toastT = setTimeout(function () { el.classList.remove('on'); }, 2400);
+  }
+  function goTab(name) {
+    if (speaking) stopSpeak();
+    ['today', 'coin', 'tarot'].forEach(function (n) {
+      var sec = document.getElementById('tab-' + n);
+      var btn = document.getElementById('nav-' + n);
+      var on = n === name;
+      if (sec) sec.hidden = !on;
+      if (btn) btn.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) { window.scrollTo(0, 0); }
+  }
+
+  /* ══════════════════ 📲 설치 · 📤 공유 ══════════════════ */
+  var instPrompt = null, instDone = false;
+  function isStandaloneNow() {
+    try {
+      if (window.matchMedia) {
+        if (window.matchMedia('(display-mode: standalone)').matches) return true;
+        if (window.matchMedia('(display-mode: minimal-ui)').matches) return true;
+      }
+    } catch (e) {}
+    if (navigator.standalone === true) return true;
+    if (/^android-app:\/\//i.test(document.referrer || '')) return true;
+    return false;
+  }
+  function isAndroidUA() { return /Android/i.test(navigator.userAgent || ''); }
+  function inAppBrowser() { return /KAKAOTALK|Instagram|NAVER|FBAN|FBAV|Line\//i.test(navigator.userAgent || ''); }
+  function chromeIntentUrl() {
+    var host = location.host || 'starpicklife-design.github.io';
+    var path = (location.pathname || '/fortune/') + (location.search || '');
+    return 'intent://' + host + path + '#Intent;scheme=https;package=com.android.chrome;end';
+  }
+  function syncInstallPill() {
+    var b = $('#installBtn');
+    if (b) b.hidden = instDone || isStandaloneNow();
+  }
+  function openInstallModal() {
+    var m = $('#instModal');
+    if (!m) return;
+    $('#instTitle').textContent = t('instTitle');
+    $('#instLead').textContent = t('instLead');
+    $('#instSteps').innerHTML = ['instS1', 'instS2', 'instS3', 'instS4'].map(function (k) { return '<li>' + t(k) + '</li>'; }).join('');
+    $('#instMini').textContent = t('instMini');
+    $('#instClose').textContent = t('instOk');
+    var ch = $('#instChrome');
+    var show = isAndroidUA() && inAppBrowser();
+    ch.hidden = !show;
+    if (show) { ch.textContent = t('instChromeBtn'); ch.setAttribute('href', chromeIntentUrl()); }
+    m.hidden = false;
+    try { $('#instClose').focus(); } catch (e) {}
+  }
+  function closeInstallModal() {
+    var m = $('#instModal');
+    if (m) m.hidden = true;
+    try { if ($('#installBtn') && !$('#installBtn').hidden) $('#installBtn').focus(); } catch (e) {}
+  }
+  function installTap() {
+    if (instDone || isStandaloneNow()) { toast(t('instAlready')); return; }
+    if (instPrompt) {
+      var dp = instPrompt;
+      instPrompt = null;
+      try {
+        dp.prompt();
+        if (dp.userChoice && dp.userChoice.then) {
+          dp.userChoice.then(function (r) {
+            if (r && r.outcome === 'accepted') toast(t('installedMsg'));
+            syncInstallPill();
+          }, function () {});
+        }
+        return;
+      } catch (e) {}
+    }
+    openInstallModal();
+  }
+  function legacyCopy(text, done, fail) {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed'; ta.style.top = '-9999px';
+      document.body.appendChild(ta); ta.select();
+      var ok = document.execCommand && document.execCommand('copy');
+      document.body.removeChild(ta);
+      if (ok) done(); else fail();
+    } catch (e) { fail(); }
+  }
+  function copyText(text, done, fail) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { legacyCopy(text, done, fail); });
+    } else { legacyCopy(text, done, fail); }
+  }
+  function shareApp() {
+    var p = { title: t('shareTitle'), text: t('shareText'), url: 'https://starpicklife-design.github.io/fortune/' };
+    var usable = true;
+    var done = function () { toast(t('shareCopied')); };
+    var fail = function () { toast(t('shareCopyFail')); };
+    try { if (navigator.canShare && !navigator.canShare(p)) usable = false; } catch (e) {}
+    if (navigator.share && usable) {
+      try {
+        var r = navigator.share(p);
+        if (r && r.then) r.then(function () {}, function (err) {
+          if (err && err.name === 'AbortError') return;
+          copyText(p.text + '\n\n' + p.url, done, fail);
+        });
+        return;
+      } catch (e) {}
+    }
+    copyText(p.text + '\n\n' + p.url, done, fail);
+  }
+
+  /* ══════════════════ 사건 연결 ══════════════════ */
+  function bind() {
+    $('#btnBig').addEventListener('click', function () {
+      S.big = !S.big; save();
+      document.documentElement.classList.toggle('big', S.big);
+      applyStatic();
+    });
+    $('#btnLang').addEventListener('click', function () {
+      stopSpeak();
+      S.lang = S.lang === 'ko' ? 'en' : 'ko'; save();
+      renderAll();
+      var box = $('#cResult');
+      if (box && box.dataset.heads) coinResult(box.dataset.heads === '1');
+    });
+    $('#btnReroll').addEventListener('click', function () {
+      var wasPinned = !!S.pin && S.pin.d === todayKeyNow();
+      S.pin = null;
+      var before = currentDraw().fortune;
+      var guard = 0;
+      do { S.roll = (Number(S.roll) || 0) + 1; } while (currentDraw().fortune === before && guard++ < 30);
+      save();
+      renderToday(true);
+      $('#mpicToday').innerHTML = hamster('cheer');
+      toast(wasPinned ? t('rerollPinned') : t('rerollToast'));
+    });
+    $('#btnPin').addEventListener('click', function () {
+      var key = todayKeyNow();
+      if (S.pin && S.pin.d === key) { S.pin = null; toast(t('unpinToast')); }
+      else { S.pin = { d: key, r: Number(S.roll) || 0 }; toast(t('pinToast')); }
+      save(); renderToday(true);
+    });
+
+    $('#coin').addEventListener('click', flipCoin);
+    $('#btnFlip').addEventListener('click', flipCoin);
+    $('#btnShuffle').addEventListener('click', shuffleDeck);
+    $('#btnSpeakToday').addEventListener('click', speakToday);
+    $('#btnSpeakTarot').addEventListener('click', speakTarot);
+
+    $$('.tabbar .tbtn').forEach(function (b) {
+      b.addEventListener('click', function () { goTab(b.getAttribute('data-tab')); });
+    });
+    $('#wxChip').addEventListener('click', function () { askWeather(); });
+
+    $('#installBtn').addEventListener('click', installTap);
+    $('#shareBtn').addEventListener('click', shareApp);
+    $('#instClose').addEventListener('click', closeInstallModal);
+    $('#instModal').addEventListener('click', function (e) { if (e.target === $('#instModal')) closeInstallModal(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !$('#instModal').hidden) closeInstallModal();
+    });
+    window.addEventListener('appinstalled', function () {
+      instDone = true; instPrompt = null; syncInstallPill(); toast(t('installedMsg'));
+    });
+    window.addEventListener('beforeinstallprompt', function (e) {
+      e.preventDefault();
+      instPrompt = e;
+    });
+    document.addEventListener('pointerdown', unlockAudio, { once: true });
+    document.addEventListener('keydown', unlockAudio, { once: true });
+    window.addEventListener('pagehide', function () { try { window.speechSynthesis.cancel(); } catch (e) {} });
+  }
+
+  /* ══════════════════ 시작 ══════════════════ */
+  function boot() {
+    document.documentElement.classList.toggle('big', !!S.big);
+    deck = deckOrder(hash(todayKeyNow() + '|tarot|' + S.roll + '|' + Date.now()));
+    paintMascots();
+    bind();
+    renderAll();
+    syncInstallPill();
+    initWeather();
+    setInterval(paintClock, 20000);
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () { navigator.serviceWorker.register('./sw.js').catch(function () {}); });
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
+</body>
+</html>
