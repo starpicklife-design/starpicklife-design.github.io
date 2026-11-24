@@ -1,0 +1,21 @@
+{
+  "name": "와글링 운동 · Wagling Fit",
+  "short_name": "와글링 운동",
+  "description": "와글링 운동 — 즐거운 운동이 행복한 하루를 만듭니다. 과식한 만큼 🍔 과식 버튼을 누르면 ⭐이 쌓이고, 운동을 끝내면 하나씩 사라져요. 산·바다 걷기 코스, 운동 시작/끝, 매일 음성 알림, 도장 달력. 가입 없음, 광고 없음, 기록은 이 기기에만.",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "id": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "background_color": "#FFF9EF",
+  "theme_color": "#2F7A57",
+  "categories": ["health", "fitness", "lifestyle"],
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
