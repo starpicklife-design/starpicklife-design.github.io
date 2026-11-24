@@ -197,6 +197,44 @@ html.big .card .pic{height:90px}
   border:2px solid #FFE0B8;background:#FFF6E8;color:#3E2C22;font-weight:900;font-size:15px}
 
 @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+
+/* ══════ 📲 설치 · 📤 공유 (작은 알약 버튼) ══════ */
+.tools{display:flex;justify-content:flex-end;gap:6px;padding:0 var(--pad) 8px}
+.toolbtn{display:flex;align-items:center;justify-content:center;gap:4px;
+  min-height:34px;padding:0 11px;border-radius:999px;border:2px solid #D8C6B1;
+  background:#FFFDF8;color:var(--coffee);font-size:12.5px;font-weight:900;
+  letter-spacing:-.03em;line-height:1.1;white-space:nowrap}
+.toolbtn:active{transform:translateY(1px);background:#FBF1E2}
+.toolbtn[hidden]{display:none}
+@media (max-width:344px){.toolbtn{font-size:12px;min-height:32px;padding:0 9px}}
+
+/* ══════ 📲 설치 안내 창 ══════ */
+.modal{position:fixed;inset:0;z-index:150;display:flex;align-items:flex-end;justify-content:center;
+  background:rgba(36,24,16,.55)}
+.modal[hidden]{display:none}
+.modalCard{width:100%;max-width:560px;max-height:92vh;overflow:auto;background:#FFFDF7;
+  border-radius:18px 18px 0 0;padding:14px 14px calc(14px + env(safe-area-inset-bottom));
+  box-shadow:0 -8px 30px rgba(0,0,0,.3)}
+.modalCard h2{margin:0 0 6px;font-size:20px;font-weight:900;letter-spacing:-.03em;color:var(--coffee)}
+.modalCard .lead{margin:0 0 10px;font-size:14.5px;line-height:1.5;font-weight:800;color:var(--ink2)}
+.modalCard ol{margin:0 0 10px;padding-left:20px;font-size:15.5px;line-height:1.55;color:#3A2A20;font-weight:800}
+.modalCard li{margin:0 0 9px}
+.modalCard li b{color:var(--coffee)}
+.modalCard .chrome{display:flex;align-items:center;justify-content:center;gap:5px;width:100%;
+  min-height:48px;margin:0 0 9px;border-radius:14px;background:#EAF3EB;color:#245740;
+  border:2px solid #CFE2D4;font-size:15px;font-weight:900;text-decoration:none}
+.modalCard .chrome[hidden]{display:none}
+.modalCard .mini{margin:0 0 12px;font-size:12.5px;line-height:1.5;color:#8B7867;font-weight:800}
+.modalCard .close{width:100%;min-height:52px;border-radius:14px;border:0;background:var(--coffee);
+  color:#FFF6E8;font-size:17px;font-weight:900}
+.modalCard .close:active{transform:translateY(1px)}
+
+/* ══════ 공유·설치 알림 ══════ */
+.hint{position:fixed;left:var(--pad);right:var(--pad);bottom:calc(var(--barH) + 10px);z-index:140;
+  max-width:520px;margin:0 auto;background:#3E2C22;color:#FFF6E8;font-size:15px;font-weight:800;
+  line-height:1.4;padding:10px 14px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.26);
+  opacity:0;pointer-events:none;transition:opacity .18s ease}
+.hint.show{opacity:1}
 </style>
 </head>
 <body>
@@ -211,6 +249,11 @@ html.big .card .pic{height:90px}
     <span class="fl" aria-hidden="true">보통 글씨</span>
   </button>
 </header>
+
+<div class="tools">
+  <button type="button" class="toolbtn" id="installBtn" aria-haspopup="dialog" aria-label="앱 설치 안내">📲 설치</button>
+  <button type="button" class="toolbtn" id="shareBtn" aria-label="이 앱 공유하기">📤 공유</button>
+</div>
 
 <main>
   <div class="cols">
@@ -269,6 +312,25 @@ html.big .card .pic{height:90px}
   <span>처음부터 지웠어요</span>
   <button type="button" id="undoBtn">되돌리기</button>
 </div>
+
+<!-- 📲 홈 화면에 앱 설치 안내 -->
+<div class="modal" id="installModal" role="dialog" aria-modal="true" aria-labelledby="instTitle" hidden>
+  <div class="modalCard">
+    <h2 id="instTitle">📲 홈 화면에 앱으로 넣기</h2>
+    <p class="lead">아이콘을 한 번 꺼내 두면 앱처럼 바로 열려요.</p>
+    <ol>
+      <li>카톡·앱 안에서 여셨다면 → 오른쪽 위 <b>⋮</b> → <b>다른 브라우저(Chrome)로 열기</b></li>
+      <li>크롬: 오른쪽 위 <b>⋮</b> → <b>홈 화면에 추가</b>(또는 앱 설치)</li>
+      <li>삼성 인터넷: 오른쪽 아래 <b>≡</b> → <b>현재 페이지 추가</b> → <b>홈 화면</b></li>
+      <li>아이폰·아이패드(사파리): 아래 <b>공유(□↑)</b> → <b>홈 화면에 추가</b></li>
+    </ol>
+    <a class="chrome" id="instChrome" href="#" hidden>🌐 크롬으로 바로 열기</a>
+    <p class="mini">새로 받는 파일은 없어요. 무료 · 광고 없음 · 개인정보 없음.</p>
+    <button type="button" class="close" id="instClose">확인</button>
+  </div>
+</div>
+
+<div class="hint" id="hint" role="status" aria-live="polite"></div>
 
 <script>
 (function(){
@@ -901,6 +963,149 @@ if('serviceWorker' in navigator && /^https?:$/.test(location.protocol)){
     navigator.serviceWorker.register('./sw.js').catch(function(){});
   });
 }
+
+/* ════════════════════════════════════════════════════════════
+   14. 📲 홈 화면에 앱으로 넣기 · 📤 공유
+   ════════════════════════════════════════════════════════════ */
+var installBtn = $('#installBtn'), shareBtn = $('#shareBtn');
+var instModal = $('#installModal'), instChrome = $('#instChrome'), instClose = $('#instClose');
+var hintEl = $('#hint');
+var deferredPrompt = null, installedApp = false, hintTimer = null;
+
+function isStandaloneNow(){
+  try{
+    if(window.matchMedia){
+      if(window.matchMedia('(display-mode: standalone)').matches) return true;
+      if(window.matchMedia('(display-mode: minimal-ui)').matches) return true;
+    }
+  }catch(e){}
+  if(navigator.standalone === true) return true;
+  if(/^android-app:\/\//i.test(document.referrer || '')) return true;
+  return false;
+}
+function isAndroidUA(){ return /Android/i.test(navigator.userAgent || ''); }
+function inAppBrowser(){ return /KAKAOTALK|Instagram|NAVER|FBAN|FBAV|Line\//i.test(navigator.userAgent || ''); }
+function chromeIntentUrl(){
+  var host = location.host || 'starpicklife-design.github.io';
+  var path = location.pathname || '/elder-menu/';
+  var q = location.search || '';
+  return 'intent://' + host + path + q + '#Intent;scheme=https;package=com.android.chrome;end';
+}
+function showHint(msg){
+  if(!hintEl) return;
+  hintEl.textContent = msg;
+  hintEl.classList.add('show');
+  clearTimeout(hintTimer);
+  hintTimer = setTimeout(function(){ hintEl.classList.remove('show'); }, 3800);
+}
+function syncInstallBtn(){
+  if(!installBtn) return;
+  installBtn.hidden = installedApp || isStandaloneNow();
+}
+function openInstall(){
+  if(instModal) instModal.hidden = false;
+  if(instChrome){
+    var show = isAndroidUA() && inAppBrowser();
+    instChrome.hidden = !show;
+    if(show) instChrome.setAttribute('href', chromeIntentUrl());
+  }
+  try{ if(instClose) instClose.focus(); }catch(e){}
+}
+function closeInstall(){
+  if(instModal) instModal.hidden = true;
+  try{ if(installBtn && !installBtn.hidden) installBtn.focus(); }catch(e){}
+}
+function installTap(){
+  if(installedApp || isStandaloneNow()){
+    showHint('이미 홈 화면에 설치되어 있어요 📲');
+    return;
+  }
+  if(deferredPrompt){
+    var dp = deferredPrompt;
+    deferredPrompt = null;
+    try{
+      dp.prompt();
+      if(dp.userChoice && dp.userChoice.then){
+        dp.userChoice.then(function(r){
+          if(r && r.outcome === 'accepted') showHint('설치를 시작했어요 📲');
+          syncInstallBtn();
+        }, function(){});
+      }
+      return;
+    }catch(e){ /* 안 되면 설치 안내 창으로 */ }
+  }
+  openInstall();
+}
+function legacyCopy(text, done, fail){
+  try{
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = document.execCommand && document.execCommand('copy');
+    document.body.removeChild(ta);
+    if(ok) done(); else fail();
+  }catch(e){ fail(); }
+}
+function copyShare(text, done, fail){
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done, function(){ legacyCopy(text, done, fail); });
+  }else{
+    legacyCopy(text, done, fail);
+  }
+}
+function sharePayload(){
+  return {
+    title: '어르신용 와글링 테이블 · 큰 글씨 카페 주문',
+    text: '☕ 어르신용 와글링 테이블 — 그림과 큰 글씨만으로 카페 음료를 고르고, 주문서를 크게 보여 드려요.\n가입·설치 없이 링크만 누르면 바로 열려요 😊',
+    url: 'https://starpicklife-design.github.io/elder-menu/'
+  };
+}
+function shareApp(){
+  var p = sharePayload(), nav = navigator, usable = true;
+  var done = function(){ showHint('공유 문구와 링크를 복사했어요! 카톡에 붙여넣기 하세요'); };
+  var fail = function(){ showHint('복사가 안 되면 주소창의 링크를 복사해 보내 주세요'); };
+  try{ if(nav.canShare && !nav.canShare(p)) usable = false; }catch(e){}
+  if(nav.share && usable){
+    try{
+      var r = nav.share(p);
+      if(r && r.then) r.then(function(){}, function(err){
+        if(err && err.name === 'AbortError') return; /* 사용자가 취소 — 조용히 */
+        copyShare(p.text + '\n\n' + p.url, done, fail);
+      });
+      return;
+    }catch(e){ /* 공유 시트가 안 열리면 복사로 */ }
+  }
+  copyShare(p.text + '\n\n' + p.url, done, fail);
+}
+if(installBtn) installBtn.addEventListener('click', installTap);
+if(shareBtn) shareBtn.addEventListener('click', shareApp);
+if(instClose) instClose.addEventListener('click', closeInstall);
+if(instModal) instModal.addEventListener('click', function(e){ if(e.target === instModal) closeInstall(); });
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape' && instModal && !instModal.hidden) closeInstall();
+});
+window.addEventListener('beforeinstallprompt', function(e){
+  if(e && e.preventDefault) e.preventDefault();
+  deferredPrompt = e;
+  syncInstallBtn();
+});
+window.addEventListener('appinstalled', function(){
+  installedApp = true; deferredPrompt = null;
+  syncInstallBtn();
+  showHint('홈 화면에 앱을 꺼내 두었어요 📲');
+});
+syncInstallBtn();
+try{
+  var mqStandalone = window.matchMedia && window.matchMedia('(display-mode: standalone)');
+  if(mqStandalone){
+    if(mqStandalone.addEventListener) mqStandalone.addEventListener('change', syncInstallBtn);
+    else if(mqStandalone.addListener) mqStandalone.addListener(syncInstallBtn);
+  }
+}catch(e){}
 
 })();
 </script>

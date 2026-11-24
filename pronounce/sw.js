@@ -3,7 +3,7 @@
    - 외부(다른 사이트) 요청은 절대 건드리지 않음 · 개인정보 0%
    - 화면(index.html)은 항상 네트워크 우선 → 새 버전이 바로 반영됨 */
 
-const CACHE = 'wagle-language-v1';
+const CACHE = 'wagle-language-v1-icons2';
 const SHELL = [
   './',
   './index.html',

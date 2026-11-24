@@ -260,6 +260,39 @@ html.big .tbtn span{font-size:1.08rem}
   border-radius:1rem;padding:.6rem .8rem;font-size:.82rem;font-weight:800;line-height:1.38;letter-spacing:-.02em;
   box-shadow:0 6px 22px rgba(12,40,28,.34);opacity:0;pointer-events:none;transition:opacity .2s ease, transform .2s ease;text-align:center}
 #toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ── 📲 설치 · 📤 공유 ─────────────────── */
+.tools{display:flex;justify-content:flex-end;gap:.3rem;margin-top:.34rem}
+.toolbtn{display:flex;align-items:center;justify-content:center;gap:.22rem;
+  min-height:2rem;padding:0 .6rem;border-radius:2rem;
+  background:rgba(255,255,255,.17);border:1.5px solid rgba(245,255,248,.55);
+  color:#F5FFF8;font-size:.7rem;font-weight:800;letter-spacing:-.02em;white-space:nowrap}
+.toolbtn:active{transform:translateY(1px)}
+.toolbtn[hidden]{display:none}
+@media (max-width:359px){.toolbtn{font-size:.66rem;padding:0 .48rem;min-height:1.9rem}}
+
+/* ── 📲 설치 안내 창 ───────────────────── */
+.imodal{position:fixed;inset:0;z-index:95;display:flex;align-items:flex-end;justify-content:center;
+  background:rgba(12,40,28,.55)}
+.imodal[hidden]{display:none}
+.imcard{width:100%;max-width:34rem;max-height:92vh;overflow:auto;background:#FFFDF7;
+  border-radius:1.1rem 1.1rem 0 0;color:var(--ink);
+  padding:.9rem .9rem calc(.9rem + env(safe-area-inset-bottom));
+  box-shadow:0 -.5rem 1.8rem rgba(0,0,0,.28)}
+.imcard h2{margin:0 0 .3rem;font-size:1.06rem;line-height:1.3;font-weight:900;
+  letter-spacing:-.03em;color:var(--mint2)}
+.imcard .lead{margin:0 0 .55rem;font-size:.8rem;line-height:1.5;font-weight:800;color:var(--ink2)}
+.imcard ol{margin:0 0 .6rem;padding-left:1.05rem;font-size:.88rem;line-height:1.55;color:#26403A;font-weight:800}
+.imcard li{margin:0 0 .5rem}
+.imcard li b{color:var(--mint2)}
+.imcard .chrome{display:flex;align-items:center;justify-content:center;gap:.3rem;width:100%;
+  min-height:2.7rem;margin:0 0 .5rem;border-radius:.8rem;text-decoration:none;
+  background:#EAF3EB;color:#245740;border:2px solid #CFE2D4;font-size:.86rem;font-weight:900}
+.imcard .chrome[hidden]{display:none}
+.imcard .mini{margin:0 0 .7rem;font-size:.72rem;line-height:1.5;color:#8B9A90;font-weight:800}
+.imcard .close{width:100%;min-height:2.9rem;border:0;border-radius:.8rem;background:var(--mint2);
+  color:#F5FFF8;font-size:1rem;font-weight:900}
+.imcard .close:active{transform:scale(.99)}
 @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
 </style>
 </head>
@@ -276,6 +309,10 @@ html.big .tbtn span{font-size:1.08rem}
       <button id="btnBig" type="button" aria-pressed="false">글씨 크게</button>
       <button id="btnLang" type="button">EN</button>
     </div>
+  </div>
+  <div class="tools">
+    <button type="button" class="toolbtn" id="installBtn" aria-haspopup="dialog" data-i18n="instPill">📲 설치</button>
+    <button type="button" class="toolbtn" id="shareBtn" data-i18n="sharePill">📤 공유</button>
   </div>
 </header>
 
@@ -439,6 +476,18 @@ html.big .tbtn span{font-size:1.08rem}
 </nav>
 
 <div id="toast" role="status" aria-live="polite"></div>
+
+<!-- 📲 홈 화면에 앱 설치 안내 -->
+<div class="imodal" id="instModal" role="dialog" aria-modal="true" aria-labelledby="instTitle" hidden>
+  <div class="imcard">
+    <h2 id="instTitle">📲 홈 화면에 앱으로 넣기</h2>
+    <p class="lead" id="instLead">아이콘을 한 번 꺼내 두면 앱처럼 바로 열려요.</p>
+    <ol id="instSteps"></ol>
+    <a class="chrome" id="instChrome" href="#" hidden>🌐 크롬으로 바로 열기</a>
+    <p class="mini" id="instMini">새로 받는 파일은 없어요. 무료 · 광고 없음 · 개인정보 없음.</p>
+    <button type="button" class="close" id="instClose">확인</button>
+  </div>
+</div>
 <noscript><p style="margin:1rem;font-weight:800">와글링 운동은 자바스크립트가 필요해요. / Wagling Fit needs JavaScript.</p></noscript>
 
 <script>
@@ -521,6 +570,23 @@ html.big .tbtn span{font-size:1.08rem}
       notifBtn: '휴대폰 알림 허용',
       icsBtn: '휴대폰 달력에 매일 넣기 (.ics)',
       installBtn: '홈 화면에 앱 설치',
+      instPill: '📲 설치', sharePill: '📤 공유',
+      instAria: '앱 설치 안내', shareAria: '이 앱 공유하기',
+      instTitle: '📲 홈 화면에 앱으로 넣기',
+      instLead: '아이콘을 한 번 꺼내 두면 앱처럼 바로 열려요.',
+      instS1: '카톡·앱 안에서 여셨다면 → 오른쪽 위 <b>⋮</b> → <b>다른 브라우저(Chrome)로 열기</b>',
+      instS2: '크롬: 오른쪽 위 <b>⋮</b> → <b>홈 화면에 추가</b>(또는 앱 설치)',
+      instS3: '삼성 인터넷: 오른쪽 아래 <b>≡</b> → <b>현재 페이지 추가</b> → <b>홈 화면</b>',
+      instS4: '아이폰·아이패드(사파리): 아래 <b>공유(□↑)</b> → <b>홈 화면에 추가</b>',
+      instChromeBtn: '🌐 크롬으로 바로 열기',
+      instMini: '새로 받는 파일은 없어요. 무료 · 광고 없음 · 개인정보 없음.',
+      instOk: '확인',
+      instAlready: '이미 홈 화면에 설치되어 있어요 📲',
+      installedMsg: '홈 화면에 앱을 꺼내 두었어요 📲',
+      shareTitle: '와글링 운동 · 즐거운 운동이 행복한 하루를 만듭니다',
+      shareText: '🏃 와글링 운동 — 과식 별을 쌓고 운동으로 하나씩 지워요. 산·바다 걷기 코스와 도장 달력까지.\n가입·설치 없이 링크만 누르면 바로 열려요 😊',
+      shareCopied: '공유 문구와 링크를 복사했어요! 카톡에 붙여넣기 하세요',
+      shareCopyFail: '복사가 안 되면 주소창의 링크를 복사해 보내 주세요',
       remindTip: '앱을 열어 두면 정한 시간에 소리와 목소리로 알려 드려요. 휴대폰 달력(.ics)에 넣으면 앱을 닫아도 알림이 와요.',
       privacyNote: '기록은 이 기기에만 저장돼요. 광고도 회원가입도 없어요.',
       calTitle: '📔 도장 달력', calSub: '운동을 끝낼 때마다 오늘 칸에 도장',
@@ -596,6 +662,23 @@ html.big .tbtn span{font-size:1.08rem}
       notifBtn: 'Allow phone notifications',
       icsBtn: 'Add daily reminder to your calendar (.ics)',
       installBtn: 'Install app on home screen',
+      instPill: '📲 Install', sharePill: '📤 Share',
+      instAria: 'How to install the app', shareAria: 'Share this app',
+      instTitle: '📲 Add it to your home screen',
+      instLead: 'Add the icon once and it opens like an app.',
+      instS1: 'Opened inside KakaoTalk or another app? Tap <b>⋮</b> at the top right → <b>Open in another browser (Chrome)</b>',
+      instS2: 'Chrome: <b>⋮</b> at the top right → <b>Add to Home screen</b> (or Install app)',
+      instS3: 'Samsung Internet: <b>≡</b> at the bottom right → <b>Add page</b> → <b>Home screen</b>',
+      instS4: 'iPhone · iPad (Safari): <b>Share (□↑)</b> below → <b>Add to Home Screen</b>',
+      instChromeBtn: '🌐 Open in Chrome',
+      instMini: 'Nothing new to download. Free, no ads, no personal information.',
+      instOk: 'Got it',
+      instAlready: 'Already installed on your home screen 📲',
+      installedMsg: 'Added to your home screen 📲',
+      shareTitle: 'Wagling Fit · A happy day starts with a fun workout',
+      shareText: '🏃 Wagling Fit — stack snack stars and clear them with workouts. Mountain and sea walking courses, plus a stamp calendar.\nNo sign-up, no ads. Just tap the link.',
+      shareCopied: 'Share text and link copied. Paste it into KakaoTalk',
+      shareCopyFail: 'If copying fails, copy the link from the address bar',
       remindTip: 'Keep the app open and you will hear a chime and a voice at your time. Add the .ics to your phone calendar to be reminded even when the app is closed.',
       privacyNote: 'Everything stays on this device. No ads, no sign-up.',
       calTitle: '📔 Stamp calendar', calSub: 'Every finished workout stamps today',
@@ -1195,6 +1278,9 @@ html.big .tbtn span{font-size:1.08rem}
       bb.textContent = S.big ? t('bigOn') : t('big');
       bb.setAttribute('aria-pressed', S.big ? 'true' : 'false');
     }
+    var ib = $('#installBtn'), sb = $('#shareBtn');
+    if (ib) ib.setAttribute('aria-label', t('instAria'));
+    if (sb) sb.setAttribute('aria-label', t('shareAria'));
     var sel = $('#remindTime');
     if (sel) sel.setAttribute('aria-label', t('remindTimeLabel'));
     var cp = $('#calPrev'), cn = $('#calNext');
@@ -1306,20 +1392,12 @@ html.big .tbtn span{font-size:1.08rem}
     });
     $('#btnIcs').addEventListener('click', exportICS);
 
-    var deferred = null;
     window.addEventListener('beforeinstallprompt', function (e) {
-      e.preventDefault();
-      deferred = e;
+      if (e && e.preventDefault) e.preventDefault();
+      instPrompt = e;
+      syncInstallPill();
     });
-    $('#btnInstall').addEventListener('click', function () {
-      if (deferred) {
-        try {
-          deferred.prompt();
-          deferred = null;
-        } catch (e) { toast(t('installHint')); }
-      } else { toast(t('installHint')); }
-    });
-
+    $('#btnInstall').addEventListener('click', installTap);
     $('#calPrev').addEventListener('click', function () {
       calM--; if (calM < 0) { calM = 11; calY--; } renderCal();
     });
@@ -1336,12 +1414,146 @@ html.big .tbtn span{font-size:1.08rem}
     window.addEventListener('focus', function () { checkReminder(); });
   }
 
+  /* ══════════════════ 📲 설치 · 📤 공유 ══════════════════ */
+  var elInstallPill = $('#installBtn'), elSharePill = $('#shareBtn');
+  var elIModal = $('#instModal'), elIChrome = $('#instChrome'), elIClose = $('#instClose');
+  var instPrompt = null, instDone = false;
+
+  function isStandaloneNow() {
+    try {
+      if (window.matchMedia) {
+        if (window.matchMedia('(display-mode: standalone)').matches) return true;
+        if (window.matchMedia('(display-mode: minimal-ui)').matches) return true;
+      }
+    } catch (e) {}
+    if (navigator.standalone === true) return true;
+    if (/^android-app:\/\//i.test(document.referrer || '')) return true;
+    return false;
+  }
+  function isAndroidUA() { return /Android/i.test(navigator.userAgent || ''); }
+  function inAppBrowser() { return /KAKAOTALK|Instagram|NAVER|FBAN|FBAV|Line\//i.test(navigator.userAgent || ''); }
+  function chromeIntentUrl() {
+    var host = location.host || 'starpicklife-design.github.io';
+    var path = location.pathname || '/fit/';
+    var q = location.search || '';
+    return 'intent://' + host + path + q + '#Intent;scheme=https;package=com.android.chrome;end';
+  }
+  function syncInstallPill() {
+    if (!elInstallPill) return;
+    elInstallPill.hidden = instDone || isStandaloneNow();
+  }
+  function openInstallModal() {
+    if (!elIModal) return;
+    var ti = $('#instTitle'), ld = $('#instLead'), st = $('#instSteps'), mi = $('#instMini');
+    if (ti) ti.textContent = t('instTitle');
+    if (ld) ld.textContent = t('instLead');
+    if (st) st.innerHTML = ['instS1', 'instS2', 'instS3', 'instS4'].map(function (k) {
+      return '<li>' + t(k) + '</li>';
+    }).join('');
+    if (mi) mi.textContent = t('instMini');
+    if (elIClose) elIClose.textContent = t('instOk');
+    if (elIChrome) {
+      var show = isAndroidUA() && inAppBrowser();
+      elIChrome.hidden = !show;
+      if (show) {
+        elIChrome.textContent = t('instChromeBtn');
+        elIChrome.setAttribute('href', chromeIntentUrl());
+      }
+    }
+    elIModal.hidden = false;
+    try { if (elIClose) elIClose.focus(); } catch (e) {}
+  }
+  function closeInstallModal() {
+    if (elIModal) elIModal.hidden = true;
+    try { if (elInstallPill && !elInstallPill.hidden) elInstallPill.focus(); } catch (e) {}
+  }
+  function installTap() {
+    if (instDone || isStandaloneNow()) {
+      toast(t('instAlready'));
+      return;
+    }
+    if (instPrompt) {
+      var dp = instPrompt;
+      instPrompt = null;
+      try {
+        dp.prompt();
+        if (dp.userChoice && dp.userChoice.then) {
+          dp.userChoice.then(function (r) {
+            if (r && r.outcome === 'accepted') toast(t('installedMsg'));
+            syncInstallPill();
+          }, function () {});
+        }
+        return;
+      } catch (e) { /* 안 되면 설치 안내 창으로 */ }
+    }
+    openInstallModal();
+  }
+  function legacyCopyF(text, done, fail) {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = document.execCommand && document.execCommand('copy');
+      document.body.removeChild(ta);
+      if (ok) done(); else fail();
+    } catch (e) { fail(); }
+  }
+  function copyShareF(text, done, fail) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { legacyCopyF(text, done, fail); });
+    } else {
+      legacyCopyF(text, done, fail);
+    }
+  }
+  function shareAppF() {
+    var p = { title: t('shareTitle'), text: t('shareText'), url: 'https://starpicklife-design.github.io/fit/' };
+    var nav = navigator, usable = true;
+    var done = function () { toast(t('shareCopied')); };
+    var fail = function () { toast(t('shareCopyFail')); };
+    try { if (nav.canShare && !nav.canShare(p)) usable = false; } catch (e) {}
+    if (nav.share && usable) {
+      try {
+        var r = nav.share(p);
+        if (r && r.then) r.then(function () {}, function (err) {
+          if (err && err.name === 'AbortError') return; /* 사용자가 취소 — 조용히 */
+          copyShareF(p.text + '\n\n' + p.url, done, fail);
+        });
+        return;
+      } catch (e) { /* 공유 시트가 안 열리면 복사로 */ }
+    }
+    copyShareF(p.text + '\n\n' + p.url, done, fail);
+  }
+  if (elInstallPill) elInstallPill.addEventListener('click', installTap);
+  if (elSharePill) elSharePill.addEventListener('click', shareAppF);
+  if (elIClose) elIClose.addEventListener('click', closeInstallModal);
+  if (elIModal) elIModal.addEventListener('click', function (e) { if (e.target === elIModal) closeInstallModal(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && elIModal && !elIModal.hidden) closeInstallModal();
+  });
+  window.addEventListener('appinstalled', function () {
+    instDone = true; instPrompt = null;
+    syncInstallPill();
+    toast(t('installedMsg'));
+  });
+  try {
+    var mqStand = window.matchMedia && window.matchMedia('(display-mode: standalone)');
+    if (mqStand) {
+      if (mqStand.addEventListener) mqStand.addEventListener('change', syncInstallPill);
+      else if (mqStand.addListener) mqStand.addListener(syncInstallPill);
+    }
+  } catch (e) {}
+
   /* ══════════════════ 시작 ══════════════════ */
   function boot() {
     document.documentElement.classList.toggle('big', !!S.big);
     bind();
     renderAll();
     refreshReminderUI();
+    syncInstallPill();
     if (S.session) startTick();
     setInterval(checkReminder, 20000);
     // 열자마자 한 번 확인 (정각에 앱을 열었을 때)

@@ -7,13 +7,14 @@
 <!-- build: 2026-11-23 wagle-care v6 · ☀️ 아침 7시·🍚 낮 12시·🍲 오후 5시·🌙 저녁 9시 큰 인사 카드 + 한국어 음성(ko-KR, 앱을 켜면 생략·정각에만 자동) · 실시간 날씨(Open-Meteo, 위치 허용 시 현재 위치·기본 서울, 오프라인이면 날씨만 생략) · ☀️ 오늘 날짜·날씨 듣기 큰 버튼 · 🚨 위급 연락: 보호자 1·2 큰 문자 타일 2열(등록 전에도 💬 문자 보내기 큰 버튼·누르면 통합 번호 등록 창) · 💬 병원동행 매니저 문자 큰 줄 · 119 부제 「📞 누르고 초록 통화 눌러 주세요」+ 누를 때 2음 경보음(1.8초) · 📝 매니저·보호자 번호를 한 창에서 등록 · ⏰ 약 시간 알림: 큰 글씨 카드(약 이름)·말로 읽어 주기(🔊 다시 듣기·카드 탭)·✅ 약 먹었어요(닫기)·뒤로가기 닫기 · 🩺 병원동행매니저(첫 화면 버튼·매니저 2명 직접 등록·📞 바로 전화·💬 오늘 동행 알림 문자·📅 예약일/⏰ 만날 시간/📍 만날 장소 저장·오늘 약·남은 일수·병원 예약·보호자 번호 자동 포함·메모 복사) · 약 떨어짐 알림·위급 연락에 💬 매니저님께도 문자 · 공공 129·서울 1533-1179·내 지역 검색 안내 · v2: 아침·점심·저녁·자기 전 약 큰 버튼 체크(시각 기록·다시 누르면 취소) · 물 잔 수 · 산책·혈압/컨디션 · 복용 시간·알림 소리(Web Audio+음성 안내) · 약 이름·메모 · 최근 7일 기록 · 병원 약 남은 날(D-Day, 30·60·90·100일분·직접 입력) + 7일 이하 알림 카드 · 어르신께 정중한 말투("어르신, 약 드실 시간입니다.") · 보호자 번호 한 번 저장(설정·첫 화면) · 💬 보호자 문자(sms:) · 🚨 위급 버튼(보호자 전화·문자·119, 뒤로가기로 닫힘) · 큰 글씨·한/영·공유·설치·뒤로가기 · 기록은 기기에만 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="와글링 효도 약통" />
 <meta name="description" content="와글링 효도 약통 — 어르신 약·물·생활 챙김표. 아침·점심·저녁·자기 전 약 체크, 물 잔 수, 혈압·산책, 병원 약 남은 날(D-Day) 미리 알림. 기록은 이 기기에만 저장, 광고 없음." />
 <title>와글링 효도 약통 · 약·물·생활 챙김표</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 120%27%3E%3Crect width=%27120%27 height=%27120%27 rx=%2726%27 fill=%27%23FFF9EF%27/%3E%3Crect x=%2722%27 y=%2750%27 width=%2776%27 height=%2742%27 rx=%2710%27 fill=%27%23F6C878%27 stroke=%27%23A9702E%27 stroke-width=%275%27/%3E%3Cpath d=%27M22 62h76%27 stroke=%27%23A9702E%27 stroke-width=%275%27/%3E%3Ccircle cx=%2742%27 cy=%2777%27 r=%277%27 fill=%27%23C9553D%27/%3E%3Ccircle cx=%2760%27 cy=%2777%27 r=%277%27 fill=%27%23E8A23C%27/%3E%3Ccircle cx=%2778%27 cy=%2777%27 r=%277%27 fill=%27%235C9E6E%27/%3E%3C/svg%3E" />
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
 <style>
 :root{
   --cream:#FFF9EF; --cream2:#FCF0DE; --card:#FFFFFF; --ink:#2E2118; --ink2:#7A6555;
@@ -661,9 +662,9 @@ html.big .org .ot span{font-size:.6rem}
 <div class="hero">
   <picture>
     <source srcset="./home-care.webp" type="image/webp" />
-    <img src="./home-care.jpg" width="1400" height="1120" alt="따뜻한 아침, 와글가족 햄스터들이 물 한 잔과 약통, 과일을 나누며 건강을 챙기는 그림" />
+    <img src="./home-care.jpg" width="1400" height="1120" alt="따뜻한 아침, 와글링 가족 햄스터들이 물 한 잔과 약통, 과일을 나누며 건강을 챙기는 그림" />
   </picture>
-  <div class="herocap" id="heroCap">와글가족이 오늘도 함께 챙겨요 💛</div>
+  <div class="herocap" id="heroCap">와글링 가족이 오늘도 함께 챙겨요 💛</div>
 </div>
 
 <div class="datebar">
@@ -1084,7 +1085,7 @@ html.big .org .ot span{font-size:.6rem}
 /* ═══════════════════════════════════════════════════════════
    와글링 효도 약통 · 약·물·생활 챙김표
    · 모든 기록은 이 기기(localStorage)에만 저장 — 서버 전송 없음
-   · 사람 출연 없음(와글가족 햄스터 일러스트만)
+   · 사람 출연 없음(와글링 가족 햄스터 일러스트만)
    ═══════════════════════════════════════════════════════════ */
 var $ = function(s){ return document.querySelector(s); };
 var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
@@ -2939,7 +2940,7 @@ function applyLang(){
   document.title = EN() ? 'Wagling Care · meds, water & daily care' : '와글링 효도 약통 · 약·물·생활 챙김표';
   $('#brandTitle').textContent = L('와글링 효도 약통','Wagling Care');
   $('#subTitle').textContent = L('약 · 물 · 생활 챙김표','Meds · water · daily care');
-  $('#heroCap').textContent = L('와글가족이 오늘도 함께 챙겨요 💛','The Wagul family is looking after you 💛');
+  $('#heroCap').textContent = L('와글링 가족이 오늘도 함께 챙겨요 💛','The Wagling family is looking after you 💛');
   $('#shareBtn').textContent = L('📤 공유','📤 Share');
   $('#installBtn').textContent = L('📲 설치','📲 Install');
   $('#langBtn').textContent = EN() ? 'KO' : 'EN';

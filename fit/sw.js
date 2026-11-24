@@ -4,7 +4,7 @@
    - 아이콘·그림 같은 정적 파일은 캐시 우선 → 인터넷이 느리거나 끊겨도 열림
    - 외부(다른 사이트) 요청은 절대 건드리지 않음 · 개인정보 0% */
 
-const CACHE = 'wagling-fit-v1';
+const CACHE = 'wagling-fit-v1-icons2';
 const SHELL = [
   './',
   './index.html',

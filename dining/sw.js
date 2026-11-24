@@ -11,7 +11,7 @@
    - v10: 🍽️ Eat 탭 음식 24종·술/음료 5종도 그림을 누르면 +1(카페와 통일) · 안내 문구 5개국어 통일 · 주문 연습은 하단 조합 카드 칩의 '연습' 버튼으로
    - 메뉴판 사진 OCR(Tesseract.js CDN)은 그대로 통과 */
 
-const CACHE = 'wagle-dining-v11';
+const CACHE = 'wagle-dining-v11-brand1-icons2';
 const SHELL = [
   './',
   './index.html',

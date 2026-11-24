@@ -7,13 +7,14 @@
 <!-- build: 2026-11-24 와글링 장바구니 v19 · 칸마다 바탕·머리말·카드 색을 다르게 — 냉장고(민트) · 냉동실(얼음 하늘) · 야채·과일(새잎 연두) · 김치냉장고(살구) · 실온보관바구니(버터). 칸을 넘기면 색이 부드럽게 바뀌어 글자를 읽지 않아도 어느 칸인지 바로 보임 · 품목 카드 왼쪽에 그 칸 색 띠 · 폰 상태바 색도 칸에 맞춰 바뀜 · 흰 글씨 대비 7:1 이상 유지 · 캐시 v19 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="와글링 장바구니" />
 <meta name="description" content="와글링 장바구니 — 우리 집 냉장고 4대(냉장·냉동·야채과일·김치냉장고)와 실온보관바구니를 한눈에. 구매일·남은 수량, 다 먹음 정리, 영수증 사진으로 품목 넣기. 목록은 이 기기에만 저장. 광고 없음." />
 <title>와글링 장바구니 · 우리집 냉장고 · 실온보관바구니</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 120%27%3E%3Crect width=%27120%27 height=%27120%27 rx=%2726%27 fill=%27%23F6FAF4%27/%3E%3Cpath d=%27M30 48h60l-7 42a8 8 0 0 1-8 7H45a8 8 0 0 1-8-7z%27 fill=%27%23F3DCAE%27 stroke=%27%23C08A3E%27 stroke-width=%275%27/%3E%3Cpath d=%27M44 48q16-20 32 0%27 fill=%27none%27 stroke=%27%23C08A3E%27 stroke-width=%276%27 stroke-linecap=%27round%27/%3E%3Ccircle cx=%2750%27 cy=%2772%27 r=%276%27 fill=%27%232F6B4F%27/%3E%3Ccircle cx=%2770%27 cy=%2772%27 r=%276%27 fill=%27%23C9553D%27/%3E%3C/svg%3E">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
 <style>
 :root{
   --cream:#F6FAF4; --cream2:#EAF3E9; --card:#FFFFFF; --ink:#1F2A22; --ink2:#56645A;
@@ -61,7 +62,7 @@ body[data-sp="cart"]{--sp-tint:#FFFBE6;--sp-soft:#FFFBEA;--sp-soft2:#FBF0C8;--sp
   --green:#6A4712;--green2:#8A6116;--line:#EFE2B4}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 .svgdefs{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
-/* ── 와글가족 미니 캐릭터 (화면 높이를 키우지 않고 곁에 인사) ───────── */
+/* ── 와글링 가족 미니 캐릭터 (화면 높이를 키우지 않고 곁에 인사) ───────── */
 .famstrip{display:flex;align-items:center;gap:.12rem;flex:0 1 auto;min-width:0;height:2.05rem;margin-left:.05rem}
 .famstrip svg{display:block;height:100%;width:auto;max-width:100%;transform-origin:50% 92%;animation:famwave 3.6s ease-in-out infinite}
 /* 미미·테오·아기햄스터가 서로 조금씩 늦게 까딱 — 묶음 흔들림과 겹쳐 살아 있는 느낌 */
