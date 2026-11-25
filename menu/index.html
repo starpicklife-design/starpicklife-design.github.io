@@ -4,7 +4,8 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#3E2C22" />
-<!-- build: 2026-11-24 wagle-table v35 · 👴 어르신 화면 정비 — 카드마다 **그림**(컵·찻잔·유리잔·음식 그림글자) + 큰 이름 + － 수량 ＋ · 맨 아래 **총 N잔 + 담은 목록 / 📢 주문서 크게 보기(화면 가득 한 문장) / 🔊 소리로 읽어 주기 · 🔄 처음부터(5초 되돌리기)** · **🗑️ 가게 지우기·메뉴 지우기는 두 번째 확인창 없이 바로**(5초 ‘되돌리기’ 알림) · 기본 카페 차가운 칸 맨 아래 **레몬에이드·블루베리스무디** · v34.3 · 메뉴 카드의 **－ 수량 ＋ 칸을 컴팩트하게**(칸·버튼·여백 축소 · 손가락 41~45px 유지 · 큰 글씨에서도 수량 칸을 이름 옆 한 줄로 붙여 카드 높이 절반) · v34.2 · **큰 글씨에서도 '와글링 테이블'이 한 줄**(제목 글자·알약 여백 조금 축소 · 좁은 폰은 더 아낌 · 영어도 한 줄) · **어르신 카드 이름 글자·위아래 여백을 한 단계 더 작게**(이름이 덜 접히고 한 화면에 줄이 더 들어옴 · －/＋ 손가락 크기는 그대로) · v34.1 · 👴 어르신 화면에서 **가격을 모두 뺐다**(이름·수량·－/＋ 만) · 글자를 한 단계 작게 · 하단 바는 '총 N잔 담김' + 📋 주문 요약 · 그리드 아래 [직접 입력][－ 수량 ＋] 칸(적은 메뉴는 이번 주문·요약에만 담기고 메뉴 버튼은 안 생김) · v34 · 👴 어르신 메뉴를 ☕ 핫(왼쪽) · 🧊 아이스(오른쪽) 두 열로 나란히(같은 줄끼리 높이 맞춤 · 핫=따뜻한 주황 / 아이스=시원한 하늘색으로 색 구분) + 기본 카페 메뉴에 고구마라떼·레몬차·매실차·쌍화차·유자차 등 차와 레몬에이드·오미자차·복숭아 아이스티 추가, 디저트는 아래 🍽️ 다른 메뉴 · v33 · 👴 어르신 메뉴를 ☕ 따뜻한 음료(핫) / 🧊 차가운 음료(아이스) / 🍽️ 다른 메뉴로 나눠 표시 + 하단 계산 바(총 금액 · 명수 －/＋ · 1인당 자동 나누기 실시간) · v32 · 👴 어르신 화면 위 메뉴 카드마다 － 수량 ＋ 스테퍼(카드 이름칸·＋ = +1, － = -1 · 0 아래로 안 내려감 · 빨간 수량 배지 · 가운데 수정 칸·주문 요약과 실시간 연동) · v31 · 🏪 카페·맛집 추가 → '취소'면 홈에 남지 않고 바로 메뉴판 · v30 · 첫 줄 두 칸(🏪 카페·맛집 추가 59% + 🍽️ 맛집 수첩 41%) · 👴 어르신 전용 화면(위 메뉴 큰 버튼 → 가운데 −/＋·✕ 수정 칸 → 맨 아래 📋 주문 요약 보기, 홈·뒤로가기 복귀) · 수첩 카드 3줄 슬림 · 👈 왼쪽 밀기 = 수첩·메뉴판·어르신에서 첫 화면(홈)으로, 👉 오른쪽 = 메뉴판→이벤트·요약↔이벤트 · v28 별점·한줄 메모·수첩 -->
+<!-- build: 2026-11-25 wagle-table v36 · 👵 어르신 화면에 **elder-menu 의 ☕ 핫 8 + 🧊 아이스 8 기본 음료**(아메리카노·카페라떼·고구마라떼·유자차·생강차·대추차·쌍화차·녹차 / 아이스 아메리카노·아이스 라떼·아이스 유자차·매실차·식혜·수정과·레몬에이드·블루베리스무디)가 **늘 기본으로** 나온다 — 가게 메뉴가 하나뿐인 '누솜'처럼 메뉴가 적어도 두 열이 비지 않는다 · 가게 메뉴에 같은 음료가 있으면 그 메뉴를 그대로 쓰고(수량·메뉴판과 한 몸), 없는 기본 음료 수량만 가게별 `elq` 에 따로 담는다(메뉴판·가격은 그대로) · 기본 카페 메뉴와는 이름으로 겹치지 않게 합침(아이스 라떼=아이스 카페라떼, 매실차=아이스 매실차) · 🔄 처음부터·주문 비우기·올클리어에서 기본 음료 수량도 함께 지움 · v35
+     · 2026-11-24 wagle-table v35 · 👴 어르신 화면 정비 — 카드마다 **그림**(컵·찻잔·유리잔·음식 그림글자) + 큰 이름 + － 수량 ＋ · 맨 아래 **총 N잔 + 담은 목록 / 📢 주문서 크게 보기(화면 가득 한 문장) / 🔊 소리로 읽어 주기 · 🔄 처음부터(5초 되돌리기)** · **🗑️ 가게 지우기·메뉴 지우기는 두 번째 확인창 없이 바로**(5초 ‘되돌리기’ 알림) · 기본 카페 차가운 칸 맨 아래 **레몬에이드·블루베리스무디** · v34.3 · 메뉴 카드의 **－ 수량 ＋ 칸을 컴팩트하게**(칸·버튼·여백 축소 · 손가락 41~45px 유지 · 큰 글씨에서도 수량 칸을 이름 옆 한 줄로 붙여 카드 높이 절반) · v34.2 · **큰 글씨에서도 '와글링 테이블'이 한 줄**(제목 글자·알약 여백 조금 축소 · 좁은 폰은 더 아낌 · 영어도 한 줄) · **어르신 카드 이름 글자·위아래 여백을 한 단계 더 작게**(이름이 덜 접히고 한 화면에 줄이 더 들어옴 · －/＋ 손가락 크기는 그대로) · v34.1 · 👴 어르신 화면에서 **가격을 모두 뺐다**(이름·수량·－/＋ 만) · 글자를 한 단계 작게 · 하단 바는 '총 N잔 담김' + 📋 주문 요약 · 그리드 아래 [직접 입력][－ 수량 ＋] 칸(적은 메뉴는 이번 주문·요약에만 담기고 메뉴 버튼은 안 생김) · v34 · 👴 어르신 메뉴를 ☕ 핫(왼쪽) · 🧊 아이스(오른쪽) 두 열로 나란히(같은 줄끼리 높이 맞춤 · 핫=따뜻한 주황 / 아이스=시원한 하늘색으로 색 구분) + 기본 카페 메뉴에 고구마라떼·레몬차·매실차·쌍화차·유자차 등 차와 레몬에이드·오미자차·복숭아 아이스티 추가, 디저트는 아래 🍽️ 다른 메뉴 · v33 · 👴 어르신 메뉴를 ☕ 따뜻한 음료(핫) / 🧊 차가운 음료(아이스) / 🍽️ 다른 메뉴로 나눠 표시 + 하단 계산 바(총 금액 · 명수 －/＋ · 1인당 자동 나누기 실시간) · v32 · 👴 어르신 화면 위 메뉴 카드마다 － 수량 ＋ 스테퍼(카드 이름칸·＋ = +1, － = -1 · 0 아래로 안 내려감 · 빨간 수량 배지 · 가운데 수정 칸·주문 요약과 실시간 연동) · v31 · 🏪 카페·맛집 추가 → '취소'면 홈에 남지 않고 바로 메뉴판 · v30 · 첫 줄 두 칸(🏪 카페·맛집 추가 59% + 🍽️ 맛집 수첩 41%) · 👴 어르신 전용 화면(위 메뉴 큰 버튼 → 가운데 −/＋·✕ 수정 칸 → 맨 아래 📋 주문 요약 보기, 홈·뒤로가기 복귀) · 수첩 카드 3줄 슬림 · 👈 왼쪽 밀기 = 수첩·메뉴판·어르신에서 첫 화면(홈)으로, 👉 오른쪽 = 메뉴판→이벤트·요약↔이벤트 · v28 별점·한줄 메모·수첩 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
@@ -2324,6 +2325,9 @@ var SAMPLE_EN={
   '아메리카노':'Americano','카페라떼':'Café Latte','바닐라라떼':'Vanilla Latte','대추차':'Jujube Tea','유자차':'Citrus Tea',
   '생강차':'Ginger Tea','크루아상':'Croissant','김밥':'Gimbap','참치김밥':'Tuna Gimbap',
   '고구마라떼':'Sweet Potato Latte','레몬차':'Lemon Tea','매실차':'Plum Tea','쌍화차':'Ssanghwa Tea',
+  /* v36 · 어르신 기본 음료(핫 8 + 아이스 8)의 영어 표기 */
+  '녹차':'Green Tea','아이스 라떼':'Iced Latte','아이스 유자차':'Iced Citrus Tea',
+  '식혜':'Rice Punch','수정과':'Cinnamon Punch','블루베리스무디':'Blueberry Smoothie',
   '아이스 카페라떼':'Iced Café Latte','아이스 바닐라라떼':'Iced Vanilla Latte',
   '레몬에이드':'Lemonade','오미자차':'Omija Tea','아이스 매실차':'Iced Plum Tea',
   '유자에이드':'Citrus Ade','복숭아 아이스티':'Peach Iced Tea','팥빵':'Red Bean Bread','쿠키':'Cookie',
@@ -2437,6 +2441,8 @@ function load(){
         /* v34 · ☕ 핫 / 🧊 아이스 / 🍽️ 다른 메뉴 — 저장했다 열어도 자리가 그대로 남게 */
         temp:(m.temp==='hot'||m.temp==='ice'||m.temp==='oth')? m.temp : undefined
       })),
+      /* v36 · 어르신 기본 음료(elder-menu 8+8) 중 이 가게 메뉴에 없는 것의 수량 — 메뉴판·가격은 건드리지 않는다 */
+      elq:(function(o){ var out={}; if(o && typeof o==='object'){ Object.keys(o).forEach(function(k){ var n=Math.max(0,Math.min(99,parseInt(o[k],10)||0)); if(n>0 && /^elb-(hot|ice)-\d+$/.test(k)) out[k]=n; }); } return out; })(s.elq),
       /* v34.1 · 맨 아래 직접 입력으로 담은 메뉴 — 메뉴 버튼이 아니라 '이번 주문'에만 남는다 */
       quick:(Array.isArray(s.quick)? s.quick : []).map(q=>({
         id:q&&q.id? q.id : uid(), name:String((q&&q.name)||''),
@@ -3632,6 +3638,71 @@ const ELART=(function(){
 /* ══════ 👴 v30 · 어르신 전용 화면 — 위: 메뉴 큰 버튼 / 가운데: 담은 것 수정 칸 / 맨 아래: 주문 요약 보기 ══════
    · 현재 가게(S.cur, 없으면 '내 카페')의 메뉴를 큰 버튼으로 — 누르면 바로 +1 담기
    · 🏠 홈 · 폰 뒤로가기(◀, popstate 'elderv' 층)로 첫 화면 복귀 */
+/* ══════ v36 · 👵 어르신 기본 음료 8+8 — elder-menu/index.html 과 똑같은 이름·순서
+   · 가게 메뉴가 적어도(예: 누솜 = 핫청귤 하나) 어르신 화면에는 ☕ 핫 8 + 🧊 아이스 8이 늘 기본으로 있다
+   · 가게 메뉴에 같은 이름·같은 온도의 메뉴가 있으면 그 메뉴를 그대로 쓴다(수량이 메뉴판과 한 몸)
+   · 가게에 없는 기본 음료의 수량만 그 가게의 st.elq 에 담는다 — 메뉴판·가격은 그대로 둔다 */
+var ELDER_BASE={
+  hot:['아메리카노','카페라떼','고구마라떼','유자차','생강차','대추차','쌍화차','녹차'],
+  ice:['아이스 아메리카노','아이스 라떼','아이스 유자차','매실차','식혜','수정과','레몬에이드','블루베리스무디']
+};
+function elbId(kind,i){ return 'elb-'+kind+'-'+i; }
+/* 'elb-hot-3' → {id,name,kind:'hot',base:true} (아니면 null) */
+function elbItem(id){
+  var m=/^elb-(hot|ice)-(\d+)$/.exec(String(id==null? '':id));
+  if(!m) return null;
+  var nm=ELDER_BASE[m[1]][parseInt(m[2],10)];
+  if(!nm) return null;
+  return {id:'elb-'+m[1]+'-'+m[2], name:nm, kind:m[1], base:true, fav:false, qty:0};
+}
+function elqOf(st){ if(!st) return {}; if(!st.elq || typeof st.elq!=='object') st.elq={}; return st.elq; }
+function elqGet(st,id){ return Math.max(0,Math.min(99,parseInt(elqOf(st)[id],10)||0)); }
+function elqSet(st,id,q){
+  q=Math.max(0,Math.min(99,parseInt(q,10)||0));
+  if(q>0) elqOf(st)[id]=q; else delete elqOf(st)[id];
+}
+function elqSum(st){
+  var o=elqOf(st), n=0;
+  for(var k in o){ if(elbItem(k)) n+=Math.max(0,Math.min(99,parseInt(o[k],10)||0)); }
+  return n;
+}
+/* 앞의 온도 말(아이스/따뜻한/핫…)과 '카페라떼=라떼' 차이를 지운 이름 — 같은 음료인지 볼 때만 쓴다 */
+function elbKey(name){
+  var s=String(name==null? '':name).replace(/\s+/g,' ').trim().toLowerCase();
+  s=s.replace(/^(아이스|따뜻한)\s+/,'').replace(/^(핫|iced|ice|hot)\s+/,'');
+  s=s.replace(/^카페\s*라떼$/,'라떼').replace(/^cafe\s*latte$/,'latte');
+  return s;
+}
+/* 어르신 화면에 그릴 카드 줄 — 기본 8+8 을 먼저 깔고, 가게 메뉴 중 겹치지 않는 것을 뒤에 더한다 */
+function elderCards(st){
+  var hot=[], ice=[], oth=[], used={};
+  var menus=(st && st.menus) || [];
+  var pool={};
+  menus.forEach(function(m){
+    var k=elbKey(m.name)+'|'+elKind(m);
+    (pool[k]=pool[k]||[]).push(m);
+  });
+  ['hot','ice'].forEach(function(kind){
+    ELDER_BASE[kind].forEach(function(nm,i){
+      var arr=pool[elbKey(nm)+'|'+kind], m=(arr && arr.length)? arr.shift() : null, it;
+      if(m){
+        used[m.id]=1;
+        it={id:m.id, name:m.name, kind:kind, fav:!!m.fav, qty:Math.max(0,parseInt(m.qty,10)||0), menu:m};
+      }else{
+        it=elbItem(elbId(kind,i));
+        it.qty=elqGet(st, it.id);
+      }
+      (kind==='hot'? hot : ice).push(it);
+    });
+  });
+  menus.forEach(function(m){
+    if(used[m.id]) return;
+    var k=elKind(m);
+    var it={id:m.id, name:m.name, kind:k, fav:!!m.fav, qty:Math.max(0,parseInt(m.qty,10)||0), menu:m};
+    (k==='oth'? oth : k==='ice'? ice : hot).push(it);
+  });
+  return {hot:hot, ice:ice, oth:oth};
+}
 function elderStore(){
   var st=store();
   if(!st){ st=ensureMyCafe(); save(); }
@@ -3658,34 +3729,27 @@ function renderElder(){
   setHTML('#elHint','💡 위의 <b>🏠 홈</b> 버튼이나 폰 뒤로가기(◀)로 첫 화면으로 돌아와요.',
     '💡 Use <b>🏠 Home</b> above or the phone back button to return.');
   var grid=$('#elGrid'); if(!grid) return;
-  var menus=st.menus||[];
-  if(!menus.length){
-    grid.innerHTML='<p class="elEmpty">'+L('아직 메뉴가 없어요. 첫 화면으로 나가서 🏪 카페·맛집 추가로 메뉴를 넣어 주세요.',
-      'No menu yet — go back home and add items first.')+'</p>';
-  }else{
-    /* v34 · ☕ 핫(왼쪽) · 🧊 아이스(오른쪽)를 같은 줄끼리 나란히 → 맨 아래 🍽️ 다른 메뉴 */
-    var g={hot:[],ice:[],oth:[]};
-    menus.forEach(function(m){ g[elKind(m)].push(m); });
-    var out='';
-    if(g.hot.length||g.ice.length){
-      out+='<div class="elRow2 hdr">'
-        + elColHead('hot','☕',L('핫','Hot'),L('따뜻한 음료 · HOT','Warm drinks · HOT'))
-        + elColHead('ice','🧊',L('아이스','Iced'),L('차가운 음료 · ICE','Cold drinks · ICE'))
+  /* v36 · ☕ 핫(왼쪽) · 🧊 아이스(오른쪽) — elder-menu 의 8+8 기본 음료 + 가게 메뉴 */
+  var g=elderCards(st);
+  var out='';
+  if(g.hot.length||g.ice.length){
+    out+='<div class="elRow2 hdr">'
+      + elColHead('hot','☕',L('핫','Hot'),L('따뜻한 음료 · HOT','Warm drinks · HOT'))
+      + elColHead('ice','🧊',L('아이스','Iced'),L('차가운 음료 · ICE','Cold drinks · ICE'))
+      + '</div>';
+    var n=Math.max(g.hot.length, g.ice.length);
+    for(var i=0;i<n;i++){
+      out+='<div class="elRow2">'
+        + (g.hot[i]? elCardHTML(g.hot[i]) : '<div class="ecell" aria-hidden="true"></div>')
+        + (g.ice[i]? elCardHTML(g.ice[i]) : '<div class="ecell" aria-hidden="true"></div>')
         + '</div>';
-      var n=Math.max(g.hot.length, g.ice.length);
-      for(var i=0;i<n;i++){
-        out+='<div class="elRow2">'
-          + (g.hot[i]? elCardHTML(g.hot[i],'hot') : '<div class="ecell" aria-hidden="true"></div>')
-          + (g.ice[i]? elCardHTML(g.ice[i],'ice') : '<div class="ecell" aria-hidden="true"></div>')
-          + '</div>';
-      }
     }
-    if(g.oth.length){
-      out+=elSecHTML('oth','🍽️',L('다른 메뉴','Other Menu'));
-      out+='<div class="elRow2">'+g.oth.map(function(m){ return elCardHTML(m,'oth'); }).join('')+'</div>';
-    }
-    grid.innerHTML=out;
   }
+  if(g.oth.length){
+    out+=elSecHTML('oth','🍽️',L('다른 메뉴','Other Menu'));
+    out+='<div class="elRow2">'+g.oth.map(function(it){ return elCardHTML(it); }).join('')+'</div>';
+  }
+  grid.innerHTML=out;
   renderElderCart(st);
   try{ syncElAdd(); }catch(e){}
   try{ syncElCalc(); }catch(e){}
@@ -3702,21 +3766,22 @@ function elSecHTML(cls, emo, title){
   return '<h3 class="elSecH '+cls+'"><span class="shE" aria-hidden="true">'+emo+'</span>'
     + '<span class="shT">'+esc(title)+'</span></h3>';
 }
-/* v35 · 어르신 메뉴 카드 한 장 — 그림 + 큰 이름(★ 즐겨찾기) + 아래 － 수량 ＋ (가격 없음) */
-function elCardHTML(m, kind){
-  var q=m.qty>0? m.qty : 0, nm=dn(m.name), k=(kind==='hot'||kind==='ice')? ' '+kind : '';
+/* v35 · 어르신 메뉴 카드 한 장 — 그림 + 큰 이름(★ 즐겨찾기) + 아래 － 수량 ＋ (가격 없음)
+   v36 · elderCards() 가 만든 줄(it)을 그대로 받는다 — 가게 메뉴든 기본 음료든 같은 카드 */
+function elCardHTML(it){
+  var kind=it.kind, q=it.qty>0? it.qty : 0, nm=dn(it.name), k=(kind==='hot'||kind==='ice')? ' '+kind : '';
   var art = (kind==='oth')
-    ? '<div class="pic emo" aria-hidden="true">'+ELART.food(m.name)+'</div>'
-    : '<div class="pic" aria-hidden="true">'+ELART.pick(m.name, kind)+'</div>';
-  return '<div class="ebtn'+k+(q?' on':'')+'" data-ebtn="'+esc(m.id)+'">'
+    ? '<div class="pic emo" aria-hidden="true">'+ELART.food(it.name)+'</div>'
+    : '<div class="pic" aria-hidden="true">'+ELART.pick(it.name, kind)+'</div>';
+  return '<div class="ebtn'+k+(q?' on':'')+'" data-ebtn="'+esc(it.id)+'">'
     + art
-    + '<button type="button" class="emain" data-eadd="'+esc(m.id)+'" aria-label="'+esc(nm)+' '+L('한 개 담기','add one')+'">'
-    +   '<span class="en">'+(m.fav? '<span class="efav" aria-hidden="true">★</span>':'')+esc(nm)+'</span>'
+    + '<button type="button" class="emain" data-eadd="'+esc(it.id)+'" aria-label="'+esc(nm)+' '+L('한 개 담기','add one')+'">'
+    +   '<span class="en">'+(it.fav? '<span class="efav" aria-hidden="true">★</span>':'')+esc(nm)+'</span>'
     + '</button>'
     + '<div class="estep">'
-    +   '<button type="button" class="esm" data-eminus="'+esc(m.id)+'" aria-label="'+esc(nm)+' '+L('하나 빼기','minus one')+'"'+(q?'':' disabled')+'>−</button>'
-    +   '<span class="eqty'+(q?' on':'')+'" data-eqty="'+esc(m.id)+'" aria-label="'+esc(nm)+' '+L('수량','quantity')+' '+q+'">'+q+'</span>'
-    +   '<button type="button" class="esp" data-eplus="'+esc(m.id)+'" aria-label="'+esc(nm)+' '+L('하나 더하기','add one')+'">＋</button>'
+    +   '<button type="button" class="esm" data-eminus="'+esc(it.id)+'" aria-label="'+esc(nm)+' '+L('하나 빼기','minus one')+'"'+(q?'':' disabled')+'>−</button>'
+    +   '<span class="eqty'+(q?' on':'')+'" data-eqty="'+esc(it.id)+'" aria-label="'+esc(nm)+' '+L('수량','quantity')+' '+q+'">'+q+'</span>'
+    +   '<button type="button" class="esp" data-eplus="'+esc(it.id)+'" aria-label="'+esc(nm)+' '+L('하나 더하기','add one')+'">＋</button>'
     + '</div>'
     + '</div>';
 }
@@ -3783,17 +3848,18 @@ function fitElCalc(){
     size-=1; tam.style.fontSize=size+'px';
   }
 }
-/* v32 · 카드 수량 배지·－ 잠금·담은 칸·주문 요약을 한 번에 맞춰 실시간 연동 */
+/* v32 · 카드 수량 배지·－ 잠금·담은 칸·주문 요약을 한 번에 맞춰 실시간 연동
+   v36 · 가게 메뉴 + 기본 음료 8+8(elderCards) 모두 같은 방식으로 */
 function syncElder(){
-  var st=elderStore();
-  (st.menus||[]).forEach(function(m){
-    var q=m.qty>0? m.qty : 0;
-    var b=document.querySelector('.eqty[data-eqty="'+m.id+'"]');
+  var st=elderStore(), g=elderCards(st);
+  g.hot.concat(g.ice, g.oth).forEach(function(v){
+    var q=v.qty>0? v.qty : 0;
+    var b=document.querySelector('.eqty[data-eqty="'+v.id+'"]');
     if(b){ b.textContent=q; b.classList.toggle('on',q>0);
-      b.setAttribute('aria-label', dn(m.name)+' '+L('수량','quantity')+' '+q); }
-    var mi=document.querySelector('.esm[data-eminus="'+m.id+'"]');
+      b.setAttribute('aria-label', dn(v.name)+' '+L('수량','quantity')+' '+q); }
+    var mi=document.querySelector('.esm[data-eminus="'+v.id+'"]');
     if(mi) mi.disabled=(q===0);
-    var box=document.querySelector('.ebtn[data-ebtn="'+m.id+'"]');
+    var box=document.querySelector('.ebtn[data-ebtn="'+v.id+'"]');
     if(box) box.classList.toggle('on',q>0);
   });
   renderElderCart(st);
@@ -3812,23 +3878,34 @@ function quickOf(st){
 function quickSum(st){
   return quickOf(st).reduce(function(a,q){ return a+(parseInt(q.qty,10)||0); },0);
 }
-/* 어르신 화면이 세는 총 수량 — 메뉴 카드 + 직접 입력한 것 */
+/* 어르신 화면이 세는 총 수량 — 메뉴 카드 + 기본 음료(elq) + 직접 입력한 것 */
 function elderOrderCount(st){
   if(!st) return 0;
   var n=(st.menus||[]).reduce(function(a,m){ return a+Math.max(0,parseInt(m.qty,10)||0); },0);
-  return n+quickSum(st);
+  return n+elqSum(st)+quickSum(st);
 }
-/* 어르신 요약용 줄 — 메뉴 카드와 직접 입력한 것을 이름으로 합쳐 {name,qty,kind} 로 */
+/* 어르신 요약용 줄 — 메뉴 카드·기본 음료·직접 입력한 것을 이름으로 합쳐 {name,qty,kind} 로 */
 function elderRows(st){
   if(!st) return [];
   var map=Object.create(null), order=[];
   function add(name,qty,kind){
     var k=String(name||'').trim(); qty=parseInt(qty,10)||0;
     if(!k || qty<=0) return;
-    if(!(k in map)){ map[k]={name:k,qty:0,kind:kind||''}; order.push(k); }
-    map[k].qty+=qty;
+    var key=k+'\u0000'+(kind||''), hit=key;
+    if(!(key in map)){
+      /* 직접 입력한 이름이 이미 담긴 줄과 같으면 그 줄에 합친다 */
+      var alt=Object.keys(map).filter(function(x){ return x.split('\u0000')[0]===k; })[0];
+      if(alt && !kind) hit=alt;
+      if(!(hit in map)){ map[hit]={name:k,qty:0,kind:kind||''}; order.push(hit); }
+    }
+    map[hit].qty+=qty;
   }
   (st.menus||[]).forEach(function(m){ add(m.name, m.qty, elKind(m)); });
+  /* 기본 음료는 elder-menu 순서대로 (핫 8 → 아이스 8) */
+  var o=elqOf(st);
+  ['hot','ice'].forEach(function(kind){
+    ELDER_BASE[kind].forEach(function(nm,i){ add(nm, o[elbId(kind,i)], kind); });
+  });
   quickOf(st).forEach(function(q){ add(q.name, q.qty, ''); });
   return order.map(function(k){ return map[k]; });
 }
@@ -3872,10 +3949,12 @@ function renderElderCart(st){
 function elderFind(id){
   var st=elderStore();
   var m=(st.menus||[]).filter(function(x){ return x.id===id; })[0];
-  if(m) return {st:st, m:m, quick:false};
+  if(m) return {st:st, m:m, quick:false, base:false};
   var q=quickOf(st).filter(function(x){ return x.id===id; })[0];
-  if(q) return {st:st, m:q, quick:true};
-  return {st:st, m:null, quick:false};
+  if(q) return {st:st, m:q, quick:true, base:false};
+  var b=elbItem(id);
+  if(b){ b.qty=elqGet(st, b.id); return {st:st, m:b, quick:false, base:true}; }
+  return {st:st, m:null, quick:false, base:false};
 }
 /* 직접 입력한 줄이 0잔이 되면 목록에서 지운다 */
 function quickPrune(st){
@@ -3888,6 +3967,7 @@ function elderQty(id, d){
   r.m.qty=Math.min(99, Math.max(0, r.m.qty+d));
   if(r.m.qty===before) return false;
   if(r.quick) quickPrune(r.st);
+  if(r.base) elqSet(r.st, r.m.id, r.m.qty);
   save();
   syncElder();
   try{ renderMenu(); renderBar(); }catch(e){}
@@ -3897,6 +3977,7 @@ function elderClear(id){
   var r=elderFind(id); if(!r.m) return;
   r.m.qty=0;
   if(r.quick) quickPrune(r.st);
+  if(r.base) elqSet(r.st, r.m.id, 0);
   save();
   syncElder();
   try{ renderMenu(); renderBar(); }catch(e){}
@@ -4163,10 +4244,12 @@ function elResetOrder(){
   if(!cnt && !hasText){ toast(L('비울 주문이 없어요','There is no order to clear')); return; }
   var snap={
     q:(st.menus||[]).map(function(m){ return parseInt(m.qty,10)||0; }),
+    elq:(function(){ var o={}; var src=elqOf(st); Object.keys(src).forEach(function(k){ o[k]=src[k]; }); return o; })(),
     quick:(Array.isArray(st.quick)? st.quick : []).map(function(q){ return {id:q.id,name:q.name,qty:parseInt(q.qty,10)||0}; })
   };
   var sid=st.id;
   (st.menus||[]).forEach(function(m){ m.qty=0; });
+  st.elq={};                                     /* v36 · 기본 음료 수량도 함께 */
   if(Array.isArray(st.quick)) st.quick=[];
   if(inp) inp.value='';
   save();
@@ -4176,6 +4259,7 @@ function elResetOrder(){
     var s2=S.stores.filter(function(s){ return s.id===sid; })[0];
     if(!s2) return;
     (s2.menus||[]).forEach(function(m,i){ m.qty=Math.min(99, Math.max(0, parseInt(snap.q[i],10)||0)); });
+    s2.elq=snap.elq||{};
     s2.quick=snap.quick;
     save();
     try{ renderElder(); }catch(e){}
@@ -4191,7 +4275,9 @@ document.addEventListener('click', function(e){
   if(add){
     var r=elderFind(add.getAttribute('data-eadd'));
     if(!r.m) return;
-    r.m.qty=Math.min(99,r.m.qty+1); save();
+    r.m.qty=Math.min(99,r.m.qty+1);
+    if(r.base) elqSet(r.st, r.m.id, r.m.qty);
+    save();
     syncElder();
     try{ renderMenu(); renderBar(); }catch(e){}
     try{ chime('tap'); }catch(e){}
@@ -4813,14 +4899,14 @@ function resetOrder(){
   const st=store();
   if(!st) return;
   const c=calc();
-  const extra=quickSum(st);
+  const extra=quickSum(st)+elqSum(st);
   if(!c.count && !extra){ toast(L('비울 주문이 없어요','There is no order to clear')); return; }
   askConfirm(L('주문을 비울까요?','Clear the order?'),
     L('담은 '+(c.count+extra)+unit()+'의 수량이 모두 0이 됩니다. 메뉴는 그대로 남아요.',
       'All '+(c.count+extra)+' item(s) will be set to 0. Menu items stay.'),
     L('비우기','Clear'), ()=>{
     const s2=store();
-    if(s2){ s2.menus.forEach(m=>{ m.qty=0; }); if(Array.isArray(s2.quick)) s2.quick=[]; }   /* v34.1 · 직접 입력한 메뉴도 함께 */
+    if(s2){ s2.menus.forEach(m=>{ m.qty=0; }); if(Array.isArray(s2.quick)) s2.quick=[]; s2.elq={}; }   /* v34.1 · 직접 입력한 메뉴도 함께 · v36 · 기본 음료도 함께 */
     save(); render(); toast(L('주문을 비웠어요','Order cleared'));
   });
 }
@@ -4945,6 +5031,7 @@ function clearAllMenus(){
   if(!st){ toast(L('먼저 가게를 만들어 주세요','Make a shop first')); return; }
   if(!st.menus.length){ toast(L('지울 메뉴가 없어요','There are no items to delete')); return; }
   st.menus=[];
+  st.elq={};                        /* v36 · 어르신 기본 음료 수량도 함께 */
   clearSel();
   save(); render();
   toast(L('메뉴를 모두 지웠어요','Cleared all menu items'));
