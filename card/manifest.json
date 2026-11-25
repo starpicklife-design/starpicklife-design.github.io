@@ -1,0 +1,20 @@
+{
+  "name": "와글링 카드계산기 · Wagling Card",
+  "short_name": "와글링 카드",
+  "description": "분류와 카드를 고르고 금액만 넣으면 바로 기록되고, 카드 결제 문자를 붙여넣으면 자동으로 나눠 담아요. 이번 달 카드값·분류별 합계·카드사별 합계·고정 카드값·경조사비(낸 돈/받은 돈)를 한눈에 보고 메일로도 보낼 수 있어요. 내역은 이 기기에만 저장되고 광고·회원가입이 없어요.",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "id": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "background_color": "#FFF9EF",
+  "theme_color": "#1D3D4A",
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
