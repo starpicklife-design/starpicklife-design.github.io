@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 1024 1024">
+  <defs>
+    <filter id="ol" x="-30%" y="-30%" width="160%" height="160%">
+      <feMorphology operator="dilate" radius="9" in="SourceAlpha" result="d"/>
+      <feFlood flood-color="#1D3D4A" result="c"/>
+      <feComposite in="c" in2="d" operator="in"/>
+    </filter>
+  </defs>
+  <!-- 가운데 연결 고리 (말풍선 뒤) -->
+  <path d="M330 286a300 300 0 0 1 364 0M330 738a300 300 0 0 0 364 0" fill="none"
+        stroke="#1D3D4A" stroke-width="17" stroke-linecap="round"/>
+  <g transform="translate(512 512) scale(1.05) translate(-512 -512)" stroke="#1D3D4A" stroke-width="17" stroke-linejoin="round">
+    <path d="M262 168c62 0 112 44 112 106 0 40-20 72-52 90l14 52-58-26c-5 1-11 1-16 1-62 0-112-44-112-106S200 168 262 168z" fill="#9AE0CA"/>
+    <path d="M762 168c62 0 112 48 112 110S824 388 762 388c-27 0-52-8-72-22l-58 24 14-50c-26-20-42-50-42-86 0-62 50-110 112-110z" fill="#C2E4FE"/>
+    <path d="M262 636c62 0 112 44 112 106s-50 106-112 106c-5 0-11 0-16-1l-58 26 14-52c-32-18-52-50-52-90 0-62 50-106 112-106z" fill="#C2E4FE"/>
+    <path d="M762 636c62 0 112 44 112 106 0 36-16 66-42 86l14 50-58-24c-20 14-45 22-72 22-62 0-112-48-112-110s50-106 112-106z" fill="#FEF4E3"/>
+  </g>
+  <g transform="translate(512 512) scale(0.66) translate(-512 -512)">
+    <g filter="url(#ol)" fill="#1D3D4A">
+  <rect x="276" y="468" width="472" height="286" rx="58"/>
+  <rect x="300" y="336" width="424" height="140" rx="52"/>
+  <rect x="258" y="292" width="128" height="192" rx="56"/>
+  <rect x="638" y="292" width="128" height="192" rx="56"/>
+<circle cx="392" cy="546" r="21"/><circle cx="512" cy="546" r="21"/><circle cx="632" cy="546" r="21"/><circle cx="392" cy="616" r="21"/><circle cx="512" cy="616" r="21"/><circle cx="632" cy="616" r="21"/><circle cx="392" cy="686" r="21"/><circle cx="512" cy="686" r="21"/><circle cx="632" cy="686" r="21"/></g>
+    <g fill="#9AE0CA">
+  <rect x="276" y="468" width="472" height="286" rx="58"/>
+  <rect x="300" y="336" width="424" height="140" rx="52"/>
+  <rect x="258" y="292" width="128" height="192" rx="56"/>
+  <rect x="638" y="292" width="128" height="192" rx="56"/>
+</g>
+    <g fill="#1D3D4A"><circle cx="392" cy="546" r="21"/><circle cx="512" cy="546" r="21"/><circle cx="632" cy="546" r="21"/><circle cx="392" cy="616" r="21"/><circle cx="512" cy="616" r="21"/><circle cx="632" cy="616" r="21"/><circle cx="392" cy="686" r="21"/><circle cx="512" cy="686" r="21"/><circle cx="632" cy="686" r="21"/></g>
+  </g>
+</svg>

@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content" />
+<meta name="theme-color" content="#1D3D4A" />
+<!-- build: 2026-11-25 와글링 전화부 (Wagling Phonebook) v1 · 어르신용 큰 글씨 기본
+     · 맨 위 119·112 원터치(확인 창 없이 tel:) · 가족 비상연락망 4명까지 저장·수정·원터치 전화
+     · 📍 내 위치 문자(sms: 지도 링크) · 🆘 길 잃었을 때 안심 카드(전체화면)
+     · 🏛️ 공공기관·민원 8곳(확인 후 전화) · 🔧 집안 고장·AS 3곳 + 지도 · 📍 내 주변 5곳(네이버 지도)
+     · 저장한 번호와 안심 카드 정보는 이 기기(localStorage)에만 · 무료 · 광고 없음 -->
+<link rel="manifest" href="./manifest.json" />
+<link rel="icon" type="image/svg+xml" href="./icon.svg" />
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="와글링 전화부" />
+<meta name="description" content="와글링 전화부 — 어르신용 큰 글씨 전화부. 119·112와 가족 번호를 한 번만 눌러 바로 전화, 내 위치 문자 보내기, 길 잃었을 때 보여 주는 안심 카드, 공공기관·고장 수리·내 주변 전화. 무료, 광고 없음." />
+<title>와글링 전화부 · 급할 때 한 번에 거는 전화</title>
+<style>
+:root{
+  --cream:#FFF9EF; --card:#FFFFFF; --ink:#1E2733; --ink2:#5D6A78;
+  --teal:#1D3D4A; --teal2:#2A5566;
+  --red:#C62828; --red2:#E23B32; --red-bg:#FDECEA; --red-line:#ECB4AC;
+  --navy:#17335C; --navy2:#2A4E82; --navy-bg:#EAF0FA; --navy-line:#B9CBE6;
+  --green:#2E7D5B; --green-bg:#EAF6EF; --green-line:#B9DFC9;
+  --gold:#D9A227; --gold-bg:#FFF6E2; --gold-line:#EBD093;
+  --line:#EADFCB; --shadow:0 2px 10px rgba(60,40,20,.10);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:18px;-webkit-text-size-adjust:100%}
+html{overflow-x:clip}
+body{overflow-x:clip}
+body{margin:0;background:var(--cream);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Segoe UI",sans-serif;
+  line-height:1.45;padding-bottom:calc(5.6rem + env(safe-area-inset-bottom));word-break:keep-all;overflow-wrap:break-word}
+[hidden]{display:none !important}
+button{font-family:inherit;cursor:pointer;color:inherit;border:0;background:none}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #2A5566;outline-offset:2px}
+img,svg{max-width:100%}
+
+/* ── 머리말 ─────────────────────────────── */
+.top{background:linear-gradient(160deg,#1D3D4A 0%,#26505F 62%,#2F6373 100%);color:#FBF8F2;
+  padding:calc(.42rem + env(safe-area-inset-top)) .55rem .46rem;box-shadow:0 3px 14px rgba(20,45,55,.26)}
+.brand{display:flex;align-items:center;gap:.4rem}
+.logo{width:1.7rem;height:1.7rem;border-radius:.45rem;flex:0 0 auto;display:block;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.btxt{flex:1 1 auto;min-width:0}
+.brand h1{margin:0;font-size:1.06rem;line-height:1.16;letter-spacing:-.03em;font-weight:900;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand .sub{margin:.06rem 0 0;font-size:.66rem;line-height:1.2;opacity:.92;font-weight:700;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbtns{display:flex;gap:.24rem;flex:0 0 auto}
+.topbtns button{border:1px solid rgba(251,248,242,.55);background:rgba(255,255,255,.15);color:#FBF8F2;
+  border-radius:.62rem;padding:.3rem .4rem;font-size:.68rem;font-weight:900;line-height:1.1;min-height:2.3rem;white-space:nowrap}
+.topbtns button:active{transform:translateY(1px)}
+@media (max-width:359px){
+  .logo{display:none}
+  .brand h1{font-size:.98rem}
+  .brand .sub{font-size:.6rem}
+  .topbtns button{font-size:.62rem;padding:.28rem .34rem}
+}
+
+/* ── 맨 위 응급 전화 (스크롤해도 위에 붙어 있음) ── */
+.sosbar{position:sticky;top:0;z-index:30;display:grid;grid-template-columns:1fr 1fr;gap:.4rem;
+  padding:.42rem .5rem;background:linear-gradient(180deg,#FFF6F2,#FFEDE8);
+  border-bottom:2px solid #F0C8BC;box-shadow:0 3px 10px rgba(150,40,25,.13)}
+.sos{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.08rem;
+  min-height:3.7rem;border-radius:.85rem;color:#fff;font-weight:900;letter-spacing:-.02em;
+  border:2px solid;box-shadow:0 2px 0 rgba(0,0,0,.12)}
+.sos b{font-size:1.62rem;line-height:1;letter-spacing:-.01em}
+.sos span{font-size:.72rem;line-height:1.1;font-weight:900;opacity:.98}
+.sos119{background:linear-gradient(180deg,#E8423A,#C62828);border-color:#A81E1E;text-shadow:0 1px 2px rgba(0,0,0,.22)}
+.sos112{background:linear-gradient(180deg,#2C5488,#17335C);border-color:#10264A;text-shadow:0 1px 2px rgba(0,0,0,.22)}
+.sos:active{transform:translateY(1px);filter:brightness(.96)}
+
+/* ── 본문 ──────────────────────────────── */
+main{max-width:34rem;margin:0 auto;padding:.55rem .6rem 0}
+.note{margin:.1rem 0 .55rem;padding:.5rem .6rem;border-radius:.75rem;background:#FFF3E2;
+  border:1.5px solid var(--gold-line);font-size:.76rem;line-height:1.5;font-weight:800;color:#7A5312}
+.note b{color:#8A4B00}
+.sec{display:flex;flex-direction:column;gap:.1rem;margin:.9rem 0 .45rem;font-size:1.02rem;font-weight:900;
+  letter-spacing:-.03em;color:var(--teal)}
+.sec small{font-size:.72rem;font-weight:800;color:var(--ink2);letter-spacing:-.02em}
+.tab > .sec:first-child{margin-top:.35rem}
+
+/* 가족 비상연락망 */
+.famgrid{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+@media (max-width:359px){.famgrid{grid-template-columns:1fr}}
+.fam{position:relative}
+.famcall{display:flex;flex-direction:column;align-items:flex-start;gap:.06rem;width:100%;
+  min-height:3.9rem;padding:.5rem 2.05rem .5rem .6rem;border-radius:.85rem;background:var(--card);
+  border:2px solid var(--green-line);box-shadow:var(--shadow);text-align:left}
+.famcall:active{transform:translateY(1px)}
+.famname{font-size:.86rem;font-weight:900;color:var(--green);letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.famnum{font-size:1.02rem;font-weight:900;color:var(--ink);letter-spacing:-.045em;white-space:nowrap}
+.famicon{position:absolute;right:.55rem;bottom:.5rem;font-size:1rem;line-height:1;opacity:.9}
+.famedit{position:absolute;top:.28rem;right:.28rem;width:2rem;height:2rem;border-radius:.55rem;
+  background:#F2F6F3;border:1.5px solid var(--green-line);font-size:.86rem;line-height:1;display:flex;align-items:center;justify-content:center}
+.famedit:active{transform:scale(.96)}
+.famadd{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;
+  min-height:3.9rem;border-radius:.85rem;background:#FFFDF7;border:2px dashed #C9D6CE;color:#4E6B5C;
+  font-size:.8rem;font-weight:900;letter-spacing:-.02em}
+.famadd .plus{font-size:1.15rem;line-height:1}
+.famguide{grid-column:1 / -1;padding:.6rem .65rem;border-radius:.85rem;background:#FFFDF7;
+  border:2px dashed #C9D6CE}
+.famguide p{margin:0 0 .45rem;font-size:.84rem;line-height:1.5;font-weight:800;color:#3E5548}
+.famguide p b{font-size:.95rem;color:var(--green)}
+.addbig{display:flex;align-items:center;justify-content:center;gap:.3rem;width:100%;min-height:3.1rem;
+  border-radius:.75rem;background:var(--green);color:#fff;font-size:.95rem;font-weight:900;letter-spacing:-.02em}
+.addbig:active{transform:translateY(1px);filter:brightness(.96)}
+
+/* 큰 버튼 (내 위치 문자 · 안심 카드) */
+.wide{display:flex;align-items:center;gap:.55rem;width:100%;min-height:4.1rem;margin-bottom:.45rem;
+  padding:.5rem .6rem;border-radius:.9rem;background:var(--card);border:2px solid;text-align:left;box-shadow:var(--shadow)}
+.wide .ic{flex:0 0 auto;font-size:1.45rem;line-height:1}
+.wide .wt{flex:1 1 auto;min-width:0}
+.wide b{display:block;font-size:.98rem;font-weight:900;letter-spacing:-.03em;line-height:1.25}
+.wide small{display:block;margin-top:.08rem;font-size:.72rem;font-weight:800;color:var(--ink2);line-height:1.35;letter-spacing:-.02em}
+.wide.loc{border-color:var(--navy-line);background:linear-gradient(180deg,#F8FBFF,#EDF3FC)}
+.wide.loc b{color:var(--navy)}
+.wide.safe{border-color:var(--red-line);background:linear-gradient(180deg,#FFF7F5,#FDECE8)}
+.wide.safe b{color:var(--red)}
+.wide:active{transform:translateY(1px)}
+.wide[aria-busy="true"]{opacity:.72}
+.hint{margin:.1rem 0 .2rem;font-size:.72rem;line-height:1.5;font-weight:800;color:var(--ink2);letter-spacing:-.02em}
+
+/* 목록 줄 (공공기관·고장·내 주변) */
+.list{display:flex;flex-direction:column;gap:.4rem}
+.row{display:flex;align-items:center;gap:.5rem;width:100%;min-height:3.75rem;padding:.45rem .55rem;
+  border-radius:.85rem;background:var(--card);border:2px solid var(--line);box-shadow:var(--shadow);text-align:left}
+.row:active{transform:translateY(1px)}
+.row .re{flex:0 0 auto;width:1.75rem;text-align:center;font-size:1.2rem;line-height:1}
+.row .rn{flex:1 1 auto;min-width:0}
+.row .rn b{display:block;font-size:.95rem;font-weight:900;letter-spacing:-.03em;line-height:1.25}
+.row .rn small{display:block;margin-top:.04rem;font-size:.7rem;font-weight:800;color:var(--ink2);letter-spacing:-.02em;line-height:1.3}
+.row .num{flex:0 0 auto;font-size:.98rem;font-weight:900;color:var(--navy);letter-spacing:-.045em;white-space:nowrap}
+.row .arrow{flex:0 0 auto;font-size:1.15rem;font-weight:900;color:#9AA6B2;line-height:1}
+.row.tel{border-color:var(--navy-line);background:linear-gradient(180deg,#FFFFFF,#F7FAFF)}
+.row.map{border-color:#CFE2D6;background:linear-gradient(180deg,#FFFFFF,#F6FBF8)}
+.row.map .re{font-size:1.15rem}
+.groupnote{margin:.15rem 0 .5rem;font-size:.72rem;line-height:1.5;font-weight:800;color:var(--ink2)}
+
+/* 바닥 안내 */
+.foot{margin:1.1rem .1rem .4rem;padding:.6rem .65rem;border-radius:.85rem;background:#F7F2E6;border:1px solid #EADFC8}
+.foot p{margin:0;font-size:.72rem;line-height:1.55;font-weight:800;color:#6E6552;letter-spacing:-.015em}
+.foot p + p{margin-top:.22rem}
+.foot b{color:#4B4436}
+
+/* ── 아래 탭 바 ─────────────────────────── */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:grid;grid-template-columns:repeat(4,1fr);
+  gap:.1rem;padding:.28rem .25rem calc(.28rem + env(safe-area-inset-bottom));background:#FFFDF8;
+  border-top:1.5px solid var(--line);box-shadow:0 -3px 14px rgba(60,40,20,.10)}
+.tbtn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;
+  min-height:3.05rem;border-radius:.72rem;font-size:.64rem;font-weight:900;letter-spacing:-.03em;color:var(--ink2);line-height:1.15}
+.tbtn .te{font-size:1.15rem;line-height:1.1}
+.tbtn[aria-selected="true"]{background:var(--teal);color:#FFFDF6}
+@media (max-width:359px){.tbtn{font-size:.58rem}.tbtn .te{font-size:1.02rem}}
+
+/* ── 시트(아래에서 올라오는 창) ───────────── */
+.sheetwrap{position:fixed;inset:0;z-index:90;background:rgba(30,26,20,.52);display:flex;align-items:flex-end;justify-content:center}
+.sheet{width:100%;max-width:34rem;max-height:92dvh;overflow:auto;background:#FFFDF8;
+  border-radius:1.15rem 1.15rem 0 0;padding:.85rem .8rem calc(.85rem + env(safe-area-inset-bottom));
+  box-shadow:0 -6px 30px rgba(0,0,0,.3)}
+.sheet h2{margin:.1rem 0 .25rem;font-size:1.05rem;font-weight:900;letter-spacing:-.03em;color:var(--teal)}
+.sheet .lead{margin:0 0 .6rem;font-size:.8rem;line-height:1.5;font-weight:800;color:var(--ink2);letter-spacing:-.02em}
+.sheet .big{font-size:1.5rem;font-weight:900;letter-spacing:-.03em;color:var(--navy);margin:.1rem 0 .1rem;text-align:center}
+.sheet label{display:block;margin:.55rem 0 .2rem;font-size:.84rem;font-weight:900;color:#2B3A33;letter-spacing:-.02em}
+.sheet input,.sheet textarea{width:100%;font-family:inherit;font-size:1.05rem;font-weight:800;color:var(--ink);
+  padding:.62rem .6rem;border:2px solid #D8CFC0;border-radius:.7rem;background:#fff}
+.sheet input:focus,.sheet textarea:focus{border-color:var(--teal2);outline:none}
+.sheet textarea{min-height:4.2rem;resize:vertical;line-height:1.45}
+.sheet .err{margin:.35rem 0 0;font-size:.82rem;font-weight:900;color:var(--red)}
+.primary{display:flex;align-items:center;justify-content:center;gap:.3rem;width:100%;min-height:3.3rem;margin-top:.75rem;
+  border-radius:.8rem;background:var(--teal);color:#FFFDF6;font-size:1rem;font-weight:900;letter-spacing:-.02em}
+.primary.call{background:linear-gradient(180deg,#E8423A,#C62828)}
+.primary:active{transform:translateY(1px);filter:brightness(.96)}
+.ghost{display:flex;align-items:center;justify-content:center;width:100%;min-height:2.95rem;margin-top:.4rem;
+  border-radius:.8rem;background:#F4EFE4;color:#4B4436;font-size:.92rem;font-weight:900;letter-spacing:-.02em}
+.ghost.danger{background:#FDF0EE;color:var(--red);border:1.5px solid var(--red-line)}
+.ghost.danger.armed{background:var(--red);color:#fff;border-color:var(--red)}
+.ghost:active{transform:translateY(1px)}
+.sheet .mini{margin:.5rem 0 0;font-size:.72rem;line-height:1.5;font-weight:800;color:#8A8272}
+.sheet .lead b{color:var(--red)}
+
+/* 설치 안내 */
+.imcard{width:100%;max-width:34rem;max-height:92dvh;overflow:auto;background:#FFFDF7;border-radius:1.1rem;
+  padding:.9rem .85rem calc(.85rem + env(safe-area-inset-bottom));box-shadow:0 -4px 30px rgba(30,20,60,.3)}
+.imcard h2{margin:0 0 .3rem;font-size:1.05rem;font-weight:900;letter-spacing:-.03em;color:var(--teal)}
+.imcard .ilead{margin:0 0 .6rem;font-size:.84rem;line-height:1.5;font-weight:800;color:var(--ink2)}
+.imcard ol{margin:0 0 .6rem;padding-left:1.15rem;font-size:.9rem;line-height:1.56;color:#2A3A33;font-weight:800}
+.imcard li{margin:0 0 .5rem}
+.imcard li b{color:var(--teal2)}
+.imcard .chrome{display:flex;align-items:center;justify-content:center;min-height:2.8rem;margin:0 0 .55rem;
+  border-radius:.8rem;background:var(--navy-bg);border:1.5px solid var(--navy-line);color:#1F4E7A;
+  font-size:.9rem;font-weight:900;text-decoration:none}
+.imcard .mini{margin:0 0 .65rem;font-size:.74rem;line-height:1.5;color:#8B8A93;font-weight:800}
+.imcard .close{width:100%;min-height:3rem;border-radius:.8rem;background:var(--teal);color:#FFFDF8;font-size:.98rem;font-weight:900}
+
+/* ── 안심 카드 (전체 화면) ─────────────────── */
+.safecard{position:fixed;inset:0;z-index:80;display:flex;flex-direction:column;
+  background:#FFF4D9;color:#2A2115;
+  padding:calc(.75rem + env(safe-area-inset-top)) .85rem calc(.8rem + env(safe-area-inset-bottom))}
+.sc-top{display:flex;align-items:flex-start;gap:.4rem}
+.sc-hint{flex:1 1 auto;margin:0;padding:.4rem .55rem;border-radius:.7rem;background:#FFE9AE;
+  border:1.5px solid #E5C878;font-size:.76rem;line-height:1.4;font-weight:900;color:#6B4A00;letter-spacing:-.02em}
+.sc-x{flex:0 0 auto;width:2.6rem;height:2.6rem;border-radius:.7rem;background:#FFFFFF;border:2px solid #E0D2AE;
+  font-size:1.05rem;font-weight:900;color:#5A4A2A;display:flex;align-items:center;justify-content:center}
+.sc-main{flex:1 1 auto;display:flex;flex-direction:column;justify-content:flex-start;gap:.55rem;min-height:0;overflow:auto;padding:.35rem 0 .3rem}
+.sc-panel{flex:0 0 auto;display:flex;flex-direction:column;
+  background:#FFFDF6;border:2px solid #EFE0BC;border-radius:1rem;padding:.95rem .9rem;
+  box-shadow:0 2px 6px rgba(120,90,20,.09)}
+.sc-blk + .sc-blk{margin-top:.7rem;padding-top:.7rem;border-top:2px dashed #EDE0C0}
+.sc-plea{margin:0 0 .1rem;padding:.6rem .6rem;border-radius:.8rem;background:#B3261E;color:#FFF6E2;
+  font-size:1.32rem;font-weight:900;letter-spacing:-.03em;text-align:center;box-shadow:0 2px 0 rgba(120,20,15,.18)}
+.sc-label{margin:0 0 .08rem;font-size:.82rem;font-weight:900;color:#8A6A22;letter-spacing:.02em}
+.sc-blk{margin:0}
+.sc-name{margin:0;font-size:3.05rem;line-height:1.12;font-weight:900;letter-spacing:-.04em;color:#1F1A12}
+.sc-name.ph{color:#A79C86;font-size:1.5rem}
+.sc-gname{margin:0;font-size:1.24rem;line-height:1.3;font-weight:900;letter-spacing:-.03em;color:#3A3020}
+.sc-gname.ph{color:#A79C86;font-weight:800}
+.sc-gtel{margin:.08rem 0 0;font-size:2.02rem;line-height:1.25;font-weight:900;letter-spacing:-.03em;color:#B3261E}
+.sc-gtel.ph{color:#A79C86;font-size:1.06rem}
+.sc-note{margin:0;font-size:1.12rem;line-height:1.45;font-weight:900;letter-spacing:-.02em;color:#3A3020;white-space:pre-wrap}
+.sc-note.ph{color:#A79C86;font-weight:800}
+.sc-acts{flex:0 0 auto;display:flex;flex-direction:column;gap:.4rem;padding-top:.5rem}
+.sc-call{display:flex;align-items:center;justify-content:center;min-height:3.6rem;border-radius:.85rem;
+  background:linear-gradient(180deg,#E8423A,#C62828);color:#fff;font-size:1.08rem;font-weight:900;letter-spacing:-.02em;
+  box-shadow:0 3px 0 rgba(120,20,15,.25)}
+.sc-call.off{background:#E6DCC4;color:#7A6A4A;box-shadow:none}
+.sc-edit,.sc-close{display:flex;align-items:center;justify-content:center;min-height:2.9rem;border-radius:.8rem;
+  background:#FFFFFF;border:2px solid #E0D2AE;color:#5A4A2A;font-size:.9rem;font-weight:900;letter-spacing:-.02em}
+.sc-acts .row2{display:flex;gap:.4rem}
+.sc-acts .row2 button{flex:1 1 0}
+
+/* ── 토스트 ─────────────────────────────── */
+.srlink{position:fixed;left:-1000px;top:-1000px;width:1px;height:1px;opacity:0;pointer-events:none}
+#toast{position:fixed;left:50%;bottom:calc(5.8rem + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(.6rem);
+  max-width:88vw;background:rgba(22,40,46,.95);color:#FFFDF8;font-size:.84rem;font-weight:800;letter-spacing:-.02em;
+  padding:.54rem .86rem;border-radius:.8rem;opacity:0;pointer-events:none;transition:opacity .22s ease,transform .22s ease;
+  z-index:95;text-align:center;line-height:1.42}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <img class="logo" src="./icon-192.png" alt="" width="30" height="30" />
+    <div class="btxt">
+      <h1>와글링 전화부</h1>
+      <p class="sub">급할 때 한 번에 거는 전화</p>
+    </div>
+    <div class="topbtns">
+      <button type="button" id="installBtn" aria-haspopup="dialog">📲 설치</button>
+      <button type="button" id="shareBtn">📤 공유</button>
+    </div>
+  </div>
+</header>
+
+<!-- ═════════ 맨 위 응급 전화 — 확인 창 없이 한 번에 ═════════ -->
+<div class="sosbar" role="group" aria-label="급할 때 바로 거는 전화">
+  <button type="button" class="sos sos119" id="btn119" aria-label="119 응급과 화재, 누르면 바로 전화">
+    <b>119</b><span>응급 · 화재</span>
+  </button>
+  <button type="button" class="sos sos112" id="btn112" aria-label="112 경찰 신고, 누르면 바로 전화">
+    <b>112</b><span>경찰 신고</span>
+  </button>
+</div>
+
+<main>
+  <!-- ═════════ ① 가족 · 위급 ═════════ -->
+  <section class="tab" id="tab-sos" role="tabpanel" aria-labelledby="nav-sos">
+    <p class="note">한 번 누르면 <b>전화 앱</b>이 열려요. 초록색 <b>통화</b> 버튼까지 눌러 주세요.</p>
+
+    <h2 class="sec"><span>👨‍👩‍👧 가족 비상연락망</span><small>이름을 누르면 바로 걸려요 · 4명까지</small></h2>
+    <div class="famgrid" id="famGrid"></div>
+
+    <h2 class="sec"><span>🆘 길을 잃었거나 위급할 때</span><small>자녀에게 알리거나, 지나가는 분께 보여 주세요</small></h2>
+    <button type="button" class="wide loc" id="btnLoc">
+      <span class="ic" aria-hidden="true">📍</span>
+      <span class="wt"><b>내 위치를 문자로 보내기</b><small id="locSub">지도 링크가 담긴 문자 창이 열려요</small></span>
+    </button>
+    <button type="button" class="wide safe" id="btnSafe">
+      <span class="ic" aria-hidden="true">🆘</span>
+      <span class="wt"><b>안심 카드 보여주기</b><small>성함과 보호자 번호를 크게 보여줘요</small></span>
+    </button>
+    <p class="hint">문자는 문자 앱이 열린 뒤에 <b>보내기</b>를 한 번 더 눌러 주세요.</p>
+  </section>
+
+  <!-- ═════════ ② 공공기관 · 민원 ═════════ -->
+  <section class="tab" id="tab-public" role="tabpanel" aria-labelledby="nav-public" hidden>
+    <h2 class="sec"><span>🏛️ 공공기관 · 민원 전화</span><small>누르면 한 번 더 확인한 뒤 걸려요</small></h2>
+    <p class="groupnote">잘못 걸리지 않도록 확인 창이 한 번 나와요.</p>
+    <div class="list">
+      <button type="button" class="row tel" data-tel="110" data-what="정부민원안내">
+        <span class="re" aria-hidden="true">🏛️</span>
+        <span class="rn"><b>정부민원안내</b><small>정부 서류 · 민원 안내</small></span>
+        <span class="num">110</span>
+      </button>
+      <button type="button" class="row tel" data-tel="1577-1000" data-what="건강보험공단">
+        <span class="re" aria-hidden="true">🏥</span>
+        <span class="rn"><b>건강보험공단</b><small>건강보험 · 보험료</small></span>
+        <span class="num">1577-1000</span>
+      </button>
+      <button type="button" class="row tel" data-tel="1355" data-what="국민연금">
+        <span class="re" aria-hidden="true">🧓</span>
+        <span class="rn"><b>국민연금</b><small>연금 · 수급 안내</small></span>
+        <span class="num">1355</span>
+      </button>
+      <button type="button" class="row tel" data-tel="1899-9988" data-what="치매상담콜센터">
+        <span class="re" aria-hidden="true">🧠</span>
+        <span class="rn"><b>치매상담콜센터</b><small>치매 걱정 · 상담</small></span>
+        <span class="num">1899-9988</span>
+      </button>
+      <button type="button" class="row tel" data-tel="1577-1389" data-what="노인학대신고">
+        <span class="re" aria-hidden="true">🛡️</span>
+        <span class="rn"><b>노인학대신고</b><small>학대 · 보호 신고</small></span>
+        <span class="num">1577-1389</span>
+      </button>
+      <button type="button" class="row tel" data-tel="1332" data-what="금융감독원">
+        <span class="re" aria-hidden="true">🚨</span>
+        <span class="rn"><b>금융감독원</b><small>보이스피싱 · 금융 사기</small></span>
+        <span class="num">1332</span>
+      </button>
+      <button type="button" class="row tel" data-tel="1372" data-what="소비자상담센터">
+        <span class="re" aria-hidden="true">🛒</span>
+        <span class="rn"><b>소비자상담</b><small>물건 · 서비스 불만</small></span>
+        <span class="num">1372</span>
+      </button>
+      <button type="button" class="row tel" data-tel="109" data-what="마음상담">
+        <span class="re" aria-hidden="true">💬</span>
+        <span class="rn"><b>마음상담</b><small>힘들고 외로울 때</small></span>
+        <span class="num">109</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ═════════ ③ 집안 고장 · AS ═════════ -->
+  <section class="tab" id="tab-repair" role="tabpanel" aria-labelledby="nav-repair" hidden>
+    <h2 class="sec"><span>🔧 집안 고장 · 수리</span><small>전화는 확인 후, 지도는 내 주변에서 바로</small></h2>
+    <div class="list">
+      <button type="button" class="row tel" data-tel="123" data-what="한전 전기고장">
+        <span class="re" aria-hidden="true">⚡</span>
+        <span class="rn"><b>한전 전기고장</b><small>정전 · 전기 고장</small></span>
+        <span class="num">123</span>
+      </button>
+      <button type="button" class="row tel" data-tel="1588-3366" data-what="삼성전자 서비스">
+        <span class="re" aria-hidden="true">📺</span>
+        <span class="rn"><b>삼성전자 서비스</b><small>세탁기 · 냉장고 · TV</small></span>
+        <span class="num">1588-3366</span>
+      </button>
+      <button type="button" class="row tel" data-tel="1544-7777" data-what="LG전자 서비스">
+        <span class="re" aria-hidden="true">📺</span>
+        <span class="rn"><b>LG전자 서비스</b><small>세탁기 · 냉장고 · TV</small></span>
+        <span class="num">1544-7777</span>
+      </button>
+    </div>
+
+    <h2 class="sec"><span>📍 내 주변 수리집</span><small>지도에서 가까운 곳을 찾아 드려요</small></h2>
+    <div class="list">
+      <button type="button" class="row map" data-map="열쇠 도어락">
+        <span class="re" aria-hidden="true">🔑</span>
+        <span class="rn"><b>열쇠 · 도어락</b><small>문이 잠겼을 때</small></span>
+        <span class="arrow" aria-hidden="true">›</span>
+      </button>
+      <button type="button" class="row map" data-map="보일러 수리">
+        <span class="re" aria-hidden="true">🔥</span>
+        <span class="rn"><b>보일러 수리</b><small>보일러 · 온수 고장</small></span>
+        <span class="arrow" aria-hidden="true">›</span>
+      </button>
+      <button type="button" class="row map" data-map="수도 배관 설비">
+        <span class="re" aria-hidden="true">🚰</span>
+        <span class="rn"><b>수도 · 배관 설비</b><small>물이 새거나 막혔을 때</small></span>
+        <span class="arrow" aria-hidden="true">›</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ═════════ ④ 내 주변 급한 곳 ═════════ -->
+  <section class="tab" id="tab-near" role="tabpanel" aria-labelledby="nav-near" hidden>
+    <h2 class="sec"><span>📍 내 주변 급한 곳</span><small>네이버 지도에서 가까운 곳을 찾아요</small></h2>
+    <p class="groupnote">위치를 허용하시면 지금 계신 곳 근처로 열려요.</p>
+    <div class="list">
+      <button type="button" class="row map" data-map="응급실">
+        <span class="re" aria-hidden="true">🏥</span>
+        <span class="rn"><b>응급실 · 병원</b><small>가까운 응급실 찾기</small></span>
+        <span class="arrow" aria-hidden="true">›</span>
+      </button>
+      <button type="button" class="row map" data-map="약국">
+        <span class="re" aria-hidden="true">💊</span>
+        <span class="rn"><b>지금 여는 약국</b><small>지도에서 약국 찾기</small></span>
+        <span class="arrow" aria-hidden="true">›</span>
+      </button>
+      <button type="button" class="row map" data-map="주민센터">
+        <span class="re" aria-hidden="true">🏛️</span>
+        <span class="rn"><b>가까운 주민센터</b><small>동사무소 · 민원</small></span>
+        <span class="arrow" aria-hidden="true">›</span>
+      </button>
+      <button type="button" class="row map" data-map="은행">
+        <span class="re" aria-hidden="true">🏦</span>
+        <span class="rn"><b>은행</b><small>가까운 은행 찾기</small></span>
+        <span class="arrow" aria-hidden="true">›</span>
+      </button>
+      <button type="button" class="row map" data-map="콜택시">
+        <span class="re" aria-hidden="true">🚕</span>
+        <span class="rn"><b>택시 · 콜택시</b><small>가까운 콜택시 찾기</small></span>
+        <span class="arrow" aria-hidden="true">›</span>
+      </button>
+    </div>
+  </section>
+
+  <div class="foot">
+    <p><b>무료 · 광고 없음 · 회원가입 없음</b></p>
+    <p>저장한 가족 번호와 안심 카드 정보는 <b>이 기기(폰)에만</b> 있어요.</p>
+    <p>전화번호는 각 기관의 대표 번호예요.</p>
+  </div>
+</main>
+
+<nav class="tabbar" role="tablist" aria-label="와글링 전화부 메뉴">
+  <button type="button" class="tbtn" id="nav-sos" role="tab" aria-selected="true" aria-controls="tab-sos" data-tab="sos">
+    <span class="te" aria-hidden="true">🚨</span><span>급한 전화</span></button>
+  <button type="button" class="tbtn" id="nav-public" role="tab" aria-selected="false" aria-controls="tab-public" data-tab="public">
+    <span class="te" aria-hidden="true">🏛️</span><span>공공기관</span></button>
+  <button type="button" class="tbtn" id="nav-repair" role="tab" aria-selected="false" aria-controls="tab-repair" data-tab="repair">
+    <span class="te" aria-hidden="true">🔧</span><span>고장·수리</span></button>
+  <button type="button" class="tbtn" id="nav-near" role="tab" aria-selected="false" aria-controls="tab-near" data-tab="near">
+    <span class="te" aria-hidden="true">📍</span><span>내 주변</span></button>
+</nav>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- 실제 전화·문자·지도는 숨은 링크로 엽니다 -->
+<a id="telLink" class="srlink" tabindex="-1" aria-hidden="true"></a>
+<a id="smsLink" class="srlink" tabindex="-1" aria-hidden="true"></a>
+<a id="mapLink" class="srlink" tabindex="-1" aria-hidden="true" target="_blank" rel="noopener"></a>
+
+<!-- 📞 전화 확인 (공공기관·고장) -->
+<div class="sheetwrap" id="telSheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="telTitle">
+    <h2 id="telTitle">이 번호로 전화할까요?</h2>
+    <p class="lead">잘못 누르셨다면 아래 <b>취소</b>를 눌러 주세요.</p>
+    <p class="big" id="telNum">110</p>
+    <button type="button" class="primary call" id="telGo">전화 걸기</button>
+    <button type="button" class="ghost" id="telCancel">취소</button>
+  </div>
+</div>
+
+<!-- 👨‍👩‍👧 가족 번호 넣기·고치기 -->
+<div class="sheetwrap" id="famSheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="famTitle">
+    <h2 id="famTitle">가족 번호 넣기</h2>
+    <p class="lead">아플 때 한 번에 걸 수 있게 저장해 둬요. 4명까지 넣을 수 있어요.</p>
+    <label for="famName">이름</label>
+    <input id="famName" type="text" maxlength="12" placeholder="예: 큰아들" autocomplete="off" enterkeyhint="next" />
+    <label for="famTel">전화번호</label>
+    <input id="famTel" type="tel" inputmode="tel" maxlength="20" placeholder="예: 010-1234-5678" autocomplete="off" enterkeyhint="done" />
+    <p class="err" id="famErr" hidden></p>
+    <button type="button" class="primary" id="famSave">저장하기</button>
+    <button type="button" class="ghost danger" id="famDel" hidden>이 번호 지우기</button>
+    <button type="button" class="ghost" id="famCancel">닫기</button>
+  </div>
+</div>
+
+<!-- 🆘 안심 카드 정보 넣기·고치기 -->
+<div class="sheetwrap" id="cardSheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="cardTitle">
+    <h2 id="cardTitle">안심 카드 정보</h2>
+    <p class="lead">길을 잃었을 때 지나가는 분께 보여 줄 정보예요. 성함과 보호자 번호를 넣어 주세요.</p>
+    <label for="cName">성함</label>
+    <input id="cName" type="text" maxlength="20" placeholder="예: 김말순" autocomplete="off" enterkeyhint="next" />
+    <label for="cGName">보호자 (누구신지)</label>
+    <input id="cGName" type="text" maxlength="20" placeholder="예: 큰아들" autocomplete="off" enterkeyhint="next" />
+    <label for="cGTel">보호자 전화번호</label>
+    <input id="cGTel" type="tel" inputmode="tel" maxlength="20" placeholder="예: 010-1234-5678" autocomplete="off" enterkeyhint="next" />
+    <label for="cNote">특이사항 (없으면 비워 두세요)</label>
+    <textarea id="cNote" maxlength="80" placeholder="예: 치매 초기 · 고혈압약 복용 중"></textarea>
+    <p class="err" id="cardErr" hidden></p>
+    <button type="button" class="primary" id="cardSave">저장하기</button>
+    <button type="button" class="ghost" id="cardCancel">닫기</button>
+  </div>
+</div>
+
+<!-- 📍 위치를 못 찾았을 때 -->
+<div class="sheetwrap" id="locSheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="locTitle">
+    <h2 id="locTitle">위치를 찾지 못했어요</h2>
+    <p class="lead" id="locMsg">폰에서 위치를 허용해 주시면 지도 링크가 들어가요.</p>
+    <button type="button" class="primary" id="locRetry">🔄 다시 해 보기</button>
+    <button type="button" class="ghost" id="locNoPos">위치 없이 문자 보내기</button>
+    <button type="button" class="ghost" id="locClose">닫기</button>
+  </div>
+</div>
+
+<!-- 📲 홈 화면에 앱 설치 안내 -->
+<div class="sheetwrap" id="instModal" hidden>
+  <div class="imcard" role="dialog" aria-modal="true" aria-labelledby="instTitle">
+    <h2 id="instTitle">📲 홈 화면에 앱으로 넣기</h2>
+    <p class="ilead">아이콘을 한 번 꺼내 두면 앱처럼 바로 열려요.</p>
+    <ol id="instSteps"></ol>
+    <a class="chrome" id="instChrome" href="#" hidden>🌐 크롬으로 바로 열기</a>
+    <p class="mini">새로 받는 파일은 없어요. 무료 · 광고 없음 · 번호는 이 폰에만.</p>
+    <button type="button" class="close" id="instClose">확인</button>
+  </div>
+</div>
+
+<!-- 🆘 안심 카드 전체 화면 -->
+<div class="safecard" id="safeCard" role="dialog" aria-modal="true" aria-labelledby="safeName" hidden>
+  <div class="sc-top">
+    <p class="sc-hint">지나가는 분이나 경찰관께 이 화면을 보여 주세요</p>
+    <button type="button" class="sc-x" id="safeClose" aria-label="안심 카드 닫기">✕</button>
+  </div>
+  <div class="sc-main">
+    <p class="sc-plea">저를 도와주세요</p>
+    <div class="sc-panel">
+    <div class="sc-blk">
+      <p class="sc-label">성함</p>
+      <p class="sc-name" id="safeName">성함을 넣어 주세요</p>
+    </div>
+    <div class="sc-blk">
+      <p class="sc-label">보호자</p>
+      <p class="sc-gname" id="safeGName">보호자 이름</p>
+      <p class="sc-gtel" id="safeGTel">보호자 번호</p>
+    </div>
+    <div class="sc-blk">
+      <p class="sc-label">특이사항</p>
+      <p class="sc-note" id="safeNote">없어요</p>
+    </div>
+    </div>
+  </div>
+  <div class="sc-acts">
+    <button type="button" class="sc-call" id="safeCall">보호자에게 전화</button>
+    <div class="row2">
+      <button type="button" class="sc-edit" id="safeEdit">✏️ 정보 넣기</button>
+      <button type="button" class="sc-close" id="safeHide">닫기</button>
+    </div>
+  </div>
+</div>
+
+<noscript><p style="margin:1rem;font-weight:900">와글링 전화부는 자바스크립트가 필요해요.</p></noscript>
+
+<script>
+(function () {
+  'use strict';
+
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var LS_KEY = 'waglingPhonebook.v1';
+
+  var S = { family: [], card: { name: '', gName: '', gTel: '', note: '' } };
+  var pos = null, posAt = 0;
+  var curTab = 'sos';
+  var editingId = null, delArmed = null, delTimer = null;
+  var pendingTel = '';
+
+  /* ── 저장 ───────────────────────────── */
+  function load() {
+    try {
+      var raw = localStorage.getItem(LS_KEY);
+      if (!raw) return;
+      var d = JSON.parse(raw);
+      if (d && Array.isArray(d.family)) {
+        S.family = d.family.filter(function (f) { return f && f.id && f.tel; }).slice(0, 4).map(function (f) {
+          return { id: String(f.id), name: String(f.name || ''), tel: String(f.tel) };
+        });
+      }
+      if (d && d.card) {
+        S.card = {
+          name: String(d.card.name || ''), gName: String(d.card.gName || ''),
+          gTel: String(d.card.gTel || ''), note: String(d.card.note || '')
+        };
+      }
+    } catch (e) {}
+  }
+  function save() {
+    try { localStorage.setItem(LS_KEY, JSON.stringify({ family: S.family, card: S.card })); } catch (e) {}
+  }
+
+  /* ── 도움 함수 ──────────────────────── */
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function telOf(s) { return String(s).replace(/[^0-9+]/g, ''); }
+  function digits(s) { return String(s).replace(/[^0-9]/g, ''); }
+  function pretty(s) {
+    var raw = String(s).trim();
+    if (/[-.]/.test(raw)) return raw.replace(/\./g, '-');
+    var d = digits(raw);
+    if (d.length === 11) return d.slice(0, 3) + '-' + d.slice(3, 7) + '-' + d.slice(7);
+    if (d.length === 10) return d.slice(0, 3) + '-' + d.slice(3, 6) + '-' + d.slice(6);
+    if (d.length === 8) return d.slice(0, 4) + '-' + d.slice(4);
+    return d;
+  }
+  function stamp() {
+    var d = new Date();
+    var h = d.getHours(), m = d.getMinutes();
+    return (d.getMonth() + 1) + '월 ' + d.getDate() + '일 ' + (h < 12 ? '오전 ' : '오후 ') +
+      ((h % 12) || 12) + ':' + (m < 10 ? '0' + m : m);
+  }
+  var toastTimer = null;
+  function toast(msg) {
+    var t = $('#toast');
+    t.textContent = msg;
+    t.classList.add('on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove('on'); }, 3200);
+  }
+
+  /* ── 폰 뒤로가기 — 창 하나씩 닫기 ─────── */
+  var navLayers = [], navQuiet = 0, navBackBusy = false, navBackQueue = 0, navPopping = false;
+  function navPushLayer(key, close) {
+    if (navPopping) return;
+    try { history.pushState({ waglePhonebook: navLayers.length + 1 }, '', location.href); }
+    catch (e) { return; }
+    navLayers.push({ key: key, close: close });
+  }
+  function navPumpBack() {
+    if (navBackBusy || navBackQueue <= 0) return;
+    navBackBusy = true; navQuiet++; navBackQueue--;
+    try { history.back(); }
+    catch (e) { navQuiet = Math.max(0, navQuiet - 1); navBackBusy = false; navPumpBack(); return; }
+    setTimeout(function () {
+      if (navBackBusy) { navBackBusy = false; navQuiet = Math.max(0, navQuiet - 1); navPumpBack(); }
+    }, 900);
+  }
+  function navBackOnce() { navBackQueue++; navPumpBack(); }
+  function navConsume(key) {
+    if (navPopping) return 0;
+    var n = 0;
+    for (var i = navLayers.length - 1; i >= 0; i--) {
+      if (navLayers[i].key === key) { navLayers.splice(i, 1); n++; }
+    }
+    for (var k = 0; k < n; k++) navBackOnce();
+    return n;
+  }
+  window.addEventListener('popstate', function () {
+    if (navQuiet > 0) { navQuiet--; navBackBusy = false; navPumpBack(); return; }
+    var top = navLayers.pop();
+    if (!top) return;                    /* 첫 화면 — 브라우저가 알아서 빠져나감 */
+    navPopping = true;
+    try { if (typeof top.close === 'function') top.close(); }
+    catch (e) {}
+    finally { navPopping = false; }
+  });
+
+  /* ── 창(시트·안심카드) 열고 닫기 ──────── */
+  var panels = [];
+  function lockScroll(on) {
+    document.body.style.overflow = on ? 'hidden' : '';
+  }
+  function openPanel(id) {
+    var el = $('#' + id);
+    if (!el || !el.hidden) return;
+    el.hidden = false;
+    panels.push(id);
+    lockScroll(true);
+    navPushLayer('panel:' + id, function () { closePanel(id, true); });
+    try {
+      var f = el.querySelector('input,textarea,.primary,.sc-call');
+      if (f) f.focus({ preventScroll: true });
+    } catch (e) {}
+  }
+  function closePanel(id, fromBack) {
+    var el = $('#' + id);
+    if (!el || el.hidden) return;
+    el.hidden = true;
+    panels = panels.filter(function (x) { return x !== id; });
+    if (!panels.length) lockScroll(false);
+    if (!fromBack) navConsume('panel:' + id);
+  }
+  $$('.sheetwrap').forEach(function (w) {
+    w.addEventListener('click', function (e) {
+      if (e.target === w) closePanel(w.id);
+    });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    var top = panels[panels.length - 1];
+    if (top) closePanel(top);
+  });
+
+  /* ── 전화 · 문자 · 지도 열기 ─────────── */
+  function dial(num) {
+    var a = $('#telLink');
+    a.setAttribute('href', 'tel:' + telOf(num));
+    a.click();
+    toast('전화 앱이 열려요 — 초록색 통화 버튼을 눌러 주세요.');
+  }
+  function openSms(to, body) {
+    var a = $('#smsLink');
+    a.setAttribute('href', 'sms:' + (to ? telOf(to) : '') + '?body=' + encodeURIComponent(body));
+    a.click();
+  }
+  function openLink(url) {
+    var a = $('#mapLink');
+    a.setAttribute('href', url);
+    a.click();
+  }
+  function recipient() {
+    if (S.family[0] && S.family[0].tel) return S.family[0].tel;
+    if (S.card.gTel) return S.card.gTel;
+    return '';
+  }
+  function recipientName() {
+    if (S.family[0] && S.family[0].tel) return S.family[0].name || '가족';
+    if (S.card.gTel) return S.card.gName || '보호자';
+    return '';
+  }
+
+  /* ── 가족 비상연락망 ────────────────── */
+  function renderFamily() {
+    var g = $('#famGrid');
+    if (!S.family.length) {
+      g.innerHTML = '<div class="famguide">' +
+        '<p><b>가족 번호를 넣어 두세요</b><br>아프거나 다쳤을 때 한 번에 걸 수 있어요.</p>' +
+        '<button type="button" class="addbig" data-add="1">➕ 가족 번호 넣기</button></div>';
+      return;
+    }
+    var html = '';
+    S.family.forEach(function (f) {
+      html += '<div class="fam">' +
+        '<button type="button" class="famcall" data-call="' + esc(f.id) + '" aria-label="' + esc(f.name) + ' ' + esc(pretty(f.tel)) + ', 누르면 바로 전화">' +
+        '<span class="famname">' + esc(f.name || '가족') + '</span>' +
+        '<span class="famnum">' + esc(pretty(f.tel)) + '</span></button>' +
+        '<button type="button" class="famedit" data-edit="' + esc(f.id) + '" aria-label="' + esc(f.name) + ' 번호 고치기">✏️</button>' +
+        '</div>';
+    });
+    if (S.family.length < 4) {
+      html += '<button type="button" class="famadd" data-add="1" aria-label="가족 번호 넣기">' +
+        '<span class="plus" aria-hidden="true">➕</span><span>가족 넣기</span></button>';
+    }
+    g.innerHTML = html;
+  }
+  function renderLocSub() {
+    var nm = recipientName();
+    var sub = $('#locSub');
+    if (!sub) return;
+    sub.textContent = nm
+      ? '보낼 사람: ' + nm + ' ' + pretty(recipient())
+      : '보낼 사람은 문자 앱에서 고르실 수 있어요';
+  }
+
+  function openFamily(id) {
+    editingId = id || null;
+    delArmed = null;
+    $('#famErr').hidden = true;
+    var f = id ? S.family.filter(function (x) { return x.id === id; })[0] : null;
+    $('#famTitle').textContent = f ? '가족 번호 고치기' : '가족 번호 넣기';
+    $('#famName').value = f ? f.name : '';
+    $('#famTel').value = f ? pretty(f.tel) : '';
+    var del = $('#famDel');
+    del.hidden = !f;
+    del.classList.remove('armed');
+    del.textContent = '이 번호 지우기';
+    openPanel('famSheet');
+    setTimeout(function () { try { $('#famName').focus({ preventScroll: true }); } catch (e) {} }, 60);
+  }
+  function saveFamily() {
+    var name = $('#famName').value.trim();
+    var tel = $('#famTel').value.trim();
+    var err = $('#famErr');
+    if (!name) { err.textContent = '누구신지 이름을 넣어 주세요. (예: 큰아들)'; err.hidden = false; return; }
+    if (digits(tel).length < 7) { err.textContent = '전화번호를 다시 확인해 주세요. (예: 010-1234-5678)'; err.hidden = false; return; }
+    err.hidden = true;
+    if (editingId) {
+      S.family.forEach(function (f) { if (f.id === editingId) { f.name = name; f.tel = tel; } });
+    } else {
+      if (S.family.length >= 4) { err.textContent = '가족은 4명까지 넣을 수 있어요.'; err.hidden = false; return; }
+      S.family.push({ id: 'f' + Date.now() + Math.floor(Math.random() * 1000), name: name, tel: tel });
+    }
+    save(); renderFamily(); renderLocSub();
+    closePanel('famSheet');
+    toast(editingId ? '번호를 고쳤어요.' : '저장했어요 — 이름을 누르면 바로 걸려요.');
+  }
+  function deleteFamily() {
+    if (!editingId) return;
+    var del = $('#famDel');
+    if (!delArmed) {
+      delArmed = true;
+      del.classList.add('armed');
+      del.textContent = '한 번 더 누르면 지워요';
+      clearTimeout(delTimer);
+      delTimer = setTimeout(function () {
+        delArmed = null; del.classList.remove('armed'); del.textContent = '이 번호 지우기';
+      }, 4000);
+      return;
+    }
+    S.family = S.family.filter(function (f) { return f.id !== editingId; });
+    save(); renderFamily(); renderLocSub();
+    closePanel('famSheet');
+    toast('지웠어요.');
+  }
+
+  /* ── 안심 카드 ──────────────────────── */
+  function renderSafe() {
+    var c = S.card;
+    var name = $('#safeName'), gn = $('#safeGName'), gt = $('#safeGTel'), nt = $('#safeNote');
+    name.textContent = c.name || '성함을 넣어 주세요';
+    name.classList.toggle('ph', !c.name);
+    gn.textContent = c.gName || '보호자 이름';
+    gn.classList.toggle('ph', !c.gName);
+    gt.textContent = c.gTel ? pretty(c.gTel) : '보호자 번호';
+    gt.classList.toggle('ph', !c.gTel);
+    nt.textContent = c.note || '없어요';
+    nt.classList.toggle('ph', !c.note);
+    var call = $('#safeCall');
+    if (c.gTel) { call.classList.remove('off'); call.textContent = '보호자에게 전화'; }
+    else { call.classList.add('off'); call.textContent = '보호자 번호를 먼저 넣어 주세요'; }
+    var edit = $('#safeEdit');
+    edit.textContent = (c.name || c.gTel) ? '✏️ 정보 고치기' : '✏️ 정보 넣기';
+  }
+  function openCardSheet() {
+    $('#cardErr').hidden = true;
+    $('#cName').value = S.card.name || '';
+    $('#cGName').value = S.card.gName || '';
+    $('#cGTel').value = S.card.gTel ? pretty(S.card.gTel) : '';
+    $('#cNote').value = S.card.note || '';
+    openPanel('cardSheet');
+  }
+  function saveCard() {
+    var name = $('#cName').value.trim();
+    var gTel = $('#cGTel').value.trim();
+    var err = $('#cardErr');
+    if (!name) { err.textContent = '성함을 넣어 주세요.'; err.hidden = false; return; }
+    if (digits(gTel).length < 7) { err.textContent = '보호자 전화번호를 다시 확인해 주세요.'; err.hidden = false; return; }
+    err.hidden = true;
+    S.card = {
+      name: name, gName: $('#cGName').value.trim(), gTel: gTel,
+      note: $('#cNote').value.replace(/\s+$/g, '')
+    };
+    save(); renderSafe(); renderLocSub();
+    var cardOpen = !$('#safeCard').hidden;
+    closePanel('cardSheet');
+    if (!cardOpen) toast('안심 카드에 저장했어요.');
+  }
+
+  /* ── 📍 내 위치 문자 ─────────────────── */
+  var locBusy = false;
+  function getPos(ok, fail, timeout) {
+    if (!navigator.geolocation) { fail({ code: 0 }); return; }
+    navigator.geolocation.getCurrentPosition(function (p) {
+      pos = { lat: p.coords.latitude, lng: p.coords.longitude };
+      posAt = Date.now();
+      ok(pos);
+    }, fail, { enableHighAccuracy: true, timeout: timeout || 12000, maximumAge: 60000 });
+  }
+  function mapsText(p) {
+    var lat = p.lat.toFixed(6), lng = p.lng.toFixed(6);
+    return '네이버 지도: https://map.naver.com/p/?c=' + lng + ',' + lat + ',16,0,0,0,dh\n' +
+           '구글 지도: https://maps.google.com/?q=' + lat + ',' + lng;
+  }
+  function sendLocSms() {
+    var body = '[와글링 전화부] 지금 제 위치예요. 도와주세요.\n' + mapsText(pos) + '\n보낸 때: ' + stamp();
+    var to = recipient();
+    openSms(to, body);
+    toast(to ? '문자 앱이 열려요 — 보내기만 눌러 주세요.' : '문자 앱에서 받을 사람을 골라 주세요.');
+  }
+  function sendPlainSms() {
+    var body = '[와글링 전화부] 지금 길을 잃었어요. 전화해 주세요.\n보낸 때: ' + stamp();
+    var to = recipient();
+    openSms(to, body);
+    toast(to ? '문자 앱이 열려요 — 보내기만 눌러 주세요.' : '문자 앱에서 받을 사람을 골라 주세요.');
+  }
+  function askLoc() {
+    var btn = $('#btnLoc');
+    if (locBusy) return;
+    locBusy = true;
+    btn.setAttribute('aria-busy', 'true');
+    var slow = setTimeout(function () { toast('위치를 찾고 있어요…'); }, 900);
+    getPos(function () {
+      clearTimeout(slow); locBusy = false; btn.removeAttribute('aria-busy');
+      renderLocSub();
+      sendLocSms();
+    }, function (err) {
+      clearTimeout(slow); locBusy = false; btn.removeAttribute('aria-busy');
+      showLocHelp(err && err.code);
+    });
+  }
+  function showLocHelp(code) {
+    var msg = $('#locMsg');
+    if (code === 1) {
+      msg.innerHTML = '폰에서 <b>위치를 허용</b>해 주시면 지도 링크가 들어가요.<br>' +
+        '크롬: 주소창 옆 <b>자물쇠</b> 또는 <b>점 세 개</b> → 권한 → 위치 → <b>허용</b><br>' +
+        '허용한 뒤 아래 <b>다시 해 보기</b>를 눌러 주세요.';
+    } else if (code === 2) {
+      msg.innerHTML = '위치를 잡지 못했어요. <b>하늘이 잘 보이는 곳</b>에서 다시 해 보세요.';
+    } else if (code === 3) {
+      msg.innerHTML = '위치를 찾는 데 시간이 오래 걸려요. 잠시 뒤 <b>다시 해 보기</b>를 눌러 주세요.';
+    } else {
+      msg.innerHTML = '이 폰에서는 위치를 쓸 수 없어요. 아래에서 <b>위치 없이</b> 문자를 보낼 수 있어요.';
+    }
+    openPanel('locSheet');
+  }
+
+  /* ── 지도 (내 주변) ─────────────────── */
+  function openMap(q) {
+    var go = function (p) {
+      var url;
+      if (p) {
+        url = 'https://map.naver.com/p/search/' + encodeURIComponent(q) +
+              '?c=' + p.lng.toFixed(6) + ',' + p.lat.toFixed(6) + ',15,0,0,0,dh';
+      } else {
+        url = 'https://map.naver.com/p/search/' + encodeURIComponent(q);
+      }
+      openLink(url);
+    };
+    if (pos && Date.now() - posAt < 180000) { go(pos); return; }
+    toast('위치를 확인하고 있어요…');
+    getPos(function (p) { go(p); }, function () { go(null); }, 6000);
+  }
+
+  /* ── 탭 ─────────────────────────────── */
+  function paintTabs() {
+    ['sos', 'public', 'repair', 'near'].forEach(function (n) {
+      var sec = $('#tab-' + n), btn = $('#nav-' + n);
+      var on = n === curTab;
+      if (sec) sec.hidden = !on;
+      if (btn) btn.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+  }
+  function goTab(name, fromBack) {
+    if (name === curTab) return;
+    var prev = curTab;
+    curTab = name;
+    paintTabs();
+    try { window.scrollTo(0, 0); } catch (e) {}
+    if (!fromBack) navPushLayer('tab:' + name, function () { goTab(prev, true); });
+  }
+
+  /* ── 📲 설치 · 📤 공유 ──────────────── */
+  var instPrompt = null, instDone = false;
+  function isStandaloneNow() {
+    try {
+      if (window.matchMedia) {
+        if (window.matchMedia('(display-mode: standalone)').matches) return true;
+        if (window.matchMedia('(display-mode: minimal-ui)').matches) return true;
+      }
+    } catch (e) {}
+    if (navigator.standalone === true) return true;
+    if (/^android-app:\/\//i.test(document.referrer || '')) return true;
+    return false;
+  }
+  function isAndroidUA() { return /Android/i.test(navigator.userAgent || ''); }
+  function inAppBrowser() { return /KAKAOTALK|Instagram|NAVER|FBAN|FBAV|Line\//i.test(navigator.userAgent || ''); }
+  function chromeIntentUrl() {
+    var host = location.host || 'starpicklife-design.github.io';
+    var path = (location.pathname || '/phonebook/') + (location.search || '');
+    return 'intent://' + host + path + '#Intent;scheme=https;package=com.android.chrome;end';
+  }
+  function syncInstallPill() {
+    var b = $('#installBtn');
+    if (b) b.hidden = instDone || isStandaloneNow();
+  }
+  function openInstallModal() {
+    $('#instSteps').innerHTML = [
+      '크롬에서 이 화면을 연 상태에서',
+      '오른쪽 위 <b>점 세 개</b>를 눌러 주세요',
+      '<b>홈 화면에 추가</b> 또는 <b>앱 설치</b>를 눌러 주세요',
+      '바탕화면에 <b>와글링 전화부</b> 아이콘이 생겨요'
+    ].map(function (s) { return '<li>' + s + '</li>'; }).join('');
+    var ch = $('#instChrome');
+    var show = isAndroidUA() && inAppBrowser();
+    ch.hidden = !show;
+    if (show) ch.setAttribute('href', chromeIntentUrl());
+    openPanel('instModal');
+  }
+  function installTap() {
+    if (instDone || isStandaloneNow()) { toast('이미 앱으로 열려 있어요.'); return; }
+    if (instPrompt) {
+      var dp = instPrompt;
+      instPrompt = null;
+      try {
+        dp.prompt();
+        if (dp.userChoice && dp.userChoice.then) {
+          dp.userChoice.then(function (r) {
+            if (r && r.outcome === 'accepted') toast('홈 화면에 넣었어요.');
+            syncInstallPill();
+          }, function () {});
+        }
+        return;
+      } catch (e) {}
+    }
+    openInstallModal();
+  }
+  function legacyCopy(text, done, fail) {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed'; ta.style.top = '-9999px';
+      document.body.appendChild(ta); ta.select();
+      var ok = document.execCommand && document.execCommand('copy');
+      document.body.removeChild(ta);
+      if (ok) done(); else fail();
+    } catch (e) { fail(); }
+  }
+  function copyText(text, done, fail) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { legacyCopy(text, done, fail); });
+    } else { legacyCopy(text, done, fail); }
+  }
+  function shareApp() {
+    var p = {
+      title: '와글링 전화부 · 급할 때 한 번에 거는 전화',
+      text: '어르신 폰에 넣어 두면 좋은 무료 전화부예요. 119·112와 가족 번호를 한 번에, 내 위치 문자, 안심 카드까지.',
+      url: 'https://starpicklife-design.github.io/phonebook/'
+    };
+    var usable = true;
+    try { if (navigator.canShare && !navigator.canShare(p)) usable = false; } catch (e) {}
+    var done = function () { toast('주소를 복사했어요 — 붙여 넣어 보내 주세요.'); };
+    var fail = function () { toast('공유를 열지 못했어요.'); };
+    if (navigator.share && usable) {
+      try {
+        var r = navigator.share(p);
+        if (r && r.then) r.then(function () {}, function (err) {
+          if (err && err.name === 'AbortError') return;
+          copyText(p.text + '\n\n' + p.url, done, fail);
+        });
+        return;
+      } catch (e) {}
+    }
+    copyText(p.text + '\n\n' + p.url, done, fail);
+  }
+
+  /* ── 연결 ───────────────────────────── */
+  function bind() {
+    $('#btn119').addEventListener('click', function () { dial('119'); });
+    $('#btn112').addEventListener('click', function () { dial('112'); });
+
+    $('#famGrid').addEventListener('click', function (e) {
+      var call = e.target.closest('[data-call]');
+      if (call) {
+        var f = S.family.filter(function (x) { return x.id === call.getAttribute('data-call'); })[0];
+        if (f) dial(f.tel);
+        return;
+      }
+      var edit = e.target.closest('[data-edit]');
+      if (edit) { openFamily(edit.getAttribute('data-edit')); return; }
+      if (e.target.closest('[data-add]')) { openFamily(null); }
+    });
+
+    $('#btnLoc').addEventListener('click', askLoc);
+    $('#btnSafe').addEventListener('click', function () {
+      renderSafe();
+      openPanel('safeCard');
+    });
+    $('#safeClose').addEventListener('click', function () { closePanel('safeCard'); });
+    $('#safeHide').addEventListener('click', function () { closePanel('safeCard'); });
+    $('#safeEdit').addEventListener('click', openCardSheet);
+    $('#safeCall').addEventListener('click', function () {
+      if (!S.card.gTel) { toast('보호자 번호를 먼저 넣어 주세요.'); openCardSheet(); return; }
+      dial(S.card.gTel);
+    });
+
+    $$('.row[data-tel]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        pendingTel = b.getAttribute('data-tel');
+        $('#telTitle').textContent = (b.getAttribute('data-what') || '') + '에 전화할까요?';
+        $('#telNum').textContent = pretty(pendingTel);
+        openPanel('telSheet');
+      });
+    });
+    $('#telGo').addEventListener('click', function () {
+      var t = pendingTel;
+      closePanel('telSheet');
+      setTimeout(function () { dial(t); }, 60);
+    });
+    $('#telCancel').addEventListener('click', function () { closePanel('telSheet'); });
+
+    $$('.row[data-map]').forEach(function (b) {
+      b.addEventListener('click', function () { openMap(b.getAttribute('data-map')); });
+    });
+
+    $('#famSave').addEventListener('click', saveFamily);
+    $('#famCancel').addEventListener('click', function () { closePanel('famSheet'); });
+    $('#famDel').addEventListener('click', deleteFamily);
+    $('#famName').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); $('#famTel').focus(); } });
+    $('#famTel').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); saveFamily(); } });
+
+    $('#cardSave').addEventListener('click', saveCard);
+    $('#cardCancel').addEventListener('click', function () { closePanel('cardSheet'); });
+    $('#cGTel').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); saveCard(); } });
+
+    $('#locRetry').addEventListener('click', function () { closePanel('locSheet'); setTimeout(askLoc, 120); });
+    $('#locNoPos').addEventListener('click', function () { closePanel('locSheet'); sendPlainSms(); });
+    $('#locClose').addEventListener('click', function () { closePanel('locSheet'); });
+
+    $$('.tbtn').forEach(function (b) {
+      b.addEventListener('click', function () { goTab(b.getAttribute('data-tab')); });
+    });
+
+    $('#installBtn').addEventListener('click', installTap);
+    $('#shareBtn').addEventListener('click', shareApp);
+    $('#instClose').addEventListener('click', function () { closePanel('instModal'); });
+
+    window.addEventListener('appinstalled', function () {
+      instDone = true; instPrompt = null; syncInstallPill(); toast('홈 화면에 넣었어요.');
+    });
+    window.addEventListener('beforeinstallprompt', function (e) {
+      e.preventDefault();
+      instPrompt = e;
+    });
+  }
+
+  function boot() {
+    load();
+    renderFamily();
+    renderSafe();
+    renderLocSub();
+    paintTabs();
+    bind();
+    syncInstallPill();
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('./sw.js').catch(function () {});
+      });
+    }
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
+</body>
+</html>
