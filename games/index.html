@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#2B1A63">
-<!-- build: 2026-11-26 와트메이커 게임방(⚡) v2 · 파스텔 아케이드 디자인 업그레이드
+<!-- build: 2026-11-26 와트메이커 게임방(⚡) v3 · 모바일 글자 크기 확대(가독성) — 디자인·기능 동일
      · 맨 위 오늘 날짜·요일·날씨(김해 기본, 누르면 현위치 날씨로 새로고침 — Open-Meteo)
      · ① ⚡ 해미족 전구 켜기(bulb-game, 라이브) ② 🌌 공벌레 우주 미니 파크골프(golf-game, 라이브)
-       ③ 🚒⚡ 와글링 안전 특공대 퀴즈(safety, 라이브) ④ ⏳ 다음 게임 예고(해바라기씨 모으기·그림 짝 맞추기)
+       ③ 🚒⚡ 와글링 안전 특공대 퀴즈(safety, 라이브) ④ 💎 다이아몬드 성 탈출 다꾸(diary, 라이브) ⑤ ⏳ 다음 게임 예고(해바라기씨 모으기·그림 짝 맞추기)
      · 아래: 🏠 와글링 홈 · ⚡ 전기기초 앱 · 📺 @wattmaker 유튜브 · 📤 공유 · 📲 홈 화면 설치
      · 폰 뒤로가기 · 기록·개인정보 없음(설치 안내만 기억) · 무료 · 광고 없음
      · 상단 한/EN 토글 — 화면 전체가 영어로 (localStorage 'wagleGames.lang' 기억, ?lang=en 주소로도)
      · v2 디자인: 별빛 히어로 + 마퀴 전구 테두리, 게임별 파스텔 그라데이션 카드·3D 아케이드 버튼, SVG 아이콘 -->
-<meta name="description" content="⚡ 와트메이커 게임방 — 저글링 시티 전기 담당 와트메이커가 만든 무료 게임 모음. 해미족 전구 켜기(6단계 전선 퍼즐), 공벌레 우주 미니 파크골프, 와글링 안전 특공대 퀴즈까지. 설치·광고 없이 폰에서 바로.">
+<meta name="description" content="⚡ 와트메이커 게임방 — 저글링 시티 전기 담당 와트메이커가 만든 무료 게임 모음. 해미족 전구 켜기(6단계 전선 퍼즐), 공벌레 우주 미니 파크골프, 와글링 안전 특공대 퀴즈, 다이아몬드 성 탈출 다꾸까지. 설치·광고 없이 폰에서 바로.">
 <title>⚡ 와트메이커 게임방 · 저글링 시티 &amp; 와글링 월드 게임 모음</title>
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
@@ -89,11 +89,11 @@
     box-shadow:0 0 0 2.5px #FFD75E,0 0 0 5px rgba(255,215,94,.20),
       0 0 18px rgba(255,200,60,.55),0 3px 10px rgba(0,0,0,.34)}
   .btxt{flex:1 1 auto;min-width:0}
-  .brand h1{margin:0;font-size:1.14rem;line-height:1.16;letter-spacing:-.035em;font-weight:900;
+  .brand h1{margin:0;font-size:1.3rem;line-height:1.14;letter-spacing:-.035em;font-weight:900;
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
     text-shadow:0 2px 0 rgba(28,14,64,.34)}
-  .brand .sub{margin:.16rem 0 0;font-size:.64rem;line-height:1.25;font-weight:800;
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#D9E9FF}
+  .brand .sub{margin:.18rem 0 0;font-size:.76rem;line-height:1.28;font-weight:800;
+    white-space:normal;color:#D9E9FF}
   .hbtns{position:relative;z-index:1;display:flex;align-items:center;gap:.38rem;flex:0 0 auto}
   .langbtn{display:inline-flex;align-items:center;justify-content:center;gap:.14rem;height:2.02rem;
     padding:0 .46rem;border-radius:.78rem;color:#FFFDF6;font-size:.6rem;font-weight:900;
@@ -116,50 +116,53 @@
     animation:sparkBob 2.8s ease-in-out infinite}
   @keyframes sparkBob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-3px) rotate(4deg)}}
   .spark svg{width:1.14rem;height:1.14rem;display:block}
-  html[lang="en"] .brand h1{font-size:1rem;letter-spacing:-.02em}
-  html[lang="en"] .brand .sub{font-size:.6rem;white-space:normal;line-height:1.2}
+  html[lang="en"] .brand h1{font-size:1.16rem;letter-spacing:-.02em}
+  html[lang="en"] .brand .sub{font-size:.72rem;white-space:normal;line-height:1.22}
   @media (max-width:355px){
-    .logo{width:2.4rem;height:2.4rem}
-    .brand h1{font-size:1.02rem}
-    .brand .sub{font-size:.58rem}
+    .logo{width:2.42rem;height:2.42rem}
+    .brand h1{font-size:1.16rem}
+    .brand .sub{font-size:.7rem}
     .spark{width:1.8rem;height:1.8rem;font-size:.9rem}
+    .langbtn{height:1.96rem;padding:0 .4rem;font-size:.62rem}
+    html[lang="en"] .brand h1{font-size:1.06rem}
+    html[lang="en"] .brand .sub{font-size:.68rem}
   }
 
   main{position:relative;z-index:1;max-width:34rem;margin:0 auto;padding:.6rem .64rem 0}
 
   /* ── 오늘 날짜·날씨 막대 ───────────────── */
-  .datebar{display:flex;align-items:center;flex-wrap:wrap;gap:.28rem .42rem;width:100%;min-height:2.72rem;
-    padding:.44rem .58rem;border-radius:.92rem;text-align:left;line-height:1.25;
+  .datebar{display:flex;align-items:center;flex-wrap:wrap;gap:.28rem .44rem;width:100%;min-height:3rem;
+    padding:.5rem .62rem;border-radius:.96rem;text-align:left;line-height:1.3;
     background:linear-gradient(160deg,#FFFFFF,#FFF8E9);
     border:2px solid #FFE3A4;
     box-shadow:0 3px 0 #F0D583,0 8px 16px rgba(160,120,20,.12)}
   .datebar:active{transform:translateY(2px);box-shadow:0 1px 0 #F0D583,0 4px 10px rgba(160,120,20,.14)}
-  .db-date{font-size:.83rem;font-weight:900;color:#3A2C6B;letter-spacing:-.02em}
-  .db-wx{font-size:.82rem;font-weight:800;color:var(--ink2)}
+  .db-date{font-size:.95rem;font-weight:900;color:#3A2C6B;letter-spacing:-.02em}
+  .db-wx{font-size:.94rem;font-weight:800;color:var(--ink2)}
   .db-wx.loading{color:#96A3B4}
-  .db-place{font-size:.66rem;font-weight:900;color:#8A5F00;background:#FFF1C9;
-    border:1px solid #FFDE9B;border-radius:.55rem;padding:.1rem .36rem}
-  .db-go{margin-left:auto;font-size:.62rem;font-weight:900;color:#2E6FA8;white-space:nowrap}
+  .db-place{font-size:.76rem;font-weight:900;color:#8A5F00;background:#FFF1C9;
+    border:1px solid #FFDE9B;border-radius:.58rem;padding:.12rem .4rem}
+  .db-go{margin-left:auto;font-size:.72rem;font-weight:900;color:#2E6FA8;white-space:nowrap}
 
   /* ── 인사 말풍선 ───────────────────────── */
-  .hello{position:relative;margin:.68rem 0 0;padding:.62rem .74rem;border-radius:1.05rem;
+  .hello{position:relative;margin:.7rem 0 0;padding:.68rem .8rem;border-radius:1.05rem;
     background:rgba(255,255,255,.94);
     border:2px solid var(--line);
     box-shadow:0 4px 0 #EAE1FA,0 8px 16px rgba(70,50,130,.08)}
   .hello::before{content:"";position:absolute;top:-8px;left:1.15rem;width:.8rem;height:.8rem;
     background:#FFFFFF;border-left:2px solid var(--line);border-top:2px solid var(--line);
     transform:rotate(45deg);border-radius:.14rem}
-  .hi{position:relative;font-size:.9rem;font-weight:900;color:#2E2463;letter-spacing:-.025em}
-  .hi2{margin-top:.2rem;font-size:.76rem;font-weight:700;color:var(--ink2);line-height:1.5}
+  .hi{position:relative;font-size:1.04rem;font-weight:900;color:#2E2463;letter-spacing:-.025em;line-height:1.34}
+  .hi2{margin-top:.26rem;font-size:.88rem;font-weight:700;color:var(--ink2);line-height:1.5}
   .hi2 b{color:#B4700A;background:linear-gradient(180deg,transparent 58%,#FFE9A8 58%);padding:0 .1rem}
 
   /* ── 구역 제목 ────────────────────────── */
-  .sect{display:flex;align-items:center;gap:.42rem;margin:.9rem .12rem .48rem;
-    font-size:.9rem;font-weight:900;color:#2B2160;letter-spacing:-.02em}
-  .sect::before{content:"";width:.34rem;height:1.06rem;border-radius:.2rem;flex:0 0 auto;
+  .sect{display:flex;align-items:center;flex-wrap:wrap;gap:.42rem;margin:.95rem .12rem .52rem;
+    font-size:1.04rem;font-weight:900;color:#2B2160;letter-spacing:-.02em}
+  .sect::before{content:"";width:.36rem;height:1.2rem;border-radius:.2rem;flex:0 0 auto;
     background:linear-gradient(180deg,#FFD75E,#FF9A6B);box-shadow:0 0 8px rgba(255,170,90,.6)}
-  .sect .cnt{font-size:.62rem;font-weight:900;color:#5F4BAD;background:#F2EDFF;
-    border:1px solid #DFD3FF;border-radius:.6rem;padding:.14rem .4rem;letter-spacing:-.01em}
+  .sect .cnt{font-size:.74rem;font-weight:900;color:#5F4BAD;background:#F2EDFF;
+    border:1px solid #DFD3FF;border-radius:.6rem;padding:.14rem .42rem;letter-spacing:-.01em}
 
   /* ── 게임 카드 ────────────────────────── */
   .games{display:grid;gap:.62rem}
@@ -182,6 +185,7 @@
   .gcard[data-game="bulb"]{--c1:#FFFCE0;--c2:#FFE6A2;--bd:#FFCB52;--sd:#ECAF27}
   .gcard[data-game="golf"]{--c1:#EFF6FF;--c2:#E2E3FF;--bd:#B4C7F8;--sd:#8DA8E9}
   .gcard[data-game="safety"]{--c1:#FFF1E7;--c2:#FFD8C0;--bd:#FFB688;--sd:#ED9155}
+  .gcard[data-game="diary"]{--c1:#FFF2F9;--c2:#E9E0FF;--bd:#F5B4D6;--sd:#D69CC8}
 
   .art{position:relative;flex:0 0 auto;width:3.5rem;height:3.5rem;border-radius:1.02rem;display:grid;place-items:center;
     box-shadow:inset 0 0 0 2px rgba(255,255,255,.92),0 3px 0 rgba(90,60,20,.14),0 6px 12px rgba(70,40,120,.12)}
@@ -193,22 +197,24 @@
     box-shadow:inset 0 0 0 2px rgba(255,255,255,.95),0 3px 0 #AEBFEA,0 0 16px rgba(150,170,255,.5)}
   .art.safety{background:linear-gradient(160deg,#FFF7F0,#FFDCC4);
     box-shadow:inset 0 0 0 2px rgba(255,255,255,.95),0 3px 0 #EDA371,0 0 16px rgba(255,150,100,.45)}
+  .art.diary{background:linear-gradient(160deg,#FFF7FC,#E7DBFF);
+    box-shadow:inset 0 0 0 2px rgba(255,255,255,.95),0 3px 0 #D8A3CB,0 0 16px rgba(214,140,220,.45)}
   .art.soon{background:linear-gradient(160deg,#F3FCF7,#ECE6FF);
     box-shadow:inset 0 0 0 2px rgba(255,255,255,.95),0 3px 0 #C9C0EA}
 
   .gmain{position:relative;flex:1 1 auto;min-width:0}
-  .gmain h3{margin:0;font-size:.96rem;line-height:1.24;font-weight:900;letter-spacing:-.035em;color:#20294A;
+  .gmain h3{margin:0;font-size:1.2rem;line-height:1.22;font-weight:900;letter-spacing:-.035em;color:#20294A;
     text-shadow:0 1px 0 rgba(255,255,255,.65)}
-  .gmain p{margin:.2rem 0 0;font-size:.715rem;font-weight:700;color:#4E5F78;line-height:1.42}
-  .gmain .tags{display:flex;flex-wrap:wrap;gap:.24rem;margin-top:.32rem}
-  .tag{font-size:.6rem;font-weight:900;padding:.13rem .38rem;border-radius:.5rem;
+  .gmain p{margin:.24rem 0 0;font-size:.92rem;font-weight:700;color:#4E5F78;line-height:1.42}
+  .gmain .tags{display:flex;flex-wrap:wrap;gap:.26rem;margin-top:.34rem}
+  .tag{font-size:.78rem;font-weight:900;padding:.14rem .44rem;border-radius:.52rem;
     background:rgba(255,255,255,.78);color:#4A5A72;border:1px solid rgba(255,255,255,.95);
     box-shadow:0 1px 0 rgba(80,60,20,.08)}
   .tag.gold{background:#FFF6CE;color:#8A5F00;border-color:#FFE29A}
 
   /* 3D 아케이드 버튼 */
   .badge{position:relative;flex:0 0 auto;align-self:center;
-    font-size:.63rem;font-weight:900;line-height:1;padding:.46rem .5rem;border-radius:.74rem;
+    font-size:.78rem;font-weight:900;line-height:1;padding:.5rem .56rem;border-radius:.76rem;
     white-space:nowrap;letter-spacing:-.02em;
     background:linear-gradient(180deg,#9BF3BE,#35C77E);color:#064026;
     box-shadow:0 3px 0 #15995C,0 6px 12px rgba(20,120,80,.24),inset 0 1px 0 rgba(255,255,255,.8);
@@ -222,6 +228,9 @@
   .gcard[data-game="safety"] .badge.go{background:linear-gradient(180deg,#FFCBAC,#FF9A66);color:#5A2208;
     box-shadow:0 3px 0 #DD7944,0 6px 12px rgba(220,110,60,.26),inset 0 1px 0 rgba(255,255,255,.75);
     text-shadow:0 1px 0 rgba(255,255,255,.55)}
+  .gcard[data-game="diary"] .badge.go{background:linear-gradient(180deg,#FFD6E9,#FF9EC8);color:#5A1032;
+    box-shadow:0 3px 0 #E27DAE,0 6px 12px rgba(210,100,160,.26),inset 0 1px 0 rgba(255,255,255,.8);
+    text-shadow:0 1px 0 rgba(255,255,255,.6)}
   a.gcard:active .badge{transform:translateY(2px)}
 
   /* 다음 게임 (민트·라벤더 점선) */
@@ -229,31 +238,31 @@
     border-style:dashed;border-color:#9AD5BF}
   .gcard.sooncard .gmain h3{color:#2A4A5F}
   .soonlist{display:flex;flex-wrap:wrap;gap:.24rem;margin-top:.34rem}
-  .soonlist span{font-size:.62rem;font-weight:900;color:#1C6B4C;background:rgba(255,255,255,.85);
-    border:1px solid #B9E4D0;border-radius:.48rem;padding:.12rem .38rem}
+  .soonlist span{font-size:.78rem;font-weight:900;color:#1C6B4C;background:rgba(255,255,255,.85);
+    border:1px solid #B9E4D0;border-radius:.5rem;padding:.14rem .44rem}
   .badge.wait{background:linear-gradient(180deg,#F2EDFF,#DCD3F4);color:#4A3D74;
     box-shadow:0 3px 0 #B9A9E4,inset 0 1px 0 rgba(255,255,255,.8);text-shadow:0 1px 0 rgba(255,255,255,.7)}
 
   /* ── 약속 ─────────────────────────────── */
   .promise{display:flex;gap:.5rem;align-items:flex-start;
-    margin:.78rem 0 0;padding:.6rem .68rem;border-radius:1rem;
+    margin:.82rem 0 0;padding:.66rem .74rem;border-radius:1rem;
     background:rgba(255,255,255,.92);border:2px dashed #B7E4CE;
     box-shadow:0 3px 0 #DDF1E6}
-  .promise .pico{flex:0 0 auto;font-size:.95rem;line-height:1.2}
-  .promise p{font-size:.7rem;font-weight:700;color:#40566A;line-height:1.5}
+  .promise .pico{flex:0 0 auto;font-size:1.06rem;line-height:1.2}
+  .promise p{font-size:.84rem;font-weight:700;color:#40566A;line-height:1.5}
   .promise b{color:#175E45;background:linear-gradient(180deg,transparent 58%,#CFF3DF 58%);padding:0 .1rem}
 
   /* ── 아래 버튼 (5개) ──────────────────── */
   .acts{display:grid;grid-template-columns:repeat(6,1fr);gap:.44rem;margin:.8rem 0 0}
   .acts a,.acts button{grid-column:span 2;display:flex;flex-direction:column;align-items:center;
-    justify-content:center;gap:.16rem;min-height:3.42rem;padding:.42rem .2rem;border-radius:.95rem;
-    font-size:.68rem;font-weight:900;color:#3B2E6A;line-height:1.2;text-align:center;letter-spacing:-.02em;
+    justify-content:center;gap:.18rem;min-height:3.7rem;padding:.46rem .18rem;border-radius:.95rem;
+    font-size:.8rem;font-weight:900;color:#3B2E6A;line-height:1.22;text-align:center;letter-spacing:-.02em;
     background:linear-gradient(160deg,#FFFFFF,#F6F1FF);border:2px solid #EADFFA;
     box-shadow:0 3px 0 #DCD0F2,0 7px 14px rgba(70,50,130,.08);
     transition:transform .12s ease,box-shadow .12s ease}
   .acts .wide{grid-column:span 3}
   .acts a:active,.acts button:active{transform:translateY(2px);box-shadow:0 1px 0 #DCD0F2}
-  .acts .em{font-size:1.14rem;line-height:1;filter:drop-shadow(0 1px 1px rgba(60,30,90,.16))}
+  .acts .em{font-size:1.3rem;line-height:1;filter:drop-shadow(0 1px 1px rgba(60,30,90,.16))}
   .acts .home{background:linear-gradient(160deg,#4E3BB4,#2C1B72);color:#FFF7DC;border-color:#3C2A93;
     box-shadow:0 3px 0 #1F1150,0 8px 16px rgba(40,20,90,.24)}
   .acts .home:active{box-shadow:0 1px 0 #1F1150}
@@ -270,14 +279,14 @@
     box-shadow:0 3px 0 #B2A0E6,0 7px 14px rgba(90,60,180,.14)}
   .acts .inst:active{box-shadow:0 1px 0 #B2A0E6}
 
-  footer{position:relative;margin:.9rem .1rem 0;text-align:center;font-size:.63rem;font-weight:700;color:#7A8AA0;line-height:1.55}
-  footer .fam{display:block;margin-top:.18rem;font-size:.6rem;letter-spacing:.02em;color:#9AA6B8}
+  footer{position:relative;margin:.95rem .1rem 0;text-align:center;font-size:.74rem;font-weight:700;color:#7A8AA0;line-height:1.55}
+  footer .fam{display:block;margin-top:.2rem;font-size:.7rem;letter-spacing:.02em;color:#9AA6B8}
 
   /* ── 토스트 ───────────────────────────── */
   .toast{position:fixed;left:50%;bottom:calc(1.1rem + env(safe-area-inset-bottom));
     transform:translateX(-50%) translateY(.6rem);
     max-width:calc(100vw - 1.6rem);background:rgba(43,26,99,.97);color:#FFF9E6;border-radius:1.05rem;
-    padding:.56rem .82rem;font-size:.78rem;font-weight:800;line-height:1.4;text-align:center;
+    padding:.6rem .86rem;font-size:.9rem;font-weight:800;line-height:1.42;text-align:center;
     border:1.5px solid rgba(255,215,94,.42);box-shadow:0 8px 24px rgba(30,16,70,.35);
     opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:60}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -289,29 +298,30 @@
     background:linear-gradient(180deg,#FFFEF8,#FFF8E6);
     border:2px solid #FFE6AE;padding:.88rem .86rem .78rem;
     box-shadow:0 -8px 30px rgba(36,20,80,.36)}
-  .instCard h3{margin:0 0 .1rem;font-size:.99rem;font-weight:900;color:#2E2463;letter-spacing:-.03em}
-  .instCard .lead{margin:.12rem 0 .58rem;font-size:.72rem;font-weight:700;color:var(--ink2);line-height:1.45}
+  .instCard h3{margin:0 0 .1rem;font-size:1.12rem;font-weight:900;color:#2E2463;letter-spacing:-.03em}
+  .instCard .lead{margin:.14rem 0 .62rem;font-size:.84rem;font-weight:700;color:var(--ink2);line-height:1.45}
   .steps{list-style:none;margin:0;padding:0;display:grid;gap:.42rem}
   .steps li{display:flex;align-items:center;gap:.46rem;background:#FFFFFF;border:2px solid var(--line);
     border-radius:.78rem;padding:.42rem .5rem;box-shadow:0 2px 0 #F0E9FB}
   .steps .num{flex:0 0 auto;width:1.4rem;height:1.4rem;border-radius:50%;display:grid;place-items:center;
-    background:linear-gradient(180deg,#FFE793,#FFC02E);color:#5A3800;font-size:.72rem;font-weight:900;
+    background:linear-gradient(180deg,#FFE793,#FFC02E);color:#5A3800;font-size:.84rem;font-weight:900;
     box-shadow:0 2px 0 #D49300}
-  .steps .txt{flex:1 1 auto;font-size:.74rem;font-weight:700;color:#2F3C58;line-height:1.35}
-  .steps .ui{flex:0 0 auto;font-size:.95rem}
-  .instTip{margin:.52rem 0 0;font-size:.66rem;font-weight:700;color:#6B7C92;line-height:1.45}
+  .steps .txt{flex:1 1 auto;font-size:.86rem;font-weight:700;color:#2F3C58;line-height:1.38}
+  .steps .ui{flex:0 0 auto;font-size:1.04rem}
+  .instTip{margin:.56rem 0 0;font-size:.8rem;font-weight:700;color:#6B7C92;line-height:1.46}
   .instOk{width:100%;margin-top:.62rem;min-height:2.75rem;border-radius:.85rem;
     background:linear-gradient(180deg,#8BE3FF,#2FA9E0);color:#06304A;
-    font-size:.88rem;font-weight:900;border:2px solid #1E8FC4;
+    font-size:1rem;font-weight:900;border:2px solid #1E8FC4;
     box-shadow:0 4px 0 #1B7FB0,0 8px 16px rgba(20,120,170,.24)}
   .instOk:active{transform:translateY(2px);box-shadow:0 2px 0 #1B7FB0}
 
-  html[lang="en"] .gmain h3{font-size:.91rem;letter-spacing:-.015em}
-  html[lang="en"] .gmain p{font-size:.7rem}
-  html[lang="en"] .hi{font-size:.86rem}
-  html[lang="en"] .hi2{font-size:.73rem}
-  html[lang="en"] .acts a,html[lang="en"] .acts button{font-size:.62rem;letter-spacing:0}
-  html[lang="en"] .sect{font-size:.85rem}
+  html[lang="en"] .gmain h3{font-size:1.14rem;letter-spacing:-.015em}
+  html[lang="en"] .gmain p{font-size:.9rem}
+  html[lang="en"] .tag{font-size:.78rem}
+  html[lang="en"] .hi{font-size:1rem}
+  html[lang="en"] .hi2{font-size:.86rem}
+  html[lang="en"] .acts a,html[lang="en"] .acts button{font-size:.78rem;letter-spacing:0}
+  html[lang="en"] .sect{font-size:1.04rem}
   @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
 </style>
 </head>
@@ -355,7 +365,7 @@
     <p class="hi2" data-en-html="Wire the cables, roll the stars around… which world shall we visit <b>today</b>?">전선을 잇고, 별을 데굴데굴 굴리고… 오늘은 <b>어느 세계로</b> 놀러 갈까요?</p>
   </section>
 
-  <h2 class="sect"><span data-en="🎮 Games to play">🎮 놀 수 있는 게임</span> <span class="cnt" id="gameCount" data-en="3 games · 2 coming">3개 · 준비 중 2개</span></h2>
+  <h2 class="sect"><span data-en="🎮 Games to play">🎮 놀 수 있는 게임</span> <span class="cnt" id="gameCount" data-en="4 Games · 2 Coming">4개 · 준비 중 2개</span></h2>
 
   <div class="games">
     <!-- ① 해미족 전구 켜기 (라이브) -->
@@ -437,7 +447,38 @@
       <span class="badge go" id="badgeSafety" data-en="▶ Play">▶ 바로</span>
     </a>
 
-    <!-- ④ 다음 게임 예고 (누를 수 없음 · ⏳) -->
+    <!-- ④ 다이아몬드 성 탈출 다꾸 (라이브) -->
+    <a class="gcard live" href="../diary/" data-game="diary"
+      aria-label="다이아몬드 성 탈출 다꾸 — 바로 플레이" data-en-aria="Diamond Castle Diary Escape — play now">
+      <span class="art diary" aria-hidden="true">
+        <svg viewBox="0 0 48 48" role="presentation" focusable="false">
+          <defs>
+            <linearGradient id="gDiary" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#FFFDFF"/><stop offset="1" stop-color="#FBE6F6"/>
+            </linearGradient>
+            <linearGradient id="gGem" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#DCD0FF"/><stop offset="1" stop-color="#8C6FE0"/>
+            </linearGradient>
+          </defs>
+          <path d="M15.4 2.8 20.6 7.6 15.4 13.6 10.2 7.6z" fill="url(#gGem)" stroke="#6E52C4" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M10.2 7.6h10.4M15.4 2.9v10.6" stroke="#F4EEFF" stroke-width="1" opacity=".85"/>
+          <rect x="7.8" y="15.4" width="32.4" height="25.4" rx="3.6" fill="url(#gDiary)" stroke="#C77BA8" stroke-width="1.8"/>
+          <path d="M14.2 15.4v25.4" stroke="#D98CB8" stroke-width="1.6"/>
+          <rect x="7.8" y="15.4" width="6.4" height="25.4" rx="3" fill="#F6BBD9" stroke="#C77BA8" stroke-width="1.4"/>
+          <path d="M18.8 23.4h16M18.8 29h16M18.8 34.6h10.4" stroke="#CBB8EA" stroke-width="1.7" stroke-linecap="round"/>
+          <path d="M30.8 15.4v9.8l3.3-2.4 3.3 2.4v-9.8z" fill="#FF9EC8" stroke="#D2699E" stroke-width="1.1" stroke-linejoin="round"/>
+          <path d="M39.6 9.2l1.2 3.1 3.1 1.2-3.1 1.2-1.2 3.1-1.2-3.1-3.1-1.2 3.1-1.2z" fill="#FFE38A" stroke="#E8B62C" stroke-width=".8" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="gmain">
+        <h3 data-en="Diamond Castle Diary Escape">다이아몬드 성 탈출 다꾸</h3>
+        <p data-en="Decorate the diary with Mimi &amp; Theo to escape the castle">미미·테오와 함께 다이어리를 꾸며 다이아몬드 성을 탈출해요</p>
+        <span class="tags"><span class="tag gold" data-en="Escape">방탈출</span><span class="tag" data-en="Stickers">스티커</span><span class="tag" data-en="Diary">다꾸</span></span>
+      </span>
+      <span class="badge go" data-en="▶ Play">▶ 바로</span>
+    </a>
+
+    <!-- ⑤ 다음 게임 예고 (누를 수 없음 · ⏳) -->
     <div class="gcard sooncard" role="note" aria-label="다음 게임을 준비하고 있어요"
       data-en-aria="More games are on the way">
       <span class="art soon" aria-hidden="true">
@@ -537,8 +578,8 @@
     en: '⚡ WattMaker Arcade · Juggling City & Wagle World Games'
   };
   var META_DESC = {
-    ko: '⚡ 와트메이커 게임방 — 저글링 시티 전기 담당 와트메이커가 만든 무료 게임 모음. 해미족 전구 켜기(6단계 전선 퍼즐), 공벌레 우주 미니 파크골프, 와글링 안전 특공대 퀴즈까지. 설치·광고 없이 폰에서 바로.',
-    en: '⚡ WattMaker Arcade — free games from the WattMaker, Juggling City\'s electricity keeper: Hamii Bulb Puzzle (a 6-level wire puzzle), Pillbug Space Mini Golf and the Wagle Safety Squad Quiz. Play on your phone — no install, no ads.'
+    ko: '⚡ 와트메이커 게임방 — 저글링 시티 전기 담당 와트메이커가 만든 무료 게임 모음. 해미족 전구 켜기(6단계 전선 퍼즐), 공벌레 우주 미니 파크골프, 와글링 안전 특공대 퀴즈, 다이아몬드 성 탈출 다꾸까지. 설치·광고 없이 폰에서 바로.',
+    en: '⚡ WattMaker Arcade — free games from the WattMaker, Juggling City\'s electricity keeper: Hamii Bulb Puzzle (a 6-level wire puzzle), Pillbug Space Mini Golf, the Wagle Safety Squad Quiz and Diamond Castle Diary Escape. Play on your phone — no install, no ads.'
   };
 
   function applyLang() {
