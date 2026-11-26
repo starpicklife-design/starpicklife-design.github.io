@@ -429,7 +429,7 @@ p{margin:0}
 
     <nav class="mgrow" aria-label="다른 게임과 와글링 홈으로 가기">
       <a class="mg" href="../" id="homeLink">🏠 와글링 홈</a>
-      <a class="mg" href="../golf-game/" id="golfLink" data-state="soon" aria-label="공벌레 골프 — 준비 중">⛳ 공벌레 골프</a>
+      <a class="mg" href="../golf-game/" id="golfLink" aria-label="공벌레 골프 놀러 가기">⛳ 공벌레 골프</a>
     </nav>
 
     <p class="foot">무료 · 광고 없음 · 기록은 이 기기에만 저장돼요</p>
@@ -1614,27 +1614,29 @@ p{margin:0}
   });
   syncInstallBtn();
 
-  /* ═════════ 다른 게임·와글링 홈으로 (v3) ═════════ */
-  var golfLink = $('#golfLink'), golfReady = false;
-  golfLink.addEventListener('click', function (e) {
-    if (golfReady) return;                 /* 배포되면 그대로 열립니다 */
+  /* ═════════ 다른 게임·와글링 홈으로 (v3) ═════════
+     · 평소에는 아무 요청도 보내지 않습니다(콘솔 404 없음)
+     · 칩을 누를 때만 골프 게임이 있는지 살짝 확인 → 있으면 바로 이동, 아직이면 ‘곧 열려요’ 토스트 */
+  var golfLink = $('#golfLink'), golfState = 'unknown';
+  function golfTap(e) {
+    if (golfState === 'ready') return;                 /* 배포되면 그대로 열립니다 */
     e.preventDefault();
-    toast('🚧 곧 열려요! 준비 중입니다');
-  });
-  function probeGolf() {
-    if (!window.fetch) return;
-    try {
-      fetch('../golf-game/', { method: 'HEAD', cache: 'no-store', credentials: 'omit' })
-        .then(function (r) {
-          if (r && r.ok) {
-            golfReady = true;
-            golfLink.setAttribute('data-state', 'ok');
-            golfLink.setAttribute('aria-label', '공벌레 골프 놀러 가기');
-          }
-        })
-        .catch(function () {});
-    } catch (e) {}
+    if (golfState === 'soon' || !window.fetch) { toast('🚧 곧 열려요! 준비 중입니다'); return; }
+    fetch('../golf-game/', { method: 'HEAD', cache: 'no-store', credentials: 'omit' })
+      .then(function (r) {
+        if (r && r.ok) {
+          golfState = 'ready';
+          location.href = golfLink.href;
+        } else {
+          golfState = 'soon';
+          golfLink.setAttribute('data-state', 'soon');
+          golfLink.setAttribute('aria-label', '공벌레 골프 — 곧 열려요');
+          toast('🚧 곧 열려요! 준비 중입니다');
+        }
+      })
+      .catch(function () { toast('🚧 곧 열려요! 준비 중입니다'); });
   }
+  golfLink.addEventListener('click', golfTap);
 
   /* 폰 뒤로가기: 안내 팝업 → 축하 화면 순서로 닫기 */
   window.addEventListener('popstate', function () {
@@ -1651,7 +1653,6 @@ p{margin:0}
   loadWeather();
   startLevel(level, true);
   setInterval(renderToday, 60 * 1000);
-  probeGolf();
 
   /* 홈 화면 설치를 위해 앱 껍데기만 캐시하는 가벼운 서비스 워커 (실패해도 게임은 그대로) */
   if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
