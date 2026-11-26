@@ -1,0 +1,1986 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content" />
+<meta name="theme-color" content="#FFF1F7" />
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="다이아몬드 성 다꾸" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%23FFF1F7'/%3E%3Cpath d='M32 12l14 12-14 26-14-26z' fill='%23BFE3FF' stroke='%237FB8E8' stroke-width='2.4'/%3E%3Cpath d='M18 24h28M32 12v38' stroke='%237FB8E8' stroke-width='1.6'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&family=Nanum+Pen+Script&display=swap" rel="stylesheet" />
+<!-- build: 2026-11-26 💎 다이아몬드 성 탈출 다꾸 (미미 & 테오) v2
+     · 맨 위 오늘 날짜·요일·날씨(김해 기본, 누르면 현위치 — Open-Meteo 무료)
+     · 오프닝 동화: 다이아몬드 성 비밀 방에 갇힌 미미·테오, 벽 속에 잠든 🌀 차원의 문
+     · 💎 탈출 열쇠 게이지 4단계(속지 고르기·기분 도장·스티커 3개·한 줄 일기) → 🌀 차원의 문 열고 탈출
+     · 탈출 연출: 문이 열리며 소용돌이 포털·미미·테오가 손잡고 폴짝·보석 왕관·영어 칭찬 한마디
+     · 속지 7종(모눈·줄노트·도트·크림·하늘·핑크·다이아몬드 성) · 스티커 27종(자체 SVG, 사람 없음)
+     · 손가락으로 붙이고 옮기고 회전·크기·지우기 · 내 사진 1장 폴라로이드 · 글씨체 3종(OFL)·색 6종·크기 3단
+     · 카드 이미지(PNG) 저장·공유(navigator.share 우선) · 월별 달력·목록 · 날짜별 페이지(여러 장)
+     · 폰 뒤로가기로 모든 팝업·이야기 닫힘 · 기록은 이 기기에만(localStorage) · 외부 라이브러리 0 · 광고 없음 -->
+<title>💎 다이아몬드 성 탈출 다꾸 · 미미 &amp; 테오 다이어리</title>
+<meta name="description" content="다이아몬드 성 비밀 방에 갇힌 미미와 테오. 다이어리를 예쁘게 꾸며 4개의 열쇠를 모으면 숨겨진 차원의 문이 열려요! 속지 7종, 와글링 스티커 27종, 손글씨 일기, 카드 이미지 저장·공유. 무료·광고 없음·기록은 내 기기에만." />
+<style>
+:root{
+  --ink:#4A3547; --ink2:#8A7186; --ink3:#BCA7B7;
+  --pink:#EF6E93; --pink-deep:#D9567E; --pink-soft:#FFEAF2;
+  --gold:#F2B03C; --mint:#4FB3A3; --sky:#5FAEE0; --violet:#8465CE;
+  --card:#FFFFFF; --line:#F2DEE7; --line2:#E7CDD9;
+  --shadow:0 6px 18px rgba(170,110,140,.13);
+}
+html{background:#FFF8F8;font-size:18px;-webkit-text-size-adjust:100%;overflow-x:hidden}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;overflow-x:hidden;color:var(--ink);line-height:1.42;word-break:keep-all;overflow-wrap:break-word;
+  font-family:"Gowun Dodum",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  background:
+    radial-gradient(92% 42% at 8% -8%, #FFE9F3 0%, rgba(255,255,255,0) 62%),
+    radial-gradient(80% 40% at 96% 2%, #EDEAFF 0%, rgba(255,255,255,0) 60%),
+    linear-gradient(180deg,#FFFBF6 0%, #FFF6FA 46%, #F9F6FF 100%) fixed}
+body.lock{overflow:hidden}
+[hidden]{display:none !important}
+button{font-family:inherit;color:inherit;border:0;background:none;cursor:pointer;padding:0}
+button:focus-visible,a:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+p{margin:0}
+a{color:inherit}
+.app{max-width:430px;margin:0 auto;padding:0 .8rem calc(.5rem + env(safe-area-inset-bottom))}
+
+/* ── 날짜·요일·날씨 (모든 앱 공통 기본) ── */
+.datebar{position:sticky;top:0;z-index:30;width:100%;display:flex;align-items:center;justify-content:center;gap:.28rem;
+  margin:calc(.28rem + env(safe-area-inset-top)) 0 .12rem;padding:.38rem .5rem;border-radius:14px;
+  background:rgba(255,255,255,.94);border:1px solid var(--line);font-size:.77rem;font-weight:800;
+  box-shadow:0 3px 10px rgba(170,110,140,.1);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);line-height:1.2}
+.db-date{color:#553B50;white-space:nowrap;letter-spacing:-.01em}
+.db-sep{color:#DCBECF;flex:0 0 auto}
+.db-wx{color:#B9741A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.db-wx.loading{color:var(--ink2)}
+.db-place{font-size:.6rem;font-weight:900;color:#7A5BC0;background:#F1ECFF;padding:.14rem .36rem;border-radius:999px;flex:0 0 auto}
+
+/* ── 머리말 ── */
+.head{display:flex;align-items:center;gap:.4rem;padding:.3rem .05rem .2rem}
+.head .badge{width:2.2rem;height:2.2rem;border-radius:50%;flex:0 0 auto;background:#FBFAFF;
+  box-shadow:inset 0 0 0 2px #DDD2FA,0 3px 8px rgba(150,120,200,.22);overflow:hidden}
+.head .badge svg{width:100%;height:100%;display:block}
+.ttlwrap{flex:1 1 auto;min-width:0}
+.head h1{margin:0;font-family:"Jua","Gowun Dodum",sans-serif;font-weight:400;font-size:1.06rem;letter-spacing:-.02em;color:#4A3547;line-height:1.08;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.head .sub{margin:.08rem 0 0;font-size:.6rem;font-weight:800;color:#9478AE;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chips{display:flex;gap:.2rem;flex:0 0 auto}
+.chip{display:inline-flex;align-items:center;gap:.1rem;padding:.3rem .34rem;border-radius:999px;background:#fff;
+  border:1px solid var(--line);font-size:.6rem;font-weight:900;color:#6E5670;text-decoration:none;line-height:1;
+  box-shadow:0 2px 6px rgba(170,110,140,.1)}
+.chip:active{transform:scale(.96)}
+.chip.ic{padding:.32rem .4rem;font-size:.9rem}
+
+/* ── 날짜 이동 줄 ── */
+.daybar{display:flex;align-items:center;gap:.3rem;padding:.05rem 0 .24rem}
+.dnav{width:2.1rem;height:2.1rem;flex:0 0 auto;border-radius:12px;background:#fff;border:1px solid var(--line);
+  font-size:1.05rem;font-weight:900;color:#8A6480;display:flex;align-items:center;justify-content:center;line-height:1;
+  box-shadow:0 2px 6px rgba(170,110,140,.1)}
+.dnav:disabled{opacity:.35}
+.daymid{flex:1 1 auto;min-width:0;display:flex;align-items:center;gap:.24rem;justify-content:center}
+.daybtn{min-width:0;display:flex;align-items:center;gap:.24rem;padding:.2rem 0}
+.daytxt{font-family:"Jua","Gowun Dodum",sans-serif;font-size:.96rem;color:#45313F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.todaychip{font-size:.56rem;font-weight:900;color:#fff;background:var(--pink);padding:.12rem .3rem;border-radius:999px;flex:0 0 auto}
+.savedtag{font-size:.56rem;font-weight:900;color:#7BA98B;opacity:0;transition:opacity .3s ease;flex:0 0 auto}
+.savedtag.on{opacity:1}
+.recbtn{flex:0 0 auto;padding:.4rem .44rem;border-radius:12px;background:#fff;border:1px solid var(--line);
+  font-size:.66rem;font-weight:900;color:#7A5F76;box-shadow:0 2px 6px rgba(170,110,140,.1);line-height:1}
+
+/* ── 기분 도장 줄 ── */
+.moodbar{display:flex;align-items:center;gap:.28rem;padding:.02rem 0 .3rem}
+.mlabel{font-size:.6rem;font-weight:900;color:var(--ink2);flex:0 0 auto;line-height:1.1}
+.moods{display:flex;gap:.18rem;flex:1 1 auto;min-width:0}
+.mood{flex:1 1 0;min-width:0;height:2.1rem;border-radius:11px;background:#fff;border:1px solid var(--line);
+  font-size:1.02rem;line-height:1;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 6px rgba(170,110,140,.09)}
+.mood.on{background:#FFF0F6;border-color:var(--pink);box-shadow:0 0 0 2px rgba(239,110,147,.18)}
+
+/* ── 💎 탈출 열쇠 게이지 ── */
+.quest{display:flex;flex-direction:column;gap:.2rem;padding:.02rem 0 .34rem;min-height:3.15rem}
+.qrow{display:flex;align-items:center;gap:.28rem;min-height:1.3rem}
+.qbadge{display:inline-flex;align-items:center;gap:.16rem;font-size:.62rem;font-weight:900;color:#6E4E96;
+  background:#F4EEFF;border:1px solid #E2D6FA;border-radius:999px;padding:.14rem .4rem;white-space:nowrap;line-height:1.1}
+.qbadge b{color:#7A4FBF;font-size:.66rem}
+.qhint{margin-left:auto;font-size:.64rem;font-weight:900;color:#7A5F76;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qsteps{display:flex;gap:.2rem}
+.qstep{flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:center;gap:.12rem;padding:.26rem .04rem;
+  border-radius:11px;background:#fff;border:1px solid var(--line);font-size:.62rem;font-weight:900;color:#A08A9C;line-height:1}
+.qstep .qi{font-size:.8rem;filter:grayscale(.6);opacity:.7}
+.qstep.on{background:#FFF8E6;border-color:#F3D38A;color:#A96E00}
+.qstep.on .qi{filter:none;opacity:1}
+.qstep.on::after{content:"✓";color:#E0A21B;font-size:.58rem}
+.escapeBtn{width:100%;padding:.58rem .4rem;border-radius:13px;color:#3B1470;font-family:"Jua",sans-serif;font-size:.9rem;line-height:1.1;
+  background:linear-gradient(180deg,#E3D3FF,#B79CF0);animation:pulseViolet 1.9s infinite;letter-spacing:-.01em}
+@keyframes pulseViolet{0%,100%{box-shadow:0 0 0 0 rgba(160,120,240,.55)}55%{box-shadow:0 0 0 8px rgba(160,120,240,0)}}
+.qdoneRow{display:flex;align-items:center;gap:.3rem}
+.qdone{flex:1 1 auto;font-size:.64rem;font-weight:900;color:#6B4CA8;background:#F4EEFF;border:1px solid #E2D6FA;
+  border-radius:11px;padding:.34rem .45rem;line-height:1.1;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qdone:active{transform:scale(.98)}
+.qnew{flex:0 0 auto;font-size:.64rem;font-weight:900;color:#fff;background:linear-gradient(180deg,#FF9EBB,var(--pink));
+  border-radius:11px;padding:.34rem .5rem;line-height:1.1}
+
+/* ── 종이(다이어리 페이지) ── */
+.paperwrap{padding:.02rem 0}
+.paper{position:relative;height:clamp(300px, calc(100dvh - 436px), 452px);border-radius:18px;overflow:hidden;
+  --pw:358px; --pcell:19px; --plgap:26px; --pline:#E9DCC6; --pdot:#DCCFBA;
+  background-color:var(--pbg,#FFFDF7);
+  box-shadow:0 10px 24px rgba(170,110,140,.16), inset 0 0 0 1px rgba(228,198,212,.8)}
+.paper[data-pat="grid"]{background-image:linear-gradient(var(--pline) 1px,transparent 1px),linear-gradient(90deg,var(--pline) 1px,transparent 1px);background-size:var(--pcell) var(--pcell)}
+.paper[data-pat="lined"]{background-image:repeating-linear-gradient(180deg,transparent 0 calc(var(--plgap) - 1px),var(--pline) calc(var(--plgap) - 1px) var(--plgap))}
+.paper[data-pat="dot"]{background-image:radial-gradient(var(--pdot) 1.5px, transparent 1.7px);background-size:var(--pcell) var(--pcell)}
+.paper[data-pat="diamond"]{background-image:var(--pgrad,none),radial-gradient(circle at 50% 50%, rgba(150,120,225,.4) 1.6px, transparent 1.9px);background-size:100% 100%, var(--pcell) var(--pcell)}
+.paper[data-pat="plain"]{background-image:var(--pgrad,none)}
+.pghead{position:absolute;left:16px;top:12px;right:60px;font-size:.66rem;font-weight:800;color:#A4907C;letter-spacing:-.01em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+.pgmood{position:absolute;right:12px;top:8px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.86);
+  border:1.6px dashed #E8B9CB;display:flex;align-items:center;justify-content:center;font-size:1.26rem;line-height:1;
+  transform:rotate(-8deg);box-shadow:0 2px 6px rgba(170,110,140,.14);pointer-events:none}
+.pgtext{position:absolute;left:0;top:58px;right:0;bottom:8px;width:100%;border:0;outline:none;background:transparent;resize:none;
+  padding:0 16px;font-family:var(--ff,"Gowun Dodum",sans-serif);font-size:calc(var(--fs,17px) * 1);line-height:1.72;
+  color:var(--fc,#4A3547);caret-color:var(--pink);overflow-y:auto}
+.paper[data-font="pen"] .pgtext{font-size:calc(var(--fs,17px) * 1.28);line-height:1.42}
+.paper[data-font="jua"] .pgtext{font-size:calc(var(--fs,17px) * .98);line-height:1.6}
+.pgtext::placeholder{color:#C3B1BE}
+.objs{position:absolute;inset:0;pointer-events:none}
+.obj{position:absolute;width:calc(var(--pw) * var(--base,.215));transform-origin:50% 50%;pointer-events:auto;
+  touch-action:none;-webkit-user-select:none;user-select:none;-webkit-user-drag:none;will-change:transform}
+.obj svg,.obj img{display:block;width:100%;height:auto;pointer-events:none;-webkit-user-drag:none}
+.obj.sel::after{content:"";position:absolute;inset:-6px;border:2px dashed rgba(239,110,147,.85);border-radius:10px;pointer-events:none}
+.pol{background:#fff;padding:6% 6% 0;border-radius:3px;box-shadow:0 4px 12px rgba(120,80,110,.22)}
+.pol img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#EFE6EC}
+.polcap{display:block;text-align:center;font-family:"Nanum Pen Script",cursive;font-size:calc(var(--pw) * .05);
+  color:#8A7186;padding:1% 0 7%;line-height:1.2}
+
+/* ── 도구 줄 ── */
+.tools,.objbar{display:flex;gap:.26rem;padding:.36rem 0 .02rem;min-height:3.1rem}
+.tool{flex:1 1 0;min-width:0;padding:.3rem .05rem;border-radius:13px;background:#fff;border:1px solid var(--line);
+  box-shadow:0 3px 9px rgba(170,110,140,.1);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;
+  font-size:.6rem;font-weight:900;color:#6E5670;line-height:1.1}
+.tool .ic{font-size:.98rem;line-height:1}
+.tool:active{transform:scale(.97)}
+.obtn{flex:1 1 0;min-width:0;padding:.46rem .04rem;border-radius:13px;background:#fff;border:1px solid var(--line);
+  box-shadow:0 3px 9px rgba(170,110,140,.1);display:flex;align-items:center;justify-content:center;
+  font-size:.6rem;font-weight:900;color:#6E5670;line-height:1.1;white-space:nowrap}
+.obtn.del{color:#C94A64;background:#FFF2F5;border-color:#F6D2DB}
+.obtn.done{color:#fff;background:linear-gradient(180deg,#FFA3BE,var(--pink));border-color:transparent}
+.bigsave{width:100%;margin-top:.4rem;padding:.6rem .5rem;border-radius:15px;color:#fff;
+  font-family:"Jua","Gowun Dodum",sans-serif;font-size:.94rem;letter-spacing:-.01em;
+  background:linear-gradient(180deg,#FF9EBB,#EF6E93);box-shadow:0 8px 18px rgba(239,110,147,.3);
+  display:flex;align-items:center;justify-content:center;gap:.3rem}
+.bigsave:active{transform:scale(.985)}
+.foot{margin:.36rem 0 .1rem;text-align:center;font-size:.58rem;font-weight:700;color:#B49EAE;line-height:1.35}
+
+/* ── 팝업(바텀시트) ── */
+.sheetWrap{position:fixed;inset:0;z-index:60;display:flex;align-items:flex-end;justify-content:center;
+  background:rgba(74,53,71,.34);opacity:0;transition:opacity .18s ease}
+.sheetWrap.on{opacity:1}
+.sheet{width:100%;max-width:430px;background:#FFFCFE;border-radius:20px 20px 0 0;
+  padding:.65rem .8rem calc(.8rem + env(safe-area-inset-bottom));max-height:88dvh;overflow-y:auto;
+  transform:translateY(16px);transition:transform .2s ease;box-shadow:0 -8px 26px rgba(120,80,110,.24)}
+.sheetWrap.on .sheet{transform:none}
+.sheet .sh{display:flex;align-items:center;gap:.3rem}
+.sheet h2{margin:0;font-family:"Jua","Gowun Dodum",sans-serif;font-weight:400;font-size:1rem;color:#45313F;line-height:1.2}
+.sheet .x{margin-left:auto;width:2rem;height:2rem;flex:0 0 auto;border-radius:50%;background:#FFF0F5;color:#B0637F;font-size:.86rem;line-height:1}
+.sheet .lead{margin:.26rem 0 .5rem;font-size:.68rem;font-weight:700;color:var(--ink2);line-height:1.35}
+.papers{display:grid;grid-template-columns:repeat(3,1fr);gap:.38rem}
+.psw{border-radius:14px;border:2px solid transparent;background:#fff;padding:.26rem;box-shadow:0 3px 8px rgba(170,110,140,.1)}
+.psw .sw{height:54px;border-radius:10px;border:1px solid rgba(160,120,140,.14);display:block}
+.psw .nm{display:block;text-align:center;font-size:.62rem;font-weight:900;color:#6E5670;margin-top:.16rem;line-height:1.15}
+.psw.on{border-color:var(--pink);box-shadow:0 0 0 3px rgba(239,110,147,.16)}
+.sw[data-pat="grid"]{background-color:#FFFDF7;background-image:linear-gradient(#E9DCC6 1px,transparent 1px),linear-gradient(90deg,#E9DCC6 1px,transparent 1px);background-size:10px 10px}
+.sw[data-pat="lined"]{background-color:#FFFEFC;background-image:repeating-linear-gradient(180deg,transparent 0 8px,#DCE7F2 8px 9px)}
+.sw[data-pat="dot"]{background-color:#FFFEFA;background-image:radial-gradient(#DCCFBA 1.2px,transparent 1.4px);background-size:10px 10px}
+.sw[data-pat="diamond"]{background-image:linear-gradient(180deg,#F3EDFF,#FDFAFF),radial-gradient(circle at 50% 50%,rgba(150,120,225,.5) 1.3px,transparent 1.6px);background-size:100% 100%,10px 10px}
+.sw[data-pat="plain"][data-p="cream"]{background-image:linear-gradient(180deg,#FFF9EE,#FFF1DC)}
+.sw[data-pat="plain"][data-p="sky"]{background-image:linear-gradient(180deg,#E4F1FF,#F8FCFF)}
+.sw[data-pat="plain"][data-p="pink"]{background-image:linear-gradient(180deg,#FFE7F1,#FFF9FC)}
+.stgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:.34rem;margin-top:.1rem}
+.st{aspect-ratio:1;border-radius:14px;background:#FFF8FB;border:1px solid #F6E2EA;display:flex;align-items:center;justify-content:center;
+  padding:6px;box-shadow:0 2px 6px rgba(170,110,140,.08)}
+.st svg{width:100%;height:100%;display:block}
+.st:active{transform:scale(.94);background:#FFEFF5}
+.pills,.sizes{display:flex;gap:.28rem;margin:.05rem 0 .5rem}
+.pill{flex:1 1 0;min-width:0;padding:.46rem .1rem;border-radius:12px;background:#fff;border:1px solid var(--line);
+  font-size:.74rem;font-weight:900;color:#6E5670;line-height:1.1;text-align:center}
+.pill.on{background:#FFF0F6;border-color:var(--pink);color:#C2557A;box-shadow:0 0 0 2px rgba(239,110,147,.16)}
+.colors{display:flex;gap:.36rem;margin:.05rem 0 .1rem}
+.cdot{flex:1 1 0;height:2.2rem;border-radius:12px;border:2px solid transparent;box-shadow:inset 0 0 0 1px rgba(255,255,255,.5),0 2px 6px rgba(170,110,140,.12)}
+.cdot.on{border-color:#fff;box-shadow:0 0 0 3px rgba(239,110,147,.3)}
+.prevbox{margin:.3rem 0 .55rem;border-radius:16px;background:#FFF4F8;border:1px solid var(--line);padding:.4rem;
+  display:flex;align-items:center;justify-content:center;min-height:7rem}
+.prevbox img{max-width:100%;max-height:40dvh;border-radius:10px;display:block;box-shadow:0 6px 16px rgba(150,100,130,.2)}
+.prevbox .ph{font-size:.74rem;font-weight:800;color:var(--ink2);text-align:center;line-height:1.4}
+.savebtns{display:flex;gap:.36rem}
+.sbtn{flex:1 1 0;padding:.72rem .2rem;border-radius:14px;font-family:"Jua","Gowun Dodum",sans-serif;font-size:.9rem;line-height:1.1;
+  display:flex;align-items:center;justify-content:center;gap:.22rem}
+.sbtn.pri{background:linear-gradient(180deg,#FF9EBB,#EF6E93);color:#fff;box-shadow:0 7px 16px rgba(239,110,147,.28)}
+.sbtn.ghost{background:#fff;border:1px solid var(--line2);color:#6E5670}
+.calhead{display:flex;align-items:center;gap:.3rem;margin:.1rem 0 .3rem}
+.calhead .cm{flex:1 1 auto;text-align:center;font-family:"Jua",sans-serif;font-size:.92rem;color:#45313F}
+.calnav{width:1.85rem;height:1.85rem;border-radius:10px;background:#fff;border:1px solid var(--line);color:#8A6480;font-weight:900;line-height:1}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:.14rem}
+.wd{text-align:center;font-size:.56rem;font-weight:900;color:#B49EAE;padding:.08rem 0}
+.wd.sun{color:#D9708C}
+.cd{aspect-ratio:1;width:100%;border-radius:10px;background:#fff;border:1px solid #F5E6EC;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;font-size:.64rem;font-weight:900;color:#7B6274;line-height:1;padding:0}
+.cd.has{background:#FFF0F6;border-color:#F6CCDB;color:#C2557A}
+.cd.today{box-shadow:inset 0 0 0 2px var(--pink)}
+.cd .cm{font-size:.6rem;line-height:1;margin-top:.1rem}
+.cd.blank{background:transparent;border:0;box-shadow:none}
+.reclist{margin:.45rem 0 .1rem;border-top:1px dashed var(--line2);padding-top:.38rem}
+.recrow{width:100%;display:flex;align-items:center;gap:.36rem;padding:.4rem .32rem;border-radius:12px;background:#fff;
+  border:1px solid var(--line);margin-bottom:.28rem;text-align:left}
+.recrow .rd{flex:0 0 auto;font-size:.64rem;font-weight:900;color:#B0637F;width:3.4rem}
+.recrow .rt{flex:1 1 auto;min-width:0;font-size:.7rem;font-weight:700;color:#6E5670;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.recempty{font-size:.7rem;font-weight:700;color:var(--ink3);padding:.45rem .2rem;text-align:center;line-height:1.5}
+.instSteps{list-style:none;margin:.15rem 0 .45rem;padding:0}
+.instSteps li{display:flex;align-items:center;gap:.45rem;padding:.46rem .15rem;border-bottom:1px dashed #F5E6EC;font-size:.76rem;font-weight:700;color:#5C465A;line-height:1.35}
+.instSteps .num{flex:0 0 auto;width:1.45rem;height:1.45rem;border-radius:50%;background:#FFEAF2;color:#C2557A;font-weight:900;font-size:.72rem;display:flex;align-items:center;justify-content:center}
+.instSteps .txt{flex:1 1 auto;min-width:0}
+.instSteps .ui{flex:0 0 auto;font-size:.96rem}
+.instTip{font-size:.66rem;font-weight:700;color:var(--ink2);line-height:1.4;margin:.05rem 0 .45rem}
+.instChrome{display:block;text-align:center;padding:.56rem;border-radius:13px;background:#EAF4FF;color:#20649B;font-size:.78rem;font-weight:900;text-decoration:none;margin-bottom:.36rem}
+.instOk{width:100%;padding:.7rem;border-radius:14px;background:linear-gradient(180deg,#FF9EBB,#EF6E93);color:#fff;font-family:"Jua",sans-serif;font-size:.94rem}
+
+/* ── 이야기(오프닝·탈출) ── */
+.storyWrap{position:fixed;inset:0;z-index:70;display:flex;align-items:center;justify-content:center;
+  padding:calc(.6rem + env(safe-area-inset-top)) .7rem calc(.6rem + env(safe-area-inset-bottom));
+  background:linear-gradient(180deg,#251C3C 0%,#43306E 52%,#6B4FA8 100%);
+  opacity:0;transition:opacity .22s ease;overflow-y:auto}
+.storyWrap.on{opacity:1}
+.storyWrap.esc{background:radial-gradient(90% 62% at 50% 26%,#7E63BE 0%,#3A2B58 74%)}
+.storyWrap.esc .scene{max-width:336px}
+.story{position:relative;width:100%;max-width:400px;text-align:center;color:#FFF7EE;margin:auto}
+.storyX{position:absolute;right:0;top:-.3rem;width:1.9rem;height:1.9rem;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;font-size:.8rem;line-height:1}
+.storyTop{margin:.1rem 0 .45rem;font-size:.68rem;font-weight:900;color:#FFE6A8;letter-spacing:.02em}
+.scene{position:relative;width:100%;max-width:300px;aspect-ratio:300/220;margin:.05rem auto .5rem}
+.sceneArt{position:absolute;inset:0}
+.sceneArt svg{width:100%;height:100%;display:block}
+.gate{position:absolute;left:35%;bottom:0;width:30%;height:40.9%;overflow:hidden;
+  border-radius:50% 50% 0 0/50% 50% 0 0;box-shadow:0 0 0 3px #8E70C8,0 0 18px rgba(150,110,235,.55);background:#3A2A5E}
+.portal{position:absolute;inset:0;border-radius:50% 50% 0 0/50% 50% 0 0;overflow:hidden;
+  background:radial-gradient(circle at 50% 46%,#FFFFFF 0%,#F4ECFF 13%,#CDB2F7 34%,#8460CE 64%,#3D2678 98%);
+  opacity:0;transition:opacity .55s ease}
+.portal i{position:absolute;border-radius:50%;border:3px solid rgba(255,255,255,.85);
+  border-left-color:transparent;border-bottom-color:transparent;box-shadow:0 0 8px rgba(255,255,255,.45)}
+.portal i:nth-child(1){inset:13%;animation:spin 2.4s linear infinite}
+.portal i:nth-child(2){inset:23%;border:2.5px dashed rgba(255,255,255,.7);box-shadow:none;animation:spin 4.2s linear infinite reverse}
+.portal i:nth-child(3){inset:36%;border:3px solid #FFFFFF;border-right-color:transparent;border-bottom-color:transparent;animation:spin 1.6s linear infinite reverse}
+.portal b{position:absolute;left:50%;top:46%;width:15%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle,#FFFFFF 15%,#E9DCFF 62%,rgba(233,220,255,0) 100%);box-shadow:0 0 16px rgba(255,255,255,.9)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.doorP{position:absolute;top:0;bottom:0;width:51%;background:linear-gradient(180deg,#B69BE8,#7A5CBE);
+  transition:transform .95s cubic-bezier(.3,.8,.3,1),opacity .95s ease;box-shadow:inset 0 0 0 2px rgba(255,255,255,.14)}
+.doorP::before{content:"";position:absolute;inset:16% 16% 12% 16%;border:2px solid rgba(255,255,255,.32);border-radius:8px}
+.doorP::after{content:"";position:absolute;left:50%;top:52%;width:6px;height:6px;margin:-3px 0 0 -3px;
+  background:#FFE9A8;transform:rotate(45deg)}
+.doorL{left:0;transform-origin:left center}
+.doorR{right:0;transform-origin:right center}
+.scene.open .doorL{transform:translateX(-104%) rotate(-7deg);opacity:.9}
+.scene.open .doorR{transform:translateX(104%) rotate(7deg);opacity:.9}
+.scene.open .portal{opacity:1;animation:portalPulse 2.6s ease-in-out infinite}
+@keyframes portalPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.glowWrap{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.gateGlow{position:absolute;left:24%;bottom:-10%;width:52%;height:62%;
+  background:radial-gradient(ellipse at 50% 74%,rgba(255,253,232,1),rgba(255,216,126,.72) 34%,rgba(206,172,255,.3) 56%,rgba(206,172,255,0) 74%);
+  opacity:0;transition:opacity .7s ease;pointer-events:none;filter:blur(2px)}
+.scene.open .gateGlow{opacity:1}
+.hero{position:absolute;bottom:0;width:23%;animation:bob 2.4s infinite ease-in-out}
+.hero svg{width:100%;height:auto;display:block;filter:drop-shadow(0 4px 6px rgba(0,0,0,.22))}
+.heroL{left:0}
+.heroR{right:0;animation-delay:.5s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.scene.open .heroL{animation:hopInL 1.75s .7s cubic-bezier(.4,0,.6,1) forwards}
+.scene.open .heroR{animation:hopInR 1.75s .7s cubic-bezier(.4,0,.6,1) forwards}
+@keyframes hopInL{
+  0%{transform:translate(0,0) rotate(0)}
+  26%{transform:translate(20%,-20px) rotate(8deg)}
+  52%{transform:translate(40%,0) rotate(-5deg)}
+  78%{transform:translate(58%,-15px) rotate(6deg)}
+  100%{transform:translate(58%,0) rotate(0)}
+}
+@keyframes hopInR{
+  0%{transform:translate(0,0) rotate(0)}
+  26%{transform:translate(-20%,-20px) rotate(-8deg)}
+  52%{transform:translate(-40%,0) rotate(5deg)}
+  78%{transform:translate(-58%,-15px) rotate(-6deg)}
+  100%{transform:translate(-58%,0) rotate(0)}
+}
+.scene.open .heroL svg{animation:joyHop .85s 2.5s infinite ease-in-out}
+.scene.open .heroR svg{animation:joyHop .95s 2.7s infinite ease-in-out reverse}
+@keyframes joyHop{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-9px) rotate(4deg)}}
+.heartFly{position:absolute;left:50%;bottom:24%;transform:translate(-50%,0) scale(.4);opacity:0;font-size:1.5rem;line-height:1}
+.scene.open .heartFly{animation:heartUp 2.2s 2.5s ease-out forwards}
+@keyframes heartUp{0%{opacity:0;transform:translate(-50%,10px) scale(.4)}35%{opacity:1}100%{opacity:0;transform:translate(-50%,-56px) scale(1.15)}}
+.crownBox{position:absolute;left:50%;top:34%;width:15%;transform:translate(-50%,-14px) scale(.5);opacity:0}
+.crownBox svg{width:100%;height:auto;display:block}
+.scene.open .crownBox{animation:crownPop 1s 2.3s ease-out forwards}
+@keyframes crownPop{0%{opacity:0;transform:translate(-50%,-14px) scale(.5)}60%{opacity:1;transform:translate(-50%,0) scale(1.12)}100%{opacity:1;transform:translate(-50%,0) scale(1)}}
+.sparks{position:absolute;inset:0;pointer-events:none}
+.sparks span{position:absolute;color:#FFE9A8;font-size:.72rem;opacity:.2;animation:tw 2.8s infinite ease-in-out}
+@keyframes tw{0%,100%{opacity:.12;transform:scale(.75)}50%{opacity:1;transform:scale(1.2)}}
+.sceneCap{margin:0 0 .4rem;font-size:.7rem;font-weight:800;color:#D5C7F2;line-height:1.35}
+.storyTxt{font-size:.84rem;line-height:1.66;color:#F3EBFF;margin:.15rem 0 .35rem}
+.storyTxt b{color:#FFE6A8}
+.storySay{margin:.15rem 0 .7rem;padding:.55rem .68rem;border-radius:14px;background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,233,168,.42);font-size:.86rem;font-weight:900;color:#FFF5DC;line-height:1.45}
+.storyGo{width:100%;padding:.74rem;border-radius:15px;background:linear-gradient(180deg,#FFE9A3,#FFBE3D);color:#4A2C00;
+  font-family:"Jua",sans-serif;font-size:.96rem;box-shadow:0 10px 22px rgba(0,0,0,.3)}
+.storySkip{display:block;width:100%;margin-top:.4rem;padding:.45rem;border-radius:12px;color:#D9CFF2;font-size:.7rem;font-weight:800;text-decoration:underline}
+.praiseEn{font-family:"Jua",sans-serif;font-size:1.42rem;color:#FFE9A8;margin:.05rem 0 0;text-shadow:0 3px 10px rgba(0,0,0,.32);line-height:1.2}
+.praiseKo{font-size:.8rem;font-weight:800;color:#F3EBFF;margin:.15rem 0 .2rem;line-height:1.4}
+.escStats{font-size:.62rem;font-weight:800;color:#C9B9E8;margin:0 0 .6rem;line-height:1.4}
+
+/* ── 토스트 ── */
+.toast{position:fixed;left:50%;bottom:calc(1.1rem + env(safe-area-inset-bottom));transform:translateX(-50%);
+  background:#FFFFFF;color:#4A3547;padding:.5rem .85rem;border-radius:14px;font-size:.74rem;font-weight:800;
+  z-index:90;max-width:86vw;text-align:center;box-shadow:0 8px 22px rgba(160,110,140,.3);border:1px solid var(--line);
+  opacity:0;transition:opacity .22s ease;pointer-events:none;line-height:1.35}
+.toast.on{opacity:1}
+
+@media (max-width:372px){
+  html{font-size:17px}
+  .head h1{font-size:1rem}
+  .chip{padding:.28rem .3rem;font-size:.56rem}
+  .daytxt{font-size:.9rem}
+  .paper{height:clamp(290px, calc(100dvh - 416px), 452px)}
+  .qstep{font-size:.54rem}
+}
+@media (max-height:740px){
+  .storyTxt{font-size:.72rem;line-height:1.5}
+  .scene{max-width:250px}
+  .storyTop{margin-bottom:.25rem}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- 오늘 날짜·요일·날씨 (모든 앱 공통 기본) -->
+  <button type="button" class="datebar" id="todayCard" aria-label="오늘 날짜와 날씨 — 누르면 현위치 날씨로 새로고침">
+    <span class="db-date" id="todayDate">오늘</span>
+    <span class="db-sep" aria-hidden="true">·</span>
+    <span class="db-wx loading" id="todayWx">날씨 확인 중</span>
+    <span class="db-sep" aria-hidden="true">·</span>
+    <span class="db-place" id="wxPlace">김해</span>
+  </button>
+
+  <header class="head">
+    <div class="badge" id="headBadge" aria-hidden="true"></div>
+    <div class="ttlwrap">
+      <h1>다이아몬드 성</h1>
+      <p class="sub">미미 &amp; 테오 탈출 다꾸</p>
+    </div>
+    <div class="chips">
+      <button type="button" class="chip ic" id="storyBtn" aria-label="이야기 다시 보기">📖</button>
+      <a class="chip ic" href="../" aria-label="와글링 홈으로 가기">🏠</a>
+      <button type="button" class="chip ic" id="shareBtn" aria-label="이 앱 링크 공유하기">📤</button>
+      <button type="button" class="chip ic" id="installBtn" aria-label="폰 홈 화면에 바로가기 추가하기">📲</button>
+    </div>
+  </header>
+
+  <div class="daybar">
+    <button type="button" class="dnav" id="prevDay" aria-label="이전 날짜 보기">‹</button>
+    <div class="daymid">
+      <button type="button" class="daybtn" id="dayLabel" aria-label="오늘로 돌아가기">
+        <span class="daytxt" id="dayTxt">11월 26일 목요일</span>
+        <span class="todaychip" id="todayChip">오늘</span>
+      </button>
+      <span class="savedtag" id="savedTag">저장됨 ✓</span>
+    </div>
+    <button type="button" class="dnav" id="nextDay" aria-label="다음 날짜 보기">›</button>
+    <button type="button" class="recbtn" id="recBtn" aria-label="월별 기록 달력과 목록 보기">📅 기록</button>
+  </div>
+
+  <div class="moodbar">
+    <span class="mlabel">오늘 기분</span>
+    <div class="moods" id="moods" role="group" aria-label="오늘 기분 도장 고르기"></div>
+  </div>
+
+  <!-- 💎 탈출 열쇠 게이지 -->
+  <div class="quest" id="quest">
+    <div class="qrow" id="qRow">
+      <span class="qbadge">💎 탈출 열쇠 <b id="qCount">0/4</b></span>
+      <span class="qhint" id="qHint">다음: 속지 고르기</span>
+    </div>
+    <div class="qsteps" id="qSteps" role="group" aria-label="탈출 열쇠 4단계"></div>
+    <button type="button" class="escapeBtn" id="escapeBtn" hidden>🌀 차원의 문 열고 탈출하기!</button>
+    <div class="qdoneRow" id="qDoneRow" hidden>
+      <button type="button" class="qdone" id="replayEsc" aria-label="탈출 연출 다시 보기">💎 탈출 완료! 차원의 문이 활짝 열렸어요 🔁</button>
+      <button type="button" class="qnew" id="newPageBtn">📖 새 페이지</button>
+    </div>
+  </div>
+
+  <main class="paperwrap">
+    <div class="paper" id="paper" data-pat="grid">
+      <div class="pghead" id="pgDate">11월 26일 목요일</div>
+      <div class="pgmood" id="pgMood" hidden>😊</div>
+      <textarea id="pgText" class="pgtext" maxlength="2000" spellcheck="false"
+        placeholder="오늘 하루는 어땠나요?&#10;편하게 적어 보세요 🐹"></textarea>
+      <div class="objs" id="objs"></div>
+    </div>
+  </main>
+
+  <div class="tools" id="tools">
+    <button type="button" class="tool" id="paperBtn" aria-label="다이어리 속지 고르기"><span class="ic">📄</span>속지</button>
+    <button type="button" class="tool" id="stickerBtn" aria-label="와글링 스티커 붙이기"><span class="ic">🧸</span>스티커</button>
+    <button type="button" class="tool" id="photoBtn" aria-label="내 사진 한 장 붙이기"><span class="ic">📷</span>사진</button>
+    <button type="button" class="tool" id="textBtn" aria-label="글씨체와 색 고르기"><span class="ic">✍️</span>글씨</button>
+  </div>
+
+  <div class="objbar" id="objbar" hidden>
+    <button type="button" class="obtn" id="rotBtn" aria-label="조금 돌리기">↻ 돌리기</button>
+    <button type="button" class="obtn" id="smallBtn" aria-label="작게">➖ 작게</button>
+    <button type="button" class="obtn" id="bigBtn" aria-label="크게">➕ 크게</button>
+    <button type="button" class="obtn del" id="delBtn" aria-label="지우기">🗑 지우기</button>
+    <button type="button" class="obtn done" id="doneBtn" aria-label="꾸미기 마치기">✓ 완료</button>
+  </div>
+
+  <button type="button" class="bigsave" id="saveOpen">🖼️ 이미지로 저장 · 공유</button>
+  <p class="foot">무료 · 광고 없음 · 일기는 이 기기에만 저장돼요</p>
+</div>
+
+<input type="file" id="photoInput" accept="image/*" hidden />
+
+<!-- 📄 속지 고르기 -->
+<div class="sheetWrap" id="lyPaper" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="tPaper">
+    <div class="sh">
+      <h2 id="tPaper">📄 다이어리 속지</h2>
+      <button type="button" class="x" data-close aria-label="속지 고르기 닫기">✕</button>
+    </div>
+    <p class="lead">마음에 드는 종이를 눌러 보세요. 바로 바뀌어요.</p>
+    <div class="papers" id="paperList"></div>
+    <p class="lead" style="margin-top:.5rem">바꾼 속지는 그날 일기에 그대로 저장돼요.</p>
+  </div>
+</div>
+
+<!-- 🧸 스티커 서랍 -->
+<div class="sheetWrap" id="lySticker" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="tSticker">
+    <div class="sh">
+      <h2 id="tSticker">🧸 와글링 스티커</h2>
+      <button type="button" class="x" data-close aria-label="스티커 서랍 닫기">✕</button>
+    </div>
+    <p class="lead">누르면 종이에 붙어요. 손가락으로 옮기고 돌려 보세요.</p>
+    <div class="stgrid" id="stickerList"></div>
+  </div>
+</div>
+
+<!-- ✍️ 글씨 -->
+<div class="sheetWrap" id="lyText" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="tText">
+    <div class="sh">
+      <h2 id="tText">✍️ 글씨 모양</h2>
+      <button type="button" class="x" data-close aria-label="글씨 설정 닫기">✕</button>
+    </div>
+    <p class="lead">글씨체</p>
+    <div class="pills" id="fontPills"></div>
+    <p class="lead">글씨 크기</p>
+    <div class="sizes" id="sizePills"></div>
+    <p class="lead">글씨 색</p>
+    <div class="colors" id="colorDots"></div>
+  </div>
+</div>
+
+<!-- 🖼️ 이미지로 저장·공유 -->
+<div class="sheetWrap" id="lySave" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="tSave">
+    <div class="sh">
+      <h2 id="tSave">🖼️ 다꾸 카드 만들기</h2>
+      <button type="button" class="x" data-close aria-label="저장·공유 닫기">✕</button>
+    </div>
+    <p class="lead" id="saveStatus">카드를 만드는 중이에요…</p>
+    <div class="prevbox" id="savePrevBox">
+      <div class="ph" id="savePrevPh">잠깐만 기다려 주세요…</div>
+      <img id="savePrev" alt="" hidden />
+    </div>
+    <div class="savebtns">
+      <button type="button" class="sbtn ghost" id="shBtn">📤 공유</button>
+      <button type="button" class="sbtn pri" id="dlBtn">💾 저장</button>
+    </div>
+    <p class="lead" style="margin-top:.45rem">저장하면 폰의 사진첩이나 다운로드 폴더에 PNG로 들어가요.</p>
+  </div>
+</div>
+
+<!-- 📅 기록 -->
+<div class="sheetWrap" id="lyRec" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="tRec">
+    <div class="sh">
+      <h2 id="tRec">📅 나의 기록</h2>
+      <button type="button" class="x" data-close aria-label="기록 닫기">✕</button>
+    </div>
+    <div class="calhead">
+      <button type="button" class="calnav" id="recPrev" aria-label="이전 달">‹</button>
+      <span class="cm" id="recTitle">2026년 11월</span>
+      <button type="button" class="calnav" id="recNext" aria-label="다음 달">›</button>
+    </div>
+    <div class="cal" id="calGrid"></div>
+    <div class="reclist" id="recList"></div>
+  </div>
+</div>
+
+<!-- 📲 홈 화면에 바로가기 -->
+<div class="sheetWrap" id="lyInstall" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="tInstall">
+    <div class="sh">
+      <h2 id="tInstall">📲 홈 화면에 바로가기</h2>
+      <button type="button" class="x" data-close id="instX" aria-label="안내 닫기">✕</button>
+    </div>
+    <p class="lead">아이콘을 한 번 꺼내 두면 다음부터 앱처럼 바로 열려요. 새로 받는 파일은 없어요.</p>
+    <ol class="instSteps" id="instSteps"></ol>
+    <p class="instTip" id="instTip"></p>
+    <a class="instChrome" id="instChrome" href="#" hidden>🌐 크롬으로 바로 열기</a>
+    <button type="button" class="instOk" id="instOk">확인했어요</button>
+  </div>
+</div>
+
+<!-- 🌀 오프닝 이야기 -->
+<div class="storyWrap" id="lyIntro" hidden>
+  <div class="story" role="dialog" aria-modal="true" aria-labelledby="tIntro">
+    <button type="button" class="storyX" data-close aria-label="이야기 닫기">✕</button>
+    <p class="storyTop" id="tIntro">💎 다이아몬드 성에서 온 초대장</p>
+    <div class="scene" id="introScene"></div>
+    <p class="sceneCap" id="introCap">🌀 비밀 방 벽 속에 차원의 문이 잠들어 있어요</p>
+    <p class="storyTxt">반짝이는 <b>다이아몬드 성</b>에 초대받은 <b>미미와 테오</b>.<br>
+      구경하다가 비밀 방에 <b>둘이 갇혀 버렸어요!</b><br>
+      그런데 벽 속에서 무언가가 반짝여요…</p>
+    <p class="storySay">"다이아몬드 성 비밀 방 어딘가에 숨겨진 <b>🌀 차원의 문</b>!<br>
+      다이어리를 다 꾸며야 차원의 문이 열려요 💎"</p>
+    <button type="button" class="storyGo" id="introGo">📖 다이어리 꾸미기 시작</button>
+    <button type="button" class="storySkip" id="introSkip" data-close>오늘은 그냥 꾸밀래요</button>
+  </div>
+</div>
+
+<!-- 🔓 탈출 성공 -->
+<div class="storyWrap esc" id="lyEscape" hidden>
+  <div class="story" role="dialog" aria-modal="true" aria-labelledby="tEsc">
+    <button type="button" class="storyX" data-close aria-label="탈출 화면 닫기">✕</button>
+    <p class="storyTop" id="tEsc">🌀 차원의 문이 열렸어요!</p>
+    <div class="scene open" id="escScene"></div>
+    <p class="praiseEn" id="escEn">You did it! 💎</p>
+    <p class="praiseKo" id="escKo">미미와 테오가 손을 잡고 차원의 문으로 폴짝! 다이아몬드 성을 나왔어요.</p>
+    <p class="escStats" id="escStats"></p>
+    <button type="button" class="storyGo" id="escSave">🖼️ 꾸민 다이어리 저장하기</button>
+    <button type="button" class="storySkip" id="escNext">➡️ 다음 페이지 자유롭게 꾸미기</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (s) { return document.querySelector(s); };
+
+  /* ═════════════ 공통: 날짜 ═════════════ */
+  var KO_DOW = ['일', '월', '화', '수', '목', '금', '토'];
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+  function keyOf(d) { return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
+  function dateKeyOf(k) { return String(k).split('#')[0]; }
+  function pageNoOf(k) { var p = String(k).split('#'); return p[1] ? parseInt(p[1], 10) || 2 : 1; }
+  function parseKey(k) { var a = dateKeyOf(k).split('-'); return new Date(+a[0], +a[1] - 1, +a[2]); }
+  function todayDate() { var d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+  function todayKey() { return keyOf(todayDate()); }
+  function barDate(d) { return (d.getMonth() + 1) + '월 ' + d.getDate() + '일 (' + KO_DOW[d.getDay()] + ')'; }
+  function shortDate(d) { return (d.getMonth() + 1) + '월 ' + d.getDate() + '일 ' + KO_DOW[d.getDay()] + '요일'; }
+  function isToday(k) { return dateKeyOf(k) === todayKey(); }
+
+  /* ═════════════ 날짜·요일·날씨 (모든 앱 공통 기본) ═════════════ */
+  var WMO = {
+    0: ['☀️', '맑음'], 1: ['🌤️', '대체로 맑음'], 2: ['⛅', '구름 조금'], 3: ['☁️', '흐림'],
+    45: ['🌫️', '안개'], 48: ['🌫️', '안개'],
+    51: ['🌦️', '이슬비'], 53: ['🌦️', '이슬비'], 55: ['🌦️', '이슬비'],
+    56: ['🌧️', '어는 비'], 57: ['🌧️', '어는 비'],
+    61: ['🌧️', '비'], 63: ['🌧️', '비'], 65: ['🌧️', '비'],
+    66: ['🌧️', '어는 비'], 67: ['🌧️', '어는 비'],
+    71: ['🌨️', '눈'], 73: ['🌨️', '눈'], 75: ['🌨️', '눈'], 77: ['🌨️', '눈'],
+    80: ['🌦️', '소나기'], 81: ['🌦️', '소나기'], 82: ['🌧️', '소나기'],
+    85: ['🌨️', '눈 소나기'], 86: ['🌨️', '눈 소나기'],
+    95: ['⛈️', '천둥번개'], 96: ['⛈️', '천둥번개'], 99: ['⛈️', '천둥번개']
+  };
+  var WX_DEFAULT = { lat: 35.23, lon: 128.89, place: '김해' };
+  var LS_WX = 'wagleDiary.wx';
+  var wxNow = null, wxAt = 0, wxBusy = false, wxSeq = 0, wxRank = 0, wxPlace = WX_DEFAULT.place, wxFailed = false;
+  var WX_TTL = 20 * 60 * 1000;
+
+  function renderToday() {
+    var d = new Date();
+    $('#todayDate').textContent = barDate(d);
+    var txt, loading = false;
+    if (wxNow) txt = wxNow.emoji + ' ' + wxNow.ko + ' ' + wxNow.t + '°';
+    else if (wxFailed) txt = '날씨 정보 없음';
+    else { txt = '날씨 확인 중'; loading = true; }
+    var el = $('#todayWx');
+    el.textContent = txt;
+    el.classList.toggle('loading', loading);
+    $('#wxPlace').textContent = wxPlace;
+    $('#todayCard').setAttribute('aria-label', '오늘 ' + barDate(d) + ', ' + txt + ' — 누르면 현위치 날씨로 새로고침');
+  }
+  function loadWxCache() {
+    try {
+      var raw = localStorage.getItem(LS_WX);
+      if (!raw) return;
+      var j = JSON.parse(raw);
+      if (!j || typeof j.t !== 'number') return;
+      if (Date.now() - j.at > 12 * 60 * 60 * 1000) return;
+      var m = WMO[j.code] || ['🌡️', '날씨'];
+      wxNow = { emoji: m[0], ko: m[1], t: Math.round(j.t) };
+      wxAt = j.at;
+      wxPlace = j.place || WX_DEFAULT.place;
+    } catch (e) {}
+  }
+  function saveWxCache(code, t) {
+    try { localStorage.setItem(LS_WX, JSON.stringify({ code: code, t: t, at: Date.now(), place: wxPlace })); } catch (e) {}
+  }
+  function wxUrl(lat, lon) {
+    return 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon +
+      '&current=temperature_2m,weather_code&timezone=auto';
+  }
+  function fetchWx(lat, lon, rank) {
+    if (!window.fetch || navigator.onLine === false) { wxFailed = true; renderToday(); return Promise.resolve(false); }
+    rank = rank || 1;
+    wxFailed = false;
+    var seq = wxSeq;
+    var ctl = window.AbortController ? new AbortController() : null;
+    var to = null;
+    if (ctl) to = setTimeout(function () { try { ctl.abort(); } catch (e) {} }, 8000);
+    return fetch(wxUrl(lat, lon), ctl ? { cache: 'no-store', signal: ctl.signal } : { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) {
+        if (to) clearTimeout(to);
+        var c = j && j.current;
+        if (!c || typeof c.temperature_2m !== 'number') { wxFailed = true; renderToday(); return false; }
+        if (seq !== wxSeq || rank < wxRank) return false;
+        wxRank = rank;
+        var m = WMO[c.weather_code] || ['🌡️', '날씨'];
+        wxNow = { emoji: m[0], ko: m[1], t: Math.round(c.temperature_2m) };
+        wxAt = Date.now();
+        saveWxCache(c.weather_code, c.temperature_2m);
+        renderToday();
+        return true;
+      })
+      .catch(function () { if (to) clearTimeout(to); wxFailed = true; renderToday(); return false; });
+  }
+  function geoCoords() {
+    return new Promise(function (resolve) {
+      if (!navigator.geolocation) return resolve(null);
+      try {
+        navigator.geolocation.getCurrentPosition(function (pos) {
+          var c = pos && pos.coords;
+          if (!c) return resolve(null);
+          resolve({ lat: Math.round(c.latitude * 100) / 100, lon: Math.round(c.longitude * 100) / 100 });
+        }, function () { resolve(null); }, { enableHighAccuracy: false, timeout: 8000, maximumAge: 600000 });
+      } catch (e) { resolve(null); }
+    });
+  }
+  function loadWeather() {
+    renderToday();
+    if (!wxAt || Date.now() - wxAt > WX_TTL) {
+      if (wxBusy) return;
+      wxBusy = true; wxSeq++;
+      fetchWx(WX_DEFAULT.lat, WX_DEFAULT.lon, 1).then(function () { wxBusy = false; });
+    }
+    try {
+      if (navigator.geolocation && navigator.permissions && navigator.permissions.query) {
+        navigator.permissions.query({ name: 'geolocation' }).then(function (st) {
+          if (!st || st.state !== 'granted') return;
+          geoCoords().then(function (c) {
+            if (c) { wxPlace = '내 위치'; fetchWx(c.lat, c.lon, 2); }
+          });
+        }).catch(function () {});
+      }
+    } catch (e) {}
+  }
+  function refreshWeather() {
+    if (navigator.onLine === false) { toast('인터넷이 없어 날씨를 새로 받지 못했어요.'); return; }
+    function fallback() {
+      wxPlace = WX_DEFAULT.place;
+      fetchWx(WX_DEFAULT.lat, WX_DEFAULT.lon, 1).then(function (ok) {
+        toast(ok ? '김해 날씨로 보여 드려요.' : '날씨를 받지 못했어요. 잠시 뒤 다시 눌러 주세요.');
+      });
+    }
+    wxSeq++;
+    if (!navigator.geolocation) { fallback(); return; }
+    toast('현위치 날씨를 확인하는 중…');
+    geoCoords().then(function (c) {
+      if (!c) { fallback(); return; }
+      fetchWx(c.lat, c.lon, 2).then(function (ok) {
+        if (ok) { wxPlace = '내 위치'; renderToday(); toast('현위치 날씨로 새로 불러왔어요.'); }
+        else fallback();
+      });
+    });
+  }
+
+  /* ═════════════ 토스트 ═════════════ */
+  var toastEl = null, toastTo = 0;
+  function toast(msg) {
+    if (!toastEl) {
+      toastEl = document.createElement('div');
+      toastEl.className = 'toast';
+      document.body.appendChild(toastEl);
+    }
+    toastEl.textContent = msg;
+    toastEl.classList.add('on');
+    clearTimeout(toastTo);
+    toastTo = setTimeout(function () { toastEl.classList.remove('on'); }, 2300);
+  }
+
+  /* ═════════════ 속지·글씨 정의 ═════════════ */
+  var PAPERS = {
+    grid:   { name: '모눈', pat: 'grid', bg: '#FFFDF7', line: '#E9DCC6' },
+    lined:  { name: '줄노트', pat: 'lined', bg: '#FFFEFC', line: '#DCE7F2' },
+    dot:    { name: '도트', pat: 'dot', bg: '#FFFEFA', dot: '#DCCFBA' },
+    cream:  { name: '크림', pat: 'plain', bg: '#FFF9EE', grad: ['#FFFBF3', '#FFF1DC'] },
+    sky:    { name: '하늘', pat: 'plain', bg: '#EAF5FF', grad: ['#E7F3FF', '#F9FDFF'] },
+    pink:   { name: '핑크', pat: 'plain', bg: '#FFF1F7', grad: ['#FFE9F2', '#FFFAFC'] },
+    royal:  { name: '다이아몬드 성', pat: 'diamond', bg: '#F6F0FF', dot: 'rgba(150,120,225,.45)', grad: ['#F4EDFF', '#FDFAFF'] }
+  };
+  var PORDER = ['grid', 'lined', 'dot', 'cream', 'sky', 'pink', 'royal'];
+  var FONTS = {
+    gowun: { name: '고운돋움', css: '"Gowun Dodum","Apple SD Gothic Neo",sans-serif', canvas: 'Gowun Dodum', mult: 1, lh: 1.72 },
+    pen:   { name: '손글씨', css: '"Nanum Pen Script","Gowun Dodum",cursive', canvas: 'Nanum Pen Script', mult: 1.28, lh: 1.42 },
+    jua:   { name: '주아', css: '"Jua","Gowun Dodum",sans-serif', canvas: 'Jua', mult: 0.98, lh: 1.6 }
+  };
+  var COLORS = ['#4A3547', '#E4567A', '#2E86C1', '#2E8B57', '#D9720C', '#7A4FBF'];
+  var MOODS = [
+    { e: '😊', n: '좋아요' }, { e: '☀️', n: '맑음' }, { e: '☁️', n: '뭉게' },
+    { e: '🌧️', n: '비' }, { e: '💪', n: '힘냄' }, { e: '😴', n: '졸림' }
+  ];
+
+  /* ═════════════ 스티커 27종 (자체 SVG · 사람 없음) ═════════════ */
+  var W = ' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"';
+  var STICKERS = {
+    portal: { n: '차원의 문', svg: '<svg' + W + '><circle cx="50" cy="50" r="36" fill="#3B2668"/><circle cx="50" cy="50" r="36" fill="none" stroke="#B79CF0" stroke-width="3"/><circle cx="50" cy="50" r="31" fill="none" stroke="#7B5AD0" stroke-width="2" opacity=".7"/><circle cx="50" cy="50" r="26" fill="none" stroke="#E6D9FF" stroke-width="4" stroke-dasharray="34 12"/><circle cx="50" cy="50" r="17" fill="none" stroke="#C9B3F1" stroke-width="4" stroke-dasharray="20 10" transform="rotate(65 50 50)"/><circle cx="50" cy="50" r="9" fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-dasharray="12 8" transform="rotate(140 50 50)"/><circle cx="50" cy="50" r="3.6" fill="#FFFFFF"/><path d="M78 20l2 4.6 4.6 2-4.6 2-2 4.6-2-4.6-4.6-2 4.6-2z" fill="#FFE9A8"/><path d="M20 66l1.6 3.6 3.6 1.6-3.6 1.6L20 76.4l-1.6-3.6-3.6-1.6 3.6-1.6z" fill="#FFE9A8"/></svg>' },
+    diamond: { n: '다이아몬드', svg: '<svg' + W + '><path d="M50 14L84 40 50 90 16 40z" fill="#A9D6F7" stroke="#6FAEDF" stroke-width="2.4" stroke-linejoin="round"/><path d="M50 14L16 40h68z" fill="#DCF0FF" stroke="#6FAEDF" stroke-width="2" stroke-linejoin="round"/><path d="M50 14L33 40h34z" fill="#FFFFFF"/><path d="M33 40 50 90l17-50" fill="none" stroke="#6FAEDF" stroke-width="1.6"/><path d="M16 40h68" stroke="#6FAEDF" stroke-width="1.8"/><path d="M76 18l1.8 4 4 1.8-4 1.8L76 28l-1.8-4-4-1.8 4-1.8z" fill="#FFFFFF"/></svg>' },
+    key: { n: '황금 열쇠', svg: '<svg' + W + '><circle cx="30" cy="30" r="17" fill="none" stroke="#F2C14E" stroke-width="8"/><circle cx="30" cy="30" r="16" fill="none" stroke="#C9942A" stroke-width="1.6"/><circle cx="30" cy="30" r="6.4" fill="#BFE3FF" stroke="#6FAEDF" stroke-width="2"/><path d="M41 41 76 76" stroke="#F2C14E" stroke-width="9" stroke-linecap="round"/><path d="M41 41 76 76" stroke="#C9942A" stroke-width="2" stroke-linecap="round" opacity=".55"/><path d="M58 74l9-9M68 84l9-9" stroke="#F2C14E" stroke-width="7" stroke-linecap="round"/><path d="M80 20l2 4.4 4.4 2-4.4 2-2 4.4-2-4.4-4.4-2 4.4-2z" fill="#FFE9A8"/></svg>' },
+    castle: { n: '다이아몬드 성', svg: '<svg' + W + '><ellipse cx="50" cy="92" rx="34" ry="4" fill="#8A6A4A" opacity=".12"/><rect x="16" y="46" width="16" height="46" rx="3" fill="#D9C9F6" stroke="#A78FE0" stroke-width="2"/><path d="M13 47 24 28l11 19z" fill="#BBA4EC" stroke="#A78FE0" stroke-width="2" stroke-linejoin="round"/><rect x="68" y="46" width="16" height="46" rx="3" fill="#D9C9F6" stroke="#A78FE0" stroke-width="2"/><path d="M65 47 76 28l11 19z" fill="#BBA4EC" stroke="#A78FE0" stroke-width="2" stroke-linejoin="round"/><rect x="32" y="58" width="36" height="34" rx="3" fill="#D3C0F2" stroke="#A78FE0" stroke-width="2"/><rect x="34" y="30" width="32" height="62" rx="4" fill="#E7DBFA" stroke="#A78FE0" stroke-width="2"/><path d="M31 31 50 12l19 19z" fill="#C9B3F1" stroke="#A78FE0" stroke-width="2" stroke-linejoin="round"/><path d="M50 10l2.4 4.4L50 19l-2.4-4.6z" fill="#FFE9A8"/><path d="M42 92V76a8 8 0 0 1 16 0v16z" fill="#5C3F91"/><path d="M38 44l4 4-4 4-4-4z" fill="#FFE9A8"/><path d="M58 44l4 4-4 4-4-4z" fill="#FFE9A8"/><circle cx="50" cy="58" r="3.4" fill="#8E6BE0"/></svg>' },
+    duo: { n: '미미 & 테오', svg: '<svg' + W + '><ellipse cx="50" cy="92" rx="30" ry="4" fill="#8A6A4A" opacity=".12"/><ellipse cx="20" cy="50" rx="7.5" ry="8.5" fill="#FFD9A0"/><ellipse cx="36" cy="50" rx="7" ry="8" fill="#FFD9A0"/><ellipse cx="64" cy="50" rx="7" ry="8" fill="#FFD3DE"/><ellipse cx="80" cy="50" rx="7.5" ry="8.5" fill="#FFD3DE"/><ellipse cx="31" cy="68" rx="19" ry="18" fill="#FFF0D6"/><ellipse cx="69" cy="68" rx="19" ry="18" fill="#FFF2F6"/><circle cx="25" cy="64" r="3" fill="#4B3A2E"/><circle cx="37" cy="64" r="3" fill="#4B3A2E"/><circle cx="63" cy="64" r="3" fill="#5A3A46"/><circle cx="75" cy="64" r="3" fill="#5A3A46"/><ellipse cx="22" cy="70" rx="3.6" ry="2.4" fill="#FFB3A6" opacity=".9"/><ellipse cx="40" cy="70" rx="3.6" ry="2.4" fill="#FFB3A6" opacity=".9"/><ellipse cx="60" cy="70" rx="3.6" ry="2.4" fill="#FFB0C6" opacity=".9"/><ellipse cx="78" cy="70" rx="3.6" ry="2.4" fill="#FFB0C6" opacity=".9"/><path d="M27 71q4 3 8 0" stroke="#B5865A" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M65 71q4 3 8 0" stroke="#C4859A" stroke-width="1.6" fill="none" stroke-linecap="round"/><ellipse cx="31" cy="82" rx="7" ry="4" fill="#7FD3C4"/><ellipse cx="69" cy="82" rx="7" ry="4" fill="#FFB3C6"/><path d="M50 26c-3.2-4-9-1.2-9 2.8 0 3.2 4.8 5.7 9 8.4 4.2-2.7 9-5.2 9-8.4 0-4-5.8-6.8-9-2.8z" fill="#FF7FA3"/></svg>' },
+    teo: { n: '테오', svg: '<svg' + W + '><ellipse cx="50" cy="90" rx="23" ry="4" fill="#8A6A4A" opacity=".12"/><ellipse cx="28" cy="36" rx="9.5" ry="10.5" fill="#FFD9A0"/><ellipse cx="72" cy="36" rx="9.5" ry="10.5" fill="#FFD9A0"/><ellipse cx="28" cy="36" rx="4.6" ry="5.6" fill="#FFAE9E"/><ellipse cx="72" cy="36" rx="4.6" ry="5.6" fill="#FFAE9E"/><ellipse cx="50" cy="58" rx="30" ry="29" fill="#FFF0D6"/><path d="M21 52a29 29 0 0 1 58 0" fill="#FFE3B4" opacity=".65"/><ellipse cx="50" cy="69" rx="17" ry="13" fill="#FFFBF0"/><circle cx="40" cy="54" r="3.8" fill="#4B3A2E"/><circle cx="60" cy="54" r="3.8" fill="#4B3A2E"/><circle cx="41.4" cy="52.5" r="1.3" fill="#FFF"/><circle cx="61.4" cy="52.5" r="1.3" fill="#FFF"/><ellipse cx="31" cy="63" rx="5.2" ry="3.3" fill="#FFB3A6" opacity=".9"/><ellipse cx="69" cy="63" rx="5.2" ry="3.3" fill="#FFB3A6" opacity=".9"/><path d="M50 62v3" stroke="#B5865A" stroke-width="1.8" stroke-linecap="round"/><path d="M50 65c-1.6 2.6-4.4 2.4-5.6.6M50 65c1.6 2.6 4.4 2.4 5.6.6" stroke="#B5865A" stroke-width="1.8" fill="none" stroke-linecap="round"/><ellipse cx="37" cy="85" rx="8.6" ry="5" fill="#7FD3C4"/><ellipse cx="63" cy="85" rx="8.6" ry="5" fill="#7FD3C4"/><path d="M29 84h16M55 84h16" stroke="#4FB3A3" stroke-width="1.5" stroke-linecap="round"/></svg>' },
+    mimi: { n: '미미', svg: '<svg' + W + '><ellipse cx="50" cy="90" rx="23" ry="4" fill="#8A6A4A" opacity=".12"/><ellipse cx="28" cy="37" rx="9.5" ry="10.5" fill="#FFD3DE"/><ellipse cx="72" cy="37" rx="9.5" ry="10.5" fill="#FFD3DE"/><ellipse cx="28" cy="37" rx="4.6" ry="5.6" fill="#FF9DB8"/><ellipse cx="72" cy="37" rx="4.6" ry="5.6" fill="#FF9DB8"/><ellipse cx="50" cy="59" rx="30" ry="29" fill="#FFF2F6"/><path d="M21 53a29 29 0 0 1 58 0" fill="#FFD9E4" opacity=".75"/><ellipse cx="50" cy="70" rx="17" ry="13" fill="#FFFBFD"/><circle cx="40" cy="55" r="3.8" fill="#5A3A46"/><circle cx="60" cy="55" r="3.8" fill="#5A3A46"/><circle cx="41.4" cy="53.5" r="1.3" fill="#FFF"/><circle cx="61.4" cy="53.5" r="1.3" fill="#FFF"/><path d="M36 60.5l-3-2M64 60.5l3-2" stroke="#C98598" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="31" cy="64" rx="5.2" ry="3.3" fill="#FFB0C6" opacity=".9"/><ellipse cx="69" cy="64" rx="5.2" ry="3.3" fill="#FFB0C6" opacity=".9"/><path d="M50 63v2.6" stroke="#C4859A" stroke-width="1.8" stroke-linecap="round"/><path d="M50 65.6c-1.5 2.4-4.2 2.2-5.3.5M50 65.6c1.5 2.4 4.2 2.2 5.3.5" stroke="#C4859A" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M24 22l-8-6v12zM24 22l8-6v12z" fill="#FF8FAE"/><circle cx="24" cy="22" r="3.2" fill="#FF6F97"/><ellipse cx="38" cy="86" rx="8.6" ry="5" fill="#FFB3C6"/><ellipse cx="62" cy="86" rx="8.6" ry="5" fill="#FFB3C6"/></svg>' },
+    watt: { n: '와트메이커', svg: '<svg' + W + '><ellipse cx="50" cy="90" rx="23" ry="4" fill="#8A6A4A" opacity=".12"/><ellipse cx="27" cy="46" rx="8.5" ry="9" fill="#FFD9A0"/><ellipse cx="73" cy="46" rx="8.5" ry="9" fill="#FFD9A0"/><ellipse cx="50" cy="62" rx="28" ry="26" fill="#FFF0D6"/><ellipse cx="50" cy="71" rx="16" ry="12" fill="#FFFBF0"/><circle cx="40" cy="58" r="3.7" fill="#4B3A2E"/><circle cx="60" cy="58" r="3.7" fill="#4B3A2E"/><circle cx="41.3" cy="56.6" r="1.2" fill="#FFF"/><circle cx="61.3" cy="56.6" r="1.2" fill="#FFF"/><ellipse cx="31" cy="66" rx="4.8" ry="3.1" fill="#FFB3A6" opacity=".9"/><ellipse cx="69" cy="66" rx="4.8" ry="3.1" fill="#FFB3A6" opacity=".9"/><path d="M44 68q6 4.5 12 0" stroke="#B5865A" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M25 44a25 25 0 0 1 50 0z" fill="#FFC53D"/><rect x="18" y="42" width="64" height="7.5" rx="3.7" fill="#FFB020"/><path d="M53 24l-9 13h6l-3 9 10-13h-6z" fill="#FFFDF4"/><ellipse cx="38" cy="87" rx="8.4" ry="4.6" fill="#4B9CD3"/><ellipse cx="62" cy="87" rx="8.4" ry="4.6" fill="#4B9CD3"/></svg>' },
+    temi: { n: '꼬마로봇 테미', svg: '<svg' + W + '><ellipse cx="50" cy="90" rx="22" ry="4" fill="#8A6A4A" opacity=".12"/><path d="M50 20v6" stroke="#9BC6DE" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="16" r="4.6" fill="#FF8A3D"/><rect x="25" y="26" width="50" height="42" rx="15" fill="#EAF8FF" stroke="#A8D8F0" stroke-width="2"/><rect x="33" y="36" width="34" height="24" rx="10" fill="#D6EEFF"/><circle cx="42" cy="46" r="3.5" fill="#4A6B85"/><circle cx="58" cy="46" r="3.5" fill="#4A6B85"/><circle cx="43.2" cy="44.8" r="1.1" fill="#FFF"/><circle cx="59.2" cy="44.8" r="1.1" fill="#FFF"/><path d="M45 54q5 3.6 10 0" stroke="#4A6B85" stroke-width="2" fill="none" stroke-linecap="round"/><rect x="16" y="42" width="7" height="14" rx="3.5" fill="#9BD4F5"/><rect x="77" y="42" width="7" height="14" rx="3.5" fill="#9BD4F5"/><rect x="34" y="68" width="32" height="18" rx="9" fill="#CFEBFF" stroke="#A8D8F0" stroke-width="2"/><path d="M50 83c-3.4-2.4-6-4.6-6-6.6 0-2.2 2.6-3.1 4-1.3l2 2.2 2-2.2c1.4-1.8 4-.9 4 1.3 0 2-2.6 4.2-6 6.6z" fill="#FF7FA3"/></svg>' },
+    note: { n: '클로벨 음표', svg: '<svg' + W + '><path d="M42 64V32l24-7v32" stroke="#8E74D8" stroke-width="6" fill="none" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="35" cy="68" rx="9.5" ry="7.5" fill="#8E74D8"/><ellipse cx="59" cy="61" rx="9.5" ry="7.5" fill="#8E74D8"/><path d="M69 20l2.4 5.6 5.6 2.4-5.6 2.4L69 36l-2.4-5.6-5.6-2.4 5.6-2.4z" fill="#FFC53D"/><path d="M25 28l1.7 3.8 3.8 1.7-3.8 1.7L25 39l-1.7-3.8-3.8-1.7 3.8-1.7z" fill="#FFD98A"/></svg>' },
+    mic: { n: '클로벨 마이크', svg: '<svg' + W + '><rect x="38" y="12" width="24" height="36" rx="12" fill="#9BD4F5"/><path d="M44 21h12M44 29h12M44 37h12" stroke="#E7F6FF" stroke-width="3" stroke-linecap="round"/><ellipse cx="43" cy="23" rx="2.6" ry="6" fill="#FFF" opacity=".55"/><path d="M30 42a20 20 0 0 0 40 0" stroke="#5FAEE0" stroke-width="5" fill="none" stroke-linecap="round"/><rect x="47.5" y="62" width="5" height="13" rx="2.5" fill="#B9CFDD"/><ellipse cx="50" cy="79" rx="16" ry="5.5" fill="#CFE0EC"/><circle cx="74" cy="30" r="3.4" fill="#FFC53D"/></svg>' },
+    isopod: { n: '공벌레', svg: '<svg' + W + '><ellipse cx="50" cy="90" rx="22" ry="4" fill="#8A6A4A" opacity=".12"/><path d="M30 40q-9-8-15-5M70 40q9-8 15-5" stroke="#93A9BB" stroke-width="2.6" fill="none" stroke-linecap="round"/><ellipse cx="50" cy="58" rx="30" ry="23" fill="#AFC2D1"/><path d="M38 42q4 16 0 32M46 40q4 18 0 36M54 40q-4 18 0 36M62 42q-4 16 0 32" stroke="#93A9BB" stroke-width="1.5" fill="none" opacity=".9"/><ellipse cx="50" cy="44" rx="17" ry="9" fill="#C6D6E2"/><circle cx="43" cy="46" r="2.7" fill="#5B6E80"/><circle cx="57" cy="46" r="2.7" fill="#5B6E80"/><circle cx="43.9" cy="45.1" r=".9" fill="#FFF"/><circle cx="57.9" cy="45.1" r=".9" fill="#FFF"/><ellipse cx="40" cy="60" rx="9" ry="3.6" fill="#FFF" opacity=".3"/><path d="M34 79l-4 6M44 82v5M56 82v5M66 79l4 6" stroke="#93A9BB" stroke-width="2.4" stroke-linecap="round"/></svg>' },
+    crown: { n: '천사 왕관', svg: '<svg' + W + '><path d="M24 50c-9-5-13-15-8-20 6-5 13 2 13 11" fill="#FFF8E8" stroke="#E9D3AC" stroke-width="1.6"/><path d="M76 50c9-5 13-15 8-20-6-5-13 2-13 11" fill="#FFF8E8" stroke="#E9D3AC" stroke-width="1.6"/><path d="M28 62l-3-26 13 10L50 24l12 22 13-10-3 26z" fill="#FFC53D" stroke="#E8A921" stroke-width="2" stroke-linejoin="round"/><rect x="27" y="60" width="46" height="9" rx="4.5" fill="#FFB020"/><circle cx="38" cy="52" r="3" fill="#FF8FAE"/><circle cx="50" cy="50" r="3.4" fill="#8FD8FF"/><circle cx="62" cy="52" r="3" fill="#FF8FAE"/><path d="M22 26l1.6 3.6 3.6 1.6-3.6 1.6L22 36.4l-1.6-3.6-3.6-1.6 3.6-1.6z" fill="#FFF1BE"/><path d="M80 30l1.4 3.2 3.2 1.4-3.2 1.4L80 39.2l-1.4-3.2-3.2-1.4 3.2-1.4z" fill="#FFF1BE"/></svg>' },
+    candle: { n: '촛대', svg: '<svg' + W + '><ellipse cx="50" cy="90" rx="20" ry="4" fill="#8A6A4A" opacity=".12"/><ellipse cx="50" cy="82" rx="15" ry="4.4" fill="#E3C79A"/><path d="M37 82h26l-3 7H40z" fill="#D9B77F"/><rect x="42" y="46" width="16" height="36" rx="4" fill="#FFF3DC" stroke="#E8D2AE" stroke-width="2"/><path d="M44 52v10M56 58v8" stroke="#EBD8B8" stroke-width="3" stroke-linecap="round"/><path d="M50 20c6.6 6.4 9.6 10.6 9.6 14.6a9.6 9.6 0 0 1-19.2 0c0-4 4.2-9.2 9.6-14.6z" fill="#FFC53D"/><path d="M50 30c3 3.2 4.4 5.4 4.4 7.4a4.4 4.4 0 0 1-8.8 0c0-2 2-4.4 4.4-7.4z" fill="#FFF3C4"/><path d="M43 26l1.6 3.6 3.6 1.6-3.6 1.6L43 36.4l-1.6-3.6-3.6-1.6 3.6-1.6z" fill="#FFE9A8"/></svg>' },
+    ribbon: { n: '마법 리본', svg: '<svg' + W + '><path d="M45 52c-5 12-11 18-19 22" stroke="#FFB6D5" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M55 52c5 12 11 18 19 22" stroke="#FFB6D5" stroke-width="7" fill="none" stroke-linecap="round"/><ellipse cx="31" cy="41" rx="16" ry="12" fill="#FFB6D5" transform="rotate(-18 31 41)"/><ellipse cx="69" cy="41" rx="16" ry="12" fill="#FFB6D5" transform="rotate(18 69 41)"/><ellipse cx="31" cy="41" rx="8" ry="5.6" fill="#FF9EC4" transform="rotate(-18 31 41)"/><ellipse cx="69" cy="41" rx="8" ry="5.6" fill="#FF9EC4" transform="rotate(18 69 41)"/><circle cx="50" cy="45" r="8.4" fill="#FF8FB8"/><circle cx="50" cy="45" r="3.4" fill="#FFD3E4"/><path d="M78 66l2 4.4 4.4 2-4.4 2-2 4.4-2-4.4-4.4-2 4.4-2z" fill="#FFE9A8"/><path d="M20 62l1.8 4 4 1.8-4 1.8L20 73.6l-1.8-4-4-1.8 4-1.8z" fill="#FFE9A8"/></svg>' },
+    star: { n: '별', svg: '<svg' + W + '><path d="M50 16l10 22 24 3-17.4 17 4.2 24L50 71 29.2 82 33.4 58 16 41l24-3z" fill="#FFC53D" stroke="#EFAF1C" stroke-width="2" stroke-linejoin="round"/><path d="M45 36l3.4 7.4 7.6 1.1-5.6 5.4 1.4 7.6L45 54l-6.8 3.5 1.4-7.6-5.6-5.4 7.6-1.1z" fill="#FFE9A8" opacity=".95"/></svg>' },
+    heart: { n: '하트', svg: '<svg' + W + '><path d="M50 86C24 68 16 50 27 38c8-9 19-6 23 4 4-10 15-13 23-4 11 12 3 30-23 48z" fill="#FF9DB8" stroke="#F4789B" stroke-width="2"/><ellipse cx="38" cy="45" rx="7" ry="4.6" fill="#FFF" opacity=".6" transform="rotate(-28 38 45)"/></svg>' },
+    flower: { n: '꽃', svg: '<svg' + W + '><path d="M50 66v20" stroke="#7BCF8E" stroke-width="4" stroke-linecap="round"/><path d="M50 80c8-1 13-7 11-12-7-1-11 4-11 12z" fill="#7BCF8E"/><circle cx="50" cy="32" r="13" fill="#FFB6C8"/><circle cx="67" cy="45" r="13" fill="#FFB6C8"/><circle cx="60" cy="64" r="13" fill="#FFB6C8"/><circle cx="40" cy="64" r="13" fill="#FFB6C8"/><circle cx="33" cy="45" r="13" fill="#FFB6C8"/><circle cx="50" cy="49" r="10" fill="#FFD54A"/><circle cx="50" cy="49" r="4" fill="#FFE9A8"/></svg>' },
+    coffee: { n: '커피', svg: '<svg' + W + '><path d="M24 40h40v20a20 20 0 0 1-40 0z" fill="#FFF7E8" stroke="#D9AE72" stroke-width="2"/><path d="M64 44h5a9 9 0 0 1 0 18h-5" fill="none" stroke="#D9AE72" stroke-width="3"/><ellipse cx="44" cy="40" rx="20" ry="5.4" fill="#9C6A3E"/><ellipse cx="44" cy="78" rx="25" ry="5" fill="#EFE3D0"/><path d="M34 30c-3-4 3-6 0-11M47 28c-3-4 3-6 0-11" stroke="#C7D6E2" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M44 58c-2-3-6-1-6 2 0 2.4 3.6 4.6 6 6 2.4-1.4 6-3.6 6-6 0-3-4-5-6-2z" fill="#FF8FAE"/></svg>' },
+    cake: { n: '케이크', svg: '<svg' + W + '><ellipse cx="50" cy="82" rx="26" ry="4.6" fill="#8A6A4A" opacity=".12"/><rect x="30" y="42" width="40" height="34" rx="5" fill="#FCE7C4" stroke="#E6C79A" stroke-width="1.6"/><rect x="30" y="57" width="40" height="7" fill="#FFF6E8"/><path d="M30 42q5-8 10 0 5-8 10 0 5-8 10 0 5-8 10 0" fill="#FFB6C8"/><circle cx="50" cy="32" r="7.5" fill="#FF6F6F"/><path d="M50 25c3-5 8-4 9-2" stroke="#7BCF8E" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>' },
+    rainbow: { n: '무지개', svg: '<svg' + W + '><path d="M8 72a42 42 0 0 1 84 0" stroke="#FF9E9E" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M15 72a35 35 0 0 1 70 0" stroke="#FFD08A" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M22 72a28 28 0 0 1 56 0" stroke="#B8E8A8" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M29 72a21 21 0 0 1 42 0" stroke="#A8D8F5" stroke-width="7" fill="none" stroke-linecap="round"/><ellipse cx="16" cy="74" rx="13" ry="8" fill="#FFF"/><ellipse cx="9" cy="78" rx="7" ry="6" fill="#FFF"/><ellipse cx="84" cy="74" rx="13" ry="8" fill="#FFF"/><ellipse cx="91" cy="78" rx="7" ry="6" fill="#FFF"/></svg>' },
+    tape: { n: '마스킹테이프', svg: '<svg' + W + '><g transform="rotate(-8 50 50)"><path d="M16 36h68v28H16l4-7-4-7 4-7-4-7z" fill="#FFE9A8" opacity=".95"/><path d="M20 40h60M20 60h60" stroke="#F6D27A" stroke-width="1.2" opacity=".8"/><circle cx="34" cy="50" r="2" fill="#F6C96A"/><circle cx="50" cy="50" r="2" fill="#F6C96A"/><circle cx="66" cy="50" r="2" fill="#F6C96A"/></g></svg>' },
+    cloud: { n: '구름', svg: '<svg' + W + '><path d="M26 66c-7 0-12-5-12-11s5-11 11-11c1-8 8-14 16-14 7 0 13 4 15 10 2-2 5-3 8-3 8 0 14 6 14 13 6 0 10 4 10 10s-4 10-10 10z" fill="#F4FAFF" stroke="#C9E3F5" stroke-width="2" stroke-linejoin="round"/><circle cx="38" cy="55" r="2.4" fill="#B9D9EE"/><circle cx="62" cy="55" r="2.4" fill="#B9D9EE"/></svg>' },
+    moon: { n: '달', svg: '<svg' + W + '><path d="M64 14C40 21 27 36 27 50C27 64 40 79 64 86C46 77 37 64 37 50C37 36 46 23 64 14Z" fill="#FFD54A" stroke="#EFC02F" stroke-width="2" stroke-linejoin="round"/><path d="M74 30l1.8 4 4 1.8-4 1.8L74 42l-1.8-4-4-1.8 4-1.8z" fill="#FFC53D"/><path d="M80 58l1.4 3.2 3.2 1.4-3.2 1.4L80 67.2l-1.4-3.2-3.2-1.4 3.2-1.4z" fill="#FFC53D"/></svg>' },
+    clover: { n: '클로버', svg: '<svg' + W + '><path d="M50 64c0 11-2 16-7 22" stroke="#5FBF76" stroke-width="3.6" fill="none" stroke-linecap="round"/><circle cx="50" cy="34" r="14" fill="#7BCF8E"/><circle cx="66" cy="50" r="14" fill="#7BCF8E"/><circle cx="50" cy="66" r="14" fill="#7BCF8E"/><circle cx="34" cy="50" r="14" fill="#7BCF8E"/><circle cx="50" cy="50" r="5" fill="#C9F0D2"/><path d="M50 40v-8M60 50h8M50 60v8M40 50h-8" stroke="#5FBF76" stroke-width="1.6" stroke-linecap="round" opacity=".8"/></svg>' },
+    berry: { n: '딸기', svg: '<svg' + W + '><path d="M50 88c-16-8-26-24-26-38 0-8 10-14 26-14s26 6 26 14c0 14-10 30-26 38z" fill="#FF7A7A"/><path d="M32 36q8-12 18-8 10-4 18 8-9 5-18 5t-18-5z" fill="#7BCF8E"/><g fill="#FFE9A8"><ellipse cx="40" cy="52" rx="1.9" ry="2.8"/><ellipse cx="52" cy="56" rx="1.9" ry="2.8"/><ellipse cx="62" cy="52" rx="1.9" ry="2.8"/><ellipse cx="46" cy="68" rx="1.9" ry="2.8"/><ellipse cx="58" cy="68" rx="1.9" ry="2.8"/><ellipse cx="50" cy="78" rx="1.7" ry="2.5"/></g></svg>' },
+    letter: { n: '편지', svg: '<svg' + W + '><rect x="16" y="30" width="68" height="46" rx="6" fill="#FFF8E8" stroke="#E6D2AE" stroke-width="2"/><path d="M18 34l32 24 32-24" fill="#FFFDF6" stroke="#E6D2AE" stroke-width="2" stroke-linejoin="round"/><path d="M50 74c-2.6-1.8-4.6-3.4-4.6-5 0-1.6 2-2.3 3-1l1.6 1.7 1.6-1.7c1-1.3 3-.6 3 1 0 1.6-2 3.2-4.6 5z" fill="#FF8FAE"/></svg>' }
+  };
+  var SORDER = ['portal', 'diamond', 'key', 'castle', 'duo', 'mimi', 'teo', 'crown', 'candle', 'ribbon', 'watt', 'temi', 'note', 'mic', 'isopod', 'star', 'heart', 'flower', 'coffee', 'cake', 'rainbow', 'tape', 'cloud', 'moon', 'clover', 'berry', 'letter'];
+
+  /* ═════════════ 성 그림(이야기 장면) ═════════════ */
+  var CASTLE_SVG = '<svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+    '<ellipse cx="150" cy="213" rx="120" ry="8" fill="#1B1330" opacity=".4"/>' +
+    '<circle cx="150" cy="74" r="88" fill="#FFFFFF" opacity=".05"/>' +
+    '<rect x="34" y="92" width="48" height="118" rx="7" fill="#D9C9F6" stroke="#A78FE0" stroke-width="3"/>' +
+    '<path d="M26 94 58 44l32 50z" fill="#BBA4EC" stroke="#A78FE0" stroke-width="3" stroke-linejoin="round"/>' +
+    '<path d="M58 44V20" stroke="#A78FE0" stroke-width="3"/><path d="M58 22l20 7-20 7z" fill="#FFC53D"/>' +
+    '<path d="M48 130l7 7-7 7-7-7z" fill="#FFE9A8" opacity=".9"/><path d="M68 130l7 7-7 7-7-7z" fill="#FFE9A8" opacity=".9"/>' +
+    '<rect x="218" y="92" width="48" height="118" rx="7" fill="#D9C9F6" stroke="#A78FE0" stroke-width="3"/>' +
+    '<path d="M210 94 242 44l32 50z" fill="#BBA4EC" stroke="#A78FE0" stroke-width="3" stroke-linejoin="round"/>' +
+    '<path d="M242 44V20" stroke="#A78FE0" stroke-width="3"/><path d="M242 22l20 7-20 7z" fill="#FFC53D"/>' +
+    '<path d="M232 130l7 7-7 7-7-7z" fill="#FFE9A8" opacity=".9"/><path d="M252 130l7 7-7 7-7-7z" fill="#FFE9A8" opacity=".9"/>' +
+    '<rect x="78" y="146" width="144" height="64" rx="5" fill="#D3C0F2" stroke="#A78FE0" stroke-width="3"/>' +
+    '<path d="M78 146v-14h16v14M110 146v-14h16v14M142 146v-14h16v14M174 146v-14h16v14M206 146v-14h16v14" fill="#D3C0F2" stroke="#A78FE0" stroke-width="3"/>' +
+    '<rect x="100" y="66" width="100" height="144" rx="8" fill="#E7DBFA" stroke="#A78FE0" stroke-width="3"/>' +
+    '<path d="M92 68 150 6l58 62z" fill="#C9B3F1" stroke="#A78FE0" stroke-width="3" stroke-linejoin="round"/>' +
+    '<path d="M150 8l2.6 5 5 2.6-5 2.6-2.6 5-2.6-5-5-2.6 5-2.6z" fill="#FFE9A8"/>' +
+    '<path d="M112 116l8 8-8 8-8-8z" fill="#FFE9A8" opacity=".95"/>' +
+    '<path d="M188 116l8 8-8 8-8-8z" fill="#FFE9A8" opacity=".95"/>' +
+    '<path d="M105 210v-45a45 45 0 0 1 90 0v45z" fill="#4B3175"/>' +
+    '</svg>';
+
+  /* ═════════════ 저장소 ═════════════ */
+  var LS = 'wagleDiary.v1';
+  var db = { days: {}, photos: {}, lastPaper: 'grid', lastFont: 'gowun', lastColor: '#4A3547', lastFs: 17 };
+  var view = todayKey(), work = null, selId = null, cardCanvas = null, cardBlob = null, cardUrl = '';
+
+  function loadDB() {
+    try {
+      var raw = localStorage.getItem(LS);
+      if (!raw) return;
+      var j = JSON.parse(raw);
+      if (!j || typeof j !== 'object') return;
+      db.days = (j.days && typeof j.days === 'object') ? j.days : {};
+      db.photos = (j.photos && typeof j.photos === 'object') ? j.photos : {};
+      db.lastPaper = PAPERS[j.lastPaper] ? j.lastPaper : 'grid';
+      db.lastFont = FONTS[j.lastFont] ? j.lastFont : 'gowun';
+      db.lastColor = typeof j.lastColor === 'string' ? j.lastColor : '#4A3547';
+      db.lastFs = +j.lastFs || 17;
+    } catch (e) {}
+  }
+  function blankDay() {
+    return { text: '', paper: db.lastPaper, mood: '', font: db.lastFont, color: db.lastColor,
+      fs: db.lastFs, objs: [], chosePaper: false, escaped: false };
+  }
+  function cloneDay(d) {
+    var o = { text: d.text || '', paper: d.paper || 'grid', mood: d.mood || '', font: d.font || 'gowun',
+      color: d.color || '#4A3547', fs: +d.fs || 17, objs: [], chosePaper: !!d.chosePaper, escaped: !!d.escaped };
+    (d.objs || []).forEach(function (s) {
+      o.objs.push({ id: s.id, kind: s.kind, key: s.key, pid: s.pid, fx: s.fx, fy: s.fy, s: s.s, r: s.r });
+    });
+    return o;
+  }
+  function hasContent(d) {
+    if (!d) return false;
+    return !!(String(d.text || '').trim().length || (d.objs && d.objs.length) || d.mood);
+  }
+  function pagesOf(dateKey) {
+    return Object.keys(db.days).filter(function (k) {
+      return dateKeyOf(k) === dateKey && hasContent(db.days[k]);
+    }).sort(function (a, b) { return pageNoOf(a) - pageNoOf(b); });
+  }
+  function prunePhotos() {
+    var used = {};
+    Object.keys(db.days).forEach(function (k) {
+      (db.days[k].objs || []).forEach(function (o) { if (o.kind === 'photo' && o.pid) used[o.pid] = 1; });
+    });
+    if (work) (work.objs || []).forEach(function (o) { if (o.kind === 'photo' && o.pid) used[o.pid] = 1; });
+    Object.keys(db.photos).forEach(function (p) { if (!used[p]) delete db.photos[p]; });
+  }
+  function commitDay() {
+    if (!work) return;
+    if (hasContent(work) || work.escaped || work.chosePaper) db.days[view] = cloneDay(work);
+    else delete db.days[view];
+  }
+  var saveTimer = 0, savedTagTimer = 0;
+  function saveSoon() { clearTimeout(saveTimer); saveTimer = setTimeout(saveNow, 400); }
+  function flashSaved() {
+    var el = $('#savedTag');
+    if (!el) return;
+    el.classList.add('on');
+    clearTimeout(savedTagTimer);
+    savedTagTimer = setTimeout(function () { el.classList.remove('on'); }, 1500);
+  }
+  function saveNow() {
+    clearTimeout(saveTimer);
+    commitDay();
+    prunePhotos();
+    try {
+      localStorage.setItem(LS, JSON.stringify(db));
+      flashSaved();
+    } catch (e) {
+      var saved = false;
+      try {
+        var noPhoto = JSON.parse(JSON.stringify(db));
+        Object.keys(noPhoto.days).forEach(function (k) {
+          noPhoto.days[k].objs = (noPhoto.days[k].objs || []).filter(function (o) { return o.kind !== 'photo'; });
+        });
+        noPhoto.photos = {};
+        localStorage.setItem(LS, JSON.stringify(noPhoto));
+        saved = true;
+      } catch (e2) {}
+      toast(saved ? '저장 공간이 부족해 사진은 저장하지 못했어요. 글은 저장했어요.'
+        : '저장 공간이 부족해 이번 내용을 저장하지 못했어요. 사진을 지우고 다시 해 보세요.');
+    }
+  }
+
+  /* ═════════════ 팝업 스택 + 폰 뒤로가기 ═════════════ */
+  var LAYERS = { paper: 'lyPaper', sticker: 'lySticker', text: 'lyText', save: 'lySave',
+    rec: 'lyRec', install: 'lyInstall', intro: 'lyIntro', escape: 'lyEscape' };
+  var stack = [];
+  function syncLock() { document.body.classList.toggle('lock', stack.length > 0); }
+  function isOpen(name) { return stack.indexOf(name) > -1; }
+  function openLayer(name) {
+    var el = document.getElementById(LAYERS[name]);
+    if (!el) return;
+    if (!el.hidden && el.classList.contains('on')) return;   /* 이미 열려 있음 */
+    el.hidden = false;                                       /* 닫히는 중이면 다시 연다 */
+    requestAnimationFrame(function () { el.classList.add('on'); });
+    stack.push(name);
+    try { history.pushState({ dlg: stack.length }, ''); } catch (e) {}
+    syncLock();
+    var x = el.querySelector('.x');
+    if (x) { try { x.focus({ preventScroll: true }); } catch (e) {} }
+  }
+  function hideLayer(name) {
+    var el = document.getElementById(LAYERS[name]);
+    if (!el || el.hidden) return;
+    el.classList.remove('on');
+    var sc = el.querySelector('.scene');
+    if (sc && name === 'escape') sc.classList.remove('open');
+    setTimeout(function () { if (!el.classList.contains('on')) el.hidden = true; }, 240);
+  }
+  function closeTop() {
+    if (!stack.length) return;
+    var top = stack[stack.length - 1], n = stack.length;
+    try { history.back(); } catch (e) {}
+    setTimeout(function () {
+      if (stack.length === n && stack[stack.length - 1] === top) { stack.pop(); hideLayer(top); syncLock(); }
+    }, 360);
+  }
+  window.addEventListener('popstate', function () {
+    if (stack.length) {
+      var n = stack.pop();
+      hideLayer(n);
+      syncLock();
+    }
+  });
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('[data-close]') : null;
+    if (b) { closeTop(); return; }
+    if (e.target.classList && e.target.classList.contains('sheetWrap')) closeTop();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeTop(); });
+
+  /* ═════════════ 종이·글씨 반영 ═════════════ */
+  var paperEl = $('#paper'), objsEl = $('#objs'), textEl = $('#pgText');
+
+  function fitPaper() {
+    var w = paperEl.clientWidth || 358;
+    var cell = Math.max(12, Math.round(w / 19));
+    paperEl.style.setProperty('--pw', w + 'px');
+    paperEl.style.setProperty('--pcell', cell + 'px');
+    paperEl.style.setProperty('--plgap', Math.round(cell * 1.35) + 'px');
+  }
+  if (window.ResizeObserver) { try { new ResizeObserver(fitPaper).observe(paperEl); } catch (e) {} }
+  window.addEventListener('resize', fitPaper);
+
+  function applyPaper() {
+    var p = PAPERS[work.paper] || PAPERS.grid;
+    paperEl.setAttribute('data-pat', p.pat);
+    paperEl.setAttribute('data-font', work.font);
+    paperEl.style.setProperty('--pbg', p.bg);
+    paperEl.style.setProperty('--pline', p.line || '#E9DCC6');
+    paperEl.style.setProperty('--pdot', p.dot || '#DCCFBA');
+    if (p.grad) paperEl.style.setProperty('--pgrad', 'linear-gradient(180deg,' + p.grad[0] + ',' + p.grad[1] + ')');
+    else paperEl.style.removeProperty('--pgrad');
+    var f = FONTS[work.font] || FONTS.gowun;
+    paperEl.style.setProperty('--ff', f.css);
+    paperEl.style.setProperty('--fc', work.color);
+    paperEl.style.setProperty('--fs', (work.fs || 17) + 'px');
+    paperEl.setAttribute('aria-label', '다이어리 속지 ' + p.name + ' — ' + f.name + ' 글씨');
+  }
+
+  /* ═════════════ 기분 도장 ═════════════ */
+  function renderMoods() {
+    var box = $('#moods');
+    box.innerHTML = '';
+    MOODS.forEach(function (m) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'mood' + (work.mood === m.e ? ' on' : '');
+      b.textContent = m.e;
+      b.setAttribute('aria-label', '기분 ' + m.n);
+      b.setAttribute('aria-pressed', work.mood === m.e ? 'true' : 'false');
+      b.addEventListener('click', function () {
+        work.mood = (work.mood === m.e) ? '' : m.e;
+        renderMoods(); renderMoodStamp(); renderQuest(); saveNow();
+        if (work.mood) toast('기분 도장을 찍었어요 ' + work.mood);
+      });
+      box.appendChild(b);
+    });
+  }
+  function renderMoodStamp() {
+    var el = $('#pgMood');
+    if (work.mood) { el.textContent = work.mood; el.hidden = false; } else { el.hidden = true; }
+  }
+
+  /* ═════════════ 붙인 것(스티커·사진) ═════════════ */
+  function newId() { return 'o' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5); }
+  function objEl(o) {
+    var el = document.createElement('div');
+    el.className = 'obj' + (selId === o.id ? ' sel' : '');
+    el.dataset.id = o.id;
+    el.style.setProperty('--base', o.kind === 'photo' ? 0.44 : 0.215);
+    var nm = '';
+    if (o.kind === 'photo') {
+      var src = db.photos[o.pid] || '';
+      el.innerHTML = '<div class="pol"><img alt="붙인 사진" src="' + src + '"><span class="polcap">오늘의 한 장</span></div>';
+      nm = '붙인 사진';
+    } else {
+      var st = STICKERS[o.key];
+      el.innerHTML = st ? st.svg : '';
+      nm = st ? st.n + ' 스티커' : '스티커';
+    }
+    el.setAttribute('role', 'img');
+    el.setAttribute('aria-label', nm);
+    posObj(el, o);
+    bindObj(el, o);
+    return el;
+  }
+  function posObj(el, o) {
+    el.style.left = (o.fx * 100) + '%';
+    el.style.top = (o.fy * 100) + '%';
+    el.style.transform = 'translate(-50%,-50%) rotate(' + o.r + 'deg) scale(' + o.s + ')';
+  }
+  function renderObjs() {
+    objsEl.innerHTML = '';
+    (work.objs || []).forEach(function (o) { objsEl.appendChild(objEl(o)); });
+    syncBar();
+  }
+  function elOf(id) { return objsEl.querySelector('.obj[data-id="' + id + '"]'); }
+  function objOf(id) {
+    for (var i = 0; i < (work.objs || []).length; i++) if (work.objs[i].id === id) return work.objs[i];
+    return null;
+  }
+  function select(id) {
+    selId = id || null;
+    Array.prototype.forEach.call(objsEl.children, function (el) {
+      el.classList.toggle('sel', el.dataset.id === selId);
+    });
+    syncBar();
+  }
+  function syncBar() {
+    var on = !!selId;
+    $('#objbar').hidden = !on;
+    $('#tools').hidden = on;
+  }
+  function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+
+  function bindObj(el, o) {
+    el.addEventListener('pointerdown', function (e) {
+      if (e.button !== undefined && e.button > 0) return;
+      select(o.id);
+      var rect = paperEl.getBoundingClientRect();
+      var dx = e.clientX - (rect.left + o.fx * rect.width);
+      var dy = e.clientY - (rect.top + o.fy * rect.height);
+      var moved = false;
+      try { el.setPointerCapture(e.pointerId); } catch (err) {}
+      function mv(ev) {
+        var px = ev.clientX - rect.left - dx;
+        var py = ev.clientY - rect.top - dy;
+        o.fx = clamp(px / rect.width, 0.05, 0.95);
+        o.fy = clamp(py / rect.height, 0.06, 0.94);
+        posObj(el, o);
+        moved = true;
+        ev.preventDefault();
+      }
+      function up() {
+        el.removeEventListener('pointermove', mv);
+        el.removeEventListener('pointerup', up);
+        el.removeEventListener('pointercancel', up);
+        if (moved) saveNow();
+      }
+      el.addEventListener('pointermove', mv);
+      el.addEventListener('pointerup', up);
+      el.addEventListener('pointercancel', up);
+      e.preventDefault();
+    });
+  }
+
+  function addSticker(key) {
+    if (!STICKERS[key]) return null;
+    var n = work.objs.length;
+    var o = {
+      id: newId(), kind: 'sticker', key: key,
+      fx: clamp(0.5 + ((n % 3) - 1) * 0.13 + (Math.random() * 0.06 - 0.03), 0.12, 0.88),
+      fy: clamp(0.56 + ((n % 2) ? 0.1 : -0.1) + (Math.random() * 0.06 - 0.03), 0.15, 0.88),
+      s: 1, r: -10 + Math.round(Math.random() * 20)
+    };
+    work.objs.push(o);
+    renderObjs();
+    renderQuest();
+    saveNow();
+    return o.id;
+  }
+  function addPhotoObject(dataUrl) {
+    (work.objs || []).forEach(function (o) { if (o.kind === 'photo' && o.pid) delete db.photos[o.pid]; });
+    work.objs = work.objs.filter(function (o) { return o.kind !== 'photo'; });
+    var pid = 'p' + Date.now().toString(36);
+    db.photos[pid] = dataUrl;
+    var o = { id: newId(), kind: 'photo', pid: pid, fx: 0.5, fy: 0.62, s: 1, r: -3 };
+    work.objs.push(o);
+    renderObjs();
+    select(o.id);
+    saveNow();
+  }
+
+  /* ═════════════ 💎 탈출 열쇠 게이지 ═════════════ */
+  function stickerCount() {
+    return (work.objs || []).filter(function (o) { return o.kind === 'sticker'; }).length;
+  }
+  function questState() {
+    return [
+      { k: 'paper', ok: !!work.chosePaper, qi: '📄', lb: '속지', hint: '속지 고르기' },
+      { k: 'mood', ok: !!work.mood, qi: '😊', lb: '도장', hint: '기분 도장 찍기' },
+      { k: 'sticker', ok: stickerCount() >= 3, qi: '🧸', lb: '스티커', hint: '스티커 3개 붙이기 (' + Math.min(3, stickerCount()) + '/3)' },
+      { k: 'text', ok: String(work.text || '').trim().length >= 2, qi: '✍️', lb: '한 줄', hint: '한 줄 일기 쓰기' }
+    ];
+  }
+  var STEP_HANDLERS = {
+    paper: function () { markPaper(); openLayer('paper'); },
+    mood: function () { toast('위쪽 😊 ☀️ ☁️ 🌧️ 💪 😴 중 하나를 눌러 보세요.'); },
+    sticker: function () { openLayer('sticker'); },
+    text: function () { try { textEl.focus(); } catch (e) {} toast('오늘 하루를 한 줄로 적어 보세요 ✍️'); }
+  };
+  function buildQuest() {
+    var box = $('#qSteps');
+    box.innerHTML = '';
+    questState().forEach(function (s) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'qstep';
+      b.dataset.q = s.k;
+      b.innerHTML = '<span class="qi">' + s.qi + '</span><span class="ql">' + s.lb + '</span>';
+      b.addEventListener('click', function () { STEP_HANDLERS[s.k](); });
+      box.appendChild(b);
+    });
+  }
+  function renderQuest() {
+    if (!work) return;
+    var st = questState(), done = 0;
+    st.forEach(function (s) { if (s.ok) done++; });
+    $('#qCount').textContent = done + '/4';
+    Array.prototype.forEach.call(document.querySelectorAll('#qSteps .qstep'), function (b, i) {
+      var s = st[i];
+      if (!s) return;
+      b.classList.toggle('on', s.ok);
+      b.setAttribute('aria-pressed', s.ok ? 'true' : 'false');
+      b.setAttribute('aria-label', (i + 1) + '단계 ' + s.hint + (s.ok ? ' — 완료' : ''));
+    });
+    var next = st.filter(function (s) { return !s.ok; })[0];
+    $('#qHint').textContent = next ? ('다음: ' + next.hint) : '열쇠 4개 완성!';
+    var all = done === 4;
+    var esc = !!work.escaped;
+    $('#qRow').hidden = all;
+    $('#qSteps').hidden = all;
+    $('#escapeBtn').hidden = !all || esc;
+    $('#qDoneRow').hidden = !esc;
+  }
+
+  /* ═════════════ 이야기 장면 ═════════════ */
+  function sceneHTML() {
+    var sparks = '';
+    var pts = [[8, 22, 0], [88, 18, .5], [16, 62, 1.1], [80, 58, 1.6], [50, 8, .8], [30, 12, 1.9], [68, 30, 2.3], [22, 84, 1.3]];
+    pts.forEach(function (p) {
+      sparks += '<span style="left:' + p[0] + '%;top:' + p[1] + '%;animation-delay:' + p[2] + 's">✦</span>';
+    });
+    return '<div class="sceneArt">' + CASTLE_SVG + '</div>' +
+      '<div class="glowWrap"><div class="gateGlow"></div></div>' +
+      '<div class="gate"><span class="portal"><i></i><i></i><i></i><b></b></span><span class="doorP doorL"></span><span class="doorP doorR"></span></div>' +
+      '<div class="heartFly">💖</div>' +
+      '<div class="crownBox">' + STICKERS.crown.svg.replace('<svg', '<svg aria-hidden="true"') + '</div>' +
+      '<div class="hero heroL">' + STICKERS.mimi.svg.replace('<svg', '<svg aria-hidden="true"') + '</div>' +
+      '<div class="hero heroR">' + STICKERS.teo.svg.replace('<svg', '<svg aria-hidden="true"') + '</div>' +
+      '<div class="sparks" aria-hidden="true">' + sparks + '</div>';
+  }
+  function buildScenes() {
+    $('#introScene').innerHTML = sceneHTML();
+    $('#escScene').innerHTML = sceneHTML();
+  }
+
+  var PRAISE = ['You did it! 💎', 'Awesome! ✨', 'Perfect! 💎', 'Brilliant! ✨', 'Amazing! 🌀', 'Wonderful! 💎'];
+  function openIntro() {
+    closeEscapeScene();
+    openLayer('intro');
+  }
+  function closeEscapeScene() {
+    var sc = $('#escScene');
+    if (sc) sc.classList.remove('open');
+  }
+  function openEscape(replay) {
+    if (!work.escaped) {
+      var st = questState(), done = 0;
+      st.forEach(function (s) { if (s.ok) done++; });
+      if (done < 4) {
+        var next = st.filter(function (s) { return !s.ok; })[0];
+        toast('열쇠 ' + done + '/4 — ' + (next ? '다음: ' + next.hint : '') );
+        return;
+      }
+      work.escaped = true;
+      saveNow();
+      renderQuest();
+    }
+    $('#escEn').textContent = PRAISE[Math.floor(Math.random() * PRAISE.length)];
+    $('#escStats').textContent = '열쇠 4/4 · 스티커 ' + stickerCount() + '개 · ' +
+      String(work.text || '').trim().length + '자 일기 · ' + (PAPERS[work.paper] || PAPERS.grid).name + ' 속지';
+    openLayer('escape');
+    var sc = $('#escScene');
+    sc.classList.remove('open');
+    setTimeout(function () { sc.classList.add('open'); }, 160);
+  }
+  function newPage() {
+    saveNow();
+    var base = dateKeyOf(view), n = 2;
+    while (db.days[base + '#' + n]) n++;
+    view = base + '#' + n;
+    work = blankDay();
+    work.escaped = false; work.chosePaper = false;
+    selId = null;
+    renderDayChrome();
+    closeCards();
+    toast('새 페이지를 폈어요. 자유롭게 꾸며 보세요 💎');
+  }
+
+  /* ═════════════ 날짜 화면 ═════════════ */
+  function renderDayChrome() {
+    var d = parseKey(view);
+    var no = pageNoOf(view);
+    $('#dayTxt').textContent = shortDate(d) + (no > 1 ? ' · ' + no + '쪽' : '');
+    $('#todayChip').hidden = !isToday(view);
+    $('#pgDate').textContent = shortDate(d) + (no > 1 ? ' · ' + no + '쪽' : '');
+    $('#nextDay').disabled = (dateKeyOf(view) >= todayKey());
+    $('#dayLabel').setAttribute('aria-label', isToday(view) ? '오늘 날짜 — 누르면 오늘로' : shortDate(d) + ' — 누르면 오늘로');
+    applyPaper();
+    renderMoods();
+    renderMoodStamp();
+    textEl.value = work.text || '';
+    renderObjs();
+    renderQuest();
+    fitPaper();
+  }
+  function openDay(key) {
+    var d = db.days[key];
+    work = d ? cloneDay(d) : blankDay();
+    view = key;
+    selId = null;
+    renderDayChrome();
+    closeCards();
+  }
+  function goDay(delta) {
+    saveNow();
+    var d = parseKey(view);
+    d.setDate(d.getDate() + delta);
+    var k = keyOf(d);
+    if (k > todayKey()) { toast('오늘 이후로는 아직 쓸 수 없어요 🙂'); return; }
+    openDay(k);
+  }
+  function closeCards() { cardCanvas = null; cardBlob = null; if (cardUrl) { try { URL.revokeObjectURL(cardUrl); } catch (e) {} cardUrl = ''; } }
+
+  /* ═════════════ 글씨 시트 ═════════════ */
+  function buildTextSheet() {
+    var fp = $('#fontPills');
+    fp.innerHTML = '';
+    Object.keys(FONTS).forEach(function (k) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'pill'; b.dataset.font = k; b.textContent = FONTS[k].name;
+      b.addEventListener('click', function () { work.font = k; applyPaper(); markPills(); saveSoon(); });
+      fp.appendChild(b);
+    });
+    var sp = $('#sizePills');
+    sp.innerHTML = '';
+    [['작게', 15], ['보통', 17], ['크게', 20]].forEach(function (p) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'pill'; b.dataset.fs = p[1]; b.textContent = p[0];
+      b.addEventListener('click', function () { work.fs = p[1]; applyPaper(); markPills(); saveSoon(); });
+      sp.appendChild(b);
+    });
+    var cd = $('#colorDots');
+    cd.innerHTML = '';
+    COLORS.forEach(function (c) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'cdot'; b.dataset.color = c;
+      b.style.background = c;
+      b.setAttribute('aria-label', '글씨 색 ' + c);
+      b.addEventListener('click', function () { work.color = c; applyPaper(); markPills(); saveSoon(); });
+      cd.appendChild(b);
+    });
+    markPills();
+  }
+  function markPills() {
+    if (!work) return;
+    Array.prototype.forEach.call(document.querySelectorAll('#fontPills .pill'), function (b) {
+      b.classList.toggle('on', b.dataset.font === work.font);
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('#sizePills .pill'), function (b) {
+      b.classList.toggle('on', +b.dataset.fs === +work.fs);
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('#colorDots .cdot'), function (b) {
+      b.classList.toggle('on', b.dataset.color === work.color);
+    });
+  }
+
+  /* ═════════════ 속지 시트 ═════════════ */
+  function buildPaperSheet() {
+    var box = $('#paperList');
+    box.innerHTML = '';
+    PORDER.forEach(function (k) {
+      var p = PAPERS[k];
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'psw'; b.dataset.p = k;
+      b.innerHTML = '<span class="sw" data-pat="' + p.pat + '" data-p="' + k + '"></span><span class="nm">' + p.name + '</span>';
+      b.setAttribute('aria-label', '속지 ' + p.name);
+      b.addEventListener('click', function () {
+        work.paper = k;
+        work.chosePaper = true;
+        applyPaper();
+        markPaper();
+        renderQuest();
+        saveSoon();
+        toast(p.name + ' 속지로 바꿨어요.');
+      });
+      box.appendChild(b);
+    });
+    markPaper();
+  }
+  function markPaper() {
+    if (!work) return;
+    Array.prototype.forEach.call(document.querySelectorAll('#paperList .psw'), function (b) {
+      b.classList.toggle('on', b.dataset.p === work.paper);
+    });
+  }
+
+  /* ═════════════ 스티커 시트 ═════════════ */
+  function buildStickerSheet() {
+    var box = $('#stickerList');
+    box.innerHTML = '';
+    SORDER.forEach(function (k) {
+      var st = STICKERS[k];
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'st';
+      b.dataset.key = k;
+      b.innerHTML = st.svg;
+      b.setAttribute('aria-label', st.n + ' 스티커 붙이기');
+      b.addEventListener('click', function () {
+        addSticker(k);
+        closeTop();
+        toast(st.n + ' 스티커를 붙였어요. 손가락으로 옮겨 보세요.');
+      });
+      box.appendChild(b);
+    });
+  }
+
+  /* ═════════════ 사진 ═════════════ */
+  function handlePhotoFile(file) {
+    if (!file) return;
+    if (!/^image\//.test(file.type)) { toast('사진 파일만 붙일 수 있어요.'); return; }
+    var url = URL.createObjectURL(file);
+    var img = new Image();
+    img.onload = function () {
+      try {
+        var max = 900;
+        var s = Math.min(1, max / Math.max(img.width, img.height));
+        var c = document.createElement('canvas');
+        c.width = Math.max(1, Math.round(img.width * s));
+        c.height = Math.max(1, Math.round(img.height * s));
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        var data = c.toDataURL('image/jpeg', 0.78);
+        URL.revokeObjectURL(url);
+        addPhotoObject(data);
+        toast('사진을 폴라로이드로 붙였어요. 손가락으로 옮겨 보세요.');
+      } catch (e) { URL.revokeObjectURL(url); toast('사진을 붙이지 못했어요. 다른 사진으로 해 보세요.'); }
+    };
+    img.onerror = function () { URL.revokeObjectURL(url); toast('사진을 읽지 못했어요. 다른 사진으로 해 보세요.'); };
+    img.src = url;
+  }
+
+  /* ═════════════ 카드(PNG) 만들기 ═════════════ */
+  function ensureFonts() {
+    if (!document.fonts || !document.fonts.load) return Promise.resolve();
+    var jobs = [];
+    try {
+      jobs.push(document.fonts.load('40px "Gowun Dodum"'));
+      jobs.push(document.fonts.load('40px "Jua"'));
+      jobs.push(document.fonts.load('40px "Nanum Pen Script"'));
+    } catch (e) {}
+    return Promise.all(jobs).catch(function () {});
+  }
+  var imgCache = {};
+  function loadImg(src) {
+    if (imgCache[src]) return imgCache[src];
+    imgCache[src] = new Promise(function (res, rej) {
+      var im = new Image();
+      im.onload = function () { res(im); };
+      im.onerror = function () { rej(new Error('img')); };
+      im.src = src;
+    });
+    return imgCache[src];
+  }
+  function svgUri(svg) { return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg); }
+  function roundRect(g, x, y, w, h, r) {
+    g.beginPath();
+    g.moveTo(x + r, y);
+    g.arcTo(x + w, y, x + w, y + h, r);
+    g.arcTo(x + w, y + h, x, y + h, r);
+    g.arcTo(x, y + h, x, y, r);
+    g.arcTo(x, y, x + w, y, r);
+    g.closePath();
+  }
+  function wrapLines(g, text, maxW) {
+    var out = [];
+    String(text || '').split('\n').forEach(function (par) {
+      if (!par) { out.push(''); return; }
+      var line = '';
+      for (var i = 0; i < par.length; i++) {
+        var ch = par.charAt(i);
+        var test = line + ch;
+        if (line && g.measureText(test).width > maxW) {
+          out.push(line);
+          line = (ch === ' ') ? '' : ch;
+        } else line = test;
+      }
+      out.push(line);
+    });
+    return out;
+  }
+  function drawCover(g, img, x, y, w, h) {
+    var ir = img.width / img.height, r = w / h, sw, sh, sx, sy;
+    if (ir > r) { sh = img.height; sw = sh * r; sx = (img.width - sw) / 2; sy = 0; }
+    else { sw = img.width; sh = sw / r; sx = 0; sy = (img.height - sh) / 2; }
+    g.drawImage(img, sx, sy, sw, sh, x, y, w, h);
+  }
+
+  function renderCard() {
+    return new Promise(function (resolve, reject) {
+      var pw = paperEl.clientWidth, ph = paperEl.clientHeight;
+      if (!pw || !ph) { reject(new Error('paper')); return; }
+      var OUTW = 1080, S = OUTW / pw, outH = Math.round(ph * S), FOOT = 96;
+      var c = document.createElement('canvas');
+      c.width = OUTW; c.height = outH + FOOT;
+      var g = c.getContext('2d');
+      var p = PAPERS[work.paper] || PAPERS.grid;
+
+      g.fillStyle = p.bg; g.fillRect(0, 0, OUTW, outH);
+      if (p.grad) {
+        var gr = g.createLinearGradient(0, 0, 0, outH);
+        gr.addColorStop(0, p.grad[0]); gr.addColorStop(1, p.grad[1]);
+        g.fillStyle = gr; g.fillRect(0, 0, OUTW, outH);
+      }
+      var cell = OUTW / 19;
+      if (p.pat === 'grid') {
+        g.strokeStyle = p.line; g.lineWidth = Math.max(1, OUTW * 0.0022);
+        for (var x = cell; x < OUTW; x += cell) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, outH); g.stroke(); }
+        for (var y = cell; y < outH; y += cell) { g.beginPath(); g.moveTo(0, y); g.lineTo(OUTW, y); g.stroke(); }
+      } else if (p.pat === 'lined') {
+        var gap = cell * 1.35;
+        g.strokeStyle = p.line; g.lineWidth = Math.max(1, OUTW * 0.0022);
+        for (var y2 = gap; y2 < outH; y2 += gap) { g.beginPath(); g.moveTo(0, y2); g.lineTo(OUTW, y2); g.stroke(); }
+        g.strokeStyle = 'rgba(239,150,175,.4)';
+        g.beginPath(); g.moveTo(OUTW * 0.12, 0); g.lineTo(OUTW * 0.12, outH); g.stroke();
+      } else if (p.pat === 'dot' || p.pat === 'diamond') {
+        g.fillStyle = p.dot;
+        var r = Math.max(1.4, OUTW * 0.0035);
+        if (p.pat === 'diamond') r = Math.max(1.6, OUTW * 0.0032);
+        for (var dx = cell * 0.5; dx < OUTW; dx += cell) {
+          for (var dy = cell * 0.5; dy < outH; dy += cell) {
+            g.beginPath(); g.arc(dx, dy, r, 0, Math.PI * 2); g.fill();
+          }
+        }
+      }
+
+      var d = parseKey(view);
+      g.fillStyle = '#A4907C';
+      g.textAlign = 'left'; g.textBaseline = 'top';
+      g.font = '700 ' + Math.round(OUTW * 0.032) + 'px "Gowun Dodum", sans-serif';
+      g.fillText(shortDate(d) + (pageNoOf(view) > 1 ? ' · ' + pageNoOf(view) + '쪽' : ''), OUTW * 0.045, outH * (12 / ph));
+
+      if (work.mood) {
+        var cx = OUTW * (1 - 13 / pw - 21 / pw), cy = outH * (9 / ph) + (42 / pw) * OUTW / 2;
+        var rr = (21 / pw) * OUTW;
+        g.save();
+        g.translate(cx, cy); g.rotate(-8 * Math.PI / 180);
+        g.beginPath(); g.arc(0, 0, rr, 0, Math.PI * 2);
+        g.fillStyle = 'rgba(255,255,255,.86)'; g.fill();
+        g.setLineDash([rr * 0.34, rr * 0.2]);
+        g.strokeStyle = '#E8B9CB'; g.lineWidth = Math.max(1.5, rr * 0.09); g.stroke();
+        g.setLineDash([]);
+        g.textAlign = 'center'; g.textBaseline = 'middle';
+        g.font = Math.round(rr * 0.92) + 'px "Noto Color Emoji","Apple Color Emoji",sans-serif';
+        g.fillStyle = '#4A3547';
+        g.fillText(work.mood, 0, rr * 0.04);
+        g.restore();
+      }
+
+      var f = FONTS[work.font] || FONTS.gowun;
+      var fs = (work.fs || 17) / pw * OUTW * f.mult;
+      var lh = fs * f.lh;
+      var tx = (16 / pw) * OUTW;
+      var ty = (58 / ph) * outH;
+      var tw = OUTW - tx * 2;
+      if ((work.text || '').trim()) {
+        g.save();
+        g.beginPath(); g.rect(tx - 6, ty - 4, tw + 12, outH - ty - 6); g.clip();
+        g.font = '400 ' + fs.toFixed(1) + 'px "' + f.canvas + '", "Gowun Dodum", sans-serif';
+        g.fillStyle = work.color;
+        g.textAlign = 'left'; g.textBaseline = 'top';
+        var safeW = tw * 0.975;
+        var lines = wrapLines(g, work.text, safeW);
+        for (var guard = 0; guard < 5; guard++) {
+          var over = false;
+          for (var q = 0; q < lines.length; q++) {
+            if (g.measureText(lines[q]).width > tw - 2) { over = true; break; }
+          }
+          if (!over) break;
+          fs = fs * 0.96; lh = fs * f.lh;
+          g.font = '400 ' + fs.toFixed(1) + 'px "' + f.canvas + '", "Gowun Dodum", sans-serif';
+          lines = wrapLines(g, work.text, safeW);
+        }
+        for (var i = 0; i < lines.length; i++) {
+          if (ty + i * lh > outH - 8) break;
+          g.fillText(lines[i], tx, ty + i * lh + (lh - fs) * 0.32);
+        }
+        g.restore();
+      }
+
+      var jobs = (work.objs || []).map(function (o) {
+        var src = o.kind === 'photo' ? (db.photos[o.pid] || '') : svgUri(STICKERS[o.key] ? STICKERS[o.key].svg : STICKERS.star.svg);
+        if (!src) return Promise.resolve(null);
+        return loadImg(src).then(function (im) { return { o: o, im: im }; }, function () { return null; });
+      });
+      Promise.all(jobs).then(function (items) {
+        items.forEach(function (it) {
+          if (!it) return;
+          var o = it.o, im = it.im;
+          var cx2 = o.fx * OUTW, cy2 = o.fy * outH;
+          var baseW = (o.kind === 'photo' ? 0.44 : 0.215) * OUTW * o.s;
+          g.save();
+          g.translate(cx2, cy2);
+          g.rotate((o.r || 0) * Math.PI / 180);
+          if (o.kind === 'photo') {
+            var pad = baseW * 0.06, imgW = baseW - pad * 2;
+            var capH = baseW * 0.15, frameH = pad + imgW + capH + pad * 0.9;
+            g.shadowColor = 'rgba(120,80,110,.28)'; g.shadowBlur = baseW * 0.08; g.shadowOffsetY = baseW * 0.02;
+            g.fillStyle = '#FFFFFF';
+            roundRect(g, -baseW / 2, -frameH / 2, baseW, frameH, baseW * 0.02); g.fill();
+            g.shadowColor = 'transparent'; g.shadowBlur = 0; g.shadowOffsetY = 0;
+            drawCover(g, im, -baseW / 2 + pad, -frameH / 2 + pad, imgW, imgW);
+            g.fillStyle = '#8A7186';
+            g.textAlign = 'center'; g.textBaseline = 'middle';
+            g.font = '400 ' + (baseW * 0.075).toFixed(1) + 'px "Nanum Pen Script", cursive';
+            g.fillText('오늘의 한 장', 0, -frameH / 2 + pad + imgW + capH * 0.55);
+          } else {
+            g.drawImage(im, -baseW / 2, -baseW / 2, baseW, baseW);
+          }
+          g.restore();
+        });
+
+        g.fillStyle = '#FDF2F6';
+        g.fillRect(0, outH, OUTW, FOOT);
+        g.fillStyle = '#B98FA3';
+        g.textAlign = 'center'; g.textBaseline = 'middle';
+        g.font = '700 ' + Math.round(OUTW * 0.028) + 'px "Gowun Dodum", sans-serif';
+        g.fillText('다이아몬드 성 탈출 다꾸 · 오늘도 수고했어요', OUTW / 2, outH + FOOT / 2);
+        resolve(c);
+      }, reject);
+    });
+  }
+
+  /* ═════════════ 저장 시트 ═════════════ */
+  function openSave() {
+    saveNow();
+    openLayer('save');
+    var prev = $('#savePrev'), ph2 = $('#savePrevPh'), st = $('#saveStatus');
+    prev.hidden = true; prev.removeAttribute('src'); ph2.hidden = false; ph2.textContent = '잠깐만 기다려 주세요…';
+    st.textContent = '카드를 만드는 중이에요…';
+    ensureFonts().then(renderCard).then(function (canvas) {
+      cardCanvas = canvas;
+      canvas.toBlob(function (blob) {
+        if (!blob) { st.textContent = '카드를 만들지 못했어요. 다시 눌러 주세요.'; ph2.textContent = '카드를 만들지 못했어요'; return; }
+        cardBlob = blob;
+        if (cardUrl) { try { URL.revokeObjectURL(cardUrl); } catch (e) {} }
+        cardUrl = URL.createObjectURL(blob);
+        prev.src = cardUrl;
+        prev.hidden = false;
+        ph2.hidden = true;
+        st.textContent = '완성됐어요! 저장하거나 공유해 보세요.';
+      }, 'image/png');
+    }).catch(function () {
+      st.textContent = '카드를 만들지 못했어요. 잠시 뒤 다시 눌러 주세요.';
+      ph2.hidden = false; ph2.textContent = '카드를 만들지 못했어요';
+    });
+  }
+  function downloadPng() {
+    if (!cardBlob) { toast('아직 카드를 만드는 중이에요. 잠깐만요.'); return; }
+    try {
+      var a = document.createElement('a');
+      a.href = cardUrl;
+      a.download = '다이아몬드성다꾸_' + dateKeyOf(view) + (pageNoOf(view) > 1 ? '_' + pageNoOf(view) : '') + '.png';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      toast('이미지로 저장했어요. 사진첩·다운로드에서 확인해 보세요.');
+    } catch (e) { toast('저장하지 못했어요. 사진을 길게 눌러 저장해 보세요.'); }
+  }
+  function sharePng() {
+    if (!cardBlob) { toast('아직 카드를 만드는 중이에요. 잠깐만요.'); return; }
+    var file = null;
+    try { file = new File([cardBlob], '다이아몬드성다꾸_' + dateKeyOf(view) + '.png', { type: 'image/png' }); } catch (e) {}
+    var payload = file ? { files: [file], title: '다이아몬드 성 탈출 다꾸', text: '오늘의 다꾸 카드예요' } : null;
+    if (payload && navigator.canShare) {
+      var ok = false;
+      try { ok = navigator.canShare(payload); } catch (e) {}
+      if (!ok) payload = null;
+    }
+    if (payload && navigator.share) {
+      try {
+        navigator.share(payload).catch(function (err) {
+          if (err && err.name === 'AbortError') return;
+          downloadPng();
+        });
+        return;
+      } catch (e) {}
+    }
+    downloadPng();
+    toast('이 기기에서는 공유 창이 안 열려 이미지로 저장했어요.');
+  }
+
+  /* ═════════════ 기록(달력·목록) ═════════════ */
+  var recY = 0, recM = 0;
+  function openRec() {
+    saveNow();
+    var d = parseKey(view);
+    recY = d.getFullYear(); recM = d.getMonth();
+    openLayer('rec');
+    renderRec();
+  }
+  function renderRec() {
+    $('#recTitle').textContent = recY + '년 ' + (recM + 1) + '월';
+    var grid = $('#calGrid');
+    grid.innerHTML = '';
+    ['일', '월', '화', '수', '목', '금', '토'].forEach(function (w, i) {
+      var e = document.createElement('div');
+      e.className = 'wd' + (i === 0 ? ' sun' : '');
+      e.textContent = w;
+      grid.appendChild(e);
+    });
+    var first = new Date(recY, recM, 1);
+    var start = first.getDay();
+    var last = new Date(recY, recM + 1, 0).getDate();
+    for (var i = 0; i < start; i++) {
+      var b = document.createElement('div'); b.className = 'cd blank'; grid.appendChild(b);
+    }
+    for (var day = 1; day <= last; day++) {
+      var k = recY + '-' + pad2(recM + 1) + '-' + pad2(day);
+      var pages = pagesOf(k);
+      var has = pages.length > 0;
+      var mood = '';
+      for (var m2 = 0; m2 < pages.length; m2++) { if (db.days[pages[m2]].mood) { mood = db.days[pages[m2]].mood; break; } }
+      var cell = document.createElement('button');
+      cell.type = 'button';
+      cell.className = 'cd' + (has ? ' has' : '') + (k === todayKey() ? ' today' : '');
+      cell.innerHTML = '<span>' + day + '</span>' + (has ? '<span class="cm">' + (mood || '✍️') + '</span>' : '');
+      cell.setAttribute('aria-label', (recM + 1) + '월 ' + day + '일' + (has ? ' 기록 있음' : ''));
+      (function (kk, pg) {
+        cell.addEventListener('click', function () {
+          closeTop();
+          setTimeout(function () { openDay(pg || kk); }, 70);
+        });
+      })(k, pages[0]);
+      grid.appendChild(cell);
+    }
+
+    var list = $('#recList');
+    var rows = [];
+    for (var day2 = 1; day2 <= last; day2++) {
+      var k2 = recY + '-' + pad2(recM + 1) + '-' + pad2(day2);
+      var pg2 = pagesOf(k2);
+      if (pg2.length) {
+        var v = db.days[pg2[pg2.length - 1]] || {};
+        rows.push({ k: k2, key: pg2[0], d: day2, v: v, n: pg2.length });
+      }
+    }
+    if (!rows.length) {
+      list.innerHTML = '<p class="recempty">이 달에는 아직 기록이 없어요.<br>오늘 하루를 한 줄이라도 남겨 보세요 🐹</p>';
+      return;
+    }
+    list.innerHTML = '';
+    rows.sort(function (a, b) { return b.d - a.d; });
+    rows.slice(0, 12).forEach(function (r) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'recrow';
+      var txt = String(r.v.text || '').replace(/\s+/g, ' ').trim();
+      if (!txt) txt = (r.v.objs && r.v.objs.length) ? '스티커로 꾸민 날' : '기분을 남긴 날';
+      btn.innerHTML = '<span class="rd">' + (recM + 1) + '/' + r.d + ' ' + (r.v.mood || '') +
+        (r.n > 1 ? ' ·' + r.n + '쪽' : '') + '</span>' +
+        '<span class="rt">' + txt.replace(/[<>&]/g, ' ') + '</span>';
+      btn.setAttribute('aria-label', (recM + 1) + '월 ' + r.d + '일 일기 열기');
+      (function (kk) {
+        btn.addEventListener('click', function () {
+          closeTop();
+          setTimeout(function () { openDay(kk); }, 70);
+        });
+      })(r.key);
+      list.appendChild(btn);
+    });
+  }
+  function moveMonth(delta) {
+    var d = new Date(recY, recM + delta, 1);
+    recY = d.getFullYear(); recM = d.getMonth();
+    renderRec();
+  }
+
+  /* ═════════════ 공유(링크) · 설치 ═════════════ */
+  var INST_SITE = 'https://starpicklife-design.github.io/diary/';
+  function copyText(txt, ok, fail) {
+    function legacy() {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = txt;
+        ta.setAttribute('readonly', '');
+        ta.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { ta.setSelectionRange(0, txt.length); } catch (e) {}
+        var done = document.execCommand && document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (done) ok(); else fail();
+      } catch (e) { fail(); }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText && location.protocol !== 'file:') {
+      try { navigator.clipboard.writeText(txt).then(ok, legacy); return; } catch (e) {}
+    }
+    legacy();
+  }
+  function appUrl() {
+    var h = location.hostname || '';
+    if (location.protocol === 'file:' || h === 'localhost' || h === '127.0.0.1' || !h) return INST_SITE;
+    return location.href;
+  }
+  function shareApp() {
+    var url = appUrl();
+    var payload = {
+      title: '다이아몬드 성 탈출 다꾸 · 미미 & 테오',
+      text: '다이아몬드 성 비밀 방에 갇힌 미미와 테오! 다이어리를 꾸며 4개의 열쇠를 모으면 숨겨진 차원의 문이 열려요 💎 무료·광고 없음, 설치 없이 폰에서 바로.',
+      url: url
+    };
+    function copyFallback() {
+      copyText(payload.text + '\n' + url,
+        function () { toast('🔗 링크가 복사됐어요!'); },
+        function () { toast('링크를 복사하지 못했어요. 주소창의 주소를 길게 눌러 복사해 주세요.'); });
+    }
+    var usable = true;
+    try { if (navigator.canShare && !navigator.canShare(payload)) usable = false; } catch (e) {}
+    if (navigator.share && usable) {
+      try {
+        var r = navigator.share(payload);
+        if (r && r.then) r.then(function () {}, function (err) {
+          if (err && err.name === 'AbortError') return;
+          copyFallback();
+        });
+        return;
+      } catch (e) {}
+    }
+    copyFallback();
+  }
+
+  var instPrompt = null, instDone = false;
+  function isStandaloneNow() {
+    try {
+      if (window.matchMedia('(display-mode: standalone)').matches) return true;
+      if (window.matchMedia('(display-mode: minimal-ui)').matches) return true;
+    } catch (e) {}
+    if (navigator.standalone === true) return true;
+    if (/^android-app:\/\//i.test(document.referrer || '')) return true;
+    return false;
+  }
+  function uaIsIOS() { return /iPhone|iPad|iPod/i.test(navigator.userAgent || '') || (navigator.platform === 'MacIntel' && (navigator.maxTouchPoints || 0) > 1); }
+  function uaIsAndroid() { return /Android/i.test(navigator.userAgent || ''); }
+  function uaIsSamsung() { return /SamsungBrowser/i.test(navigator.userAgent || ''); }
+  function inAppBrowser() { return /KAKAOTALK|Instagram|NAVER|FBAN|FBAV|Line\//i.test(navigator.userAgent || ''); }
+  function chromeIntentUrl() {
+    var host = location.host || 'starpicklife-design.github.io';
+    var path = (location.pathname || '/diary/') + (location.search || '');
+    return 'intent://' + host + path + '#Intent;scheme=https;package=com.android.chrome;end';
+  }
+  function syncInstallBtn() {
+    var b = $('#installBtn');
+    if (b) b.hidden = instDone || isStandaloneNow();
+  }
+  function instStepsHTML() {
+    var rows;
+    if (uaIsIOS()) {
+      rows = [['화면 아래(또는 위)의 <b>공유 버튼 ⤴</b>을 눌러요', '⤴'],
+        ['목록을 내려 <b>홈 화면에 추가</b>를 눌러요', '➕'],
+        ['오른쪽 위 <b>추가</b>를 누르면 끝!', '✅']];
+    } else if (uaIsSamsung()) {
+      rows = [['화면 아래의 <b>메뉴 ≡</b>를 눌러요', '≡'],
+        ['<b>홈 화면에 추가</b>를 눌러요', '➕'],
+        ['<b>추가</b>를 누르면 끝!', '✅']];
+    } else if (uaIsAndroid()) {
+      rows = [['오른쪽 위 <b>점 세 개 ⋮</b>를 눌러요', '⋮'],
+        ['<b>홈 화면에 추가</b>(또는 앱 설치)를 눌러요', '➕'],
+        ['<b>추가</b>를 누르면 끝!', '✅']];
+    } else {
+      rows = [['주소창 오른쪽의 <b>설치 아이콘</b>을 눌러요', '⋮'],
+        ['<b>설치</b>를 누르면 앱 창에서 열려요', '➕'],
+        ['휴대폰에서 열면 <b>홈 화면</b>에 담을 수 있어요', '📱']];
+    }
+    return rows.map(function (r, i) {
+      return '<li><span class="num">' + (i + 1) + '</span><span class="txt">' + r[0] +
+        '</span><span class="ui" aria-hidden="true">' + r[1] + '</span></li>';
+    }).join('');
+  }
+  function instTipHTML() {
+    if (uaIsIOS()) return '사파리 기준이에요. 크롬으로 열었다면 오른쪽 위 <b>⋮</b> → <b>홈 화면에 추가</b>를 눌러 주세요.';
+    if (uaIsSamsung()) return '삼성 인터넷 메뉴 ≡ 는 화면 <b>아래 가운데</b>에 있어요.';
+    if (uaIsAndroid()) return '삼성 인터넷은 <b>≡</b> → 홈 화면에 추가, 아이폰은 <b>공유 ⤴</b> → 홈 화면에 추가예요.';
+    return '휴대폰 크롬은 <b>⋮ → 홈 화면에 추가</b>, 아이폰 사파리는 <b>공유 ⤴ → 홈 화면에 추가</b>예요.';
+  }
+  function openInstall() {
+    $('#instSteps').innerHTML = instStepsHTML();
+    $('#instTip').innerHTML = instTipHTML();
+    var ch = $('#instChrome'), show = uaIsAndroid() && inAppBrowser();
+    ch.hidden = !show;
+    if (show) ch.setAttribute('href', chromeIntentUrl());
+    openLayer('install');
+  }
+  function installTap() {
+    if (isStandaloneNow()) { toast('이미 홈 화면 앱으로 열려 있어요.'); return; }
+    if (instPrompt) {
+      var dp = instPrompt; instPrompt = null;
+      try {
+        dp.prompt();
+        if (dp.userChoice && dp.userChoice.then) {
+          dp.userChoice.then(function (r) {
+            if (r && r.outcome === 'accepted') { instDone = true; syncInstallBtn(); toast('홈 화면에 넣었어요!'); }
+          }, function () {});
+        }
+        return;
+      } catch (e) {}
+    }
+    openInstall();
+  }
+
+  /* ═════════════ 이벤트 연결 ═════════════ */
+  $('#todayCard').addEventListener('click', refreshWeather);
+  $('#prevDay').addEventListener('click', function () { goDay(-1); });
+  $('#nextDay').addEventListener('click', function () { goDay(1); });
+  $('#dayLabel').addEventListener('click', function () {
+    if (isToday(view)) { toast('오늘 일기를 쓰고 있어요 🙂'); return; }
+    saveNow(); openDay(todayKey());
+  });
+  $('#recBtn').addEventListener('click', openRec);
+  $('#recPrev').addEventListener('click', function () { moveMonth(-1); });
+  $('#recNext').addEventListener('click', function () { moveMonth(1); });
+
+  $('#paperBtn').addEventListener('click', function () { markPaper(); openLayer('paper'); });
+  $('#stickerBtn').addEventListener('click', function () { openLayer('sticker'); });
+  $('#textBtn').addEventListener('click', function () { markPills(); openLayer('text'); });
+  $('#photoBtn').addEventListener('click', function () { $('#photoInput').click(); });
+  $('#photoInput').addEventListener('change', function (e) {
+    var f = e.target.files && e.target.files[0];
+    handlePhotoFile(f);
+    try { e.target.value = ''; } catch (err) {}
+  });
+
+  $('#rotBtn').addEventListener('click', function () {
+    var o = selId && objOf(selId); if (!o) return;
+    o.r = ((o.r || 0) + 15) % 360;
+    if (o.r > 180) o.r -= 360;
+    posObj(elOf(o.id), o); saveNow();
+  });
+  $('#smallBtn').addEventListener('click', function () {
+    var o = selId && objOf(selId); if (!o) return;
+    o.s = Math.max(0.45, Math.round(o.s * 0.8 * 100) / 100);
+    posObj(elOf(o.id), o); saveNow();
+  });
+  $('#bigBtn').addEventListener('click', function () {
+    var o = selId && objOf(selId); if (!o) return;
+    o.s = Math.min(2.4, Math.round(o.s * 1.25 * 100) / 100);
+    posObj(elOf(o.id), o); saveNow();
+  });
+  $('#delBtn').addEventListener('click', function () {
+    var o = selId && objOf(selId); if (!o) return;
+    if (o.kind === 'photo' && o.pid) delete db.photos[o.pid];
+    work.objs = work.objs.filter(function (x) { return x.id !== o.id; });
+    selId = null;
+    renderObjs();
+    renderQuest();
+    saveNow();
+    toast('지웠어요.');
+  });
+  $('#doneBtn').addEventListener('click', function () { select(null); saveNow(); toast('꾸미기 완료! 글로 이어서 써 보세요 ✍️'); });
+
+  textEl.addEventListener('input', function () { work.text = textEl.value; renderQuest(); saveSoon(); });
+  textEl.addEventListener('focus', function () { if (selId) select(null); });
+  paperEl.addEventListener('pointerdown', function (e) {
+    if (e.target === textEl || e.target === paperEl || e.target === objsEl) select(null);
+  });
+
+  $('#saveOpen').addEventListener('click', openSave);
+  $('#dlBtn').addEventListener('click', downloadPng);
+  $('#shBtn').addEventListener('click', sharePng);
+  $('#shareBtn').addEventListener('click', shareApp);
+  $('#installBtn').addEventListener('click', installTap);
+  $('#instOk').addEventListener('click', function () { closeTop(); });
+  $('#instX').addEventListener('click', function () { closeTop(); });
+  $('#storyBtn').addEventListener('click', openIntro);
+  $('#introGo').addEventListener('click', function () {
+    try { sessionStorage.setItem('wagleDiary.intro', '1'); } catch (e) {}
+    closeTop();
+    setTimeout(function () { toast('💎 열쇠 4개를 모아 차원의 문을 열어 봐요!'); }, 420);
+  });
+  $('#introSkip').addEventListener('click', function () {
+    try { sessionStorage.setItem('wagleDiary.intro', '1'); } catch (e) {}
+  });
+  $('#escapeBtn').addEventListener('click', function () { openEscape(false); });
+  $('#escSave').addEventListener('click', function () { closeTop(); setTimeout(openSave, 300); });
+  $('#escNext').addEventListener('click', function () { closeTop(); setTimeout(newPage, 300); });
+  $('#newPageBtn').addEventListener('click', newPage);
+  $('#replayEsc').addEventListener('click', function () { openEscape(true); });
+  window.addEventListener('appinstalled', function () {
+    instDone = true; instPrompt = null; syncInstallBtn(); toast('홈 화면에 넣었어요!');
+  });
+  window.addEventListener('beforeinstallprompt', function (e) {
+    try { e.preventDefault(); } catch (err) {}
+    instPrompt = e;
+  });
+
+  window.addEventListener('beforeunload', function () { saveNow(); });
+  document.addEventListener('visibilitychange', function () { if (document.hidden) saveNow(); });
+
+  /* ═════════════ 시작 ═════════════ */
+  loadDB();
+  $('#headBadge').innerHTML = STICKERS.diamond.svg;
+  buildScenes();
+  openDay(todayKey());          /* work 를 먼저 만든다 (시트는 work 가 있어야 그린다) */
+  buildQuest();
+  buildPaperSheet();
+  buildStickerSheet();
+  buildTextSheet();
+  renderQuest();
+  syncInstallBtn();
+  fitPaper();
+  loadWxCache();
+  loadWeather();
+  setInterval(renderToday, 60 * 1000);
+
+  var introSeen = false;
+  try { introSeen = sessionStorage.getItem('wagleDiary.intro') === '1'; } catch (e) {}
+  if (!introSeen && !work.escaped && !hasContent(work)) {
+    setTimeout(function () { openLayer('intro'); }, 420);
+  }
+
+  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+    window.addEventListener('load', function () {
+      try { navigator.serviceWorker.register('./sw.js').catch(function () {}); } catch (e) {}
+    });
+  }
+
+  /* 테스트·확인용 */
+  window.__diary = {
+    state: function () {
+      return {
+        view: view, today: todayKey(), paper: work.paper, paperName: (PAPERS[work.paper] || {}).name,
+        font: work.font, color: work.color, fs: work.fs, text: work.text, mood: work.mood,
+        chosePaper: !!work.chosePaper, escaped: !!work.escaped,
+        objs: work.objs.map(function (o) {
+          return { id: o.id, kind: o.kind, key: o.key, fx: +o.fx.toFixed(3), fy: +o.fy.toFixed(3), s: o.s, r: o.r };
+        }),
+        stickerCount: stickerCount(),
+        quest: questState().map(function (s) { return s.k + ':' + (s.ok ? 'ok' : '-'); }),
+        savedDays: Object.keys(db.days), layerStack: stack.slice(), sel: selId
+      };
+    },
+    add: addSticker,
+    escape: openEscape,
+    newPage: newPage,
+    cardSize: function () {
+      return ensureFonts().then(renderCard).then(function (c) {
+        return new Promise(function (res) {
+          c.toBlob(function (b) { res({ w: c.width, h: c.height, bytes: b ? b.size : 0 }); }, 'image/png');
+        });
+      });
+    },
+    overflowX: function () { return document.documentElement.scrollWidth - document.documentElement.clientWidth; }
+  };
+})();
+</script>
+</body>
+</html>
