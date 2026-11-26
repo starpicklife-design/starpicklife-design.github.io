@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content" />
+<meta name="theme-color" content="#FFF1DF" />
+<!-- build: 2026-11-26 ⚡🚒 와글링 안전 특공대 v3 (전기·소방 2인조 · 한/EN 전환)
+     · 상단 한/EN 토글 — 화면 전체가 영어로 (localStorage 기억, ?lang=en 주소로도)
+     · 맨 위 오늘 날짜·요일·날씨 (김해 기본, 누르면 현위치 — Open-Meteo)
+     · 🔥 불 났을 때: 119 긴급 배너 · 3단계 대피(알리기·낮은 자세·계단) 상세 시트
+     · 🧯 소화기 사용법 4단계 그림(안전핀 → 노즐 → 손잡이 → 빗자루 쓸듯) · 완강기 그림
+     · ⚡ 전기 화재(분전반·콘센트)는 물 금지 · 차단기 → 분말/K·C급 → 119
+     · 🧾 우리 집 전기·소방 셀프 체크 14항목 (localStorage, 달이 바뀌면 새로)
+      · 🎮 안전 OX 퀴즈 10문제(소방·전기) + 천사·왕관·영어 칭찬
+     · ⚡🚒 2인조 특공대 프로필 카드: 와트믹(와트·와트메이커) · 파이어릭(피트·파이어레스큐)
+     · 응급의료 내용은 다루지 않음 — 그런 일에는 119 안내를 따라요
+     · 📞 119 · 123 · 1588-7500 원터치 · 🏠 홈 · 📤 공유 · 📲 설치
+     · 폰 뒤로가기(popstate) · 🔠 큰 글씨 · 기록은 이 기기에만 · 무료 · 광고 없음 -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22%3E%3Cdefs%3E%3ClinearGradient id=%22b%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23FFDCBE%22/%3E%3Cstop offset=%221%22 stop-color=%22%23FFB59A%22/%3E%3C/linearGradient%3E%3ClinearGradient id=%22f%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23FFE59A%22/%3E%3Cstop offset=%221%22 stop-color=%22%23FF8158%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%22512%22 height=%22512%22 rx=%22116%22 fill=%22url(%23b)%22/%3E%3Cpath d=%22M256 96c34 52 78 78 78 132a78 78 0 0 1-156 0c0-30 14-50 30-68 4 20 14 28 22 30-8-34 6-66 26-94z%22 fill=%22url(%23f)%22/%3E%3Cpath d=%22M304 254l-58 88h34l-16 60 62-92h-36z%22 fill=%22%23FFFDF7%22 stroke=%22%23E9603C%22 stroke-width=%2210%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="manifest" href="manifest.json" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="안전 특공대" />
+<meta name="description" content="⚡🚒 와글링 안전 특공대 — 와트믹·파이어릭 2인조 전기·소방 특공대와 함께 불 대피 3단계·소화기·완강기, 전기 화재 대처, 우리 집 전기·소방 점검 14가지, 안전 OX 퀴즈 10문제, 119·123 원터치. 한국어/영어 전환. 기록은 이 기기에만 저장되고 광고가 없어요." />
+<title>⚡🚒 와글링 안전 특공대 · 전기·소방 2인조 특공대</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#FFFBF4; --card:#FFFFFF; --ink:#2C343D; --ink2:#6E7A86; --ink3:#9AA5AE;
+  --line:#F1E3D1; --line2:#F8EFE4;
+  --coral:#ED5B36; --coral2:#C9431F; --coralbg:#FFEDE5; --coralline:#FFD2C2;
+  --amber:#C98311; --amberbg:#FFF4DC; --amberline:#F7DEA8;
+  --mint:#2C9773; --mint2:#1F7B5D; --mintbg:#E8F8F0; --mintline:#C0E8D5;
+  --sky:#357FC7; --skybg:#EAF3FD; --skyline:#C6E0F8;
+  --lilac:#7563CB; --lilacbg:#F1EEFD; --lilacline:#DCD4F9;
+  --shadow:0 2px 12px rgba(120,80,40,.08);
+  --sh2:0 6px 18px rgba(120,80,40,.14);
+  --f-head:"Jua","Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
+  --f-body:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Segoe UI",sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:18px;-webkit-text-size-adjust:100%;overflow-x:clip}
+html.big{font-size:21px}
+body{margin:0;overflow-x:clip;background:var(--bg);color:var(--ink);
+  font-family:var(--f-body);line-height:1.5;
+  padding-bottom:calc(6.2rem + env(safe-area-inset-bottom));
+  word-break:keep-all;overflow-wrap:anywhere}
+body.noscroll{overflow:hidden}
+[hidden]{display:none !important}
+button{font-family:inherit;color:inherit;border:0;background:none;cursor:pointer;font-size:inherit}
+a{color:inherit;text-decoration:none}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #3D6E8C;outline-offset:2px}
+p{margin:0}
+ol,ul{margin:0;padding:0}
+img,svg{max-width:100%}
+.defs{position:absolute;width:0;height:0;overflow:hidden}
+
+/* ── 머리말 ───────────────────────────── */
+.top{background:linear-gradient(135deg,#FFF3E0 0%,#FFE5D6 58%,#FFDEE9 100%);
+  padding:calc(.5rem + env(safe-area-inset-top)) .7rem .55rem;
+  border-bottom:1.5px solid #F7DFCD}
+.brand{display:flex;align-items:center;gap:.45rem;max-width:560px;margin:0 auto}
+.logo{flex:0 0 auto;width:2rem;height:2rem;border-radius:50%;
+  display:grid;place-items:center;font-size:1.05rem;
+  background:#fff;box-shadow:0 2px 8px rgba(190,120,80,.18)}
+.btxt{flex:1;min-width:0}
+.btxt h1{font-family:var(--f-head);font-weight:400;font-size:.93rem;line-height:1.2;margin:0;color:#4A362B;letter-spacing:-.03em}
+.btxt .sub{font-size:.65rem;color:#8B6C58;margin-top:.1rem;line-height:1.2}
+.topbtns{display:flex;gap:.24rem;flex:0 0 auto}
+.topbtns button{display:grid;place-items:center;gap:.05rem;min-width:2.42rem;height:2.5rem;
+  border-radius:.8rem;background:rgba(255,255,255,.78);border:1.5px solid #F3D8C4;
+  font-size:.58rem;color:#7A5B48;line-height:1;box-shadow:0 1px 4px rgba(180,120,80,.10)}
+.topbtns button span.ic{font-size:.95rem;line-height:1}
+.topbtns button[aria-pressed="true"]{background:#FFE0CE;border-color:#F0B594;color:#B4451F}
+.topbtns button.lang{min-width:2.5rem}
+.topbtns .lgl{display:flex;align-items:center;justify-content:center;gap:.02rem;
+  font-family:var(--f-head);font-size:.6rem;line-height:1;letter-spacing:-.01em}
+.topbtns .lgl i{font-style:normal}
+.topbtns .lgl .lgs{opacity:.45;font-size:.54rem}
+.topbtns .lgl .lgd{opacity:.32}
+html[lang="en"] .btxt h1{font-size:.88rem;letter-spacing:-.01em}
+html[lang="en"] .btxt .sub{font-size:.62rem}
+html[lang="en"] .logo{display:none}
+html[lang="en"] .sh{font-size:1rem}
+
+/* ── 오늘 날짜·날씨 (고정) ─────────────── */
+.datebar{position:sticky;top:0;z-index:30;
+  display:flex;align-items:center;gap:.28rem;width:calc(100% - 1.2rem);max-width:560px;
+  margin:.5rem auto 0;padding:.48rem .55rem;background:#fff;
+  border:1.5px solid var(--line);border-radius:13px;box-shadow:var(--shadow);
+  font-size:.78rem;color:var(--ink2);text-align:left}
+.datebar .db-date{font-family:var(--f-head);font-size:.88rem;color:#4A362B;flex:0 0 auto}
+.datebar .db-sep{color:#D8C6B4;flex:0 0 auto}
+.datebar .db-wx{flex:0 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.82rem}
+.datebar .db-place{flex:0 0 auto;font-size:.71rem;color:#A08C79}
+.datebar .db-go{margin-left:auto;flex:0 0 auto;font-size:.7rem;color:#B9A491;display:flex;align-items:center;gap:.1rem}
+.datebar .loading{color:#B3A08E}
+html[lang="en"] .datebar{gap:.24rem}
+html[lang="en"] .datebar .db-date{font-size:.82rem;letter-spacing:-.02em}
+html[lang="en"] .datebar .db-wx{font-size:.76rem}
+html[lang="en"] .datebar .db-place{font-size:.68rem}
+@media (max-width:359px){.datebar .db-go{display:none}}
+html.big .datebar .db-go{display:none}
+
+main{max-width:560px;margin:0 auto;padding:0 .75rem}
+.page{padding-top:.15rem}
+
+/* ── 공통 ─────────────────────────────── */
+.sh{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:.4rem;row-gap:.05rem;margin:1rem .1rem .5rem;
+  font-family:var(--f-head);font-size:1.06rem;color:#41332A;font-weight:400}
+.sh .sh-s{font-family:var(--f-body);font-size:.72rem;color:var(--ink3);font-weight:400;min-width:0}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:18px;
+  box-shadow:var(--shadow);padding:.85rem .9rem;margin-bottom:.6rem}
+.btn{display:flex;align-items:center;justify-content:center;gap:.35rem;width:100%;
+  min-height:3rem;border-radius:14px;font-family:var(--f-head);font-size:1rem;font-weight:400}
+.btn.primary{background:linear-gradient(135deg,#FF7C57,#ED5B36);color:#fff;box-shadow:0 6px 16px rgba(237,91,54,.24)}
+.btn.primary:active{transform:translateY(1px)}
+.btn.ghost{background:#fff;border:1.5px solid var(--line);color:var(--ink2);margin-top:.45rem;font-family:var(--f-body);font-size:.9rem;min-height:2.7rem}
+.btn.small{min-height:2.4rem;font-size:.85rem;font-family:var(--f-body);width:auto;padding:0 .8rem}
+
+/* ── 불 났을 때 ───────────────────────── */
+.sos{position:relative;overflow:hidden;border-radius:20px;padding:.95rem 1rem 1rem;margin-top:.75rem;
+  background:linear-gradient(150deg,#FF8A63 0%,#F2603C 52%,#DE4A28 100%);
+  color:#FFF8F3;box-shadow:0 8px 22px rgba(226,86,55,.26)}
+.sos::after{content:"";position:absolute;right:-1.6rem;top:-1.6rem;width:7rem;height:7rem;border-radius:50%;
+  background:rgba(255,255,255,.14)}
+.sos-t{font-family:var(--f-head);font-size:1.3rem;line-height:1.2}
+.sos-s{font-size:.85rem;margin-top:.3rem;color:#FFEDE4;line-height:1.45}
+.sos-s b{color:#fff}
+.sos-btn{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:.3rem;
+  margin-top:.7rem;min-height:3.1rem;border-radius:14px;background:#fff;color:#D2451F;
+  font-family:var(--f-head);font-size:1.15rem;box-shadow:0 4px 12px rgba(140,40,20,.18)}
+.sos-btn:active{transform:translateY(1px)}
+.sos-note{font-size:.7rem;color:#FFE3D6;margin-top:.45rem;text-align:center}
+
+.step{display:flex;align-items:center;gap:.6rem;width:100%;background:#fff;
+  border:1.5px solid var(--line);border-radius:16px;padding:.55rem .65rem;margin-bottom:.45rem;
+  text-align:left;box-shadow:var(--shadow)}
+.step:active{transform:scale(.988)}
+.sno{flex:0 0 auto;width:1.6rem;height:1.6rem;border-radius:50%;background:var(--coralbg);
+  color:var(--coral2);font-family:var(--f-head);font-size:.85rem;display:grid;place-items:center}
+.semo{flex:0 0 auto;width:2.7rem;height:2.7rem;border-radius:.9rem;background:#FFF6EC;
+  display:grid;place-items:center;font-size:1.35rem;line-height:1}
+.stxt{flex:1;min-width:0}
+.stxt b{display:block;font-size:.97rem;font-weight:400;font-family:var(--f-head);color:var(--ink);line-height:1.25}
+.stxt em{display:block;font-style:normal;font-size:.74rem;color:var(--ink2);margin-top:.15rem;line-height:1.35}
+.sarrow{flex:0 0 auto;color:#D5C3B2;font-size:1.3rem;line-height:1;padding-right:.1rem}
+
+.extgrid{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
+.extcard{position:relative;background:#fff;border:1.5px solid var(--coralline);border-radius:16px;
+  padding:.3rem .3rem .45rem;box-shadow:var(--shadow);overflow:hidden}
+.extno{position:absolute;top:.3rem;left:.3rem;z-index:1;width:1.3rem;height:1.3rem;border-radius:50%;
+  background:var(--coral);color:#fff;font-family:var(--f-head);font-size:.74rem;display:grid;place-items:center}
+.extcard svg{display:block;width:100%;height:auto}
+.exttx{font-family:var(--f-head);font-size:.86rem;color:var(--coral2);text-align:center;margin-top:.05rem;line-height:1.2}
+.extsub{font-size:.68rem;color:var(--ink2);text-align:center;margin-top:.1rem;line-height:1.3}
+.extnote{display:flex;gap:.4rem;align-items:flex-start;font-size:.76rem;color:var(--ink2);
+  background:#FFF8F0;border:1.5px dashed #F3D7BF;border-radius:13px;padding:.5rem .65rem;margin-top:.55rem;line-height:1.45}
+
+.rope{display:flex;gap:.7rem;align-items:center}
+.rope svg{flex:0 0 45%;display:block}
+.rope ul{flex:1;min-width:0;list-style:none;display:flex;flex-direction:column;gap:.4rem}
+.rope li{font-size:.79rem;color:var(--ink2);line-height:1.4;padding-left:1.15rem;position:relative}
+.rope li b{color:var(--ink);font-weight:400;font-family:var(--f-head)}
+.rope li::before{content:attr(data-n);position:absolute;left:0;top:.05rem;width:1rem;height:1rem;border-radius:50%;
+  background:var(--skybg);color:var(--sky);font-size:.62rem;display:grid;place-items:center;font-family:var(--f-head)}
+
+.elec{background:#FFF4EF;border-color:#F8C3AE}
+.el-h{font-family:var(--f-head);font-size:1.06rem;color:#B8401E;display:flex;align-items:center;gap:.3rem}
+.el-sub{font-size:.75rem;color:#9A6A55;margin-top:.15rem}
+.el-grid{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin:.6rem 0 .55rem}
+.el-col{border-radius:13px;padding:.55rem .5rem;text-align:center;border:1.5px solid}
+.el-col span{display:block;font-size:1.5rem;line-height:1.1}
+.el-col b{display:block;font-size:.8rem;font-family:var(--f-head);margin-top:.15rem;line-height:1.2}
+.el-col em{display:block;font-style:normal;font-size:.66rem;color:#8E6C5C;margin-top:.15rem;line-height:1.3}
+.el-col.no{background:#FFE7E1;border-color:#F6B6A5}
+.el-col.no b{color:#B8331B}
+.el-col.ok{background:#fff;border-color:#F3C9B8}
+.el-col.ok b{color:#35705B}
+.el-steps{list-style:none;display:flex;flex-direction:column;gap:.35rem}
+.el-steps li{font-size:.79rem;color:#7C5446;line-height:1.4;padding-left:1.1rem;position:relative}
+.el-steps li::before{content:"›";position:absolute;left:.2rem;color:#D9765A;font-weight:700}
+.el-steps b{color:#A03A1E;font-weight:400;background:#FFE3D8;border-radius:.3rem;padding:0 .18rem}
+.fine{font-size:.69rem;color:var(--ink3);text-align:center;line-height:1.5;margin:.9rem .5rem .4rem}
+
+/* ── ⚡🚒 전기·소방 2인조 ──────────────── */
+.heroes{display:grid;grid-template-columns:repeat(2,1fr);gap:.55rem;margin-bottom:.2rem}
+.hero{display:grid;justify-items:center;gap:0;padding:.5rem .18rem .5rem;border-radius:16px;border:1.5px solid;box-shadow:var(--shadow);min-width:0;text-align:center}
+.hero:active{transform:scale(.985)}
+.hero .hav{width:1.95rem;height:1.95rem;border-radius:50%;display:grid;place-items:center;font-size:1.02rem;background:#fff;margin-bottom:.12rem;line-height:1;box-shadow:0 1px 4px rgba(120,80,40,.10)}
+.hero b{font-family:var(--f-head);font-weight:400;font-size:.8rem;line-height:1.15}
+.hero em{font-style:normal;font-size:.63rem;color:#6E7A86;line-height:1.2;margin-top:.1rem}
+.hero .hn{display:block;font-size:.57rem;color:#9A8B7C;line-height:1.15;margin-top:.02rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hero.h-watt{background:var(--amberbg);border-color:var(--amberline)}
+.hero.h-watt b{color:#A9720A}
+.hero.h-fire{background:var(--coralbg);border-color:var(--coralline)}
+.hero.h-fire b{color:#C9431F}
+.who{display:inline-flex;align-items:center;gap:.25rem;font-size:.71rem;color:#8A7764;
+  background:#FFF7EC;border:1.5px solid #F2E0C9;border-radius:999px;padding:.2rem .55rem;margin:.15rem 0 .1rem}
+.who-watt{background:#FFF6E2;border-color:#F6E1B6;color:#9A6B10}
+.qheroes{text-align:center;font-size:.73rem;color:#8A7764;margin:-.05rem 0 .4rem}
+
+.fbcol li b{color:#8A3A1E;font-weight:400;background:#FFE9DF;border-radius:.2rem;padding:0 .12rem}
+.kit{display:flex;align-items:center;gap:.55rem;background:linear-gradient(160deg,#FFF9EF,#FFF2DF);border-color:#F3DCC0}
+.kit p{flex:1;min-width:0;font-size:.79rem;line-height:1.45;color:#6B5645}
+.kit p b{color:#B4451F;font-weight:400}
+.kit button{flex:0 0 auto;font-size:.72rem;background:#fff;border:1.5px solid #F0D3B4;border-radius:.8rem;padding:.5rem .5rem;color:#A05A2C;line-height:1.25;max-width:7rem}
+
+/* ── 셀프 체크 ─────────────────────────── */
+.prog{background:linear-gradient(160deg,#F2FBF6,#E8F8F0);border-color:var(--mintline);padding:.85rem .9rem .75rem}
+.prog-top{display:flex;align-items:center;justify-content:space-between;gap:.5rem;font-size:.85rem;color:var(--mint2)}
+.prog-top b{font-family:var(--f-head);font-size:1.18rem;font-weight:400}
+.bar{height:.66rem;border-radius:99px;background:#fff;border:1.5px solid #D3EEE1;overflow:hidden;margin:.45rem 0 .4rem}
+.bar i{display:block;height:100%;width:0;border-radius:99px;
+  background:linear-gradient(90deg,#7FD3AF,#2C9773);transition:width .35s ease}
+#chkMsg{font-size:.79rem;color:#3C7D66;line-height:1.4}
+.prog-foot{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-top:.5rem;padding-top:.4rem;border-top:1px dashed #CCE8DA}
+.prog-foot span{font-size:.7rem;color:#7FA795}
+.prog-foot button{font-size:.72rem;color:#6E8E80;background:#fff;border:1.5px solid #D3EEE1;border-radius:.7rem;padding:.28rem .55rem}
+
+.cgroup{padding:.7rem .75rem .55rem}
+.cg-h{display:flex;align-items:center;gap:.4rem;margin-bottom:.35rem}
+.cg-e{font-size:1.05rem;line-height:1}
+.cg-h b{flex:1;min-width:0;font-family:var(--f-head);font-weight:400;font-size:.95rem;color:#43372E}
+.cg-n{flex:0 0 auto;font-size:.68rem;color:var(--ink3)}
+.citem{display:flex;align-items:flex-start;gap:.55rem;width:100%;text-align:left;
+  padding:.5rem .15rem;border-top:1px solid var(--line2);min-height:2.9rem}
+.citem:first-child{border-top:0}
+.cbox{flex:0 0 auto;width:1.45rem;height:1.45rem;border-radius:.5rem;border:2px solid #DCCFC0;
+  background:#fff;display:grid;place-items:center;font-size:.9rem;color:#fff;line-height:1;margin-top:.05rem}
+.citem.on .cbox{background:var(--mint);border-color:var(--mint)}
+.citem.on .ctxt{color:#3D7A62}
+.ctxt{flex:1;font-size:.83rem;line-height:1.42;color:var(--ink)}
+
+/* ── 퀴즈 ─────────────────────────────── */
+.qhero{font-size:2.6rem;text-align:center;line-height:1.1}
+.qh{font-family:var(--f-head);font-size:1.2rem;text-align:center;margin-top:.2rem;color:#41332A}
+.qs{text-align:center;font-size:.85rem;color:var(--ink2);line-height:1.55;margin:.35rem .3rem .7rem}
+.qbest{text-align:center;font-size:.78rem;color:var(--mint2);background:var(--mintbg);
+  border-radius:.7rem;padding:.35rem .5rem;margin-bottom:.6rem}
+.qtop{display:flex;align-items:center;gap:.5rem;margin:.8rem 0 .55rem;padding:0 .1rem}
+.qtop>span{font-family:var(--f-head);font-size:.9rem;color:var(--ink2);flex:0 0 auto}
+.dots{display:flex;gap:.24rem;flex:1;justify-content:flex-end}
+.dots i{width:.52rem;height:.52rem;border-radius:50%;background:#EEE0D0;display:block}
+.dots i.ok{background:var(--mint)}
+.dots i.bad{background:#E9A03C}
+.dots i.now{outline:2px solid #F0B394;outline-offset:1px}
+.qcard{display:flex;align-items:center;min-height:6.2rem;padding:.9rem;background:#FFFDF7;border-color:#F4E3CC}
+.qcard p{font-size:1rem;line-height:1.55;color:#3B3028;font-weight:400;text-align:center;width:100%}
+.oxrow{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:.55rem}
+.ox{display:grid;justify-items:center;gap:.15rem;min-height:6.4rem;padding:.5rem .3rem .6rem;
+  background:#fff;border:2px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}
+.ox span{font-size:2.5rem;line-height:1}
+.ox em{font-style:normal;font-size:.9rem;font-weight:700}
+.ox.o{color:var(--mint);border-color:var(--mintline)}
+.ox.x{color:var(--coral2);border-color:var(--coralline)}
+.ox:active{transform:scale(.985)}
+.ox:disabled{opacity:.45}
+.ox.choose-ok{opacity:1 !important;background:var(--mintbg);border-color:var(--mint);box-shadow:0 0 0 3px #CFEEE1 inset}
+.ox.choose-bad{opacity:1 !important;background:var(--coralbg);border-color:var(--coral);box-shadow:0 0 0 3px #FFD9CB inset}
+.qhint{text-align:center;font-size:.77rem;color:#A79686;margin:.15rem 0 .2rem}
+.fb{border-radius:16px;padding:.7rem .8rem .75rem;border:1.5px solid var(--mintline);
+  background:var(--mintbg);animation:pop .2s ease-out}
+.fb.bad{border-color:var(--amberline);background:var(--amberbg)}
+.fb-t{font-family:var(--f-head);font-size:1rem;color:var(--mint2);line-height:1.3}
+.fb.bad .fb-t{color:#A9720A}
+.fb-w{font-size:.8rem;color:#5E6B75;line-height:1.5;margin:.25rem 0 .55rem}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.qhelp{background:#FFF9EF;border-style:dashed;border-color:#F0DCC0;margin-top:.7rem}
+.qhelp p{font-size:.78rem;line-height:1.5;color:#8A7764;text-align:center}
+.qhelp b{color:#B4451F;font-weight:400}
+.done{text-align:center;padding:.7rem .8rem 1rem;
+  background:linear-gradient(180deg,#FFFDF6 0%,#FFF3E2 100%);border-color:#FBDDB8}
+.cherub{position:relative;height:7rem;display:grid;place-items:center;margin-top:.2rem}
+.ang{font-size:3.4rem;line-height:1;display:block;animation:fly .8s cubic-bezier(.2,.7,.3,1) both}
+.crw{position:absolute;top:.15rem;left:50%;margin-left:-.25rem;font-size:1.45rem;line-height:1;
+  animation:crown .8s .45s cubic-bezier(.2,1.5,.4,1) both;filter:drop-shadow(0 2px 3px rgba(180,120,20,.25))}
+.sp{position:absolute;font-size:1.05rem;animation:tw 1.6s ease-in-out infinite}
+.sp.s1{left:16%;top:34%}
+.sp.s2{right:14%;top:22%;animation-delay:.35s}
+.sp.s3{right:24%;bottom:.4rem;font-size:.9rem;animation-delay:.7s}
+.eng{font-family:var(--f-head);font-size:1.6rem;color:#C05A18;line-height:1.2;margin-top:.2rem;animation:fly .6s .25s both}
+.doneKo{font-size:.84rem;color:#7A6450;line-height:1.5;margin:.35rem .2rem 0}
+.doneScore{font-family:var(--f-head);font-size:1.05rem;color:var(--mint2);margin:.45rem 0 .7rem}
+@keyframes fly{from{opacity:0;transform:translateY(-26px) scale(.9)}to{opacity:1;transform:none}}
+@keyframes crown{from{opacity:0;transform:translateY(-38px) rotate(-18deg) scale(.5)}to{opacity:1;transform:none}}
+@keyframes tw{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.12)}}
+
+/* ── 긴급 연락 ─────────────────────────── */
+.callrow{display:flex;align-items:center;gap:.7rem;background:#fff;border:1.5px solid var(--line);
+  border-radius:16px;padding:.65rem .75rem;margin-bottom:.5rem;box-shadow:var(--shadow);min-height:4.1rem}
+.callrow:active{transform:scale(.99)}
+.callrow .ci{flex:0 0 auto;width:2.8rem;height:2.8rem;border-radius:.95rem;display:grid;place-items:center;
+  font-size:1.3rem;line-height:1}
+.callrow .ct{flex:1;min-width:0}
+.callrow .ct b{display:block;font-family:var(--f-head);font-weight:400;font-size:1rem;color:#3B3028;line-height:1.25}
+.callrow .ct em{display:block;font-style:normal;font-size:.73rem;color:var(--ink2);margin-top:.12rem}
+.callrow .cn{flex:0 0 auto;font-family:var(--f-head);font-size:1.08rem;color:#B4451F;letter-spacing:.01em}
+.c119 .ci{background:#FFE7E1}
+.c119 .cn{color:#C23A18}
+.c123 .ci{background:#FFF3DC}
+.c123 .cn{color:#A9720A}
+.c1588 .ci{background:#EAF3FD}
+.c1588 .cn{color:#2C6DAF;font-size:.98rem}
+.say-t{font-family:var(--f-head);font-size:1rem;color:#41332A;display:flex;gap:.3rem;align-items:center}
+.sayl{list-style:none;counter-reset:s;display:flex;flex-direction:column;gap:.4rem;margin-top:.5rem}
+.sayl li{counter-increment:s;font-size:.8rem;color:var(--ink2);line-height:1.45;padding-left:1.5rem;position:relative}
+.sayl li::before{content:counter(s);position:absolute;left:0;top:0;width:1.15rem;height:1.15rem;border-radius:50%;
+  background:var(--skybg);color:var(--sky);font-family:var(--f-head);font-size:.68rem;display:grid;place-items:center}
+.sayl b{color:var(--ink);font-weight:400}
+.chips{display:flex;gap:.45rem;margin:.1rem 0 .2rem}
+.chip{flex:1;display:flex;align-items:center;justify-content:center;gap:.25rem;
+  min-height:2.9rem;border-radius:14px;background:#fff;border:1.5px solid var(--line);
+  font-size:.86rem;color:#5C5148;box-shadow:var(--shadow)}
+.chip:active{transform:scale(.98)}
+
+/* ── 탭바 ─────────────────────────────── */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:grid;grid-template-columns:repeat(4,1fr);
+  gap:.15rem;padding:.3rem .4rem calc(.3rem + env(safe-area-inset-bottom));
+  background:rgba(255,253,248,.97);border-top:1.5px solid var(--line);
+  box-shadow:0 -4px 16px rgba(120,80,40,.07);backdrop-filter:blur(8px)}
+.tab{display:grid;justify-items:center;gap:.1rem;padding:.35rem .05rem .3rem;border-radius:.9rem;
+  color:#8C7A69;font-size:.6rem;line-height:1.1}
+.tab span{font-size:1.14rem;line-height:1.1}
+.tab em{font-style:normal}
+.tab.on{background:var(--coralbg);color:var(--coral2)}
+.tab.on span{transform:translateY(-1px)}
+
+/* ── 시트·모달 ─────────────────────────── */
+.sheetwrap{position:fixed;inset:0;z-index:80;display:flex;align-items:flex-end;justify-content:center}
+.backdrop{position:absolute;inset:0;background:rgba(60,42,30,.36)}
+.sheet{position:relative;width:100%;max-width:560px;max-height:88vh;overflow:auto;-webkit-overflow-scrolling:touch;
+  background:#FFFDF8;border-radius:22px 22px 0 0;padding:.55rem .9rem calc(1rem + env(safe-area-inset-bottom));
+  box-shadow:0 -10px 32px rgba(70,45,25,.22);animation:up .22s ease-out}
+@keyframes up{from{transform:translateY(28px);opacity:.6}to{transform:none;opacity:1}}
+.grab{width:2.5rem;height:.28rem;border-radius:99px;background:#E4D6C7;margin:.1rem auto .5rem}
+.sheet h2{font-family:var(--f-head);font-weight:400;font-size:1.12rem;color:#3B3028;margin:0 0 .1rem;line-height:1.3}
+.ss-em{font-size:2.1rem;line-height:1;margin:.25rem 0 .3rem}
+.sheet .note{font-size:.78rem;color:var(--ink2);line-height:1.5;margin:.25rem 0 .6rem}
+.sheet ul.sl{list-style:none;display:flex;flex-direction:column;gap:.5rem;margin:.55rem 0 .9rem}
+.sheet ul.sl li{font-size:.86rem;line-height:1.5;color:#4C4238;padding-left:1.3rem;position:relative}
+.sheet ul.sl li::before{content:"•";position:absolute;left:.25rem;color:var(--coral);font-weight:700}
+.sheet ul.sl b{color:#A03A1E;font-weight:400;background:#FFE9DF;border-radius:.28rem;padding:0 .16rem}
+.isteps{list-style:none;display:flex;flex-direction:column;gap:.55rem;margin:.5rem 0 .9rem}
+.isteps li{display:block;font-size:.83rem;color:var(--ink);line-height:1.45;background:#fff;
+  border:1.5px solid var(--line);border-radius:12px;padding:.5rem .6rem}
+.isteps li b{display:block;font-family:var(--f-head);font-weight:400;font-size:.88rem;color:#4A362B}
+.isteps li span{display:block;font-size:.78rem;color:var(--ink2);margin-top:.1rem}
+.isteps li b i{font-style:normal;color:var(--coral)}
+.iappnote{font-size:.78rem;background:#FFF4DC;border:1.5px solid var(--amberline);color:#8A6210;
+  border-radius:12px;padding:.5rem .6rem;line-height:1.45;margin-bottom:.55rem}
+.chromeopen{display:flex;align-items:center;justify-content:center;min-height:2.8rem;border-radius:12px;
+  background:var(--skybg);border:1.5px solid var(--skyline);color:#2C6DAF;font-size:.86rem;margin-bottom:.5rem}
+#toast{position:fixed;left:50%;bottom:calc(5.2rem + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(10px);
+  z-index:95;max-width:88vw;padding:.6rem .9rem;border-radius:999px;background:rgba(44,52,61,.94);color:#fff;
+  font-size:.8rem;line-height:1.35;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;
+  box-shadow:0 6px 18px rgba(0,0,0,.18);text-align:center}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- 소화기 그림 부품 (한 번만 정의) -->
+<svg class="defs" aria-hidden="true" focusable="false" width="0" height="0">
+  <defs>
+    <linearGradient id="gExt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F76F52"/><stop offset="1" stop-color="#D24127"/>
+    </linearGradient>
+    <linearGradient id="gSpray" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#B9DDF8" stop-opacity=".95"/><stop offset="1" stop-color="#8EC8F2" stop-opacity=".3"/>
+    </linearGradient>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#E08C15"/>
+    </marker>
+    <g id="extBase">
+      <ellipse cx="90" cy="158" rx="42" ry="6" fill="#F1DDC8"/>
+      <path d="M68 76 h44 a12 12 0 0 1 12 12 v48 a12 12 0 0 1 -12 12 h-44 a12 12 0 0 1 -12 -12 v-48 a12 12 0 0 1 12 -12 z" fill="url(#gExt)"/>
+      <rect x="60" y="98" width="60" height="30" rx="7" fill="#FFFDF7" opacity=".96"/>
+      <text x="90" y="118" text-anchor="middle" font-size="14" font-family="Jua, sans-serif" fill="#D24127" data-extlabel="1">소화기</text>
+      <circle cx="90" cy="86" r="7" fill="#EAF8EF" stroke="#93A3AD" stroke-width="2"/>
+      <line x1="90" y1="86" x2="87" y2="82" stroke="#D24127" stroke-width="1.6" stroke-linecap="round"/>
+      <rect x="80" y="60" width="20" height="18" rx="4" fill="#C23A26"/>
+      <rect x="64" y="52" width="52" height="9" rx="4.5" fill="#3A4750"/>
+      <rect x="68" y="40" width="44" height="9" rx="4.5" fill="#46545E"/>
+      <rect x="84" y="49" width="12" height="4" fill="#46545E"/>
+      <circle cx="61" cy="56" r="6" fill="none" stroke="#F2B01E" stroke-width="3.2"/>
+      <line x1="67" y1="56" x2="72" y2="56" stroke="#F2B01E" stroke-width="3.2"/>
+      <path d="M80 68 C60 72 48 84 46 102" fill="none" stroke="#3A4750" stroke-width="6" stroke-linecap="round"/>
+      <rect x="28" y="95" width="24" height="13" rx="5" transform="rotate(18 40 101)" fill="#33414A"/>
+    </g>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">🚒</span>
+    <div class="btxt">
+      <h1 data-en="⚡🚒 Wagle Safety Squad">⚡🚒 와글링 안전 특공대</h1>
+      <p class="sub" data-en="Electricity · Fire Duo">전기 · 소방 특공대 2인조</p>
+    </div>
+    <div class="topbtns">
+      <button type="button" id="langBtn" class="lang" aria-pressed="false" aria-label="영어로 보기 — Switch to English">
+        <span class="ic" aria-hidden="true">🌐</span>
+        <span class="lgl" aria-hidden="true"><i id="lgKo">한</i><span class="lgs">/</span><i id="lgEn">EN</i></span>
+      </button>
+      <button type="button" id="bigBtn" aria-pressed="false" aria-label="글씨 크게 보기" data-en-aria="Show larger text">
+        <span class="ic" aria-hidden="true">🔠</span><span data-en="Bigger">큰 글씨</span>
+      </button>
+      <button type="button" id="shareBtn" aria-label="이 앱 공유하기" data-en-aria="Share this app">
+        <span class="ic" aria-hidden="true">📤</span><span data-en="Share">공유</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<button type="button" class="datebar" id="todayCard" aria-label="오늘 날짜와 날씨 — 누르면 현위치 날씨로 새로고침">
+  <span class="db-date" id="todayDate">오늘</span>
+  <span class="db-sep" aria-hidden="true">·</span>
+  <span class="db-wx loading" id="todayWx">날씨 확인 중</span>
+  <span class="db-sep" aria-hidden="true">·</span>
+  <span class="db-place" id="wxPlace">김해</span>
+  <span class="db-go" aria-hidden="true">📍</span>
+</button>
+
+<main>
+  <!-- ═══════════ 🔥 불 났을 때 ═══════════ -->
+  <section class="page" id="page-fire" data-page="fire">
+    <div class="sos">
+      <p class="sos-t" data-en="🔥 There's a fire!">🔥 불이 났어요!</p>
+      <p class="sos-s" data-en-html="Call <b>119</b> first, then shout <b>&quot;Fire!&quot;</b> as loud as you can.<br>Leave your things — people go first.">먼저 <b>119</b>에 신고하고, 큰 소리로 <b>"불이야!"</b> 외쳐요.<br>물건은 두고 사람이 먼저 나가요.</p>
+      <a class="sos-btn" href="tel:119"><span aria-hidden="true">📞</span> <span data-en="Call 119">119 전화하기</span></a>
+      <p class="sos-note" data-en="When you call, give your address first (street, building, unit)">신고할 때는 주소(도로명·동·호수)부터 말해요</p>
+    </div>
+
+    <div class="sh"><span data-en="⚡🚒 The Electricity & Fire Duo">⚡🚒 전기·소방 특공대 2인조</span> <span class="sh-s" data-en="Tap a hero to jump in">눌러서 그 분야로</span></div>
+    <div class="heroes">
+      <button type="button" class="hero h-watt" data-hero="watt" aria-label="와트믹 — 전기 특공대. 와트, 와트메이커" data-en-aria="Wattmic — electricity squad. Watt, WattMaker">
+        <span class="hav" aria-hidden="true">⚡</span>
+        <b data-en="Wattmic">와트믹</b>
+        <em data-en="Watt">와트</em>
+        <span class="hn" data-en="WattMaker">와트메이커</span>
+      </button>
+      <button type="button" class="hero h-fire" data-hero="fire" aria-label="파이어릭 — 소방 특공대. 피트, 파이어레스큐" data-en-aria="Fireric — fire squad. Pete, FireRescue">
+        <span class="hav" aria-hidden="true">🚒</span>
+        <b data-en="Fireric">파이어릭</b>
+        <em data-en="Pete">피트</em>
+        <span class="hn" data-en="FireRescue">파이어레스큐</span>
+      </button>
+    </div>
+
+    <div class="sh" id="evacTop"><span data-en="🚪 Evacuate in 3 Steps">🚪 대피 3단계</span> <span class="sh-s" data-en="With Fireric — tap for details">파이어릭과 함께, 눌러서 자세히</span></div>
+    <button type="button" class="step" data-step="s1">
+      <span class="sno" aria-hidden="true">1</span>
+      <span class="semo" aria-hidden="true">📢</span>
+      <span class="stxt"><b data-en="Shout to alert everyone">큰 소리로 알리기</b><em data-en="Call 119 · shout &quot;Fire!&quot; three times">119 신고 · "불이야!" 세 번</em></span>
+      <span class="sarrow" aria-hidden="true">›</span>
+    </button>
+    <button type="button" class="step" data-step="s2">
+      <span class="sno" aria-hidden="true">2</span>
+      <span class="semo" aria-hidden="true">🧻</span>
+      <span class="stxt"><b data-en="Stay low">낮은 자세로</b><em data-en="Cover nose and mouth with a wet towel, keep a hand on the wall">젖은 수건으로 코·입 막고 벽을 짚어요</em></span>
+      <span class="sarrow" aria-hidden="true">›</span>
+    </button>
+    <button type="button" class="step" data-step="s3">
+      <span class="sno" aria-hidden="true">3</span>
+      <span class="semo" aria-hidden="true">🏃</span>
+      <span class="stxt"><b data-en="Take the stairs">계단으로 대피</b><em data-en="Never use the elevator">엘리베이터는 절대 안 돼요</em></span>
+      <span class="sarrow" aria-hidden="true">›</span>
+    </button>
+
+    <div class="sh"><span data-en="🧯 Using an Extinguisher">🧯 소화기 사용법</span> <span class="sh-s" data-en="Just 4 steps">4단계만 기억해요</span></div>
+    <div class="extgrid">
+      <div class="extcard">
+        <span class="extno" aria-hidden="true">1</span>
+        <svg viewBox="0 0 180 180" role="img" aria-label="소화기 손잡이 옆 안전핀을 뽑는 그림" data-en-aria="Picture: pulling the safety pin beside the extinguisher handle">
+          <circle cx="90" cy="92" r="74" fill="#FFF6EE"/>
+          <use href="#extBase"/>
+          <circle cx="61" cy="56" r="17" fill="none" stroke="#E08C15" stroke-width="2.6" stroke-dasharray="5 4"/>
+          <path d="M112 26 Q78 30 68 44" fill="none" stroke="#E08C15" stroke-width="3" stroke-linecap="round" marker-end="url(#ah)"/>
+        </svg>
+        <p class="exttx" data-en="Pull the pin">안전핀 뽑기</p>
+        <p class="extsub" data-en="Pull the ring by the handle">손잡이 옆 고리를 뽑아요</p>
+      </div>
+      <div class="extcard">
+        <span class="extno" aria-hidden="true">2</span>
+        <svg viewBox="0 0 180 180" role="img" aria-label="소화기 노즐을 불꽃 쪽으로 잡는 그림" data-en-aria="Picture: aiming the extinguisher nozzle at the fire">
+          <circle cx="90" cy="92" r="74" fill="#FFF6EE"/>
+          <use href="#extBase"/>
+          <circle cx="39" cy="102" r="20" fill="none" stroke="#E08C15" stroke-width="2.6" stroke-dasharray="5 4"/>
+          <path d="M96 132 Q62 134 46 118" fill="none" stroke="#E08C15" stroke-width="3" stroke-linecap="round" marker-end="url(#ah)"/>
+        </svg>
+        <p class="exttx" data-en="Aim the nozzle">노즐 잡기</p>
+        <p class="extsub" data-en="Point it at the base of the fire">불꽃 쪽으로 향해요</p>
+      </div>
+      <div class="extcard">
+        <span class="extno" aria-hidden="true">3</span>
+        <svg viewBox="0 0 180 180" role="img" aria-label="소화기 손잡이를 꽉 쥐는 그림" data-en-aria="Picture: squeezing the extinguisher handle hard">
+          <circle cx="90" cy="92" r="74" fill="#FFF6EE"/>
+          <use href="#extBase"/>
+          <rect x="56" y="32" width="68" height="34" rx="11" fill="none" stroke="#E08C15" stroke-width="2.6" stroke-dasharray="5 4"/>
+          <path d="M90 10 L90 28" fill="none" stroke="#E08C15" stroke-width="3" stroke-linecap="round" marker-end="url(#ah)"/>
+        </svg>
+        <p class="exttx" data-en="Squeeze the handle">손잡이 꽉</p>
+        <p class="extsub" data-en="Squeeze hard and it sprays">힘껏 쥐면 뿜어져요</p>
+      </div>
+      <div class="extcard">
+        <span class="extno" aria-hidden="true">4</span>
+        <svg viewBox="0 0 180 180" role="img" aria-label="소화기를 빗자루 쓸듯 부채꼴로 뿌리는 그림" data-en-aria="Picture: sweeping the spray side to side like a broom">
+          <circle cx="90" cy="92" r="74" fill="#FFF6EE"/>
+          <use href="#extBase"/>
+          <path d="M30 99 Q8 80 4 60" fill="none" stroke="url(#gSpray)" stroke-width="13" stroke-linecap="round"/>
+          <path d="M29 104 Q4 104 1 94" fill="none" stroke="url(#gSpray)" stroke-width="13" stroke-linecap="round"/>
+          <path d="M31 110 Q10 126 8 142" fill="none" stroke="url(#gSpray)" stroke-width="13" stroke-linecap="round"/>
+          <path d="M26 156 q-9 -13 2 -22 q-1 8 6 10 q-3 -13 8 -18 q-2 13 6 19 q8 8 1 15 q-11 7 -23 -4 z" fill="#FFB27A"/>
+          <path d="M33 154 q-4 -7 1 -11 q0 4 3 6 q-1 -7 4 -10 q0 8 4 10 q3 5 0 8 q-6 3 -12 -3 z" fill="#FF8B5E"/>
+          <path d="M20 46 Q46 84 20 132" fill="none" stroke="#E08C15" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="6 5" marker-end="url(#ah)"/>
+        </svg>
+        <p class="exttx" data-en="Sweep like a broom">빗자루 쓸듯</p>
+        <p class="extsub" data-en="Fan the base of the flames">불꽃 뿌리에 부채꼴로</p>
+      </div>
+    </div>
+    <div class="extnote"><span aria-hidden="true">💡</span><span data-en-html="Stand with your back to the wind and spray from <b>2–3 m</b> away. If the fire is already big, <b>getting out comes first</b> — before the extinguisher.">바람을 등지고 <b>2~3m</b> 거리에서 뿌려요. 불이 이미 크면 소화기보다 <b>대피가 먼저</b>예요.</span></div>
+
+    <div class="sh"><span data-en="🪢 Descent Rope">🪢 완강기</span> <span class="sh-s" data-en="3rd floor and up">아파트 3층 이상</span></div>
+    <div class="card rope">
+      <svg viewBox="0 0 200 170" role="img" aria-label="창문에 완강기 고리를 걸고 줄을 타고 내려가는 그림" data-en-aria="Picture: hooking the descent rope on the window and climbing down">
+        <rect x="0" y="0" width="200" height="170" rx="16" fill="#F2F9FF"/>
+        <rect x="0" y="0" width="72" height="170" rx="16" fill="#FFE7D4"/>
+        <rect x="14" y="22" width="44" height="52" rx="6" fill="#D7ECFB" stroke="#A9CFE9" stroke-width="3"/>
+        <line x1="36" y1="22" x2="36" y2="74" stroke="#A9CFE9" stroke-width="2"/>
+        <line x1="14" y1="48" x2="58" y2="48" stroke="#A9CFE9" stroke-width="2"/>
+        <circle cx="36" cy="30" r="5" fill="#8FB6D4"/>
+        <path d="M36 30 C36 66 52 78 58 96 L58 168" fill="none" stroke="#C99A6A" stroke-width="4" stroke-linecap="round"/>
+        <ellipse cx="58" cy="104" rx="9" ry="4" fill="none" stroke="#C99A6A" stroke-width="3"/>
+        <ellipse cx="58" cy="126" rx="9" ry="4" fill="none" stroke="#C99A6A" stroke-width="3"/>
+        <ellipse cx="58" cy="148" rx="9" ry="4" fill="none" stroke="#C99A6A" stroke-width="3"/>
+        <path d="M96 34 v96" fill="none" stroke="#4C9BD6" stroke-width="3" stroke-linecap="round" marker-end="url(#ah)"/>
+        <circle cx="96" cy="34" r="4" fill="#4C9BD6"/>
+      </svg>
+      <ul>
+        <li data-n="1" data-en-html="<b>Hook it on</b> Hang the hook on the fixed ring by the window and drop the rope outside"><b>고리에 걸기</b> 창틀 옆 고정 고리에 걸고 줄을 밖으로</li>
+        <li data-n="2" data-en-html="<b>Strap in</b> Put the belt under your arms and hold the window frame"><b>몸에 걸기</b> 벨트를 겨드랑이에 걸고 창틀을 잡아요</li>
+        <li data-n="3" data-en-html="<b>One floor at a time</b> Step down slowly, foot by foot"><b>한 층씩</b> 발을 디디며 천천히 내려가요</li>
+      </ul>
+    </div>
+
+    <div class="sh"><span data-en="⚡ Wattmic's Electrical Fire">⚡ 와트믹의 전기 화재</span> <span class="sh-s" data-en="Never water!">물은 금지!</span></div>
+    <div class="card elec">
+      <p class="el-h"><span aria-hidden="true">⚡</span> <span data-en="Breaker panel, outlet, or power strip on fire?">분전반·콘센트·멀티탭에 불이 났다면</span></p>
+      <p class="el-sub" data-en="Water means electric shock. Keep to this order.">물을 부으면 감전돼요. 순서를 꼭 지켜요.</p>
+      <div class="el-grid">
+        <div class="el-col no"><span aria-hidden="true">💧🚫</span><b data-en="Never use water">물은 절대 금지</b><em data-en="No water or foam extinguishers either">물·거품 소화기도 안 돼요</em></div>
+        <div class="el-col ok"><span aria-hidden="true">🧯</span><b data-en="Dry powder · K/C">분말 · K·C급</b><em data-en="Use after switching off the breaker">차단기를 내린 뒤 사용</em></div>
+      </div>
+      <ol class="el-steps">
+        <li data-en-html="If it's close, switch off the <b>breaker</b> first.">가까우면 <b>분전반 차단기</b>를 먼저 내려요.</li>
+        <li data-en-html="Spray with a <b>dry powder</b> or K/C extinguisher."><b>분말소화기</b>나 K·C급 소화기로 뿌려요.</li>
+        <li data-en-html="If it spreads or smoke fills the room, <b>get out and call 119</b>.">불이 번지거나 연기가 차면 <b>즉시 대피 후 119</b>.</li>
+      </ol>
+    </div>
+    <p class="fine" data-en-html="Once you're out, <b>never go back in</b> — even for your things.">대피한 뒤에는 물건을 두고 왔어도 <b>다시 들어가지 않아요</b>.</p>
+  </section>
+
+  <!-- ═══════════ 🧾 셀프 체크 ═══════════ -->
+  <section class="page" id="page-check" data-page="check" hidden>
+    <div class="card prog">
+      <div class="prog-top"><span data-en="This month's home check">이번 달 우리 집 점검</span><b id="chkN">0 / 14</b></div>
+      <div class="bar"><i id="chkBar"></i></div>
+      <p id="chkMsg">오늘 1분이면 우리 집이 더 안전해져요 🙂</p>
+      <div class="prog-foot">
+        <span id="chkMonth">이번 달</span>
+        <button type="button" id="chkReset" data-en="Start this month over">이번 달 다시 점검</button>
+      </div>
+    </div>
+    <p class="who who-watt"><span aria-hidden="true">⚡</span> <span data-en="Wattmic · Fireric joint check">와트믹 · 파이어릭 합동 점검</span></p>
+    <div id="chkGroups"></div>
+    <div class="card tip" style="background:#FFF8EE;border-style:dashed;border-color:#F0D8BE">
+      <p style="font-size:.8rem;line-height:1.5;color:#7B6552" data-en-html="<b style=&quot;color:#B4451F;font-weight:400&quot;>🔌 Breaker test</b> — press the button and it drops with a <b style=&quot;color:#B4451F;font-weight:400&quot;>'clack'</b>. Flip it back up and you're done — <b style=&quot;color:#B4451F;font-weight:400&quot;>once a month</b> is enough."><b style="color:#B4451F;font-weight:400">🔌 누전차단기 테스트</b> — 버튼을 누르면 <b style="color:#B4451F;font-weight:400">'철컥'</b> 소리와 함께 내려가요. 다시 올리면 끝, <b style="color:#B4451F;font-weight:400">월 1회</b>면 충분해요.</p>
+    </div>
+    <p class="fine" data-en="What you check is saved on this device only. A new month starts a fresh check.">체크한 내용은 이 기기에만 저장돼요. 달이 바뀌면 새로 점검해요.</p>
+  </section>
+
+  <!-- ═══════════ 🎮 안전 OX 퀴즈 ═══════════ -->
+  <section class="page" id="page-quiz" data-page="quiz" hidden>
+    <div class="card" id="quizStart">
+      <div class="qhero" aria-hidden="true">🎮</div>
+      <p class="qh" data-en="Safety True or False Quiz">안전 OX 퀴즈</p>
+      <p class="qheroes" data-en="⚡ Wattmic · 🚒 Fireric">⚡ 와트믹 · 🚒 파이어릭</p>
+      <p class="qs" data-en-html="10 questions with Wattmic and Fireric — 3 seconds each.<br>Finish them all and a <b>safety angel</b> flies in to crown you! 👼👑">와트믹·파이어릭과 10문제, 하나에 3초면 돼요.<br>다 풀면 <b>안전 천사</b>가 날아와 <b>왕관</b>을 씌워 줘요! 👼👑</p>
+      <p class="qbest" id="qBest" hidden></p>
+      <button type="button" class="btn primary" id="qStart" data-en="Start">시작하기</button>
+    </div>
+
+    <div id="quizPlay" hidden>
+      <div class="qtop"><span id="qNum">1 / 10</span><div class="dots" id="qDots" aria-hidden="true"></div></div>
+      <div class="card qcard"><p id="qText"></p></div>
+      <div class="oxrow">
+        <button type="button" class="ox o" id="qO" data-a="1"><span aria-hidden="true">⭕</span><em data-en="True (O)">맞아요 (O)</em></button>
+        <button type="button" class="ox x" id="qX" data-a="0"><span aria-hidden="true">❌</span><em data-en="False (X)">아니에요 (X)</em></button>
+      </div>
+      <p class="qhint" id="qHint" data-en="💡 Pick an answer and I'll tell you right away">💡 정답을 고르면 바로 알려 드려요</p>
+      <div class="fb" id="qFb" hidden aria-live="polite">
+        <p class="fb-t" id="qFbT"></p>
+        <p class="fb-w" id="qFbW"></p>
+        <button type="button" class="btn primary" id="qNext">다음 문제 →</button>
+      </div>
+      <div class="card qhelp">
+        <p data-en-html="🛟 <b>It's okay to get one wrong</b> — one more look makes it stick.<br>Finish all ten and the safety angel crowns you 👼👑">🛟 <b>틀려도 괜찮아요</b> — 한 번 더 보면 오래 기억나요.<br>열 문제를 다 풀면 안전 천사가 왕관을 씌워 줘요 👼👑</p>
+      </div>
+    </div>
+
+    <div class="card done" id="quizDone" hidden>
+      <div class="cherub" aria-hidden="true">
+        <span class="sp s1">✨</span><span class="sp s2">✨</span><span class="sp s3">⭐</span>
+        <span class="ang">👼</span><span class="crw">👑</span>
+      </div>
+      <p class="eng" id="doneEng">Awesome! 🏆</p>
+      <p class="doneKo" id="doneKo"></p>
+      <p class="doneScore" id="doneScore"></p>
+      <button type="button" class="btn primary" id="qAgain" data-en="Try again">한 번 더 도전</button>
+      <button type="button" class="btn ghost" id="qHome" data-en="Back to quiz start">퀴즈 처음으로</button>
+    </div>
+    <p class="fine" data-en-html="The quiz is for fun and learning. In a real fire, <b>119</b> comes first.">퀴즈는 재미로 배우는 거예요. 실제 불이 나면 <b>119</b>가 먼저예요.</p>
+  </section>
+
+  <!-- ═══════════ 📞 긴급 연락 ═══════════ -->
+  <section class="page" id="page-call" data-page="call" hidden>
+    <div class="sh"><span data-en="📞 One-tap numbers">📞 한 번에 거는 번호</span></div>
+    <a class="callrow c119" href="tel:119">
+      <span class="ci" aria-hidden="true">🚒</span>
+      <span class="ct"><b>119</b><em data-en="Fire · Rescue">화재 · 구조</em></span>
+      <span class="cn" data-en="Call ›">걸기 ›</span>
+    </a>
+    <a class="callrow c123" href="tel:123">
+      <span class="ci" aria-hidden="true">⚡</span>
+      <span class="ct"><b>123</b><em data-en="KEPCO — power outages · electrical faults">한국전력 — 정전·전기 고장</em></span>
+      <span class="cn" data-en="Call ›">걸기 ›</span>
+    </a>
+    <a class="callrow c1588" href="tel:15887500">
+      <span class="ci" aria-hidden="true">🔌</span>
+      <span class="ct"><b>1588-7500</b><em data-en="KESCO — electrical safety check">한국전기안전공사 — 전기 안전 점검</em></span>
+      <span class="cn" data-en="Call ›">걸기 ›</span>
+    </a>
+
+    <div class="sh"><span data-en="📣 How to talk to 119">📣 119에 이렇게 말해요</span></div>
+    <div class="card">
+      <p class="say-t"><span aria-hidden="true">🚨</span> <span data-en="Stay calm, in this order">침착하게, 이 순서로</span></p>
+      <ol class="sayl">
+        <li data-en-html="<b>Address</b> — e.g. &quot;12 Miso-ro, Miso APT, Building 103, Unit 502&quot;"><b>주소</b> — "○○시 ○○로 12, ○○아파트 103동 502호"</li>
+        <li data-en-html="<b>What</b> — fire or smoke, and where it is"><b>무엇이</b> — 불인지 연기인지, 어디서 났는지</li>
+        <li data-en-html="<b>People</b> — is anyone trapped?"><b>사람</b> — 갇힌 사람이 있는지</li>
+        <li data-en-html="<b>Your name and number</b> — stay on the line and follow instructions"><b>내 이름·연락처</b> — 끊지 말고 안내를 따라요</li>
+      </ol>
+      <p style="font-size:.75rem;color:#8A7A6A;margin-top:.55rem;background:#FFF7EE;border-radius:.7rem;padding:.45rem .6rem;line-height:1.45" data-en-html="If words won't come, <b style=&quot;color:#B4451F;font-weight:400&quot;>the address alone</b> is enough to start. If you can't call, tell a neighbour and get outside.">말이 잘 안 나오면 <b style="color:#B4451F;font-weight:400">주소만 먼저</b> 말해도 돼요. 전화가 안 되면 이웃에게 알리고 밖으로 나가요.</p>
+    </div>
+
+    <div class="chips">
+      <a class="chip" href="../"><span aria-hidden="true">🏠</span> <span data-en="Home">홈</span></a>
+      <button type="button" class="chip" id="shareBtn2"><span aria-hidden="true">📤</span> <span data-en="Share">공유</span></button>
+      <button type="button" class="chip" id="installBtn"><span aria-hidden="true">📲</span> <span data-en="Install">설치</span></button>
+    </div>
+    <p class="fine" data-en="Saved on this device only · Free · No ads">기록은 이 기기에만 저장돼요 · 무료 · 광고 없어요</p>
+  </section>
+</main>
+
+<nav class="tabbar" role="tablist" aria-label="화면 이동" data-en-aria="Screens">
+  <button type="button" class="tab on" role="tab" data-tab="fire" aria-selected="true"><span aria-hidden="true">🔥</span><em data-en="Fire">불났을 때</em></button>
+  <button type="button" class="tab" role="tab" data-tab="check" aria-selected="false"><span aria-hidden="true">🧾</span><em data-en="Check">점검</em></button>
+  <button type="button" class="tab" role="tab" data-tab="quiz" aria-selected="false"><span aria-hidden="true">🎮</span><em data-en="Quiz">퀴즈</em></button>
+  <button type="button" class="tab" role="tab" data-tab="call" aria-selected="false"><span aria-hidden="true">📞</span><em data-en="Call">연락</em></button>
+</nav>
+
+<!-- 단계 상세 시트 -->
+<div class="sheetwrap" id="stepSheet" hidden>
+  <div class="backdrop" data-close="stepSheet"></div>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="ssTitle">
+    <div class="grab" aria-hidden="true"></div>
+    <p class="ss-em" id="ssEm" aria-hidden="true">📢</p>
+    <h2 id="ssTitle">대피</h2>
+    <ul class="sl" id="ssList"></ul>
+    <button type="button" class="btn primary" data-close="stepSheet" data-en="Got it">알겠어요</button>
+  </div>
+</div>
+
+<!-- 📲 설치 안내 -->
+<div class="sheetwrap" id="installModal" hidden>
+  <div class="backdrop" data-close="installModal"></div>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="instTitle">
+    <div class="grab" aria-hidden="true"></div>
+    <p class="iappnote" id="inappNote" hidden data-en-html="Installing doesn't work inside KakaoTalk or Instagram. Tap <b>🌐 Open in Chrome</b> below and you can install it right away!">카톡·인스타 안에서는 바로 설치가 안 돼요. 아래 <b>🌐 크롬으로 바로 열기</b>를 누르면 크롬에서 열려 바로 설치할 수 있어요!</p>
+    <a class="chromeopen" id="chromeOpen" href="#" hidden data-en="🌐 Open in Chrome">🌐 크롬으로 바로 열기</a>
+    <h3 id="instTitle" style="font-family:var(--f-head);font-size:1.1rem;margin:0 0 .2rem;color:#3B3028" data-en="📲 Keep it on your home screen like an app">📲 홈 화면에 앱처럼 꺼내 두기</h3>
+    <p class="note" data-en-html="Once it's there, <b>one tap on the icon</b> opens it. Your checks are saved on this phone.">한 번 꺼내 두면 <b>아이콘만 눌러</b> 바로 열려요. 체크한 내용은 이 폰 안에 저장돼요.</p>
+    <ol class="isteps">
+      <li><b data-en="Chrome · Samsung Internet">크롬 · 삼성 인터넷</b><span data-en-html="Tap <i>⋮</i> at the top right → <i>Add to Home screen</i> (or Install app)">오른쪽 위 <i>⋮</i> → <i>홈 화면에 추가</i>(또는 앱 설치)를 눌러 주세요</span></li>
+      <li><b data-en="In-app browsers like KakaoTalk">카톡 같은 인앱 브라우저</b><span data-en-html="First tap <i>⋮</i> → <i>Open in another browser (Chrome)</i>">먼저 <i>⋮</i> → <i>다른 브라우저(Chrome)로 열기</i>를 눌러 주세요</span></li>
+      <li><b data-en="iPhone · iPad (Safari)">아이폰 · 아이패드(사파리)</b><span data-en-html="Tap <i>Share (□↑)</i> → <i>Add to Home Screen</i>">아래 <i>공유(□↑)</i> → <i>홈 화면에 추가</i>를 눌러 주세요</span></li>
+    </ol>
+    <button type="button" class="btn primary" data-close="installModal" data-en="Got it">알겠어요</button>
+  </div>
+</div>
+
+<!-- 이번 달 다시 점검 -->
+<div class="sheetwrap" id="resetModal" hidden>
+  <div class="backdrop" data-close="resetModal"></div>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="resetTitle">
+    <div class="grab" aria-hidden="true"></div>
+    <h2 id="resetTitle" data-en="Start this month's check over?">이번 달 점검을 처음부터?</h2>
+    <p class="note" data-en-html="All <b>18</b> checks will be cleared. Tap this when you want to go through them again.">체크한 <b>18가지</b>가 모두 지워져요. 다시 하나씩 확인할 때 눌러 주세요.</p>
+    <button type="button" class="btn primary" id="resetYes" data-en="Yes, start over">네, 처음부터 볼게요</button>
+    <button type="button" class="btn ghost" data-close="resetModal" data-en="Leave it">그냥 둘게요</button>
+  </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"><span id="toastMsg"></span></div>
+
+<script>
+(function(){
+"use strict";
+var $ = function(s, r){ return (r || document).querySelector(s); };
+var $$ = function(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+/* ══════════ 언어 (한 / EN) ══════════ */
+var LS_LANG = 'wagleSafety.lang';
+var LANG = 'ko';
+function B(ko, en){ return LANG === 'en' ? en : ko; }
+try{
+  var langQ = null;
+  try{
+    var mq = (location.search || '').match(/[?&]lang=(ko|en)\b/i);
+    if(mq) langQ = mq[1].toLowerCase();
+  }catch(e){}
+  if(langQ) LANG = langQ;
+  else{
+    var savedLang = localStorage.getItem(LS_LANG);
+    if(savedLang === 'en' || savedLang === 'ko') LANG = savedLang;
+  }
+}catch(e){}
+
+var TITLE = {
+  ko: '⚡🚒 와글링 안전 특공대 · 전기·소방 2인조 특공대',
+  en: '⚡🚒 Wagle Safety Squad · Electricity & Fire Duo'
+};
+var SHARE_TITLE = { ko: '와글링 전기·소방 안전', en: 'Wagle Safety Squad' };
+var SHARE_TEXT = {
+  ko: '⚡🚒 안전 특공대 — 불 났을 때 대피 3단계·소화기·완강기, 전기 화재 대처, 우리 집 전기·소방 점검 14가지, 🎮 OX 퀴즈 10문제까지 링크만 누르면 바로 열려요.',
+  en: '⚡🚒 Wagle Safety Squad — 3 evacuation steps, how to use an extinguisher and a descent rope, electrical fires, a 14-point home electricity · fire check, and a 10-question OX quiz. One tap on the link opens it all.'
+};
+
+function applyLang(){
+  document.documentElement.lang = (LANG === 'en') ? 'en' : 'ko';
+  $$('[data-en]').forEach(function(el){
+    if(el.getAttribute('data-ko') === null) el.setAttribute('data-ko', el.textContent);
+    el.textContent = (LANG === 'en') ? el.getAttribute('data-en') : el.getAttribute('data-ko');
+  });
+  $$('[data-en-html]').forEach(function(el){
+    if(el.getAttribute('data-ko-html') === null) el.setAttribute('data-ko-html', el.innerHTML);
+    el.innerHTML = (LANG === 'en') ? el.getAttribute('data-en-html') : el.getAttribute('data-ko-html');
+  });
+  $$('[data-en-aria]').forEach(function(el){
+    if(el.getAttribute('data-ko-aria') === null) el.setAttribute('data-ko-aria', el.getAttribute('aria-label') || '');
+    el.setAttribute('aria-label', (LANG === 'en') ? el.getAttribute('data-en-aria') : el.getAttribute('data-ko-aria'));
+  });
+  document.title = TITLE[LANG];
+  var lb = $('#langBtn');
+  if(lb){
+    lb.setAttribute('aria-pressed', LANG === 'en' ? 'true' : 'false');
+    lb.setAttribute('aria-label', LANG === 'en' ? '한국어로 보기 — Switch to Korean' : '영어로 보기 — Switch to English');
+    $('#lgKo').classList.toggle('lgd', LANG === 'en');
+    $('#lgEn').classList.toggle('lgd', LANG !== 'en');
+  }
+  $$('[data-extlabel]').forEach(function(t){
+    t.textContent = B('소화기', 'FIRE');
+  });
+}
+
+/* ══════════ 토스트 ══════════ */
+var toastTimer = null;
+function toast(msg){
+  var t = $('#toast'), m = $('#toastMsg');
+  if(!t || !m) return;
+  m.textContent = msg;
+  t.classList.add('on');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.classList.remove('on'); }, 2200);
+}
+
+/* ══════════ 날짜·요일·날씨 (모든 앱 공통) ══════════ */
+var KO_DOW = ['일','월','화','수','목','금','토'];
+var EN_DOW = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+var EN_MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var EN_MON_FULL = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+var WMO = {
+  0:['☀️','맑음','Clear'], 1:['🌤️','대체로 맑음','Mostly Clear'], 2:['⛅','구름 조금','Partly Cloudy'], 3:['☁️','흐림','Overcast'],
+  45:['🌫️','안개','Fog'], 48:['🌫️','안개','Fog'],
+  51:['🌦️','이슬비','Drizzle'], 53:['🌦️','이슬비','Drizzle'], 55:['🌦️','이슬비','Drizzle'],
+  56:['🌧️','어는 비','Freezing Rain'], 57:['🌧️','어는 비','Freezing Rain'],
+  61:['🌧️','비','Rain'], 63:['🌧️','비','Rain'], 65:['🌧️','비','Rain'],
+  66:['🌧️','어는 비','Freezing Rain'], 67:['🌧️','어는 비','Freezing Rain'],
+  71:['🌨️','눈','Snow'], 73:['🌨️','눈','Snow'], 75:['🌨️','눈','Snow'], 77:['🌨️','눈','Snow'],
+  80:['🌦️','소나기','Showers'], 81:['🌦️','소나기','Showers'], 82:['🌧️','소나기','Heavy Showers'],
+  85:['🌨️','눈 소나기','Snow Showers'], 86:['🌨️','눈 소나기','Snow Showers'],
+  95:['⛈️','천둥번개','Thunderstorms'], 96:['⛈️','천둥번개','Thunderstorms'], 99:['⛈️','천둥번개','Thunderstorms']
+};
+var WX_DEFAULT = { lat: 35.23, lon: 128.89 };
+var LS_WX = 'wagleSafety.wx';
+var wxNow = null, wxAt = 0, wxBusy = false, wxSeq = 0, wxRank = 0, wxPlaceKey = 'gimhae';
+var wxFailed = false;
+var WX_TTL = 20 * 60 * 1000;
+
+function wxName(v){
+  var m = WMO[v];
+  if(!m) return B('날씨', 'Weather');
+  return B(m[1], m[2]);
+}
+function placeText(){
+  return (wxPlaceKey === 'here') ? B('내 위치', 'My location') : B('김해', 'Gimhae');
+}
+function renderToday(){
+  var d = new Date();
+  $('#todayDate').textContent = (LANG === 'en')
+    ? EN_DOW[d.getDay()] + ', ' + EN_MON[d.getMonth()] + ' ' + d.getDate()
+    : (d.getMonth() + 1) + '월 ' + d.getDate() + '일 (' + KO_DOW[d.getDay()] + ')';
+  var txt, loading = false;
+  if(wxNow) txt = wxNow.emoji + ' ' + wxName(wxNow.code) + ' ' + wxNow.t + '°';
+  else if(wxFailed) txt = B('날씨 정보 없음', 'No weather data');
+  else { txt = B('날씨 확인 중', 'Checking weather'); loading = true; }
+  var el = $('#todayWx');
+  el.textContent = txt;
+  el.classList.toggle('loading', loading);
+  $('#wxPlace').textContent = placeText();
+  $('#todayCard').setAttribute('aria-label',
+    B('오늘 ' + $('#todayDate').textContent + ', ' + txt + ' — 누르면 현위치 날씨로 새로고침',
+      'Today is ' + $('#todayDate').textContent + ', ' + txt + ' — tap to refresh with my location'));
+}
+function loadWxCache(){
+  try{
+    var raw = localStorage.getItem(LS_WX);
+    if(!raw) return;
+    var j = JSON.parse(raw);
+    if(!j || typeof j.t !== 'number') return;
+    if(Date.now() - j.at > 12 * 60 * 60 * 1000) return;
+    wxNow = { emoji: (WMO[j.code] || ['🌡️'])[0], code: j.code, t: Math.round(j.t) };
+    wxAt = j.at;
+    wxPlaceKey = (j.placeKey === 'here' || j.place === 'here' || j.place === '내 위치') ? 'here' : 'gimhae';
+  }catch(e){}
+}
+function saveWxCache(code, t){
+  try{ localStorage.setItem(LS_WX, JSON.stringify({ code: code, t: t, at: Date.now(), placeKey: wxPlaceKey })); }catch(e){}
+}
+function wxUrl(lat, lon){
+  return 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon +
+    '&current=temperature_2m,weather_code&timezone=auto';
+}
+function fetchWx(lat, lon, rank){
+  if(!window.fetch || navigator.onLine === false){ wxFailed = true; renderToday(); return Promise.resolve(false); }
+  rank = rank || 1;
+  wxFailed = false;
+  var seq = wxSeq;
+  var ctl = window.AbortController ? new AbortController() : null;
+  var to = null;
+  if(ctl) to = setTimeout(function(){ try{ ctl.abort(); }catch(e){} }, 8000);
+  return fetch(wxUrl(lat, lon), ctl ? { cache:'no-store', signal: ctl.signal } : { cache:'no-store' })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(j){
+      if(to) clearTimeout(to);
+      var c = j && j.current;
+      if(!c || typeof c.temperature_2m !== 'number'){ wxFailed = true; renderToday(); return false; }
+      if(seq !== wxSeq || rank < wxRank) return false;
+      wxRank = rank;
+      wxNow = { emoji: (WMO[c.weather_code] || ['🌡️'])[0], code: c.weather_code, t: Math.round(c.temperature_2m) };
+      wxAt = Date.now();
+      saveWxCache(c.weather_code, c.temperature_2m);
+      renderToday();
+      return true;
+    })
+    .catch(function(){ if(to) clearTimeout(to); wxFailed = true; renderToday(); return false; });
+}
+function geoCoords(){
+  return new Promise(function(resolve){
+    if(!navigator.geolocation) return resolve(null);
+    try{
+      navigator.geolocation.getCurrentPosition(function(pos){
+        var c = pos && pos.coords;
+        if(!c) return resolve(null);
+        resolve({ lat: Math.round(c.latitude * 100) / 100, lon: Math.round(c.longitude * 100) / 100 });
+      }, function(){ resolve(null); }, { enableHighAccuracy:false, timeout:8000, maximumAge:600000 });
+    }catch(e){ resolve(null); }
+  });
+}
+function loadWeather(){
+  renderToday();
+  if(!wxAt || Date.now() - wxAt > WX_TTL){
+    if(wxBusy) return;
+    wxBusy = true; wxSeq++;
+    fetchWx(WX_DEFAULT.lat, WX_DEFAULT.lon, 1).then(function(){ wxBusy = false; });
+  }
+  try{
+    if(navigator.geolocation && navigator.permissions && navigator.permissions.query){
+      navigator.permissions.query({ name:'geolocation' }).then(function(st){
+        if(!st || st.state !== 'granted') return;
+        geoCoords().then(function(c){
+          if(c){ wxPlaceKey = 'here'; fetchWx(c.lat, c.lon, 2); }
+        });
+      }).catch(function(){});
+    }
+  }catch(e){}
+}
+function refreshWeather(){
+  if(navigator.onLine === false){ toast(B('인터넷이 없어 날씨를 새로 받지 못했어요.', 'No internet — could not refresh the weather.')); return; }
+  function fallback(){
+    wxPlaceKey = 'gimhae';
+    return fetchWx(WX_DEFAULT.lat, WX_DEFAULT.lon, 1).then(function(ok){
+      toast(ok ? B('김해 날씨로 보여 드려요.', 'Showing Gimhae weather.')
+               : B('날씨를 받지 못했어요. 잠시 뒤 다시 눌러 주세요.', 'Could not get the weather. Please tap again in a moment.'));
+    });
+  }
+  wxSeq++;
+  if(!navigator.geolocation){ fallback(); return; }
+  toast(B('현위치 날씨를 확인하는 중…', 'Checking the weather where you are…'));
+  geoCoords().then(function(c){
+    if(!c){ fallback(); return; }
+    fetchWx(c.lat, c.lon, 2).then(function(ok){
+      if(ok){ wxPlaceKey = 'here'; renderToday(); toast(B('현위치 날씨로 보여 드려요.', 'Showing the weather for your location.')); }
+      else fallback();
+    });
+  });
+}
+
+/* ══════════ 폰 뒤로가기 · 화면 ══════════ */
+var layers = [];
+function pushLayer(close){
+  try{ history.pushState({ w: layers.length + 1 }, ''); }catch(e){ return false; }
+  layers.push(close);
+  return true;
+}
+window.addEventListener('popstate', function(){
+  var close = layers.pop();
+  if(!close) return;
+  try{ close(); }catch(e){}
+});
+function backStep(){ if(layers.length){ history.back(); } }
+
+var curTab = 'fire';
+function setTab(name){
+  curTab = name;
+  $$('.page').forEach(function(p){ p.hidden = (p.id !== 'page-' + name); });
+  $$('.tab').forEach(function(b){
+    var on = b.getAttribute('data-tab') === name;
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-selected', on ? 'true' : 'false');
+  });
+  try{ window.scrollTo(0, 0); }catch(e){}
+  if(name === 'check') renderCheck();
+  if(name === 'quiz') renderQuizHome();
+}
+function switchTab(name){
+  if(name === curTab){ try{ window.scrollTo(0,0); }catch(e){} return; }
+  var prev = curTab;
+  pushLayer(function(){ setTab(prev); });
+  setTab(name);
+}
+$$('.tab').forEach(function(b){
+  b.addEventListener('click', function(){ switchTab(b.getAttribute('data-tab')); });
+});
+
+/* ══════════ 시트 열기/닫기 ══════════ */
+function openSheet(id){
+  var w = $('#' + id);
+  if(!w || !w.hidden) return;
+  w.hidden = false;
+  document.body.classList.add('noscroll');
+  pushLayer(function(){
+    w.hidden = true;
+    document.body.classList.remove('noscroll');
+  });
+}
+function closeSheet(id){
+  var w = $('#' + id);
+  if(!w || w.hidden) return;
+  if(layers.length){ history.back(); }
+  else { w.hidden = true; document.body.classList.remove('noscroll'); }
+}
+$$('[data-close]').forEach(function(el){
+  el.addEventListener('click', function(){ closeSheet(el.getAttribute('data-close')); });
+});
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape' && layers.length){ history.back(); }
+});
+
+/* ══════════ 대피 단계 상세 ══════════ */
+var STEPS = {
+  s1: { emoji:'📢',
+    title:{ ko:'1단계 · 큰 소리로 알리기', en:'Step 1 · Shout to alert everyone' },
+    points:{
+      ko:[
+        '큰 소리로 <b>"불이야!"</b>를 세 번 외쳐요. 이웃이 119 신고를 도와줘요.',
+        '119에 신고해요. <b>주소</b> → <b>불인지 연기인지</b> → <b>사람이 갇혔는지</b> 순서로 말해요.',
+        '아파트는 복도 <b>비상벨</b>도 함께 눌러요.'
+      ],
+      en:[
+        'Shout <b>&quot;Fire!&quot;</b> three times. Neighbours will help call 119.',
+        'Call 119. Say the <b>address</b>, then <b>fire or smoke</b>, then <b>whether anyone is trapped</b>.',
+        'In an apartment, press the corridor <b>fire alarm</b> as well.'
+      ]
+    }},
+  s2: { emoji:'🧻',
+    title:{ ko:'2단계 · 낮은 자세로', en:'Step 2 · Stay low' },
+    points:{
+      ko:[
+        '젖은 수건이 없으면 <b>옷소매</b>나 손으로 코와 입을 막아요.',
+        '연기는 위로 올라가요. <b>허리를 숙이거나 기어서</b>, 벽을 짚고 이동해요.',
+        '방문 손잡이가 뜨거우면 <b>문을 열지 말고</b>, 문틈을 막은 뒤 다른 길을 찾아요.'
+      ],
+      en:[
+        'If you have no wet towel, cover your nose and mouth with a <b>sleeve</b> or your hand.',
+        'Smoke rises. <b>Bend low or crawl</b>, keeping a hand on the wall as you move.',
+        'If a door handle is hot, <b>don\'t open the door</b> — seal the gap and find another way out.'
+      ]
+    }},
+  s3: { emoji:'🏃',
+    title:{ ko:'3단계 · 계단으로 대피', en:'Step 3 · Evacuate by the stairs' },
+    points:{
+      ko:[
+        '<b>엘리베이터·에스컬레이터</b>는 절대 타지 않아요. 불이 나면 멈출 수 있어요.',
+        '계단으로 1층까지 내려가 <b>건물 밖</b>으로 나와요.',
+        '아래층 불로 못 내려가면 창가에서 <b>수건을 흔들거나 불빛</b>으로 구조를 요청하고, 완강기를 써요.',
+        '한 번 대피하면 <b>다시 들어가지 않아요</b>.'
+      ],
+      en:[
+        'Never use <b>elevators or escalators</b> — they can stop in a fire.',
+        'Walk down the stairs to the ground floor and <b>get outside</b>.',
+        'If fire below blocks the stairs, <b>wave a towel or a light</b> from the window for rescue, and use the descent rope.',
+        'Once you\'re out, <b>never go back in</b>.'
+      ]
+    }},
+
+};
+var curStep = null;
+function paintStep(key){
+  var d = STEPS[key];
+  if(!d) return;
+  curStep = key;
+  $('#ssEm').textContent = d.emoji;
+  $('#ssTitle').textContent = d.title[LANG];
+  $('#ssList').innerHTML = d.points[LANG].map(function(p){ return '<li>' + p + '</li>'; }).join('');
+}
+$$('[data-step]').forEach(function(b){
+  b.addEventListener('click', function(){
+    var key = b.getAttribute('data-step');
+    if(!STEPS[key]) return;
+    paintStep(key);
+    openSheet('stepSheet');
+  });
+});
+
+/* ══════════ 큰 글씨 · 공유 ══════════ */
+var LS_BIG = 'wagleSafety.big';
+function applyBig(on){
+  document.documentElement.classList.toggle('big', !!on);
+  $('#bigBtn').setAttribute('aria-pressed', on ? 'true' : 'false');
+  try{ localStorage.setItem(LS_BIG, on ? '1' : '0'); }catch(e){}
+}
+$('#bigBtn').addEventListener('click', function(){
+  applyBig(!document.documentElement.classList.contains('big'));
+});
+try{ if(localStorage.getItem(LS_BIG) === '1') applyBig(true); }catch(e){}
+
+var SHARE_URL = 'https://starpicklife-design.github.io/safety/';
+function shareUrlNow(){ return (LANG === 'en') ? SHARE_URL + '?lang=en' : SHARE_URL; }
+function shareApp(){
+  var url = shareUrlNow();
+  var data = { title: SHARE_TITLE[LANG], text: SHARE_TEXT[LANG], url: url };
+  if(navigator.share){
+    navigator.share(data).catch(function(){});
+    return;
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(
+      function(){ toast(B('주소를 복사했어요. 붙여넣어 보내 주세요.', 'Link copied. Paste it to send.')); },
+      function(){ toast(B('주소창의 주소를 복사해 주세요.', 'Please copy the address from the address bar.')); });
+    return;
+  }
+  toast(B('주소창의 주소를 복사해 주세요.', 'Please copy the address from the address bar.'));
+}
+$('#shareBtn').addEventListener('click', shareApp);
+$('#shareBtn2').addEventListener('click', shareApp);
+
+/* ══════════ 📲 설치 ══════════ */
+var installBtn = $('#installBtn'), deferredPrompt = null, installedApp = false;
+function standaloneNow(){
+  try{
+    if(window.matchMedia){
+      if(window.matchMedia('(display-mode: standalone)').matches) return true;
+      if(window.matchMedia('(display-mode: minimal-ui)').matches) return true;
+    }
+  }catch(e){}
+  if(navigator.standalone === true) return true;
+  return false;
+}
+function syncInstallBtn(){ if(installBtn) installBtn.hidden = installedApp || standaloneNow(); }
+function isAndroid(){ return /Android/i.test(navigator.userAgent || ''); }
+function inAppBrowser(){ return /KAKAOTALK|Instagram|NAVER|FBAN|FBAV|Line\//i.test(navigator.userAgent || ''); }
+function chromeIntentUrl(){
+  var live = !!location.host;
+  var host = live ? location.host : 'starpicklife-design.github.io';
+  var path = live ? (location.pathname || '/safety/') : '/safety/';
+  return 'intent://' + host + path + '#Intent;scheme=https;package=com.android.chrome;end';
+}
+function applyChromeOpen(){
+  var btn = $('#chromeOpen'), note = $('#inappNote');
+  var show = isAndroid() && !standaloneNow();
+  if(btn){
+    btn.hidden = !show;
+    if(show) btn.setAttribute('href', chromeIntentUrl());
+  }
+  if(note) note.hidden = !(show && inAppBrowser());
+}
+syncInstallBtn();
+applyChromeOpen();
+installBtn.addEventListener('click', function(){
+  if(deferredPrompt){
+    var dp = deferredPrompt; deferredPrompt = null;
+    try{
+      dp.prompt();
+      if(dp.userChoice && dp.userChoice.then){
+        dp.userChoice.then(function(r){
+          if(r && r.outcome === 'accepted') toast(B('설치를 시작했어요 📲', 'Installation started 📲'));
+          else toast(B('언제든 📲 설치를 다시 누르면 안내해 드려요', 'Tap 📲 Install anytime for the guide'));
+          syncInstallBtn();
+        }).catch(function(){});
+      }
+    }catch(e){ openSheet('installModal'); }
+    return;
+  }
+  openSheet('installModal');
+});
+window.addEventListener('beforeinstallprompt', function(e){
+  if(e && e.preventDefault) e.preventDefault();
+  deferredPrompt = e; syncInstallBtn();
+});
+window.addEventListener('appinstalled', function(){
+  installedApp = true; deferredPrompt = null; syncInstallBtn();
+  toast(B('홈 화면에 앱을 꺼내 두었어요 📲', 'Added to your home screen 📲'));
+});
+
+/* ══════════ 🧾 셀프 체크 ══════════ */
+var GROUPS = [
+  { emoji:'🔌', title:{ ko:'콘센트 · 멀티탭', en:'Outlets · Power strips' }, items:[
+    { id:'t1', t:{ ko:'멀티탭 먼지를 닦고, 물기 없는 곳에 두었어요', en:'Wiped the dust off the power strip and kept it away from water' } },
+    { id:'t2', t:{ ko:'한 멀티탭에 히터·다리미 같은 전열기기를 여러 개 꽂지 않았어요', en:'Not several heaters or irons on one power strip' } },
+    { id:'t3', t:{ ko:'콘센트·플러그가 따뜻하거나 그을음이 없어요', en:'No outlet or plug that feels warm or looks scorched' } },
+  ]},
+  { emoji:'⚡', title:{ ko:'누전차단기', en:'Earth-leakage breaker' }, items:[
+    { id:'b1', t:{ ko:'누전차단기 테스트 버튼을 이번 달에 눌러 봤어요 (월 1회)', en:'Pressed the breaker test button this month (once a month)' } },
+    { id:'b2', t:{ ko:'차단기가 내려갔을 때 그냥 올리지 않고 원인을 확인했어요', en:'If the breaker tripped, I found the cause instead of just flipping it back' } }
+  ]},
+  { emoji:'🚨', title:{ ko:'감지기 · 소화기', en:'Alarms · Extinguisher' }, items:[
+    { id:'d1', t:{ ko:'주방에 단독경보형 감지기가 있어요', en:'There is a stand-alone smoke alarm in the kitchen' } },
+    { id:'d2', t:{ ko:'방마다 감지기가 있고, 테스트 버튼을 누르면 소리가 나요', en:'Every room has an alarm, and the test button beeps' } },
+    { id:'d3', t:{ ko:'소화기가 잘 보이는 곳에 있고, 압력계 바늘이 초록색이에요', en:'The extinguisher is in plain sight and the gauge needle is in the green' } },
+    { id:'d4', t:{ ko:'소화기 내용연수(10년)가 지나지 않았어요', en:'The extinguisher is under 10 years old' } }
+  ]},
+  { emoji:'🔥', title:{ ko:'가스 · 전열기기', en:'Gas · Electric heaters' }, items:[
+    { id:'g1', t:{ ko:'가스레인지와 중간밸브를 잠그고 잠자리에 들어요', en:'I turn off the gas range and the middle valve before bed' } },
+    { id:'g2', t:{ ko:'전기장판·히터 주변에 이불이나 옷을 두지 않아요', en:'No blankets or clothes near the electric mat or heater' } },
+    { id:'g3', t:{ ko:'외출할 때 안 쓰는 전열기기 플러그를 뽑아요', en:'I unplug appliances I am not using when I go out' } },
+    { id:'g4', t:{ ko:'전기장판은 접지 말고 펴서 쓰고, 위에 무거운 것을 올리지 않아요', en:'The electric mat is laid flat, never folded, with nothing heavy on it' } },
+    { id:'g5', t:{ ko:'헤어드라이어·다리미 코드가 꺾이거나 벗겨지지 않았어요', en:'Hairdryer and iron cords are not kinked or frayed' } }
+  ]}
+];
+var TOTAL = GROUPS.reduce(function(n, g){ return n + g.items.length; }, 0);
+var LS_CHK = 'wagleSafety.check.v1';
+function monthKey(d){ return d.getFullYear() + '-' + (d.getMonth() + 1); }
+function monthLabel(key){
+  var p = String(key || '').split('-');
+  var y = p[0], m = Number(p[1]);
+  if(LANG === 'en') return EN_MON_FULL[m - 1] + ' ' + y;
+  return y + '년 ' + m + '월';
+}
+var THIS_MONTH = monthKey(new Date());
+var chk = { month: THIS_MONTH, done: {} };
+var hadOldCheck = false, oldChkMonth = null;
+try{
+  var rawChk = localStorage.getItem(LS_CHK);
+  if(rawChk){
+    var jChk = JSON.parse(rawChk);
+    if(jChk && typeof jChk === 'object'){
+      chk.month = jChk.month || THIS_MONTH;
+      chk.done = (jChk.done && typeof jChk.done === 'object') ? jChk.done : {};
+      hadOldCheck = true;
+      oldChkMonth = jChk.month || null;
+    }
+  }
+}catch(e){}
+if(chk.month !== THIS_MONTH){ chk = { month: THIS_MONTH, done: {} }; }
+function saveChk(){
+  try{ localStorage.setItem(LS_CHK, JSON.stringify(chk)); }catch(e){}
+}
+saveChk();
+
+function doneCount(){ return GROUPS.reduce(function(n, g){
+  return n + g.items.filter(function(it){ return !!chk.done[it.id]; }).length; }, 0); }
+
+function renderCheck(){
+  var box = $('#chkGroups');
+  box.innerHTML = GROUPS.map(function(g, gi){
+    var dn = g.items.filter(function(it){ return !!chk.done[it.id]; }).length;
+    return '<div class="card cgroup" data-g="' + gi + '">' +
+      '<div class="cg-h"><span class="cg-e" aria-hidden="true">' + g.emoji + '</span><b>' + g.title[LANG] +
+        '</b><span class="cg-n">' + dn + '/' + g.items.length + '</span></div>' +
+      g.items.map(function(it){
+        var on = !!chk.done[it.id];
+        return '<button type="button" class="citem' + (on ? ' on' : '') + '" data-chk="' + it.id +
+          '" aria-pressed="' + (on ? 'true' : 'false') + '"><span class="cbox" aria-hidden="true">' +
+          (on ? '✓' : '') + '</span><span class="ctxt">' + it.t[LANG] + '</span></button>';
+      }).join('') + '</div>';
+  }).join('');
+  updateProg();
+}
+function updateGroupCounts(){
+  $$('#chkGroups .cgroup').forEach(function(card){
+    var gi = Number(card.getAttribute('data-g'));
+    var g = GROUPS[gi];
+    if(!g) return;
+    var dn = g.items.filter(function(it){ return !!chk.done[it.id]; }).length;
+    var n = card.querySelector('.cg-n');
+    if(n) n.textContent = dn + '/' + g.items.length;
+  });
+}
+function updateProg(){
+  var done = doneCount();
+  $('#chkN').textContent = done + ' / ' + TOTAL;
+  $('#chkBar').style.width = Math.round(done / TOTAL * 100) + '%';
+  var msg;
+  if(done === 0) msg = B('오늘 1분이면 우리 집이 더 안전해져요 🙂', 'One minute today makes your home safer 🙂');
+  else if(done < TOTAL * 0.45) msg = B('좋아요! 하나씩 확인하고 있어요 👏', 'Nice — you are working through the list 👏');
+  else if(done < TOTAL) msg = B('거의 다 왔어요. 조금만 더 하면 끝! 💪', 'Almost there. Just a little more! 💪');
+  else msg = B('이번 달 점검 완료! 우리 집이 한결 안전해졌어요 🏅', 'This month\'s check is done! Your home is safer 🏅');
+  $('#chkMsg').textContent = msg;
+  $('#chkMonth').textContent = monthLabel(chk.month);
+}
+$('#chkGroups').addEventListener('click', function(e){
+  var b = e.target.closest ? e.target.closest('[data-chk]') : null;
+  if(!b) return;
+  var id = b.getAttribute('data-chk');
+  var wasAll = doneCount() === TOTAL;
+  if(chk.done[id]) delete chk.done[id];
+  else chk.done[id] = true;
+  saveChk();
+  var on = !!chk.done[id];
+  b.classList.toggle('on', on);
+  b.setAttribute('aria-pressed', on ? 'true' : 'false');
+  var box = b.querySelector('.cbox');
+  if(box) box.textContent = on ? '✓' : '';
+  updateGroupCounts();
+  updateProg();
+  if(!wasAll && doneCount() === TOTAL) toast(B('이번 달 점검 완료! 🏅', 'This month\'s check is complete! 🏅'));
+});
+$$('[data-hero]').forEach(function(b){
+  b.addEventListener('click', function(){
+    var k = b.getAttribute('data-hero');
+    if(curTab !== 'fire') switchTab('fire');
+    setTimeout(function(){
+      var el = (k === 'watt') ? $('.elec') : $('#evacTop');
+      if(el){ try{ el.scrollIntoView({ block:'center', behavior:'smooth' }); }catch(e){ el.scrollIntoView(); } }
+      toast(k === 'watt'
+        ? B('와트믹: 전기는 물 금지! 차단기부터 내려요 ⚡', 'Wattmic: no water on electricity! Switch off the breaker first ⚡')
+        : B('파이어릭: 낮은 자세로, 계단으로! 🚒', 'Fireric: stay low and take the stairs! 🚒'));
+    }, 200);
+  });
+});
+$$('[data-goto]').forEach(function(b){
+  b.addEventListener('click', function(){ switchTab(b.getAttribute('data-goto')); });
+});
+$('#chkReset').addEventListener('click', function(){ openSheet('resetModal'); });
+$('#resetYes').addEventListener('click', function(){
+  chk.done = {};
+  saveChk();
+  closeSheet('resetModal');
+  renderCheck();
+  toast(B('이번 달 점검을 처음부터 시작해요.', 'Starting this month\'s check over.'));
+});
+
+/* ══════════ 🎮 안전 OX 퀴즈 ══════════ */
+var QUIZ = [
+  { a:false, q:{ ko:'집에 불이 나면 엘리베이터를 타고 빨리 내려간다.', en:'If your house is on fire, take the elevator down quickly.' },
+    why:{ ko:'엘리베이터는 불이 나면 멈추거나 연기가 차요. 반드시 계단으로 대피해요.',
+           en:'Elevators can stop or fill with smoke in a fire. Always evacuate by the stairs.' } },
+  { a:false, q:{ ko:'콘센트나 분전반에 불이 붙었을 때는 물을 부어 끈다.', en:'If an outlet or breaker panel is on fire, pour water on it to put it out.' },
+    why:{ ko:'물을 부으면 감전돼요. 차단기를 내리고 분말소화기나 K·C급 소화기를 써요.',
+           en:'Water means electric shock. Switch off the breaker, then use a dry powder or Class K/C extinguisher.' } },
+  { a:true, q:{ ko:'소화기는 안전핀을 뽑고, 노즐을 잡고, 손잡이를 꽉 쥐어 뿌린다.', en:'With an extinguisher you pull the pin, aim the nozzle, squeeze the handle, and spray.' },
+    why:{ ko:'안전핀 → 노즐 → 손잡이 순서만 기억하면 돼요. 바람을 등지고 뿌려요.',
+           en:'Just remember pin → nozzle → handle. Spray with your back to the wind.' } },
+  { a:true, q:{ ko:'연기가 가득할 때는 몸을 낮추고 젖은 수건으로 코와 입을 막는다.', en:'When smoke fills the room, stay low and cover your nose and mouth with a wet towel.' },
+    why:{ ko:'연기는 위로 올라가요. 낮은 자세로 벽을 짚고 이동하면 훨씬 안전해요.',
+           en:'Smoke rises. Moving low with a hand on the wall is much safer.' } },
+  { a:false, q:{ ko:'누전차단기의 테스트 버튼은 1년에 한 번만 누르면 된다.', en:'The breaker test button only needs pressing once a year.' },
+    why:{ ko:'테스트 버튼은 월 1회가 기본이에요. 1분이면 우리 집 전기를 지킬 수 있어요.',
+           en:'Once a month is the standard. One minute protects your home\'s electricity.' } },
+  { a:false, q:{ ko:'기름이 끓는 냄비에 불이 붙으면 물을 부어 끈다.', en:'If a pan of hot oil catches fire, pour water on it.' },
+    why:{ ko:'물을 부으면 불꽃이 크게 튀어요. 가스를 잠그고 뚜껑이나 젖은 수건으로 덮어요.',
+           en:'Water makes the flames flare up. Turn off the gas and cover the pan with a lid or wet towel.' } },
+  { a:false, q:{ ko:'전기장판 위에 이불을 여러 겹 덮어 두면 더 따뜻하고 안전하다.', en:'Piling blankets on an electric mat keeps you warmer and is safer.' },
+    why:{ ko:'열이 빠져나가지 못해 과열·화재 위험이 커져요. 위에는 아무것도 덮지 않아요.',
+           en:'The heat cannot escape, so overheating and fire risk go up. Never cover it.' } },
+  { a:true, q:{ ko:'대피할 때 문 손잡이가 뜨거우면 문을 열지 말고 다른 길을 찾는다.', en:'If a door handle is hot during evacuation, do not open the door — find another way out.' },
+    why:{ ko:'손잡이가 뜨거우면 문 너머에 불이 있어요. 문틈을 막고 다른 대피로나 구조를 기다려요.',
+           en:'A hot handle means fire beyond the door. Seal the gap and take another exit, or wait for rescue.' } },
+  { a:false, q:{ ko:'불을 끄고 밖으로 나온 뒤에도 두고 온 물건을 가지러 다시 들어가도 된다.', en:'Once you are out of a burning home, it is fine to go back in for your things.' },
+    why:{ ko:'다시 들어가면 연기와 불에 갇히기 쉬워요. 물건은 두고 사람이 먼저예요.', en:'Going back risks being trapped by smoke and flames. People first, things later.' } },
+  { a:false, q:{ ko:'소화기 압력계 바늘이 빨간색이어도 그냥 쓰면 된다.', en:'An extinguisher with the gauge needle in the red is still fine to use.' },
+    why:{ ko:'빨간색은 약이 빠졌다는 뜻이에요. 바늘이 초록색인지 확인하고, 아니면 새것으로 바꿔요.', en:'Red means the pressure is gone. Check for green, and replace it if it is not.' } }
+];
+var LS_QUIZ = 'wagleSafety.quiz.v1';
+var quizBest = 0;
+try{
+  var rawQ = localStorage.getItem(LS_QUIZ);
+  if(rawQ){
+    var jQ = JSON.parse(rawQ);
+    if(jQ && typeof jQ.best === 'number') quizBest = jQ.best;
+  }
+}catch(e){}
+function saveQuizBest(n){
+  if(n <= quizBest) return;
+  quizBest = n;
+  try{ localStorage.setItem(LS_QUIZ, JSON.stringify({ best: quizBest })); }catch(e){}
+}
+var qIdx = 0, qScore = 0, qLocked = false, qMarks = [];
+var qLast = null, qDoneFull = null;
+var PRAISE = {
+  ko:['와트믹: 정답이에요! ⚡', '파이어릭: 딩동댕! 🚒', '와트믹·파이어릭: 완벽해요! 🎉', '정답! 안전왕이에요 👑'],
+  en:['Wattmic: correct! ⚡', 'Fireric: ding ding! 🚒', 'Wattmic and Fireric: perfect! 🎉', 'Correct! Safety champion 👑']
+};
+var WRONG = {
+  ko:['아쉬워요! 이제 알았으니 돼요 💪', '와트믹: 괜찮아요, 한 번 더 보면 돼요 ⚡', '파이어릭: 같이 다시 봐요 🚒'],
+  en:['Not quite — now you know it 💪', 'Wattmic: that is okay, one more look ⚡', 'Fireric: let us go over it together 🚒']
+};
+var ENG = ['Awesome! 🏆', 'Safety Hero! ⚡', 'You are amazing! 🌟', 'Perfect! 🎉', 'Bravo! 👏'];
+
+function renderQuizHome(){
+  var best = $('#qBest');
+  if(quizBest > 0){
+    best.hidden = false;
+    best.textContent = B('지난번 최고 ' + quizBest + ' / ' + QUIZ.length + (quizBest === QUIZ.length ? ' — 만점이에요! 👑' : ''),
+      'Best so far ' + quizBest + ' / ' + QUIZ.length + (quizBest === QUIZ.length ? ' — a perfect score! 👑' : ''));
+  } else {
+    best.hidden = true;
+  }
+  $('#quizStart').hidden = false;
+  $('#quizPlay').hidden = true;
+  $('#quizDone').hidden = true;
+}
+function renderDots(){
+  var box = $('#qDots');
+  box.innerHTML = QUIZ.map(function(_, i){
+    var cls = '';
+    if(qMarks[i] === 1) cls = 'ok';
+    else if(qMarks[i] === 0) cls = 'bad';
+    else if(i === qIdx) cls = 'now';
+    return '<i class="' + cls + '"></i>';
+  }).join('');
+}
+function nextLabel(){
+  return (qIdx === QUIZ.length - 1) ? B('결과 보기 👼', 'See results 👼') : B('다음 문제 →', 'Next question →');
+}
+function renderQLabels(){
+  $('#qNum').textContent = (qIdx + 1) + ' / ' + QUIZ.length;
+  $('#qText').textContent = QUIZ[qIdx].q[LANG];
+  $('#qNext').textContent = nextLabel();
+  if(qLast && !$('#qFb').hidden) renderFb(qLast);
+}
+function renderQ(){
+  renderDots();
+  qLocked = false;
+  var o = $('#qO'), x = $('#qX');
+  o.disabled = false; x.disabled = false;
+  o.classList.remove('choose-ok', 'choose-bad');
+  x.classList.remove('choose-ok', 'choose-bad');
+  $('#qFb').hidden = true;
+  $('#qFb').classList.remove('bad');
+  $('#qHint').hidden = false;
+  qLast = null;
+  renderQLabels();
+}
+function startQuiz(){
+  qIdx = 0; qScore = 0; qLocked = false; qMarks = []; qLast = null; qDoneFull = null;
+  $('#quizStart').hidden = true;
+  $('#quizDone').hidden = true;
+  $('#quizPlay').hidden = false;
+  try{ window.scrollTo(0, 0); }catch(e){}
+  renderQ();
+}
+function renderFb(last){
+  $('#qFbT').textContent = last.ok ? PRAISE[LANG][last.p] : WRONG[LANG][last.p];
+  $('#qFbW').textContent = QUIZ[last.i].why[LANG] +
+    (last.ok ? '' : B(' (정답은 ' + (QUIZ[last.i].a ? 'O' : 'X') + ')', ' (Answer: ' + (QUIZ[last.i].a ? 'O' : 'X') + ')'));
+}
+function pick(val){
+  if(qLocked) return;
+  qLocked = true;
+  var item = QUIZ[qIdx];
+  var ok = (val === item.a);
+  if(ok) qScore++;
+  qMarks[qIdx] = ok ? 1 : 0;
+  var o = $('#qO'), x = $('#qX');
+  o.disabled = true; x.disabled = true;
+  var chosen = val ? o : x;
+  var other = val ? x : o;
+  chosen.classList.add(ok ? 'choose-ok' : 'choose-bad');
+  if(!ok) other.classList.add('choose-ok');
+  var fb = $('#qFb');
+  $('#qHint').hidden = true;
+  fb.hidden = false;
+  fb.classList.toggle('bad', !ok);
+  qLast = { i:qIdx, ok:ok, p:Math.floor(Math.random() * (ok ? PRAISE[LANG] : WRONG[LANG]).length) };
+  renderFb(qLast);
+  renderDots();
+  $('#qNext').focus({ preventScroll: true });
+}
+$('#qStart').addEventListener('click', startQuiz);
+$('#qO').addEventListener('click', function(){ pick(true); });
+$('#qX').addEventListener('click', function(){ pick(false); });
+$('#qNext').addEventListener('click', function(){
+  if(qIdx + 1 >= QUIZ.length){ finishQuiz(); return; }
+  qIdx++;
+  renderQ();
+  try{ $('#qText').scrollIntoView({ block:'center', behavior:'smooth' }); }catch(e){}
+});
+function renderDone(){
+  if(qDoneFull === null) return;
+  var full = qDoneFull;
+  $('#doneKo').textContent = full
+    ? B('10문제 모두 정답! 안전 천사가 왕관을 씌워 줬어요. 와트믹·파이어릭이 박수를 보내요 👏',
+        'All 10 correct! The safety angel has crowned you. Wattmic and Fireric are clapping 👏')
+    : B(qScore + '문제나 맞혔어요! 와트믹·파이어릭과 각 안내 화면에서 다시 확인해 봐요.',
+        'You got ' + qScore + ' right! Go through the guides again with Wattmic and Fireric.');
+  $('#doneScore').textContent = qScore + ' / ' + QUIZ.length + (full ? B(' · 만점 👑', ' · perfect 👑') : '');
+}
+function finishQuiz(){
+  saveQuizBest(qScore);
+  $('#quizPlay').hidden = true;
+  var done = $('#quizDone');
+  done.hidden = false;
+  qDoneFull = (qScore === QUIZ.length);
+  $('#doneEng').textContent = qDoneFull ? ENG[Math.floor(Math.random() * ENG.length)] : 'Good job! 💪';
+  renderDone();
+  try{ done.scrollIntoView({ block:'center', behavior:'smooth' }); }catch(e){}
+  if(qDoneFull) toast(B('만점이에요! 두 특공대가 엄지척! ⚡🚒', 'A perfect score! The duo gives you a thumbs-up! ⚡🚒'));
+}
+$('#qAgain').addEventListener('click', startQuiz);
+$('#qHome').addEventListener('click', function(){
+  renderQuizHome();
+  try{ window.scrollTo(0, 0); }catch(e){}
+});
+
+/* ══════════ 한 / EN 전환 ══════════ */
+function setLang(l, save){
+  LANG = (l === 'en') ? 'en' : 'ko';
+  if(save){ try{ localStorage.setItem(LS_LANG, LANG); }catch(e){} }
+  applyLang();
+  renderToday();
+  renderCheck();
+  if(!$('#quizPlay').hidden) renderQLabels();
+  if(!$('#quizDone').hidden) renderDone();
+  if(!$('#quizStart').hidden) renderQuizHome();
+  if(curStep && !$('#stepSheet').hidden) paintStep(curStep);
+  updateProg();
+}
+$('#langBtn').addEventListener('click', function(){
+  setLang(LANG === 'en' ? 'ko' : 'en', true);
+  toast(LANG === 'en' ? 'English mode · tap 🌐 to switch back' : '한국어로 보여 드려요 · 🌐 한/EN으로 다시 전환');
+});
+
+/* ══════════ 시작 ══════════ */
+applyLang();
+renderToday();
+loadWxCache();
+renderToday();
+loadWeather();
+$('#todayCard').addEventListener('click', refreshWeather);
+renderCheck();
+renderQuizHome();
+$$('[data-extlabel]').forEach(function(t){ t.textContent = B('소화기', 'FIRE'); });
+if(hadOldCheck && chk.month === THIS_MONTH && oldChkMonth && oldChkMonth !== THIS_MONTH){
+  setTimeout(function(){ toast(B('새 달이에요. 이번 달 점검을 시작해요!', 'It\'s a new month — starting this month\'s check!')); }, 900);
+}
+
+/* 서비스 워커 (홈 화면 설치·오프라인) */
+if('serviceWorker' in navigator && location.protocol.indexOf('http') === 0){
+  window.addEventListener('load', function(){
+    navigator.serviceWorker.register('sw.js').catch(function(){});
+  });
+}
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "⚡🚒 와글링 안전 특공대",
+  "short_name": "안전 특공대",
+  "description": "와트믹·파이어릭 2인조 전기·소방 특공대와 함께 — 불 났을 때 대피 3단계·소화기·완강기, 전기 화재 대처, 우리 집 전기·소방 점검 14가지, 안전 OX 퀴즈 10문제, 119·123 원터치. 기록은 이 기기에만 저장돼요.",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFFBF4",
+  "theme_color": "#FFE5D0",
+  "categories": ["safety", "education", "utilities"],
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="안전 특공대 아이콘">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFE2C4"/>
+      <stop offset="1" stop-color="#FFB79A"/>
+    </linearGradient>
+    <linearGradient id="flame" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FF8A5E"/>
+      <stop offset="1" stop-color="#D63F1F"/>
+    </linearGradient>
+    <linearGradient id="inner" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFE9B0"/>
+      <stop offset="1" stop-color="#FFC06A"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="url(#bg)"/>
+  <circle cx="256" cy="272" r="150" fill="#FFF6E9" opacity=".45"/>
+  <path d="M256 80c40 58 92 88 92 152a92 92 0 0 1-184 0c0-34 16-56 34-76 4 22 16 32 24 34-10-38 8-72 34-110z" fill="url(#flame)"/>
+  <path d="M256 214c18 26 40 40 40 66a40 40 0 0 1-80 0c0-24 20-40 40-66z" fill="url(#inner)"/>
+  <path d="M302 250l-72 108h42l-20 72 78-116h-44z" fill="#FFFDF6" stroke="#C9431F" stroke-width="9" stroke-linejoin="round"/>
+</svg>

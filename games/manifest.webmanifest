@@ -1,0 +1,21 @@
+{
+  "name": "⚡ 와트메이커 게임방",
+  "short_name": "게임방",
+  "description": "저글링 시티 전기 담당 와트메이커가 만든 무료 게임 모음 — 해미족 전구 켜기(전선 퍼즐), 공벌레 우주 미니 파크골프, 와글링 안전 특공대 퀴즈. 설치·광고 없이 폰에서 바로.",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "id": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "background_color": "#0F2A40",
+  "theme_color": "#12314A",
+  "categories": ["games", "entertainment", "puzzle"],
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
