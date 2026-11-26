@@ -1,0 +1,2309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content" />
+<meta name="theme-color" content="#15324A" />
+<!-- build: 2026-11-26 와트메이커 전기기초 v2 (WattMaker Electric)
+     · 맨 위 오늘 날짜·요일·날씨(김해 기본, 누르면 현위치 날씨로 새로고침 — Open-Meteo)
+     · 💧 물 흐름 시뮬레이터: 전압·저항을 바꾸면 전류(I=V/R)·전력(P=V×I)과 물줄기·전구 밝기가 바로 바뀜
+     · 📖 기호·용어 카드: 일상 비유로만 (수도관·그네·회전목마·댐)
+     · 🔗 직렬 vs 병렬: 그림 + 합성저항 계산기
+     · 🧮 계산 연습: 단위 변환·옴의 법칙 삼각형·교류(실효값·임피던스)를 한 줄씩 풀이
+     · 📝 기초 퀴즈 15문제 + 내 메모 수첩(localStorage)
+     · 🏠 우리 집 전기 원리: 전봇대→계량기→분전반→방·콘센트 흐름 그림, 누전 vs 과부하, 왜 병렬인지(방별 갈래 체험),
+       멀티탭 16A·3,500W 계산 시뮬레이터(가전 버튼으로 합계·전류·차단기 경고)
+     · 📞 전기 문제 비상 연락처: 123 한전 · 1588-7500 전기안전공사 · 119 소방(tel: 원터치),
+       우리 집 관리사무소·전기기사 번호 저장(localStorage)과 바로 걸기, 차단기 떨어졌을 때 1·2·3
+     · 폰 뒤로가기 · 🔠 큰 글씨 · 📤 공유 · 기록은 이 기기에만 · 무료 · 광고 없음 -->
+<!-- 단독 파일용: manifest.json 없이 열리도록 아이콘을 파일 안에 넣었습니다 -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22%3E %3Cdefs%3E %3ClinearGradient id=%22bg%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E %3Cstop offset=%220%25%22 stop-color=%22#1B4C6B%22/%3E %3Cstop offset=%22100%25%22 stop-color=%22#12314A%22/%3E %3C/linearGradient%3E %3ClinearGradient id=%22bolt%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E %3Cstop offset=%220%25%22 stop-color=%22#FFE08A%22/%3E %3Cstop offset=%22100%25%22 stop-color=%22#EFA91F%22/%3E %3C/linearGradient%3E %3C/defs%3E %3Crect width=%22512%22 height=%22512%22 rx=%22112%22 fill=%22url(#bg)%22/%3E %3Ccircle cx=%22256%22 cy=%22256%22 r=%22150%22 fill=%22none%22 stroke=%22#8FC0D8%22 stroke-width=%228%22 opacity=%22.35%22/%3E %3Cpath d=%22M286 96 L176 286 H246 L226 416 L342 218 H268 Z%22 fill=%22url(#bolt)%22 stroke=%22#FFF3C4%22 stroke-width=%228%22 stroke-linejoin=%22round%22/%3E %3C/svg%3E" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="와트메이커 전기기초" />
+<meta name="description" content="와트메이커 전기기초 — 물 흐름 비유로 전압·전류·저항·전력을 이해하고, 단위 변환·옴의 법칙·교류 계산을 한 줄씩 풀어 보는 무료 공부 앱. 기록은 이 기기에만 저장되고 광고가 없어요." />
+<title>와트메이커 전기기초 · 물 흐름으로 이해하기</title>
+<style>
+:root{
+  --cream:#FFF9EF; --card:#FFFFFF; --ink:#18252F; --ink2:#57687A;
+  --navy:#15324A; --navy2:#1E4B69;
+  --blue:#1F6FA8; --blue2:#155C8E; --bluebg:#E7F2FA; --blueline:#BFDCE9;
+  --amber:#E9A419; --amber2:#A9720A; --amberbg:#FFF6DC; --amberline:#F2D68B;
+  --red:#B5342A; --redbg:#FDECEA; --redline:#ECB4AC;
+  --green:#2E7D5B; --green2:#1E5A40; --greenbg:#EAF6EF; --greenline:#B9DFC9;
+  --line:#EADFCB; --shadow:0 2px 10px rgba(60,40,20,.10);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:18px;-webkit-text-size-adjust:100%;overflow-x:clip}
+html.big{font-size:21px}
+body{margin:0;overflow-x:clip;background:var(--cream);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Segoe UI",sans-serif;
+  line-height:1.45;padding-bottom:calc(2.2rem + env(safe-area-inset-bottom));
+  word-break:keep-all;overflow-wrap:break-word}
+[hidden]{display:none !important}
+button{font-family:inherit;cursor:pointer;color:inherit;border:0;background:none}
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #2A5566;outline-offset:2px}
+img,svg{max-width:100%}
+p{margin:0}
+
+/* ── 머리말 ───────────────────────────── */
+.top{background:linear-gradient(160deg,#12314A 0%,#1B4C6B 58%,#2A6C8C 100%);color:#FBF8F2;
+  padding:calc(.45rem + env(safe-area-inset-top)) .6rem .5rem;box-shadow:0 3px 14px rgba(15,35,50,.26)}
+.brand{display:flex;align-items:center;gap:.45rem}
+.logo{width:2rem;height:2rem;border-radius:.6rem;flex:0 0 auto;display:grid;place-items:center;
+  font-size:1.15rem;background:linear-gradient(160deg,#FFD75E,#F0A81E);color:#4A2E00;
+  box-shadow:0 2px 6px rgba(0,0,0,.22)}
+.btxt{flex:1 1 auto;min-width:0}
+.brand h1{margin:0;font-size:1.02rem;line-height:1.16;letter-spacing:-.03em;font-weight:900;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand .sub{margin:.1rem 0 0;font-size:.65rem;line-height:1.2;opacity:.92;font-weight:700;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbtns{display:flex;gap:.24rem;flex:0 0 auto}
+.topbtns button{border:1px solid rgba(251,248,242,.5);background:rgba(255,255,255,.14);color:#FBF8F2;
+  border-radius:.62rem;padding:.3rem .42rem;font-size:.67rem;font-weight:900;line-height:1.1;min-height:2.3rem;white-space:nowrap}
+.topbtns button:active{transform:translateY(1px)}
+.topbtns button[aria-pressed="true"]{background:#FFD75E;color:#3D2600;border-color:#FFD75E}
+@media (max-width:359px){
+  .logo{display:none}
+  .brand h1{font-size:.96rem}
+  .topbtns button{font-size:.62rem;padding:.28rem .34rem}
+}
+
+/* ── 본문 ─────────────────────────────── */
+main{max-width:34rem;margin:0 auto;padding:.55rem .6rem 0}
+.datebar{display:flex;align-items:center;flex-wrap:wrap;gap:.32rem .45rem;width:100%;min-height:2.75rem;
+  margin-bottom:.6rem;padding:.45rem .6rem;border-radius:.85rem;text-align:left;
+  background:#FFFDF7;border:2px solid var(--blueline);box-shadow:var(--shadow);color:var(--navy2)}
+.datebar:active{transform:translateY(1px)}
+.db-date{font-size:.85rem;font-weight:900;letter-spacing:-.03em;white-space:nowrap}
+.db-wx{display:inline-flex;align-items:center;gap:.18rem;font-size:.79rem;font-weight:900;letter-spacing:-.02em;
+  color:var(--amber2);white-space:nowrap}
+.db-wx.loading{color:var(--ink2);font-weight:800}
+.db-place{font-size:.65rem;font-weight:900;color:var(--ink2);white-space:nowrap;padding:.06rem .38rem;
+  border-radius:999px;background:var(--bluebg);border:1px solid var(--blueline)}
+.db-go{margin-left:auto;font-size:.6rem;font-weight:900;color:var(--blue2);background:var(--bluebg);
+  border:1px solid var(--blueline);border-radius:999px;padding:.1rem .4rem;white-space:nowrap}
+html.big .db-place{display:none}
+html.big .sechead h2{font-size:1.1rem;letter-spacing:-.04em}
+html.big .brand h1{font-size:.86rem;letter-spacing:-.045em}
+html.big .brand .sub{font-size:.6rem}
+html.big .topbtns button{font-size:.62rem;padding:.28rem .34rem}
+
+/* ── 처음 화면 ────────────────────────── */
+.hello{background:linear-gradient(150deg,#FFFDF7,#FFF3DA);border:2px solid var(--amberline);
+  border-radius:1.05rem;padding:.58rem .75rem .6rem;box-shadow:var(--shadow);margin-bottom:.65rem}
+.hello .hi{font-size:.88rem;font-weight:900;letter-spacing:-.03em;line-height:1.3;color:#58400C}
+.hello .hi2{margin-top:.18rem;font-size:.71rem;font-weight:700;line-height:1.45;color:#6B5A33}
+.hello .hi2 b{color:#8A5B00}
+.menu{display:flex;flex-direction:column;gap:.5rem}
+.bigcard{display:flex;align-items:center;gap:.7rem;width:100%;padding:.62rem .7rem;
+  background:#FFFDF7;border:2px solid var(--line);border-radius:1.05rem;box-shadow:var(--shadow);
+  text-align:left;min-height:4.1rem}
+.bigcard:active{transform:translateY(1px);background:#FFFAEE}
+.bc-ico{flex:0 0 auto;width:2.9rem;height:2.9rem;display:grid;place-items:center;font-size:1.45rem;
+  border-radius:.9rem;background:var(--bluebg);border:1.5px solid var(--blueline)}
+.bigcard[data-go="calc"] .bc-ico{background:var(--amberbg);border-color:var(--amberline)}
+.bigcard[data-go="quiz"] .bc-ico{background:var(--greenbg);border-color:var(--greenline)}
+.bc-t{flex:1 1 auto;min-width:0}
+.bc-t b{display:block;font-size:.97rem;font-weight:900;letter-spacing:-.03em;line-height:1.25}
+.bc-t span{display:block;margin-top:.12rem;font-size:.71rem;font-weight:700;color:var(--ink2);line-height:1.4}
+.bc-go{flex:0 0 auto;font-size:1.15rem;color:#A9B8C4;font-weight:900}
+.foot{margin:.85rem 0 .2rem;text-align:center;font-size:.64rem;font-weight:800;color:#8A8378;line-height:1.6}
+
+/* ── 섹션 공통 ────────────────────────── */
+.screen{animation:none}
+.sechead{display:flex;align-items:center;gap:.45rem;margin:.1rem 0 .55rem}
+.back{flex:0 0 auto;display:inline-flex;align-items:center;gap:.1rem;min-height:2.7rem;padding:.28rem .74rem;
+  border:1.5px solid var(--blueline);border-radius:999px;background:#FFFDF7;color:var(--navy2);
+  font-size:.86rem;font-weight:900;letter-spacing:-.02em;box-shadow:0 1px 4px rgba(60,40,20,.07)}
+.back:active{transform:translateY(1px)}
+.sechead h2{margin:0;font-size:1.18rem;font-weight:900;letter-spacing:-.035em;line-height:1.25;color:var(--navy)}
+.card{background:var(--card);border:2px solid var(--line);border-radius:1.05rem;padding:.7rem .72rem;
+  box-shadow:var(--shadow);margin-bottom:.6rem}
+.card.blue{border-color:var(--blueline);background:#FBFDFF}
+.card.amber{border-color:var(--amberline);background:#FFFCF2}
+.card.green{border-color:var(--greenline);background:#FBFEFC}
+.card h3{margin:0 0 .32rem;font-size:1.06rem;font-weight:900;letter-spacing:-.03em;color:var(--navy)}
+.card .lead{margin:0 0 .48rem;font-size:.88rem;font-weight:700;color:var(--ink2);line-height:1.5}
+.subhead{display:flex;align-items:center;gap:.35rem;margin:.75rem 0 .4rem;font-size:.94rem;font-weight:900;
+  color:var(--navy2);letter-spacing:-.03em}
+.subhead:first-child{margin-top:0}
+
+/* ── 시뮬레이터 ───────────────────────── */
+.simsvg{display:block;width:100%;height:auto;background:#F7FCFE;border:2px solid var(--blueline);
+  border-radius:.95rem;margin-bottom:.55rem}
+.svglabel{font-size:12.5px;font-weight:800;fill:#4E7D96;letter-spacing:-.3px;
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif}
+.flow{animation:flowmove 1s linear infinite}
+@keyframes flowmove{to{stroke-dashoffset:-36}}
+@media (prefers-reduced-motion:reduce){.flow{animation:none}}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:.32rem;margin:.1rem 0 .55rem}
+.lg{display:flex;align-items:center;gap:.34rem;font-size:.8rem;font-weight:800;color:#3E5566;
+  background:#FBFDFF;border:1.5px solid var(--blueline);border-radius:.7rem;padding:.34rem .42rem;line-height:1.3}
+.lg i{width:.62rem;height:.62rem;border-radius:.2rem;flex:0 0 auto;display:block}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:.42rem;margin-bottom:.55rem}
+.stat{background:#FFFDF7;border:2px solid var(--line);border-radius:.85rem;padding:.46rem .4rem .5rem;
+  text-align:center}
+.stat .k{font-size:.78rem;font-weight:900;color:var(--ink2);letter-spacing:-.02em;line-height:1.25}
+.stat .v{font-size:1.86rem;font-weight:900;letter-spacing:-.04em;line-height:1.12;color:var(--navy);
+  margin-top:.04rem}
+.stat .v small{font-size:.9rem;font-weight:900;color:var(--ink2);margin-left:.14rem}
+.stat.a{border-color:var(--amberline);background:#FFFCF2}
+.stat.a .v{color:#8A5B00}
+.ctrl{margin-bottom:.45rem}
+.ctrl .row{display:flex;align-items:center;justify-content:space-between;gap:.4rem;margin-bottom:.1rem}
+.ctrl .nm{font-size:.92rem;font-weight:900;letter-spacing:-.03em;color:var(--navy)}
+.ctrl .val{font-size:.98rem;font-weight:900;color:var(--amber2);letter-spacing:-.02em}
+.rangebox{display:flex;align-items:center;gap:.45rem}
+.rangebox input[type=range]{flex:1 1 auto}
+.stepbtn{flex:0 0 auto;width:2.6rem;height:2.6rem;border-radius:.8rem;border:2px solid var(--blueline);
+  background:#FFFDF7;color:var(--navy2);font-size:1.2rem;font-weight:900;display:grid;place-items:center;
+  line-height:1;padding:0}
+.stepbtn:active{transform:translateY(1px);background:var(--bluebg)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:2.6rem;background:transparent;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:.66rem;border-radius:999px;
+  background:linear-gradient(90deg,#F2C14E 0%,#EFA91F var(--p,50%),#E4EDF3 var(--p,50%),#E4EDF3 100%);
+  border:1px solid #D6E3EB}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:1.75rem;height:1.75rem;border-radius:50%;
+  background:#F2B01E;border:3px solid #fff;box-shadow:0 2px 6px rgba(40,30,10,.28);margin-top:-.62rem}
+input[type=range]::-moz-range-track{height:.66rem;border-radius:999px;background:#E4EDF3;border:1px solid #D6E3EB}
+input[type=range]::-moz-range-progress{height:.66rem;border-radius:999px;background:#EFA91F}
+input[type=range]::-moz-range-thumb{width:1.6rem;height:1.6rem;border-radius:50%;background:#F2B01E;
+  border:3px solid #fff;box-shadow:0 2px 6px rgba(40,30,10,.28)}
+
+.formula{background:#F5FBFE;border:1.5px dashed var(--blueline);border-radius:.8rem;padding:.55rem .7rem;
+  font-size:.96rem;font-weight:800;color:#274A5E;line-height:1.65;letter-spacing:-.01em}
+.formula b{color:#9A5E00}
+.formula .fl{display:block}
+.tip{margin-top:.45rem;font-size:.8rem;font-weight:700;color:#6B7A86;line-height:1.5}
+/* 물 흐름 시뮬레이터 맨 아래 안내 문장 — 크고 선명한 카드 */
+.simtip{margin-top:.55rem;padding:.6rem .7rem;text-align:center;font-size:1.1rem;font-weight:900;
+  letter-spacing:-.02em;line-height:1.45;color:#16394F;background:#FFFDF7;
+  border:2px solid var(--blueline);border-radius:.9rem;box-shadow:var(--shadow)}
+.simtip b{color:#8A5B00}
+
+/* ── 용어 카드 ────────────────────────── */
+.grp{margin:.95rem 0 .45rem;font-size:.92rem;font-weight:900;color:#7A6A4A;letter-spacing:-.02em}
+.grp:first-of-type{margin-top:0}
+.wcard{background:#FFFDF7;border:2px solid var(--line);border-radius:.95rem;padding:.6rem .68rem;
+  box-shadow:var(--shadow);margin-bottom:.45rem}
+.wtop{display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem}
+.sym{flex:0 0 auto;min-width:3rem;height:3rem;padding:0 .4rem;display:grid;place-items:center;
+  border-radius:.8rem;background:var(--bluebg);border:1.5px solid var(--blueline);
+  color:var(--blue2);font-size:1.2rem;font-weight:900;letter-spacing:-.02em}
+.wcard[data-t="flow"] .sym{background:#EAF6EF;border-color:var(--greenline);color:#1E5A40}
+.wcard[data-t="ac"] .sym{background:var(--amberbg);border-color:var(--amberline);color:#8A5B00}
+.wt b{display:block;font-size:1.08rem;font-weight:900;letter-spacing:-.03em;color:var(--navy)}
+.wt em{display:block;font-style:normal;font-size:.74rem;font-weight:800;color:var(--ink2);line-height:1.35}
+.w1{font-size:.96rem;font-weight:900;color:#8A5B00;letter-spacing:-.02em;line-height:1.4}
+.w2{margin-top:.2rem;font-size:.88rem;font-weight:700;color:#425563;line-height:1.6}
+.w3{margin-top:.32rem;font-size:.82rem;font-weight:800;color:#2E7D5B;background:var(--greenbg);
+  border:1px solid var(--greenline);border-radius:.6rem;padding:.3rem .5rem;line-height:1.5}
+
+/* ── 직렬·병렬 ────────────────────────── */
+.spfig{background:#F7FCFE;border:2px solid var(--blueline);border-radius:.9rem;padding:.35rem;
+  margin-bottom:.4rem}
+.spfig svg{display:block;width:100%;height:auto}
+.spgrid{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin-bottom:.55rem}
+.spcol{background:#FFFDF7;border:2px solid var(--line);border-radius:.9rem;padding:.55rem .6rem}
+.spcol b{display:block;font-size:.96rem;font-weight:900;color:var(--navy);margin-bottom:.22rem}
+.spcol p{font-size:.8rem;font-weight:700;color:var(--ink2);line-height:1.55}
+.spcol .eq{margin-top:.3rem;font-size:.92rem;font-weight:900;color:#8A5B00;line-height:1.4}
+.fieldrow{display:flex;gap:.45rem}
+.field{flex:1 1 0;min-width:0;position:relative;display:block}
+.field span{display:block;font-size:.8rem;font-weight:900;color:var(--ink2);margin-bottom:.2rem;letter-spacing:-.02em}
+.field input{width:100%;min-height:2.9rem;padding:.45rem 2.2rem .45rem .6rem;border-radius:.8rem;
+  border:2px solid var(--blueline);background:#FFFDF7;font-size:1.2rem;font-weight:900;color:var(--navy);
+  font-family:inherit}
+.field i{position:absolute;right:.6rem;bottom:.72rem;font-style:normal;font-size:.88rem;font-weight:900;color:var(--ink2)}
+.presets{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.5rem}
+.chip{min-height:2.6rem;padding:.28rem .68rem;border-radius:999px;border:1.5px solid var(--blueline);
+  background:#FFFDF7;color:var(--blue2);font-size:.8rem;font-weight:900;letter-spacing:-.02em}
+.chip:active{transform:translateY(1px);background:var(--bluebg)}
+.chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#FFFDF6}
+.resbig{margin-top:.5rem;padding:.55rem .7rem;border-radius:.85rem;background:var(--amberbg);
+  border:2px solid var(--amberline);text-align:center}
+.resbig .rk{font-size:.8rem;font-weight:900;color:#8A5B00}
+.resbig .rv{font-size:1.7rem;font-weight:900;color:#6E4300;letter-spacing:-.04em;line-height:1.2}
+.resbig .rv small{font-size:.9rem;margin-left:.15rem}
+.warn{margin-top:.5rem;font-size:.84rem;font-weight:800;color:#9A2B20;background:var(--redbg);
+  border:1.5px solid var(--redline);border-radius:.7rem;padding:.45rem .6rem;line-height:1.5}
+
+/* ── 계산 연습 ────────────────────────── */
+.jump{display:flex;flex-wrap:wrap;gap:.3rem;margin:0 0 .5rem;padding:0}
+.jump .chip{flex:0 0 auto}
+.steps{margin:.45rem 0 0;padding:.5rem .62rem;border-radius:.8rem;background:#F5FBFE;
+  border:1.5px dashed var(--blueline);list-style:none}
+.steps li{position:relative;padding-left:1.15rem;font-size:.92rem;font-weight:800;color:#274A5E;line-height:1.65;letter-spacing:-.01em}
+.steps li+li{margin-top:.16rem}
+.steps li::before{content:"";position:absolute;left:.24rem;top:.62rem;width:.36rem;height:.36rem;
+  border-radius:50%;background:#8FC0D8}
+.steps li.fin{color:#7A4A00}
+.steps li.fin::before{background:#EFA91F}
+.calcline{margin-top:.55rem;font-size:.9rem;font-weight:800;color:var(--ink2);line-height:1.55}
+.unitline{display:flex;align-items:flex-end;gap:.4rem}
+.unitline .field{flex:1 1 auto}
+.unitline .sw{flex:0 0 auto;width:2.9rem;height:2.9rem;border-radius:.8rem;border:2px solid var(--blueline);
+  background:#FFFDF7;color:var(--navy2);font-size:1.15rem;font-weight:900;display:grid;place-items:center;margin-bottom:0}
+.unitline .sw:active{transform:translateY(1px);background:var(--bluebg)}
+select{width:100%;min-height:2.9rem;padding:.4rem 1.9rem .4rem .55rem;border-radius:.8rem;
+  border:2px solid var(--blueline);background:#FFFDF7;font-size:.96rem;font-weight:900;color:var(--navy);
+  font-family:inherit;appearance:none;
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23244A63' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .6rem center;background-size:.8rem}
+.eqbig{margin-top:.55rem;padding:.55rem .6rem;border-radius:.8rem;background:#FFFDF7;border:2px solid var(--line);
+  text-align:center;font-size:1.14rem;font-weight:900;color:var(--navy);letter-spacing:-.02em}
+.eqbig b{color:#9A5E00}
+.ohmwrap{display:flex;gap:.6rem;align-items:center}
+.ohmsvg{flex:0 0 48%;max-width:12rem}
+.ohmsvg svg{display:block;width:100%;height:auto}
+.otap{cursor:pointer}
+.otap rect{fill:#FFFDF7;stroke:#BFDCE9;stroke-width:2;rx:10}
+.otap text{font-size:17px;font-weight:900;fill:#24475E;text-anchor:middle;
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif}
+.otap[aria-pressed="true"] rect{fill:#FFE8A3;stroke:#E9A419}
+.otap[aria-pressed="true"] text{fill:#6E4300}
+.ohmright{flex:1 1 auto;min-width:0}
+.ohmright .olang{font-size:.84rem;font-weight:800;color:var(--ink2);line-height:1.5;margin-bottom:.32rem}
+.zsvg{display:block;width:100%;height:auto;max-width:15rem;margin:.2rem auto 0}
+
+/* ── 퀴즈 ─────────────────────────────── */
+.qtop{display:flex;align-items:center;justify-content:space-between;gap:.4rem;margin-bottom:.35rem}
+.qtop .qn{font-size:.88rem;font-weight:900;color:var(--navy2);letter-spacing:-.02em}
+.qtop .qscore{font-size:.8rem;font-weight:900;color:#8A5B00;background:var(--amberbg);
+  border:1.5px solid var(--amberline);border-radius:999px;padding:.14rem .55rem;white-space:nowrap}
+.qbar{height:.5rem;border-radius:999px;background:#E8EEF2;overflow:hidden;margin-bottom:.55rem}
+.qbar i{display:block;height:100%;background:linear-gradient(90deg,#F2C14E,#E9A419);width:0;
+  transition:width .25s}
+.qcard{background:#FFFDF7;border:2px solid var(--line);border-radius:1rem;padding:.7rem .72rem;
+  box-shadow:var(--shadow);margin-bottom:.5rem}
+.qtype{display:inline-block;font-size:.74rem;font-weight:900;letter-spacing:.01em;color:#1E5A40;
+  background:var(--greenbg);border:1.5px solid var(--greenline);border-radius:999px;padding:.1rem .5rem;margin-bottom:.36rem}
+.qtype.mc{color:#8A5B00;background:var(--amberbg);border-color:var(--amberline)}
+.qtext{font-size:1.1rem;font-weight:900;line-height:1.52;letter-spacing:-.02em;color:#1B2E3B}
+.opts{margin-top:.55rem}
+.opt{display:flex;align-items:center;gap:.55rem;width:100%;text-align:left;padding:.62rem .65rem;
+  border-radius:.85rem;border:2px solid var(--line);background:#FFFDF7;font-size:.98rem;font-weight:800;
+  min-height:3.2rem;margin-bottom:.42rem;line-height:1.45;letter-spacing:-.01em;color:#263A46}
+.opt:active{transform:translateY(1px)}
+.opt .mk{width:1.75rem;height:1.75rem;flex:0 0 auto;border-radius:50%;border:2px solid #C9D6DE;
+  display:grid;place-items:center;font-size:.84rem;font-weight:900;color:#5B7180;background:#fff}
+.opt[data-st="ok"]{background:var(--greenbg);border-color:#7FC4A0;color:#12482F}
+.opt[data-st="ok"] .mk{background:var(--green);border-color:var(--green);color:#fff}
+.opt[data-st="no"]{background:var(--redbg);border-color:#E09A92;color:#7E2118}
+.opt[data-st="no"] .mk{background:var(--red);border-color:var(--red);color:#fff}
+.opt[disabled]{cursor:default}
+.fb{margin-top:.2rem;border-radius:.85rem;padding:.6rem .68rem;font-size:.9rem;font-weight:800;
+  line-height:1.6;border:2px solid}
+.fb.ok{background:var(--greenbg);border-color:var(--greenline);color:#164C33}
+.fb.no{background:var(--redbg);border-color:var(--redline);color:#7E2118}
+.fb .fbt{font-size:.94rem;font-weight:900;display:block;margin-bottom:.18rem}
+.fb p+p{margin-top:.12rem}
+.nextbtn{width:100%;min-height:3.3rem;border-radius:.9rem;background:var(--navy);color:#FFFDF6;
+  font-size:1.06rem;font-weight:900;letter-spacing:-.02em;margin-top:.55rem;box-shadow:0 2px 8px rgba(20,50,70,.22)}
+.nextbtn:active{transform:translateY(1px)}
+.nextbtn.ghost{background:#FFFDF7;color:var(--navy2);border:2px solid var(--blueline);box-shadow:none}
+.memobox{margin-top:.55rem;border-top:1.5px dashed var(--line);padding-top:.5rem}
+.memobox .ml{display:flex;align-items:center;justify-content:space-between;gap:.4rem;margin-bottom:.25rem}
+.memobox .ml b{font-size:.84rem;font-weight:900;color:var(--navy2)}
+.memobox .ml button{font-size:.76rem;font-weight:900;color:var(--green2);background:var(--greenbg);
+  border:1.5px solid var(--greenline);border-radius:999px;padding:.24rem .6rem;min-height:2.2rem}
+.memobox textarea{width:100%;min-height:3.4rem;padding:.5rem .55rem;border-radius:.75rem;
+  border:2px solid var(--line);background:#FFFDFA;font-family:inherit;font-size:.9rem;font-weight:700;
+  line-height:1.55;color:#2A3B47;resize:vertical}
+.memobox .saved{font-size:.74rem;font-weight:800;color:var(--green);margin-top:.24rem;display:block;min-height:1.1rem}
+.qresult{text-align:center;padding:.8rem .6rem}
+.qresult .score{font-size:2.4rem;font-weight:900;color:#8A5B00;letter-spacing:-.05em;line-height:1.1}
+.qresult .score small{font-size:1rem;color:var(--ink2)}
+.qresult .msg{margin-top:.4rem;font-size:.94rem;font-weight:800;color:#3E5566;line-height:1.6}
+
+/* ── 메모 수첩 ────────────────────────── */
+.sheet{position:fixed;inset:0;z-index:80;background:rgba(12,24,32,.5);display:flex;align-items:flex-end;
+  justify-content:center;padding:0}
+.sheetbox{width:100%;max-width:34rem;max-height:82vh;overflow:auto;background:var(--cream);
+  border-radius:1.2rem 1.2rem 0 0;padding:.8rem .8rem calc(.9rem + env(safe-area-inset-bottom));
+  box-shadow:0 -6px 24px rgba(15,30,40,.28)}
+.sheethead{display:flex;align-items:center;justify-content:space-between;gap:.4rem;margin-bottom:.5rem}
+.sheethead h3{margin:0;font-size:1.05rem;font-weight:900;letter-spacing:-.03em;color:var(--navy)}
+.xbtn{width:2.4rem;height:2.4rem;border-radius:.7rem;border:1.5px solid var(--line);background:#FFFDF7;
+  font-size:1rem;font-weight:900;color:var(--ink2);display:grid;place-items:center}
+.memolist{display:flex;flex-direction:column;gap:.4rem}
+.memoitem{background:#FFFDF7;border:2px solid var(--line);border-radius:.85rem;padding:.5rem .6rem}
+.memoitem .mh{display:flex;align-items:center;justify-content:space-between;gap:.4rem}
+.memoitem .mh b{font-size:.8rem;font-weight:900;color:#8A5B00}
+.memoitem .mh button{font-size:.74rem;font-weight:900;color:#8E2418;background:var(--redbg);
+  border:1.5px solid var(--redline);border-radius:999px;padding:.18rem .55rem;min-height:2.1rem}
+.memoitem .mq{font-size:.82rem;font-weight:800;color:#41525F;line-height:1.45;margin-top:.18rem}
+.memoitem .mm{font-size:.86rem;font-weight:800;color:#24475E;line-height:1.55;margin-top:.28rem;
+  white-space:pre-wrap}
+.empty{padding:.85rem .6rem;text-align:center;font-size:.88rem;font-weight:800;color:#7B8894;line-height:1.6}
+
+/* ── 홈 메뉴 2열 3행 ──────────────────── */
+.menu2{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.mcard{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;
+  padding:.55rem .42rem .5rem;background:#FFFDF7;border:2px solid var(--line);border-radius:1rem;
+  box-shadow:var(--shadow);text-align:center;min-height:6.05rem}
+.mcard:active{transform:translateY(1px);background:#FFFAEE}
+.mcard .mi{width:1.5rem;height:1.5rem;display:grid;place-items:center;font-size:.8rem;border-radius:.5rem;
+  background:var(--bluebg);border:1.5px solid var(--blueline);margin:0 auto .2rem}
+.mcard b{font-size:1.03rem;font-weight:900;letter-spacing:-.05em;line-height:1.22;color:var(--navy)}
+.mcard em{font-style:normal;margin-top:.16rem;font-size:.78rem;font-weight:800;color:var(--ink2);
+  line-height:1.32;letter-spacing:-.03em}
+.mcard[data-go="calc"] .mi{background:var(--amberbg);border-color:var(--amberline)}
+.mcard[data-go="quiz"] .mi{background:var(--greenbg);border-color:var(--greenline)}
+.mcard[data-go="house"] .mi{background:#FFF0EC;border-color:#F3C3B8}
+html.big .mcard b{font-size:.97rem}
+html.big .mcard em{font-size:.74rem}
+.sosband{display:flex;align-items:center;gap:.55rem;width:100%;padding:.58rem .66rem;margin-top:.55rem;
+  background:#FFF1EF;border:2px solid var(--redline);border-radius:1rem;box-shadow:var(--shadow);text-align:left}
+.sosband:active{transform:translateY(1px)}
+.sosband .si{flex:0 0 auto;width:1.95rem;height:1.95rem;display:grid;place-items:center;font-size:.95rem;
+  border-radius:.6rem;background:#FDE0DC;border:1.5px solid var(--redline)}
+.sosband .sbt{flex:1 1 auto;min-width:0}
+.sosband .sbt b{display:block;font-size:1.04rem;font-weight:900;letter-spacing:-.05em;color:#8E2418;line-height:1.22}
+.sosband .sbt em{display:block;font-style:normal;margin-top:.14rem;font-size:.76rem;font-weight:800;
+  color:#8A5B52;line-height:1.28;letter-spacing:-.03em}
+.sosband .sg{flex:0 0 auto;font-size:1.15rem;font-weight:900;color:#C98A80}
+
+/* ── 우리 집 전기 ─────────────────────── */
+.hfig{background:#F7FCFE;border:2px solid var(--blueline);border-radius:.95rem;padding:.28rem .2rem;
+  margin:.1rem 0 .5rem}
+.hfig svg{display:block;width:100%;height:auto}
+.hrow{display:flex;gap:.5rem;align-items:flex-start;padding:.52rem 0;border-top:1.5px dashed var(--line)}
+.hrow:first-child{border-top:0;padding-top:.15rem}
+.hno{flex:0 0 auto;width:2rem;height:2rem;border-radius:50%;background:var(--navy);color:#FFFDF6;
+  font-size:.9rem;font-weight:900;display:grid;place-items:center;margin-top:.06rem}
+.hrow .ht b{display:block;font-size:1.02rem;font-weight:900;letter-spacing:-.03em;color:var(--navy);line-height:1.32}
+.hrow .ht p{margin-top:.12rem;font-size:.88rem;font-weight:700;color:#425563;line-height:1.55}
+.hrow .ht p b{display:inline;font-size:inherit;color:#8A5B00;letter-spacing:0}
+.hrow .ht em{display:inline-block;margin-top:.26rem;font-style:normal;font-size:.76rem;font-weight:900;
+  color:#1E5A40;background:var(--greenbg);border:1px solid var(--greenline);border-radius:.5rem;padding:.12rem .42rem}
+.brk{display:flex;flex-direction:column;gap:.45rem}
+.bkt{border:2px solid var(--line);border-radius:.9rem;padding:.55rem .6rem;background:#FFFDF7}
+.bkt .bh{display:flex;align-items:center;gap:.45rem;margin-bottom:.3rem}
+.bkt .bi{flex:0 0 auto;width:2.4rem;height:2.4rem;display:grid;place-items:center;font-size:1.15rem;
+  border-radius:.75rem;background:var(--bluebg);border:1.5px solid var(--blueline)}
+.bkt[data-k="over"] .bi{background:var(--amberbg);border-color:var(--amberline)}
+.bkt .bh b{display:block;font-size:1.02rem;font-weight:900;letter-spacing:-.03em;color:var(--navy);line-height:1.28}
+.bkt .bh em{display:block;font-style:normal;margin-top:.08rem;font-size:.76rem;font-weight:900;color:var(--ink2)}
+.bkt .bp{font-size:.88rem;font-weight:700;color:#3C5060;line-height:1.6}
+.bkt .bex{margin-top:.38rem;font-size:.82rem;font-weight:800;color:#1B4E63;background:var(--bluebg);
+  border:1px solid var(--blueline);border-radius:.6rem;padding:.32rem .5rem;line-height:1.5}
+.bkt[data-k="over"] .bex{color:#6E4300;background:var(--amberbg);border-color:var(--amberline)}
+.sumline{margin-top:.6rem;font-size:.86rem;font-weight:800;color:#3E5566;background:#F5FBFE;
+  border:1.5px dashed var(--blueline);border-radius:.7rem;padding:.46rem .6rem;line-height:1.55}
+.sumline b{color:#8A5B00}
+.plbtns{display:flex;gap:.4rem;margin:.45rem 0 .35rem}
+.plbtns .chip{flex:1 1 0;min-height:2.9rem;font-size:.82rem;padding:.24rem .34rem}
+.plik{margin:0;font-size:.88rem;font-weight:900;color:#1E5A40;background:var(--greenbg);
+  border:1.5px solid var(--greenline);border-radius:.7rem;padding:.46rem .55rem;line-height:1.5;text-align:center}
+g.off .rroom{fill:#F2F5F7;stroke:#D5E0E6}
+g.off .rlamp{fill:#DCE5EA;stroke:#B7C6CE}
+g.off .rglow{opacity:0}
+g.off .rtxt{fill:#8899A4}
+
+/* ── 멀티탭 계산 ──────────────────────── */
+.tapgrid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin:.15rem 0 .55rem}
+.tapbtn{display:flex;align-items:center;gap:.38rem;min-height:3.3rem;padding:.34rem .42rem;
+  border-radius:.8rem;border:2px solid var(--line);background:#FFFDF7;text-align:left}
+.tapbtn:active{transform:translateY(1px)}
+.tapbtn .te{flex:0 0 auto;font-size:1.1rem;line-height:1}
+.tapbtn .tt{flex:1 1 auto;min-width:0}
+.tapbtn .tn{display:block;font-size:.82rem;font-weight:900;color:#26394A;line-height:1.25;letter-spacing:-.03em}
+.tapbtn .tw{display:block;font-size:.74rem;font-weight:800;color:var(--ink2);margin-top:.07rem}
+.tapbtn[aria-pressed="true"]{background:var(--amberbg);border-color:#E9C27A}
+.tapbtn[aria-pressed="true"] .tn{color:#6E4300}
+.tapbtn[aria-pressed="true"] .tw{color:#8A5B00}
+.tapres{border:2px solid var(--line);border-radius:.9rem;padding:.55rem .6rem;background:#FFFDF7}
+.tapres[data-st="warn"]{border-color:var(--amberline);background:#FFFCF2}
+.tapres[data-st="over"]{border-color:var(--redline);background:#FFF6F4}
+.tl{display:flex;align-items:baseline;justify-content:space-between;gap:.4rem}
+.tapw{font-size:1.45rem;font-weight:900;color:var(--navy);letter-spacing:-.045em;line-height:1.15}
+.tapa{font-size:.9rem;font-weight:900;color:var(--ink2);white-space:nowrap}
+.gauge{height:.9rem;border-radius:999px;background:#E8EEF2;overflow:hidden;border:1.5px solid #D6E3EB;margin:.4rem 0 .22rem}
+.gauge i{display:block;height:100%;width:0;border-radius:999px;
+  background:linear-gradient(90deg,#8FD3B1,#2E7D5B);transition:width .18s ease}
+.tapres[data-st="warn"] .gauge i{background:linear-gradient(90deg,#F5CF72,#E9A419)}
+.tapres[data-st="over"] .gauge i{background:linear-gradient(90deg,#E79083,#B5342A)}
+.tlimit{font-size:.72rem;font-weight:800;color:#7B8894;text-align:right}
+.tapstat{margin-top:.38rem;border-radius:.65rem;padding:.45rem .55rem;font-size:.9rem;font-weight:900;
+  line-height:1.45;text-align:center;background:var(--greenbg);border:1.5px solid var(--greenline);color:#164C33}
+.tapres[data-st="warn"] .tapstat{background:var(--amberbg);border-color:var(--amberline);color:#6E4300}
+.tapres[data-st="over"] .tapstat{background:var(--redbg);border-color:var(--redline);color:#7E2118;
+  animation:tappulse .5s ease 1}
+@keyframes tappulse{0%,100%{transform:none}20%{transform:translateX(-2px)}40%{transform:translateX(2px)}
+  60%{transform:translateX(-2px)}80%{transform:translateX(2px)}}
+@media (prefers-reduced-motion:reduce){.gauge i{transition:none}.tapres[data-st="over"] .tapstat{animation:none}}
+
+/* ── 비상 연락처 ──────────────────────── */
+.callbtn{display:flex;align-items:center;gap:.5rem;width:100%;padding:.55rem .6rem;border-radius:.9rem;
+  border:2px solid var(--blueline);background:#FFFDF7;text-align:left;min-height:4rem;margin-bottom:.42rem;
+  text-decoration:none;box-shadow:0 1px 5px rgba(60,40,20,.07)}
+.callbtn:active{transform:translateY(1px)}
+.callbtn .ci{flex:0 0 auto;width:2.5rem;height:2.5rem;display:grid;place-items:center;font-size:1.22rem;
+  border-radius:.8rem;background:var(--bluebg);border:1.5px solid var(--blueline)}
+.callbtn .ct{flex:1 1 auto;min-width:0}
+.callbtn .ct b{display:block;font-size:1.02rem;font-weight:900;letter-spacing:-.035em;color:var(--navy);line-height:1.28}
+.callbtn .ct span{display:block;margin-top:.1rem;font-size:.76rem;font-weight:800;color:var(--ink2);line-height:1.4}
+.callbtn .num{flex:0 0 auto;font-size:1.02rem;font-weight:900;color:var(--blue2);letter-spacing:-.03em;white-space:nowrap}
+.callbtn.emerg{background:#FFF1EF;border-color:var(--redline)}
+.callbtn.emerg .ci{background:#FDE0DC;border-color:var(--redline)}
+.callbtn.emerg .ct b{color:#8E2418}
+.callbtn.emerg .num{color:#B5342A;font-size:1.14rem}
+.ctblock{margin-bottom:.6rem}
+.ctblock:last-child{margin-bottom:0}
+.ctblock .lb{display:block;font-size:.82rem;font-weight:900;color:var(--ink2);margin-bottom:.2rem;letter-spacing:-.02em}
+.ctline{display:flex;gap:.35rem;align-items:stretch}
+.ctline input{flex:1 1 auto;min-width:0;min-height:2.9rem;padding:.4rem .5rem;border-radius:.8rem;
+  border:2px solid var(--blueline);background:#FFFDF7;font-family:inherit;font-size:1rem;
+  font-weight:900;color:var(--navy)}
+.ccall{flex:0 0 auto;width:2.9rem;min-height:2.9rem;display:grid;place-items:center;border-radius:.8rem;
+  border:2px solid #7FC4A0;background:var(--greenbg);font-size:1.1rem;text-decoration:none}
+.ccall[hidden]{display:none}
+.csave{flex:0 0 auto;min-height:2.9rem;padding:0 .62rem;border-radius:.8rem;background:var(--navy);
+  color:#FFFDF6;font-size:.8rem;font-weight:900;letter-spacing:-.02em}
+.csave:active{transform:translateY(1px)}
+.sosstep{display:flex;gap:.5rem;align-items:flex-start;padding:.55rem 0;border-top:1.5px dashed var(--line)}
+.sosstep:first-of-type{border-top:0;padding-top:.1rem}
+.sosstep .sn{flex:0 0 auto;width:2.2rem;height:2.2rem;border-radius:50%;background:#F2B01E;color:#3D2600;
+  font-size:1.08rem;font-weight:900;display:grid;place-items:center}
+.sosstep .st b{display:block;font-size:1.04rem;font-weight:900;color:#1B2E3B;line-height:1.38;letter-spacing:-.025em}
+.sosstep .st p{margin-top:.16rem;font-size:.88rem;font-weight:700;color:#4A5B69;line-height:1.55}
+.sosstep .st p b{display:inline;font-size:inherit;color:#8E2418}
+
+/* ── 토스트 ───────────────────────────── */
+.toast{position:fixed;left:50%;bottom:1.2rem;transform:translateX(-50%) translateY(1rem);z-index:90;
+  max-width:calc(100vw - 1.6rem);background:rgba(21,42,58,.96);color:#FFF9EF;border-radius:1rem;
+  padding:.55rem .8rem;font-size:.78rem;font-weight:800;line-height:1.4;text-align:center;
+  opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (prefers-reduced-motion:reduce){.toast{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">⚡</span>
+    <div class="btxt">
+      <h1>와트메이커 전기기초</h1>
+      <p class="sub">물 흐름으로 이해하는 회로이론</p>
+    </div>
+    <div class="topbtns">
+      <button type="button" id="bigBtn" aria-pressed="false" aria-label="큰 글씨로 보기">🔠 큰 글씨</button>
+      <button type="button" id="shareBtn" aria-label="이 앱 공유하기">📤</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ══ 오늘 날짜·요일·날씨 (모든 앱 공통 기본) ══ -->
+  <button type="button" class="datebar" id="todayCard" aria-label="오늘 날짜와 날씨 — 누르면 현위치 날씨로 새로고침">
+    <span class="db-date" id="todayDate">오늘</span>
+    <span class="db-wx loading" id="todayWx">날씨 확인 중</span>
+    <span class="db-place" id="wxPlace">김해</span>
+    <span class="db-go" aria-hidden="true">📍 내 위치</span>
+  </button>
+
+  <!-- ═══════════ 처음 ═══════════ -->
+  <section class="screen" id="screen-home">
+    <div class="hello">
+      <p class="hi">처음부터 천천히 같이 가요 ⚡</p>
+      <p class="hi2">공식은 외우는 것보다 <b>그림으로 이해</b>하면 오래 남아요.<br>궁금한 것부터 하나씩 눌러 보세요.</p>
+    </div>
+    <div class="menu2">
+      <button type="button" class="mcard" data-go="sim">
+        <span class="mi" aria-hidden="true">💧</span>
+        <b>물 흐름으로 보기</b>
+        <em>전압·저항 → 전류</em>
+      </button>
+      <button type="button" class="mcard" data-go="words">
+        <span class="mi" aria-hidden="true">📖</span>
+        <b>기호·용어 카드</b>
+        <em>V·A·Ω·W 쉬운 말로</em>
+      </button>
+      <button type="button" class="mcard" data-go="sp">
+        <span class="mi" aria-hidden="true">🔗</span>
+        <b>직렬 vs 병렬</b>
+        <em>합계 계산까지</em>
+      </button>
+      <button type="button" class="mcard" data-go="calc">
+        <span class="mi" aria-hidden="true">🧮</span>
+        <b>계산 연습</b>
+        <em>한 줄씩 풀이</em>
+      </button>
+      <button type="button" class="mcard" data-go="quiz">
+        <span class="mi" aria-hidden="true">📝</span>
+        <b>기초 퀴즈 15문제</b>
+        <em>O/X·객관식 + 메모</em>
+      </button>
+      <button type="button" class="mcard" data-go="house">
+        <span class="mi" aria-hidden="true">🏠</span>
+        <b>우리 집 전기 원리</b>
+        <em>전봇대 → 콘센트</em>
+      </button>
+    </div>
+    <button type="button" class="sosband" data-go="sos">
+      <span class="si" aria-hidden="true">📞</span>
+      <span class="sbt"><b>전기 문제 생겼을 때</b><em>비상 연락처 · 차단기 내려갔을 때 순서</em></span>
+      <span class="sg" aria-hidden="true">›</span>
+    </button>
+    <p class="foot">계산·메모·우리 집 번호는 이 기기에만 저장돼요 · 무료 · 광고 없음</p>
+  </section>
+
+  <!-- ═══════════ 1. 물 흐름 시뮬레이터 ═══════════ -->
+  <section class="screen" id="screen-sim" hidden>
+    <div class="sechead">
+      <button type="button" class="back" data-back>‹ 처음</button>
+      <h2>💧 물 흐름으로 보는 회로</h2>
+    </div>
+
+    <svg id="simSvg" class="simsvg" viewBox="0 0 340 264" role="img" aria-labelledby="simTitle simDesc">
+      <title id="simTitle">물 흐름으로 보는 전기 회로</title>
+      <desc id="simDesc">물탱크의 물 높이는 전압, 좁아지는 관은 저항, 흐르는 물줄기는 전류, 전구의 밝기는 전력을 나타냅니다.</desc>
+      <defs>
+        <linearGradient id="waterG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#93D6F5"/><stop offset="100%" stop-color="#3FA8DC"/>
+        </linearGradient>
+        <linearGradient id="pipeG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#F8FDFF"/><stop offset="100%" stop-color="#DCEDF5"/>
+        </linearGradient>
+        <filter id="glow" x="-90%" y="-90%" width="280%" height="280%">
+          <feGaussianBlur stdDeviation="8"/>
+        </filter>
+      </defs>
+
+      <!-- 물탱크 -->
+      <text x="16" y="26" class="svglabel">물탱크 = 전압</text>
+      <rect x="14" y="34" width="82" height="176" rx="12" fill="#F4FBFE" stroke="#8FC0D8" stroke-width="2.5"/>
+      <rect id="tankWater" x="18" y="118" width="74" height="88" rx="8" fill="url(#waterG)"/>
+      <line id="tankLevel" x1="18" y1="118" x2="92" y2="118" stroke="#2E8FC4" stroke-width="2" opacity=".5"/>
+
+      <!-- 수도관 -->
+      <rect x="96" y="190" width="172" height="26" rx="4" fill="url(#pipeG)" stroke="#8FC0D8" stroke-width="2.5"/>
+      <rect id="pipeWater" x="99" y="199" width="166" height="8" rx="4" fill="#4FB0E4"/>
+      <line id="flowLine" x1="99" y1="203" x2="265" y2="203" stroke="#D9F2FF" stroke-width="3"
+            stroke-dasharray="6 12" stroke-linecap="round" class="flow"/>
+      <rect id="jawTop" x="168" y="190" width="14" height="9" rx="3" fill="#93BED2"/>
+      <rect id="jawBot" x="168" y="207" width="14" height="9" rx="3" fill="#93BED2"/>
+      <text x="175" y="184" class="svglabel" text-anchor="middle">좁은 관 = 저항</text>
+
+      <!-- 전구 -->
+      <circle id="bulbGlow" cx="286" cy="203" r="36" fill="#FFC83D" opacity=".28" filter="url(#glow)"/>
+      <circle cx="286" cy="203" r="21" fill="#FFF9E2" stroke="#C9A227" stroke-width="2.5"/>
+      <circle id="bulbCore" cx="286" cy="203" r="11" fill="#FFDD66" opacity=".55"/>
+      <path d="M286 195v16M279 198l7 10M293 198l-7 10" stroke="#B8860B" stroke-width="1.7" fill="none" opacity=".5"/>
+      <text x="286" y="168" class="svglabel" text-anchor="middle">전구 = 전력</text>
+
+      <!-- 되돌아오는 관 -->
+      <path d="M286 222 V240 Q286 246 278 246 H66 Q56 246 56 236 V210" fill="none" stroke="#CFE4EF" stroke-width="12" stroke-linecap="round"/>
+      <path d="M286 222 V240 Q286 246 278 246 H66 Q56 246 56 236 V210" fill="none" stroke="#9FD6F0" stroke-width="5" stroke-linecap="round"/>
+    </svg>
+
+    <div class="legend">
+      <div class="lg"><i style="background:#8ED4F4"></i>물 높이 = 전압 V</div>
+      <div class="lg"><i style="background:#93BED2"></i>좁은 관 = 저항 Ω</div>
+      <div class="lg"><i style="background:#1F6FA8"></i>물줄기 = 전류 A</div>
+      <div class="lg"><i style="background:#F2B01E"></i>전구 밝기 = 전력 W</div>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="k">전압 V</div><div class="v"><span id="sV">6</span><small>V</small></div></div>
+      <div class="stat"><div class="k">전류 I = V ÷ R</div><div class="v"><span id="sI">3</span><small>A</small></div></div>
+      <div class="stat"><div class="k">저항 Ω</div><div class="v"><span id="sR">2</span><small>Ω</small></div></div>
+      <div class="stat a"><div class="k">전력 P = V × I</div><div class="v"><span id="sP">18</span><small>W</small></div></div>
+    </div>
+
+    <div class="card blue">
+      <div class="ctrl">
+        <div class="row"><span class="nm">🔵 전압 (미는 힘)</span><span class="val" id="vVal">6 V</span></div>
+        <div class="rangebox">
+          <button type="button" class="stepbtn" id="vMinus" aria-label="전압 1줄이기">−</button>
+          <input type="range" id="vRange" min="1" max="12" step="1" value="6" aria-label="전압 조절" />
+          <button type="button" class="stepbtn" id="vPlus" aria-label="전압 1늘리기">＋</button>
+        </div>
+      </div>
+      <div class="ctrl" style="margin-bottom:0">
+        <div class="row"><span class="nm">🟠 저항 (막는 힘)</span><span class="val" id="rVal">2 Ω</span></div>
+        <div class="rangebox">
+          <button type="button" class="stepbtn" id="rMinus" aria-label="저항 1줄이기">−</button>
+          <input type="range" id="rRange" min="1" max="10" step="1" value="2" aria-label="저항 조절" />
+          <button type="button" class="stepbtn" id="rPlus" aria-label="저항 1늘리기">＋</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="formula" aria-live="polite">
+      <span class="fl">전류 <b>I = V ÷ R</b> = <span id="fI">6 ÷ 2 = 3 A</span></span>
+      <span class="fl">전력 <b>P = V × I</b> = <span id="fP">6 × 3 = 18 W</span></span>
+    </div>
+    <p class="tip simtip" id="simTip">전압을 올리면 물을 더 세게 밀어서 전류가 늘어요. 저항을 올리면 관이 좁아져 전류가 줄어요.</p>
+  </section>
+
+  <!-- ═══════════ 2. 기호·용어 카드 ═══════════ -->
+  <section class="screen" id="screen-words" hidden>
+    <div class="sechead">
+      <button type="button" class="back" data-back>‹ 처음</button>
+      <h2>📖 기호·용어 카드</h2>
+    </div>
+
+    <div class="jump" aria-label="용어 묶음 바로 가기">
+      <button type="button" class="chip" data-jump="w-g1">① 기본 4형제</button>
+      <button type="button" class="chip" data-jump="w-g2">② 직류·교류·주파수</button>
+      <button type="button" class="chip" data-jump="w-g3">③ 코일·콘덴서·임피던스</button>
+    </div>
+
+    <div class="card amber">
+      <h3>한눈에 보는 공식</h3>
+      <p class="lead">외우기 전에 “무엇을 구하는지”부터 보세요. 계산은 🧮 계산 연습에서 한 줄씩 풀어 줘요.</p>
+      <div class="formula" style="background:#FFFDF7">
+        <span class="fl"><b>V = I × R</b> · <b>I = V ÷ R</b> · <b>R = V ÷ I</b></span>
+        <span class="fl"><b>P = V × I</b> (전력)</span>
+        <span class="fl">직렬 <b>R = R₁ + R₂</b></span>
+        <span class="fl">병렬 <b>R = R₁×R₂ ÷ (R₁+R₂)</b></span>
+        <span class="fl">임피던스 <b>Z = √(R² + X²)</b></span>
+        <span class="fl">실효값 = 최댓값 <b>÷ 1.414</b></span>
+      </div>
+    </div>
+
+    <h3 class="grp" id="w-g1">① 기본 4형제 — 단위만 다를 뿐 같은 이야기</h3>
+
+    <article class="wcard">
+      <div class="wtop"><span class="sym">V</span><div class="wt"><b>전압</b><em>볼트 (V)</em></div></div>
+      <p class="w1">물을 미는 힘</p>
+      <p class="w2">높은 곳에 있는 물탱크일수록 물이 더 세게 내려와요. 그 미는 힘의 크기가 전압이에요.</p>
+      <p class="w3">🔑 전압 = 물탱크 높이 = 미는 힘</p>
+    </article>
+
+    <article class="wcard">
+      <div class="wtop"><span class="sym">A</span><div class="wt"><b>전류</b><em>암페어 (A)</em></div></div>
+      <p class="w1">1초에 지나가는 물의 양</p>
+      <p class="w2">수도관을 1초에 지나가는 물의 양이에요. 많이 지나가면 전류가 큰 거예요.</p>
+      <p class="w3">🔑 전류 = 물줄기 굵기 = 흐르는 양</p>
+    </article>
+
+    <article class="wcard">
+      <div class="wtop"><span class="sym">Ω</span><div class="wt"><b>저항</b><em>옴 (Ω)</em></div></div>
+      <p class="w1">관이 좁아서 지나가기 힘든 정도</p>
+      <p class="w2">빨대가 가늘수록 물이 힘들게 지나가죠. 그 막는 힘이 저항이에요.</p>
+      <p class="w3">🔑 저항 = 좁은 관 = 막는 힘</p>
+    </article>
+
+    <article class="wcard">
+      <div class="wtop"><span class="sym">W</span><div class="wt"><b>전력</b><em>와트 (W)</em></div></div>
+      <p class="w1">1초에 하는 일의 양</p>
+      <p class="w2">물레방아를 1초에 얼마나 힘 있게 돌리는지예요. 전구라면 밝기가 전력이에요.</p>
+      <p class="w3">🔑 전력 = 전구 밝기 = 1초에 하는 일</p>
+    </article>
+
+    <h3 class="grp" id="w-g2">② 흐름의 두 가지 — 직류와 교류</h3>
+
+    <article class="wcard" data-t="flow">
+      <div class="wtop"><span class="sym">DC</span><div class="wt"><b>직류</b><em>한 방향으로만</em></div></div>
+      <p class="w1">한쪽으로만 흐르는 물길</p>
+      <p class="w2">댐에서 아래로만 흘러내리는 물처럼, 방향이 바뀌지 않아요. 건전지가 직류예요.</p>
+      <p class="w3">🔑 직류 = 한 방향 = 건전지</p>
+    </article>
+
+    <article class="wcard" data-t="flow">
+      <div class="wtop"><span class="sym">AC</span><div class="wt"><b>교류</b><em>방향을 계속 바꿈</em></div></div>
+      <p class="w1">앞뒤로 오가는 물</p>
+      <p class="w2">밀물과 썰물처럼 오르내려요. 우리나라 콘센트는 1초에 60번 방향을 바꿔요(60Hz).</p>
+      <p class="w3">🔑 교류 = 앞뒤로 왕복 = 콘센트</p>
+    </article>
+
+    <article class="wcard" data-t="flow">
+      <div class="wtop"><span class="sym">Hz</span><div class="wt"><b>주파수</b><em>헤르츠 (Hz)</em></div></div>
+      <p class="w1">1초에 몇 번 반복하는지</p>
+      <p class="w2">그네를 1초에 몇 번 미는지 세는 것과 같아요. 60Hz면 1초에 60번 왕복해요.</p>
+      <p class="w3">🔑 주파수 = 1초에 반복한 횟수</p>
+    </article>
+
+    <h3 class="grp" id="w-g3">③ 교류에서 새로 나오는 것 — 코일·콘덴서·j</h3>
+
+    <article class="wcard" data-t="ac">
+      <div class="wtop"><span class="sym">L</span><div class="wt"><b>코일</b><em>인덕턴스, 헨리 (H)</em></div></div>
+      <p class="w1">무거운 물레방아 바퀴</p>
+      <p class="w2">급하게 바꾸려 하면 버티고, 계속 같은 방향으로 밀면 잘 돌아요. 그래서 직류는 잘 통하고 교류는 막아요.</p>
+      <p class="w3">🔑 코일 = 무거운 바퀴 = 변화를 싫어함</p>
+    </article>
+
+    <article class="wcard" data-t="ac">
+      <div class="wtop"><span class="sym">C</span><div class="wt"><b>콘덴서</b><em>정전용량, 패럿 (F)</em></div></div>
+      <p class="w1">잠깐 담아 두는 작은 물탱크</p>
+      <p class="w2">물이 차면 더는 못 들어가 잠깐 막아요. 방향이 바뀌면 다시 받아 주죠. 그래서 직류는 막고 교류는 통과시켜요.</p>
+      <p class="w3">🔑 콘덴서 = 작은 물탱크 = 잠깐 담기</p>
+    </article>
+
+    <article class="wcard" data-t="ac">
+      <div class="wtop"><span class="sym">j</span><div class="wt"><b>복소수 기호 j</b><em>전기에서는 √−1 대신 j</em></div></div>
+      <p class="w1">“90도 꺾였다”는 표시</p>
+      <p class="w2">회전목마에서 오른쪽으로 90도 도는 것과 같아요. 코일·콘덴서가 만드는 힘은 저항과 방향이 90도 달라서 j를 붙여요.</p>
+      <p class="w3">🔑 j = 90도 회전 표시 (j × j = −1)</p>
+    </article>
+
+    <article class="wcard" data-t="ac">
+      <div class="wtop"><span class="sym">θ</span><div class="wt"><b>위상각</b><em>파이가 얼마나 늦는지</em></div></div>
+      <p class="w1">누가 얼마나 늦게 출발했는지</p>
+      <p class="w2">그네 두 개를 같이 미는데 하나가 반 박자 늦는 것과 같아요. 그 늦은 정도가 위상각이에요.</p>
+      <p class="w3">🔑 위상각 = 출발이 늦은 정도 (각도)</p>
+    </article>
+
+    <article class="wcard" data-t="ac">
+      <div class="wtop"><span class="sym">X</span><div class="wt"><b>리액턴스</b><em>코일·콘덴서가 만드는 막는 힘 (Ω)</em></div></div>
+      <p class="w1">타이밍이 안 맞아 힘이 안 먹히는 정도</p>
+      <p class="w2">그네를 엉뚱한 때 밀면 힘이 잘 안 통해요. 코일(X_L)·콘덴서(X_C)가 그런 식으로 막는 힘이에요.</p>
+      <p class="w3">🔑 리액턴스 = 방향이 어긋난 저항</p>
+    </article>
+
+    <article class="wcard" data-t="ac">
+      <div class="wtop"><span class="sym">Z</span><div class="wt"><b>임피던스</b><em>교류의 종합 저항 (Ω)</em></div></div>
+      <p class="w1">저항과 리액턴스를 합친 전체 막는 힘</p>
+      <p class="w2">저항(R)은 곧은 길, 리액턴스(X)는 옆으로 비켜 가는 길이에요. 두 길을 합친 것이 Z예요.</p>
+      <p class="w3">🔑 Z = √(R² + X²) = 교류의 전체 저항</p>
+    </article>
+
+    <p class="foot">용어는 시험 용어 그대로 두고, 뜻만 쉬운 말로 적었어요.</p>
+  </section>
+
+  <!-- ═══════════ 3. 직렬 vs 병렬 ═══════════ -->
+  <section class="screen" id="screen-sp" hidden>
+    <div class="sechead">
+      <button type="button" class="back" data-back>‹ 처음</button>
+      <h2>🔗 직렬 vs 병렬</h2>
+    </div>
+
+    <div class="card">
+      <h3>직렬 — 관을 길게 이어 붙이기</h3>
+      <div class="spfig">
+        <svg viewBox="0 0 330 86" role="img" aria-label="직렬 연결 그림: 물관 두 개가 일렬로 이어져 있음">
+          <rect x="10" y="30" width="310" height="26" rx="6" fill="#EFF8FD" stroke="#8FC0D8" stroke-width="2.5"/>
+          <rect x="104" y="30" width="16" height="26" rx="4" fill="#93BED2"/>
+          <rect x="210" y="30" width="16" height="26" rx="4" fill="#93BED2"/>
+          <line x1="16" y1="43" x2="314" y2="43" stroke="#4FB0E4" stroke-width="7" stroke-linecap="round"/>
+          <line x1="16" y1="43" x2="314" y2="43" stroke="#D9F2FF" stroke-width="2.4" stroke-dasharray="6 12"
+                stroke-linecap="round" class="flow"/>
+          <text x="112" y="24" text-anchor="middle" class="svglabel">R₁</text>
+          <text x="218" y="24" text-anchor="middle" class="svglabel">R₂</text>
+          <text x="165" y="74" text-anchor="middle" class="svglabel">물은 한 줄로만 지나가요</text>
+        </svg>
+      </div>
+      <div class="spgrid" style="margin-bottom:0">
+        <div class="spcol"><b>합성 저항</b><p>관이 길어질수록 더 막혀요. 그래서 그냥 더해요.</p><p class="eq">R = R₁ + R₂</p></div>
+        <div class="spcol"><b>전류·전압</b><p>전류는 어디서나 같고, 전압은 저항끼리 나눠 가져요.</p><p class="eq">I는 같음 · V는 나눔</p></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>병렬 — 관을 나란히 놓기</h3>
+      <div class="spfig">
+        <svg viewBox="0 0 330 106" role="img" aria-label="병렬 연결 그림: 물관이 두 갈래로 나뉘었다가 다시 합쳐짐">
+          <path d="M12 53 H62 M62 53 V24 H268 V53 M62 53 V82 H268 V53 M268 53 H318" fill="none"
+                stroke="#8FC0D8" stroke-width="2.5"/>
+          <path d="M18 53 H60 M60 53 V24 H266 M60 53 V82 H266 M266 24 V82 M266 53 H314" fill="none"
+                stroke="#4FB0E4" stroke-width="8" stroke-linecap="round"/>
+          <path d="M18 53 H60 M60 53 V24 H266 M60 53 V82 H266 M266 24 V82 M266 53 H314" fill="none"
+                stroke="#D9F2FF" stroke-width="2.4" stroke-dasharray="6 12" stroke-linecap="round" class="flow"/>
+          <text x="160" y="18" text-anchor="middle" class="svglabel">R₁ 갈래</text>
+          <text x="160" y="98" text-anchor="middle" class="svglabel">R₂ 갈래</text>
+        </svg>
+      </div>
+      <div class="spgrid" style="margin-bottom:0">
+        <div class="spcol"><b>합성 저항</b><p>길이 넓어져 물이 더 잘 지나가요. 합성 저항은 가장 작은 저항보다도 작아져요.</p><p class="eq">1/R = 1/R₁ + 1/R₂</p></div>
+        <div class="spcol"><b>전류·전압</b><p>전압은 양쪽이 같고, 전류는 갈래마다 나눠 가져요.</p><p class="eq">V는 같음 · I는 나눔</p></div>
+      </div>
+    </div>
+
+    <div class="card amber">
+      <h3>🔢 숫자 넣어 바로 계산</h3>
+      <p class="lead">두 저항 값을 넣으면 직렬·병렬 합계를 한 번에 보여 드려요.</p>
+      <div class="fieldrow">
+        <label class="field"><span>R₁</span><input id="r1" type="number" inputmode="decimal" min="0" step="0.1" value="2" /><i>Ω</i></label>
+        <label class="field"><span>R₂</span><input id="r2" type="number" inputmode="decimal" min="0" step="0.1" value="3" /><i>Ω</i></label>
+      </div>
+      <div class="presets">
+        <button type="button" class="chip" data-sp="2,3">2Ω + 3Ω</button>
+        <button type="button" class="chip" data-sp="10,10">10Ω + 10Ω</button>
+        <button type="button" class="chip" data-sp="4,12">4Ω + 12Ω</button>
+      </div>
+      <div class="resbig" aria-live="polite">
+        <div class="rk">직렬 합계 (그냥 더하기)</div>
+        <div class="rv" id="spS">5 <small>Ω</small></div>
+        <div class="rk" style="margin-top:.35rem">병렬 합계 (나란히)</div>
+        <div class="rv" id="spP">1.2 <small>Ω</small></div>
+      </div>
+      <ul class="steps" id="spSteps"></ul>
+      <p class="calcline" id="spCurrent"></p>
+      <div class="warn" id="spWarn" hidden>0보다 큰 저항을 넣어 주세요.</div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 4. 계산 연습 ═══════════ -->
+  <section class="screen" id="screen-calc" hidden>
+    <div class="sechead">
+      <button type="button" class="back" data-back>‹ 처음</button>
+      <h2>🧮 계산 연습</h2>
+    </div>
+
+    <div class="jump" aria-label="계산 종류 바로 가기">
+      <button type="button" class="chip" data-jump="c-unit">1️⃣ 단위 변환</button>
+      <button type="button" class="chip" data-jump="c-ohm">2️⃣ 옴의 법칙 삼각형</button>
+      <button type="button" class="chip" data-jump="c-ac">3️⃣ 교류 계산</button>
+    </div>
+
+    <!-- ── 단위 변환 ── -->
+    <div class="card blue" id="c-unit">
+      <h3>1️⃣ 단위 변환 — 0 세 개 붙이고 떼기</h3>
+      <p class="lead">k(킬로)는 1,000배, m(밀리)는 1/1,000이에요. 그래서 <b>0을 세 개</b> 붙이거나 떼면 끝나요.</p>
+
+      <div class="unitline">
+        <label class="field"><span>바꿀 값</span><input id="uVal" type="number" inputmode="decimal" step="0.1" value="2.2" /><i id="uFromU">kV</i></label>
+        <button type="button" class="sw" id="uSwap" aria-label="변환 방향 바꾸기">⇄</button>
+        <label class="field" style="pointer-events:none"><span>바뀐 값</span>
+          <input id="uOut" type="text" readonly value="2,200" tabindex="-1" /><i id="uToU">V</i></label>
+      </div>
+      <p class="calcline" id="uName">kV → V 로 바꾸는 중</p>
+
+      <ul class="steps" id="uSteps"></ul>
+
+      <div class="presets">
+        <button type="button" class="chip" data-u="1,kV">1kV → V</button>
+        <button type="button" class="chip" data-u="2.2,kV">2.2kV → V</button>
+        <button type="button" class="chip" data-u="500,mA">500mA → A</button>
+        <button type="button" class="chip" data-u="1000,mA">1,000mA → A</button>
+        <button type="button" class="chip" data-u="1,kW">1kW → W</button>
+        <button type="button" class="chip" data-u="220,V">220V → kV</button>
+      </div>
+
+      <div class="formula" style="margin-top:.55rem;background:#FFFDF7">
+        <span class="fl">1 kV = 1,000 V · 1,000 mA = 1 A</span>
+        <span class="fl">1 kW = 1,000 W · 1 kΩ = 1,000 Ω</span>
+      </div>
+    </div>
+
+    <!-- ── 옴의 법칙 삼각형 ── -->
+    <div class="card amber" id="c-ohm">
+      <h3>2️⃣ 옴의 법칙 삼각형</h3>
+      <p class="lead">구할 글자를 <b>손으로 가리면</b> 나머지 두 글자가 보여요. 위아래로 남으면 나누기, 나란히 남으면 곱하기예요.</p>
+
+      <div class="ohmwrap">
+        <div class="ohmsvg">
+          <svg viewBox="0 0 240 200" role="img" aria-label="옴의 법칙 삼각형: 위에 V, 아래 왼쪽에 I, 아래 오른쪽에 R">
+            <path d="M120 14 L226 182 H14 Z" fill="#FFF6DC" stroke="#E9A419" stroke-width="3" stroke-linejoin="round"/>
+            <g class="otap" data-find="I" role="button" tabindex="0" aria-pressed="false" aria-label="전류 I 구하기">
+              <rect x="26" y="116" width="68" height="60" rx="12"/>
+              <text x="60" y="156">I</text>
+            </g>
+            <g class="otap" data-find="R" role="button" tabindex="0" aria-pressed="false" aria-label="저항 R 구하기">
+              <rect x="146" y="116" width="68" height="60" rx="12"/>
+              <text x="180" y="156">R</text>
+            </g>
+            <g class="otap" data-find="V" role="button" tabindex="0" aria-pressed="true" aria-label="전압 V 구하기">
+              <rect x="86" y="38" width="68" height="60" rx="12"/>
+              <text x="120" y="78">V</text>
+            </g>
+          </svg>
+        </div>
+        <div class="ohmright">
+          <p class="olang" id="ohmHint">V를 가리면 I와 R이 나란히 남아요 → 곱하기</p>
+          <div class="eqbig" id="ohmEq">V = I × R</div>
+        </div>
+      </div>
+
+      <div class="fieldrow" style="margin-top:.55rem">
+        <label class="field"><span id="ohmA">전류 I</span><input id="ohmAv" type="number" inputmode="decimal" step="0.1" value="2" /><i id="ohmAU">A</i></label>
+        <label class="field"><span id="ohmB">저항 R</span><input id="ohmBv" type="number" inputmode="decimal" step="0.1" value="6" /><i id="ohmBU">Ω</i></label>
+      </div>
+
+      <ul class="steps" id="ohmSteps"></ul>
+      <div class="warn" id="ohmWarn" hidden>0은 넣을 수 없어요. 0보다 큰 값을 넣어 주세요.</div>
+    </div>
+
+    <!-- ── 교류 계산 ── -->
+    <div class="card green" id="c-ac">
+      <h3>3️⃣ 교류 계산 — 실효값과 임피던스</h3>
+      <p class="lead">콘센트 220V는 <b>실효값</b>이에요. 실제로는 파도처럼 오르내리는데, 그 꼭대기 값이 최댓값이에요.</p>
+
+      <div class="subhead">🌊 실효값 ↔ 최댓값</div>
+      <div class="presets" style="margin:.1rem 0 .45rem">
+        <button type="button" class="chip" data-rms="p2r" aria-pressed="true">최댓값 → 실효값</button>
+        <button type="button" class="chip" data-rms="r2p" aria-pressed="false">실효값 → 최댓값</button>
+      </div>
+      <div class="unitline">
+        <label class="field"><span id="rmsInL">최댓값</span><input id="rmsIn" type="number" inputmode="decimal" step="1" value="220" /><i>V</i></label>
+        <span class="sw" style="display:grid;place-items:center;font-size:1rem">→</span>
+        <label class="field" style="pointer-events:none"><span id="rmsOutL">실효값</span>
+          <input id="rmsOut" type="text" readonly value="155.6" tabindex="-1" /><i>V</i></label>
+      </div>
+      <ul class="steps" id="rmsSteps"></ul>
+
+      <div class="subhead">📐 임피던스 Z = √(R² + X²)</div>
+      <div class="fieldrow">
+        <label class="field"><span>저항 R</span><input id="zR" type="number" inputmode="decimal" step="0.1" value="3" /><i>Ω</i></label>
+        <label class="field"><span>리액턴스 X</span><input id="zX" type="number" inputmode="decimal" step="0.1" value="4" /><i>Ω</i></label>
+      </div>
+      <svg class="zsvg" id="zSvg" viewBox="0 0 240 170" role="img" aria-label="임피던스 직각삼각형: 가로가 R, 세로가 X, 빗변이 Z">
+        <path id="zTri" d="M40 140 L160 140 L160 20 Z" fill="#EAF6EF" stroke="#2E7D5B" stroke-width="3" stroke-linejoin="round"/>
+        <text id="zLabR" x="100" y="162" text-anchor="middle" class="svglabel" fill="#1E5A40">R</text>
+        <text id="zLabX" x="172" y="84" class="svglabel" fill="#1E5A40">X</text>
+        <text id="zLabZ" x="92" y="70" text-anchor="end" class="svglabel" fill="#1E5A40">Z</text>
+      </svg>
+      <ul class="steps" id="zSteps"></ul>
+      <div class="resbig" style="background:#EAF6EF;border-color:#B9DFC9">
+        <div class="rk" style="color:#1E5A40">임피던스 Z</div>
+        <div class="rv" style="color:#164C33"><span id="zOut">5</span> <small>Ω</small></div>
+      </div>
+      <div class="warn" id="zWarn" hidden>R과 X에 0보다 큰 값을 넣어 주세요.</div>
+
+      <div class="subhead">🧲 X 구하기 (코일·콘덴서)</div>
+      <div class="fieldrow">
+        <label class="field"><span>주파수 f</span><input id="xlF" type="number" inputmode="decimal" step="1" value="60" /><i>Hz</i></label>
+        <label class="field"><span>코일 L</span><input id="xlL" type="number" inputmode="decimal" step="1" value="100" /><i>mH</i></label>
+      </div>
+      <div class="fieldrow" style="margin-top:.4rem">
+        <label class="field"><span>콘덴서 C</span><input id="xlC" type="number" inputmode="decimal" step="1" value="10" /><i>µF</i></label>
+      </div>
+      <ul class="steps" id="xlSteps"></ul>
+      <div class="presets">
+        <button type="button" class="chip" id="useXL">X에 코일 값 넣기</button>
+        <button type="button" class="chip" id="useXC">X에 콘덴서 값 넣기</button>
+        <button type="button" class="chip" id="useXBoth">둘 다일 때 |XL−XC|</button>
+      </div>
+      <p class="tip">코일은 주파수가 높을수록 더 막고(X_L = 2πfL), 콘덴서는 반대로 높을수록 잘 통과시켜요(X_C = 1÷2πfC).</p>
+    </div>
+  </section>
+
+  <!-- ═══════════ 5. 퀴즈 ═══════════ -->
+  <section class="screen" id="screen-quiz" hidden>
+    <div class="sechead">
+      <button type="button" class="back" data-back>‹ 처음</button>
+      <h2>📝 왕초보 기초 퀴즈</h2>
+    </div>
+    <div class="card" style="padding:.6rem .65rem">
+      <div class="qtop">
+        <span class="qn" id="qProg">문제 1 / 15</span>
+        <span class="qscore" id="qScore">맞힌 것 0</span>
+        <button type="button" class="chip" id="memoOpen" style="min-height:2rem;padding:.15rem .5rem">📓 메모 <span id="memoCount">0</span></button>
+      </div>
+      <div class="qbar"><i id="qBar"></i></div>
+      <div id="qBody"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════ 6. 우리 집 전기 원리 ═══════════ -->
+  <section class="screen" id="screen-house" hidden>
+    <div class="sechead">
+      <button type="button" class="back" data-back>‹ 처음</button>
+      <h2>🏠 우리 집 전기 원리</h2>
+    </div>
+
+    <div class="card blue">
+      <h3>전봇대 → 계량기 → 두꺼비집 → 콘센트</h3>
+      <p class="lead">전기도 물처럼 <b>큰 길에서 작은 길로</b> 갈라지며 우리 집까지 들어와요.</p>
+
+      <div class="hfig">
+        <svg viewBox="0 0 340 150" role="img" aria-labelledby="hfTitle hfDesc">
+          <title id="hfTitle">전봇대에서 우리 집 콘센트까지 오는 전기 길</title>
+          <desc id="hfDesc">전선이 전봇대에서 계량기를 지나 분전반(두꺼비집)을 거쳐 방과 콘센트로 들어갑니다.</desc>
+          <line x1="0" y1="102" x2="340" y2="102" stroke="#A9BECB" stroke-width="3" stroke-linecap="round"/>
+          <line x1="0" y1="102" x2="340" y2="102" stroke="#DDF1FB" stroke-width="3"
+                stroke-linecap="round" stroke-dasharray="5 12" class="flow"/>
+
+          <!-- ① 전봇대 -->
+          <rect x="20" y="56" width="7" height="52" rx="2" fill="#C3D2DB"/>
+          <rect x="6" y="62" width="35" height="4" rx="2" fill="#C3D2DB"/>
+          <circle cx="43" cy="82" r="8" fill="#E4EFF5" stroke="#A9BECB" stroke-width="1.6"/>
+
+          <!-- ② 계량기 -->
+          <rect x="78" y="58" width="58" height="50" rx="8" fill="#FFFDF7" stroke="#8FC0D8" stroke-width="2"/>
+          <circle cx="107" cy="79" r="13" fill="#EAF6FF" stroke="#8FC0D8" stroke-width="1.8"/>
+          <line x1="107" y1="79" x2="112" y2="74" stroke="#2E7D5B" stroke-width="2" stroke-linecap="round"/>
+          <text x="107" y="103" text-anchor="middle" class="svglabel" style="font-size:9px">kWh</text>
+
+          <!-- ③ 분전반 -->
+          <rect x="156" y="54" width="62" height="54" rx="8" fill="#FFF8E6" stroke="#E9C27A" stroke-width="2"/>
+          <rect x="164" y="63" width="12" height="17" rx="2" fill="#FFFDF7" stroke="#C9A227" stroke-width="1.4"/>
+          <rect x="181" y="63" width="12" height="17" rx="2" fill="#FFFDF7" stroke="#C9A227" stroke-width="1.4"/>
+          <rect x="198" y="63" width="12" height="17" rx="2" fill="#FFFDF7" stroke="#C9A227" stroke-width="1.4"/>
+          <rect x="164" y="86" width="12" height="14" rx="2" fill="#F3E3BE" stroke="#C9A227" stroke-width="1.2"/>
+          <rect x="181" y="86" width="12" height="14" rx="2" fill="#F3E3BE" stroke="#C9A227" stroke-width="1.2"/>
+          <rect x="198" y="86" width="12" height="14" rx="2" fill="#F3E3BE" stroke="#C9A227" stroke-width="1.2"/>
+
+          <!-- ④ 방·콘센트 -->
+          <path d="M228 72 L286 44 L340 72 Z" fill="#FBE3C9" stroke="#E0B183" stroke-width="2"
+                stroke-linejoin="round"/>
+          <rect x="236" y="72" width="98" height="36" rx="4" fill="#FFFDF7" stroke="#E0B183" stroke-width="2"/>
+          <circle cx="262" cy="90" r="7" fill="#FFD75E" stroke="#C9A227" stroke-width="1.8"/>
+          <rect x="300" y="84" width="20" height="15" rx="3" fill="#E7F2FA" stroke="#8FC0D8" stroke-width="1.6"/>
+          <circle cx="306" cy="91" r="1.6" fill="#8FC0D8"/>
+          <circle cx="314" cy="91" r="1.6" fill="#8FC0D8"/>
+
+          <!-- 흐르는 방향 -->
+          <path d="M69 98 l7 4 -7 4z" fill="#8FC0D8"/>
+          <path d="M142 98 l7 4 -7 4z" fill="#8FC0D8"/>
+          <path d="M222 98 l7 4 -7 4z" fill="#8FC0D8"/>
+
+          <text x="34" y="137" text-anchor="middle" class="svglabel">전봇대</text>
+          <text x="107" y="136" text-anchor="middle" class="svglabel">계량기</text>
+          <text x="187" y="136" text-anchor="middle" class="svglabel">분전반</text>
+          <text x="285" y="136" text-anchor="middle" class="svglabel">방·콘센트</text>
+          <text x="170" y="149" text-anchor="middle" class="svglabel" style="font-size:9.5px;fill:#7B8894">전기가 지나가는 순서 →</text>
+        </svg>
+      </div>
+
+      <div class="hrow">
+        <span class="hno">1</span>
+        <div class="ht"><b>전봇대</b>
+          <p>발전소에서 만든 전기가 <b>높은 전압</b>으로 동네까지 달려와요.</p>
+          <em>비유 · 동네 큰 상수도관</em>
+        </div>
+      </div>
+      <div class="hrow">
+        <span class="hno">2</span>
+        <div class="ht"><b>계량기</b>
+          <p>우리 집이 쓴 전기를 재는 <b>저울</b>. 여기서 잰 만큼 요금이 나와요.</p>
+          <em>비유 · 수도 계량기</em>
+        </div>
+      </div>
+      <div class="hrow">
+        <span class="hno">3</span>
+        <div class="ht"><b>분전반 (두꺼비집)</b>
+          <p>집 안으로 들어온 전기를 <b>방마다 나눠 주는 갈림길</b>. 문제가 생기면 여기서 먼저 끊어요.</p>
+          <em>비유 · 집 안 수도 밸브</em>
+        </div>
+      </div>
+      <div class="hrow">
+        <span class="hno">4</span>
+        <div class="ht"><b>방 · 콘센트</b>
+          <p>마지막 <b>수도꼭지</b>. 콘센트마다 220V가 준비돼 있고, 꽂으면 그 가전이 켜져요.</p>
+          <em>비유 · 수도꼭지</em>
+        </div>
+      </div>
+    </div>
+
+    <div class="card amber">
+      <h3>두꺼비집 안의 두 친구</h3>
+      <p class="lead">둘 다 <b>전기를 끊어 주는 안전장치</b>인데, 잡아내는 사고가 달라요.</p>
+      <div class="brk">
+        <div class="bkt" data-k="leak">
+          <div class="bh"><span class="bi" aria-hidden="true">💧</span>
+            <div><b>누전차단기</b><em>전기가 새는 걸 잡아요</em></div></div>
+          <p class="bp"><b>누전</b>은 전기가 가려던 길을 벗어나 <b>벽·물·땅으로 새는</b> 것. 물이 새는 배관처럼 전기가 딴 데로 흘러요. 사람이 감전될 수 있어서 아주 짧은 순간(0.03초)에 끊어요.</p>
+          <div class="bex">예 · 물 묻은 손으로 콘센트, 전선 피복이 벗겨짐, 가전에 물이 들어감 → 싸악, 내려감</div>
+        </div>
+        <div class="bkt" data-k="over">
+          <div class="bh"><span class="bi" aria-hidden="true">🔥</span>
+            <div><b>배선용 차단기</b><em>너무 많이 쓰는 걸 잡아요</em></div></div>
+          <p class="bp"><b>과부하</b>는 한 길에 전기를 <b>너무 많이</b> 실어 보내는 것. 수도관에 물을 한꺼번에 세게 밀면 관이 터지듯 전선이 뜨거워져요.</p>
+          <div class="bex">예 · 한 멀티탭에 전자레인지 + 에어프라이어 + 드라이기 → 툭, 내려감</div>
+        </div>
+      </div>
+      <div class="sumline"><b>한 줄 정리</b> · 누전 = 전기가 <b>딴 데로 샘</b> / 과부하 = 전기가 <b>너무 많이 지나감</b></div>
+    </div>
+
+    <div class="card green">
+      <h3>우리 집 콘센트는 왜 ‘병렬’일까</h3>
+      <p class="lead">방마다 <b>자기만의 갈래길</b>이 있어서, 한 방 불이 꺼져도 다른 방은 그대로예요.</p>
+      <div class="hfig">
+        <svg viewBox="0 0 330 152" role="img" aria-labelledby="hpTitle hpDesc">
+          <title id="hpTitle">방마다 나란히 갈라진 병렬 회로</title>
+          <desc id="hpDesc">전선이 두 갈래로 나뉘어 안방과 거실에 각각 220V를 보냅니다. 한 방의 불을 꺼도 다른 방은 그대로 켜져 있습니다.</desc>
+          <line x1="2" y1="76" x2="24" y2="76" stroke="#8FC0D8" stroke-width="3" stroke-linecap="round"/>
+          <line x1="24" y1="45" x2="24" y2="107" stroke="#8FC0D8" stroke-width="3" stroke-linecap="round"/>
+          <line x1="308" y1="45" x2="308" y2="107" stroke="#8FC0D8" stroke-width="3" stroke-linecap="round"/>
+          <text x="2" y="70" class="svglabel" style="font-size:10px">두꺼비집</text>
+
+          <g id="roomA">
+            <line x1="24" y1="45" x2="100" y2="45" stroke="#8FC0D8" stroke-width="3" stroke-linecap="round"/>
+            <line x1="220" y1="45" x2="308" y2="45" stroke="#8FC0D8" stroke-width="3" stroke-linecap="round"/>
+            <rect class="rroom" x="100" y="20" width="120" height="50" rx="10" fill="#FFFDF7" stroke="#BFDCE9" stroke-width="2"/>
+            <circle class="rglow" cx="196" cy="45" r="19" fill="#FFD75E" opacity=".35"/>
+            <circle class="rlamp" cx="196" cy="45" r="10" fill="#FFD75E" stroke="#C9A227" stroke-width="2"/>
+            <text class="svglabel rtxt" x="112" y="39" style="fill:#24475E;font-size:13px">안방</text>
+            <text class="svglabel rtxt" x="112" y="57" style="font-size:10px;fill:#6B7A86">220V 그대로</text>
+          </g>
+
+          <g id="roomB">
+            <line x1="24" y1="107" x2="100" y2="107" stroke="#8FC0D8" stroke-width="3" stroke-linecap="round"/>
+            <line x1="220" y1="107" x2="308" y2="107" stroke="#8FC0D8" stroke-width="3" stroke-linecap="round"/>
+            <rect class="rroom" x="100" y="82" width="120" height="50" rx="10" fill="#FFFDF7" stroke="#BFDCE9" stroke-width="2"/>
+            <circle class="rglow" cx="196" cy="107" r="19" fill="#FFD75E" opacity=".35"/>
+            <circle class="rlamp" cx="196" cy="107" r="10" fill="#FFD75E" stroke="#C9A227" stroke-width="2"/>
+            <text class="svglabel rtxt" x="112" y="101" style="fill:#24475E;font-size:13px">거실</text>
+            <text class="svglabel rtxt" x="112" y="119" style="font-size:10px;fill:#6B7A86">220V 그대로</text>
+          </g>
+
+          <text x="165" y="149" text-anchor="middle" class="svglabel" style="font-size:10px;fill:#7B8894">갈래마다 220V · 한 곳이 꺼져도 나머지는 그대로</text>
+        </svg>
+      </div>
+      <div class="plbtns">
+        <button type="button" class="chip" id="roomABtn" aria-pressed="true">🛏️ 안방 불 끄기</button>
+        <button type="button" class="chip" id="roomBBtn" aria-pressed="true">🛋️ 거실 불 끄기</button>
+      </div>
+      <p class="plik" id="roomMsg" aria-live="polite">두 방 모두 켜져 있어요 · 갈래마다 220V가 그대로 걸려요</p>
+      <p class="tip">직렬로 이으면 한 곳이 끊어질 때 <b>모두</b> 꺼져요(옛날 크리스마스 전구). 병렬은 갈래마다 220V가 그대로 걸려서 하나가 꺼져도 나머지는 자기 일을 해요. 대신 <b>꽂는 만큼 전류가 더 들어서</b> 멀티탭 한도(16A)를 넘으면 차단기가 내려가요.</p>
+    </div>
+
+    <div class="card">
+      <h3>🧯 우리 집 멀티탭, 계산해 보기</h3>
+      <p class="lead">한 멀티탭은 <b>16A · 약 3,500W</b>까지. 가전을 눌러 한꺼번에 꽂아 보세요.</p>
+      <div class="tapgrid" id="tapGrid">
+        <button type="button" class="tapbtn" data-w="1500" aria-pressed="false">
+          <span class="te" aria-hidden="true">💨</span>
+          <span class="tt"><span class="tn">드라이기</span><span class="tw">1,500W</span></span>
+        </button>
+        <button type="button" class="tapbtn" data-w="1000" aria-pressed="false">
+          <span class="te" aria-hidden="true">🥡</span>
+          <span class="tt"><span class="tn">전자레인지</span><span class="tw">1,000W</span></span>
+        </button>
+        <button type="button" class="tapbtn" data-w="1500" aria-pressed="false">
+          <span class="te" aria-hidden="true">🍟</span>
+          <span class="tt"><span class="tn">에어프라이어</span><span class="tw">1,500W</span></span>
+        </button>
+        <button type="button" class="tapbtn" data-w="1200" aria-pressed="false">
+          <span class="te" aria-hidden="true">☕</span>
+          <span class="tt"><span class="tn">전기포트</span><span class="tw">1,200W</span></span>
+        </button>
+        <button type="button" class="tapbtn" data-w="700" aria-pressed="false">
+          <span class="te" aria-hidden="true">🍚</span>
+          <span class="tt"><span class="tn">전기밥솥</span><span class="tw">700W</span></span>
+        </button>
+        <button type="button" class="tapbtn" data-w="45" aria-pressed="false">
+          <span class="te" aria-hidden="true">🌀</span>
+          <span class="tt"><span class="tn">선풍기</span><span class="tw">45W</span></span>
+        </button>
+        <button type="button" class="tapbtn" data-w="100" aria-pressed="false">
+          <span class="te" aria-hidden="true">📺</span>
+          <span class="tt"><span class="tn">TV</span><span class="tw">100W</span></span>
+        </button>
+        <button type="button" class="tapbtn" data-w="65" aria-pressed="false">
+          <span class="te" aria-hidden="true">💻</span>
+          <span class="tt"><span class="tn">노트북 충전기</span><span class="tw">65W</span></span>
+        </button>
+      </div>
+      <div class="tapres" id="tapRes" data-st="ok">
+        <div class="tl"><span class="tapw" id="tapW">0 W</span><span class="tapa" id="tapA">0 A</span></div>
+        <div class="gauge"><i id="tapBar"></i></div>
+        <p class="tlimit">한도 3,500W (16A × 220V)</p>
+        <div class="tapstat" id="tapStat" aria-live="polite">아직 아무것도 꽂지 않았어요</div>
+      </div>
+      <p class="tip" id="tapTip">가전을 눌러 한꺼번에 꽂아 보세요.</p>
+      <button type="button" class="chip" id="tapClear" style="margin-top:.5rem">모두 빼기</button>
+    </div>
+
+    <div class="card amber">
+      <h3>🔌 멀티탭 안전 습관</h3>
+      <p class="lead">멀티탭은 <b>벽 콘센트에 직접</b> 꽂고, 멀티탭에 멀티탭을 잇는 ‘문어발’은 피하세요. 큰 가전(드라이기·전자레인지·에어프라이어·전기포트)은 <b>한 번에 하나만</b> 쓰는 게 가장 안전해요.</p>
+      <p class="tip">전선이 따뜻해지거나 콘센트가 변색되면 바로 사용을 멈추세요.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════ 7. 비상 연락처 ═══════════ -->
+  <section class="screen" id="screen-sos" hidden>
+    <div class="sechead">
+      <button type="button" class="back" data-back>‹ 처음</button>
+      <h2>📞 전기 문제 생겼을 때</h2>
+    </div>
+
+    <div class="card">
+      <h3>☎️ 바로 걸 수 있는 번호</h3>
+      <p class="lead">번호를 누르면 전화 앱에 번호가 채워져요. <b>걸기</b>는 직접 눌러 주세요.</p>
+      <a class="callbtn emerg" href="tel:119">
+        <span class="ci" aria-hidden="true">🚒</span>
+        <span class="ct"><b>119 소방·구급</b><span>감전 · 불꽃 · 연기 · 전기화재</span></span>
+        <span class="num">119</span>
+      </a>
+      <a class="callbtn" href="tel:123">
+        <span class="ci" aria-hidden="true">⚡</span>
+        <span class="ct"><b>한국전력 (한전)</b><span>정전 · 전봇대 · 전기 고장 신고 · 24시간</span></span>
+        <span class="num">123</span>
+      </a>
+      <a class="callbtn" href="tel:15887500">
+        <span class="ci" aria-hidden="true">🛠️</span>
+        <span class="ct"><b>한국전기안전공사</b><span>KESCO · 전기안전 긴급점검 · 상담</span></span>
+        <span class="num">1588-7500</span>
+      </a>
+    </div>
+
+    <div class="card blue">
+      <h3>🏢 우리 집 단골 번호 저장</h3>
+      <p class="lead">관리사무소·집주인·단골 전기기사 번호를 저장해 두면 다음에 바로 걸 수 있어요. <b>이 기기에만</b> 저장돼요.</p>
+
+      <div class="ctblock">
+        <label class="lb" for="ctOffice">관리사무소</label>
+        <div class="ctline">
+          <input id="ctOffice" type="tel" inputmode="tel" maxlength="20" placeholder="예: 055-000-0000" autocomplete="off" />
+          <a class="ccall" id="ctOfficeCall" hidden aria-label="관리사무소에 전화">📞</a>
+          <button type="button" class="csave" id="ctOfficeSave">저장</button>
+        </div>
+      </div>
+
+      <div class="ctblock">
+        <label class="lb" for="ctEngineer">집주인 · 단골 전기기사</label>
+        <div class="ctline">
+          <input id="ctEngineer" type="tel" inputmode="tel" maxlength="20" placeholder="예: 010-0000-0000" autocomplete="off" />
+          <a class="ccall" id="ctEngineerCall" hidden aria-label="단골 전기기사에게 전화">📞</a>
+          <button type="button" class="csave" id="ctEngineerSave">저장</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card amber">
+      <h3>🔌 차단기가 떨어졌을 때 1 · 2 · 3</h3>
+      <div class="sosstep">
+        <span class="sn">1</span>
+        <div class="st"><b>젖은 손으로 만지지 마세요</b>
+          <p>발이 젖었으면 마른 수건·신발부터. 물기 있는 곳에서는 차단기를 올리지 않아요.</p></div>
+      </div>
+      <div class="sosstep">
+        <span class="sn">2</span>
+        <div class="st"><b>방금 꽂은 가전제품 플러그를 빼세요</b>
+          <p>멀티탭에 여러 개가 꽂혀 있으면 큰 것부터 하나씩 빼요. 원인이 그 가전인 경우가 많아요.</p></div>
+      </div>
+      <div class="sosstep">
+        <span class="sn">3</span>
+        <div class="st"><b>차단기를 다시 올려 보세요</b>
+          <p>올렸는데 또 떨어지면 그 콘센트는 쓰지 말고 <b>123</b> 또는 <b>1588-7500</b>에 연락해요.</p></div>
+      </div>
+      <div class="warn" style="margin-top:.55rem">타는 냄새 · 연기 · 불꽃이 보이면 <b>차단기를 만지지 말고</b> 바로 <b>119</b>. 전기 불에는 물을 붓지 말고 소화기를 쓰세요.</div>
+      <p class="tip">💡 정전일 때 · 이웃집도 어두우면 한전(123), 우리 집만 어두우면 두꺼비집부터. 아파트는 관리사무소에 먼저 연락하세요.</p>
+    </div>
+  </section>
+</main>
+
+<!-- ══ 내 메모 수첩 ══ -->
+<div class="sheet" id="memoSheet" hidden>
+  <div class="sheetbox" role="dialog" aria-modal="true" aria-labelledby="memoTitle">
+    <div class="sheethead">
+      <h3 id="memoTitle">📓 내 메모 수첩</h3>
+      <button type="button" class="xbtn" id="memoClose" aria-label="메모 수첩 닫기">✕</button>
+    </div>
+    <div class="memolist" id="memoList"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  'use strict';
+  function $(s, r) { return (r || document).querySelector(s); }
+  function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+  var toastT = null;
+  function toast(msg) {
+    var t = $('#toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastT);
+    toastT = setTimeout(function () { t.classList.remove('show'); }, 2800);
+  }
+  function num(n, maxF) {
+    if (n === null || n === undefined || !isFinite(n)) return '—';
+    maxF = (maxF === undefined) ? 2 : maxF;
+    var p = Math.pow(10, maxF);
+    var v = Math.round(n * p) / p;
+    return v.toLocaleString('ko-KR', { maximumFractionDigits: maxF });
+  }
+  function val(el) { return parseFloat(String(el.value).replace(/,/g, '')); }
+
+  /* ═════════ 날짜·요일·날씨 (모두 공통 기본) ═════════ */
+  var KO_DOW = ['일', '월', '화', '수', '목', '금', '토'];
+  var WMO = {
+    0: ['☀️', '맑음'], 1: ['🌤️', '대체로 맑음'], 2: ['⛅', '구름 조금'], 3: ['☁️', '흐림'],
+    45: ['🌫️', '안개'], 48: ['🌫️', '안개'],
+    51: ['🌦️', '이슬비'], 53: ['🌦️', '이슬비'], 55: ['🌦️', '이슬비'],
+    56: ['🌧️', '어는 비'], 57: ['🌧️', '어는 비'],
+    61: ['🌧️', '비'], 63: ['🌧️', '비'], 65: ['🌧️', '비'],
+    66: ['🌧️', '어는 비'], 67: ['🌧️', '어는 비'],
+    71: ['🌨️', '눈'], 73: ['🌨️', '눈'], 75: ['🌨️', '눈'], 77: ['🌨️', '눈'],
+    80: ['🌦️', '소나기'], 81: ['🌦️', '소나기'], 82: ['🌧️', '소나기'],
+    85: ['🌨️', '눈 소나기'], 86: ['🌨️', '눈 소나기'],
+    95: ['⛈️', '천둥번개'], 96: ['⛈️', '천둥번개'], 99: ['⛈️', '천둥번개']
+  };
+  var WX_DEFAULT = { lat: 35.23, lon: 128.89, place: '김해' };
+  var LS_WX = 'wagleElectric.wx';
+  var wxNow = null, wxAt = 0, wxBusy = false, wxSeq = 0, wxRank = 0, wxPlace = WX_DEFAULT.place;
+  var wxFailed = false;
+  var WX_TTL = 20 * 60 * 1000;
+
+  function renderToday() {
+    var d = new Date();
+    $('#todayDate').textContent = (d.getMonth() + 1) + '월 ' + d.getDate() + '일 (' + KO_DOW[d.getDay()] + ')';
+    var txt, loading = false;
+    if (wxNow) txt = wxNow.emoji + ' ' + wxNow.ko + ' ' + wxNow.t + '°';
+    else if (wxFailed) { txt = '날씨 정보 없음'; }
+    else { txt = '날씨 확인 중'; loading = true; }
+    var el = $('#todayWx');
+    el.textContent = txt;
+    el.classList.toggle('loading', loading);
+    $('#wxPlace').textContent = wxPlace;
+    $('#todayCard').setAttribute('aria-label',
+      '오늘 ' + $('#todayDate').textContent + ', ' + txt + ' — 누르면 현위치 날씨로 새로고침');
+  }
+  function loadWxCache() {
+    try {
+      var raw = localStorage.getItem(LS_WX);
+      if (!raw) return;
+      var j = JSON.parse(raw);
+      if (!j || typeof j.t !== 'number') return;
+      if (Date.now() - j.at > 12 * 60 * 60 * 1000) return;
+      var m = WMO[j.code] || ['🌡️', '날씨'];
+      wxNow = { emoji: m[0], ko: m[1], t: Math.round(j.t) };
+      wxAt = j.at;
+      wxPlace = j.place || WX_DEFAULT.place;
+    } catch (e) {}
+  }
+  function saveWxCache(code, t) {
+    try { localStorage.setItem(LS_WX, JSON.stringify({ code: code, t: t, at: Date.now(), place: wxPlace })); } catch (e) {}
+  }
+  function wxUrl(lat, lon) {
+    return 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon +
+      '&current=temperature_2m,weather_code&timezone=auto';
+  }
+  function fetchWx(lat, lon, rank) {
+    if (!window.fetch || navigator.onLine === false) { wxFailed = true; renderToday(); return Promise.resolve(false); }
+    rank = rank || 1;
+    wxFailed = false;
+    var seq = wxSeq;
+    var ctl = window.AbortController ? new AbortController() : null;
+    var to = null;
+    if (ctl) to = setTimeout(function () { try { ctl.abort(); } catch (e) {} }, 8000);
+    return fetch(wxUrl(lat, lon), ctl ? { cache: 'no-store', signal: ctl.signal } : { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) {
+        if (to) clearTimeout(to);
+        var c = j && j.current;
+        if (!c || typeof c.temperature_2m !== 'number') { wxFailed = true; renderToday(); return false; }
+        if (seq !== wxSeq || rank < wxRank) return false;
+        wxRank = rank;
+        var m = WMO[c.weather_code] || ['🌡️', '날씨'];
+        wxNow = { emoji: m[0], ko: m[1], t: Math.round(c.temperature_2m) };
+        wxAt = Date.now();
+        saveWxCache(c.weather_code, c.temperature_2m);
+        renderToday();
+        return true;
+      })
+      .catch(function () { if (to) clearTimeout(to); wxFailed = true; renderToday(); return false; });
+  }
+  function geoCoords() {
+    return new Promise(function (resolve) {
+      if (!navigator.geolocation) return resolve(null);
+      try {
+        navigator.geolocation.getCurrentPosition(function (pos) {
+          var c = pos && pos.coords;
+          if (!c) return resolve(null);
+          resolve({ lat: Math.round(c.latitude * 100) / 100, lon: Math.round(c.longitude * 100) / 100 });
+        }, function () { resolve(null); }, { enableHighAccuracy: false, timeout: 8000, maximumAge: 600000 });
+      } catch (e) { resolve(null); }
+    });
+  }
+  function loadWeather() {
+    renderToday();
+    if (!wxAt || Date.now() - wxAt > WX_TTL) {
+      if (wxBusy) return;
+      wxBusy = true; wxSeq++;
+      fetchWx(WX_DEFAULT.lat, WX_DEFAULT.lon, 1).then(function () { wxBusy = false; });
+    }
+    try {
+      if (navigator.geolocation && navigator.permissions && navigator.permissions.query) {
+        navigator.permissions.query({ name: 'geolocation' }).then(function (st) {
+          if (!st || st.state !== 'granted') return;
+          geoCoords().then(function (c) {
+            if (c) { wxPlace = '내 위치'; fetchWx(c.lat, c.lon, 2); }
+          });
+        }).catch(function () {});
+      }
+    } catch (e) {}
+  }
+  function refreshWeather() {
+    if (navigator.onLine === false) { toast('인터넷이 없어 날씨를 새로 받지 못했어요.'); return; }
+    function fallback() {
+      wxPlace = WX_DEFAULT.place;
+      return fetchWx(WX_DEFAULT.lat, WX_DEFAULT.lon, 1).then(function (ok) {
+        toast(ok ? '김해 날씨로 보여 드려요.' : '날씨를 받지 못했어요. 잠시 뒤 다시 눌러 주세요.');
+      });
+    }
+    wxSeq++;
+    if (!navigator.geolocation) { fallback(); return; }
+    toast('현위치 날씨를 확인하는 중…');
+    geoCoords().then(function (c) {
+      if (!c) { fallback(); return; }
+      fetchWx(c.lat, c.lon, 2).then(function (ok) {
+        if (ok) { wxPlace = '내 위치'; renderToday(); toast('현위치 날씨로 새로 불러왔어요.'); }
+        else fallback();
+      });
+    });
+  }
+  $('#todayCard').addEventListener('click', refreshWeather);
+
+  /* ═════════ 폰 뒤로가기 · 화면 이동 ═════════ */
+  var layers = [];
+  var curScreen = 'home';
+  var popping = false;
+  function pushLayer(close) {
+    try { history.pushState({ wagleElec: layers.length + 1 }, ''); }
+    catch (e) { return; }
+    layers.push({ close: close });
+  }
+  window.addEventListener('popstate', function () {
+    var top = layers.pop();
+    if (!top) return;
+    popping = true;
+    try { if (typeof top.close === 'function') top.close(); }
+    catch (e) {}
+    finally { popping = false; }
+  });
+  function showScreen(name) {
+    curScreen = name;
+    $$('.screen').forEach(function (s) { s.hidden = (s.id !== 'screen-' + name); });
+    try { window.scrollTo({ top: 0, behavior: 'auto' }); } catch (e) { window.scrollTo(0, 0); }
+  }
+  function openScreen(name) {
+    if (curScreen === name) return;
+    if (curScreen === 'home') {
+      pushLayer(function () { showScreen('home'); });
+    }
+    showScreen(name);
+  }
+  function goBack() {
+    if (layers.length) { history.back(); }
+    else { showScreen('home'); }
+  }
+  $$('[data-go]').forEach(function (b) {
+    b.addEventListener('click', function () { openScreen(b.getAttribute('data-go')); });
+  });
+  $$('[data-back]').forEach(function (b) {
+    b.addEventListener('click', function () { goBack(); });
+  });
+
+  /* ═════════ 큰 글씨 · 공유 ═════════ */
+  var LS_BIG = 'wagleElectric.big';
+  function applyBig(on) {
+    document.documentElement.classList.toggle('big', !!on);
+    $('#bigBtn').setAttribute('aria-pressed', on ? 'true' : 'false');
+    try { localStorage.setItem(LS_BIG, on ? '1' : '0'); } catch (e) {}
+  }
+  $('#bigBtn').addEventListener('click', function () {
+    applyBig(!document.documentElement.classList.contains('big'));
+  });
+  try { if (localStorage.getItem(LS_BIG) === '1') applyBig(true); } catch (e) {}
+
+  $('#shareBtn').addEventListener('click', function () {
+    var url = location.href;
+    var data = { title: '와트메이커 전기기초', text: '물 흐름으로 배우는 전기·회로 기초 공부 앱', url: url };
+    if (navigator.share) {
+      navigator.share(data).catch(function () {});
+      return;
+    }
+    try {
+      navigator.clipboard.writeText(url).then(function () { toast('주소를 복사했어요.'); },
+        function () { toast('주소창의 주소를 복사해 주세요.'); });
+    } catch (e) { toast('주소창의 주소를 복사해 주세요.'); }
+  });
+
+  /* ═════════ 💧 시뮬레이터 ═════════ */
+  var SIM = { V: 6, R: 2 };
+  var EPS = { i: 0, I: 0, P: 0 };
+  function paintRange(el) {
+    var min = parseFloat(el.min), max = parseFloat(el.max);
+    var p = max > min ? ((parseFloat(el.value) - min) / (max - min)) * 100 : 0;
+    el.style.setProperty('--p', p.toFixed(1) + '%');
+  }
+  function calcSim() {
+    var V = SIM.V, R = SIM.R;
+    var I = V / R;
+    var P = V * I;
+    EPS.I = I; EPS.P = P;
+
+    /* 물탱크 높이 = 전압 */
+    var level = 28 + (V / 12) * 132;
+    var top = 206 - level;
+    $('#tankWater').setAttribute('y', top);
+    $('#tankWater').setAttribute('height', level);
+    $('#tankLevel').setAttribute('y1', top);
+    $('#tankLevel').setAttribute('y2', top);
+
+    /* 좁은 관 = 저항 (구멍이 좁아짐) */
+    var g = 24 - ((R - 1) / 9) * 19;       /* R 1 → 24, R 10 → 5 */
+    var jawH = (24 - g) / 2;
+    $('#jawTop').setAttribute('height', Math.max(0.5, jawH));
+    $('#jawBot').setAttribute('y', 191 + (24 + g) / 2);
+    $('#jawBot').setAttribute('height', Math.max(0.5, jawH));
+
+    /* 물줄기 = 전류 */
+    var wh = Math.max(3, Math.min(21, 2 + (I / 12) * 19));
+    $('#pipeWater').setAttribute('y', 203 - wh / 2);
+    $('#pipeWater').setAttribute('height', wh);
+    var fl = $('#flowLine');
+    fl.setAttribute('stroke-width', (1.8 + Math.min(1.8, I * 0.16)).toFixed(1));
+    fl.style.animationDuration = Math.max(0.22, 1.7 - Math.min(1.5, I * 0.13)).toFixed(2) + 's';
+
+    /* 전구 밝기 = 전력 */
+    var b = Math.max(0.04, Math.min(1, Math.pow(P / 55, 0.62)));
+    $('#bulbGlow').style.opacity = (0.10 + b * 0.62).toFixed(2);
+    $('#bulbGlow').setAttribute('r', (28 + b * 16).toFixed(1));
+    $('#bulbCore').style.opacity = (0.22 + b * 0.78).toFixed(2);
+
+    /* 숫자 */
+    $('#sV').textContent = num(V, 0);
+    $('#sI').textContent = num(I, 2);
+    $('#sR').textContent = num(R, 0);
+    $('#sP').textContent = num(P, 1);
+    $('#vVal').textContent = num(V, 0) + ' V';
+    $('#rVal').textContent = num(R, 0) + ' Ω';
+    $('#fI').textContent = num(V, 0) + ' ÷ ' + num(R, 0) + ' = ' + num(I, 2) + ' A';
+    $('#fP').textContent = num(V, 0) + ' × ' + num(I, 2) + ' = ' + num(P, 1) + ' W';
+
+    var tip;
+    if (R <= 2) tip = '관이 넓어서 물이 시원하게 지나가요. 물줄기가 굵고 전구가 밝아요.';
+    else if (R >= 7) tip = '관이 많이 좁아서 물이 조금만 지나가요. 전류가 작아 전구가 어두워요.';
+    else if (V <= 3) tip = '미는 힘이 약해서 물이 천천히 흘러요. 전압이 작으면 전류도 작아요.';
+    else tip = '전압을 올리면 물을 더 세게 밀어서 전류가 늘어요. 저항을 올리면 관이 좁아져 전류가 줄어요.';
+    $('#simTip').textContent = tip;
+
+    $('#vRange').value = String(V);
+    $('#rRange').value = String(R);
+    paintRange($('#vRange'));
+    paintRange($('#rRange'));
+  }
+  function setSim(v, r) {
+    SIM.V = Math.max(1, Math.min(12, Math.round(v)));
+    SIM.R = Math.max(1, Math.min(10, Math.round(r)));
+    calcSim();
+  }
+  $('#vRange').addEventListener('input', function () { setSim(parseFloat(this.value), SIM.R); });
+  $('#rRange').addEventListener('input', function () { setSim(SIM.V, parseFloat(this.value)); });
+  $('#vMinus').addEventListener('click', function () { setSim(SIM.V - 1, SIM.R); });
+  $('#vPlus').addEventListener('click', function () { setSim(SIM.V + 1, SIM.R); });
+  $('#rMinus').addEventListener('click', function () { setSim(SIM.V, SIM.R - 1); });
+  $('#rPlus').addEventListener('click', function () { setSim(SIM.V, SIM.R + 1); });
+
+  /* ═════════ 🔗 직렬·병렬 계산기 ═════════ */
+  function calcSP() {
+    var r1 = val($('#r1')), r2 = val($('#r2'));
+    var ok = isFinite(r1) && isFinite(r2) && r1 > 0 && r2 > 0;
+    $('#spWarn').hidden = ok;
+    if (!ok) {
+      $('#spS').innerHTML = '—';
+      $('#spP').innerHTML = '—';
+      $('#spSteps').innerHTML = '';
+      $('#spCurrent').textContent = '';
+      return;
+    }
+    var s = r1 + r2;
+    var p = (r1 * r2) / (r1 + r2);
+    $('#spS').innerHTML = num(s, 3) + ' <small>Ω</small>';
+    $('#spP').innerHTML = num(p, 3) + ' <small>Ω</small>';
+    $('#spSteps').innerHTML =
+      '<li>직렬: R₁ + R₂ = ' + num(r1, 3) + ' + ' + num(r2, 3) + ' = <b>' + num(s, 3) + ' Ω</b></li>' +
+      '<li>병렬: R₁ × R₂ ÷ (R₁ + R₂) = ' + num(r1, 3) + ' × ' + num(r2, 3) + ' ÷ ' + num(s, 3) + ' = <b>' + num(p, 3) + ' Ω</b></li>' +
+      '<li class="fin">같은 12V를 걸면 직렬 ' + num(12 / s, 3) + ' A, 병렬 ' + num(12 / p, 3) + ' A가 흘러요.</li>';
+    $('#spCurrent').textContent = '병렬은 길이 넓어져서 같은 전압에도 전류가 더 많이 흐르는 걸 볼 수 있어요.';
+  }
+  $('#r1').addEventListener('input', calcSP);
+  $('#r2').addEventListener('input', calcSP);
+  $$('[data-sp]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var p = b.getAttribute('data-sp').split(',');
+      $('#r1').value = p[0];
+      $('#r2').value = p[1];
+      calcSP();
+    });
+  });
+
+  /* ═════════ 🧮 1) 단위 변환 ═════════ */
+  var UMAP = {
+    'kV>V': { from: 'kV', to: 'V', mul: 1000, word: 'kV는 V보다 1,000배 큰 단위예요.', how: 'V로 바꿀 때는 1,000을 곱해요(0 세 개 붙이기).' },
+    'V>kV': { from: 'V', to: 'kV', mul: 0.001, word: 'V는 kV의 1/1,000 크기예요.', how: 'kV로 바꿀 때는 1,000으로 나눠요(0 세 개 떼기).' },
+    'A>mA': { from: 'A', to: 'mA', mul: 1000, word: 'A는 mA보다 1,000배 큰 단위예요.', how: 'mA로 바꿀 때는 1,000을 곱해요(0 세 개 붙이기).' },
+    'mA>A': { from: 'mA', to: 'A', mul: 0.001, word: 'mA는 A의 1/1,000 크기예요.', how: 'A로 바꿀 때는 1,000으로 나눠요(0 세 개 떼기).' },
+    'kW>W': { from: 'kW', to: 'W', mul: 1000, word: 'kW는 W보다 1,000배 큰 단위예요.', how: 'W로 바꿀 때는 1,000을 곱해요(0 세 개 붙이기).' },
+    'W>kW': { from: 'W', to: 'kW', mul: 0.001, word: 'W는 kW의 1/1,000 크기예요.', how: 'kW로 바꿀 때는 1,000으로 나눠요(0 세 개 떼기).' },
+    'kΩ>Ω': { from: 'kΩ', to: 'Ω', mul: 1000, word: 'kΩ는 Ω보다 1,000배 큰 단위예요.', how: 'Ω으로 바꿀 때는 1,000을 곱해요(0 세 개 붙이기).' },
+    'Ω>kΩ': { from: 'Ω', to: 'kΩ', mul: 0.001, word: 'Ω은 kΩ의 1/1,000 크기예요.', how: 'kΩ으로 바꿀 때는 1,000으로 나눠요(0 세 개 떼기).' }
+  };
+  var UPAIR = { kV: 'V', V: 'kV', A: 'mA', mA: 'A', kW: 'W', W: 'kW', kΩ: 'Ω', Ω: 'kΩ' };
+  var uFrom = 'kV';
+  var uOutLast = 2200;  /* 마지막 변환 결과 (⇄ 방향 바꿀 때 새 입력값으로 씀) */
+
+  function calcUnit() {
+    var pair = uFrom + '>' + UPAIR[uFrom];
+    var m = UMAP[pair];
+    var v = val($('#uVal'));
+    if (!isFinite(v)) {
+      $('#uOut').value = '—';
+      $('#uSteps').innerHTML = '<li>숫자를 넣어 주세요.</li>';
+      return;
+    }
+    $('#uFromU').textContent = m.from;
+    $('#uToU').textContent = m.to;
+    $('#uName').textContent = m.from + ' → ' + m.to + ' 로 바꾸는 중';
+    var out = v * m.mul;
+    uOutLast = out;
+    $('#uOut').value = num(out, 6);
+    var mid = m.mul === 1000 ? '× 1,000' : '÷ 1,000';
+    $('#uSteps').innerHTML =
+      '<li>' + m.word + '</li>' +
+      '<li>' + m.how + '</li>' +
+      '<li class="fin">' + num(v, 6) + ' ' + mid + ' = <b>' + num(out, 6) + ' ' + m.to + '</b></li>';
+  }
+  $('#uVal').addEventListener('input', calcUnit);
+  $('#uSwap').addEventListener('click', function () {
+    uFrom = UPAIR[uFrom];
+    /* 방금 나온 결과를 새 입력값으로 써서 같은 양을 반대 단위로 보여 준다 */
+    $('#uVal').value = num(uOutLast, 6).replace(/,/g, '');
+    calcUnit();
+  });
+  $$('[data-u]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var p = b.getAttribute('data-u').split(',');
+      uFrom = p[1];
+      $('#uVal').value = p[0];
+      calcUnit();
+    });
+  });
+
+  /* ═════════ 🧮 2) 옴의 법칙 삼각형 ═════════ */
+  var OHM = { find: 'V', V: 12, I: 2, R: 6 };
+  var OHM_FIELD = {
+    V: { a: 'I', b: 'R', eq: 'V = I × R', hint: 'V를 가리면 I와 R이 나란히 남아요 → 곱하기' },
+    I: { a: 'V', b: 'R', eq: 'I = V ÷ R', hint: 'I를 가리면 V가 위, R이 아래로 남아요 → 나누기' },
+    R: { a: 'V', b: 'I', eq: 'R = V ÷ I', hint: 'R을 가리면 V가 위, I가 아래로 남아요 → 나누기' }
+  };
+  var UNIT_OF = { V: 'V', I: 'A', R: 'Ω' };
+  var NAME_OF = { V: '전압 V', I: '전류 I', R: '저항 R' };
+
+  function calcOhm(sync) {
+    var f = OHM_FIELD[OHM.find];
+    $('#ohmEq').innerHTML = f.eq.replace(/([VIR])/g, '<b>$1</b>');
+    $('#ohmHint').textContent = f.hint;
+    $('#ohmA').textContent = NAME_OF[f.a];
+    $('#ohmB').textContent = NAME_OF[f.b];
+    $('#ohmAU').textContent = UNIT_OF[f.a];
+    $('#ohmBU').textContent = UNIT_OF[f.b];
+    if (sync) {
+      $('#ohmAv').value = num(OHM[f.a], 4).replace(/,/g, '');
+      $('#ohmBv').value = num(OHM[f.b], 4).replace(/,/g, '');
+    }
+    $$('.otap').forEach(function (g) {
+      g.setAttribute('aria-pressed', g.getAttribute('data-find') === OHM.find ? 'true' : 'false');
+    });
+
+    var a = OHM[f.a], b = OHM[f.b];
+    var ok = isFinite(a) && isFinite(b) && a > 0 && b > 0;
+    $('#ohmWarn').hidden = ok;
+    if (!ok) { $('#ohmSteps').innerHTML = '<li>두 칸에 0보다 큰 값을 넣어 주세요.</li>'; return; }
+
+    var res, expr;
+    if (OHM.find === 'V') { res = a * b; expr = num(a, 4) + ' A × ' + num(b, 4) + ' Ω'; }
+    else if (OHM.find === 'I') { res = a / b; expr = num(a, 4) + ' V ÷ ' + num(b, 4) + ' Ω'; }
+    else { res = a / b; expr = num(a, 4) + ' V ÷ ' + num(b, 4) + ' A'; }
+    OHM[OHM.find] = res;
+    $('#ohmSteps').innerHTML =
+      '<li>' + f.eq + ' — ' + (OHM.find === 'V' ? '두 값이 나란히 있어서 곱해요.' : '위 값을 아래 값으로 나눠요.') + '</li>' +
+      '<li>' + expr + ' = <b>' + num(res, 4) + ' ' + UNIT_OF[OHM.find] + '</b></li>';
+  }
+  $$('.otap').forEach(function (g) {
+    function pick() {
+      var f = g.getAttribute('data-find');
+      if (OHM.find === f) return;
+      OHM.find = f;
+      calcOhm(true);
+    }
+    g.addEventListener('click', pick);
+    g.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); }
+    });
+  });
+  $('#ohmAv').addEventListener('input', function () {
+    var f = OHM_FIELD[OHM.find];
+    var v = val(this);
+    OHM[f.a] = isFinite(v) ? v : NaN;
+    calcOhm(false);
+  });
+  $('#ohmBv').addEventListener('input', function () {
+    var f = OHM_FIELD[OHM.find];
+    var v = val(this);
+    OHM[f.b] = isFinite(v) ? v : NaN;
+    calcOhm(false);
+  });
+
+  /* ═════════ 🧮 3) 교류 계산 ═════════ */
+  var RMS = { mode: 'p2r' };
+  function calcRms() {
+    var v = val($('#rmsIn'));
+    if (!isFinite(v)) {
+      $('#rmsOut').value = '—';
+      $('#rmsSteps').innerHTML = '<li>숫자를 넣어 주세요.</li>';
+      return;
+    }
+    var p2r = RMS.mode === 'p2r';
+    $('#rmsInL').textContent = p2r ? '최댓값' : '실효값';
+    $('#rmsOutL').textContent = p2r ? '실효값' : '최댓값';
+    $$('[data-rms]').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-rms') === RMS.mode ? 'true' : 'false');
+    });
+    var out = p2r ? v / 1.414 : v * 1.414;
+    $('#rmsOut').value = num(out, 2);
+    $('#rmsSteps').innerHTML = p2r
+      ? '<li>실효값 = 최댓값 ÷ 1.414 (1.414는 √2예요)</li>' +
+        '<li class="fin">' + num(v, 3) + ' ÷ 1.414 = <b>' + num(out, 2) + ' V</b></li>' +
+        '<li>콘센트에 적힌 220V가 실효값이에요. 꼭대기는 약 311V까지 올라가요.</li>'
+      : '<li>최댓값 = 실효값 × 1.414</li>' +
+        '<li class="fin">' + num(v, 3) + ' × 1.414 = <b>' + num(out, 2) + ' V</b></li>' +
+        '<li>실효값 220V를 계산하면 꼭대기는 약 311V가 돼요.</li>';
+  }
+  $('#rmsIn').addEventListener('input', calcRms);
+  $$('[data-rms]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      RMS.mode = b.getAttribute('data-rms');
+      calcRms();
+    });
+  });
+
+  function calcZ() {
+    var R = val($('#zR')), X = val($('#zX'));
+    var ok = isFinite(R) && isFinite(X) && R >= 0 && X >= 0 && (R + X) > 0;
+    $('#zWarn').hidden = ok;
+    if (!ok) {
+      $('#zOut').textContent = '—';
+      $('#zSteps').innerHTML = '<li>R과 X에 0보다 큰 값을 넣어 주세요.</li>';
+      return;
+    }
+    var r2 = R * R, x2 = X * X, sum = r2 + x2;
+    var Z = Math.sqrt(sum);
+    $('#zOut').textContent = num(Z, 3);
+    $('#zSteps').innerHTML =
+      '<li>R² = ' + num(R, 3) + ' × ' + num(R, 3) + ' = ' + num(r2, 4) + '</li>' +
+      '<li>X² = ' + num(X, 3) + ' × ' + num(X, 3) + ' = ' + num(x2, 4) + '</li>' +
+      '<li>' + num(r2, 4) + ' + ' + num(x2, 4) + ' = ' + num(sum, 4) + '</li>' +
+      '<li>√' + num(sum, 4) + ' = ' + num(Z, 3) + '</li>' +
+      '<li class="fin">Z = <b>' + num(Z, 3) + ' Ω</b></li>';
+
+    /* 직각삼각형: R과 X 비율대로 (가장 긴 변을 120으로 맞춤) */
+    var maxv = Math.max(R, X, 0.0001);
+    var w = 120 * (R / maxv), h = 120 * (X / maxv);
+    if (R === 0) w = 0;
+    if (X === 0) h = 0;
+    w = Math.max(w, 1); h = Math.max(h, 1);
+    var x0 = 40 + (120 - w) / 2, y0 = 140;
+    $('#zTri').setAttribute('d',
+      'M' + x0 + ' ' + y0 + ' L' + (x0 + w) + ' ' + y0 + ' L' + (x0 + w) + ' ' + (y0 - h) + ' Z');
+    $('#zLabR').setAttribute('x', (x0 + w / 2).toFixed(1));
+    $('#zLabR').setAttribute('y', (y0 + 22).toFixed(1));
+    $('#zLabX').setAttribute('x', (x0 + w + 10).toFixed(1));
+    $('#zLabX').setAttribute('y', (y0 - h / 2 + 4).toFixed(1));
+    $('#zLabZ').setAttribute('x', (x0 + w / 2 - 12).toFixed(1));
+    $('#zLabZ').setAttribute('y', (y0 - h / 2 - 4).toFixed(1));
+  }
+  $('#zR').addEventListener('input', calcZ);
+  $('#zX').addEventListener('input', calcZ);
+
+  var XLC = { XL: 0, XC: 0 };
+  function calcXL() {
+    var f = val($('#xlF')), Lm = val($('#xlL')), Cu = val($('#xlC'));
+    var okF = isFinite(f) && f > 0;
+    var okL = isFinite(Lm) && Lm > 0;
+    var okC = isFinite(Cu) && Cu > 0;
+    var L = okL ? Lm / 1000 : 0;
+    var C = okC ? Cu / 1000000 : 0;
+    var XL = okF && okL ? 2 * Math.PI * f * L : 0;
+    var XC = okF && okC ? 1 / (2 * Math.PI * f * C) : 0;
+    XLC.XL = XL; XLC.XC = XC;
+    var li = [];
+    if (!okF) li.push('<li>주파수 f에 0보다 큰 값을 넣어 주세요.</li>');
+    if (okF && okL) {
+      var denL = 2 * Math.PI * f * L;
+      li.push('<li>코일: X_L = 2πfL</li>');
+      li.push('<li>2π × ' + num(f, 3) + ' × ' + num(L, 6) + ' = ' + num(denL, 2) + '</li>');
+      li.push('<li class="fin">X_L = <b>' + num(XL, 2) + ' Ω</b> (L은 mH를 1,000으로 나눠 H로)</li>');
+    }
+    if (okF && okC) {
+      var denC = 2 * Math.PI * f * C;
+      li.push('<li>콘덴서: X_C = 1 ÷ 2πfC</li>');
+      li.push('<li>2π × ' + num(f, 3) + ' × ' + num(C, 8) + ' = ' + num(denC, 7) + '</li>');
+      li.push('<li class="fin">1 ÷ ' + num(denC, 7) + ' = <b>' + num(XC, 2) + ' Ω</b> (C는 µF를 1,000,000으로 나눠 F로)</li>');
+    }
+    if (okF && okL && okC) {
+      li.push('<li>둘 다 있으면 X = |X_L − X_C| = |' + num(XL, 2) + ' − ' + num(XC, 2) + '| = <b>' + num(Math.abs(XL - XC), 2) + ' Ω</b></li>');
+    }
+    $('#xlSteps').innerHTML = li.join('') || '<li>값을 넣어 주세요.</li>';
+  }
+  ['#xlF', '#xlL', '#xlC'].forEach(function (s) { $(s).addEventListener('input', calcXL); });
+  $('#useXL').addEventListener('click', function () {
+    if (!(XLC.XL > 0)) { toast('코일 값과 주파수를 먼저 넣어 주세요.'); return; }
+    $('#zX').value = Number(XLC.XL.toFixed(3));
+    calcZ();
+    toast('코일의 리액턴스를 X에 넣었어요.');
+  });
+  $('#useXC').addEventListener('click', function () {
+    if (!(XLC.XC > 0)) { toast('콘덴서 값과 주파수를 먼저 넣어 주세요.'); return; }
+    $('#zX').value = Number(XLC.XC.toFixed(3));
+    calcZ();
+    toast('콘덴서의 리액턴스를 X에 넣었어요.');
+  });
+  $('#useXBoth').addEventListener('click', function () {
+    if (!(XLC.XL > 0 && XLC.XC > 0)) { toast('코일·콘덴서 값과 주파수를 먼저 넣어 주세요.'); return; }
+    $('#zX').value = Number(Math.abs(XLC.XL - XLC.XC).toFixed(3));
+    calcZ();
+    toast('두 값을 합친 X를 넣었어요.');
+  });
+
+  $$('[data-jump]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.getAttribute('data-jump'));
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  /* ═════════ 📝 퀴즈 ═════════ */
+  var QUIZ = [
+    {
+      id: 'q1', type: 'ox',
+      q: '전압(V)이 커지면, 같은 저항에서 흐르는 전류(A)도 커진다.',
+      ch: ['맞아요 (O)', '아니에요 (X)'], a: 0,
+      ex: '전류는 I = V ÷ R 이에요. 물을 더 세게 밀면 더 많이 흘러요.',
+      ex2: '반대로 저항이 커지면 전류는 줄어들어요.'
+    },
+    {
+      id: 'q2', type: 'ox',
+      q: '저항(Ω)이 커지면 전류가 더 많이 흐른다.',
+      ch: ['맞아요 (O)', '아니에요 (X)'], a: 1,
+      ex: '저항은 물길을 좁히는 것이에요. 관이 좁으면 오히려 적게 흘러요.',
+      ex2: 'I = V ÷ R 이므로 R이 커지면 I는 작아져요.'
+    },
+    {
+      id: 'q3', type: 'mc',
+      q: '6V 전원에 3Ω 저항을 연결했어요. 흐르는 전류는?',
+      ch: ['0.5 A', '2 A', '3 A', '18 A'], a: 1,
+      ex: 'I = V ÷ R = 6 ÷ 3 = 2 A',
+      ex2: '단위는 A(암페어), 1초에 지나가는 물의 양이에요.'
+    },
+    {
+      id: 'q4', type: 'mc',
+      q: '12V 전원에 4Ω 저항을 연결했어요. 전력은?',
+      ch: ['3 W', '16 W', '36 W', '48 W'], a: 2,
+      ex: '먼저 전류 I = 12 ÷ 4 = 3 A, 그다음 P = V × I = 12 × 3 = 36 W',
+      ex2: 'P = V² ÷ R = 144 ÷ 4 = 36 W 로 한 번에 구할 수도 있어요.'
+    },
+    {
+      id: 'q5', type: 'mc',
+      q: '2Ω과 3Ω을 직렬로 이으면 합성 저항은?',
+      ch: ['1.2 Ω', '5 Ω', '6 Ω', '0.83 Ω'], a: 1,
+      ex: '직렬은 관을 길게 이어 붙인 것이라 그냥 더해요. 2 + 3 = 5 Ω',
+      ex2: '직렬에서는 전류가 어디서나 같고, 전압은 나눠 가져요.'
+    },
+    {
+      id: 'q6', type: 'mc',
+      q: '2Ω 두 개를 병렬로 이으면 합성 저항은?',
+      ch: ['4 Ω', '2 Ω', '1 Ω', '0.5 Ω'], a: 2,
+      ex: '병렬은 길이 넓어지는 것이라 더 잘 지나가요. 2 × 2 ÷ (2 + 2) = 1 Ω',
+      ex2: '같은 저항 두 개를 병렬로 이으면 원래의 절반이에요.'
+    },
+    {
+      id: 'q7', type: 'ox',
+      q: '직렬로 이은 저항에는 어디서나 같은 전류가 흐른다.',
+      ch: ['맞아요 (O)', '아니에요 (X)'], a: 0,
+      ex: '물이 한 줄로 지나가니 중간에 양이 달라질 수 없어요.',
+      ex2: '대신 전압은 저항이 큰 쪽이 더 많이 가져요.'
+    },
+    {
+      id: 'q8', type: 'ox',
+      q: '병렬로 이은 저항에는 모두 같은 전압이 걸린다.',
+      ch: ['맞아요 (O)', '아니에요 (X)'], a: 0,
+      ex: '양쪽 입구가 같은 높이의 물탱크에 연결된 셈이라 미는 힘이 같아요.',
+      ex2: '대신 전류는 갈래마다 나눠 가져요.'
+    },
+    {
+      id: 'q9', type: 'mc',
+      q: '1,000mA는 몇 A일까요?',
+      ch: ['0.1 A', '1 A', '10 A', '100 A'], a: 1,
+      ex: 'mA는 A의 1/1,000이에요. 1,000으로 바꾸면 0 세 개를 떼면 돼요.',
+      ex2: '1,000mA = 1A, 500mA = 0.5A 예요.'
+    },
+    {
+      id: 'q10', type: 'mc',
+      q: '2.2kV는 몇 V일까요?',
+      ch: ['22 V', '220 V', '2,200 V', '22,000 V'], a: 2,
+      ex: 'kV는 V의 1,000배예요. 2.2 × 1,000 = 2,200 V',
+      ex2: '반대로 V를 kV로 바꿀 때는 1,000으로 나눠요.'
+    },
+    {
+      id: 'q11', type: 'mc',
+      q: '60Hz의 뜻으로 맞는 것은?',
+      ch: ['1초에 60번 반복한다', '60V의 전압이다', '60초에 1번 반복한다', '60A의 전류다'], a: 0,
+      ex: 'Hz(헤르츠)는 1초에 몇 번 반복하는지를 세는 단위예요.',
+      ex2: '우리나라 콘센트 전기는 1초에 60번 방향을 바꿔요.'
+    },
+    {
+      id: 'q12', type: 'ox',
+      q: '코일(L)은 직류를 잘 통과시키고, 교류는 막는다.',
+      ch: ['맞아요 (O)', '아니에요 (X)'], a: 0,
+      ex: '코일은 급한 변화를 싫어해요. 그래서 방향이 자꾸 바뀌는 교류는 버티고 막아요.',
+      ex2: '한 방향으로만 흐르는 직류는 잘 지나가요. 주파수가 높을수록 더 막아요.'
+    },
+    {
+      id: 'q13', type: 'mc',
+      q: '콘덴서(C)의 성질로 맞는 것은?',
+      ch: ['직류를 막고 교류는 통과시킨다', '직류를 통과시키고 교류는 막는다', '둘 다 막는다', '둘 다 통과시킨다'], a: 0,
+      ex: '콘덴서는 물을 잠깐 담아 두는 작은 탱크예요. 물이 차면 더 못 들어가 직류는 막아요.',
+      ex2: '방향이 바뀌는 교류는 다시 받아 주기 때문에 통과시켜요.'
+    },
+    {
+      id: 'q14', type: 'mc',
+      q: '실효값 220V의 최댓값은 약 얼마일까요?',
+      ch: ['155 V', '220 V', '311 V', '440 V'], a: 2,
+      ex: '최댓값 = 실효값 × 1.414 = 220 × 1.414 ≈ 311 V',
+      ex2: '반대로 최댓값을 실효값으로 바꿀 때는 1.414로 나눠요.'
+    },
+    {
+      id: 'q15', type: 'mc',
+      q: 'R = 3Ω, X = 4Ω일 때 임피던스 Z는?',
+      ch: ['1 Ω', '5 Ω', '7 Ω', '12 Ω'], a: 1,
+      ex: 'Z = √(R² + X²) = √(3² + 4²) = √(9 + 16) = √25 = 5 Ω',
+      ex2: '저항과 리액턴스는 방향이 90도 달라서 그냥 더하지 않고 이렇게 계산해요.'
+    }
+  ];
+  var QSTATE = { list: [], i: 0, picked: null, wrong: [], answers: null, done: false };
+
+  var LS_MEMO = 'wagleElectric.memo';
+  function loadMemos() {
+    try {
+      var raw = localStorage.getItem(LS_MEMO);
+      var j = raw ? JSON.parse(raw) : null;
+      return (j && typeof j === 'object') ? j : {};
+    } catch (e) { return {}; }
+  }
+  function saveMemos(m) {
+    try { localStorage.setItem(LS_MEMO, JSON.stringify(m)); } catch (e) {}
+  }
+  var MEMOS = loadMemos();
+  var DRAFTS = {};
+
+  function qById(id) {
+    for (var i = 0; i < QUIZ.length; i++) if (QUIZ[i].id === id) return QUIZ[i];
+    return null;
+  }
+  function qLabel(id) {
+    for (var i = 0; i < QUIZ.length; i++) if (QUIZ[i].id === id) return 'Q' + (i + 1);
+    return 'Q?';
+  }
+  function memoCount() {
+    var n = 0;
+    for (var k in MEMOS) if (Object.prototype.hasOwnProperty.call(MEMOS, k) && String(MEMOS[k]).trim()) n++;
+    return n;
+  }
+  function paintMemoBadge() { $('#memoCount').textContent = String(memoCount()); }
+
+  function startQuiz(list) {
+    QSTATE.list = list.slice();
+    QSTATE.i = 0;
+    QSTATE.picked = null;
+    QSTATE.wrong = [];
+    QSTATE.answers = {};
+    QSTATE.done = false;
+    renderQuiz();
+  }
+  function correctCount() {
+    var n = 0;
+    QSTATE.list.forEach(function (id) {
+      if (QSTATE.answers[id] !== undefined && QSTATE.answers[id] === qById(id).a) n++;
+    });
+    return n;
+  }
+  function renderQuiz() {
+    paintMemoBadge();
+    var body = $('#qBody');
+    var total = QSTATE.list.length;
+    if (!total) { body.innerHTML = ''; return; }
+
+    if (QSTATE.done) {
+      var got = correctCount();
+      var pct = Math.round((got / total) * 100);
+      var msg;
+      if (pct === 100) msg = '전부 맞혔어요! 개념이 잘 잡혀 있어요.';
+      else if (pct >= 80) msg = '아주 잘했어요. 틀린 것만 다시 보면 돼요.';
+      else if (pct >= 60) msg = '기본은 잡혔어요. 틀린 문제를 한 번 더 풀어 봐요.';
+      else msg = '괜찮아요. 물 흐름 그림부터 다시 보고 오면 훨씬 쉬워져요.';
+      $('#qProg').textContent = '결과';
+      $('#qScore').textContent = '맞힌 것 ' + got;
+      $('#qBar').style.width = '100%';
+      body.innerHTML =
+        '<div class="qresult">' +
+          '<div class="score">' + got + '<small> / ' + total + '문제</small></div>' +
+          '<p class="msg">' + msg + '</p>' +
+        '</div>' +
+        (QSTATE.wrong.length
+          ? '<button type="button" class="nextbtn" id="retryWrong">틀린 문제만 다시 풀기 (' + QSTATE.wrong.length + '문제)</button>'
+          : '') +
+        '<button type="button" class="nextbtn ghost" id="retryAll" style="margin-top:.45rem">전체 문제 다시 풀기</button>';
+      var rw = $('#retryWrong');
+      if (rw) rw.addEventListener('click', function () { startQuiz(QSTATE.wrong.slice()); });
+      $('#retryAll').addEventListener('click', function () { startQuiz(QUIZ.map(function (x) { return x.id; })); });
+      return;
+    }
+
+    var q = qById(QSTATE.list[QSTATE.i]);
+    if (!q) { QSTATE.done = true; renderQuiz(); return; }
+    var pickedIdx = QSTATE.answers[q.id];
+    var answered = pickedIdx !== undefined;
+    $('#qProg').textContent = '문제 ' + (QSTATE.i + 1) + ' / ' + total;
+    $('#qScore').textContent = '맞힌 것 ' + correctCount();
+    $('#qBar').style.width = Math.round(((QSTATE.i + (answered ? 1 : 0)) / total) * 100) + '%';
+
+    var html = '';
+    html += '<span class="qtype' + (q.type === 'mc' ? ' mc' : '') + '">' + (q.type === 'mc' ? '객관식' : 'O / X') + '</span>';
+    html += '<p class="qtext">' + q.q + '</p>';
+    html += '<div class="opts" role="group" aria-label="답 고르기">';
+    q.ch.forEach(function (c, i) {
+      var st = '';
+      var mk = String(i + 1);
+      if (answered) {
+        if (i === q.a) { st = ' data-st="ok"'; mk = '✓'; }
+        else if (i === pickedIdx) { st = ' data-st="no"'; mk = '✕'; }
+      }
+      html += '<button type="button" class="opt"' + st + ' data-opt="' + i + '"' + (answered ? ' disabled' : '') + '>' +
+        '<span class="mk" aria-hidden="true">' + mk + '</span><span>' + c + '</span></button>';
+    });
+    html += '</div>';
+
+    if (answered) {
+      var good = pickedIdx === q.a;
+      html += '<div class="fb ' + (good ? 'ok' : 'no') + '" role="status">' +
+        '<span class="fbt">' + (good ? '✅ 정답이에요!' : '❌ 아쉬워요. 정답은 ' + (q.type === 'mc' ? '“' + q.ch[q.a] + '”' : q.ch[q.a]) + '') + '</span>' +
+        '<p>' + q.ex + '</p><p>' + q.ex2 + '</p></div>';
+      html += '<button type="button" class="nextbtn" id="qNext">' +
+        (QSTATE.i + 1 >= total ? '결과 보기' : '다음 문제 →') + '</button>';
+    }
+
+    var memo = (DRAFTS[q.id] !== undefined) ? DRAFTS[q.id] : (MEMOS[q.id] || '');
+    html += '<div class="memobox">' +
+      '<div class="ml"><b>📓 이 문제 메모</b>' +
+      '<button type="button" id="memoSave">메모 저장</button></div>' +
+      '<textarea id="qMemo" placeholder="헷갈린 부분을 적어 두세요 (이 기기에만 저장)" aria-label="이 문제 메모">' + esc(memo) + '</textarea>' +
+      '<span class="saved" id="memoSaved">' + (memo ? '저장된 메모가 있어요.' : '') + '</span>' +
+      '</div>';
+
+    body.innerHTML = html;
+
+    $$('.opt', body).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (QSTATE.answers[q.id] !== undefined) return;
+        var i = parseInt(b.getAttribute('data-opt'), 10);
+        QSTATE.answers[q.id] = i;
+        if (i !== q.a && QSTATE.wrong.indexOf(q.id) < 0) QSTATE.wrong.push(q.id);
+        renderQuiz();
+      });
+    });
+    var nx = $('#qNext');
+    if (nx) nx.addEventListener('click', function () {
+      if (QSTATE.i + 1 >= total) { QSTATE.done = true; QSTATE.i = total; renderQuiz(); }
+      else { QSTATE.i++; renderQuiz(); }
+    });
+    var memoEl = $('#qMemo');
+    if (memoEl) memoEl.addEventListener('input', function () {
+      DRAFTS[q.id] = this.value;
+      $('#memoSaved').textContent = '';
+    });
+    var ms = $('#memoSave');
+    if (ms) ms.addEventListener('click', function () {
+      var v = $('#qMemo').value;
+      if (String(v).trim()) MEMOS[q.id] = v; else delete MEMOS[q.id];
+      delete DRAFTS[q.id];
+      saveMemos(MEMOS);
+      paintMemoBadge();
+      $('#memoSaved').textContent = '저장했어요 ✓';
+      toast('메모를 이 기기에 저장했어요.');
+    });
+  }
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  /* 메모 수첩 */
+  var sheetOpen = false;
+  function openMemoSheet() {
+    if (sheetOpen) return;
+    sheetOpen = true;
+    renderMemoSheet();
+    $('#memoSheet').hidden = false;
+    document.body.style.overflow = 'hidden';
+    pushLayer(function () { closeMemoSheet(true); });
+  }
+  function closeMemoSheet(fromBack) {
+    if (!sheetOpen) return;
+    sheetOpen = false;
+    $('#memoSheet').hidden = true;
+    document.body.style.overflow = '';
+    if (!fromBack) {
+      /* 수동 닫기: 위에 쌓인 레이어 하나를 되돌린다 */
+      if (layers.length) { if (popping) return; history.back(); }
+    }
+  }
+  function renderMemoSheet() {
+    var box = $('#memoList');
+    var keys = Object.keys(MEMOS).filter(function (k) { return String(MEMOS[k]).trim(); });
+    if (!keys.length) {
+      box.innerHTML = '<div class="empty">아직 적어 둔 메모가 없어요.<br>문제 아래 “이 문제 메모”에 적고 저장해 보세요.</div>';
+      return;
+    }
+    keys.sort(function (a, b) {
+      return QUIZ.map(function (q) { return q.id; }).indexOf(a) - QUIZ.map(function (q) { return q.id; }).indexOf(b);
+    });
+    box.innerHTML = keys.map(function (k) {
+      var q = qById(k);
+      return '<div class="memoitem">' +
+        '<div class="mh"><b>' + qLabel(k) + '</b>' +
+        '<button type="button" data-del="' + esc(k) + '">지우기</button></div>' +
+        '<div class="mq">' + esc(q ? q.q : '') + '</div>' +
+        '<div class="mm">' + esc(MEMOS[k]) + '</div>' +
+        '</div>';
+    }).join('');
+    $$('[data-del]', box).forEach(function (b) {
+      b.addEventListener('click', function () {
+        delete MEMOS[b.getAttribute('data-del')];
+        saveMemos(MEMOS);
+        paintMemoBadge();
+        renderMemoSheet();
+      });
+    });
+  }
+  $('#memoOpen').addEventListener('click', openMemoSheet);
+  $('#memoClose').addEventListener('click', function () { closeMemoSheet(false); });
+  $('#memoSheet').addEventListener('click', function (e) {
+    if (e.target === $('#memoSheet')) closeMemoSheet(false);
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && sheetOpen) closeMemoSheet(false);
+  });
+
+  /* ═════════ 🏠 우리 집 멀티탭 계산 ═════════ */
+  var TAP_LIMIT = 3500;      /* 16A × 220V ≒ 3,520W */
+  var HOUSE_V = 220;
+  var tapBtns = $$('#tapGrid .tapbtn');
+  function tapSum() {
+    var w = 0;
+    tapBtns.forEach(function (b) {
+      if (b.getAttribute('aria-pressed') === 'true') w += parseFloat(b.getAttribute('data-w')) || 0;
+    });
+    return w;
+  }
+  function paintTap() {
+    var w = tapSum(), a = w / HOUSE_V;
+    var st = w > TAP_LIMIT ? 'over' : (w > TAP_LIMIT * 0.8 ? 'warn' : 'ok');
+    $('#tapRes').setAttribute('data-st', st);
+    $('#tapW').textContent = num(w, 0) + ' W';
+    $('#tapA').textContent = num(a, 1) + ' A';
+    $('#tapBar').style.width = Math.min(w / TAP_LIMIT * 100, 100).toFixed(1) + '%';
+    var msg, tip;
+    if (!w) {
+      msg = '아직 아무것도 꽂지 않았어요';
+      tip = '가전을 눌러 한꺼번에 꽂아 보세요.';
+    } else if (st === 'over') {
+      msg = '⚠️ 차단기 내려감 주의! 한도보다 ' + num(w - TAP_LIMIT, 0) + 'W 넘었어요';
+      tip = '실제로는 얼마 지나지 않아 차단기가 떨어져요. 큰 가전은 따로 꽂아 주세요.';
+    } else if (st === 'warn') {
+      msg = '🔥 조금 빡빡해요 · ' + num(TAP_LIMIT - w, 0) + 'W 남았어요';
+      tip = '여기에 큰 가전을 하나 더 꽂으면 차단기가 내려갈 수 있어요.';
+    } else {
+      msg = '✅ 안전해요 · ' + num(TAP_LIMIT - w, 0) + 'W 더 쓸 수 있어요';
+      tip = '한 멀티탭에는 큰 가전을 하나만 쓰는 게 가장 안전해요.';
+    }
+    $('#tapStat').textContent = msg;
+    $('#tapTip').textContent = tip;
+  }
+  tapBtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+      paintTap();
+    });
+  });
+  $('#tapClear').addEventListener('click', function () {
+    tapBtns.forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    paintTap();
+  });
+
+  /* ═════════ 🛏️ 방별 병렬 체험 ═════════ */
+  var rooms = { a: true, b: true };
+  function paintRooms() {
+    ['A', 'B'].forEach(function (k) {
+      var on = (k === 'A') ? rooms.a : rooms.b;
+      $('#room' + k).classList.toggle('off', !on);
+      var btn = $('#room' + k + 'Btn');
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      btn.textContent = (k === 'A' ? '🛏️ 안방 ' : '🛋️ 거실 ') + (on ? '불 끄기' : '불 켜기');
+    });
+    var msg;
+    if (rooms.a && rooms.b) msg = '두 방 모두 켜져 있어요 · 갈래마다 220V가 그대로 걸려요';
+    else if (!rooms.a && !rooms.b) msg = '둘 다 껐어요 · 스위치만 내린 것이라 차단기는 그대로예요';
+    else msg = (rooms.a ? '거실' : '안방') + '만 꺼졌어요 · 다른 방은 그대로 켜져 있죠? 이게 병렬이에요';
+    $('#roomMsg').textContent = msg;
+  }
+  $('#roomABtn').addEventListener('click', function () { rooms.a = !rooms.a; paintRooms(); });
+  $('#roomBBtn').addEventListener('click', function () { rooms.b = !rooms.b; paintRooms(); });
+
+  /* ═════════ 📞 우리 집 단골 번호 저장 ═════════ */
+  var LS_CT = 'wagleElectric.contacts';
+  var CT = { office: '', engineer: '' };
+  var CT_META = [
+    { key: 'office', input: '#ctOffice', call: '#ctOfficeCall', save: '#ctOfficeSave', name: '관리사무소' },
+    { key: 'engineer', input: '#ctEngineer', call: '#ctEngineerCall', save: '#ctEngineerSave', name: '전기기사' }
+  ];
+  function telDigits(s) { return String(s || '').replace(/[^0-9+]/g, ''); }
+  function paintCT() {
+    CT_META.forEach(function (m) {
+      var inp = $(m.input), call = $(m.call), d = telDigits(CT[m.key]);
+      if (document.activeElement !== inp) inp.value = CT[m.key] || '';
+      if (d) { call.setAttribute('href', 'tel:' + d); call.hidden = false; }
+      else { call.removeAttribute('href'); call.hidden = true; }
+    });
+  }
+  function loadCT() {
+    try {
+      var j = JSON.parse(localStorage.getItem(LS_CT) || 'null');
+      if (j && typeof j === 'object') {
+        CT.office = String(j.office || '');
+        CT.engineer = String(j.engineer || '');
+      }
+    } catch (e) {}
+    paintCT();
+  }
+  function saveCT(m) {
+    var inp = $(m.input);
+    var raw = String(inp.value || '').trim();
+    if (!telDigits(raw)) { toast(m.name + ' 번호를 먼저 입력해 주세요.'); inp.focus(); return; }
+    CT[m.key] = raw;
+    try {
+      localStorage.setItem(LS_CT, JSON.stringify(CT));
+      toast(m.name + ' 번호를 저장했어요.');
+    } catch (e) {
+      toast('저장하지 못했어요. 브라우저 저장 공간을 확인해 주세요.');
+    }
+    paintCT();
+  }
+  CT_META.forEach(function (m) {
+    $(m.save).addEventListener('click', function () { saveCT(m); });
+    $(m.input).addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); saveCT(m); }
+    });
+  });
+
+  /* ═════════ 시작 ═════════ */
+  loadWxCache();
+  loadWeather();
+  setSim(6, 2);
+  paintTap();
+  paintRooms();
+  loadCT();
+  calcSP();
+  calcUnit();
+  calcOhm(true);
+  calcRms();
+  calcZ();
+  calcXL();
+  startQuiz(QUIZ.map(function (q) { return q.id; }));
+})();
+</script>
+</body>
+</html>
