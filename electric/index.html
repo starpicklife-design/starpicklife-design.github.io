@@ -4,7 +4,10 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content" />
 <meta name="theme-color" content="#15324A" />
-<!-- build: 2026-11-26 와트메이커 전기기초 v2 (WattMaker Electric)
+<!-- build: 2026-11-27 와트메이커 전기기초 v3 (WattMaker Electric) · 첫 화면 맨 위에 📲 설치·📤 공유 2열 버튼 추가
+       (스크롤 없이 바로 보이고, 설치를 누르면 PWA 설치 창이 바로 / 공유를 누르면 카톡·문자 보내기 → 안 되면 주소 복사)
+       매니페스트(manifest.webmanifest)·아이콘 192·512·maskable·서비스 워커(sw.js) 연결 · 홈 화면 앱으로 열면 설치 버튼은 숨김
+     · 2026-11-26 v2
      · 맨 위 오늘 날짜·요일·날씨(김해 기본, 누르면 현위치 날씨로 새로고침 — Open-Meteo)
      · 💧 물 흐름 시뮬레이터: 전압·저항을 바꾸면 전류(I=V/R)·전력(P=V×I)과 물줄기·전구 밝기가 바로 바뀜
      · 📖 기호·용어 카드: 일상 비유로만 (수도관·그네·회전목마·댐)
@@ -16,7 +19,9 @@
      · 📞 전기 문제 비상 연락처: 123 한전 · 1588-7500 전기안전공사 · 119 소방(tel: 원터치),
        우리 집 관리사무소·전기기사 번호 저장(localStorage)과 바로 걸기, 차단기 떨어졌을 때 1·2·3
      · 폰 뒤로가기 · 🔠 큰 글씨 · 📤 공유 · 기록은 이 기기에만 · 무료 · 광고 없음 -->
-<!-- 단독 파일용: manifest.json 없이 열리도록 아이콘을 파일 안에 넣었습니다 -->
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./icon-192.png" />
+<!-- 단독 파일로 열어도 아이콘이 보이도록 아이콘을 파일 안에 넣었습니다 (홈 화면 설치는 manifest.webmanifest 사용) -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22%3E %3Cdefs%3E %3ClinearGradient id=%22bg%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E %3Cstop offset=%220%25%22 stop-color=%22#1B4C6B%22/%3E %3Cstop offset=%22100%25%22 stop-color=%22#12314A%22/%3E %3C/linearGradient%3E %3ClinearGradient id=%22bolt%22 x1=%220%22 y1=%220%22 x2=%220%22 y2=%221%22%3E %3Cstop offset=%220%25%22 stop-color=%22#FFE08A%22/%3E %3Cstop offset=%22100%25%22 stop-color=%22#EFA91F%22/%3E %3C/linearGradient%3E %3C/defs%3E %3Crect width=%22512%22 height=%22512%22 rx=%22112%22 fill=%22url(#bg)%22/%3E %3Ccircle cx=%22256%22 cy=%22256%22 r=%22150%22 fill=%22none%22 stroke=%22#8FC0D8%22 stroke-width=%228%22 opacity=%22.35%22/%3E %3Cpath d=%22M286 96 L176 286 H246 L226 416 L342 218 H268 Z%22 fill=%22url(#bolt)%22 stroke=%22#FFF3C4%22 stroke-width=%228%22 stroke-linejoin=%22round%22/%3E %3C/svg%3E" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="mobile-web-app-capable" content="yes" />
@@ -68,6 +73,59 @@ p{margin:0}
   .brand h1{font-size:.96rem}
   .topbtns button{font-size:.62rem;padding:.28rem .34rem}
 }
+
+/* ── 첫 화면 위쪽 설치·공유 버튼 (2열, 스크롤 없이 바로) ── */
+.topacts{display:grid;grid-template-columns:1fr 1fr;gap:.42rem;width:100%;margin:0 0 .55rem}
+.topacts.solo{grid-template-columns:1fr}
+.actbtn{ display:flex;align-items:center;gap:.4rem;min-width:0;min-height:3.15rem;
+  padding:.46rem .5rem;border-radius:.95rem;text-align:left}
+.actbtn:active{transform:translateY(2px)}
+.actbtn .ab-em{flex:0 0 auto;font-size:1.3rem;line-height:1}
+.actbtn .ab-tx{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:.04rem}
+.actbtn .ab-main{font-size:1rem;font-weight:900;letter-spacing:-.03em;line-height:1.14}
+.actbtn .ab-sub{font-size:.72rem;font-weight:800;line-height:1.2;letter-spacing:-.02em}
+.actbtn.inst{background:linear-gradient(180deg,#FFE793,#FFC12E);color:#4E3200;border:2px solid #EFAE1C;
+  box-shadow:0 4px 0 #C48400,0 8px 16px rgba(180,120,0,.22)}
+.actbtn.inst .ab-sub{color:#6F4A00}
+.actbtn.inst:active{box-shadow:0 2px 0 #C48400}
+.actbtn.share{background:linear-gradient(180deg,#FFFFFF,#E7F2FA);color:var(--navy);border:2px solid var(--blueline);
+  box-shadow:0 4px 0 #C7DEE9,0 8px 16px rgba(30,70,95,.14)}
+.actbtn.share .ab-sub{color:var(--ink2)}
+.actbtn.share:active{box-shadow:0 2px 0 #C7DEE9}
+html.big .actbtn .ab-main{font-size:1.06rem}
+html.big .actbtn .ab-sub{font-size:.76rem}
+@media (max-width:359px){
+  .topacts{gap:.36rem}
+  .actbtn{padding:.44rem .42rem;gap:.32rem}
+  .actbtn .ab-em{font-size:1.16rem}
+  .actbtn .ab-main{font-size:.94rem}
+  .actbtn .ab-sub{font-size:.68rem}
+}
+
+/* ── 설치 안내 판 ─────────────────────── */
+.instWrap{position:fixed;inset:0;z-index:80;display:flex;align-items:flex-end;justify-content:center;
+  background:rgba(15,35,50,.58);padding:0 .5rem calc(.5rem + env(safe-area-inset-bottom))}
+.instCard{width:100%;max-width:26rem;border-radius:1.2rem;
+  background:linear-gradient(180deg,#FFFEF8,#FFF7E4);
+  border:2px solid #FFE6AE;padding:.86rem .84rem .76rem;
+  box-shadow:0 -8px 30px rgba(20,40,60,.36)}
+.instCard h3{margin:0 0 .1rem;font-size:1.1rem;font-weight:900;color:var(--navy);letter-spacing:-.03em}
+.instCard .lead{margin:.14rem 0 .6rem;font-size:.82rem;font-weight:700;color:var(--ink2);line-height:1.45}
+.isteps{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
+.isteps li{display:flex;align-items:center;gap:.46rem;background:#FFFFFF;border:2px solid var(--line);
+  border-radius:.78rem;padding:.42rem .5rem;box-shadow:0 2px 0 #F5EEE0}
+.isteps .num{flex:0 0 auto;width:1.4rem;height:1.4rem;border-radius:50%;display:grid;place-items:center;
+  background:linear-gradient(180deg,#FFE793,#FFC02E);color:#5A3800;font-size:.84rem;font-weight:900;
+  box-shadow:0 2px 0 #D49300}
+.isteps .txt{flex:1 1 auto;font-size:.85rem;font-weight:700;color:#2F3C47;line-height:1.38}
+.isteps .txt b{color:var(--blue2)}
+.isteps .ui{flex:0 0 auto;font-size:1.02rem}
+.instTip{margin:.54rem 0 0;font-size:.78rem;font-weight:700;color:#6B7C86;line-height:1.46}
+.instOk{width:100%;margin-top:.6rem;min-height:2.85rem;border-radius:.85rem;
+  background:linear-gradient(180deg,#2A6C8C,#1B4C6B);color:#FFF9EF;
+  font-size:1rem;font-weight:900;border:2px solid #143D57;
+  box-shadow:0 4px 0 #0F3048,0 8px 16px rgba(15,45,65,.24)}
+.instOk:active{transform:translateY(2px);box-shadow:0 2px 0 #0F3048}
 
 /* ── 본문 ─────────────────────────────── */
 main{max-width:34rem;margin:0 auto;padding:.55rem .6rem 0}
@@ -516,6 +574,26 @@ g.off .rtxt{fill:#8899A4}
 </header>
 
 <main>
+  <!-- 📲 설치 · 📤 공유 — 첫 화면 위쪽 2열 (스크롤 없이 바로, 홈 화면 앱으로 열었으면 설치만 숨김) -->
+  <div class="topacts" id="topacts">
+    <button type="button" class="actbtn inst" id="installTop"
+      aria-label="폰 홈 화면에 와트메이커 전기기초 앱 설치하기">
+      <span class="ab-em" aria-hidden="true">📲</span>
+      <span class="ab-tx">
+        <span class="ab-main">설치</span>
+        <span class="ab-sub">홈 화면에 담기</span>
+      </span>
+    </button>
+    <button type="button" class="actbtn share" id="shareTop"
+      aria-label="와트메이커 전기기초를 카톡·문자로 공유하기 — 누르면 링크를 보내요">
+      <span class="ab-em" aria-hidden="true">📤</span>
+      <span class="ab-tx">
+        <span class="ab-main">공유</span>
+        <span class="ab-sub">링크 보내기</span>
+      </span>
+    </button>
+  </div>
+
   <!-- ══ 오늘 날짜·요일·날씨 (모든 앱 공통 기본) ══ -->
   <button type="button" class="datebar" id="todayCard" aria-label="오늘 날짜와 날씨 — 누르면 현위치 날씨로 새로고침">
     <span class="db-date" id="todayDate">오늘</span>
@@ -1313,6 +1391,17 @@ g.off .rtxt{fill:#8899A4}
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+<!-- 📲 홈 화면에 추가 안내 -->
+<div class="instWrap" id="instWrap" role="dialog" aria-modal="true" aria-labelledby="instTitle" hidden>
+  <div class="instCard">
+    <h3 id="instTitle">📲 홈 화면에 전기기초 두기</h3>
+    <p class="lead">한 번만 담아 두면 다음부터 앱처럼 바로 열려요.</p>
+    <ol class="isteps" id="instSteps"></ol>
+    <p class="instTip" id="instTip"></p>
+    <button type="button" class="instOk" id="instOk">알겠어요</button>
+  </div>
+</div>
+
 <script>
 (function () {
   'use strict';
@@ -1485,6 +1574,7 @@ g.off .rtxt{fill:#8899A4}
   function showScreen(name) {
     curScreen = name;
     $$('.screen').forEach(function (s) { s.hidden = (s.id !== 'screen-' + name); });
+    try { if (typeof syncInstallBtn === 'function') syncInstallBtn(); } catch (e) {}
     try { window.scrollTo({ top: 0, behavior: 'auto' }); } catch (e) { window.scrollTo(0, 0); }
   }
   function openScreen(name) {
@@ -1505,6 +1595,113 @@ g.off .rtxt{fill:#8899A4}
     b.addEventListener('click', function () { goBack(); });
   });
 
+  /* ═════════ 홈 화면 설치 ═════════ */
+  var instPrompt = null, instDone = false, instOn = false;
+  var instWrap = $('#instWrap'), installTop = $('#installTop');
+  function isStandaloneNow() {
+    try {
+      if (window.matchMedia('(display-mode: standalone)').matches) return true;
+      if (window.matchMedia('(display-mode: minimal-ui)').matches) return true;
+    } catch (e) {}
+    if (navigator.standalone === true) return true;
+    if (/^android-app:\/\//i.test(document.referrer || '')) return true;
+    return false;
+  }
+  function uaIsIOS() {
+    return /iPhone|iPad|iPod/i.test(navigator.userAgent || '') ||
+      (navigator.platform === 'MacIntel' && (navigator.maxTouchPoints || 0) > 1);
+  }
+  function uaIsAndroid() { return /Android/i.test(navigator.userAgent || ''); }
+  function uaIsSamsung() { return /SamsungBrowser/i.test(navigator.userAgent || ''); }
+  function syncInstallBtn() {
+    var row = $('#topacts'), hideInst = instDone || isStandaloneNow();
+    if (row) { row.hidden = curScreen !== 'home'; row.classList.toggle('solo', hideInst); }
+    if (installTop) installTop.hidden = hideInst;
+  }
+  function instStepsHTML() {
+    var rows;
+    if (uaIsIOS()) {
+      rows = [
+        ['화면 아래(또는 위)의 <b>공유 버튼 ⤴</b>을 눌러요', '⤴'],
+        ['목록을 내려 <b>홈 화면에 추가</b>를 눌러요', '➕'],
+        ['오른쪽 위 <b>추가</b>를 누르면 끝!', '✅']
+      ];
+    } else if (uaIsSamsung()) {
+      rows = [
+        ['화면 아래의 <b>메뉴 ≡</b>를 눌러요', '≡'],
+        ['<b>홈 화면에 추가</b>를 눌러요', '➕'],
+        ['<b>추가</b>를 누르면 끝!', '✅']
+      ];
+    } else if (uaIsAndroid()) {
+      rows = [
+        ['오른쪽 위 <b>점 세 개 ⋮</b>를 눌러요', '⋮'],
+        ['<b>홈 화면에 추가</b>(또는 앱 설치)를 눌러요', '➕'],
+        ['<b>추가</b>를 누르면 끝!', '✅']
+      ];
+    } else {
+      rows = [
+        ['주소창 오른쪽의 <b>설치 아이콘</b>을 눌러요', '⋮'],
+        ['<b>설치</b>를 누르면 앱 창에서 열려요', '➕'],
+        ['휴대폰에서 열면 <b>홈 화면</b>에 담을 수 있어요', '📱']
+      ];
+    }
+    return rows.map(function (r, i) {
+      return '<li><span class="num">' + (i + 1) + '</span><span class="txt">' + r[0] +
+        '</span><span class="ui" aria-hidden="true">' + r[1] + '</span></li>';
+    }).join('');
+  }
+  function instTipHTML() {
+    if (uaIsIOS()) return '사파리 기준이에요. 크롬으로 열었다면 오른쪽 위 <b>⋮</b> → <b>홈 화면에 추가</b>를 눌러 주세요.';
+    if (uaIsSamsung()) return '삼성 인터넷 메뉴 ≡ 는 화면 <b>아래 가운데</b>에 있어요.';
+    if (uaIsAndroid()) return '삼성 인터넷은 <b>≡</b> → 홈 화면에 추가, 아이폰은 <b>공유 ⤴</b> → 홈 화면에 추가예요.';
+    return '휴대폰 크롬은 <b>⋮ → 홈 화면에 추가</b>, 아이폰 사파리는 <b>공유 ⤴ → 홈 화면에 추가</b>예요.';
+  }
+  function hideInstall() { instWrap.hidden = true; instOn = false; }
+  function closeInstall(byButton) {
+    if (instWrap.hidden) return;
+    if (instOn && byButton && layers.length) { instOn = false; try { history.back(); } catch (e) { hideInstall(); } return; }
+    hideInstall();
+  }
+  function openInstall() {
+    $('#instSteps').innerHTML = instStepsHTML();
+    $('#instTip').innerHTML = instTipHTML();
+    instWrap.hidden = false;
+    instOn = true;
+    pushLayer(function () { hideInstall(); });
+    try { $('#instOk').focus({ preventScroll: true }); } catch (e) {}
+  }
+  function installTap() {
+    if (isStandaloneNow()) { toast('이미 홈 화면 앱으로 열려 있어요.'); return; }
+    if (instPrompt) {
+      var dp = instPrompt; instPrompt = null;
+      try {
+        dp.prompt();
+        if (dp.userChoice && dp.userChoice.then) {
+          dp.userChoice.then(function (r) {
+            if (r && r.outcome === 'accepted') {
+              instDone = true; syncInstallBtn();
+              toast('홈 화면에 넣었어요!');
+            }
+          }, function () {});
+        }
+        return;
+      } catch (e) {}
+    }
+    openInstall();
+  }
+  if (installTop) installTop.addEventListener('click', installTap);
+  $('#instOk').addEventListener('click', function () { closeInstall(true); });
+  instWrap.addEventListener('click', function (e) { if (e.target === instWrap) closeInstall(true); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeInstall(true); });
+  window.addEventListener('appinstalled', function () {
+    instDone = true; instPrompt = null; syncInstallBtn(); toast('홈 화면에 넣었어요!');
+  });
+  window.addEventListener('beforeinstallprompt', function (e) {
+    try { e.preventDefault(); } catch (err) {}
+    instPrompt = e;
+  });
+  syncInstallBtn();
+
   /* ═════════ 큰 글씨 · 공유 ═════════ */
   var LS_BIG = 'wagleElectric.big';
   function applyBig(on) {
@@ -1517,18 +1714,30 @@ g.off .rtxt{fill:#8899A4}
   });
   try { if (localStorage.getItem(LS_BIG) === '1') applyBig(true); } catch (e) {}
 
-  $('#shareBtn').addEventListener('click', function () {
+  function shareApp() {
     var url = location.href;
     var data = { title: '와트메이커 전기기초', text: '물 흐름으로 배우는 전기·회로 기초 공부 앱', url: url };
     if (navigator.share) {
-      navigator.share(data).catch(function () {});
-      return;
+      try {
+        navigator.share(data).catch(function (e) {
+          if (e && e.name === 'AbortError') return;   /* 사용자가 그만두면 조용히 */
+          copyAppUrl(url);
+        });
+        return;
+      } catch (e) {}
     }
+    copyAppUrl(url);
+  }
+  function copyAppUrl(url) {
     try {
-      navigator.clipboard.writeText(url).then(function () { toast('주소를 복사했어요.'); },
-        function () { toast('주소창의 주소를 복사해 주세요.'); });
+      navigator.clipboard.writeText(url).then(function () {
+        toast('주소를 복사했어요. 카톡·문자에 붙여 넣어 보세요.');
+      }, function () { toast('주소창의 주소를 복사해 주세요.'); });
     } catch (e) { toast('주소창의 주소를 복사해 주세요.'); }
-  });
+  }
+
+  $('#shareBtn').addEventListener('click', shareApp);
+  $('#shareTop').addEventListener('click', shareApp);
 
   /* ═════════ 💧 시뮬레이터 ═════════ */
   var SIM = { V: 6, R: 2 };
@@ -2317,6 +2526,13 @@ g.off .rtxt{fill:#8899A4}
       if (e.key === 'Enter') { e.preventDefault(); saveCT(m); }
     });
   });
+
+  /* 홈 화면 설치를 위해 앱 껍데기만 캐시하는 가벼운 서비스 워커 (실패해도 화면은 그대로) */
+  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+    window.addEventListener('load', function () {
+      try { navigator.serviceWorker.register('./sw.js').catch(function () {}); } catch (e) {}
+    });
+  }
 
   /* ═════════ 시작 ═════════ */
   loadWxCache();
