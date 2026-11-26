@@ -4,6 +4,11 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content" />
 <meta name="theme-color" content="#EAF6FF" />
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="해미족 전구" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FFF6DE'/%3E%3Ccircle cx='32' cy='27' r='13' fill='%23FFC24A'/%3E%3Cpath d='M32 40v8' stroke='%23F2A200' stroke-width='4' stroke-linecap='round'/%3E%3Crect x='26' y='48' width='12' height='6' rx='2' fill='%23A9BDD2'/%3E%3C/svg%3E" />
 <!-- build: 2026-11-26 해미족 전구 켜기 v2 (Hamii Bulb Puzzle · bright day edition)
      · 맨 위 오늘 날짜·요일·날씨(김해 기본, 누르면 현위치 날씨 — Open-Meteo 무료)
@@ -12,7 +17,10 @@
      · 격자 전선 타일을 손가락으로 톡톡 눌러 90도 회전 → 발전소에서 마을 전구까지 연결
      · 6단계(아주 쉬움 4×4 → 보통 5×5 → 도전 5×5 다중 전구), 이동 횟수·초기화·힌트·다음 단계
      · 클리어: 전구가 반짝 켜지고, 천사가 내려와 와트메이커 머리에 황금 왕관을 씌워 줌
-     · 사람 출연 없음 · 외부 라이브러리 0개 · 광고 없음 · 기록은 이 기기에만 -->
+     · 사람 출연 없음 · 외부 라이브러리 0개 · 광고 없음 · 기록은 이 기기에만
+     · v3: 📤 공유 버튼(모바일 공유 시트 / PC는 링크 복사) · 📲 홈 화면에 바로가기 추가 버튼
+           (안드로이드 크롬은 설치 창 바로, 그 밖에는 2초 안내 팝업 · 뒤로가기로 닫힘)
+           + manifest.webmanifest·아이콘·sw.js(오프라인 껍데기) 추가 -->
 <title>해미족 전구 켜기 · 와트메이커 전선 퍼즐</title>
 <meta name="description" content="해미족 전구 켜기 — 저글링 시티 전기 담당 와트메이커와 함께 전선 타일을 돌려 발전소에서 마을 전구까지 불을 켜는 무료 두뇌 퍼즐. 1단계는 몇 번이면 클리어, 막히면 힌트까지. 6단계, 설치·광고 없이 폰에서 바로." />
 <style>
@@ -90,6 +98,18 @@ p{margin:0}
 .head .snd{margin-left:auto;flex:0 0 auto;width:2.2rem;height:2.2rem;border-radius:50%;
   background:#FFFFFF;border:1px solid var(--line);font-size:1rem;line-height:1;
   box-shadow:0 2px 8px rgba(90,140,180,.12)}
+/* 공유·설치 아이콘 줄 (v3) — 세로 높이를 늘리지 않게 머리말 오른쪽에 작게 */
+.head .htools{margin-left:auto;flex:0 0 auto;display:flex;align-items:center;gap:.3rem}
+.head .htools .snd{margin-left:0;width:2.1rem;height:2.1rem;font-size:.98rem;
+  display:flex;align-items:center;justify-content:center;padding:0}
+.head .htools .snd:active{transform:scale(.94)}
+.head .ttlwrap{flex:1 1 auto;min-width:0}
+@media (max-width:372px){
+  .head .htools{gap:.24rem}
+  .head .htools .snd{width:1.98rem;height:1.98rem;font-size:.92rem}
+  .head h1{font-size:1.02rem}
+  .head .sub{font-size:.68rem}
+}
 
 /* ── 단계 칩 ── */
 .stages{display:flex;gap:.34rem;padding:.1rem 0 .55rem;overflow-x:auto;scrollbar-width:none}
@@ -189,7 +209,17 @@ p{margin:0}
 .bubble{margin:0;font-size:.84rem;font-weight:800;line-height:1.35;color:#1F5140}
 .bubble b{color:#0F8A63}
 .mascot.cheer .mface{animation:cheer .55s ease 2}
-.foot{margin:.55rem 0 .1rem;text-align:center;font-size:.7rem;font-weight:800;color:#93AAC0;letter-spacing:-.01em}
+.foot{margin:.4rem 0 .1rem;text-align:center;font-size:.7rem;font-weight:800;color:#93AAC0;letter-spacing:-.01em}
+/* 다른 게임·홈으로 가기 칩 (v3) — 한 줄로 작게, 세로 공간 적게 */
+.mgrow{display:flex;align-items:center;justify-content:center;gap:.34rem;margin-top:.5rem;flex-wrap:wrap}
+.mg{display:inline-flex;align-items:center;justify-content:center;gap:.16rem;
+  padding:.3rem .62rem;border-radius:999px;background:#FFFFFF;border:1.5px solid var(--line2);
+  font-size:.75rem;font-weight:900;letter-spacing:-.02em;color:#2B5273;text-decoration:none;white-space:nowrap;
+  box-shadow:0 2px 8px rgba(90,140,180,.11);transition:transform .12s ease,border-color .2s ease,color .2s ease}
+.mg:active{transform:scale(.96)}
+.mg[data-state="soon"]{border-style:dashed;color:#6B88A6}
+.mg.now{background:linear-gradient(180deg,var(--t-pri1),var(--t-pri2));border-color:transparent;color:var(--t-priink);
+  box-shadow:0 4px 12px var(--t-ring)}
 @keyframes cheer{0%,100%{transform:translateY(0) rotate(0)}40%{transform:translateY(-6px) rotate(-7deg)}70%{transform:translateY(-3px) rotate(7deg)}}
 
 /* ── 클리어 축하 화면 (황금빛 낮하늘) ── */
@@ -290,6 +320,46 @@ p{margin:0}
 .ovBtns .btn{min-height:3.3rem;font-size:.94rem}
 .overlay .btn.ghost{background:#FFFFFF;border-color:#EFD9AE;color:#6A4410}
 
+/* ── 📲 홈 화면에 바로가기 추가 안내 (v3) ── */
+.instWrap{position:fixed;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;
+  padding:calc(.7rem + env(safe-area-inset-top)) .8rem calc(.7rem + env(safe-area-inset-bottom));
+  background:rgba(22,48,74,.45);animation:instFade .2s ease both}
+@keyframes instFade{from{opacity:0}to{opacity:1}}
+.instCard{width:100%;max-width:390px;max-height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  border-radius:24px;background:linear-gradient(180deg,#FFFFFF,#F7FCFF);
+  border:1.5px solid var(--line2);box-shadow:0 20px 46px rgba(18,54,84,.34);
+  padding:.85rem .9rem calc(.8rem + env(safe-area-inset-bottom));
+  animation:instUp .28s cubic-bezier(.2,1.2,.4,1) both}
+@keyframes instUp{from{opacity:0;transform:translateY(22px) scale(.98)}to{opacity:1;transform:none}}
+.instTop{display:flex;align-items:center;gap:.45rem}
+.instTop .ico{width:2.3rem;height:2.3rem;flex:0 0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:1.15rem;background:radial-gradient(circle at 35% 30%,#FFFDF4,#FFE6B4);
+  box-shadow:inset 0 0 0 2px rgba(255,176,32,.5)}
+.instTop h2{margin:0;font-size:1rem;font-weight:900;letter-spacing:-.03em;color:#17334F;line-height:1.2}
+.instTop h2 small{display:block;margin-top:.1rem;font-size:.71rem;font-weight:800;color:var(--ink2);letter-spacing:-.01em}
+.instX{margin-left:auto;flex:0 0 auto;width:2rem;height:2rem;border-radius:50%;background:#F1F7FC;
+  border:1px solid var(--line);color:#5E7C99;font-size:.85rem;font-weight:900;line-height:1;padding:0}
+.instLead{margin:.55rem 0 .1rem;font-size:.79rem;font-weight:800;color:#26455F;line-height:1.4}
+.instLead b{color:var(--t-accent2)}
+.instSteps{list-style:none;margin:.5rem 0 0;padding:0;display:flex;flex-direction:column;gap:.36rem}
+.instSteps li{display:flex;align-items:center;gap:.5rem;padding:.42rem .55rem;border-radius:14px;
+  background:#FFFFFF;border:1px solid var(--line);box-shadow:0 2px 8px rgba(90,140,180,.07)}
+.instSteps .num{flex:0 0 auto;width:1.35rem;height:1.35rem;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.72rem;font-weight:900;color:var(--t-priink);background:linear-gradient(180deg,var(--t-pri1),var(--t-pri2))}
+.instSteps .txt{font-size:.79rem;font-weight:800;line-height:1.32;color:#24455F;min-width:0}
+.instSteps .txt b{color:#0E7A56}
+.instSteps .ui{margin-left:auto;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  min-width:2.1rem;height:2.1rem;border-radius:11px;background:#F2F9FF;border:1px solid var(--line2);
+  font-size:1rem;font-weight:900;color:#2B5273;box-shadow:inset 0 1px 0 #FFFFFF}
+.instTip{margin:.55rem 0 0;padding:.42rem .55rem;border-radius:12px;background:#FFF9E9;border:1px solid #F3E2B8;
+  font-size:.72rem;font-weight:800;color:#7A5A16;line-height:1.38}
+.instTip b{color:#8A5A00}
+.instOk{width:100%;margin-top:.6rem;min-height:2.9rem;border-radius:16px;font-size:.92rem;font-weight:900;
+  background:linear-gradient(180deg,var(--t-pri1),var(--t-pri2));color:var(--t-priink);box-shadow:0 6px 18px var(--t-ring)}
+.instOk:active{transform:scale(.98)}
+.instChrome{display:flex;align-items:center;justify-content:center;margin-top:.45rem;min-height:2.6rem;border-radius:14px;
+  background:#FFFFFF;border:1.5px solid #CFE6F7;color:#1B6FA3;font-size:.82rem;font-weight:900;text-decoration:none}
+
 /* ─ 아주 작은 화면 ── */
 @media (max-height:740px){
   .head{padding-top:.4rem}
@@ -322,11 +392,15 @@ p{margin:0}
 
   <header class="head">
     <div class="badge" id="headBadge" aria-hidden="true"></div>
-    <div>
+    <div class="ttlwrap">
       <h1>해미족 전구 켜기</h1>
       <p class="sub">와트메이커의 전선 퍼즐 ⚡</p>
     </div>
-    <button type="button" class="snd" id="sndBtn" aria-label="소리 켜기·끄기">🔊</button>
+    <div class="htools">
+      <button type="button" class="snd" id="shareBtn" aria-label="이 게임 링크 공유하기">📤</button>
+      <button type="button" class="snd" id="installBtn" aria-label="폰 홈 화면에 바로가기 추가하기">📲</button>
+      <button type="button" class="snd" id="sndBtn" aria-label="소리 켜기·끄기">🔊</button>
+    </div>
   </header>
 
   <div class="stages" id="stages" aria-label="단계 고르기"></div>
@@ -353,8 +427,29 @@ p{margin:0}
       <p class="bubble" id="tipText">1단계는 <b>몇 번만</b> 돌리면 바로 켜져요! 가볍게 도전해 보세요 ⚡</p>
     </div>
 
+    <nav class="mgrow" aria-label="다른 게임과 와글링 홈으로 가기">
+      <a class="mg" href="../" id="homeLink">🏠 와글링 홈</a>
+      <a class="mg" href="../golf-game/" id="golfLink" data-state="soon" aria-label="공벌레 골프 — 준비 중">⛳ 공벌레 골프</a>
+    </nav>
+
     <p class="foot">무료 · 광고 없음 · 기록은 이 기기에만 저장돼요</p>
   </main>
+</div>
+
+<!-- 📲 홈 화면에 바로가기 추가 안내 (v3) -->
+<div class="instWrap" id="instWrap" hidden>
+  <div class="instCard" role="dialog" aria-modal="true" aria-labelledby="instTitle">
+    <div class="instTop">
+      <span class="ico" aria-hidden="true">📲</span>
+      <h2 id="instTitle">홈 화면에 바로가기<small>두 번만 누르면 끝나요</small></h2>
+      <button type="button" class="instX" id="instX" aria-label="안내 닫기">✕</button>
+    </div>
+    <p class="instLead" id="instLead">아이콘을 한 번 꺼내 두면 다음부터 <b>앱처럼</b> 바로 열려요. 새로 받는 파일은 없어요.</p>
+    <ol class="instSteps" id="instSteps"></ol>
+    <p class="instTip" id="instTip"></p>
+    <a class="instChrome" id="instChrome" href="#" hidden>🌐 크롬으로 바로 열기</a>
+    <button type="button" class="instOk" id="instOk">확인했어요</button>
+  </div>
 </div>
 
 <!-- 클리어 축하: 천사가 왕관을 씌워 줍니다 -->
@@ -1355,8 +1450,195 @@ p{margin:0}
   $('#nextBtn2').addEventListener('click', nextLevel);
   $('#againBtn').addEventListener('click', againLevel);
 
-  /* 폰 뒤로가기: 축하 화면이면 닫기 */
+  /* ═════════ 📤 공유 · 📲 홈 화면에 바로가기 (v3) ═════════ */
+  var shareBtn = $('#shareBtn'), installBtn = $('#installBtn');
+  var instWrap = $('#instWrap'), instPushed = false;
+  var INST_SITE = 'https://starpicklife-design.github.io/bulb-game/';
+
+  function copyText(txt, ok, fail) {
+    function legacy() {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = txt;
+        ta.setAttribute('readonly', '');
+        ta.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { ta.setSelectionRange(0, txt.length); } catch (e) {}
+        var done = document.execCommand && document.execCommand('copy');
+        document.body.removeChild(ta);
+        if (done) ok(); else fail();
+      } catch (e) { fail(); }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText && location.protocol !== 'file:') {
+      try { navigator.clipboard.writeText(txt).then(ok, legacy); return; } catch (e) {}
+    }
+    legacy();
+  }
+
+  function shareGame() {
+    var url = location.protocol === 'file:' ? INST_SITE : location.href;
+    var payload = {
+      title: '해미족 전구 켜기 · 와트메이커 전선 퍼즐',
+      text: '전선 타일을 톡톡 돌려 발전소에서 마을 전구까지 불을 켜는 무료 퍼즐이에요. 설치·광고 없이 폰에서 바로! ⚡',
+      url: url
+    };
+    function copyFallback() {
+      copyText(payload.text + '\n' + url,
+        function () { toast('🔗 게임 링크가 복사됐어요!'); },
+        function () { toast('링크를 복사하지 못했어요. 주소창의 주소를 길게 눌러 복사해 주세요.'); });
+    }
+    var usable = true;
+    try { if (navigator.canShare && !navigator.canShare(payload)) usable = false; } catch (e) {}
+    if (navigator.share && usable) {
+      try {
+        var r = navigator.share(payload);
+        if (r && r.then) r.then(function () {}, function (err) {
+          if (err && err.name === 'AbortError') return;
+          copyFallback();
+        });
+        return;
+      } catch (e) {}
+    }
+    copyFallback();
+  }
+
+  var instPrompt = null, instDone = false;
+  function isStandaloneNow() {
+    try {
+      if (window.matchMedia('(display-mode: standalone)').matches) return true;
+      if (window.matchMedia('(display-mode: minimal-ui)').matches) return true;
+    } catch (e) {}
+    if (navigator.standalone === true) return true;
+    if (/^android-app:\/\//i.test(document.referrer || '')) return true;
+    return false;
+  }
+  function uaIsIOS() { return /iPhone|iPad|iPod/i.test(navigator.userAgent || '') || (navigator.platform === 'MacIntel' && (navigator.maxTouchPoints || 0) > 1); }
+  function uaIsAndroid() { return /Android/i.test(navigator.userAgent || ''); }
+  function uaIsSamsung() { return /SamsungBrowser/i.test(navigator.userAgent || ''); }
+  function inAppBrowser() { return /KAKAOTALK|Instagram|NAVER|FBAN|FBAV|Line\//i.test(navigator.userAgent || ''); }
+  function chromeIntentUrl() {
+    var host = location.host || 'starpicklife-design.github.io';
+    var path = (location.pathname || '/bulb-game/') + (location.search || '');
+    return 'intent://' + host + path + '#Intent;scheme=https;package=com.android.chrome;end';
+  }
+  function syncInstallBtn() {
+    if (installBtn) installBtn.hidden = instDone || isStandaloneNow();
+  }
+
+  function instStepsHTML() {
+    var rows;
+    if (uaIsIOS()) {
+      rows = [
+        ['화면 아래(또는 위)의 <b>공유 버튼 ⤴</b>을 눌러요', '⤴'],
+        ['목록을 내려 <b>홈 화면에 추가</b>를 눌러요', '➕'],
+        ['오른쪽 위 <b>추가</b>를 누르면 끝!', '✅']
+      ];
+    } else if (uaIsSamsung()) {
+      rows = [
+        ['화면 아래의 <b>메뉴 ≡</b>를 눌러요', '≡'],
+        ['<b>홈 화면에 추가</b>를 눌러요', '➕'],
+        ['<b>추가</b>를 누르면 끝!', '✅']
+      ];
+    } else if (uaIsAndroid()) {
+      rows = [
+        ['오른쪽 위 <b>점 세 개 ⋮</b>를 눌러요', '⋮'],
+        ['<b>홈 화면에 추가</b>(또는 앱 설치)를 눌러요', '➕'],
+        ['<b>추가</b>를 누르면 끝!', '✅']
+      ];
+    } else {
+      rows = [
+        ['주소창 오른쪽의 <b>설치 아이콘</b>이나 ⋮ 를 눌러요', '⋮'],
+        ['<b>설치</b>를 누르면 앱 창에서 열려요', '➕'],
+        ['휴대폰에서 열면 <b>홈 화면</b>에 담을 수 있어요', '📱']
+      ];
+    }
+    return rows.map(function (r, i) {
+      return '<li><span class="num">' + (i + 1) + '</span><span class="txt">' + r[0] +
+        '</span><span class="ui" aria-hidden="true">' + r[1] + '</span></li>';
+    }).join('');
+  }
+  function instTipHTML() {
+    if (uaIsIOS()) return '사파리 기준이에요. 크롬으로 열었다면 오른쪽 위 <b>⋮</b> → <b>홈 화면에 추가</b>를 눌러 주세요.';
+    if (uaIsSamsung()) return '삼성 인터넷 메뉴 ≡ 는 화면 <b>아래 가운데</b>에 있어요.';
+    if (uaIsAndroid()) return '삼성 인터넷은 <b>≡</b> → 홈 화면에 추가, 아이폰은 <b>공유 ⤴</b> → 홈 화면에 추가예요.';
+    return '휴대폰 크롬은 <b>⋮ → 홈 화면에 추가</b>, 아이폰 사파리는 <b>공유 ⤴ → 홈 화면에 추가</b>예요.';
+  }
+  function openInstall() {
+    $('#instSteps').innerHTML = instStepsHTML();
+    $('#instTip').innerHTML = instTipHTML();
+    var ch = $('#instChrome'), show = uaIsAndroid() && inAppBrowser();
+    ch.hidden = !show;
+    if (show) ch.setAttribute('href', chromeIntentUrl());
+    instWrap.hidden = false;
+    try { history.pushState({ bulbInstall: 1 }, ''); instPushed = true; } catch (e) {}
+    try { $('#instOk').focus({ preventScroll: true }); } catch (e) {}
+  }
+  function closeInstall(byButton) {
+    if (instWrap.hidden) return;
+    instWrap.hidden = true;
+    if (instPushed) {
+      instPushed = false;
+      if (byButton) { try { history.back(); } catch (e) {} }
+    }
+  }
+  function installTap() {
+    if (isStandaloneNow()) { toast('이미 홈 화면 앱으로 열려 있어요.'); return; }
+    if (instPrompt) {
+      var dp = instPrompt; instPrompt = null;
+      try {
+        dp.prompt();
+        if (dp.userChoice && dp.userChoice.then) {
+          dp.userChoice.then(function (r) {
+            if (r && r.outcome === 'accepted') { instDone = true; syncInstallBtn(); toast('홈 화면에 넣었어요!'); }
+          }, function () {});
+        }
+        return;
+      } catch (e) {}
+    }
+    openInstall();
+  }
+
+  shareBtn.addEventListener('click', shareGame);
+  installBtn.addEventListener('click', installTap);
+  $('#instOk').addEventListener('click', function () { closeInstall(true); });
+  $('#instX').addEventListener('click', function () { closeInstall(true); });
+  instWrap.addEventListener('click', function (e) { if (e.target === instWrap) closeInstall(true); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeInstall(true); });
+  window.addEventListener('appinstalled', function () {
+    instDone = true; instPrompt = null; syncInstallBtn(); toast('홈 화면에 넣었어요!');
+  });
+  window.addEventListener('beforeinstallprompt', function (e) {
+    try { e.preventDefault(); } catch (err) {}
+    instPrompt = e;
+  });
+  syncInstallBtn();
+
+  /* ═════════ 다른 게임·와글링 홈으로 (v3) ═════════ */
+  var golfLink = $('#golfLink'), golfReady = false;
+  golfLink.addEventListener('click', function (e) {
+    if (golfReady) return;                 /* 배포되면 그대로 열립니다 */
+    e.preventDefault();
+    toast('🚧 곧 열려요! 준비 중입니다');
+  });
+  function probeGolf() {
+    if (!window.fetch) return;
+    try {
+      fetch('../golf-game/', { method: 'HEAD', cache: 'no-store', credentials: 'omit' })
+        .then(function (r) {
+          if (r && r.ok) {
+            golfReady = true;
+            golfLink.setAttribute('data-state', 'ok');
+            golfLink.setAttribute('aria-label', '공벌레 골프 놀러 가기');
+          }
+        })
+        .catch(function () {});
+    } catch (e) {}
+  }
+
+  /* 폰 뒤로가기: 안내 팝업 → 축하 화면 순서로 닫기 */
   window.addEventListener('popstate', function () {
+    if (!instWrap.hidden) { instWrap.hidden = true; instPushed = false; return; }
     if (!overlay.hidden) { hideOverlay(); overlayPushed = false; }
   });
 
@@ -1369,6 +1651,14 @@ p{margin:0}
   loadWeather();
   startLevel(level, true);
   setInterval(renderToday, 60 * 1000);
+  probeGolf();
+
+  /* 홈 화면 설치를 위해 앱 껍데기만 캐시하는 가벼운 서비스 워커 (실패해도 게임은 그대로) */
+  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+    window.addEventListener('load', function () {
+      try { navigator.serviceWorker.register('./sw.js').catch(function () {}); } catch (e) {}
+    });
+  }
 
   /* 테스트·디버그용 (읽기 전용 정보) */
   window.__bulb = {
