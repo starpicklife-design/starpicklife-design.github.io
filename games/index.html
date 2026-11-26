@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#2B1A63">
-<!-- build: 2026-11-27 와트메이커 게임방(⚡) v4 · 첫 화면 맨 위에 📲 설치 버튼 추가(스크롤 없이 바로, 아래 설치 버튼과 같은 기능)
+<!-- build: 2026-11-27 와트메이커 게임방(⚡) v5 · 글자 한 단계 더 크게(+약 9%) + 연한 회색·보라 글씨를 진한 먹색으로(고대비)
+     · 2026-11-27 v4: 첫 화면 맨 위에 📲 설치 버튼 추가(스크롤 없이 바로, 아래 설치 버튼과 같은 기능)
      · 2026-11-26 v3: 모바일 글자 크기 확대(가독성) — 디자인·기능 동일
      · 맨 위 오늘 날짜·요일·날씨(김해 기본, 누르면 현위치 날씨로 새로고침 — Open-Meteo)
      · ① ⚡ 해미족 전구 켜기(bulb-game, 라이브) ② 🌌 공벌레 우주 미니 파크골프(golf-game, 라이브)
@@ -24,7 +25,7 @@
 <meta name="apple-mobile-web-app-title" content="와트메이커 게임방">
 <style>
   :root{
-    --ink:#232B45; --ink2:#586A82; --ink3:#7C8DA3;
+    --ink:#1A1D2B; --ink2:#2B3045; --ink3:#455066;
     --deep:#2B1A63; --violet:#4A33A6; --navy:#22306B;
     --gold:#FFC93C; --gold2:#EF9F1C;
     --line:#EFE7FB; --line2:#E6DDF6;
@@ -90,23 +91,23 @@
     box-shadow:0 0 0 2.5px #FFD75E,0 0 0 5px rgba(255,215,94,.20),
       0 0 18px rgba(255,200,60,.55),0 3px 10px rgba(0,0,0,.34)}
   .btxt{flex:1 1 auto;min-width:0}
-  .brand h1{margin:0;font-size:1.3rem;line-height:1.14;letter-spacing:-.035em;font-weight:900;
+  .brand h1{margin:0;font-size:1.42rem;line-height:1.14;letter-spacing:-.035em;font-weight:900;
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
     text-shadow:0 2px 0 rgba(28,14,64,.34)}
-  .brand .sub{margin:.18rem 0 0;font-size:.76rem;line-height:1.28;font-weight:800;
-    white-space:normal;color:#D9E9FF}
+  .brand .sub{margin:.18rem 0 0;font-size:.84rem;line-height:1.28;font-weight:800;
+    white-space:normal;color:#E8F2FF}
   .hbtns{position:relative;z-index:1;display:flex;align-items:center;gap:.38rem;flex:0 0 auto}
-  .langbtn{display:inline-flex;align-items:center;justify-content:center;gap:.14rem;height:2.02rem;
-    padding:0 .46rem;border-radius:.78rem;color:#FFFDF6;font-size:.6rem;font-weight:900;
+  .langbtn{display:inline-flex;align-items:center;justify-content:center;gap:.14rem;height:2.08rem;
+    padding:0 .46rem;border-radius:.78rem;color:#FFFDF6;font-size:.65rem;font-weight:900;
     line-height:1;letter-spacing:-.01em;
     background:linear-gradient(180deg,rgba(255,255,255,.30),rgba(255,255,255,.14));
     border:1.5px solid rgba(255,255,255,.52);
     box-shadow:0 2px 0 rgba(20,10,50,.35),inset 0 1px 0 rgba(255,255,255,.4)}
   .langbtn:active{transform:translateY(1px);box-shadow:0 1px 0 rgba(20,10,50,.35)}
-  .langbtn .glb{font-size:.88rem;line-height:1}
+  .langbtn .glb{font-size:.95rem;line-height:1}
   .langbtn .lg{display:inline-flex;align-items:center;gap:.03rem}
   .langbtn .lg i{font-style:normal}
-  .langbtn .lg .sep{opacity:.45;font-size:.54rem}
+  .langbtn .lg .sep{opacity:.45;font-size:.58rem}
   .langbtn .lg .off{opacity:.4}
   html[lang="en"] .langbtn{background:linear-gradient(180deg,#FFE793,#FFC12E);border-color:#FFD75E;color:#4E3200;
     box-shadow:0 2px 0 #C48400,inset 0 1px 0 rgba(255,255,255,.7)}
@@ -117,16 +118,17 @@
     animation:sparkBob 2.8s ease-in-out infinite}
   @keyframes sparkBob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-3px) rotate(4deg)}}
   .spark svg{width:1.14rem;height:1.14rem;display:block}
-  html[lang="en"] .brand h1{font-size:1.16rem;letter-spacing:-.02em}
-  html[lang="en"] .brand .sub{font-size:.72rem;white-space:normal;line-height:1.22}
+  html[lang="en"] .brand h1{font-size:1.26rem;letter-spacing:-.02em}
+  html[lang="en"] .brand .sub{font-size:.79rem;white-space:normal;line-height:1.22}
   @media (max-width:355px){
-    .logo{width:2.42rem;height:2.42rem}
-    .brand h1{font-size:1.16rem}
-    .brand .sub{font-size:.7rem}
-    .spark{width:1.8rem;height:1.8rem;font-size:.9rem}
-    .langbtn{height:1.96rem;padding:0 .4rem;font-size:.62rem}
-    html[lang="en"] .brand h1{font-size:1.06rem}
-    html[lang="en"] .brand .sub{font-size:.68rem}
+    .brand{gap:.44rem}
+    .logo{width:2.3rem;height:2.3rem}
+    .brand h1{font-size:1.22rem;letter-spacing:-.045em}
+    .brand .sub{font-size:.77rem}
+    .spark{width:1.7rem;height:1.7rem;font-size:.86rem}
+    .langbtn{height:1.98rem;padding:0 .4rem;font-size:.66rem}
+    html[lang="en"] .brand h1{font-size:1.11rem}
+    html[lang="en"] .brand .sub{font-size:.74rem}
   }
 
   main{position:relative;z-index:1;max-width:34rem;margin:0 auto;padding:.6rem .64rem 0}
@@ -140,12 +142,12 @@
   .instbar:active{transform:translateY(2px);box-shadow:0 2px 0 #C48400,0 4px 10px rgba(180,120,0,.2)}
   .instbar .ib-em{flex:0 0 auto;font-size:1.42rem;line-height:1}
   .instbar .ib-tx{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:.08rem}
-  .instbar .ib-main{font-size:1.1rem;font-weight:900;letter-spacing:-.03em;line-height:1.16}
-  .instbar .ib-sub{font-size:.82rem;font-weight:800;color:#6F4A00;line-height:1.24;letter-spacing:-.01em}
+  .instbar .ib-main{font-size:1.2rem;font-weight:900;letter-spacing:-.03em;line-height:1.16}
+  .instbar .ib-sub{font-size:.89rem;font-weight:800;color:#533800;line-height:1.24;letter-spacing:-.01em}
   .instbar .ib-go{flex:0 0 auto;font-size:1.2rem;font-weight:900;line-height:1;color:#4E3200;
     opacity:.72;padding-left:.12rem}
-  html[lang="en"] .instbar .ib-main{font-size:1.04rem;letter-spacing:-.015em}
-  html[lang="en"] .instbar .ib-sub{font-size:.8rem}
+  html[lang="en"] .instbar .ib-main{font-size:1.13rem;letter-spacing:-.015em}
+  html[lang="en"] .instbar .ib-sub{font-size:.87rem}
 
   /* ── 오늘 날짜·날씨 막대 ───────────────── */
   .datebar{display:flex;align-items:center;flex-wrap:wrap;gap:.28rem .44rem;width:100%;min-height:3rem;
@@ -154,12 +156,12 @@
     border:2px solid #FFE3A4;
     box-shadow:0 3px 0 #F0D583,0 8px 16px rgba(160,120,20,.12)}
   .datebar:active{transform:translateY(2px);box-shadow:0 1px 0 #F0D583,0 4px 10px rgba(160,120,20,.14)}
-  .db-date{font-size:.95rem;font-weight:900;color:#3A2C6B;letter-spacing:-.02em}
-  .db-wx{font-size:.94rem;font-weight:800;color:var(--ink2)}
-  .db-wx.loading{color:#96A3B4}
-  .db-place{font-size:.76rem;font-weight:900;color:#8A5F00;background:#FFF1C9;
+  .db-date{font-size:1.04rem;font-weight:900;color:#2B2054;letter-spacing:-.02em}
+  .db-wx{font-size:1.02rem;font-weight:800;color:var(--ink2)}
+  .db-wx.loading{color:#68748A}
+  .db-place{font-size:.83rem;font-weight:900;color:#6B4700;background:#FFF1C9;
     border:1px solid #FFDE9B;border-radius:.58rem;padding:.12rem .4rem}
-  .db-go{margin-left:auto;font-size:.72rem;font-weight:900;color:#2E6FA8;white-space:nowrap}
+  .db-go{margin-left:auto;font-size:.78rem;font-weight:900;color:#17517F;white-space:nowrap}
 
   /* ── 인사 말풍선 ───────────────────────── */
   .hello{position:relative;margin:.7rem 0 0;padding:.68rem .8rem;border-radius:1.05rem;
@@ -169,16 +171,16 @@
   .hello::before{content:"";position:absolute;top:-8px;left:1.15rem;width:.8rem;height:.8rem;
     background:#FFFFFF;border-left:2px solid var(--line);border-top:2px solid var(--line);
     transform:rotate(45deg);border-radius:.14rem}
-  .hi{position:relative;font-size:1.04rem;font-weight:900;color:#2E2463;letter-spacing:-.025em;line-height:1.34}
-  .hi2{margin-top:.26rem;font-size:.88rem;font-weight:700;color:var(--ink2);line-height:1.5}
-  .hi2 b{color:#B4700A;background:linear-gradient(180deg,transparent 58%,#FFE9A8 58%);padding:0 .1rem}
+  .hi{position:relative;font-size:1.13rem;font-weight:900;color:#241B52;letter-spacing:-.025em;line-height:1.34}
+  .hi2{margin-top:.26rem;font-size:.96rem;font-weight:700;color:var(--ink2);line-height:1.5}
+  .hi2 b{color:#8A5400;background:linear-gradient(180deg,transparent 58%,#FFE9A8 58%);padding:0 .1rem}
 
   /* ── 구역 제목 ────────────────────────── */
   .sect{display:flex;align-items:center;flex-wrap:wrap;gap:.42rem;margin:.95rem .12rem .52rem;
-    font-size:1.04rem;font-weight:900;color:#2B2160;letter-spacing:-.02em}
+    font-size:1.13rem;font-weight:900;color:#201849;letter-spacing:-.02em}
   .sect::before{content:"";width:.36rem;height:1.2rem;border-radius:.2rem;flex:0 0 auto;
     background:linear-gradient(180deg,#FFD75E,#FF9A6B);box-shadow:0 0 8px rgba(255,170,90,.6)}
-  .sect .cnt{font-size:.74rem;font-weight:900;color:#5F4BAD;background:#F2EDFF;
+  .sect .cnt{font-size:.81rem;font-weight:900;color:#45328F;background:#F2EDFF;
     border:1px solid #DFD3FF;border-radius:.6rem;padding:.14rem .42rem;letter-spacing:-.01em}
 
   /* ── 게임 카드 ────────────────────────── */
@@ -220,18 +222,18 @@
     box-shadow:inset 0 0 0 2px rgba(255,255,255,.95),0 3px 0 #C9C0EA}
 
   .gmain{position:relative;flex:1 1 auto;min-width:0}
-  .gmain h3{margin:0;font-size:1.2rem;line-height:1.22;font-weight:900;letter-spacing:-.035em;color:#20294A;
+  .gmain h3{margin:0;font-size:1.31rem;line-height:1.22;font-weight:900;letter-spacing:-.035em;color:#14182B;
     text-shadow:0 1px 0 rgba(255,255,255,.65)}
-  .gmain p{margin:.24rem 0 0;font-size:.92rem;font-weight:700;color:#4E5F78;line-height:1.42}
+  .gmain p{margin:.24rem 0 0;font-size:1rem;font-weight:700;color:#262C3E;line-height:1.42}
   .gmain .tags{display:flex;flex-wrap:wrap;gap:.26rem;margin-top:.34rem}
-  .tag{font-size:.78rem;font-weight:900;padding:.14rem .44rem;border-radius:.52rem;
-    background:rgba(255,255,255,.78);color:#4A5A72;border:1px solid rgba(255,255,255,.95);
+  .tag{font-size:.85rem;font-weight:900;padding:.14rem .44rem;border-radius:.52rem;
+    background:rgba(255,255,255,.9);color:#222A3D;border:1px solid rgba(255,255,255,.95);
     box-shadow:0 1px 0 rgba(80,60,20,.08)}
-  .tag.gold{background:#FFF6CE;color:#8A5F00;border-color:#FFE29A}
+  .tag.gold{background:#FFF6CE;color:#6B4700;border-color:#FFE29A}
 
   /* 3D 아케이드 버튼 */
   .badge{position:relative;flex:0 0 auto;align-self:center;
-    font-size:.78rem;font-weight:900;line-height:1;padding:.5rem .56rem;border-radius:.76rem;
+    font-size:.85rem;font-weight:900;line-height:1;padding:.5rem .56rem;border-radius:.76rem;
     white-space:nowrap;letter-spacing:-.02em;
     background:linear-gradient(180deg,#9BF3BE,#35C77E);color:#064026;
     box-shadow:0 3px 0 #15995C,0 6px 12px rgba(20,120,80,.24),inset 0 1px 0 rgba(255,255,255,.8);
@@ -255,7 +257,7 @@
     border-style:dashed;border-color:#9AD5BF}
   .gcard.sooncard .gmain h3{color:#2A4A5F}
   .soonlist{display:flex;flex-wrap:wrap;gap:.24rem;margin-top:.34rem}
-  .soonlist span{font-size:.78rem;font-weight:900;color:#1C6B4C;background:rgba(255,255,255,.85);
+  .soonlist span{font-size:.85rem;font-weight:900;color:#0F5338;background:rgba(255,255,255,.92);
     border:1px solid #B9E4D0;border-radius:.5rem;padding:.14rem .44rem}
   .badge.wait{background:linear-gradient(180deg,#F2EDFF,#DCD3F4);color:#4A3D74;
     box-shadow:0 3px 0 #B9A9E4,inset 0 1px 0 rgba(255,255,255,.8);text-shadow:0 1px 0 rgba(255,255,255,.7)}
@@ -266,44 +268,44 @@
     background:rgba(255,255,255,.92);border:2px dashed #B7E4CE;
     box-shadow:0 3px 0 #DDF1E6}
   .promise .pico{flex:0 0 auto;font-size:1.06rem;line-height:1.2}
-  .promise p{font-size:.84rem;font-weight:700;color:#40566A;line-height:1.5}
-  .promise b{color:#175E45;background:linear-gradient(180deg,transparent 58%,#CFF3DF 58%);padding:0 .1rem}
+  .promise p{font-size:.91rem;font-weight:700;color:#22303D;line-height:1.5}
+  .promise b{color:#0D4A35;background:linear-gradient(180deg,transparent 58%,#CFF3DF 58%);padding:0 .1rem}
 
   /* ── 아래 버튼 (5개) ──────────────────── */
   .acts{display:grid;grid-template-columns:repeat(6,1fr);gap:.44rem;margin:.8rem 0 0}
   .acts a,.acts button{grid-column:span 2;display:flex;flex-direction:column;align-items:center;
     justify-content:center;gap:.18rem;min-height:3.7rem;padding:.46rem .18rem;border-radius:.95rem;
-    font-size:.8rem;font-weight:900;color:#3B2E6A;line-height:1.22;text-align:center;letter-spacing:-.02em;
+    font-size:.87rem;font-weight:900;color:#2A1F55;line-height:1.22;text-align:center;letter-spacing:-.02em;
     background:linear-gradient(160deg,#FFFFFF,#F6F1FF);border:2px solid #EADFFA;
     box-shadow:0 3px 0 #DCD0F2,0 7px 14px rgba(70,50,130,.08);
     transition:transform .12s ease,box-shadow .12s ease}
   .acts .wide{grid-column:span 3}
   .acts a:active,.acts button:active{transform:translateY(2px);box-shadow:0 1px 0 #DCD0F2}
-  .acts .em{font-size:1.3rem;line-height:1;filter:drop-shadow(0 1px 1px rgba(60,30,90,.16))}
+  .acts .em{font-size:1.36rem;line-height:1;filter:drop-shadow(0 1px 1px rgba(60,30,90,.16))}
   .acts .home{background:linear-gradient(160deg,#4E3BB4,#2C1B72);color:#FFF7DC;border-color:#3C2A93;
     box-shadow:0 3px 0 #1F1150,0 8px 16px rgba(40,20,90,.24)}
   .acts .home:active{box-shadow:0 1px 0 #1F1150}
-  .acts .elec{background:linear-gradient(160deg,#EAF8FF,#D2EDFF);border-color:#B4DDF6;color:#12496B;
+  .acts .elec{background:linear-gradient(160deg,#EAF8FF,#D2EDFF);border-color:#B4DDF6;color:#0B3350;
     box-shadow:0 3px 0 #8EC5E7,0 7px 14px rgba(40,120,170,.10)}
   .acts .elec:active{box-shadow:0 1px 0 #8EC5E7}
-  .acts .yt{background:linear-gradient(160deg,#FFF3CE,#FFDD9A);border-color:#F5CD70;color:#6A4300;
+  .acts .yt{background:linear-gradient(160deg,#FFF3CE,#FFDD9A);border-color:#F5CD70;color:#4E3200;
     box-shadow:0 3px 0 #E6B847,0 7px 14px rgba(200,150,20,.14)}
   .acts .yt:active{box-shadow:0 1px 0 #E6B847}
-  .acts .share{background:linear-gradient(160deg,#E9FBF1,#D1F3E2);border-color:#AEE5C9;color:#115E3C;
+  .acts .share{background:linear-gradient(160deg,#E9FBF1,#D1F3E2);border-color:#AEE5C9;color:#0A3F2A;
     box-shadow:0 3px 0 #83CEA6,0 7px 14px rgba(30,150,100,.12)}
   .acts .share:active{box-shadow:0 1px 0 #83CEA6}
-  .acts .inst{background:linear-gradient(160deg,#F4EEFF,#E5DAFF);border-color:#CDBDF5;color:#3A2480;
+  .acts .inst{background:linear-gradient(160deg,#F4EEFF,#E5DAFF);border-color:#CDBDF5;color:#281866;
     box-shadow:0 3px 0 #B2A0E6,0 7px 14px rgba(90,60,180,.14)}
   .acts .inst:active{box-shadow:0 1px 0 #B2A0E6}
 
-  footer{position:relative;margin:.95rem .1rem 0;text-align:center;font-size:.74rem;font-weight:700;color:#7A8AA0;line-height:1.55}
-  footer .fam{display:block;margin-top:.2rem;font-size:.7rem;letter-spacing:.02em;color:#9AA6B8}
+  footer{position:relative;margin:.95rem .1rem 0;text-align:center;font-size:.8rem;font-weight:700;color:#3E4A60;line-height:1.55}
+  footer .fam{display:block;margin-top:.2rem;font-size:.76rem;letter-spacing:.02em;color:#55616F}
 
   /* ── 토스트 ───────────────────────────── */
   .toast{position:fixed;left:50%;bottom:calc(1.1rem + env(safe-area-inset-bottom));
     transform:translateX(-50%) translateY(.6rem);
     max-width:calc(100vw - 1.6rem);background:rgba(43,26,99,.97);color:#FFF9E6;border-radius:1.05rem;
-    padding:.6rem .86rem;font-size:.9rem;font-weight:800;line-height:1.42;text-align:center;
+    padding:.6rem .86rem;font-size:.96rem;font-weight:800;line-height:1.42;text-align:center;
     border:1.5px solid rgba(255,215,94,.42);box-shadow:0 8px 24px rgba(30,16,70,.35);
     opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:60}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -315,30 +317,30 @@
     background:linear-gradient(180deg,#FFFEF8,#FFF8E6);
     border:2px solid #FFE6AE;padding:.88rem .86rem .78rem;
     box-shadow:0 -8px 30px rgba(36,20,80,.36)}
-  .instCard h3{margin:0 0 .1rem;font-size:1.12rem;font-weight:900;color:#2E2463;letter-spacing:-.03em}
-  .instCard .lead{margin:.14rem 0 .62rem;font-size:.84rem;font-weight:700;color:var(--ink2);line-height:1.45}
+  .instCard h3{margin:0 0 .1rem;font-size:1.2rem;font-weight:900;color:#241B52;letter-spacing:-.03em}
+  .instCard .lead{margin:.14rem 0 .62rem;font-size:.91rem;font-weight:700;color:var(--ink2);line-height:1.45}
   .steps{list-style:none;margin:0;padding:0;display:grid;gap:.42rem}
   .steps li{display:flex;align-items:center;gap:.46rem;background:#FFFFFF;border:2px solid var(--line);
     border-radius:.78rem;padding:.42rem .5rem;box-shadow:0 2px 0 #F0E9FB}
   .steps .num{flex:0 0 auto;width:1.4rem;height:1.4rem;border-radius:50%;display:grid;place-items:center;
-    background:linear-gradient(180deg,#FFE793,#FFC02E);color:#5A3800;font-size:.84rem;font-weight:900;
+    background:linear-gradient(180deg,#FFE793,#FFC02E);color:#5A3800;font-size:.9rem;font-weight:900;
     box-shadow:0 2px 0 #D49300}
-  .steps .txt{flex:1 1 auto;font-size:.86rem;font-weight:700;color:#2F3C58;line-height:1.38}
+  .steps .txt{flex:1 1 auto;font-size:.93rem;font-weight:700;color:#1E283C;line-height:1.38}
   .steps .ui{flex:0 0 auto;font-size:1.04rem}
-  .instTip{margin:.56rem 0 0;font-size:.8rem;font-weight:700;color:#6B7C92;line-height:1.46}
+  .instTip{margin:.56rem 0 0;font-size:.87rem;font-weight:700;color:#46536A;line-height:1.46}
   .instOk{width:100%;margin-top:.62rem;min-height:2.75rem;border-radius:.85rem;
     background:linear-gradient(180deg,#8BE3FF,#2FA9E0);color:#06304A;
-    font-size:1rem;font-weight:900;border:2px solid #1E8FC4;
+    font-size:1.06rem;font-weight:900;border:2px solid #1E8FC4;
     box-shadow:0 4px 0 #1B7FB0,0 8px 16px rgba(20,120,170,.24)}
   .instOk:active{transform:translateY(2px);box-shadow:0 2px 0 #1B7FB0}
 
-  html[lang="en"] .gmain h3{font-size:1.14rem;letter-spacing:-.015em}
-  html[lang="en"] .gmain p{font-size:.9rem}
-  html[lang="en"] .tag{font-size:.78rem}
-  html[lang="en"] .hi{font-size:1rem}
-  html[lang="en"] .hi2{font-size:.86rem}
-  html[lang="en"] .acts a,html[lang="en"] .acts button{font-size:.78rem;letter-spacing:0}
-  html[lang="en"] .sect{font-size:1.04rem}
+  html[lang="en"] .gmain h3{font-size:1.24rem;letter-spacing:-.015em}
+  html[lang="en"] .gmain p{font-size:.98rem}
+  html[lang="en"] .tag{font-size:.85rem}
+  html[lang="en"] .hi{font-size:1.08rem}
+  html[lang="en"] .hi2{font-size:.94rem}
+  html[lang="en"] .acts a,html[lang="en"] .acts button{font-size:.85rem;letter-spacing:0}
+  html[lang="en"] .sect{font-size:1.13rem}
   @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
 </style>
 </head>
