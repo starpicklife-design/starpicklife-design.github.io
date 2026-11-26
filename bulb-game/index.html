@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content" />
+<meta name="theme-color" content="#0E1B2A" />
+<!-- build: 2026-11-26 해미족 전구 켜기 v1 (Hamii Bulb Puzzle)
+     · 맨 위 오늘 날짜·요일·날씨(김해 기본, 누르면 현위치 날씨 — Open-Meteo 무료)
+     · 저글링 시티 전기 담당 와트메이커(해미족)와 함께하는 전선 연결 퍼즐
+     · 격자 전선 타일을 손가락으로 톡톡 눌러 90도 회전 → 발전소에서 마을 전구까지 연결
+     · 6단계(쉬움 4×4 → 보통 5×5 → 도전 5×5 다중 전구), 이동 횟수·초기화·다음 단계
+     · 클리어: 전구가 반짝 켜지고, 천사가 내려와 와트메이커 머리에 황금 왕관을 씌워 줌
+     · 사람 출연 없음 · 외부 라이브러리 0개 · 광고 없음 · 기록은 이 기기에만 -->
+<title>해미족 전구 켜기 · 와트메이커 전선 퍼즐</title>
+<meta name="description" content="해미족 전구 켜기 — 저글링 시티 전기 담당 와트메이커와 함께 전선 타일을 돌려 발전소에서 마을 전구까지 불을 켜는 무료 두뇌 퍼즐. 6단계, 설치·광고 없이 폰에서 바로." />
+<style>
+:root{
+  --night:#0E1B2A; --night2:#152B42; --card:#16283C; --card2:#1D3550;
+  --ink:#F3F7FC; --ink2:#A9BDD2; --ink3:#7E93A8;
+  --line:#2A4058; --line2:#38536F;
+  --gold:#FFCE5C; --gold2:#F2A93B; --goldbg:rgba(255,206,92,.12);
+  --teal:#69D3B4; --tealbg:rgba(105,211,180,.12);
+  --rose:#FF9DA6;
+  --shadow:0 6px 20px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:18px;-webkit-text-size-adjust:100%;overflow-x:hidden}
+html.big{font-size:21px}
+body{margin:0;overflow-x:hidden;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Segoe UI",sans-serif;
+  line-height:1.42;word-break:keep-all;overflow-wrap:break-word;
+  background:radial-gradient(120% 70% at 50% 0%,#1B3A57 0%,#12263C 45%,#0C1826 100%) fixed}
+[hidden]{display:none !important}
+button{font-family:inherit;color:inherit;border:0;background:none;cursor:pointer}
+button:focus-visible{outline:3px solid #7FD8FF;outline-offset:2px}
+p{margin:0}
+.app{padding:0 .8rem calc(.9rem + env(safe-area-inset-bottom));max-width:430px;margin:0 auto}
+
+/* ── 날짜·요일·날씨 (모든 앱 공통 기본) ── */
+.datebar{width:100%;display:flex;align-items:center;gap:.4rem;justify-content:space-between;
+  margin-top:calc(.35rem + env(safe-area-inset-top));padding:.42rem .7rem;border-radius:14px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);font-size:.82rem;font-weight:800}
+.db-date{color:#DCE8F5;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.db-right{display:flex;align-items:center;gap:.35rem;min-width:0}
+.db-wx{color:var(--gold);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.db-wx.loading{color:var(--ink2)}
+.db-place{font-size:.66rem;font-weight:800;color:var(--ink2);background:rgba(255,255,255,.07);
+  padding:.12rem .38rem;border-radius:999px;flex:0 0 auto}
+
+/* ── 머리말 ── */
+.head{display:flex;align-items:center;gap:.5rem;padding:.6rem .1rem .45rem}
+.head .badge{width:2.5rem;height:2.5rem;border-radius:50%;flex:0 0 auto;
+  background:radial-gradient(circle at 35% 30%,#2B5476,#13283C);
+  box-shadow:inset 0 0 0 2px rgba(255,206,92,.5),0 3px 10px rgba(0,0,0,.3);overflow:hidden}
+.head .badge svg{width:100%;height:100%;display:block}
+.head h1{margin:0;font-size:1.16rem;font-weight:900;letter-spacing:-.03em;line-height:1.16}
+.head .sub{margin:.06rem 0 0;font-size:.72rem;font-weight:800;color:var(--ink2)}
+.head .snd{margin-left:auto;flex:0 0 auto;width:2.2rem;height:2.2rem;border-radius:50%;
+  background:rgba(255,255,255,.07);font-size:1rem;line-height:1}
+
+/* ── 단계 칩 ── */
+.stages{display:flex;gap:.34rem;padding:.1rem 0 .55rem;overflow-x:auto;scrollbar-width:none}
+.stages::-webkit-scrollbar{display:none}
+.stageChip{flex:1 0 auto;min-width:2.5rem;padding:.34rem .2rem;border-radius:12px;font-size:.82rem;font-weight:900;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);color:var(--ink2);text-align:center}
+.stageChip.done{color:#0F2233;background:linear-gradient(180deg,#8FE3C6,#4FBC97);border-color:transparent}
+.stageChip.on{color:#14283A;background:linear-gradient(180deg,#FFE08A,#FFC24A);border-color:transparent;
+  box-shadow:0 3px 12px rgba(255,196,74,.35)}
+
+/* ── 판 ── */
+.boardwrap{position:relative;margin:0 auto;width:100%}
+.board{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:5px;padding:7px;border-radius:20px;
+  background:linear-gradient(180deg,#132A41,#0E2033);border:1px solid var(--line);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05),var(--shadow)}
+.cell{position:relative;aspect-ratio:1/1;border-radius:12px;padding:0;display:block;overflow:hidden;
+  background:linear-gradient(180deg,#1B3350,#16293F);border:1px solid rgba(255,255,255,.05);
+  transition:transform .12s ease,box-shadow .2s ease,background .25s ease}
+.cell.empty{border-color:rgba(255,255,255,.03);
+  background-image:radial-gradient(circle,rgba(255,255,255,.055) 1.3px,transparent 1.5px);
+  background-size:13px 13px;background-color:rgba(255,255,255,.018)}
+.cell:disabled{cursor:default;opacity:1}
+.cell.path:active{transform:scale(.94)}
+.cell.path{box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.cell.pw{background:linear-gradient(180deg,#243F5C,#1B3149)}
+.cell.tapped{animation:pop .16s ease}
+@keyframes pop{0%{transform:scale(1)}45%{transform:scale(.92)}100%{transform:scale(1)}}
+
+.pipes{position:absolute;inset:0;width:100%;height:100%;display:block;
+  transition:transform .2s cubic-bezier(.3,1.4,.5,1);will-change:transform}
+.pipeOut{fill:none;stroke:#25394F;stroke-width:19;stroke-linecap:round}
+.pipeIn{fill:none;stroke:#8AA2B9;stroke-width:9;stroke-linecap:round}
+.hub{fill:#25394F}
+.cell.pw .pipeOut{stroke:#8A5A12}
+.cell.pw .pipeIn{stroke:#FFD06A;filter:drop-shadow(0 0 5px rgba(255,196,74,.85))}
+.cell.pw .hub{fill:#B8791F}
+
+/* 발전소 */
+.cell.source{background:linear-gradient(180deg,#2A4C6B,#1B344C);border-color:rgba(255,206,92,.35)}
+.srcbg{fill:#0F2338;stroke:#FFCE5C;stroke-width:3}
+.bolt{fill:#FFD86B;filter:drop-shadow(0 0 6px rgba(255,206,92,.8))}
+
+/* 전구 */
+.bulbpipe{pointer-events:none}
+.cell.bulb{background:linear-gradient(180deg,#1E3A54,#16293F)}
+.glass{fill:#33485C;stroke:#6B8398;stroke-width:3;transition:fill .35s ease,stroke .35s ease}
+.fil{fill:none;stroke:#6B8398;stroke-width:3.2;stroke-linecap:round;transition:stroke .35s ease}
+.cap{fill:#8A6A3A;transition:fill .35s ease}
+.rays{opacity:0;transition:opacity .4s ease}
+.cell.lit .glass{fill:#FFE39A;stroke:#FFF8DC}
+.cell.lit .fil{stroke:#C77F12}
+.cell.lit .cap{fill:#C9A05A}
+.cell.lit .rays{opacity:1}
+.cell.lit{background:linear-gradient(180deg,#4A3A1C,#2A2A1E);box-shadow:0 0 0 1px rgba(255,206,92,.5),0 0 18px rgba(255,196,74,.35)}
+.cell.lit .glasswrap{animation:bulbPulse 1.5s ease-in-out infinite}
+@keyframes bulbPulse{0%,100%{filter:drop-shadow(0 0 6px rgba(255,214,107,.75))}50%{filter:drop-shadow(0 0 16px rgba(255,224,138,1))}}
+.glasswrap{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.board.win .cell.lit .glasswrap{animation:bulbBurst .8s ease-out}
+@keyframes bulbBurst{0%{transform:scale(1)}40%{transform:scale(1.18)}100%{transform:scale(1)}}
+
+/* ── 기록 줄 ── */
+.stats{display:flex;gap:.4rem;margin:.55rem 0 .5rem}
+.stat{flex:1;text-align:center;padding:.32rem .2rem;border-radius:12px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.07);font-size:.74rem;font-weight:800;color:var(--ink2)}
+.stat b{display:block;font-size:1rem;color:var(--ink);font-weight:900;letter-spacing:-.02em;margin-top:.05rem}
+.stat.hot b{color:var(--gold)}
+
+/* ── 버튼 ── */
+.actions{display:flex;gap:.45rem}
+.btn{flex:1;min-height:3.1rem;border-radius:16px;font-size:1rem;font-weight:900;letter-spacing:-.02em;
+  display:flex;align-items:center;justify-content:center;gap:.3rem;transition:transform .12s ease,filter .15s ease}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);color:var(--ink)}
+.btn.primary{background:linear-gradient(180deg,#FFE08A,#FFC24A);color:#15283B;
+  box-shadow:0 6px 18px rgba(255,196,74,.28)}
+.btn:disabled{opacity:.45}
+
+/* ── 와트메이커 말풍선 ── */
+.mascot{display:flex;align-items:center;gap:.55rem;margin-top:.6rem;padding:.5rem .65rem;border-radius:16px;
+  background:linear-gradient(180deg,rgba(105,211,180,.12),rgba(105,211,180,.05));
+  border:1px solid rgba(105,211,180,.22)}
+.mface{width:3rem;height:3rem;flex:0 0 auto}
+.mface svg{width:100%;height:100%;display:block}
+.bubble{margin:0;font-size:.84rem;font-weight:800;line-height:1.35;color:#DCF3EA}
+.bubble b{color:#8FE9CB}
+.mascot.cheer .mface{animation:cheer .55s ease 2}
+.foot{margin:.55rem 0 .1rem;text-align:center;font-size:.7rem;font-weight:800;color:#6E8399;letter-spacing:-.01em}
+@keyframes cheer{0%,100%{transform:translateY(0) rotate(0)}40%{transform:translateY(-6px) rotate(-7deg)}70%{transform:translateY(-3px) rotate(7deg)}}
+
+/* ── 클리어 축하 화면 ── */
+.overlay{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:calc(.8rem + env(safe-area-inset-top)) .9rem calc(.8rem + env(safe-area-inset-bottom));
+  background:radial-gradient(90% 60% at 50% 8%,#274A6B 0%,#173250 42%,#0B1726 100%);
+  animation:overlayIn .35s ease both;overflow:hidden}
+@keyframes overlayIn{from{opacity:0}to{opacity:1}}
+.sky{position:absolute;inset:0;pointer-events:none}
+.sky i{position:absolute;width:3px;height:3px;border-radius:50%;background:#FFF3C4;
+  animation:tw 2.6s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:.95;transform:scale(1.15)}}
+
+.clearCard{position:relative;z-index:2;width:100%;max-width:360px;display:flex;flex-direction:column;align-items:center}
+.cheer{font-size:1.32rem;font-weight:900;letter-spacing:-.03em;color:#FFF6DC;text-align:center;
+  text-shadow:0 2px 14px rgba(255,206,92,.5);animation:cheerPop .6s .1s cubic-bezier(.2,1.4,.4,1) both}
+.cheer small{display:block;margin-top:.16rem;font-size:.78rem;font-weight:800;color:#BBD6EC;text-shadow:none}
+@keyframes cheerPop{from{opacity:0;transform:scale(.8) translateY(8px)}to{opacity:1;transform:none}}
+
+.stage3d{position:relative;width:100%;height:298px;margin-top:.1rem}
+.stage3d:after{content:'';position:absolute;z-index:0;left:50%;bottom:-4px;width:176px;height:24px;margin-left:-88px;border-radius:50%;
+  background:radial-gradient(circle,rgba(3,10,18,.55),rgba(3,10,18,0) 72%)}
+.hero{position:absolute;z-index:1;left:50%;bottom:0;width:174px;height:214px;margin-left:-87px;transform-origin:50% 100%;
+  animation:hop .9s 1.85s cubic-bezier(.3,1.5,.5,1) both}
+@keyframes hop{0%{transform:translateY(0) scale(1)}35%{transform:translateY(-16px) scale(1.03)}65%{transform:translateY(0) scale(.99)}100%{transform:translateY(0) scale(1)}}
+.hero svg{width:100%;height:100%;display:block;filter:drop-shadow(0 10px 16px rgba(0,0,0,.45))}
+.hero .armL,.hero .armR{transform-box:fill-box;transform-origin:50% 90%}
+.overlay.show .hero{animation:hop .9s 1.85s cubic-bezier(.3,1.5,.5,1) both}
+
+.angel{position:absolute;right:-2px;top:0;width:132px;height:148px;opacity:0;z-index:4;
+  transform-origin:50% 100%;
+  animation:angelIn 1s .12s cubic-bezier(.2,.9,.3,1) both, angelFloat 3.4s 1.3s ease-in-out infinite alternate}
+@keyframes angelIn{
+  0%{opacity:0;transform:translate(52px,-96px) scale(.72) rotate(10deg)}
+  55%{opacity:1;transform:translate(10px,-24px) scale(.94) rotate(2deg)}
+  100%{opacity:1;transform:translate(0,0) scale(1) rotate(0)}
+}
+@keyframes angelFloat{from{transform:translateY(0)}to{transform:translateY(-9px)}}
+.angel svg{width:100%;height:100%;display:block;filter:drop-shadow(0 8px 16px rgba(90,140,190,.55))}
+.angel .wingL,.angel .wingR{transform-box:fill-box;transform-origin:100% 55%}
+.angel .wingR{transform-origin:0% 55%}
+.angel .wingL{animation:flapL .9s 1s ease-in-out infinite alternate}
+.angel .wingR{animation:flapR .9s 1s ease-in-out infinite alternate}
+@keyframes flapL{from{transform:rotate(-3deg) scaleY(1)}to{transform:rotate(-11deg) scaleY(.94)}}
+@keyframes flapR{from{transform:rotate(3deg) scaleY(1)}to{transform:rotate(11deg) scaleY(.94)}}
+
+.crownSlot{position:absolute;left:50%;top:-16px;width:0;height:0;z-index:5}
+.crown{position:absolute;left:-42px;top:0;width:84px;height:60px;opacity:0;
+  animation:crownDrop 1.15s .8s cubic-bezier(.34,1.16,.64,1) both}
+@keyframes crownDrop{
+  0%{opacity:0;transform:translate(92px,-104px) scale(.66) rotate(14deg)}
+  22%{opacity:1}
+  62%{opacity:1;transform:translate(30px,-40px) scale(.88) rotate(5deg)}
+  100%{opacity:1;transform:translate(0,0) scale(1) rotate(0)}
+}
+.crown svg{width:100%;height:100%;display:block;filter:drop-shadow(0 0 10px rgba(255,214,107,.85))}
+
+.glowring{position:absolute;left:50%;bottom:74px;width:220px;height:220px;margin-left:-110px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,214,107,.32) 0%,rgba(255,214,107,0) 66%);opacity:0;
+  animation:glowIn .9s 1.7s ease both}
+@keyframes glowIn{to{opacity:1}}
+
+.sparks{position:absolute;inset:0;pointer-events:none;z-index:6}
+.twinkles{position:absolute;inset:0;pointer-events:none;z-index:6}
+.twinkles i{position:absolute;width:10px;height:10px;background:#FFFBE8;opacity:.2;
+  clip-path:polygon(50% 0%,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0% 50%,39% 39%);
+  animation:twinkle 2.2s ease-in-out infinite}
+@keyframes twinkle{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:1;transform:scale(1.15)}}
+.sparks i{position:absolute;width:18px;height:18px;background:#FFF3C4;opacity:0;
+  clip-path:polygon(50% 0%,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0% 50%,39% 39%);
+  filter:drop-shadow(0 0 7px rgba(255,224,138,.95));
+  animation:sparkle 3s 1.45s ease-out infinite}
+.sparks i:nth-child(3n){background:#FFFFFF}
+.sparks i:nth-child(4n){width:12px;height:12px;background:#FFC24A}
+@keyframes sparkle{
+  0%{opacity:0;transform:scale(.2) translateY(8px) rotate(0)}
+  12%{opacity:1;transform:scale(1.1) translateY(0) rotate(20deg)}
+  55%{opacity:.95;transform:scale(.9) translateY(-8px) rotate(45deg)}
+  100%{opacity:0;transform:scale(.45) translateY(-30px) rotate(80deg)}
+}
+.result{margin-top:.15rem;text-align:center;font-size:.88rem;font-weight:800;color:#CFE3F5;
+  animation:cheerPop .5s 1.9s both}
+.result b{color:#FFD873}
+.ovBtns{display:flex;gap:.5rem;width:100%;margin-top:.75rem;animation:cheerPop .5s 2.1s both}
+.ovBtns .btn{min-height:3.3rem}
+
+/* ─ 아주 작은 화면 ── */
+@media (max-height:740px){
+  .head{padding-top:.4rem}
+  .stage3d{height:250px}
+  .hero{width:148px;height:182px;margin-left:-74px}
+  .angel{width:112px;height:126px}
+  .cheer{font-size:1.16rem}
+}
+@media (max-height:770px){
+  .head{padding:.42rem .1rem .3rem}
+  .stages{padding-bottom:.4rem}
+  .mascot{margin-top:.45rem;padding:.42rem .6rem}
+  .foot{margin-top:.35rem}
+  .stats{margin:.45rem 0 .42rem}
+  .board{gap:4px;padding:6px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- 오늘 날짜·요일·날씨 (모든 앱 공통 기본) -->
+  <button type="button" class="datebar" id="todayCard" aria-label="오늘 날짜와 날씨 — 누르면 현위치 날씨로 새로고침">
+    <span class="db-date" id="todayDate">오늘</span>
+    <span class="db-right">
+      <span class="db-wx loading" id="todayWx">날씨 확인 중</span>
+      <span class="db-place" id="wxPlace">김해</span>
+    </span>
+  </button>
+
+  <header class="head">
+    <div class="badge" id="headBadge" aria-hidden="true"></div>
+    <div>
+      <h1>해미족 전구 켜기</h1>
+      <p class="sub">와트메이커의 전선 퍼즐 ⚡</p>
+    </div>
+    <button type="button" class="snd" id="sndBtn" aria-label="소리 켜기·끄기">🔊</button>
+  </header>
+
+  <div class="stages" id="stages" aria-label="단계 고르기"></div>
+
+  <main>
+    <div class="boardwrap">
+      <div class="board" id="board" role="group" aria-label="전선 판 — 타일을 눌러 90도씩 돌리세요"></div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">이동 <b id="statMoves">0회</b></div>
+      <div class="stat">켜진 전구 <b id="statLit">0/1</b></div>
+      <div class="stat hot">최고 기록 <b id="statBest">-</b></div>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn ghost" id="resetBtn">↺ 초기화</button>
+      <button type="button" class="btn primary" id="nextBtn">다음 단계 →</button>
+    </div>
+
+    <div class="mascot" id="mascot">
+      <div class="mface" id="mascotFace" aria-hidden="true"></div>
+      <p class="bubble" id="tipText">전선을 <b>톡톡</b> 눌러 돌려서, 발전소에서 전구까지 이어 주세요.</p>
+    </div>
+
+    <p class="foot">무료 · 광고 없음 · 기록은 이 기기에만 저장돼요</p>
+  </main>
+</div>
+
+<!-- 클리어 축하: 천사가 왕관을 씌워 줍니다 -->
+<div class="overlay" id="overlay" hidden>
+  <div class="sky" id="sky" aria-hidden="true"></div>
+  <div class="clearCard">
+    <p class="cheer" id="cheerText">불이 다 켜졌어요!<small id="cheerSub">마을에 불이 들어왔어요</small></p>
+    <div class="stage3d" id="stage3d">
+      <div class="glowring"></div>
+      <div class="hero" id="heroBox"></div>
+      <div class="angel" id="angelBox"></div>
+      <div class="sparks" id="sparks"></div>
+      <div class="twinkles" id="twinkles"></div>
+    </div>
+    <p class="result" id="clearResult"></p>
+    <div class="ovBtns">
+      <button type="button" class="btn ghost" id="againBtn">↺ 다시 하기</button>
+      <button type="button" class="btn primary" id="nextBtn2">다음 단계 →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (s) { return document.querySelector(s); };
+
+  /* ═════════ 날짜·요일·날씨 (모두 공통 기본) ═════════ */
+  var KO_DOW = ['일', '월', '화', '수', '목', '금', '토'];
+  var WMO = {
+    0: ['☀️', '맑음'], 1: ['🌤️', '대체로 맑음'], 2: ['⛅', '구름 조금'], 3: ['☁️', '흐림'],
+    45: ['🌫️', '안개'], 48: ['🌫️', '안개'],
+    51: ['🌦️', '이슬비'], 53: ['🌦️', '이슬비'], 55: ['🌦️', '이슬비'],
+    56: ['🌧️', '어는 비'], 57: ['🌧️', '어는 비'],
+    61: ['🌧️', '비'], 63: ['🌧️', '비'], 65: ['🌧️', '비'],
+    66: ['🌧️', '어는 비'], 67: ['🌧️', '어는 비'],
+    71: ['🌨️', '눈'], 73: ['🌨️', '눈'], 75: ['🌨️', '눈'], 77: ['🌨️', '눈'],
+    80: ['🌦️', '소나기'], 81: ['🌦️', '소나기'], 82: ['🌧️', '소나기'],
+    85: ['🌨️', '눈 소나기'], 86: ['🌨️', '눈 소나기'],
+    95: ['⛈️', '천둥번개'], 96: ['⛈️', '천둥번개'], 99: ['⛈️', '천둥번개']
+  };
+  var WX_DEFAULT = { lat: 35.23, lon: 128.89, place: '김해' };
+  var LS_WX = 'hamiiBulb.wx';
+  var wxNow = null, wxAt = 0, wxBusy = false, wxSeq = 0, wxRank = 0, wxPlace = WX_DEFAULT.place, wxFailed = false;
+  var WX_TTL = 20 * 60 * 1000;
+
+  function renderToday() {
+    var d = new Date();
+    $('#todayDate').textContent = (d.getMonth() + 1) + '월 ' + d.getDate() + '일 (' + KO_DOW[d.getDay()] + ')';
+    var txt, loading = false;
+    if (wxNow) txt = wxNow.emoji + ' ' + wxNow.ko + ' ' + wxNow.t + '°';
+    else if (wxFailed) txt = '날씨 정보 없음';
+    else { txt = '날씨 확인 중'; loading = true; }
+    var el = $('#todayWx');
+    el.textContent = txt;
+    el.classList.toggle('loading', loading);
+    $('#wxPlace').textContent = wxPlace;
+    $('#todayCard').setAttribute('aria-label',
+      '오늘 ' + $('#todayDate').textContent + ', ' + txt + ' — 누르면 현위치 날씨로 새로고침');
+  }
+  function loadWxCache() {
+    try {
+      var raw = localStorage.getItem(LS_WX);
+      if (!raw) return;
+      var j = JSON.parse(raw);
+      if (!j || typeof j.t !== 'number') return;
+      if (Date.now() - j.at > 12 * 60 * 60 * 1000) return;
+      var m = WMO[j.code] || ['🌡️', '날씨'];
+      wxNow = { emoji: m[0], ko: m[1], t: Math.round(j.t) };
+      wxAt = j.at;
+      wxPlace = j.place || WX_DEFAULT.place;
+    } catch (e) {}
+  }
+  function saveWxCache(code, t) {
+    try { localStorage.setItem(LS_WX, JSON.stringify({ code: code, t: t, at: Date.now(), place: wxPlace })); } catch (e) {}
+  }
+  function wxUrl(lat, lon) {
+    return 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon +
+      '&current=temperature_2m,weather_code&timezone=auto';
+  }
+  function fetchWx(lat, lon, rank) {
+    if (!window.fetch || navigator.onLine === false) { wxFailed = true; renderToday(); return Promise.resolve(false); }
+    rank = rank || 1;
+    wxFailed = false;
+    var seq = wxSeq;
+    var ctl = window.AbortController ? new AbortController() : null;
+    var to = null;
+    if (ctl) to = setTimeout(function () { try { ctl.abort(); } catch (e) {} }, 8000);
+    return fetch(wxUrl(lat, lon), ctl ? { cache: 'no-store', signal: ctl.signal } : { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) {
+        if (to) clearTimeout(to);
+        var c = j && j.current;
+        if (!c || typeof c.temperature_2m !== 'number') { wxFailed = true; renderToday(); return false; }
+        if (seq !== wxSeq || rank < wxRank) return false;
+        wxRank = rank;
+        var m = WMO[c.weather_code] || ['🌡️', '날씨'];
+        wxNow = { emoji: m[0], ko: m[1], t: Math.round(c.temperature_2m) };
+        wxAt = Date.now();
+        saveWxCache(c.weather_code, c.temperature_2m);
+        renderToday();
+        return true;
+      })
+      .catch(function () { if (to) clearTimeout(to); wxFailed = true; renderToday(); return false; });
+  }
+  function geoCoords() {
+    return new Promise(function (resolve) {
+      if (!navigator.geolocation) return resolve(null);
+      try {
+        navigator.geolocation.getCurrentPosition(function (pos) {
+          var c = pos && pos.coords;
+          if (!c) return resolve(null);
+          resolve({ lat: Math.round(c.latitude * 100) / 100, lon: Math.round(c.longitude * 100) / 100 });
+        }, function () { resolve(null); }, { enableHighAccuracy: false, timeout: 8000, maximumAge: 600000 });
+      } catch (e) { resolve(null); }
+    });
+  }
+  function loadWeather() {
+    renderToday();
+    if (!wxAt || Date.now() - wxAt > WX_TTL) {
+      if (wxBusy) return;
+      wxBusy = true; wxSeq++;
+      fetchWx(WX_DEFAULT.lat, WX_DEFAULT.lon, 1).then(function () { wxBusy = false; });
+    }
+    try {
+      if (navigator.geolocation && navigator.permissions && navigator.permissions.query) {
+        navigator.permissions.query({ name: 'geolocation' }).then(function (st) {
+          if (!st || st.state !== 'granted') return;
+          geoCoords().then(function (c) {
+            if (c) { wxPlace = '내 위치'; fetchWx(c.lat, c.lon, 2); }
+          });
+        }).catch(function () {});
+      }
+    } catch (e) {}
+  }
+  function refreshWeather() {
+    if (navigator.onLine === false) { toast('인터넷이 없어 날씨를 새로 받지 못했어요.'); return; }
+    function fallback() {
+      wxPlace = WX_DEFAULT.place;
+      return fetchWx(WX_DEFAULT.lat, WX_DEFAULT.lon, 1).then(function (ok) {
+        toast(ok ? '김해 날씨로 보여 드려요.' : '날씨를 받지 못했어요. 잠시 뒤 다시 눌러 주세요.');
+      });
+    }
+    wxSeq++;
+    if (!navigator.geolocation) { fallback(); return; }
+    toast('현위치 날씨를 확인하는 중…');
+    geoCoords().then(function (c) {
+      if (!c) { fallback(); return; }
+      fetchWx(c.lat, c.lon, 2).then(function (ok) {
+        if (ok) { wxPlace = '내 위치'; renderToday(); toast('현위치 날씨로 새로 불러왔어요.'); }
+        else fallback();
+      });
+    });
+  }
+  $('#todayCard').addEventListener('click', refreshWeather);
+
+  var toastEl = null, toastTo = 0;
+  function toast(msg) {
+    if (!toastEl) {
+      toastEl = document.createElement('div');
+      toastEl.style.cssText = 'position:fixed;left:50%;bottom:calc(1.1rem + env(safe-area-inset-bottom));transform:translateX(-50%);' +
+        'background:rgba(12,24,38,.94);color:#F3F7FC;padding:.55rem .9rem;border-radius:14px;font-size:.82rem;' +
+        'font-weight:800;z-index:90;max-width:86vw;text-align:center;box-shadow:0 8px 22px rgba(0,0,0,.45);' +
+        'border:1px solid rgba(255,255,255,.12);transition:opacity .25s ease';
+      document.body.appendChild(toastEl);
+    }
+    toastEl.textContent = msg;
+    toastEl.style.opacity = '1';
+    clearTimeout(toastTo);
+    toastTo = setTimeout(function () { if (toastEl) toastEl.style.opacity = '0'; }, 2300);
+  }
+
+  /* ═════════ 소리 (외부 파일 없음) ═════════ */
+  var AC = null, soundOn = true;
+  try { soundOn = localStorage.getItem('hamiiBulb.sound') !== 'off'; } catch (e) {}
+  function beep(freq, dur, type, vol) {
+    if (!soundOn) return;
+    try {
+      AC = AC || new (window.AudioContext || window.webkitAudioContext)();
+      if (AC.state === 'suspended') AC.resume();
+      var o = AC.createOscillator(), g = AC.createGain();
+      o.type = type || 'sine';
+      o.frequency.value = freq;
+      var t = AC.currentTime;
+      g.gain.setValueAtTime(vol || 0.05, t);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      o.connect(g); g.connect(AC.destination);
+      o.start(t); o.stop(t + dur + 0.03);
+    } catch (e) {}
+  }
+  function winChime() {
+    if (!soundOn) return;
+    [523, 659, 784, 1046].forEach(function (f, i) {
+      setTimeout(function () { beep(f, 0.34, 'triangle', 0.06); }, i * 150);
+    });
+  }
+  var sndBtn = $('#sndBtn');
+  function renderSnd() { sndBtn.textContent = soundOn ? '🔊' : '🔇'; sndBtn.setAttribute('aria-label', soundOn ? '소리 끄기' : '소리 켜기'); }
+  sndBtn.addEventListener('click', function () {
+    soundOn = !soundOn;
+    try { localStorage.setItem('hamiiBulb.sound', soundOn ? 'on' : 'off'); } catch (e) {}
+    renderSnd();
+    if (soundOn) beep(660, 0.12, 'sine', 0.05);
+  });
+  renderSnd();
+
+  /* ═════════ 그림 (해미족·천사·전구) ═════════ */
+  function hamsterSVG(cheer) {
+    return '' +
+    '<svg viewBox="0 0 200 240" role="img" aria-label="와트메이커 해미족">' +
+      '<defs>' +
+        '<radialGradient id="fur" cx="38%" cy="26%" r="78%">' +
+          '<stop offset="0%" stop-color="#FFFDF6"/><stop offset="58%" stop-color="#F8E7C8"/><stop offset="100%" stop-color="#E6C79A"/>' +
+        '</radialGradient>' +
+        '<linearGradient id="vest" x1="0" y1="0" x2="0" y2="1">' +
+          '<stop offset="0%" stop-color="#3E9C77"/><stop offset="100%" stop-color="#25704F"/>' +
+        '</linearGradient>' +
+        '<linearGradient id="shoe" x1="0" y1="0" x2="0" y2="1">' +
+          '<stop offset="0%" stop-color="#9A6237"/><stop offset="100%" stop-color="#6B4324"/>' +
+        '</linearGradient>' +
+      '</defs>' +
+      /* 발 */
+      '<ellipse cx="70" cy="220" rx="26" ry="14" fill="url(#shoe)"/>' +
+      '<ellipse cx="130" cy="220" rx="26" ry="14" fill="url(#shoe)"/>' +
+      '<ellipse cx="66" cy="216" rx="10" ry="5" fill="#C08A57" opacity=".55"/>' +
+      '<ellipse cx="126" cy="216" rx="10" ry="5" fill="#C08A57" opacity=".55"/>' +
+      /* 꼬리 */
+      '<ellipse cx="168" cy="196" rx="14" ry="11" fill="#F3DCB8"/>' +
+      /* 몸통 */
+      '<ellipse cx="100" cy="152" rx="66" ry="70" fill="url(#fur)"/>' +
+      /* 조끼(초록) + 셔츠 앞(크림) */
+      '<ellipse cx="100" cy="154" rx="58" ry="63" fill="url(#vest)"/>' +
+      '<path d="M86 120 l14 15 l14 -15 l-6 -8 h-16 z" fill="#FFFCF3"/>' +
+      '<ellipse cx="100" cy="170" rx="31" ry="40" fill="#FFFCF3"/>' +
+      '<circle cx="100" cy="170" r="3.6" fill="#FFD86B"/>' +
+      '<circle cx="100" cy="188" r="3.6" fill="#FFD86B"/>' +
+      /* 팔 — cheer(환호)일 때는 두 손을 번쩍 든 포즈 */
+      (cheer
+        ? '<g class="armL"><ellipse cx="34" cy="125" rx="13" ry="25" fill="#F6E3C4" stroke="#E2C69B" stroke-width="2.4" transform="rotate(-28 34 125)"/>' +
+            '<circle cx="22" cy="103" r="11" fill="#F8E7C8" stroke="#E2C69B" stroke-width="2.2"/></g>' +
+          '<g class="armR"><ellipse cx="166" cy="125" rx="13" ry="25" fill="#F6E3C4" stroke="#E2C69B" stroke-width="2.4" transform="rotate(28 166 125)"/>' +
+            '<circle cx="178" cy="103" r="11" fill="#F8E7C8" stroke="#E2C69B" stroke-width="2.2"/></g>'
+        : '<g class="armL"><ellipse cx="38" cy="152" rx="15" ry="25" fill="#F6E3C4" stroke="#E2C69B" stroke-width="2.4" transform="rotate(6 38 152)"/>' +
+            '<circle cx="38" cy="175" r="10" fill="#F8E7C8" stroke="#E2C69B" stroke-width="2.2"/></g>' +
+          '<g class="armR"><ellipse cx="162" cy="152" rx="15" ry="25" fill="#F6E3C4" stroke="#E2C69B" stroke-width="2.4" transform="rotate(-6 162 152)"/>' +
+            '<circle cx="162" cy="175" r="10" fill="#F8E7C8" stroke="#E2C69B" stroke-width="2.2"/></g>') +
+      /* 귀 */
+      '<circle cx="56" cy="50" r="20" fill="#EFD3AC"/><circle cx="56" cy="50" r="11" fill="#F4B8BE"/>' +
+      '<circle cx="144" cy="50" r="20" fill="#EFD3AC"/><circle cx="144" cy="50" r="11" fill="#F4B8BE"/>' +
+      /* 머리 */
+      '<ellipse cx="100" cy="92" rx="58" ry="52" fill="url(#fur)"/>' +
+      '<path d="M86 40c4-4 8-6 14-6s10 2 14 6" stroke="#E4C69C" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+      /* 볼 */
+      '<ellipse cx="62" cy="106" rx="12" ry="7" fill="#F7B3B8" opacity=".55"/>' +
+      '<ellipse cx="138" cy="106" rx="12" ry="7" fill="#F7B3B8" opacity=".55"/>' +
+      /* 주둥이 */
+      '<ellipse cx="100" cy="112" rx="24" ry="17" fill="#FFFDF7"/>' +
+      '<ellipse cx="100" cy="102" rx="6.5" ry="5" fill="#7A4630"/>' +
+      (cheer
+        ? '<ellipse cx="100" cy="117" rx="9" ry="7" fill="#7A3B2E"/>' +
+          '<ellipse cx="100" cy="121" rx="5.5" ry="3.2" fill="#F58E97"/>'
+        : '<path d="M100 108v5M100 113q-8 9-16 2M100 113q8 9 16 2" stroke="#7A4630" stroke-width="3.2" fill="none" stroke-linecap="round"/>') +
+      /* 눈 */
+      '<circle cx="78" cy="86" r="8.4" fill="#2B1A12"/><circle cx="80.6" cy="83" r="2.9" fill="#FFFFFF"/>' +
+      '<circle cx="122" cy="86" r="8.4" fill="#2B1A12"/><circle cx="124.6" cy="83" r="2.9" fill="#FFFFFF"/>' +
+      /* 수염 */
+      '<g stroke="#C8A275" stroke-width="2.4" stroke-linecap="round" opacity=".8">' +
+        '<path d="M74 108 L46 101"/><path d="M74 114 L44 116"/>' +
+        '<path d="M126 108 L154 101"/><path d="M126 114 L156 116"/>' +
+      '</g>' +
+    '</svg>';
+  }
+  function crownSVG() {
+    return '' +
+    '<svg viewBox="0 0 120 88" role="img" aria-label="황금 왕관">' +
+      '<defs>' +
+        '<linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">' +
+          '<stop offset="0%" stop-color="#FFF2B8"/><stop offset="45%" stop-color="#FFD25E"/><stop offset="100%" stop-color="#E09A1E"/>' +
+        '</linearGradient>' +
+      '</defs>' +
+      '<path d="M14 66 L10 22 L34 40 L60 12 L86 40 L110 22 L106 66 Z" fill="url(#cg)" stroke="#B87A12" stroke-width="4" stroke-linejoin="round"/>' +
+      '<rect x="12" y="62" width="96" height="16" rx="8" fill="#F5B93C" stroke="#B87A12" stroke-width="4"/>' +
+      '<circle cx="60" cy="70" r="5.5" fill="#7FD8FF"/>' +
+      '<circle cx="34" cy="70" r="4" fill="#FF8FA3"/>' +
+      '<circle cx="86" cy="70" r="4" fill="#FF8FA3"/>' +
+      '<circle cx="10" cy="20" r="6" fill="#FFF6D8"/>' +
+      '<circle cx="110" cy="20" r="6" fill="#FFF6D8"/>' +
+      '<circle cx="60" cy="10" r="7" fill="#FFF6D8"/>' +
+    '</svg>';
+  }
+  function angelSVG() {
+    return '' +
+    '<svg viewBox="0 0 170 190" role="img" aria-label="왕관을 씌워 주는 천사">' +
+      '<defs>' +
+        '<linearGradient id="wing" x1="0" y1="0" x2="1" y2="1">' +
+          '<stop offset="0%" stop-color="#FFFFFF"/><stop offset="100%" stop-color="#D9ECFF"/>' +
+        '</linearGradient>' +
+        '<linearGradient id="robe" x1="0" y1="0" x2="0" y2="1">' +
+          '<stop offset="0%" stop-color="#FFFFFF"/><stop offset="100%" stop-color="#E6F1FF"/>' +
+        '</linearGradient>' +
+      '</defs>' +
+      '<g class="wingL">' +
+        '<path d="M78 74 C50 50 26 52 16 68 C28 70 30 78 22 86 C38 88 44 96 36 104 C56 106 70 96 78 88 Z" fill="url(#wing)" stroke="#BBD8F2" stroke-width="2.5" stroke-linejoin="round"/>' +
+      '</g>' +
+      '<g class="wingR">' +
+        '<path d="M92 74 C120 50 144 52 154 68 C142 70 140 78 148 86 C132 88 126 96 134 104 C114 106 100 96 92 88 Z" fill="url(#wing)" stroke="#BBD8F2" stroke-width="2.5" stroke-linejoin="round"/>' +
+      '</g>' +
+      /* 옷 */
+      '<path d="M85 92 C70 106 62 140 64 166 C76 174 94 174 106 166 C108 140 100 106 85 92 Z" fill="url(#robe)" stroke="#C3DCF2" stroke-width="2.5"/>' +
+      /* 발 */
+      '<ellipse cx="78" cy="170" rx="8" ry="5" fill="#FFE3CB"/>' +
+      '<ellipse cx="94" cy="170" rx="8" ry="5" fill="#FFE3CB"/>' +
+      /* 팔 */
+      '<path d="M72 106 C60 116 54 128 52 138" stroke="#FFE3CB" stroke-width="11" stroke-linecap="round" fill="none"/>' +
+      '<path d="M100 106 C112 116 118 128 120 138" stroke="#FFE3CB" stroke-width="11" stroke-linecap="round" fill="none"/>' +
+      '<circle cx="52" cy="140" r="7" fill="#FFD9BC"/>' +
+      '<circle cx="120" cy="140" r="7" fill="#FFD9BC"/>' +
+      /* 머리 */
+      '<circle cx="86" cy="72" r="30" fill="#FFE7D2" stroke="#F3CDB2" stroke-width="2"/>' +
+      '<path d="M60 62 C64 42 108 40 112 62 C104 54 68 54 60 62 Z" fill="#F6C86D"/>' +
+      '<circle cx="86" cy="38" r="6" fill="#F6C86D"/>' +
+      /* 얼굴 */
+      '<path d="M74 72 q6 -7 12 0" stroke="#8A5A3A" stroke-width="3.2" fill="none" stroke-linecap="round"/>' +
+      '<path d="M86 72 q6 -7 12 0" stroke="#8A5A3A" stroke-width="3.2" fill="none" stroke-linecap="round"/>' +
+      '<path d="M82 84 q5 6 10 0" stroke="#C4695B" stroke-width="3" fill="none" stroke-linecap="round"/>' +
+      '<circle cx="68" cy="82" r="6" fill="#FFC0C6" opacity=".65"/>' +
+      '<circle cx="104" cy="82" r="6" fill="#FFC0C6" opacity=".65"/>' +
+      /* 광배 */
+      '<ellipse cx="86" cy="30" rx="26" ry="8" fill="none" stroke="#FFE9A8" stroke-width="5" opacity=".95"/>' +
+      '<ellipse cx="86" cy="30" rx="26" ry="8" fill="none" stroke="#FFF6D8" stroke-width="2" opacity=".9"/>' +
+    '</svg>';
+  }
+
+  /* ═════════ 게임 본체 ═════════ */
+  var BIT = [1, 2, 4, 8];              /* N E S W */
+  var D4 = [[-1, 0], [0, 1], [1, 0], [0, -1]];
+  var LEVELS = [
+    { n: 4, bulbs: 1, diff: '쉬움', minDist: 3, minCells: 7 },
+    { n: 4, bulbs: 1, diff: '쉬움', minDist: 4, minCells: 9 },
+    { n: 5, bulbs: 1, diff: '보통', minDist: 5, minCells: 12 },
+    { n: 5, bulbs: 2, diff: '보통', minDist: 5, minCells: 14 },
+    { n: 5, bulbs: 2, diff: '도전', minDist: 6, minCells: 15 },
+    { n: 5, bulbs: 3, diff: '도전', minDist: 5, minCells: 16 }
+  ];
+
+  var N = 4, cells = [], cellEls = [], level = 0, moves = 0, cleared = false, initialRots = [], best = {}, done = {};
+  var board = $('#board'), stagesEl = $('#stages'), overlay = $('#overlay');
+
+  try { best = JSON.parse(localStorage.getItem('hamiiBulb.best') || '{}') || {}; } catch (e) { best = {}; }
+  try { done = JSON.parse(localStorage.getItem('hamiiBulb.done') || '{}') || {}; } catch (e) { done = {}; }
+  try {
+    var sv = parseInt(localStorage.getItem('hamiiBulb.stage'), 10);
+    if (sv >= 0 && sv < LEVELS.length) level = sv;
+  } catch (e) {}
+
+  function shuffle(a) {
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+  /* 시계방향 90도 × r 회전 */
+  function rotMask(mask, r) {
+    var m = mask, i;
+    for (i = 0; i < r; i++) m = ((m << 1) & 15) | ((m >> 3) & 1);
+    return m;
+  }
+
+  /* 현재 판에서 전기가 통하는 칸 계산 */
+  function poweredSet() {
+    var p = {}, src = -1, i;
+    for (i = 0; i < cells.length; i++) if (cells[i] && cells[i].kind === 'source') { src = i; break; }
+    if (src < 0) return p;
+    var q = [src];
+    p[src] = true;
+    while (q.length) {
+      var k = q.pop(), c = cells[k], mask = cellMask(c);
+      var r = Math.floor(k / N), col = k % N;
+      for (var d = 0; d < 4; d++) {
+        if (!(mask & BIT[d])) continue;
+        var nr = r + D4[d][0], nc = col + D4[d][1];
+        if (nr < 0 || nr >= N || nc < 0 || nc >= N) continue;
+        var nk = nr * N + nc;
+        if (p[nk]) continue;
+        if (!(cellMask(cells[nk]) & BIT[(d + 2) % 4])) continue;
+        p[nk] = true; q.push(nk);
+      }
+    }
+    return p;
+  }
+  function cellMask(c) {
+    if (!c) return 0;
+    if (c.kind === 'path') return rotMask(c.base, c.rot);
+    return c.base;                 /* 발전소·전구는 고정 */
+  }
+
+  /* 퍼즐 만들기 — 정답 경로를 먼저 만들고 돌려 놓습니다(항상 풀 수 있음) */
+  function genOnce(cfg) {
+    var n = cfg.n, i, r, c;
+    var idx = function (rr, cc) { return rr * n + cc; };
+    var edges = [];
+    for (r = 0; r < n; r++) for (c = 0; c < n; c++) {
+      if (r === 0 || c === 0 || r === n - 1 || c === n - 1) edges.push([r, c]);
+    }
+
+    var S = null, bulbs = [], attempt = 0;
+    while (attempt++ < 200) {
+      var e = edges[Math.floor(Math.random() * edges.length)];
+      var sr = e[0], sc = e[1];
+      var cand = [];
+      for (r = 0; r < n; r++) for (c = 0; c < n; c++) {
+        var d = Math.abs(r - sr) + Math.abs(c - sc);
+        if (d >= Math.min(cfg.minDist, n * 2 - 2) && !(r === sr && c === sc)) cand.push([r, c]);
+      }
+      if (cand.length < cfg.bulbs) continue;
+      shuffle(cand);
+      var bs = [], used = {};
+      used[idx(sr, sc)] = true;
+      for (i = 0; i < cand.length && bs.length < cfg.bulbs; i++) {
+        var rr = cand[i][0], cc = cand[i][1];
+        if (used[idx(rr, cc)]) continue;
+        var tooClose = false;
+        for (var j = 0; j < bs.length; j++) {
+          if (Math.abs(bs[j][0] - rr) + Math.abs(bs[j][1] - cc) < 2) { tooClose = true; break; }
+        }
+        if (tooClose) continue;
+        bs.push([rr, cc]); used[idx(rr, cc)] = true;
+      }
+      if (bs.length === cfg.bulbs) { S = [sr, sc]; bulbs = bs; break; }
+    }
+    if (!S) return null;
+
+    var srcKey = idx(S[0], S[1]);
+    var bulbKeys = {};
+    bulbs.forEach(function (b) { bulbKeys[idx(b[0], b[1])] = true; });
+
+    var tree = {};             /* key -> {이웃 key: true} */
+    var occ = {};
+    tree[srcKey] = {};
+    occ[srcKey] = true;
+
+    function findPath(startKey, targetKey) {
+      var seen = {}, prev = {}, stack = [startKey], found = false;
+      seen[startKey] = true;
+      while (stack.length) {
+        var cur = stack.pop();
+        if (cur === targetKey) { found = true; break; }
+        var cr = Math.floor(cur / n), cc = cur % n;
+        var nb = [];
+        for (var d = 0; d < 4; d++) {
+          var nr = cr + D4[d][0], nc = cc + D4[d][1];
+          if (nr < 0 || nr >= n || nc < 0 || nc >= n) continue;
+          var nk = nr * n + nc;
+          if (seen[nk]) continue;
+          if (occ[nk] && nk !== targetKey) continue;         /* 이미 깔린 길과 겹치지 않게 */
+          if (bulbKeys[nk] && nk !== targetKey) continue;     /* 다른 전구는 통과 금지 */
+          nb.push(nk);
+        }
+        shuffle(nb);
+        for (var b2 = 0; b2 < nb.length; b2++) {
+          var k2 = nb[b2];
+          if (seen[k2]) continue;
+          seen[k2] = true; prev[k2] = cur;
+          stack.push(k2);
+        }
+      }
+      if (!found) return null;
+      var path = [], cur2 = targetKey;
+      while (cur2 !== startKey && prev[cur2] !== undefined) { path.push(cur2); cur2 = prev[cur2]; }
+      if (cur2 !== startKey) return null;
+      return path.reverse();
+    }
+
+    for (var bi = 0; bi < bulbs.length; bi++) {
+      var targetKey = idx(bulbs[bi][0], bulbs[bi][1]);
+      var starts = shuffle(Object.keys(tree).map(Number)).slice(0, 10);
+      var got = null;
+      /* 여러 번 시도해 가장 긴 길을 고릅니다(너무 쉬운 판 방지) */
+      for (var si = 0; si < starts.length; si++) {
+        for (var tr = 0; tr < 4; tr++) {
+          var path = findPath(starts[si], targetKey);
+          if (path && path.length && (!got || path.length > got.path.length)) {
+            got = { start: starts[si], path: path };
+          }
+        }
+        if (got && got.path.length >= n * 2) break;
+      }
+      if (!got) return null;
+      var prevKey = got.start;
+      for (var pi = 0; pi < got.path.length; pi++) {
+        var kk = got.path[pi];
+        if (!tree[prevKey]) tree[prevKey] = {};
+        if (!tree[kk]) tree[kk] = {};
+        tree[prevKey][kk] = true;
+        tree[kk][prevKey] = true;
+        occ[kk] = true;
+        prevKey = kk;
+      }
+    }
+
+    function dirTo(a, b) {
+      var ar = Math.floor(a / n), ac = a % n, br = Math.floor(b / n), bc = b % n;
+      if (br === ar - 1 && bc === ac) return 0;
+      if (br === ar && bc === ac + 1) return 1;
+      if (br === ar + 1 && bc === ac) return 2;
+      if (br === ar && bc === ac - 1) return 3;
+      return -1;
+    }
+
+    var arr = new Array(n * n).fill(null);
+    Object.keys(tree).forEach(function (ks) {
+      var k = +ks, mask = 0;
+      Object.keys(tree[k]).forEach(function (ns) {
+        var d = dirTo(k, +ns);
+        if (d >= 0) mask |= BIT[d];
+      });
+      var kind = 'path';
+      if (k === srcKey) kind = 'source';
+      else if (bulbKeys[k]) kind = 'bulb';
+      arr[k] = { kind: kind, base: mask, rot: 0, spin: 0 };
+    });
+
+    /* 돌려 놓기 */
+    arr.forEach(function (cc2) {
+      if (!cc2 || cc2.kind !== 'path') return;
+      /* 회전해도 모양이 같은 타일은 그대로 둡니다 */
+      var same = rotMask(cc2.base, 1) === cc2.base;
+      if (same) return;
+      var d2 = 0;
+      for (var t = 0; t < 8; t++) { d2 = Math.floor(Math.random() * 4); if (d2 !== 0) break; }
+      cc2.rot = d2;
+      cc2.spin = d2 * 90;
+    });
+
+    var pathCount = 0;
+    arr.forEach(function (x) { if (x && x.kind === 'path') pathCount++; });
+    return { n: n, cells: arr, pathCount: pathCount };
+  }
+
+  /* 목표 길이를 채우는 판이 나올 때까지 여러 번 만들고, 최선의 판을 씁니다 */
+  function genPuzzle(cfg) {
+    var bestP = null;
+    for (var t = 0; t < 70; t++) {
+      var pz = genOnce(cfg);
+      if (!pz) continue;
+      if (!bestP || pz.pathCount > bestP.pathCount) bestP = pz;
+      if (pz.pathCount >= (cfg.minCells || 0)) return pz;
+    }
+    return bestP;
+  }
+
+  function levelsOf(i) { return LEVELS[i]; }
+  function startLevel(i, silent) {
+    var puzzle = null, guard = 0;
+    while (!puzzle && guard++ < 40) puzzle = genPuzzle(LEVELS[i]);
+    if (!puzzle) { toast('판을 만들지 못했어요. 다시 눌러 주세요.'); return; }
+
+    level = i;
+    N = puzzle.n;
+    cells = puzzle.cells;
+    moves = 0;
+    cleared = false;
+    hideOverlay(true);
+    board.classList.remove('win');
+
+    /* 처음 상태 저장 */
+    initialRots = cells.map(function (c) { return c && c.kind === 'path' ? c.rot : 0; });
+
+    /* 절대 처음부터 켜져 있지 않게 */
+    var lit = litCount();
+    var guard2 = 0;
+    while (lit > 0 && guard2++ < 30) {
+      var cand = [];
+      cells.forEach(function (c, k) { if (c && c.kind === 'path') cand.push(k); });
+      if (!cand.length) break;
+      var pick = cand[Math.floor(Math.random() * cand.length)];
+      cells[pick].rot = (cells[pick].rot + 1) % 4;
+      cells[pick].spin = cells[pick].rot * 90;
+      initialRots[pick] = cells[pick].rot;
+      lit = litCount();
+    }
+
+    buildBoard();
+    renderStages();
+    update(true);
+    try { localStorage.setItem('hamiiBulb.stage', String(i)); } catch (e) {}
+    if (!silent) { /* 조용히 시작 */ }
+  }
+
+  function litCount() {
+    var p = poweredSet(), n = 0;
+    cells.forEach(function (c, k) { if (c && c.kind === 'bulb' && p[k]) n++; });
+    return n;
+  }
+  function bulbTotal() {
+    var n = 0;
+    cells.forEach(function (c) { if (c && c.kind === 'bulb') n++; });
+    return n;
+  }
+
+  function pipeSVG(mask, cls) {
+    var dirs = [], i;
+    if (mask & 1) dirs.push('M50 50 L50 -8');
+    if (mask & 2) dirs.push('M50 50 L108 50');
+    if (mask & 4) dirs.push('M50 50 L50 108');
+    if (mask & 8) dirs.push('M50 50 L-8 50');
+    var out = '', inn = '';
+    for (i = 0; i < dirs.length; i++) {
+      out += '<path class="pipeOut" d="' + dirs[i] + '"/>';
+      inn += '<path class="pipeIn" d="' + dirs[i] + '"/>';
+    }
+    return '<svg class="pipes ' + (cls || '') + '" viewBox="0 0 100 100" aria-hidden="true">' +
+      out + inn + '<circle class="hub" cx="50" cy="50" r="10"/></svg>';
+  }
+
+  function sourceSVG(mask) {
+    var d = 'M50 50 L50 -8';
+    if (mask & 2) d = 'M50 50 L108 50';
+    else if (mask & 4) d = 'M50 50 L50 108';
+    else if (mask & 8) d = 'M50 50 L-8 50';
+    return '<svg class="pipes" viewBox="0 0 100 100" aria-hidden="true">' +
+      '<path class="pipeOut" d="' + d + '"/><path class="pipeIn" d="' + d + '"/></svg>' +
+      '<svg class="glasswrap" viewBox="0 0 100 100" aria-hidden="true">' +
+      '<circle class="srcbg" cx="50" cy="50" r="27"/>' +
+      '<path class="bolt" d="M55 26 L37 56 H49 L45 74 L63 44 H51 Z"/></svg>';
+  }
+
+  function bulbSVG(mask) {
+    var d = 'M50 50 L50 -8';
+    if (mask & 2) d = 'M50 50 L108 50';
+    else if (mask & 4) d = 'M50 50 L50 108';
+    else if (mask & 8) d = 'M50 50 L-8 50';
+    var rays = '';
+    for (var a = 0; a < 8; a++) {
+      var ang = a * 45 * Math.PI / 180;
+      var x1 = 50 + Math.cos(ang) * 25, y1 = 41 + Math.sin(ang) * 25;
+      var x2 = 50 + Math.cos(ang) * 35, y2 = 41 + Math.sin(ang) * 35;
+      rays += '<path d="M' + x1.toFixed(1) + ' ' + y1.toFixed(1) + ' L' + x2.toFixed(1) + ' ' + y2.toFixed(1) +
+        '" stroke="#FFE9A8" stroke-width="4.5" stroke-linecap="round"/>';
+    }
+    return '<svg class="pipes bulbpipe" viewBox="0 0 100 100" aria-hidden="true">' +
+      '<path class="pipeOut" d="' + d + '"/><path class="pipeIn" d="' + d + '"/></svg>' +
+      '<svg class="glasswrap" viewBox="0 0 100 100" aria-hidden="true">' +
+      '<g class="rays">' + rays + '</g>' +
+      '<path class="glass" d="M50 15 a23 23 0 0 1 13.5 41.6 c-2.6 3.2-3.6 6.2-3.6 9.4 H40.1 c0-3.2-1-6.2-3.6-9.4 A23 23 0 0 1 50 15 Z"/>' +
+      '<path class="fil" d="M42 45 q4 -9 8 0 q4 9 8 0"/>' +
+      '<path class="fil" d="M50 66 v8"/>' +
+      '<rect class="cap" x="40" y="74" width="20" height="4.6" rx="2.3"/>' +
+      '<rect class="cap" x="42.5" y="81" width="15" height="4.6" rx="2.3"/>' +
+      '</svg>';
+  }
+
+  function buildBoard() {
+    board.style.setProperty('--n', N);
+    board.innerHTML = '';
+    cellEls = [];
+    cells.forEach(function (c, k) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.dataset.k = String(k);
+      if (!c) { b.className = 'cell empty'; b.disabled = true; b.setAttribute('aria-hidden', 'true'); }
+      else if (c.kind === 'path') {
+        b.className = 'cell path';
+        b.innerHTML = pipeSVG(c.base);
+        b.querySelector('.pipes').style.transform = 'rotate(' + c.spin + 'deg)';
+        b.setAttribute('aria-label', (Math.floor(k / N) + 1) + '줄 ' + (k % N + 1) + '칸 전선 돌리기');
+      } else if (c.kind === 'source') {
+        b.className = 'cell source'; b.disabled = true;
+        b.innerHTML = sourceSVG(c.base);
+        b.setAttribute('aria-label', '발전소');
+      } else if (c.kind === 'bulb') {
+        b.className = 'cell bulb'; b.disabled = true;
+        b.innerHTML = bulbSVG(c.base);
+        b.setAttribute('aria-label', '마을 전구');
+      }
+      board.appendChild(b);
+      cellEls.push(b);
+    });
+  }
+
+  function renderStages() {
+    stagesEl.innerHTML = '';
+    LEVELS.forEach(function (lv, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'stageChip' + (i === level ? ' on' : '') + (done[i] ? ' done' : '');
+      b.textContent = done[i] && i !== level ? '✓' : String(i + 1);
+      b.setAttribute('aria-label', (i + 1) + '단계 ' + lv.diff + (done[i] ? ' (완료)' : ''));
+      b.addEventListener('click', function () { if (i !== level) startLevel(i); });
+      stagesEl.appendChild(b);
+    });
+    var on = stagesEl.querySelector('.stageChip.on');
+    if (on && on.scrollIntoView) { try { on.scrollIntoView({ block: 'nearest', inline: 'nearest' }); } catch (e) {} }
+  }
+
+  var tipEl = $('#tipText');
+  function update(first) {
+    var p = poweredSet(), lit = 0, total = 0;
+    cells.forEach(function (c, k) {
+      var el = cellEls[k];
+      if (!c || !el) return;
+      var on = !!p[k];
+      if (c.kind === 'bulb') {
+        total++;
+        if (on) lit++;
+        el.classList.toggle('lit', on);
+        el.classList.toggle('pw', on);
+        el.setAttribute('aria-label', on ? '켜진 마을 전구' : '꺼진 마을 전구');
+      } else if (c.kind === 'path') {
+        el.classList.toggle('pw', on);
+      }
+    });
+    $('#statMoves').textContent = moves + '회';
+    $('#statLit').textContent = lit + '/' + (total || 1);
+    var b = best[level];
+    $('#statBest').textContent = b ? b + '회' : '-';
+
+    /* 말풍선 */
+    if (!cleared) {
+      if (lit > 0 && lit < total) tipEl.innerHTML = '오, <b>' + lit + '개</b> 켜졌어요! 전구 <b>' + (total - lit) + '개</b>만 더!';
+      else if (lit === 0 && moves > 0) tipEl.innerHTML = '발전소 ⚡ 에서 시작해서 전구 💡 까지 <b>끊김 없이</b> 이어 주세요.';
+      else if (moves > 6) tipEl.innerHTML = '전선을 한 칸씩 <b>톡톡</b> 돌려 보세요. 굽은 전선은 네 번 돌면 처음으로 돌아와요.';
+      else if (!first) tipEl.innerHTML = '전선을 <b>톡톡</b> 눌러 돌려서, 발전소에서 전구까지 이어 주세요.';
+    }
+    if (lit === total && total > 0 && !cleared) onWin();
+  }
+
+  function onWin() {
+    cleared = true;
+    board.classList.add('win');
+    $('#mascot').classList.add('cheer');
+    if (!best[level] || moves < best[level]) {
+      best[level] = moves;
+      try { localStorage.setItem('hamiiBulb.best', JSON.stringify(best)); } catch (e) {}
+    }
+    done[level] = true;
+    try { localStorage.setItem('hamiiBulb.done', JSON.stringify(done)); } catch (e) {}
+    renderStages();
+    $('#statBest').textContent = best[level] + '회';
+    winChime();
+    setTimeout(function () { showOverlay(); }, 850);
+  }
+
+  /* ── 클리어 축하 (천사가 왕관 씌우기) ── */
+  function makeSky() {
+    var sky = $('#sky'), html = '';
+    for (var i = 0; i < 34; i++) {
+      html += '<i style="left:' + (Math.random() * 100).toFixed(1) + '%;top:' + (Math.random() * 78).toFixed(1) +
+        '%;animation-delay:' + (Math.random() * 2.6).toFixed(2) + 's;opacity:.6"></i>';
+    }
+    sky.innerHTML = html;
+  }
+  function makeSparks() {
+    var sp = $('#sparks'), html = '';
+    var pts = [
+      [16, 30], [30, 12], [44, 4], [58, 6], [72, 16], [84, 30],
+      [8, 52], [92, 50], [24, 56], [66, 58], [40, 62], [78, 64]
+    ];
+    for (var i = 0; i < pts.length; i++) {
+      html += '<i style="left:' + pts[i][0] + '%;top:' + (14 + pts[i][1] * 0.55).toFixed(0) +
+        '%;animation-delay:' + (1.62 + (i % 6) * 0.22).toFixed(2) + 's"></i>';
+    }
+    sp.innerHTML = html;
+
+    /* 왕관 둘레에 늘 반짝이는 별가루 */
+    var tw = $('#twinkles'), th = '';
+    var ring = [[40, 14], [50, 10], [60, 14], [34, 22], [66, 22], [44, 6], [57, 5], [28, 30], [72, 30]];
+    for (var j = 0; j < ring.length; j++) {
+      th += '<i style="left:' + ring[j][0] + '%;top:' + (ring[j][1] + 20) +
+        '%;animation-delay:' + (j * 0.26).toFixed(2) + 's"></i>';
+    }
+    tw.innerHTML = th;
+  }
+  function showOverlay() {
+    var st = $('#cheerText');
+    var isLast = level === LEVELS.length - 1;
+    st.innerHTML = '불이 다 켜졌어요!<small>' + (isLast ? '천사가 왕관을 씌워 줬어요 · 모든 단계 완료!' : '천사가 반짝이는 왕관을 씌워 줬어요') + '</small>';
+    $('#clearResult').innerHTML = '<b>' + (level + 1) + '단계</b> · ' + moves + '번 만에 성공 · 최고 ' + best[level] + '번';
+    $('#nextBtn2').textContent = isLast ? '🏁 처음부터' : '다음 단계 →';
+    $('#heroBox').innerHTML = hamsterSVG(true);
+    $('#angelBox').innerHTML = angelSVG();
+    /* 왕관은 와트메이커 머리 위 슬롯에 */
+    var hero = $('#heroBox');
+    var slot = document.createElement('div');
+    slot.className = 'crownSlot';
+    slot.innerHTML = '<div class="crown">' + crownSVG() + '</div>';
+    hero.appendChild(slot);
+
+    makeSky();
+    makeSparks();
+
+    overlay.hidden = false;
+    /* 애니메이션 매번 처음부터 */
+    overlay.classList.remove('show');
+    void overlay.offsetWidth;
+    overlay.classList.add('show');
+    try { history.pushState({ bulbClear: 1 }, ''); overlayPushed = true; } catch (e) {}
+  }
+  var overlayPushed = false;
+  function hideOverlay() {
+    if (overlay.hidden) return;
+    overlay.hidden = true;
+    overlay.classList.remove('show');
+  }
+  /* 버튼으로 닫을 때는 우리가 쌓은 기록 한 칸도 같이 되돌립니다 */
+  function closeOverlayByButton() {
+    hideOverlay();
+    if (overlayPushed) {
+      overlayPushed = false;
+      try { history.back(); } catch (e) {}
+    }
+  }
+  function nextLevel() {
+    var isLast = level === LEVELS.length - 1;
+    closeOverlayByButton();
+    startLevel(isLast ? 0 : level + 1);
+  }
+  function againLevel() {
+    closeOverlayByButton();
+    resetLevel();
+  }
+
+  function resetLevel() {
+    moves = 0;
+    cleared = false;
+    board.classList.remove('win');
+    $('#mascot').classList.remove('cheer');
+    cells.forEach(function (c, k) {
+      if (!c || c.kind !== 'path') return;
+      c.rot = initialRots[k] || 0;
+      c.spin = c.rot * 90;
+      var el = cellEls[k];
+      if (el) {
+        var svg = el.querySelector('.pipes');
+        if (svg) svg.style.transform = 'rotate(' + c.spin + 'deg)';
+      }
+    });
+    update(true);
+    beep(420, 0.1, 'sine', 0.04);
+  }
+
+  /* 타일 돌리기 */
+  board.addEventListener('click', function (e) {
+    var el = e.target.closest ? e.target.closest('.cell') : null;
+    if (!el || el.disabled) return;
+    var k = parseInt(el.dataset.k, 10);
+    var c = cells[k];
+    if (!c || c.kind !== 'path' || cleared) return;
+    c.rot = (c.rot + 1) % 4;
+    c.spin += 90;
+    moves++;
+    var svg = el.querySelector('.pipes');
+    if (svg) svg.style.transform = 'rotate(' + c.spin + 'deg)';
+    el.classList.remove('tapped');
+    void el.offsetWidth;
+    el.classList.add('tapped');
+    beep(520 + (c.rot * 40), 0.06, 'square', 0.028);
+    update();
+  });
+
+  $('#resetBtn').addEventListener('click', function () { resetLevel(); });
+  $('#nextBtn').addEventListener('click', function () { startLevel(level === LEVELS.length - 1 ? 0 : level + 1); });
+  $('#nextBtn2').addEventListener('click', nextLevel);
+  $('#againBtn').addEventListener('click', againLevel);
+
+  /* 폰 뒤로가기: 축하 화면이면 닫기 */
+  window.addEventListener('popstate', function () {
+    if (!overlay.hidden) { hideOverlay(); overlayPushed = false; }
+  });
+
+  /* 그림 넣기 */
+  $('#headBadge').innerHTML = hamsterSVG(false);
+  $('#mascotFace').innerHTML = hamsterSVG(false);
+
+  /* 시작 */
+  loadWxCache();
+  loadWeather();
+  startLevel(level, true);
+  setInterval(renderToday, 60 * 1000);
+
+  /* 테스트·디버그용 (읽기 전용 정보) */
+  window.__bulb = {
+    state: function () {
+      return {
+        n: N, level: level, moves: moves, cleared: cleared, lit: litCount(), total: bulbTotal(),
+        cells: cells.map(function (c, k) {
+          return c ? { k: k, kind: c.kind, base: c.base, rot: c.rot, mask: cellMask(c), pw: !!poweredSet()[k] } : null;
+        })
+      };
+    },
+    reset: resetLevel
+  };
+})();
+</script>
+</body>
+</html>
