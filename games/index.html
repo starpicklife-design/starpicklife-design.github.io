@@ -3,14 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#12314A">
-<!-- build: 2026-11-26 와트메이커 게임방(⚡) v1 · 저글링 시티 & 와글링 월드 게임 모음
+<meta name="theme-color" content="#2B1A63">
+<!-- build: 2026-11-26 와트메이커 게임방(⚡) v2 · 파스텔 아케이드 디자인 업그레이드
      · 맨 위 오늘 날짜·요일·날씨(김해 기본, 누르면 현위치 날씨로 새로고침 — Open-Meteo)
-     · ① ⚡ 해미족 전구 켜기(bulb-game, 라이브) ② 🌌 공벌레 우주 미니 파크골프(golf-game, 배포되면 자동 열림)
-       ③ 🚒⚡ 와글링 안전 특공대 퀴즈(safety, 배포되면 자동 열림) ④ ⏳ 다음 게임 예고(해바라기씨 모으기·그림 짝 맞추기)
+     · ① ⚡ 해미족 전구 켜기(bulb-game, 라이브) ② 🌌 공벌레 우주 미니 파크골프(golf-game, 라이브)
+       ③ 🚒⚡ 와글링 안전 특공대 퀴즈(safety, 라이브) ④ ⏳ 다음 게임 예고(해바라기씨 모으기·그림 짝 맞추기)
      · 아래: 🏠 와글링 홈 · ⚡ 전기기초 앱 · 📺 @wattmaker 유튜브 · 📤 공유 · 📲 홈 화면 설치
      · 폰 뒤로가기 · 기록·개인정보 없음(설치 안내만 기억) · 무료 · 광고 없음
-     · 상단 한/EN 토글 — 화면 전체가 영어로 (localStorage 'wagleGames.lang' 기억, ?lang=en 주소로도) -->
+     · 상단 한/EN 토글 — 화면 전체가 영어로 (localStorage 'wagleGames.lang' 기억, ?lang=en 주소로도)
+     · v2 디자인: 별빛 히어로 + 마퀴 전구 테두리, 게임별 파스텔 그라데이션 카드·3D 아케이드 버튼, SVG 아이콘 -->
 <meta name="description" content="⚡ 와트메이커 게임방 — 저글링 시티 전기 담당 와트메이커가 만든 무료 게임 모음. 해미족 전구 켜기(6단계 전선 퍼즐), 공벌레 우주 미니 파크골프, 와글링 안전 특공대 퀴즈까지. 설치·광고 없이 폰에서 바로.">
 <title>⚡ 와트메이커 게임방 · 저글링 시티 &amp; 와글링 월드 게임 모음</title>
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
@@ -22,19 +23,30 @@
 <meta name="apple-mobile-web-app-title" content="와트메이커 게임방">
 <style>
   :root{
-    --navy:#0F2A40; --navy2:#1B4C6B; --teal:#2A6C8C;
-    --cream:#F5FAFF; --card:#FFFFFF; --ink:#1E2F3C; --ink2:#4C6273;
-    --gold:#FFD75E; --gold-deep:#C98A00; --line:#DCE8F2;
-    --green:#1F8A5B; --green-lite:#E4F6EC;
-    --rust:#B4560F; --rust-lite:#FFF0E0;
-    --sky:#EAF6FF;
+    --ink:#232B45; --ink2:#586A82; --ink3:#7C8DA3;
+    --deep:#2B1A63; --violet:#4A33A6; --navy:#22306B;
+    --gold:#FFC93C; --gold2:#EF9F1C;
+    --line:#EFE7FB; --line2:#E6DDF6;
+    --mint:#1E9C6B; --coral:#E7602F;
   }
   *,*::before,*::after{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  body{margin:0;background:var(--cream);color:var(--ink);
+  html{-webkit-text-size-adjust:100%;background:#FFFBF3}
+  body{margin:0;background:#FFFBF3;color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Segoe UI",sans-serif;
     line-height:1.45;padding-bottom:calc(1rem + env(safe-area-inset-bottom));
-    word-break:keep-all;overflow-wrap:break-word}
+    word-break:keep-all;overflow-wrap:break-word;overflow-x:clip}
+
+  /* ── 배경: 파스텔 구름 + 도트 아케이드 ──── */
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-color:#FFFBF3;
+    background-image:
+      radial-gradient(circle at 7% 2%,rgba(255,215,105,.52),transparent 40%),
+      radial-gradient(circle at 97% 9%,rgba(166,199,255,.52),transparent 42%),
+      radial-gradient(circle at 0% 56%,rgba(255,176,206,.34),transparent 38%),
+      radial-gradient(circle at 101% 68%,rgba(150,240,205,.42),transparent 40%),
+      radial-gradient(circle at 46% 103%,rgba(194,176,255,.38),transparent 46%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26'%3E%3Ccircle cx='3' cy='3' r='1.5' fill='%23E4DAF9'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%23FFE3B2'/%3E%3C/svg%3E")}
+
   [hidden]{display:none !important}
   button{font-family:inherit;cursor:pointer;color:inherit;border:0;background:none}
   button:focus-visible,a:focus-visible{outline:3px solid #1D6FA5;outline-offset:2px}
@@ -42,154 +54,265 @@
   p{margin:0}
   img{max-width:100%}
 
-  /* ── 머리말 ───────────────────────────── */
-  .top{position:relative;overflow:hidden;
-    background:linear-gradient(160deg,#0D2437 0%,#12314A 34%,#1B4C6B 66%,#2A6C8C 100%);
-    color:#FBF8F2;padding:calc(.62rem + env(safe-area-inset-top)) .72rem .68rem;
-    box-shadow:0 3px 16px rgba(10,30,46,.3)}
-  .top::after{content:"";position:absolute;inset:0;pointer-events:none;
-    background:radial-gradient(circle at 88% 12%,rgba(255,215,94,.34),transparent 46%),
-               radial-gradient(circle at 6% 96%,rgba(120,220,255,.22),transparent 52%)}
+  /* ── 히어로 머리말 (별빛 아케이드) ──────── */
+  .top{position:relative;isolation:isolate;overflow:hidden;
+    background:
+      radial-gradient(circle at 86% 8%,rgba(255,215,94,.30),transparent 46%),
+      radial-gradient(circle at 8% 106%,rgba(120,220,255,.26),transparent 52%),
+      linear-gradient(158deg,#251552 0%,#3A2A8C 38%,#2A5E9E 72%,#2F8FB0 100%);
+    color:#FFFDF6;
+    padding:calc(.66rem + env(safe-area-inset-top)) .76rem .9rem;
+    box-shadow:0 6px 20px rgba(40,24,84,.34)}
+  /* 별빛 */
+  .top::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      radial-gradient(2px 2px at 11% 24%,#FFF7CE 50%,transparent 51%),
+      radial-gradient(1.6px 1.6px at 27% 68%,#FFFFFF 50%,transparent 51%),
+      radial-gradient(2.2px 2.2px at 45% 16%,#FFE48A 50%,transparent 51%),
+      radial-gradient(1.6px 1.6px at 63% 74%,#FFFFFF 50%,transparent 51%),
+      radial-gradient(2px 2px at 77% 28%,#CFE9FF 50%,transparent 51%),
+      radial-gradient(1.4px 1.4px at 90% 60%,#FFFFFF 50%,transparent 51%),
+      radial-gradient(1.8px 1.8px at 5% 76%,#FFE48A 50%,transparent 51%),
+      radial-gradient(1.4px 1.4px at 36% 40%,#FFFFFF 50%,transparent 51%),
+      radial-gradient(1.4px 1.4px at 70% 12%,#FFE48A 50%,transparent 51%);
+    opacity:.9}
+  /* 아래 마퀴 전구 줄 */
+  .top::before{content:"";position:absolute;left:0;right:0;bottom:0;height:8px;z-index:1;pointer-events:none;
+    background-color:#1D1044;
+    background-image:radial-gradient(circle 2.3px at 50% 52%,#FFE9A0 0 74%,rgba(255,233,160,0) 100%);
+    background-size:12px 8px;background-position:center;
+    border-top:1px solid rgba(255,214,102,.38);
+    box-shadow:inset 0 2px 4px rgba(10,4,30,.55)}
   .brand{position:relative;z-index:1;display:flex;align-items:center;gap:.55rem}
-  .logo{width:2.6rem;height:2.6rem;border-radius:50%;flex:0 0 auto;display:block;
-    background:url("data:image/webp;base64,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") center/cover no-repeat;
-    box-shadow:0 2px 8px rgba(0,0,0,.34),0 0 0 2px rgba(255,215,94,.62)}
+  .logo{width:2.72rem;height:2.72rem;border-radius:50%;flex:0 0 auto;display:block;
+    background:url("./icon-192.png") center/cover no-repeat;
+    box-shadow:0 0 0 2.5px #FFD75E,0 0 0 5px rgba(255,215,94,.20),
+      0 0 18px rgba(255,200,60,.55),0 3px 10px rgba(0,0,0,.34)}
   .btxt{flex:1 1 auto;min-width:0}
-  .brand h1{margin:0;font-size:1.06rem;line-height:1.18;letter-spacing:-.03em;font-weight:900;
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .brand .sub{margin:.12rem 0 0;font-size:.63rem;line-height:1.25;opacity:.94;font-weight:700;
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#D8EEFF}
-  .spark{position:relative;z-index:1;flex:0 0 auto;font-size:1.12rem;line-height:1;
-    filter:drop-shadow(0 0 6px rgba(255,215,94,.75))}
-  .hbtns{position:relative;z-index:1;display:flex;align-items:center;gap:.34rem;flex:0 0 auto}
-  .langbtn{display:inline-flex;align-items:center;justify-content:center;gap:.13rem;height:1.98rem;
-    padding:0 .44rem;border-radius:.72rem;background:rgba(255,255,255,.15);
-    border:1.4px solid rgba(255,255,255,.36);color:#FBF8F2;font-size:.6rem;font-weight:900;
-    line-height:1;letter-spacing:-.01em;box-shadow:0 1px 5px rgba(6,20,32,.22)}
-  .langbtn:active{transform:translateY(1px)}
-  .langbtn .glb{font-size:.86rem;line-height:1}
+  .brand h1{margin:0;font-size:1.14rem;line-height:1.16;letter-spacing:-.035em;font-weight:900;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    text-shadow:0 2px 0 rgba(28,14,64,.34)}
+  .brand .sub{margin:.16rem 0 0;font-size:.64rem;line-height:1.25;font-weight:800;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#D9E9FF}
+  .hbtns{position:relative;z-index:1;display:flex;align-items:center;gap:.38rem;flex:0 0 auto}
+  .langbtn{display:inline-flex;align-items:center;justify-content:center;gap:.14rem;height:2.02rem;
+    padding:0 .46rem;border-radius:.78rem;color:#FFFDF6;font-size:.6rem;font-weight:900;
+    line-height:1;letter-spacing:-.01em;
+    background:linear-gradient(180deg,rgba(255,255,255,.30),rgba(255,255,255,.14));
+    border:1.5px solid rgba(255,255,255,.52);
+    box-shadow:0 2px 0 rgba(20,10,50,.35),inset 0 1px 0 rgba(255,255,255,.4)}
+  .langbtn:active{transform:translateY(1px);box-shadow:0 1px 0 rgba(20,10,50,.35)}
+  .langbtn .glb{font-size:.88rem;line-height:1}
   .langbtn .lg{display:inline-flex;align-items:center;gap:.03rem}
   .langbtn .lg i{font-style:normal}
-  .langbtn .lg .sep{opacity:.4;font-size:.54rem}
-  .langbtn .lg .off{opacity:.34}
-  html[lang="en"] .langbtn{background:rgba(255,215,94,.24);border-color:rgba(255,215,94,.66);color:#FFF9E6}
-  html[lang="en"] .brand h1{font-size:.94rem;letter-spacing:-.01em}
-  html[lang="en"] .brand .sub{font-size:.6rem;white-space:normal;line-height:1.22}
-  html[lang="en"] .gmain h3{font-size:.9rem;letter-spacing:-.01em}
-  html[lang="en"] .gmain p{font-size:.7rem}
-  html[lang="en"] .hi{font-size:.86rem}
-  html[lang="en"] .hi2{font-size:.73rem}
-  html[lang="en"] .acts a,html[lang="en"] .acts button{font-size:.63rem;letter-spacing:0}
-  html[lang="en"] .db-go{font-size:.6rem}
-  html[lang="en"] .sect{font-size:.8rem}
+  .langbtn .lg .sep{opacity:.45;font-size:.54rem}
+  .langbtn .lg .off{opacity:.4}
+  html[lang="en"] .langbtn{background:linear-gradient(180deg,#FFE793,#FFC12E);border-color:#FFD75E;color:#4E3200;
+    box-shadow:0 2px 0 #C48400,inset 0 1px 0 rgba(255,255,255,.7)}
+  .spark{position:relative;z-index:1;flex:0 0 auto;width:1.9rem;height:1.9rem;border-radius:50%;display:grid;place-items:center;
+    font-size:.98rem;line-height:1;
+    background:radial-gradient(circle at 34% 28%,#FFF9D2,#FFC93C 72%);
+    box-shadow:0 0 0 2px rgba(255,255,255,.62),0 0 16px rgba(255,200,60,.9),0 2px 6px rgba(0,0,0,.28);
+    animation:sparkBob 2.8s ease-in-out infinite}
+  @keyframes sparkBob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-3px) rotate(4deg)}}
+  .spark svg{width:1.14rem;height:1.14rem;display:block}
+  html[lang="en"] .brand h1{font-size:1rem;letter-spacing:-.02em}
+  html[lang="en"] .brand .sub{font-size:.6rem;white-space:normal;line-height:1.2}
   @media (max-width:355px){
-    .logo{width:2.3rem;height:2.3rem}
-    .brand h1{font-size:.99rem}
-    .brand .sub{font-size:.585rem}
+    .logo{width:2.4rem;height:2.4rem}
+    .brand h1{font-size:1.02rem}
+    .brand .sub{font-size:.58rem}
+    .spark{width:1.8rem;height:1.8rem;font-size:.9rem}
   }
 
-  main{max-width:34rem;margin:0 auto;padding:.58rem .62rem 0}
+  main{position:relative;z-index:1;max-width:34rem;margin:0 auto;padding:.6rem .64rem 0}
 
   /* ── 오늘 날짜·날씨 막대 ───────────────── */
-  .datebar{display:flex;align-items:center;flex-wrap:wrap;gap:.28rem .42rem;width:100%;min-height:2.7rem;
-    padding:.44rem .6rem;border-radius:.86rem;border:1.5px solid #CFE2EF;background:#FFFFFF;
-    box-shadow:0 1px 5px rgba(18,49,74,.07);text-align:left;line-height:1.25}
-  .datebar:active{transform:translateY(1px)}
-  .db-date{font-size:.82rem;font-weight:900;color:var(--navy);letter-spacing:-.02em}
+  .datebar{display:flex;align-items:center;flex-wrap:wrap;gap:.28rem .42rem;width:100%;min-height:2.72rem;
+    padding:.44rem .58rem;border-radius:.92rem;text-align:left;line-height:1.25;
+    background:linear-gradient(160deg,#FFFFFF,#FFF8E9);
+    border:2px solid #FFE3A4;
+    box-shadow:0 3px 0 #F0D583,0 8px 16px rgba(160,120,20,.12)}
+  .datebar:active{transform:translateY(2px);box-shadow:0 1px 0 #F0D583,0 4px 10px rgba(160,120,20,.14)}
+  .db-date{font-size:.83rem;font-weight:900;color:#3A2C6B;letter-spacing:-.02em}
   .db-wx{font-size:.82rem;font-weight:800;color:var(--ink2)}
-  .db-wx.loading{color:#7E93A3}
-  .db-place{font-size:.66rem;font-weight:800;color:#5A7386;background:var(--sky);
-    border-radius:.5rem;padding:.1rem .34rem}
-  .db-go{margin-left:auto;font-size:.62rem;font-weight:800;color:#1D6FA5;white-space:nowrap}
+  .db-wx.loading{color:#96A3B4}
+  .db-place{font-size:.66rem;font-weight:900;color:#8A5F00;background:#FFF1C9;
+    border:1px solid #FFDE9B;border-radius:.55rem;padding:.1rem .36rem}
+  .db-go{margin-left:auto;font-size:.62rem;font-weight:900;color:#2E6FA8;white-space:nowrap}
 
-  /* ── 인사 ─────────────────────────────── */
-  .hello{margin:.66rem .1rem .1rem}
-  .hi{font-size:.9rem;font-weight:900;color:var(--navy);letter-spacing:-.02em}
-  .hi2{margin-top:.18rem;font-size:.76rem;font-weight:700;color:var(--ink2);line-height:1.5}
-  .hi2 b{color:var(--gold-deep)}
+  /* ── 인사 말풍선 ───────────────────────── */
+  .hello{position:relative;margin:.68rem 0 0;padding:.62rem .74rem;border-radius:1.05rem;
+    background:rgba(255,255,255,.94);
+    border:2px solid var(--line);
+    box-shadow:0 4px 0 #EAE1FA,0 8px 16px rgba(70,50,130,.08)}
+  .hello::before{content:"";position:absolute;top:-8px;left:1.15rem;width:.8rem;height:.8rem;
+    background:#FFFFFF;border-left:2px solid var(--line);border-top:2px solid var(--line);
+    transform:rotate(45deg);border-radius:.14rem}
+  .hi{position:relative;font-size:.9rem;font-weight:900;color:#2E2463;letter-spacing:-.025em}
+  .hi2{margin-top:.2rem;font-size:.76rem;font-weight:700;color:var(--ink2);line-height:1.5}
+  .hi2 b{color:#B4700A;background:linear-gradient(180deg,transparent 58%,#FFE9A8 58%);padding:0 .1rem}
 
-  .sect{display:flex;align-items:baseline;gap:.4rem;margin:.86rem .1rem .44rem;
-    font-size:.86rem;font-weight:900;color:var(--navy);letter-spacing:-.02em}
-  .sect .cnt{font-size:.66rem;font-weight:800;color:#6F8697}
+  /* ── 구역 제목 ────────────────────────── */
+  .sect{display:flex;align-items:center;gap:.42rem;margin:.9rem .12rem .48rem;
+    font-size:.9rem;font-weight:900;color:#2B2160;letter-spacing:-.02em}
+  .sect::before{content:"";width:.34rem;height:1.06rem;border-radius:.2rem;flex:0 0 auto;
+    background:linear-gradient(180deg,#FFD75E,#FF9A6B);box-shadow:0 0 8px rgba(255,170,90,.6)}
+  .sect .cnt{font-size:.62rem;font-weight:900;color:#5F4BAD;background:#F2EDFF;
+    border:1px solid #DFD3FF;border-radius:.6rem;padding:.14rem .4rem;letter-spacing:-.01em}
 
   /* ── 게임 카드 ────────────────────────── */
-  .games{display:grid;gap:.5rem}
-  .gcard{position:relative;display:flex;align-items:center;gap:.6rem;width:100%;
-    padding:.62rem .64rem;border-radius:1rem;background:var(--card);
-    border:1.5px solid var(--line);box-shadow:0 2px 9px rgba(18,49,74,.08);
-    text-align:left;min-height:5.1rem;transition:transform .12s ease,box-shadow .12s ease}
-  a.gcard:active{transform:translateY(1px) scale(.995);box-shadow:0 1px 4px rgba(18,49,74,.1)}
-  .gcard.live{border-color:#BFE3CF}
-  .art{flex:0 0 auto;width:3.5rem;height:3.5rem;border-radius:.86rem;display:grid;place-items:center;
-    font-size:1.72rem;line-height:1;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.6)}
-  .art.bulb{background:linear-gradient(150deg,#FFF4CC,#FFE18A)}
-  .art.golf{background:linear-gradient(150deg,#E4E9FF,#C9D6FF)}
-  .art.safety{background:linear-gradient(150deg,#FFE6D6,#FFD0B0)}
-  .art.soon{background:linear-gradient(150deg,#EAF3E6,#D6E8CF)}
-  .gmain{flex:1 1 auto;min-width:0}
-  .gmain h3{margin:0;font-size:.95rem;line-height:1.25;font-weight:900;letter-spacing:-.03em;color:var(--ink)}
-  .gmain p{margin:.16rem 0 0;font-size:.72rem;font-weight:700;color:var(--ink2);line-height:1.42}
-  .gmain .tags{display:flex;flex-wrap:wrap;gap:.22rem;margin-top:.3rem}
-  .tag{font-size:.6rem;font-weight:800;padding:.08rem .34rem;border-radius:.42rem;
-    background:#EFF6FB;color:#43627A;border:1px solid #D7E6F0}
-  .tag.gold{background:#FFF6DB;color:#8A5F00;border-color:#F2DEA0}
-  .badge{flex:0 0 auto;align-self:flex-start;margin-top:.06rem;font-size:.62rem;font-weight:900;
-    padding:.2rem .4rem;border-radius:.52rem;white-space:nowrap;line-height:1.15}
-  .badge.go{background:var(--green-lite);color:var(--green);border:1px solid #B6E3C9}
-  .badge.soon{background:var(--rust-lite);color:var(--rust);border:1px solid #F3D3B4}
-  .badge.wait{background:#EEF2F6;color:#5C7183;border:1px solid #DCE5EC}
-  .gcard.sooncard{border-style:dashed;border-color:#C9DED2;background:#FBFEFB}
-  .gcard.sooncard .gmain h3{color:#2C4A38}
-  .soonlist{display:flex;flex-wrap:wrap;gap:.24rem;margin-top:.32rem}
-  .soonlist span{font-size:.63rem;font-weight:800;color:#3F6B4F;background:#EDF7EA;
-    border:1px solid #CFE6C6;border-radius:.45rem;padding:.1rem .36rem}
+  .games{display:grid;gap:.62rem}
+  .gcard{--c1:#FFFFFF;--c2:#FFFFFF;--bd:#E7E0F3;--sd:#D9CFEC;
+    position:relative;display:flex;align-items:center;gap:.6rem;width:100%;
+    padding:.68rem .66rem;border-radius:1.15rem;text-align:left;min-height:4.9rem;
+    background:linear-gradient(150deg,var(--c1),var(--c2));
+    border:2px solid var(--bd);
+    box-shadow:0 4px 0 var(--sd),0 10px 20px rgba(56,42,102,.10);
+    transition:transform .13s ease,box-shadow .13s ease;overflow:hidden}
+  /* 유리 광택 */
+  .gcard::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+    background:linear-gradient(158deg,rgba(255,255,255,.5),rgba(255,255,255,0) 40%)}
+  a.gcard:active{transform:translateY(3px);box-shadow:0 1px 0 var(--sd),0 4px 10px rgba(56,42,102,.12)}
+  @keyframes cardPop{from{opacity:0;transform:translateY(9px) scale(.985)}to{opacity:1;transform:none}}
+  .gcard{animation:cardPop .4s cubic-bezier(.2,.8,.3,1) backwards}
+  .gcard:nth-child(2){animation-delay:.05s}
+  .gcard:nth-child(3){animation-delay:.1s}
+  .gcard:nth-child(4){animation-delay:.15s}
+  .gcard[data-game="bulb"]{--c1:#FFFCE0;--c2:#FFE6A2;--bd:#FFCB52;--sd:#ECAF27}
+  .gcard[data-game="golf"]{--c1:#EFF6FF;--c2:#E2E3FF;--bd:#B4C7F8;--sd:#8DA8E9}
+  .gcard[data-game="safety"]{--c1:#FFF1E7;--c2:#FFD8C0;--bd:#FFB688;--sd:#ED9155}
+
+  .art{position:relative;flex:0 0 auto;width:3.5rem;height:3.5rem;border-radius:1.02rem;display:grid;place-items:center;
+    box-shadow:inset 0 0 0 2px rgba(255,255,255,.92),0 3px 0 rgba(90,60,20,.14),0 6px 12px rgba(70,40,120,.12)}
+  .art svg{width:2.16rem;height:2.16rem;display:block}
+  .art.bulb{background:linear-gradient(160deg,#FFFCEC,#FFE9A2);
+    box-shadow:inset 0 0 0 2px rgba(255,255,255,.95),0 3px 0 #F0BE43,0 0 16px rgba(255,196,60,.55)}
+  .art.bulb svg{filter:drop-shadow(0 0 5px rgba(255,190,50,.85))}
+  .art.golf{background:linear-gradient(160deg,#F5FAFF,#DBE3FF);
+    box-shadow:inset 0 0 0 2px rgba(255,255,255,.95),0 3px 0 #AEBFEA,0 0 16px rgba(150,170,255,.5)}
+  .art.safety{background:linear-gradient(160deg,#FFF7F0,#FFDCC4);
+    box-shadow:inset 0 0 0 2px rgba(255,255,255,.95),0 3px 0 #EDA371,0 0 16px rgba(255,150,100,.45)}
+  .art.soon{background:linear-gradient(160deg,#F3FCF7,#ECE6FF);
+    box-shadow:inset 0 0 0 2px rgba(255,255,255,.95),0 3px 0 #C9C0EA}
+
+  .gmain{position:relative;flex:1 1 auto;min-width:0}
+  .gmain h3{margin:0;font-size:.96rem;line-height:1.24;font-weight:900;letter-spacing:-.035em;color:#20294A;
+    text-shadow:0 1px 0 rgba(255,255,255,.65)}
+  .gmain p{margin:.2rem 0 0;font-size:.715rem;font-weight:700;color:#4E5F78;line-height:1.42}
+  .gmain .tags{display:flex;flex-wrap:wrap;gap:.24rem;margin-top:.32rem}
+  .tag{font-size:.6rem;font-weight:900;padding:.13rem .38rem;border-radius:.5rem;
+    background:rgba(255,255,255,.78);color:#4A5A72;border:1px solid rgba(255,255,255,.95);
+    box-shadow:0 1px 0 rgba(80,60,20,.08)}
+  .tag.gold{background:#FFF6CE;color:#8A5F00;border-color:#FFE29A}
+
+  /* 3D 아케이드 버튼 */
+  .badge{position:relative;flex:0 0 auto;align-self:center;
+    font-size:.63rem;font-weight:900;line-height:1;padding:.46rem .5rem;border-radius:.74rem;
+    white-space:nowrap;letter-spacing:-.02em;
+    background:linear-gradient(180deg,#9BF3BE,#35C77E);color:#064026;
+    box-shadow:0 3px 0 #15995C,0 6px 12px rgba(20,120,80,.24),inset 0 1px 0 rgba(255,255,255,.8);
+    text-shadow:0 1px 0 rgba(255,255,255,.55)}
+  .gcard[data-game="bulb"] .badge.go{background:linear-gradient(180deg,#FFE793,#FFC02E);color:#5A3800;
+    box-shadow:0 3px 0 #D49300,0 6px 12px rgba(200,140,0,.28),inset 0 1px 0 rgba(255,255,255,.75);
+    text-shadow:0 1px 0 rgba(255,255,255,.6)}
+  .gcard[data-game="golf"] .badge.go{background:linear-gradient(180deg,#DBE5FF,#9EBAFF);color:#13265C;
+    box-shadow:0 3px 0 #6E8EE0,0 6px 12px rgba(90,120,210,.26),inset 0 1px 0 rgba(255,255,255,.8);
+    text-shadow:0 1px 0 rgba(255,255,255,.6)}
+  .gcard[data-game="safety"] .badge.go{background:linear-gradient(180deg,#FFCBAC,#FF9A66);color:#5A2208;
+    box-shadow:0 3px 0 #DD7944,0 6px 12px rgba(220,110,60,.26),inset 0 1px 0 rgba(255,255,255,.75);
+    text-shadow:0 1px 0 rgba(255,255,255,.55)}
+  a.gcard:active .badge{transform:translateY(2px)}
+
+  /* 다음 게임 (민트·라벤더 점선) */
+  .gcard.sooncard{--c1:#F2FCF6;--c2:#EFEAFF;--bd:#9FD8C2;--sd:#C0B2EA;
+    border-style:dashed;border-color:#9AD5BF}
+  .gcard.sooncard .gmain h3{color:#2A4A5F}
+  .soonlist{display:flex;flex-wrap:wrap;gap:.24rem;margin-top:.34rem}
+  .soonlist span{font-size:.62rem;font-weight:900;color:#1C6B4C;background:rgba(255,255,255,.85);
+    border:1px solid #B9E4D0;border-radius:.48rem;padding:.12rem .38rem}
+  .badge.wait{background:linear-gradient(180deg,#F2EDFF,#DCD3F4);color:#4A3D74;
+    box-shadow:0 3px 0 #B9A9E4,inset 0 1px 0 rgba(255,255,255,.8);text-shadow:0 1px 0 rgba(255,255,255,.7)}
 
   /* ── 약속 ─────────────────────────────── */
-  .promise{margin:.72rem 0 0;padding:.56rem .66rem;border-radius:.86rem;
-    background:#FFFFFF;border:1.5px dashed #CFE2EF}
-  .promise p{font-size:.7rem;font-weight:700;color:#4F6879;line-height:1.5}
-  .promise b{color:var(--navy)}
+  .promise{display:flex;gap:.5rem;align-items:flex-start;
+    margin:.78rem 0 0;padding:.6rem .68rem;border-radius:1rem;
+    background:rgba(255,255,255,.92);border:2px dashed #B7E4CE;
+    box-shadow:0 3px 0 #DDF1E6}
+  .promise .pico{flex:0 0 auto;font-size:.95rem;line-height:1.2}
+  .promise p{font-size:.7rem;font-weight:700;color:#40566A;line-height:1.5}
+  .promise b{color:#175E45;background:linear-gradient(180deg,transparent 58%,#CFF3DF 58%);padding:0 .1rem}
 
   /* ── 아래 버튼 (5개) ──────────────────── */
-  .acts{display:grid;grid-template-columns:repeat(6,1fr);gap:.4rem;margin:.72rem 0 0}
+  .acts{display:grid;grid-template-columns:repeat(6,1fr);gap:.44rem;margin:.8rem 0 0}
   .acts a,.acts button{grid-column:span 2;display:flex;flex-direction:column;align-items:center;
-    justify-content:center;gap:.14rem;min-height:3.35rem;padding:.4rem .2rem;border-radius:.86rem;
-    background:#FFFFFF;border:1.5px solid var(--line);box-shadow:0 1px 5px rgba(18,49,74,.06);
-    font-size:.68rem;font-weight:900;color:#2A4356;line-height:1.2;text-align:center;letter-spacing:-.02em}
+    justify-content:center;gap:.16rem;min-height:3.42rem;padding:.42rem .2rem;border-radius:.95rem;
+    font-size:.68rem;font-weight:900;color:#3B2E6A;line-height:1.2;text-align:center;letter-spacing:-.02em;
+    background:linear-gradient(160deg,#FFFFFF,#F6F1FF);border:2px solid #EADFFA;
+    box-shadow:0 3px 0 #DCD0F2,0 7px 14px rgba(70,50,130,.08);
+    transition:transform .12s ease,box-shadow .12s ease}
   .acts .wide{grid-column:span 3}
-  .acts a:active,.acts button:active{transform:translateY(1px)}
-  .acts .em{font-size:1.12rem;line-height:1}
-  .acts .home{background:linear-gradient(150deg,#12314A,#2A6C8C);color:#FFF9EF;border-color:#12314A}
-  .acts .yt{background:linear-gradient(150deg,#FFF6DB,#FFEAC1);border-color:#F0DCA6;color:#7A5200}
+  .acts a:active,.acts button:active{transform:translateY(2px);box-shadow:0 1px 0 #DCD0F2}
+  .acts .em{font-size:1.14rem;line-height:1;filter:drop-shadow(0 1px 1px rgba(60,30,90,.16))}
+  .acts .home{background:linear-gradient(160deg,#4E3BB4,#2C1B72);color:#FFF7DC;border-color:#3C2A93;
+    box-shadow:0 3px 0 #1F1150,0 8px 16px rgba(40,20,90,.24)}
+  .acts .home:active{box-shadow:0 1px 0 #1F1150}
+  .acts .elec{background:linear-gradient(160deg,#EAF8FF,#D2EDFF);border-color:#B4DDF6;color:#12496B;
+    box-shadow:0 3px 0 #8EC5E7,0 7px 14px rgba(40,120,170,.10)}
+  .acts .elec:active{box-shadow:0 1px 0 #8EC5E7}
+  .acts .yt{background:linear-gradient(160deg,#FFF3CE,#FFDD9A);border-color:#F5CD70;color:#6A4300;
+    box-shadow:0 3px 0 #E6B847,0 7px 14px rgba(200,150,20,.14)}
+  .acts .yt:active{box-shadow:0 1px 0 #E6B847}
+  .acts .share{background:linear-gradient(160deg,#E9FBF1,#D1F3E2);border-color:#AEE5C9;color:#115E3C;
+    box-shadow:0 3px 0 #83CEA6,0 7px 14px rgba(30,150,100,.12)}
+  .acts .share:active{box-shadow:0 1px 0 #83CEA6}
+  .acts .inst{background:linear-gradient(160deg,#F4EEFF,#E5DAFF);border-color:#CDBDF5;color:#3A2480;
+    box-shadow:0 3px 0 #B2A0E6,0 7px 14px rgba(90,60,180,.14)}
+  .acts .inst:active{box-shadow:0 1px 0 #B2A0E6}
 
-  footer{margin:.86rem .1rem 0;text-align:center;font-size:.63rem;font-weight:700;color:#7B91A1;line-height:1.55}
-  footer .fam{display:block;margin-top:.16rem;font-size:.6rem;letter-spacing:.02em;color:#9AAEBB}
+  footer{position:relative;margin:.9rem .1rem 0;text-align:center;font-size:.63rem;font-weight:700;color:#7A8AA0;line-height:1.55}
+  footer .fam{display:block;margin-top:.18rem;font-size:.6rem;letter-spacing:.02em;color:#9AA6B8}
 
   /* ── 토스트 ───────────────────────────── */
-  .toast{position:fixed;left:50%;bottom:calc(1.1rem + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(.6rem);
-    max-width:calc(100vw - 1.6rem);background:rgba(15,42,64,.96);color:#FFF9EF;border-radius:1rem;
-    padding:.55rem .8rem;font-size:.78rem;font-weight:800;line-height:1.4;text-align:center;
+  .toast{position:fixed;left:50%;bottom:calc(1.1rem + env(safe-area-inset-bottom));
+    transform:translateX(-50%) translateY(.6rem);
+    max-width:calc(100vw - 1.6rem);background:rgba(43,26,99,.97);color:#FFF9E6;border-radius:1.05rem;
+    padding:.56rem .82rem;font-size:.78rem;font-weight:800;line-height:1.4;text-align:center;
+    border:1.5px solid rgba(255,215,94,.42);box-shadow:0 8px 24px rgba(30,16,70,.35);
     opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:60}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
   /* ── 설치 안내 판 ─────────────────────── */
   .instWrap{position:fixed;inset:0;z-index:80;display:flex;align-items:flex-end;justify-content:center;
-    background:rgba(10,26,38,.55);padding:0 .5rem calc(.5rem + env(safe-area-inset-bottom))}
-  .instCard{width:100%;max-width:26rem;background:#FFFDF7;border-radius:1.1rem;
-    padding:.85rem .85rem .75rem;box-shadow:0 -6px 26px rgba(6,20,32,.32)}
-  .instCard h3{margin:0 0 .1rem;font-size:.98rem;font-weight:900;color:var(--navy);letter-spacing:-.03em}
-  .instCard .lead{margin:.1rem 0 .55rem;font-size:.72rem;font-weight:700;color:var(--ink2);line-height:1.45}
-  .steps{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
-  .steps li{display:flex;align-items:center;gap:.46rem;background:#FFFFFF;border:1.5px solid var(--line);
-    border-radius:.72rem;padding:.4rem .5rem}
-  .steps .num{flex:0 0 auto;width:1.35rem;height:1.35rem;border-radius:50%;display:grid;place-items:center;
-    background:var(--navy);color:#FFD75E;font-size:.72rem;font-weight:900}
-  .steps .txt{flex:1 1 auto;font-size:.74rem;font-weight:700;color:#2A4356;line-height:1.35}
+    background:rgba(28,18,62,.58);padding:0 .5rem calc(.5rem + env(safe-area-inset-bottom))}
+  .instCard{width:100%;max-width:26rem;border-radius:1.3rem;
+    background:linear-gradient(180deg,#FFFEF8,#FFF8E6);
+    border:2px solid #FFE6AE;padding:.88rem .86rem .78rem;
+    box-shadow:0 -8px 30px rgba(36,20,80,.36)}
+  .instCard h3{margin:0 0 .1rem;font-size:.99rem;font-weight:900;color:#2E2463;letter-spacing:-.03em}
+  .instCard .lead{margin:.12rem 0 .58rem;font-size:.72rem;font-weight:700;color:var(--ink2);line-height:1.45}
+  .steps{list-style:none;margin:0;padding:0;display:grid;gap:.42rem}
+  .steps li{display:flex;align-items:center;gap:.46rem;background:#FFFFFF;border:2px solid var(--line);
+    border-radius:.78rem;padding:.42rem .5rem;box-shadow:0 2px 0 #F0E9FB}
+  .steps .num{flex:0 0 auto;width:1.4rem;height:1.4rem;border-radius:50%;display:grid;place-items:center;
+    background:linear-gradient(180deg,#FFE793,#FFC02E);color:#5A3800;font-size:.72rem;font-weight:900;
+    box-shadow:0 2px 0 #D49300}
+  .steps .txt{flex:1 1 auto;font-size:.74rem;font-weight:700;color:#2F3C58;line-height:1.35}
   .steps .ui{flex:0 0 auto;font-size:.95rem}
-  .instTip{margin:.5rem 0 0;font-size:.66rem;font-weight:700;color:#6C8291;line-height:1.45}
-  .instOk{width:100%;margin-top:.6rem;min-height:2.7rem;border-radius:.8rem;
-    background:linear-gradient(150deg,#12314A,#2A6C8C);color:#FFF9EF;font-size:.86rem;font-weight:900}
-  @media (prefers-reduced-motion:reduce){*{transition:none !important}}
+  .instTip{margin:.52rem 0 0;font-size:.66rem;font-weight:700;color:#6B7C92;line-height:1.45}
+  .instOk{width:100%;margin-top:.62rem;min-height:2.75rem;border-radius:.85rem;
+    background:linear-gradient(180deg,#8BE3FF,#2FA9E0);color:#06304A;
+    font-size:.88rem;font-weight:900;border:2px solid #1E8FC4;
+    box-shadow:0 4px 0 #1B7FB0,0 8px 16px rgba(20,120,170,.24)}
+  .instOk:active{transform:translateY(2px);box-shadow:0 2px 0 #1B7FB0}
+
+  html[lang="en"] .gmain h3{font-size:.91rem;letter-spacing:-.015em}
+  html[lang="en"] .gmain p{font-size:.7rem}
+  html[lang="en"] .hi{font-size:.86rem}
+  html[lang="en"] .hi2{font-size:.73rem}
+  html[lang="en"] .acts a,html[lang="en"] .acts button{font-size:.62rem;letter-spacing:0}
+  html[lang="en"] .sect{font-size:.85rem}
+  @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
 </style>
 </head>
 <body>
@@ -207,7 +330,11 @@
         <span class="glb" aria-hidden="true">🌐</span>
         <span class="lg" aria-hidden="true"><i id="lgKo">한</i><span class="sep">/</span><i id="lgEn">EN</i></span>
       </button>
-      <span class="spark" aria-hidden="true">⚡</span>
+      <span class="spark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+          <path d="M13.6 1.9 5.2 13.6h5L8.6 22.1l8.9-12.4h-5.2z" fill="#8A5A00"/>
+        </svg>
+      </span>
     </div>
   </div>
 </header>
@@ -234,43 +361,95 @@
     <!-- ① 해미족 전구 켜기 (라이브) -->
     <a class="gcard live" href="../bulb-game/" data-game="bulb"
       aria-label="해미족 전구 켜기 — 바로 플레이" data-en-aria="Hamii Bulb Puzzle — play now">
-      <span class="art bulb" aria-hidden="true">⚡</span>
+      <span class="art bulb" aria-hidden="true">
+        <svg viewBox="0 0 48 48" role="presentation" focusable="false">
+          <defs>
+            <linearGradient id="gBulb" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#FFF0B0"/><stop offset=".55" stop-color="#FFDD70"/><stop offset="1" stop-color="#FBB325"/>
+            </linearGradient>
+          </defs>
+          <path d="M24 5.6c-7.4 0-13.1 5.7-13.1 12.9 0 4.6 2.3 7.9 4.5 10.4 1.3 1.5 2.2 2.7 2.4 4.2h12.4c.2-1.5 1.1-2.7 2.4-4.2 2.2-2.5 4.5-5.8 4.5-10.4C37.1 11.3 31.4 5.6 24 5.6z"
+            fill="url(#gBulb)" stroke="#DE9500" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M27.4 13.2 19.2 25.1h5.1l-1.7 9.4 8.7-12.9h-5.3z" fill="#FFFDF2" stroke="#DE9500" stroke-width="1.1" stroke-linejoin="round"/>
+          <rect x="18.3" y="35.2" width="11.4" height="3.5" rx="1.5" fill="#BFAA8A" stroke="#8E7A5C" stroke-width="1"/>
+          <rect x="20.3" y="39.2" width="7.4" height="2.7" rx="1.2" fill="#9C876A" stroke="#7E6A4E" stroke-width=".9"/>
+        </svg>
+      </span>
       <span class="gmain">
         <h3 data-en="Hamii Bulb Puzzle">해미족 전구 켜기</h3>
         <p data-en="Spin the wire tiles to light every bulb from the power plant to the village">전선 타일을 톡톡 돌려 발전소에서 마을 전구까지 불을 켜요</p>
         <span class="tags"><span class="tag gold" data-en="6 levels">6단계</span><span class="tag" data-en="Hints">힌트 있음</span><span class="tag" data-en="Brain puzzle">두뇌 퍼즐</span></span>
       </span>
-      <span class="badge go" data-en="Play">▶ 바로</span>
+      <span class="badge go" data-en="▶ Play">▶ 바로</span>
     </a>
 
     <!-- ② 공벌레 우주 미니 파크골프 (라이브) -->
     <a class="gcard live" href="../golf-game/" data-game="golf"
       aria-label="공벌레 우주 미니 파크골프 — 바로 플레이" data-en-aria="Pillbug Space Mini Golf — play now">
-      <span class="art golf" aria-hidden="true">🌌</span>
+      <span class="art golf" aria-hidden="true">
+        <svg viewBox="0 0 48 48" role="presentation" focusable="false">
+          <defs>
+            <radialGradient id="gHole" cx=".4" cy=".3" r=".8">
+              <stop offset="0" stop-color="#6558D8"/><stop offset="1" stop-color="#140E3E"/>
+            </radialGradient>
+          </defs>
+          <path d="M9.4 12.6l1.5 3.5 3.5 1.5-3.5 1.5-1.5 3.5-1.5-3.5-3.5-1.5 3.5-1.5z" fill="#FFE38A" stroke="#E8B62C" stroke-width=".9" stroke-linejoin="round"/>
+          <path d="M40 5.8l1.1 2.6 2.6 1.1-2.6 1.1L40 13.2l-1.1-2.6-2.6-1.1 2.6-1.1z" fill="#FFFFFF"/>
+          <path d="M35.4 17.2l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z" fill="#D3E4FF"/>
+          <ellipse cx="25" cy="20.5" rx="14.8" ry="8.1" fill="url(#gHole)" stroke="#C3B6FF" stroke-width="2"/>
+          <ellipse cx="25" cy="20.5" rx="9.6" ry="4.9" fill="none" stroke="#9C8CF0" stroke-opacity=".85" stroke-width="1.2"/>
+          <ellipse cx="25" cy="20.5" rx="4.2" ry="2.1" fill="#0A0722"/>
+          <g>
+            <path d="M17.4 30.6c-1.7-1.2-2.9-1.9-4.2-2.3M17.2 34.8c-1.5.9-2.6 1.5-3.6 1.7" stroke="#68769F" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+            <circle cx="12.9" cy="28.1" r="1" fill="#68769F"/>
+            <circle cx="13.4" cy="36.7" r="1" fill="#68769F"/>
+            <ellipse cx="24.5" cy="32.7" rx="8" ry="5.1" fill="#E7EEFC" stroke="#68769F" stroke-width="1.5"/>
+            <path d="M21.6 28.1C20.2 30.8 20.2 34.6 21.6 37.3M25.6 27.9C24.2 30.8 24.2 34.6 25.6 37.5" stroke="#8C9AC2" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+            <path d="M31.6 29.6c1.3-.7 2.3-1 3.2-.9" stroke="#B7C3DE" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+          </g>
+        </svg>
+      </span>
       <span class="gmain">
         <h3 data-en="Pillbug Space Mini Golf">공벌레 우주 미니 파크골프</h3>
         <p data-en="Whack your pillbug with the lightning club and sink it in the wormhole — golf across planets">데굴데굴 공벌레를 번개 채로 쳐서 웜홀에 쏙! 행성을 넘어가는 우주 골프</p>
         <span class="tags"><span class="tag gold" data-en="6 planets">6행성</span><span class="tag" data-en="No time limit">시간 제한 없음</span></span>
       </span>
-      <span class="badge go" id="badgeGolf" data-en="Play">▶ 바로</span>
+      <span class="badge go" id="badgeGolf" data-en="▶ Play">▶ 바로</span>
     </a>
 
     <!-- ③ 와글링 안전 특공대 퀴즈 (라이브) -->
     <a class="gcard live" href="../safety/" data-game="safety"
       aria-label="와글링 안전 특공대 퀴즈 — 바로 플레이" data-en-aria="Wagle Safety Squad Quiz — play now">
-      <span class="art safety" aria-hidden="true">🚒</span>
+      <span class="art safety" aria-hidden="true">
+        <svg viewBox="0 0 48 48" role="presentation" focusable="false">
+          <circle cx="16.3" cy="24.6" r="11.6" fill="#FFD24D" stroke="#DE9C00" stroke-width="1.8"/>
+          <path d="M18.1 15.4l-6.9 10.3h5.2l-2.1 8.4 8.5-11.6h-5.5z" fill="#5E3D00"/>
+          <circle cx="31.9" cy="24.6" r="11.7" fill="#FFFFFF"/>
+          <circle cx="31.9" cy="24.6" r="10.4" fill="#FF7A45" stroke="#D24C19" stroke-width="1.7"/>
+          <path d="M31.9 15.2c2.9 3.6 4.6 6.4 4.6 9.4a4.6 4.6 0 0 1-9.2 0c0-2.5 1.2-4.9 3.4-7.2.1 1.3.5 2.2 1.2 2.8.6-2 .6-3.7 0-5z" fill="#FFF6E4"/>
+        </svg>
+      </span>
       <span class="gmain">
         <h3 data-en="Wagle Safety Squad Quiz">와글링 안전 특공대 퀴즈</h3>
         <p data-en="Wattmic &amp; Fireric — 10 electricity and fire safety true/false questions · 14-point home check">와트믹·파이어릭 2인조와 전기·소방 안전 OX 퀴즈 10문제 · 집 점검 14가지</p>
         <span class="tags"><span class="tag gold" data-en="10 questions">퀴즈 10</span><span class="tag">119·123</span><span class="tag" data-en="Checklists">점검표</span></span>
       </span>
-      <span class="badge go" id="badgeSafety" data-en="Play">▶ 바로</span>
+      <span class="badge go" id="badgeSafety" data-en="▶ Play">▶ 바로</span>
     </a>
 
     <!-- ④ 다음 게임 예고 (누를 수 없음 · ⏳) -->
     <div class="gcard sooncard" role="note" aria-label="다음 게임을 준비하고 있어요"
       data-en-aria="More games are on the way">
-      <span class="art soon" aria-hidden="true">🧩</span>
+      <span class="art soon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" role="presentation" focusable="false">
+          <rect x="5.6" y="9.8" width="15.6" height="15.6" rx="5.1" fill="#8FE3BE" stroke="#45B687" stroke-width="1.7"/>
+          <circle cx="13.4" cy="17.6" r="1.7" fill="#3DA97A" opacity=".5"/>
+          <rect x="22.6" y="21.8" width="15.6" height="15.6" rx="5.1" fill="#BCA9F2" stroke="#8A72D6" stroke-width="1.7" transform="rotate(-8 30.4 29.6)"/>
+          <path d="M28.5 27.9c0-2.2 1.7-3.8 3.9-3.8s3.9 1.4 3.9 3.5c0 1.7-.9 2.5-2.2 3.4-1 .7-1.4 1.2-1.4 2.3" fill="none" stroke="#5E469F" stroke-width="2" stroke-linecap="round" transform="rotate(-8 30.4 29.6)"/>
+          <circle cx="32.7" cy="36.3" r="1.5" fill="#5E469F" transform="rotate(-8 30.4 29.6)"/>
+          <path d="M34.6 5.4l1.6 4 4 1.6-4 1.6-1.6 4-1.6-4-4-1.6 4-1.6z" fill="#FFD75E" stroke="#E4A81E" stroke-width="1" stroke-linejoin="round"/>
+        </svg>
+      </span>
       <span class="gmain">
         <h3 data-en="More games in the works">다음 게임을 만들고 있어요</h3>
         <p data-en="The WattMaker is turning the gears to assemble a new game">와트메이커가 톱니를 돌려 새 게임을 조립 중이에요</p>
@@ -284,7 +463,8 @@
   </div>
 
   <section class="promise">
-    <p data-en-html="<b>Every game is free</b> · no sign-in · no ads. Scores stay <b>on this device only</b>, and we never ask for personal details."><b>게임 모두 무료</b>· 로그인 없이 바로 · 광고 없음. 점수는 <b>이 기기에만</b> 저장되고 개인정보는 묻지 않아요.</p>
+    <span class="pico" aria-hidden="true">🛡️</span>
+    <p data-en-html="<b>Every game is free</b> · no sign-in · no ads. Scores stay <b>on this device only</b>, and we never ask for personal details."><b>게임 모두 무료</b> · 로그인 없이 바로 · 광고 없음. 점수는 <b>이 기기에만</b> 저장되고 개인정보는 묻지 않아요.</p>
   </section>
 
   <!-- 아래 버튼 -->
@@ -292,18 +472,18 @@
     <a class="home" href="../" aria-label="와글링 홈으로" data-en-aria="Wagle Home">
       <span class="em" aria-hidden="true">🏠</span><span data-en="Wagle Home">와글링 홈</span>
     </a>
-    <a href="../electric/" aria-label="와트메이커 전기기초 앱으로" data-en-aria="WattMaker electricity basics app">
+    <a class="elec" href="../electric/" aria-label="와트메이커 전기기초 앱으로" data-en-aria="WattMaker electricity basics app">
       <span class="em" aria-hidden="true">⚡</span><span data-en="Electricity App">전기기초 앱</span>
     </a>
     <a class="yt" href="https://www.youtube.com/@wattmaker" target="_blank" rel="noopener"
       aria-label="유튜브 @wattmaker 채널 열기" data-en-aria="Open the @wattmaker YouTube channel">
       <span class="em" aria-hidden="true">📺</span><span>@wattmaker</span>
     </a>
-    <button type="button" class="wide" id="shareBtn" aria-label="이 게임방 링크 공유하기"
+    <button type="button" class="wide share" id="shareBtn" aria-label="이 게임방 링크 공유하기"
       data-en-aria="Share this arcade link">
       <span class="em" aria-hidden="true">📤</span><span data-en="Share">공유</span>
     </button>
-    <button type="button" class="wide" id="installBtn" aria-label="폰 홈 화면에 게임방 바로가기 추가하기"
+    <button type="button" class="wide inst" id="installBtn" aria-label="폰 홈 화면에 게임방 바로가기 추가하기"
       data-en-aria="Add the arcade to the phone's Home Screen">
       <span class="em" aria-hidden="true">📲</span><span data-en="Install">설치</span>
     </button>
@@ -558,8 +738,8 @@
     card.classList.add('live');
     if (badge) {
       badge.className = 'badge go';
-      badge.textContent = B('▶ 바로', 'Play');
-      badge.setAttribute('data-en', 'Play');
+      badge.textContent = B('▶ 바로', '▶ Play');
+      badge.setAttribute('data-en', '▶ Play');
       card.setAttribute('aria-label', card.querySelector('h3').textContent + B(' — 바로 플레이', ' — play now'));
     }
     saveReady(key);
@@ -786,7 +966,7 @@
       var key = card.getAttribute('data-game');
       var badge = $(key === 'golf' ? '#badgeGolf' : (key === 'safety' ? '#badgeSafety' : null));
       if (live[key]) {
-        if (badge) { badge.className = 'badge go'; badge.textContent = B('▶ 바로', 'Play'); }
+        if (badge) { badge.className = 'badge go'; badge.textContent = B('▶ 바로', '▶ Play'); }
         card.setAttribute('aria-label', card.querySelector('h3').textContent + B(' — 바로 플레이', ' — play now'));
       }
     });
