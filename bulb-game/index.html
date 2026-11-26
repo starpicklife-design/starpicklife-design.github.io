@@ -3,174 +3,219 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content" />
-<meta name="theme-color" content="#0E1B2A" />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2316283C'/%3E%3Ccircle cx='32' cy='27' r='13' fill='%23FFD763'/%3E%3Cpath d='M32 40v8' stroke='%23FFD763' stroke-width='4' stroke-linecap='round'/%3E%3Crect x='26' y='48' width='12' height='6' rx='2' fill='%23A9BDD2'/%3E%3C/svg%3E" />
-<!-- build: 2026-11-26 해미족 전구 켜기 v1 (Hamii Bulb Puzzle)
+<meta name="theme-color" content="#EAF6FF" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FFF6DE'/%3E%3Ccircle cx='32' cy='27' r='13' fill='%23FFC24A'/%3E%3Cpath d='M32 40v8' stroke='%23F2A200' stroke-width='4' stroke-linecap='round'/%3E%3Crect x='26' y='48' width='12' height='6' rx='2' fill='%23A9BDD2'/%3E%3C/svg%3E" />
+<!-- build: 2026-11-26 해미족 전구 켜기 v2 (Hamii Bulb Puzzle · bright day edition)
      · 맨 위 오늘 날짜·요일·날씨(김해 기본, 누르면 현위치 날씨 — Open-Meteo 무료)
      · 저글링 시티 전기 담당 와트메이커(해미족)와 함께하는 전선 연결 퍼즐
+     · v2: 밝고 화사한 낮/크림·스카이블루 톤, 1단계 3~5번이면 클리어, 💡 힌트 버튼
      · 격자 전선 타일을 손가락으로 톡톡 눌러 90도 회전 → 발전소에서 마을 전구까지 연결
-     · 6단계(쉬움 4×4 → 보통 5×5 → 도전 5×5 다중 전구), 이동 횟수·초기화·다음 단계
+     · 6단계(아주 쉬움 4×4 → 보통 5×5 → 도전 5×5 다중 전구), 이동 횟수·초기화·힌트·다음 단계
      · 클리어: 전구가 반짝 켜지고, 천사가 내려와 와트메이커 머리에 황금 왕관을 씌워 줌
      · 사람 출연 없음 · 외부 라이브러리 0개 · 광고 없음 · 기록은 이 기기에만 -->
 <title>해미족 전구 켜기 · 와트메이커 전선 퍼즐</title>
-<meta name="description" content="해미족 전구 켜기 — 저글링 시티 전기 담당 와트메이커와 함께 전선 타일을 돌려 발전소에서 마을 전구까지 불을 켜는 무료 두뇌 퍼즐. 6단계, 설치·광고 없이 폰에서 바로." />
+<meta name="description" content="해미족 전구 켜기 — 저글링 시티 전기 담당 와트메이커와 함께 전선 타일을 돌려 발전소에서 마을 전구까지 불을 켜는 무료 두뇌 퍼즐. 1단계는 몇 번이면 클리어, 막히면 힌트까지. 6단계, 설치·광고 없이 폰에서 바로." />
 <style>
 :root{
-  --night:#0E1B2A; --night2:#152B42; --card:#16283C; --card2:#1D3550;
-  --ink:#F3F7FC; --ink2:#A9BDD2; --ink3:#7E93A8;
-  --line:#2A4058; --line2:#38536F;
-  --gold:#FFCE5C; --gold2:#F2A93B; --goldbg:rgba(255,206,92,.12);
-  --teal:#69D3B4; --tealbg:rgba(105,211,180,.12);
-  --rose:#FF9DA6;
-  --shadow:0 6px 20px rgba(0,0,0,.35);
+  --ink:#1E3550; --ink2:#5E7C99; --ink3:#8CA6BC;
+  --card:#FFFFFF; --line:#D8EAF8; --line2:#C2DDF0;
+  --gold:#FFB020; --gold2:#FF8A00; --amber:#FFD97A;
+  --mint:#3FB98C; --skyblue:#5FAEE0;
+  --shadow:0 8px 22px rgba(70,120,160,.16);
+  --warm:0 8px 20px rgba(226,158,44,.22);
+  /* 단계별 파스텔 테마 기본값 (0단계 = 상큼한 스카이블루) */
+  --t-sun:#D3EDFF; --t-1:#E2F4FF; --t-2:#F3FBFF; --t-3:#FDFAF2;
+  --t-board:#B7E0FA; --t-boardbg1:#FFFFFF; --t-boardbg2:#E8F7FF;
+  --t-accent:#2FA4E7; --t-accent2:#136FA3; --t-soft:#E1F4FF;
+  --t-pri1:#96DCFF; --t-pri2:#3CADEA; --t-priink:#06364D;
+  --t-ring:rgba(47,164,231,.28);
 }
+/* ── 6단계 색 테마: 단계가 올라갈 때마다 화면 색감이 바뀝니다 ── */
+html[data-lv="1"]{--t-sun:#CFF7E6;--t-1:#E1FAF0;--t-2:#F3FDF8;--t-3:#FDFBF2;
+  --t-board:#ADE7D0;--t-boardbg1:#FFFFFF;--t-boardbg2:#E9FBF3;
+  --t-accent:#2BB98A;--t-accent2:#0E7A56;--t-soft:#E2F9EF;
+  --t-pri1:#8FE8C6;--t-pri2:#3AC494;--t-priink:#06382A;--t-ring:rgba(43,185,138,.26)}
+html[data-lv="2"]{--t-sun:#FFF0BE;--t-1:#FFF8DF;--t-2:#FFFDF0;--t-3:#FFFBF2;
+  --t-board:#F3DFA0;--t-boardbg1:#FFFEFA;--t-boardbg2:#FFF9E4;
+  --t-accent:#E8AE21;--t-accent2:#8A5E00;--t-soft:#FFF6DA;
+  --t-pri1:#FFE492;--t-pri2:#FFC44F;--t-priink:#4A3206;--t-ring:rgba(232,174,33,.28)}
+html[data-lv="3"]{--t-sun:#FFD8C9;--t-1:#FFEBE2;--t-2:#FFF7F2;--t-3:#FFFBF2;
+  --t-board:#F8C9B7;--t-boardbg1:#FFFFFF;--t-boardbg2:#FFF0E9;
+  --t-accent:#F07A5F;--t-accent2:#A33C24;--t-soft:#FFE8DF;
+  --t-pri1:#FFC3B1;--t-pri2:#F58268;--t-priink:#5C1E0F;--t-ring:rgba(240,122,95,.26)}
+html[data-lv="4"]{--t-sun:#E4DCFF;--t-1:#EFEBFF;--t-2:#F8F5FF;--t-3:#FFFAF2;
+  --t-board:#CCC1F1;--t-boardbg1:#FFFFFF;--t-boardbg2:#F3EFFF;
+  --t-accent:#8A79DF;--t-accent2:#4C3C9C;--t-soft:#EEE9FF;
+  --t-pri1:#CDC2FF;--t-pri2:#8F7FE4;--t-priink:#2C2160;--t-ring:rgba(138,121,223,.26)}
+html[data-lv="5"]{--t-sun:#FFE1AE;--t-1:#FFEFD3;--t-2:#FFF8EC;--t-3:#FFFBF2;
+  --t-board:#F6CD8A;--t-boardbg1:#FFFEFA;--t-boardbg2:#FFF4DE;
+  --t-accent:#EE9420;--t-accent2:#8F5008;--t-soft:#FFF2D9;
+  --t-pri1:#FFD37C;--t-pri2:#F09A2E;--t-priink:#573005;--t-ring:rgba(238,148,32,.3)}
+html{background:#F3FBFF}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{font-size:18px;-webkit-text-size-adjust:100%;overflow-x:hidden}
 html.big{font-size:21px}
 body{margin:0;overflow-x:hidden;color:var(--ink);
   font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Segoe UI",sans-serif;
   line-height:1.42;word-break:keep-all;overflow-wrap:break-word;
-  background:radial-gradient(120% 70% at 50% 0%,#1B3A57 0%,#12263C 45%,#0C1826 100%) fixed}
+  background:
+    radial-gradient(95% 44% at 50% -8%, var(--t-sun) 0%, rgba(255,255,255,0) 66%),
+    linear-gradient(180deg,var(--t-1) 0%,var(--t-2) 42%,var(--t-3) 100%) fixed}
 [hidden]{display:none !important}
 button{font-family:inherit;color:inherit;border:0;background:none;cursor:pointer}
-button:focus-visible{outline:3px solid #7FD8FF;outline-offset:2px}
+button:focus-visible{outline:3px solid var(--t-accent);outline-offset:2px}
 p{margin:0}
 .app{padding:0 .8rem calc(.9rem + env(safe-area-inset-bottom));max-width:430px;margin:0 auto}
 
 /* ── 날짜·요일·날씨 (모든 앱 공통 기본) ── */
 .datebar{width:100%;display:flex;align-items:center;gap:.4rem;justify-content:space-between;
   margin-top:calc(.35rem + env(safe-area-inset-top));padding:.42rem .7rem;border-radius:14px;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);font-size:.82rem;font-weight:800}
-.db-date{color:#DCE8F5;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  background:rgba(255,255,255,.92);border:1px solid var(--line);font-size:.82rem;font-weight:800;
+  box-shadow:0 3px 10px rgba(90,140,180,.1)}
+.db-date{color:#24425F;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .db-right{display:flex;align-items:center;gap:.35rem;min-width:0}
-.db-wx{color:var(--gold);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.db-wx{color:#C47800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .db-wx.loading{color:var(--ink2)}
-.db-place{font-size:.66rem;font-weight:800;color:var(--ink2);background:rgba(255,255,255,.07);
-  padding:.12rem .38rem;border-radius:999px;flex:0 0 auto}
+.db-place{font-size:.66rem;font-weight:800;color:var(--t-accent2);background:var(--t-soft);
+  padding:.12rem .38rem;border-radius:999px;flex:0 0 auto;transition:color .45s ease,background .45s ease}
 
 /* ── 머리말 ── */
 .head{display:flex;align-items:center;gap:.5rem;padding:.6rem .1rem .45rem}
 .head .badge{width:2.5rem;height:2.5rem;border-radius:50%;flex:0 0 auto;
-  background:radial-gradient(circle at 35% 30%,#2B5476,#13283C);
-  box-shadow:inset 0 0 0 2px rgba(255,206,92,.5),0 3px 10px rgba(0,0,0,.3);overflow:hidden}
+  background:radial-gradient(circle at 35% 30%,#FFFDF4,#FFE6B4);
+  box-shadow:inset 0 0 0 2px rgba(255,176,32,.55),0 3px 10px rgba(180,140,60,.25);overflow:hidden}
 .head .badge svg{width:100%;height:100%;display:block}
-.head h1{margin:0;font-size:1.16rem;font-weight:900;letter-spacing:-.03em;line-height:1.16}
+.head h1{margin:0;font-size:1.16rem;font-weight:900;letter-spacing:-.03em;line-height:1.16;color:#16304C}
 .head .sub{margin:.06rem 0 0;font-size:.72rem;font-weight:800;color:var(--ink2)}
 .head .snd{margin-left:auto;flex:0 0 auto;width:2.2rem;height:2.2rem;border-radius:50%;
-  background:rgba(255,255,255,.07);font-size:1rem;line-height:1}
+  background:#FFFFFF;border:1px solid var(--line);font-size:1rem;line-height:1;
+  box-shadow:0 2px 8px rgba(90,140,180,.12)}
 
 /* ── 단계 칩 ── */
 .stages{display:flex;gap:.34rem;padding:.1rem 0 .55rem;overflow-x:auto;scrollbar-width:none}
 .stages::-webkit-scrollbar{display:none}
 .stageChip{flex:1 0 auto;min-width:2.5rem;padding:.34rem .2rem;border-radius:12px;font-size:.82rem;font-weight:900;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);color:var(--ink2);text-align:center}
-.stageChip.done{color:#0F2233;background:linear-gradient(180deg,#8FE3C6,#4FBC97);border-color:transparent}
-.stageChip.on{color:#14283A;background:linear-gradient(180deg,#FFE08A,#FFC24A);border-color:transparent;
-  box-shadow:0 3px 12px rgba(255,196,74,.35)}
+  background:#FFFFFF;border:1px solid var(--line);color:#6B88A6;text-align:center;
+  box-shadow:0 2px 6px rgba(90,140,180,.09)}
+.stageChip.done{color:#0E4331;background:linear-gradient(180deg,#A6ECCE,#63CFA8);border-color:transparent}
+.stageChip.on{color:var(--t-priink);background:linear-gradient(180deg,var(--t-pri1),var(--t-pri2));border-color:transparent;
+  box-shadow:0 4px 12px var(--t-ring)}
 
 /* ── 판 ── */
 .boardwrap{position:relative;margin:0 auto;width:100%}
 .board{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:5px;padding:7px;border-radius:20px;
-  background:linear-gradient(180deg,#132A41,#0E2033);border:1px solid var(--line);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.05),var(--shadow)}
+  background:linear-gradient(180deg,var(--t-boardbg1),var(--t-boardbg2));border:2px solid var(--t-board);
+  box-shadow:0 10px 26px var(--t-ring),inset 0 1px 0 #FFFFFF;
+  transition:border-color .45s ease,box-shadow .45s ease,background .45s ease}
 .cell{position:relative;aspect-ratio:1/1;border-radius:12px;padding:0;display:block;overflow:hidden;
-  background:linear-gradient(180deg,#1B3350,#16293F);border:1px solid rgba(255,255,255,.05);
+  background:linear-gradient(180deg,#FFFFFF,#F5FBFF);border:1px solid #E3EFF8;
   transition:transform .12s ease,box-shadow .2s ease,background .25s ease}
-.cell.empty{border-color:rgba(255,255,255,.03);
-  background-image:radial-gradient(circle,rgba(255,255,255,.055) 1.3px,transparent 1.5px);
-  background-size:13px 13px;background-color:rgba(255,255,255,.018)}
+.cell.empty{border-color:rgba(140,180,210,.25);
+  background-image:radial-gradient(circle,rgba(120,165,200,.22) 1.3px,transparent 1.5px);
+  background-size:13px 13px;background-color:#FBFDFF}
 .cell:disabled{cursor:default;opacity:1}
 .cell.path:active{transform:scale(.94)}
-.cell.path{box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
-.cell.pw{background:linear-gradient(180deg,#243F5C,#1B3149)}
+.cell.path{box-shadow:inset 0 1px 0 #FFFFFF}
+.cell.pw{background:linear-gradient(180deg,#FFFBF0,#FFF4DC)}
 .cell.tapped{animation:pop .16s ease}
+.cell.hintglow{animation:hintGlow 1s ease 2}
+@keyframes hintGlow{
+  0%{box-shadow:0 0 0 0 rgba(255,176,32,0),inset 0 0 0 0 rgba(255,176,32,0)}
+  35%{box-shadow:0 0 0 4px rgba(255,176,32,.55),inset 0 0 14px rgba(255,206,92,.75)}
+  100%{box-shadow:0 0 0 0 rgba(255,176,32,0),inset 0 0 0 0 rgba(255,176,32,0)}
+}
 @keyframes pop{0%{transform:scale(1)}45%{transform:scale(.92)}100%{transform:scale(1)}}
 
 .pipes{position:absolute;inset:0;width:100%;height:100%;display:block;
   transition:transform .2s cubic-bezier(.3,1.4,.5,1);will-change:transform}
-.pipeOut{fill:none;stroke:#25394F;stroke-width:19;stroke-linecap:round}
-.pipeIn{fill:none;stroke:#8AA2B9;stroke-width:9;stroke-linecap:round}
-.hub{fill:#25394F}
-.cell.pw .pipeOut{stroke:#8A5A12}
-.cell.pw .pipeIn{stroke:#FFD06A;filter:drop-shadow(0 0 5px rgba(255,196,74,.85))}
-.cell.pw .hub{fill:#B8791F}
+.pipeOut{fill:none;stroke:#CCDDEB;stroke-width:19;stroke-linecap:round}
+.pipeIn{fill:none;stroke:#9CB6CB;stroke-width:9;stroke-linecap:round}
+.hub{fill:#CCDDEB}
+.cell.pw .pipeOut{stroke:#F0A62E}
+.cell.pw .pipeIn{stroke:#FFCB57;filter:drop-shadow(0 0 5px rgba(255,170,30,.75))}
+.cell.pw .hub{fill:#F0A62E}
 
 /* 발전소 */
-.cell.source{background:linear-gradient(180deg,#2A4C6B,#1B344C);border-color:rgba(255,206,92,.35)}
-.srcbg{fill:#0F2338;stroke:#FFCE5C;stroke-width:3}
-.bolt{fill:#FFD86B;filter:drop-shadow(0 0 6px rgba(255,206,92,.8))}
+.cell.source{background:linear-gradient(180deg,#FFF8DE,#FFE8B0);border-color:rgba(255,176,32,.55)}
+.srcbg{fill:#FFFCF0;stroke:#FFB020;stroke-width:3}
+.bolt{fill:#FFA800;filter:drop-shadow(0 0 6px rgba(255,168,0,.6))}
 
 /* 전구 */
 .bulbpipe{pointer-events:none}
-.cell.bulb{background:linear-gradient(180deg,#1E3A54,#16293F)}
-.glass{fill:#33485C;stroke:#6B8398;stroke-width:3;transition:fill .35s ease,stroke .35s ease}
-.fil{fill:none;stroke:#6B8398;stroke-width:3.2;stroke-linecap:round;transition:stroke .35s ease}
-.cap{fill:#8A6A3A;transition:fill .35s ease}
+.cell.bulb{background:linear-gradient(180deg,#F6FCFF,#E7F3FF)}
+.glass{fill:#E6F1FA;stroke:#A9C3D8;stroke-width:3;transition:fill .35s ease,stroke .35s ease}
+.fil{fill:none;stroke:#A9C3D8;stroke-width:3.2;stroke-linecap:round;transition:stroke .35s ease}
+.cap{fill:#D9C7A2;transition:fill .35s ease}
 .rays{opacity:0;transition:opacity .4s ease}
-.cell.lit .glass{fill:#FFE39A;stroke:#FFF8DC}
-.cell.lit .fil{stroke:#C77F12}
+.cell.lit .glass{fill:#FFE386;stroke:#FFC24A}
+.cell.lit .fil{stroke:#D98A00}
 .cell.lit .cap{fill:#C9A05A}
 .cell.lit .rays{opacity:1}
-.cell.lit{background:linear-gradient(180deg,#4A3A1C,#2A2A1E);box-shadow:0 0 0 1px rgba(255,206,92,.5),0 0 18px rgba(255,196,74,.35)}
+.cell.lit{background:linear-gradient(180deg,#FFFBE8,#FFF0C4);box-shadow:0 0 0 2px rgba(255,194,74,.65),0 0 18px rgba(255,190,70,.45)}
 .cell.lit .glasswrap{animation:bulbPulse 1.5s ease-in-out infinite}
-@keyframes bulbPulse{0%,100%{filter:drop-shadow(0 0 6px rgba(255,214,107,.75))}50%{filter:drop-shadow(0 0 16px rgba(255,224,138,1))}}
+@keyframes bulbPulse{0%,100%{filter:drop-shadow(0 0 5px rgba(255,196,74,.55))}50%{filter:drop-shadow(0 0 14px rgba(255,196,74,.95))}}
 .glasswrap{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .board.win .cell.lit .glasswrap{animation:bulbBurst .8s ease-out}
 @keyframes bulbBurst{0%{transform:scale(1)}40%{transform:scale(1.18)}100%{transform:scale(1)}}
 
 /* ── 기록 줄 ── */
 .stats{display:flex;gap:.4rem;margin:.55rem 0 .5rem}
-.stat{flex:1;text-align:center;padding:.32rem .2rem;border-radius:12px;background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.07);font-size:.74rem;font-weight:800;color:var(--ink2)}
+.stat{flex:1;text-align:center;padding:.32rem .2rem;border-radius:12px;background:#FFFFFF;
+  border:1px solid var(--line);font-size:.74rem;font-weight:800;color:var(--ink2);
+  box-shadow:0 2px 8px rgba(90,140,180,.08)}
 .stat b{display:block;font-size:1rem;color:var(--ink);font-weight:900;letter-spacing:-.02em;margin-top:.05rem}
-.stat.hot b{color:var(--gold)}
+.stat.hot b{color:var(--t-accent2)}
 
 /* ── 버튼 ── */
-.actions{display:flex;gap:.45rem}
-.btn{flex:1;min-height:3.1rem;border-radius:16px;font-size:1rem;font-weight:900;letter-spacing:-.02em;
-  display:flex;align-items:center;justify-content:center;gap:.3rem;transition:transform .12s ease,filter .15s ease}
+.actions{display:grid;grid-template-columns:1fr 1fr 1.15fr;gap:.4rem}
+.btn{width:100%;min-height:3.05rem;border-radius:16px;font-size:.9rem;font-weight:900;letter-spacing:-.02em;
+  display:flex;align-items:center;justify-content:center;gap:.2rem;white-space:nowrap;
+  transition:transform .12s ease,filter .15s ease}
 .btn:active{transform:scale(.97)}
-.btn.ghost{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);color:var(--ink)}
-.btn.primary{background:linear-gradient(180deg,#FFE08A,#FFC24A);color:#15283B;
-  box-shadow:0 6px 18px rgba(255,196,74,.28)}
-.btn:disabled{opacity:.45}
+.btn.ghost{background:#FFFFFF;border:1.5px solid #CFE6F7;color:#2B5273;
+  box-shadow:0 3px 10px rgba(90,140,180,.12)}
+.btn.hint{background:linear-gradient(180deg,#FFFFFF,var(--t-soft));border:1.5px solid var(--t-board);color:var(--t-accent2);
+  box-shadow:0 3px 10px var(--t-ring)}
+.btn.primary{background:linear-gradient(180deg,var(--t-pri1),var(--t-pri2));color:var(--t-priink);
+  box-shadow:0 6px 18px var(--t-ring)}
+.btn:disabled{opacity:.42}
 
 /* ── 와트메이커 말풍선 ── */
 .mascot{display:flex;align-items:center;gap:.55rem;margin-top:.6rem;padding:.5rem .65rem;border-radius:16px;
-  background:linear-gradient(180deg,rgba(105,211,180,.12),rgba(105,211,180,.05));
-  border:1px solid rgba(105,211,180,.22)}
+  background:linear-gradient(180deg,#F1FCF7,#E8FAF2);
+  border:1px solid #C9EDDC;box-shadow:0 3px 12px rgba(80,180,140,.1)}
 .mface{width:3rem;height:3rem;flex:0 0 auto}
 .mface svg{width:100%;height:100%;display:block}
-.bubble{margin:0;font-size:.84rem;font-weight:800;line-height:1.35;color:#DCF3EA}
-.bubble b{color:#8FE9CB}
+.bubble{margin:0;font-size:.84rem;font-weight:800;line-height:1.35;color:#1F5140}
+.bubble b{color:#0F8A63}
 .mascot.cheer .mface{animation:cheer .55s ease 2}
-.foot{margin:.55rem 0 .1rem;text-align:center;font-size:.7rem;font-weight:800;color:#6E8399;letter-spacing:-.01em}
+.foot{margin:.55rem 0 .1rem;text-align:center;font-size:.7rem;font-weight:800;color:#93AAC0;letter-spacing:-.01em}
 @keyframes cheer{0%,100%{transform:translateY(0) rotate(0)}40%{transform:translateY(-6px) rotate(-7deg)}70%{transform:translateY(-3px) rotate(7deg)}}
 
-/* ── 클리어 축하 화면 ── */
+/* ── 클리어 축하 화면 (황금빛 낮하늘) ── */
 .overlay{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;
   padding:calc(.8rem + env(safe-area-inset-top)) .9rem calc(.8rem + env(safe-area-inset-bottom));
-  background:radial-gradient(90% 60% at 50% 8%,#274A6B 0%,#173250 42%,#0B1726 100%);
+  background:radial-gradient(115% 72% at 50% 2%,#FFFDF3 0%,var(--t-sun) 30%,var(--t-2) 62%,var(--t-1) 100%);
   animation:overlayIn .35s ease both;overflow:hidden}
 @keyframes overlayIn{from{opacity:0}to{opacity:1}}
 .sky{position:absolute;inset:0;pointer-events:none}
-.sky i{position:absolute;width:3px;height:3px;border-radius:50%;background:#FFF3C4;
-  animation:tw 2.6s ease-in-out infinite}
-@keyframes tw{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:.95;transform:scale(1.15)}}
+.sky i{position:absolute;width:4px;height:4px;border-radius:50%;background:#F0B62A;
+  box-shadow:0 0 6px rgba(240,182,42,.55);animation:tw 2.6s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:.18;transform:scale(.7)}50%{opacity:.95;transform:scale(1.15)}}
 
 .clearCard{position:relative;z-index:2;width:100%;max-width:360px;display:flex;flex-direction:column;align-items:center}
-.cheer{font-size:1.32rem;font-weight:900;letter-spacing:-.03em;color:#FFF6DC;text-align:center;
-  text-shadow:0 2px 14px rgba(255,206,92,.5);animation:cheerPop .6s .1s cubic-bezier(.2,1.4,.4,1) both}
-.cheer small{display:block;margin-top:.16rem;font-size:.78rem;font-weight:800;color:#BBD6EC;text-shadow:none}
+.cheer{font-size:1.32rem;font-weight:900;letter-spacing:-.03em;color:#6A4410;text-align:center;
+  text-shadow:0 2px 12px rgba(255,255,255,.9);animation:cheerPop .6s .1s cubic-bezier(.2,1.4,.4,1) both}
+.cheer small{display:block;margin-top:.16rem;font-size:.78rem;font-weight:800;color:#8A6535;text-shadow:none}
 @keyframes cheerPop{from{opacity:0;transform:scale(.8) translateY(8px)}to{opacity:1;transform:none}}
 
 .stage3d{position:relative;width:100%;height:298px;margin-top:.1rem}
 .stage3d:after{content:'';position:absolute;z-index:0;left:50%;bottom:-4px;width:176px;height:24px;margin-left:-88px;border-radius:50%;
-  background:radial-gradient(circle,rgba(3,10,18,.55),rgba(3,10,18,0) 72%)}
+  background:radial-gradient(circle,rgba(150,110,50,.3),rgba(150,110,50,0) 72%)}
 .hero{position:absolute;z-index:1;left:50%;bottom:0;width:174px;height:214px;margin-left:-87px;transform-origin:50% 100%;
   animation:hop .9s 1.85s cubic-bezier(.3,1.5,.5,1) both}
 @keyframes hop{0%{transform:translateY(0) scale(1)}35%{transform:translateY(-16px) scale(1.03)}65%{transform:translateY(0) scale(.99)}100%{transform:translateY(0) scale(1)}}
-.hero svg{width:100%;height:100%;display:block;filter:drop-shadow(0 10px 16px rgba(0,0,0,.45))}
+.hero svg{width:100%;height:100%;display:block;filter:drop-shadow(0 10px 14px rgba(140,100,50,.4))}
 .hero .armL,.hero .armR{transform-box:fill-box;transform-origin:50% 90%}
 .overlay.show .hero{animation:hop .9s 1.85s cubic-bezier(.3,1.5,.5,1) both}
 
@@ -183,7 +228,7 @@ p{margin:0}
   100%{opacity:1;transform:translate(0,0) scale(1) rotate(0)}
 }
 @keyframes angelFloat{from{transform:translateY(0)}to{transform:translateY(-9px)}}
-.angel svg{width:100%;height:100%;display:block;filter:drop-shadow(0 8px 16px rgba(90,140,190,.55))}
+.angel svg{width:100%;height:100%;display:block;filter:drop-shadow(0 8px 14px rgba(120,160,200,.45))}
 .angel .wingL,.angel .wingR{transform-box:fill-box;transform-origin:100% 55%}
 .angel .wingR{transform-origin:0% 55%}
 .angel .wingL{animation:flapL .9s 1s ease-in-out infinite alternate}
@@ -200,36 +245,50 @@ p{margin:0}
   62%{opacity:1;transform:translate(30px,-40px) scale(.88) rotate(5deg)}
   100%{opacity:1;transform:translate(0,0) scale(1) rotate(0)}
 }
-.crown svg{width:100%;height:100%;display:block;filter:drop-shadow(0 0 10px rgba(255,214,107,.85))}
+.crown svg{width:100%;height:100%;display:block;filter:drop-shadow(0 0 10px rgba(240,170,20,.8))}
 
 .glowring{position:absolute;left:50%;bottom:74px;width:220px;height:220px;margin-left:-110px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,214,107,.32) 0%,rgba(255,214,107,0) 66%);opacity:0;
+  background:radial-gradient(circle,rgba(255,206,92,.5) 0%,rgba(255,206,92,0) 66%);opacity:0;
   animation:glowIn .9s 1.7s ease both}
 @keyframes glowIn{to{opacity:1}}
 
 .sparks{position:absolute;inset:0;pointer-events:none;z-index:6}
 .twinkles{position:absolute;inset:0;pointer-events:none;z-index:6}
-.twinkles i{position:absolute;width:10px;height:10px;background:#FFFBE8;opacity:.2;
+.twinkles i{position:absolute;width:10px;height:10px;background:#FFC24A;opacity:.2;
   clip-path:polygon(50% 0%,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0% 50%,39% 39%);
   animation:twinkle 2.2s ease-in-out infinite}
-@keyframes twinkle{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:1;transform:scale(1.15)}}
-.sparks i{position:absolute;width:18px;height:18px;background:#FFF3C4;opacity:0;
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(.7)}50%{opacity:1;transform:scale(1.15)}}
+.sparks i{position:absolute;width:18px;height:18px;background:#F0A800;opacity:0;
   clip-path:polygon(50% 0%,61% 39%,100% 50%,61% 61%,50% 100%,39% 61%,0% 50%,39% 39%);
-  filter:drop-shadow(0 0 7px rgba(255,224,138,.95));
+  filter:drop-shadow(0 0 7px rgba(255,196,74,.9));
   animation:sparkle 3s 1.45s ease-out infinite}
-.sparks i:nth-child(3n){background:#FFFFFF}
-.sparks i:nth-child(4n){width:12px;height:12px;background:#FFC24A}
+.sparks i:nth-child(3n){background:#FFFFFF;filter:drop-shadow(0 0 8px rgba(255,255,255,.9))}
+.sparks i:nth-child(4n){width:12px;height:12px;background:#FF8A00}
 @keyframes sparkle{
   0%{opacity:0;transform:scale(.2) translateY(8px) rotate(0)}
   12%{opacity:1;transform:scale(1.1) translateY(0) rotate(20deg)}
   55%{opacity:.95;transform:scale(.9) translateY(-8px) rotate(45deg)}
   100%{opacity:0;transform:scale(.45) translateY(-30px) rotate(80deg)}
 }
-.result{margin-top:.15rem;text-align:center;font-size:.88rem;font-weight:800;color:#CFE3F5;
+/* ── 클리어 칭찬 한마디 (영어 + 짧은 한국어) ── */
+.praise{position:relative;z-index:2;margin-top:.25rem;display:flex;flex-direction:column;align-items:center;gap:.18rem;opacity:0}
+.overlay.show .praise{animation:cheerPop .55s 1.72s cubic-bezier(.2,1.4,.4,1) both}
+.pr-en{font-size:1.35rem;font-weight:900;letter-spacing:-.01em;white-space:nowrap;color:#6B4300;
+  padding:.16rem .72rem .2rem;border-radius:999px;
+  background:linear-gradient(180deg,rgba(255,255,255,.97),rgba(255,244,214,.95));
+  box-shadow:0 4px 16px rgba(240,170,40,.35),inset 0 0 0 2px rgba(255,255,255,.95);
+  animation:praiseGlow 2.4s 2.4s ease-in-out infinite}
+@keyframes praiseGlow{
+  0%,100%{box-shadow:0 4px 16px rgba(240,170,40,.32),inset 0 0 0 2px rgba(255,255,255,.95);transform:scale(1)}
+  50%{box-shadow:0 4px 26px rgba(255,196,74,.75),inset 0 0 0 3px rgba(255,255,255,1);transform:scale(1.035)}
+}
+.pr-ko{font-size:.78rem;font-weight:800;color:#7C6238}
+.result{margin-top:.2rem;text-align:center;font-size:.88rem;font-weight:800;color:#4F6478;
   animation:cheerPop .5s 1.9s both}
-.result b{color:#FFD873}
+.result b{color:#C97600}
 .ovBtns{display:flex;gap:.5rem;width:100%;margin-top:.75rem;animation:cheerPop .5s 2.1s both}
-.ovBtns .btn{min-height:3.3rem}
+.ovBtns .btn{min-height:3.3rem;font-size:.94rem}
+.overlay .btn.ghost{background:#FFFFFF;border-color:#EFD9AE;color:#6A4410}
 
 /* ─ 아주 작은 화면 ── */
 @media (max-height:740px){
@@ -285,12 +344,13 @@ p{margin:0}
 
     <div class="actions">
       <button type="button" class="btn ghost" id="resetBtn">↺ 초기화</button>
+      <button type="button" class="btn hint" id="hintBtn">💡 힌트</button>
       <button type="button" class="btn primary" id="nextBtn">다음 단계 →</button>
     </div>
 
     <div class="mascot" id="mascot">
       <div class="mface" id="mascotFace" aria-hidden="true"></div>
-      <p class="bubble" id="tipText">전선을 <b>톡톡</b> 눌러 돌려서, 발전소에서 전구까지 이어 주세요.</p>
+      <p class="bubble" id="tipText">1단계는 <b>몇 번만</b> 돌리면 바로 켜져요! 가볍게 도전해 보세요 ⚡</p>
     </div>
 
     <p class="foot">무료 · 광고 없음 · 기록은 이 기기에만 저장돼요</p>
@@ -308,6 +368,10 @@ p{margin:0}
       <div class="angel" id="angelBox"></div>
       <div class="sparks" id="sparks"></div>
       <div class="twinkles" id="twinkles"></div>
+    </div>
+    <div class="praise" id="praiseBox">
+      <span class="pr-en" id="praiseEn">Good! 👍</span>
+      <span class="pr-ko" id="praiseKo">좋아요! 잘하고 있어요</span>
     </div>
     <p class="result" id="clearResult"></p>
     <div class="ovBtns">
@@ -456,9 +520,9 @@ p{margin:0}
     if (!toastEl) {
       toastEl = document.createElement('div');
       toastEl.style.cssText = 'position:fixed;left:50%;bottom:calc(1.1rem + env(safe-area-inset-bottom));transform:translateX(-50%);' +
-        'background:rgba(12,24,38,.94);color:#F3F7FC;padding:.55rem .9rem;border-radius:14px;font-size:.82rem;' +
-        'font-weight:800;z-index:90;max-width:86vw;text-align:center;box-shadow:0 8px 22px rgba(0,0,0,.45);' +
-        'border:1px solid rgba(255,255,255,.12);transition:opacity .25s ease';
+        'background:#FFFFFF;color:#1E3550;padding:.55rem .9rem;border-radius:14px;font-size:.82rem;' +
+        'font-weight:800;z-index:90;max-width:86vw;text-align:center;box-shadow:0 8px 22px rgba(60,110,150,.28);' +
+        'border:1px solid #D8EAF8;transition:opacity .25s ease';
       document.body.appendChild(toastEl);
     }
     toastEl.textContent = msg;
@@ -577,7 +641,7 @@ p{margin:0}
       '</defs>' +
       '<path d="M14 66 L10 22 L34 40 L60 12 L86 40 L110 22 L106 66 Z" fill="url(#cg)" stroke="#B87A12" stroke-width="4" stroke-linejoin="round"/>' +
       '<rect x="12" y="62" width="96" height="16" rx="8" fill="#F5B93C" stroke="#B87A12" stroke-width="4"/>' +
-      '<circle cx="60" cy="70" r="5.5" fill="#7FD8FF"/>' +
+      '<circle cx="60" cy="70" r="5.5" fill="#5FB8E8"/>' +
       '<circle cx="34" cy="70" r="4" fill="#FF8FA3"/>' +
       '<circle cx="86" cy="70" r="4" fill="#FF8FA3"/>' +
       '<circle cx="10" cy="20" r="6" fill="#FFF6D8"/>' +
@@ -590,20 +654,20 @@ p{margin:0}
     '<svg viewBox="0 0 170 190" role="img" aria-label="왕관을 씌워 주는 천사">' +
       '<defs>' +
         '<linearGradient id="wing" x1="0" y1="0" x2="1" y2="1">' +
-          '<stop offset="0%" stop-color="#FFFFFF"/><stop offset="100%" stop-color="#D9ECFF"/>' +
+          '<stop offset="0%" stop-color="#FFFFFF"/><stop offset="100%" stop-color="#DCEEFF"/>' +
         '</linearGradient>' +
         '<linearGradient id="robe" x1="0" y1="0" x2="0" y2="1">' +
-          '<stop offset="0%" stop-color="#FFFFFF"/><stop offset="100%" stop-color="#E6F1FF"/>' +
+          '<stop offset="0%" stop-color="#FFFFFF"/><stop offset="100%" stop-color="#EAF4FF"/>' +
         '</linearGradient>' +
       '</defs>' +
       '<g class="wingL">' +
-        '<path d="M78 74 C50 50 26 52 16 68 C28 70 30 78 22 86 C38 88 44 96 36 104 C56 106 70 96 78 88 Z" fill="url(#wing)" stroke="#BBD8F2" stroke-width="2.5" stroke-linejoin="round"/>' +
+        '<path d="M78 74 C50 50 26 52 16 68 C28 70 30 78 22 86 C38 88 44 96 36 104 C56 106 70 96 78 88 Z" fill="url(#wing)" stroke="#B4D4F0" stroke-width="2.5" stroke-linejoin="round"/>' +
       '</g>' +
       '<g class="wingR">' +
-        '<path d="M92 74 C120 50 144 52 154 68 C142 70 140 78 148 86 C132 88 126 96 134 104 C114 106 100 96 92 88 Z" fill="url(#wing)" stroke="#BBD8F2" stroke-width="2.5" stroke-linejoin="round"/>' +
+        '<path d="M92 74 C120 50 144 52 154 68 C142 70 140 78 148 86 C132 88 126 96 134 104 C114 106 100 96 92 88 Z" fill="url(#wing)" stroke="#B4D4F0" stroke-width="2.5" stroke-linejoin="round"/>' +
       '</g>' +
       /* 옷 */
-      '<path d="M85 92 C70 106 62 140 64 166 C76 174 94 174 106 166 C108 140 100 106 85 92 Z" fill="url(#robe)" stroke="#C3DCF2" stroke-width="2.5"/>' +
+      '<path d="M85 92 C70 106 62 140 64 166 C76 174 94 174 106 166 C108 140 100 106 85 92 Z" fill="url(#robe)" stroke="#BFD9F2" stroke-width="2.5"/>' +
       /* 발 */
       '<ellipse cx="78" cy="170" rx="8" ry="5" fill="#FFE3CB"/>' +
       '<ellipse cx="94" cy="170" rx="8" ry="5" fill="#FFE3CB"/>' +
@@ -623,25 +687,53 @@ p{margin:0}
       '<circle cx="68" cy="82" r="6" fill="#FFC0C6" opacity=".65"/>' +
       '<circle cx="104" cy="82" r="6" fill="#FFC0C6" opacity=".65"/>' +
       /* 광배 */
-      '<ellipse cx="86" cy="30" rx="26" ry="8" fill="none" stroke="#FFE9A8" stroke-width="5" opacity=".95"/>' +
-      '<ellipse cx="86" cy="30" rx="26" ry="8" fill="none" stroke="#FFF6D8" stroke-width="2" opacity=".9"/>' +
+      '<ellipse cx="86" cy="30" rx="26" ry="8" fill="none" stroke="#FFC24A" stroke-width="5" opacity=".95"/>' +
+      '<ellipse cx="86" cy="30" rx="26" ry="8" fill="none" stroke="#FFF2C4" stroke-width="2" opacity=".95"/>' +
     '</svg>';
   }
 
   /* ═════════ 게임 본체 ═════════ */
   var BIT = [1, 2, 4, 8];              /* N E S W */
   var D4 = [[-1, 0], [0, 1], [1, 0], [0, -1]];
+  /* taps: [최소, 최대] 이 판을 깨는 데 필요한 최소 탭 수 범위 */
   var LEVELS = [
-    { n: 4, bulbs: 1, diff: '쉬움', minDist: 3, minCells: 7 },
-    { n: 4, bulbs: 1, diff: '쉬움', minDist: 4, minCells: 9 },
-    { n: 5, bulbs: 1, diff: '보통', minDist: 5, minCells: 12 },
-    { n: 5, bulbs: 2, diff: '보통', minDist: 5, minCells: 14 },
-    { n: 5, bulbs: 2, diff: '도전', minDist: 6, minCells: 15 },
-    { n: 5, bulbs: 3, diff: '도전', minDist: 5, minCells: 16 }
+    { n: 4, bulbs: 1, diff: '아주 쉬움', minDist: 2, minCells: 6, taps: [3, 5] },
+    { n: 4, bulbs: 1, diff: '쉬움', minDist: 3, minCells: 8, taps: [5, 8] },
+    { n: 5, bulbs: 1, diff: '보통', minDist: 4, minCells: 10, taps: [8, 12] },
+    { n: 5, bulbs: 2, diff: '보통', minDist: 5, minCells: 13, taps: [11, 16] },
+    { n: 5, bulbs: 2, diff: '도전', minDist: 5, minCells: 15, taps: [14, 20] },
+    { n: 5, bulbs: 3, diff: '도전', minDist: 5, minCells: 16, taps: [16, 24] }
   ];
+  var LEVEL_TIPS = [
+    '1단계는 <b>몇 번만</b> 돌리면 바로 켜져요! 가볍게 도전해 보세요 ⚡',
+    '방향만 살짝 맞춰 주면 돼요. 굽은 전선을 <b>톡톡</b> 돌려 보세요.',
+    '전선이 조금 길어졌어요. 발전소에서 <b>한 칸씩</b> 따라가며 맞춰 보세요.',
+    '전구가 <b>두 개</b>예요! 한 곳씩 차례로 길을 열어 주세요.',
+    '갈림길이 생겼어요. 막히면 <b>💡 힌트</b>를 눌러도 좋아요!',
+    '마지막 도전! 전구 <b>세 개</b>를 다 켜면 천사가 왕관을 씌워 줘요 👼'
+  ];
+  /* 클리어 때 왕관과 함께 뜨는 영어 칭찬 한마디 (+ 짧은 한국어 뜻) */
+  var PRAISE = [
+    [{ en: 'Good! 👍', ko: '좋아요! 잘하고 있어요' }, { en: 'Nice start! 🌱', ko: '좋은 시작이에요' }],
+    [{ en: 'Great job! ✨', ko: '정말 잘했어요' }, { en: 'Well done! 👏', ko: '잘 해냈어요' }],
+    [{ en: "You're the best! 👑", ko: '당신이 최고예요' }, { en: 'Brilliant! 💫', ko: '눈부셔요' }],
+    [{ en: 'Keep going! 🌟', ko: '계속 나아가요' }, { en: 'On a roll! 🔥', ko: '기세가 좋아요' }],
+    [{ en: 'Awesome! 🎉', ko: '멋져요!' }, { en: 'Fantastic! 🌈', ko: '환상적이에요' }],
+    [{ en: 'Champion! 🏆', ko: '챔피언! 최고예요' }, { en: 'Legend! ⭐', ko: '전설이에요' }]
+  ];
+  /* 단계마다 화면 색감 바꾸기 (파스텔) */
+  function setTheme(i) {
+    document.documentElement.setAttribute('data-lv', String(i));
+    try {
+      var c = getComputedStyle(document.documentElement).getPropertyValue('--t-1').trim();
+      var mt = document.querySelector('meta[name="theme-color"]');
+      if (mt && c) mt.setAttribute('content', c);
+    } catch (e) {}
+  }
 
   var N = 4, cells = [], cellEls = [], level = 0, moves = 0, cleared = false, initialRots = [], best = {}, done = {};
-  var board = $('#board'), stagesEl = $('#stages'), overlay = $('#overlay');
+  var hintsUsed = 0;
+  var board = $('#board'), stagesEl = $('#stages'), overlay = $('#overlay'), hintBtn = $('#hintBtn');
 
   try { best = JSON.parse(localStorage.getItem('hamiiBulb.best') || '{}') || {}; } catch (e) { best = {}; }
   try { done = JSON.parse(localStorage.getItem('hamiiBulb.done') || '{}') || {}; } catch (e) { done = {}; }
@@ -663,6 +755,8 @@ p{margin:0}
     for (i = 0; i < r; i++) m = ((m << 1) & 15) | ((m >> 3) & 1);
     return m;
   }
+  /* 이 칸을 정답(rot 0)으로 되돌리는 데 필요한 탭 수 */
+  function tapCost(rot) { return (4 - rot) % 4; }
 
   /* 현재 판에서 전기가 통하는 칸 계산 */
   function poweredSet() {
@@ -690,6 +784,60 @@ p{margin:0}
     if (!c) return 0;
     if (c.kind === 'path') return rotMask(c.base, c.rot);
     return c.base;                 /* 발전소·전구는 고정 */
+  }
+
+  /* 정답(rot 0)에서 벗어나 있는 전선 타일인지 */
+  function isWrong(c) {
+    return !!c && c.kind === 'path' && c.rot !== 0 && cellMask(c) !== c.base;
+  }
+  function hasWrongTile() {
+    for (var i = 0; i < cells.length; i++) if (isWrong(cells[i])) return true;
+    return false;
+  }
+  function tapsNeeded() {
+    var t = 0;
+    cells.forEach(function (c) { if (c && c.kind === 'path' && c.rot) t += tapCost(c.rot); });
+    return t;
+  }
+
+  /* 정답 경로를 먼저 만든 뒤, 정해진 탭 수 안에서 돌려 놓습니다 */
+  function scramblePath(arr, cfg) {
+    var tiles = [];
+    arr.forEach(function (c) {
+      if (!c || c.kind !== 'path') return;
+      var opts = [];
+      for (var r = 1; r < 4; r++) if (rotMask(c.base, r) !== c.base) opts.push(r);
+      if (opts.length) tiles.push({ c: c, opts: opts });
+    });
+    if (!tiles.length) return { total: 0 };
+
+    var lo = cfg.taps[0], hi = cfg.taps[1];
+    var maxT = tiles.length * 3;
+    var bestTry = null;
+    for (var attempt = 0; attempt < 60; attempt++) {
+      tiles.forEach(function (t) { t.c.rot = 0; t.c.spin = 0; });
+      var order = shuffle(Object.keys(tiles).map(Number));
+      var target = lo + Math.floor(Math.random() * (Math.min(hi, maxT) - lo + 1));
+      if (target < lo) target = lo;
+      var total = 0;
+      for (var oi = 0; oi < order.length && total < target; oi++) {
+        var t = tiles[order[oi]];
+        var want = target - total;
+        var usable = [];
+        for (var k = 0; k < t.opts.length; k++) {
+          var rot = t.opts[k], cost = tapCost(rot);
+          if (cost > 0 && cost <= want) usable.push({ rot: rot, cost: cost });
+        }
+        if (!usable.length) continue;
+        var pick = usable[Math.floor(Math.random() * usable.length)];
+        t.c.rot = pick.rot;
+        t.c.spin = pick.rot * 90;
+        total += pick.cost;
+      }
+      if (total >= lo && total <= hi) return { total: total };
+      if (!bestTry || Math.abs(total - (lo + hi) / 2) < Math.abs(bestTry - (lo + hi) / 2)) bestTry = total;
+    }
+    return { total: bestTry || 0 };
   }
 
   /* 퍼즐 만들기 — 정답 경로를 먼저 만들고 돌려 놓습니다(항상 풀 수 있음) */
@@ -818,39 +966,41 @@ p{margin:0}
       arr[k] = { kind: kind, base: mask, rot: 0, spin: 0 };
     });
 
-    /* 돌려 놓기 */
-    arr.forEach(function (cc2) {
-      if (!cc2 || cc2.kind !== 'path') return;
-      /* 회전해도 모양이 같은 타일은 그대로 둡니다 */
-      var same = rotMask(cc2.base, 1) === cc2.base;
-      if (same) return;
-      var d2 = 0;
-      for (var t = 0; t < 8; t++) { d2 = Math.floor(Math.random() * 4); if (d2 !== 0) break; }
-      cc2.rot = d2;
-      cc2.spin = d2 * 90;
-    });
+    var sc = scramblePath(arr, cfg);
 
     var pathCount = 0;
     arr.forEach(function (x) { if (x && x.kind === 'path') pathCount++; });
-    return { n: n, cells: arr, pathCount: pathCount };
+    return { n: n, cells: arr, pathCount: pathCount, taps: sc.total };
   }
 
-  /* 목표 길이를 채우는 판이 나올 때까지 여러 번 만들고, 최선의 판을 씁니다 */
+  /* 목표 길이·탭 수에 맞는 판이 나올 때까지 여러 번 만들고, 최선의 판을 씁니다 */
   function genPuzzle(cfg) {
-    var bestP = null;
-    for (var t = 0; t < 70; t++) {
+    var mid = (cfg.taps[0] + cfg.taps[1]) / 2;
+    var bestP = null, bestScore = 1e9, anyP = null;
+    for (var t = 0; t < 90; t++) {
       var pz = genOnce(cfg);
       if (!pz) continue;
-      if (!bestP || pz.pathCount > bestP.pathCount) bestP = pz;
-      if (pz.pathCount >= (cfg.minCells || 0)) return pz;
+      if (!anyP || pz.pathCount > anyP.pathCount) anyP = pz;
+      if (pz.pathCount < (cfg.minCells || 0)) continue;
+      if (pz.taps >= cfg.taps[0] && pz.taps <= cfg.taps[1]) return pz;
+      var score = Math.abs(pz.taps - mid);
+      if (score < bestScore) { bestScore = score; bestP = pz; }
     }
-    return bestP;
+    return bestP || anyP;
   }
 
-  function levelsOf(i) { return LEVELS[i]; }
   function startLevel(i, silent) {
-    var puzzle = null, guard = 0;
-    while (!puzzle && guard++ < 40) puzzle = genPuzzle(LEVELS[i]);
+    var cfg = LEVELS[i], puzzle = null, tries = 0, last = null;
+    while (tries++ < 40) {
+      var cand = genPuzzle(cfg);
+      if (!cand) continue;
+      last = cand;
+      cells = cand.cells; N = cand.n;
+      if (litCount() > 0) continue;              /* 처음부터 켜져 있으면 다시 */
+      if (i === 0 && tapsNeeded() > cfg.taps[1]) continue;
+      puzzle = cand; break;
+    }
+    if (!puzzle) puzzle = last;
     if (!puzzle) { toast('판을 만들지 못했어요. 다시 눌러 주세요.'); return; }
 
     level = i;
@@ -858,25 +1008,14 @@ p{margin:0}
     cells = puzzle.cells;
     moves = 0;
     cleared = false;
+    hintsUsed = 0;
+    setTheme(i);
     hideOverlay(true);
     board.classList.remove('win');
+    $('#mascot').classList.remove('cheer');
 
     /* 처음 상태 저장 */
     initialRots = cells.map(function (c) { return c && c.kind === 'path' ? c.rot : 0; });
-
-    /* 절대 처음부터 켜져 있지 않게 */
-    var lit = litCount();
-    var guard2 = 0;
-    while (lit > 0 && guard2++ < 30) {
-      var cand = [];
-      cells.forEach(function (c, k) { if (c && c.kind === 'path') cand.push(k); });
-      if (!cand.length) break;
-      var pick = cand[Math.floor(Math.random() * cand.length)];
-      cells[pick].rot = (cells[pick].rot + 1) % 4;
-      cells[pick].spin = cells[pick].rot * 90;
-      initialRots[pick] = cells[pick].rot;
-      lit = litCount();
-    }
 
     buildBoard();
     renderStages();
@@ -934,7 +1073,7 @@ p{margin:0}
       var x1 = 50 + Math.cos(ang) * 25, y1 = 41 + Math.sin(ang) * 25;
       var x2 = 50 + Math.cos(ang) * 35, y2 = 41 + Math.sin(ang) * 35;
       rays += '<path d="M' + x1.toFixed(1) + ' ' + y1.toFixed(1) + ' L' + x2.toFixed(1) + ' ' + y2.toFixed(1) +
-        '" stroke="#FFE9A8" stroke-width="4.5" stroke-linecap="round"/>';
+        '" stroke="#FFC24A" stroke-width="4.5" stroke-linecap="round"/>';
     }
     return '<svg class="pipes bulbpipe" viewBox="0 0 100 100" aria-hidden="true">' +
       '<path class="pipeOut" d="' + d + '"/><path class="pipeIn" d="' + d + '"/></svg>' +
@@ -992,6 +1131,8 @@ p{margin:0}
   }
 
   var tipEl = $('#tipText');
+  function setHintEnabled(on) { hintBtn.disabled = !on; }
+
   function update(first) {
     var p = poweredSet(), lit = 0, total = 0;
     cells.forEach(function (c, k) {
@@ -1012,13 +1153,14 @@ p{margin:0}
     $('#statLit').textContent = lit + '/' + (total || 1);
     var b = best[level];
     $('#statBest').textContent = b ? b + '회' : '-';
+    setHintEnabled(!cleared && hasWrongTile());
 
     /* 말풍선 */
     if (!cleared) {
-      if (lit > 0 && lit < total) tipEl.innerHTML = '오, <b>' + lit + '개</b> 켜졌어요! 전구 <b>' + (total - lit) + '개</b>만 더!';
-      else if (lit === 0 && moves > 0) tipEl.innerHTML = '발전소 ⚡ 에서 시작해서 전구 💡 까지 <b>끊김 없이</b> 이어 주세요.';
-      else if (moves > 6) tipEl.innerHTML = '전선을 한 칸씩 <b>톡톡</b> 돌려 보세요. 굽은 전선은 네 번 돌면 처음으로 돌아와요.';
-      else if (!first) tipEl.innerHTML = '전선을 <b>톡톡</b> 눌러 돌려서, 발전소에서 전구까지 이어 주세요.';
+      if (lit > 0 && lit < total) tipEl.innerHTML = '좋아요! <b>' + lit + '개</b> 켜졌어요. 전구 <b>' + (total - lit) + '개</b>만 남았어요!';
+      else if (moves === 0) tipEl.innerHTML = LEVEL_TIPS[level] || LEVEL_TIPS[0];
+      else if (lit === 0) tipEl.innerHTML = '발전소 ⚡ 에서 출발해 전구 💡 까지 <b>끊김 없이</b> 이어지게 맞춰 보세요.';
+      else tipEl.innerHTML = '한 칸씩 <b>톡톡</b> 돌려 보세요. 굽은 전선은 네 번 돌면 제자리로 돌아와요.';
     }
     if (lit === total && total > 0 && !cleared) onWin();
   }
@@ -1027,14 +1169,15 @@ p{margin:0}
     cleared = true;
     board.classList.add('win');
     $('#mascot').classList.add('cheer');
-    if (!best[level] || moves < best[level]) {
+    if (hintsUsed === 0 && (!best[level] || moves < best[level])) {
       best[level] = moves;
       try { localStorage.setItem('hamiiBulb.best', JSON.stringify(best)); } catch (e) {}
     }
     done[level] = true;
     try { localStorage.setItem('hamiiBulb.done', JSON.stringify(done)); } catch (e) {}
     renderStages();
-    $('#statBest').textContent = best[level] + '회';
+    setHintEnabled(false);
+    $('#statBest').textContent = best[level] ? best[level] + '회' : '-';
     winChime();
     setTimeout(function () { showOverlay(); }, 850);
   }
@@ -1073,8 +1216,14 @@ p{margin:0}
     var st = $('#cheerText');
     var isLast = level === LEVELS.length - 1;
     st.innerHTML = '불이 다 켜졌어요!<small>' + (isLast ? '천사가 왕관을 씌워 줬어요 · 모든 단계 완료!' : '천사가 반짝이는 왕관을 씌워 줬어요') + '</small>';
-    $('#clearResult').innerHTML = '<b>' + (level + 1) + '단계</b> · ' + moves + '번 만에 성공 · 최고 ' + best[level] + '번';
+    $('#clearResult').innerHTML = '<b>' + (level + 1) + '단계</b> · ' + moves + '번 만에 성공' +
+      (hintsUsed ? ' · 힌트 ' + hintsUsed + '회' : '') +
+      (best[level] ? ' · 최고 ' + best[level] + '번' : '');
     $('#nextBtn2').textContent = isLast ? '🏁 처음부터' : '다음 단계 →';
+    var pl = PRAISE[level] || PRAISE[0];
+    var pr = pl[Math.floor(Math.random() * pl.length)];
+    $('#praiseEn').textContent = pr.en;
+    $('#praiseKo').textContent = pr.ko;
     $('#heroBox').innerHTML = hamsterSVG(true);
     $('#angelBox').innerHTML = angelSVG();
     /* 왕관은 와트메이커 머리 위 슬롯에 */
@@ -1137,6 +1286,50 @@ p{margin:0}
     beep(420, 0.1, 'sine', 0.04);
   }
 
+  /* 💡 힌트 — 방향이 안 맞은 전선 하나를 정답으로 맞추고 반짝입니다 */
+  function useHint() {
+    if (cleared) return;
+    var p = poweredSet();
+    var pool = [], any = [], frontier = [];
+    cells.forEach(function (c, k) {
+      if (!isWrong(c)) return;
+      any.push(k);
+      if (p[k]) return;
+      pool.push(k);
+      /* 전기가 이미 들어온 칸과 맞닿은 곳을 먼저 (더 직관적인 도움) */
+      var r = Math.floor(k / N), col = k % N;
+      for (var d = 0; d < 4; d++) {
+        var nr = r + D4[d][0], nc = col + D4[d][1];
+        if (nr < 0 || nr >= N || nc < 0 || nc >= N) continue;
+        if (p[nr * N + nc]) { frontier.push(k); break; }
+      }
+    });
+    var use = frontier.length ? frontier : (pool.length ? pool : any);
+    if (!use.length) {
+      toast('지금은 모든 전선 방향이 맞아 있어요. 발전소에서 전구까지 길만 확인해 보세요.');
+      setHintEnabled(false);
+      return;
+    }
+    var k = use[Math.floor(Math.random() * use.length)];
+    var c = cells[k];
+    c.rot = 0;
+    var s = ((c.spin % 360) + 360) % 360;
+    c.spin += (360 - s) % 360;          /* 앞으로 돌아가며 맞춰집니다 */
+    var el = cellEls[k];
+    if (el) {
+      var svg = el.querySelector('.pipes');
+      if (svg) svg.style.transform = 'rotate(' + c.spin + 'deg)';
+      el.classList.remove('hintglow');
+      void el.offsetWidth;
+      el.classList.add('hintglow');
+      setTimeout(function () { el.classList.remove('hintglow'); }, 2200);
+    }
+    hintsUsed++;
+    beep(880, 0.14, 'sine', 0.05);
+    toast('💡 전선 하나를 맞춰 드렸어요. 이어서 가 볼까요?');
+    update();
+  }
+
   /* 타일 돌리기 */
   board.addEventListener('click', function (e) {
     var el = e.target.closest ? e.target.closest('.cell') : null;
@@ -1157,6 +1350,7 @@ p{margin:0}
   });
 
   $('#resetBtn').addEventListener('click', function () { resetLevel(); });
+  hintBtn.addEventListener('click', useHint);
   $('#nextBtn').addEventListener('click', function () { startLevel(level === LEVELS.length - 1 ? 0 : level + 1); });
   $('#nextBtn2').addEventListener('click', nextLevel);
   $('#againBtn').addEventListener('click', againLevel);
@@ -1179,14 +1373,17 @@ p{margin:0}
   /* 테스트·디버그용 (읽기 전용 정보) */
   window.__bulb = {
     state: function () {
+      var p = poweredSet();
       return {
         n: N, level: level, moves: moves, cleared: cleared, lit: litCount(), total: bulbTotal(),
+        taps: tapsNeeded(), hints: hintsUsed, best: best[level] || null,
         cells: cells.map(function (c, k) {
-          return c ? { k: k, kind: c.kind, base: c.base, rot: c.rot, mask: cellMask(c), pw: !!poweredSet()[k] } : null;
+          return c ? { k: k, kind: c.kind, base: c.base, rot: c.rot, mask: cellMask(c), pw: !!p[k] } : null;
         })
       };
     },
-    reset: resetLevel
+    reset: resetLevel,
+    hint: useHint
   };
 })();
 </script>
