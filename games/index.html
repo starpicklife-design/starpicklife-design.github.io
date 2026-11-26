@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#2B1A63">
-<!-- build: 2026-11-26 와트메이커 게임방(⚡) v3 · 모바일 글자 크기 확대(가독성) — 디자인·기능 동일
+<!-- build: 2026-11-27 와트메이커 게임방(⚡) v4 · 첫 화면 맨 위에 📲 설치 버튼 추가(스크롤 없이 바로, 아래 설치 버튼과 같은 기능)
+     · 2026-11-26 v3: 모바일 글자 크기 확대(가독성) — 디자인·기능 동일
      · 맨 위 오늘 날짜·요일·날씨(김해 기본, 누르면 현위치 날씨로 새로고침 — Open-Meteo)
      · ① ⚡ 해미족 전구 켜기(bulb-game, 라이브) ② 🌌 공벌레 우주 미니 파크골프(golf-game, 라이브)
        ③ 🚒⚡ 와글링 안전 특공대 퀴즈(safety, 라이브) ④ 💎 다이아몬드 성 탈출 다꾸(diary, 라이브) ⑤ ⏳ 다음 게임 예고(해바라기씨 모으기·그림 짝 맞추기)
@@ -129,6 +130,22 @@
   }
 
   main{position:relative;z-index:1;max-width:34rem;margin:0 auto;padding:.6rem .64rem 0}
+
+  /* ── 첫 화면 위쪽 설치 버튼 (스크롤 없이 바로) ── */
+  .instbar{display:flex;align-items:center;gap:.5rem;width:100%;margin:0 0 .58rem;
+    padding:.5rem .62rem .5rem .68rem;border-radius:1rem;text-align:left;min-height:3.2rem;
+    background:linear-gradient(180deg,#FFE793,#FFC12E);color:#4E3200;
+    border:2px solid #EFAE1C;
+    box-shadow:0 4px 0 #C48400,0 9px 18px rgba(180,120,0,.24)}
+  .instbar:active{transform:translateY(2px);box-shadow:0 2px 0 #C48400,0 4px 10px rgba(180,120,0,.2)}
+  .instbar .ib-em{flex:0 0 auto;font-size:1.42rem;line-height:1}
+  .instbar .ib-tx{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:.08rem}
+  .instbar .ib-main{font-size:1.1rem;font-weight:900;letter-spacing:-.03em;line-height:1.16}
+  .instbar .ib-sub{font-size:.82rem;font-weight:800;color:#6F4A00;line-height:1.24;letter-spacing:-.01em}
+  .instbar .ib-go{flex:0 0 auto;font-size:1.2rem;font-weight:900;line-height:1;color:#4E3200;
+    opacity:.72;padding-left:.12rem}
+  html[lang="en"] .instbar .ib-main{font-size:1.04rem;letter-spacing:-.015em}
+  html[lang="en"] .instbar .ib-sub{font-size:.8rem}
 
   /* ── 오늘 날짜·날씨 막대 ───────────────── */
   .datebar{display:flex;align-items:center;flex-wrap:wrap;gap:.28rem .44rem;width:100%;min-height:3rem;
@@ -350,6 +367,18 @@
 </header>
 
 <main>
+  <!-- 📲 첫 화면 위쪽 설치 버튼 — 스크롤 없이 바로 (아래 설치 버튼과 같은 기능) -->
+  <button type="button" class="instbar" id="installTop"
+    aria-label="폰 홈 화면에 게임방 바로가기 추가하기"
+    data-en-aria="Add the arcade to the phone's Home Screen">
+    <span class="ib-em" aria-hidden="true">📲</span>
+    <span class="ib-tx">
+      <span class="ib-main" data-en="Install">설치</span>
+      <span class="ib-sub" data-en="Add it to your Home Screen — it opens like an app">홈 화면에 담으면 앱처럼 바로 열려요</span>
+    </span>
+    <span class="ib-go" aria-hidden="true">›</span>
+  </button>
+
   <!-- ══ 오늘 날짜·요일·날씨 (모든 앱 공통 기본) ══ -->
   <button type="button" class="datebar" id="todayCard"
     aria-label="오늘 날짜와 날씨 — 누르면 현위치 날씨로 새로고침"
@@ -861,7 +890,7 @@
 
   /* ── 홈 화면 설치 ─────────────────────── */
   var instPrompt = null, instDone = false, instPushed = false;
-  var instWrap = $('#instWrap'), installBtn = $('#installBtn');
+  var instWrap = $('#instWrap'), installBtn = $('#installBtn'), installTop = $('#installTop');
   function isStandaloneNow() {
     try {
       if (window.matchMedia('(display-mode: standalone)').matches) return true;
@@ -875,7 +904,9 @@
   function uaIsAndroid() { return /Android/i.test(navigator.userAgent || ''); }
   function uaIsSamsung() { return /SamsungBrowser/i.test(navigator.userAgent || ''); }
   function syncInstallBtn() {
-    if (installBtn) installBtn.hidden = instDone || isStandaloneNow();
+    var hide = instDone || isStandaloneNow();
+    if (installBtn) installBtn.hidden = hide;
+    if (installTop) installTop.hidden = hide;
   }
   function instStepsHTML() {
     var rows;
@@ -979,6 +1010,7 @@
     openInstall();
   }
   installBtn.addEventListener('click', installTap);
+  if (installTop) installTop.addEventListener('click', installTap);
   $('#instOk').addEventListener('click', function () { closeInstall(true); });
   instWrap.addEventListener('click', function (e) { if (e.target === instWrap) closeInstall(true); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeInstall(true); });
