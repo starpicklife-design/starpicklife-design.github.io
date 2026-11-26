@@ -13,17 +13,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&family=Nanum+Pen+Script&display=swap" rel="stylesheet" />
-<!-- build: 2026-11-26 💎 다이아몬드 성 탈출 다꾸 (미미 & 테오) v2
+<!-- build: 2026-11-26 💎 다이아몬드 성 탈출 다꾸 (미미 & 테오) v2.1 — 큰 글자·스티커 드래그·60종
      · 맨 위 오늘 날짜·요일·날씨(김해 기본, 누르면 현위치 — Open-Meteo 무료)
      · 오프닝 동화: 다이아몬드 성 비밀 방에 갇힌 미미·테오, 벽 속에 잠든 🌀 차원의 문
      · 💎 탈출 열쇠 게이지 4단계(속지 고르기·기분 도장·스티커 3개·한 줄 일기) → 🌀 차원의 문 열고 탈출
      · 탈출 연출: 문이 열리며 소용돌이 포털·미미·테오가 손잡고 폴짝·보석 왕관·영어 칭찬 한마디
-     · 속지 7종(모눈·줄노트·도트·크림·하늘·핑크·다이아몬드 성) · 스티커 27종(자체 SVG, 사람 없음)
-     · 손가락으로 붙이고 옮기고 회전·크기·지우기 · 내 사진 1장 폴라로이드 · 글씨체 3종(OFL)·색 6종·크기 3단
+     · 속지 7종(모눈·줄노트·도트·크림·하늘·핑크·다이아몬드 성) · 스티커 58종(자체 SVG · 꽃 14·햄스터 11·세희·세영 5·다꾸 18·성 이야기 10)
+     · 손가락으로 붙이고 끌어 옮기고 두 손가락으로 크기·회전·지우기(종이 위 조절 막대) · 내 사진 1장 폴라로이드 · 글씨체 3종(OFL)·색 6종·크기 3단
      · 카드 이미지(PNG) 저장·공유(navigator.share 우선) · 월별 달력·목록 · 날짜별 페이지(여러 장)
      · 폰 뒤로가기로 모든 팝업·이야기 닫힘 · 기록은 이 기기에만(localStorage) · 외부 라이브러리 0 · 광고 없음 -->
 <title>💎 다이아몬드 성 탈출 다꾸 · 미미 &amp; 테오 다이어리</title>
-<meta name="description" content="다이아몬드 성 비밀 방에 갇힌 미미와 테오. 다이어리를 예쁘게 꾸며 4개의 열쇠를 모으면 숨겨진 차원의 문이 열려요! 속지 7종, 와글링 스티커 27종, 손글씨 일기, 카드 이미지 저장·공유. 무료·광고 없음·기록은 내 기기에만." />
+<meta name="description" content="다이아몬드 성 비밀 방에 갇힌 미미와 테오. 다이어리를 예쁘게 꾸며 4개의 열쇠를 모으면 숨겨진 차원의 문이 열려요! 속지 7종, 스티커 58종(벚꽃·장미·해바라기 등 꽃 14종, 햄스터 11종, 세희·세영 5종, 다꾸 소품 18종), 손글씨 일기, 카드 이미지 저장·공유. 무료·광고 없음·기록은 내 기기에만." />
 <style>
 :root{
   --ink:#4A3547; --ink2:#8A7186; --ink3:#BCA7B7;
@@ -32,7 +32,7 @@
   --card:#FFFFFF; --line:#F2DEE7; --line2:#E7CDD9;
   --shadow:0 6px 18px rgba(170,110,140,.13);
 }
-html{background:#FFF8F8;font-size:18px;-webkit-text-size-adjust:100%;overflow-x:hidden}
+html{background:#FFF8F8;font-size:20.5px;-webkit-text-size-adjust:100%;overflow-x:hidden}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;overflow-x:hidden;color:var(--ink);line-height:1.42;word-break:keep-all;overflow-wrap:break-word;
   font-family:"Gowun Dodum",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",sans-serif;
@@ -50,81 +50,81 @@ a{color:inherit}
 
 /* ── 날짜·요일·날씨 (모든 앱 공통 기본) ── */
 .datebar{position:sticky;top:0;z-index:30;width:100%;display:flex;align-items:center;justify-content:center;gap:.28rem;
-  margin:calc(.28rem + env(safe-area-inset-top)) 0 .12rem;padding:.38rem .5rem;border-radius:14px;
-  background:rgba(255,255,255,.94);border:1px solid var(--line);font-size:.77rem;font-weight:800;
+  margin:calc(.24rem + env(safe-area-inset-top)) 0 .1rem;padding:.3rem .5rem;border-radius:14px;
+  background:rgba(255,255,255,.94);border:1px solid var(--line);font-size:.86rem;font-weight:800;
   box-shadow:0 3px 10px rgba(170,110,140,.1);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);line-height:1.2}
 .db-date{color:#553B50;white-space:nowrap;letter-spacing:-.01em}
 .db-sep{color:#DCBECF;flex:0 0 auto}
 .db-wx{color:#B9741A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .db-wx.loading{color:var(--ink2)}
-.db-place{font-size:.6rem;font-weight:900;color:#7A5BC0;background:#F1ECFF;padding:.14rem .36rem;border-radius:999px;flex:0 0 auto}
+.db-place{font-size:.7rem;font-weight:900;color:#7A5BC0;background:#F1ECFF;padding:.14rem .36rem;border-radius:999px;flex:0 0 auto}
 
 /* ── 머리말 ── */
-.head{display:flex;align-items:center;gap:.4rem;padding:.3rem .05rem .2rem}
+.head{display:flex;align-items:center;gap:.4rem;padding:.24rem .05rem .12rem}
 .head .badge{width:2.2rem;height:2.2rem;border-radius:50%;flex:0 0 auto;background:#FBFAFF;
   box-shadow:inset 0 0 0 2px #DDD2FA,0 3px 8px rgba(150,120,200,.22);overflow:hidden}
 .head .badge svg{width:100%;height:100%;display:block}
 .ttlwrap{flex:1 1 auto;min-width:0}
-.head h1{margin:0;font-family:"Jua","Gowun Dodum",sans-serif;font-weight:400;font-size:1.06rem;letter-spacing:-.02em;color:#4A3547;line-height:1.08;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.head .sub{margin:.08rem 0 0;font-size:.6rem;font-weight:800;color:#9478AE;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.chips{display:flex;gap:.2rem;flex:0 0 auto}
+.head h1{margin:0;font-family:"Jua","Gowun Dodum",sans-serif;font-weight:400;font-size:1.1rem;letter-spacing:-.02em;color:#4A3547;line-height:1.08;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.head .sub{margin:.04rem 0 0;font-size:.7rem;font-weight:800;color:#9478AE;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chips{display:flex;gap:.16rem;flex:0 0 auto}
 .chip{display:inline-flex;align-items:center;gap:.1rem;padding:.3rem .34rem;border-radius:999px;background:#fff;
-  border:1px solid var(--line);font-size:.6rem;font-weight:900;color:#6E5670;text-decoration:none;line-height:1;
+  border:1px solid var(--line);font-size:.68rem;font-weight:900;color:#6E5670;text-decoration:none;line-height:1;
   box-shadow:0 2px 6px rgba(170,110,140,.1)}
 .chip:active{transform:scale(.96)}
-.chip.ic{padding:.32rem .4rem;font-size:.9rem}
+.chip.ic{padding:.3rem .34rem;font-size:.98rem}
 
 /* ── 날짜 이동 줄 ── */
-.daybar{display:flex;align-items:center;gap:.3rem;padding:.05rem 0 .24rem}
+.daybar{display:flex;align-items:center;gap:.3rem;padding:.04rem 0 .16rem}
 .dnav{width:2.1rem;height:2.1rem;flex:0 0 auto;border-radius:12px;background:#fff;border:1px solid var(--line);
   font-size:1.05rem;font-weight:900;color:#8A6480;display:flex;align-items:center;justify-content:center;line-height:1;
   box-shadow:0 2px 6px rgba(170,110,140,.1)}
 .dnav:disabled{opacity:.35}
 .daymid{flex:1 1 auto;min-width:0;display:flex;align-items:center;gap:.24rem;justify-content:center}
 .daybtn{min-width:0;display:flex;align-items:center;gap:.24rem;padding:.2rem 0}
-.daytxt{font-family:"Jua","Gowun Dodum",sans-serif;font-size:.96rem;color:#45313F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.todaychip{font-size:.56rem;font-weight:900;color:#fff;background:var(--pink);padding:.12rem .3rem;border-radius:999px;flex:0 0 auto}
-.savedtag{font-size:.56rem;font-weight:900;color:#7BA98B;opacity:0;transition:opacity .3s ease;flex:0 0 auto}
+.daytxt{font-family:"Jua","Gowun Dodum",sans-serif;font-size:1.04rem;color:#45313F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.todaychip{font-size:.68rem;font-weight:900;color:#fff;background:var(--pink);padding:.12rem .3rem;border-radius:999px;flex:0 0 auto}
+.savedtag{position:absolute;left:50%;top:.5rem;transform:translateX(-50%);z-index:4;font-size:.68rem;font-weight:900;color:#3E8B63;background:rgba(255,255,255,.92);padding:.1rem .4rem;border-radius:999px;border:1px solid #CDE7D8;opacity:0;transition:opacity .3s ease;pointer-events:none;white-space:nowrap}
 .savedtag.on{opacity:1}
-.recbtn{flex:0 0 auto;padding:.4rem .44rem;border-radius:12px;background:#fff;border:1px solid var(--line);
-  font-size:.66rem;font-weight:900;color:#7A5F76;box-shadow:0 2px 6px rgba(170,110,140,.1);line-height:1}
+.recbtn{flex:0 0 auto;width:2.3rem;height:2.2rem;padding:0;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#fff;border:1px solid var(--line);
+  font-size:.76rem;font-weight:900;color:#7A5F76;box-shadow:0 2px 6px rgba(170,110,140,.1);line-height:1}
 
 /* ── 기분 도장 줄 ── */
-.moodbar{display:flex;align-items:center;gap:.28rem;padding:.02rem 0 .3rem}
-.mlabel{font-size:.6rem;font-weight:900;color:var(--ink2);flex:0 0 auto;line-height:1.1}
+.moodbar{display:flex;align-items:center;gap:.28rem;padding:.02rem 0 .22rem}
+.mlabel{font-size:.7rem;font-weight:900;color:var(--ink2);flex:0 0 auto;line-height:1.1}
 .moods{display:flex;gap:.18rem;flex:1 1 auto;min-width:0}
-.mood{flex:1 1 0;min-width:0;height:2.1rem;border-radius:11px;background:#fff;border:1px solid var(--line);
-  font-size:1.02rem;line-height:1;display:flex;align-items:center;justify-content:center;
+.mood{flex:1 1 0;min-width:0;height:1.96rem;border-radius:11px;background:#fff;border:1px solid var(--line);
+  font-size:1.12rem;line-height:1;display:flex;align-items:center;justify-content:center;
   box-shadow:0 2px 6px rgba(170,110,140,.09)}
 .mood.on{background:#FFF0F6;border-color:var(--pink);box-shadow:0 0 0 2px rgba(239,110,147,.18)}
 
 /* ── 💎 탈출 열쇠 게이지 ── */
-.quest{display:flex;flex-direction:column;gap:.2rem;padding:.02rem 0 .34rem;min-height:3.15rem}
+.quest{display:flex;flex-direction:column;gap:.18rem;padding:.02rem 0 .26rem;min-height:3rem}
 .qrow{display:flex;align-items:center;gap:.28rem;min-height:1.3rem}
-.qbadge{display:inline-flex;align-items:center;gap:.16rem;font-size:.62rem;font-weight:900;color:#6E4E96;
+.qbadge{display:inline-flex;align-items:center;gap:.16rem;font-size:.72rem;font-weight:900;color:#6E4E96;
   background:#F4EEFF;border:1px solid #E2D6FA;border-radius:999px;padding:.14rem .4rem;white-space:nowrap;line-height:1.1}
-.qbadge b{color:#7A4FBF;font-size:.66rem}
-.qhint{margin-left:auto;font-size:.64rem;font-weight:900;color:#7A5F76;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qbadge b{color:#7A4FBF;font-size:.76rem}
+.qhint{margin-left:auto;font-size:.74rem;font-weight:900;color:#7A5F76;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .qsteps{display:flex;gap:.2rem}
 .qstep{flex:1 1 0;min-width:0;display:flex;align-items:center;justify-content:center;gap:.12rem;padding:.26rem .04rem;
-  border-radius:11px;background:#fff;border:1px solid var(--line);font-size:.62rem;font-weight:900;color:#A08A9C;line-height:1}
-.qstep .qi{font-size:.8rem;filter:grayscale(.6);opacity:.7}
+  border-radius:11px;background:#fff;border:1px solid var(--line);font-size:.72rem;font-weight:900;color:#A08A9C;line-height:1}
+.qstep .qi{font-size:.92rem;filter:grayscale(.6);opacity:.7}
 .qstep.on{background:#FFF8E6;border-color:#F3D38A;color:#A96E00}
 .qstep.on .qi{filter:none;opacity:1}
-.qstep.on::after{content:"✓";color:#E0A21B;font-size:.58rem}
-.escapeBtn{width:100%;padding:.58rem .4rem;border-radius:13px;color:#3B1470;font-family:"Jua",sans-serif;font-size:.9rem;line-height:1.1;
+.qstep.on::after{content:"✓";color:#E0A21B;font-size:.7rem}
+.escapeBtn{width:100%;padding:.58rem .4rem;border-radius:13px;color:#3B1470;font-family:"Jua",sans-serif;font-size:1rem;line-height:1.1;
   background:linear-gradient(180deg,#E3D3FF,#B79CF0);animation:pulseViolet 1.9s infinite;letter-spacing:-.01em}
 @keyframes pulseViolet{0%,100%{box-shadow:0 0 0 0 rgba(160,120,240,.55)}55%{box-shadow:0 0 0 8px rgba(160,120,240,0)}}
 .qdoneRow{display:flex;align-items:center;gap:.3rem}
-.qdone{flex:1 1 auto;font-size:.64rem;font-weight:900;color:#6B4CA8;background:#F4EEFF;border:1px solid #E2D6FA;
+.qdone{flex:1 1 auto;font-size:.74rem;font-weight:900;color:#6B4CA8;background:#F4EEFF;border:1px solid #E2D6FA;
   border-radius:11px;padding:.34rem .45rem;line-height:1.1;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .qdone:active{transform:scale(.98)}
-.qnew{flex:0 0 auto;font-size:.64rem;font-weight:900;color:#fff;background:linear-gradient(180deg,#FF9EBB,var(--pink));
+.qnew{flex:0 0 auto;font-size:.74rem;font-weight:900;color:#fff;background:linear-gradient(180deg,#FF9EBB,var(--pink));
   border-radius:11px;padding:.34rem .5rem;line-height:1.1}
 
 /* ── 종이(다이어리 페이지) ── */
 .paperwrap{padding:.02rem 0}
-.paper{position:relative;height:clamp(300px, calc(100dvh - 436px), 452px);border-radius:18px;overflow:hidden;
+.paper{position:relative;height:clamp(286px, calc(100dvh - 466px), 452px);border-radius:18px;overflow:hidden;
   --pw:358px; --pcell:19px; --plgap:26px; --pline:#E9DCC6; --pdot:#DCCFBA;
   background-color:var(--pbg,#FFFDF7);
   box-shadow:0 10px 24px rgba(170,110,140,.16), inset 0 0 0 1px rgba(228,198,212,.8)}
@@ -133,7 +133,7 @@ a{color:inherit}
 .paper[data-pat="dot"]{background-image:radial-gradient(var(--pdot) 1.5px, transparent 1.7px);background-size:var(--pcell) var(--pcell)}
 .paper[data-pat="diamond"]{background-image:var(--pgrad,none),radial-gradient(circle at 50% 50%, rgba(150,120,225,.4) 1.6px, transparent 1.9px);background-size:100% 100%, var(--pcell) var(--pcell)}
 .paper[data-pat="plain"]{background-image:var(--pgrad,none)}
-.pghead{position:absolute;left:16px;top:12px;right:60px;font-size:.66rem;font-weight:800;color:#A4907C;letter-spacing:-.01em;
+.pghead{position:absolute;left:16px;top:12px;right:60px;font-size:.74rem;font-weight:800;color:#A4907C;letter-spacing:-.01em;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
 .pgmood{position:absolute;right:12px;top:8px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.86);
   border:1.6px dashed #E8B9CB;display:flex;align-items:center;justify-content:center;font-size:1.26rem;line-height:1;
@@ -148,30 +148,46 @@ a{color:inherit}
 .obj{position:absolute;width:calc(var(--pw) * var(--base,.215));transform-origin:50% 50%;pointer-events:auto;
   touch-action:none;-webkit-user-select:none;user-select:none;-webkit-user-drag:none;will-change:transform}
 .obj svg,.obj img{display:block;width:100%;height:auto;pointer-events:none;-webkit-user-drag:none}
-.obj.sel::after{content:"";position:absolute;inset:-6px;border:2px dashed rgba(239,110,147,.85);border-radius:10px;pointer-events:none}
+.obj::before{content:"";position:absolute;inset:-12px;border-radius:14px}
+.obj.sel{z-index:3}
+.obj.sel::after{content:"";position:absolute;inset:-7px;border:2px dashed rgba(239,110,147,.9);border-radius:12px;pointer-events:none;
+  box-shadow:0 0 0 3px rgba(255,255,255,.55)}
+.obj.dragging{filter:drop-shadow(0 8px 10px rgba(120,80,110,.28))}
+.objctl{position:absolute;left:0;top:0;z-index:6;display:flex;gap:.16rem;padding:.24rem;border-radius:999px;
+  background:rgba(255,255,255,.97);border:1px solid var(--line);box-shadow:0 6px 16px rgba(150,100,130,.28);
+  transform:translate(-50%,-50%);pointer-events:auto;touch-action:manipulation;will-change:left,top}
+.objctl button{width:2.15rem;height:2.15rem;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.92rem;font-weight:900;color:#6E5670;background:#FFF6FA;line-height:1}
+.objctl button:active{transform:scale(.9);background:#FFEAF2}
+.objctl .del{color:#C94A64;background:#FFF2F5}
+.objctl .ok{color:#fff;background:linear-gradient(180deg,#FFA3BE,var(--pink))}
 .pol{background:#fff;padding:6% 6% 0;border-radius:3px;box-shadow:0 4px 12px rgba(120,80,110,.22)}
 .pol img{width:100%;aspect-ratio:1/1;object-fit:cover;background:#EFE6EC}
 .polcap{display:block;text-align:center;font-family:"Nanum Pen Script",cursive;font-size:calc(var(--pw) * .05);
   color:#8A7186;padding:1% 0 7%;line-height:1.2}
 
 /* ── 도구 줄 ── */
-.tools,.objbar{display:flex;gap:.26rem;padding:.36rem 0 .02rem;min-height:3.1rem}
+.tools,.objbar{display:flex;gap:.26rem;padding:.3rem 0 .02rem;min-height:2.9rem}
+.objbar{flex-direction:column;gap:.22rem}
+.objrow{display:flex;gap:.26rem;width:100%}
+.objcap{display:flex;align-items:center;gap:.3rem;margin:0;font-size:.72rem;font-weight:900;color:#7A5F76;line-height:1.1}
+.objcap .sz{margin-left:auto;font-size:.66rem;font-weight:900;color:#A08A9C;white-space:nowrap}
 .tool{flex:1 1 0;min-width:0;padding:.3rem .05rem;border-radius:13px;background:#fff;border:1px solid var(--line);
   box-shadow:0 3px 9px rgba(170,110,140,.1);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;
-  font-size:.6rem;font-weight:900;color:#6E5670;line-height:1.1}
-.tool .ic{font-size:.98rem;line-height:1}
+  font-size:.7rem;font-weight:900;color:#6E5670;line-height:1.1}
+.tool .ic{font-size:1.14rem;line-height:1}
 .tool:active{transform:scale(.97)}
 .obtn{flex:1 1 0;min-width:0;padding:.46rem .04rem;border-radius:13px;background:#fff;border:1px solid var(--line);
   box-shadow:0 3px 9px rgba(170,110,140,.1);display:flex;align-items:center;justify-content:center;
-  font-size:.6rem;font-weight:900;color:#6E5670;line-height:1.1;white-space:nowrap}
+  font-size:.7rem;font-weight:900;color:#6E5670;line-height:1.1;white-space:nowrap}
 .obtn.del{color:#C94A64;background:#FFF2F5;border-color:#F6D2DB}
 .obtn.done{color:#fff;background:linear-gradient(180deg,#FFA3BE,var(--pink));border-color:transparent}
-.bigsave{width:100%;margin-top:.4rem;padding:.6rem .5rem;border-radius:15px;color:#fff;
-  font-family:"Jua","Gowun Dodum",sans-serif;font-size:.94rem;letter-spacing:-.01em;
+.bigsave{width:100%;margin-top:.32rem;padding:.52rem .5rem;border-radius:15px;color:#fff;
+  font-family:"Jua","Gowun Dodum",sans-serif;font-size:1.04rem;letter-spacing:-.01em;
   background:linear-gradient(180deg,#FF9EBB,#EF6E93);box-shadow:0 8px 18px rgba(239,110,147,.3);
   display:flex;align-items:center;justify-content:center;gap:.3rem}
 .bigsave:active{transform:scale(.985)}
-.foot{margin:.36rem 0 .1rem;text-align:center;font-size:.58rem;font-weight:700;color:#B49EAE;line-height:1.35}
+.foot{margin:.24rem 0 .1rem;text-align:center;font-size:.68rem;font-weight:700;color:#B49EAE;line-height:1.35}
 
 /* ── 팝업(바텀시트) ── */
 .sheetWrap{position:fixed;inset:0;z-index:60;display:flex;align-items:flex-end;justify-content:center;
@@ -182,13 +198,13 @@ a{color:inherit}
   transform:translateY(16px);transition:transform .2s ease;box-shadow:0 -8px 26px rgba(120,80,110,.24)}
 .sheetWrap.on .sheet{transform:none}
 .sheet .sh{display:flex;align-items:center;gap:.3rem}
-.sheet h2{margin:0;font-family:"Jua","Gowun Dodum",sans-serif;font-weight:400;font-size:1rem;color:#45313F;line-height:1.2}
+.sheet h2{margin:0;font-family:"Jua","Gowun Dodum",sans-serif;font-weight:400;font-size:1.14rem;color:#45313F;line-height:1.2}
 .sheet .x{margin-left:auto;width:2rem;height:2rem;flex:0 0 auto;border-radius:50%;background:#FFF0F5;color:#B0637F;font-size:.86rem;line-height:1}
-.sheet .lead{margin:.26rem 0 .5rem;font-size:.68rem;font-weight:700;color:var(--ink2);line-height:1.35}
+.sheet .lead{margin:.26rem 0 .5rem;font-size:.78rem;font-weight:700;color:var(--ink2);line-height:1.35}
 .papers{display:grid;grid-template-columns:repeat(3,1fr);gap:.38rem}
 .psw{border-radius:14px;border:2px solid transparent;background:#fff;padding:.26rem;box-shadow:0 3px 8px rgba(170,110,140,.1)}
 .psw .sw{height:54px;border-radius:10px;border:1px solid rgba(160,120,140,.14);display:block}
-.psw .nm{display:block;text-align:center;font-size:.62rem;font-weight:900;color:#6E5670;margin-top:.16rem;line-height:1.15}
+.psw .nm{display:block;text-align:center;font-size:.72rem;font-weight:900;color:#6E5670;margin-top:.16rem;line-height:1.15}
 .psw.on{border-color:var(--pink);box-shadow:0 0 0 3px rgba(239,110,147,.16)}
 .sw[data-pat="grid"]{background-color:#FFFDF7;background-image:linear-gradient(#E9DCC6 1px,transparent 1px),linear-gradient(90deg,#E9DCC6 1px,transparent 1px);background-size:10px 10px}
 .sw[data-pat="lined"]{background-color:#FFFEFC;background-image:repeating-linear-gradient(180deg,transparent 0 8px,#DCE7F2 8px 9px)}
@@ -198,13 +214,22 @@ a{color:inherit}
 .sw[data-pat="plain"][data-p="sky"]{background-image:linear-gradient(180deg,#E4F1FF,#F8FCFF)}
 .sw[data-pat="plain"][data-p="pink"]{background-image:linear-gradient(180deg,#FFE7F1,#FFF9FC)}
 .stgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:.34rem;margin-top:.1rem}
-.st{aspect-ratio:1;border-radius:14px;background:#FFF8FB;border:1px solid #F6E2EA;display:flex;align-items:center;justify-content:center;
-  padding:6px;box-shadow:0 2px 6px rgba(170,110,140,.08)}
-.st svg{width:100%;height:100%;display:block}
+.st{font-size:.62rem;aspect-ratio:1 / 1.24;border-radius:14px;background:#FFF8FB;border:1px solid #F6E2EA;display:flex;flex-direction:column;
+  align-items:center;justify-content:flex-start;gap:.1rem;padding:5px 4px 4px;box-shadow:0 2px 6px rgba(170,110,140,.08);overflow:hidden}
+.st .sti{flex:1 1 auto;width:100%;min-height:0;display:flex;align-items:center;justify-content:center}
+.st .sti svg{width:100%;height:100%;display:block}
+.st .stn{flex:0 0 auto;max-width:100%;font-size:.62rem;font-weight:900;color:#7A6272;line-height:1.08;
+  text-align:center;white-space:normal;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 .st:active{transform:scale(.94);background:#FFEFF5}
+.sttabs{display:flex;gap:.26rem;overflow-x:auto;padding:.02rem 0 .46rem;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.sttabs::-webkit-scrollbar{display:none}
+.stab{flex:0 0 auto;padding:.4rem .56rem;border-radius:999px;background:#fff;border:1px solid var(--line);
+  font-size:.7rem;font-weight:900;color:#7A6272;white-space:nowrap;line-height:1}
+.stab.on{background:#FFF0F6;border-color:var(--pink);color:#C2557A;box-shadow:0 0 0 2px rgba(239,110,147,.14)}
+.stab:active{transform:scale(.96)}
 .pills,.sizes{display:flex;gap:.28rem;margin:.05rem 0 .5rem}
 .pill{flex:1 1 0;min-width:0;padding:.46rem .1rem;border-radius:12px;background:#fff;border:1px solid var(--line);
-  font-size:.74rem;font-weight:900;color:#6E5670;line-height:1.1;text-align:center}
+  font-size:.82rem;font-weight:900;color:#6E5670;line-height:1.1;text-align:center}
 .pill.on{background:#FFF0F6;border-color:var(--pink);color:#C2557A;box-shadow:0 0 0 2px rgba(239,110,147,.16)}
 .colors{display:flex;gap:.36rem;margin:.05rem 0 .1rem}
 .cdot{flex:1 1 0;height:2.2rem;border-radius:12px;border:2px solid transparent;box-shadow:inset 0 0 0 1px rgba(255,255,255,.5),0 2px 6px rgba(170,110,140,.12)}
@@ -212,38 +237,38 @@ a{color:inherit}
 .prevbox{margin:.3rem 0 .55rem;border-radius:16px;background:#FFF4F8;border:1px solid var(--line);padding:.4rem;
   display:flex;align-items:center;justify-content:center;min-height:7rem}
 .prevbox img{max-width:100%;max-height:40dvh;border-radius:10px;display:block;box-shadow:0 6px 16px rgba(150,100,130,.2)}
-.prevbox .ph{font-size:.74rem;font-weight:800;color:var(--ink2);text-align:center;line-height:1.4}
+.prevbox .ph{font-size:.82rem;font-weight:800;color:var(--ink2);text-align:center;line-height:1.4}
 .savebtns{display:flex;gap:.36rem}
-.sbtn{flex:1 1 0;padding:.72rem .2rem;border-radius:14px;font-family:"Jua","Gowun Dodum",sans-serif;font-size:.9rem;line-height:1.1;
+.sbtn{flex:1 1 0;padding:.72rem .2rem;border-radius:14px;font-family:"Jua","Gowun Dodum",sans-serif;font-size:1rem;line-height:1.1;
   display:flex;align-items:center;justify-content:center;gap:.22rem}
 .sbtn.pri{background:linear-gradient(180deg,#FF9EBB,#EF6E93);color:#fff;box-shadow:0 7px 16px rgba(239,110,147,.28)}
 .sbtn.ghost{background:#fff;border:1px solid var(--line2);color:#6E5670}
 .calhead{display:flex;align-items:center;gap:.3rem;margin:.1rem 0 .3rem}
-.calhead .cm{flex:1 1 auto;text-align:center;font-family:"Jua",sans-serif;font-size:.92rem;color:#45313F}
+.calhead .cm{flex:1 1 auto;text-align:center;font-family:"Jua",sans-serif;font-size:1rem;color:#45313F}
 .calnav{width:1.85rem;height:1.85rem;border-radius:10px;background:#fff;border:1px solid var(--line);color:#8A6480;font-weight:900;line-height:1}
 .cal{display:grid;grid-template-columns:repeat(7,1fr);gap:.14rem}
-.wd{text-align:center;font-size:.56rem;font-weight:900;color:#B49EAE;padding:.08rem 0}
+.wd{text-align:center;font-size:.68rem;font-weight:900;color:#B49EAE;padding:.08rem 0}
 .wd.sun{color:#D9708C}
 .cd{aspect-ratio:1;width:100%;border-radius:10px;background:#fff;border:1px solid #F5E6EC;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;font-size:.64rem;font-weight:900;color:#7B6274;line-height:1;padding:0}
+  align-items:center;justify-content:center;font-size:.74rem;font-weight:900;color:#7B6274;line-height:1;padding:0}
 .cd.has{background:#FFF0F6;border-color:#F6CCDB;color:#C2557A}
 .cd.today{box-shadow:inset 0 0 0 2px var(--pink)}
-.cd .cm{font-size:.6rem;line-height:1;margin-top:.1rem}
+.cd .cm{font-size:.68rem;line-height:1;margin-top:.1rem}
 .cd.blank{background:transparent;border:0;box-shadow:none}
 .reclist{margin:.45rem 0 .1rem;border-top:1px dashed var(--line2);padding-top:.38rem}
 .recrow{width:100%;display:flex;align-items:center;gap:.36rem;padding:.4rem .32rem;border-radius:12px;background:#fff;
   border:1px solid var(--line);margin-bottom:.28rem;text-align:left}
-.recrow .rd{flex:0 0 auto;font-size:.64rem;font-weight:900;color:#B0637F;width:3.4rem}
-.recrow .rt{flex:1 1 auto;min-width:0;font-size:.7rem;font-weight:700;color:#6E5670;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.recempty{font-size:.7rem;font-weight:700;color:var(--ink3);padding:.45rem .2rem;text-align:center;line-height:1.5}
+.recrow .rd{flex:0 0 auto;font-size:.74rem;font-weight:900;color:#B0637F;width:3.4rem}
+.recrow .rt{flex:1 1 auto;min-width:0;font-size:.78rem;font-weight:700;color:#6E5670;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.recempty{font-size:.78rem;font-weight:700;color:var(--ink3);padding:.45rem .2rem;text-align:center;line-height:1.5}
 .instSteps{list-style:none;margin:.15rem 0 .45rem;padding:0}
-.instSteps li{display:flex;align-items:center;gap:.45rem;padding:.46rem .15rem;border-bottom:1px dashed #F5E6EC;font-size:.76rem;font-weight:700;color:#5C465A;line-height:1.35}
-.instSteps .num{flex:0 0 auto;width:1.45rem;height:1.45rem;border-radius:50%;background:#FFEAF2;color:#C2557A;font-weight:900;font-size:.72rem;display:flex;align-items:center;justify-content:center}
+.instSteps li{display:flex;align-items:center;gap:.45rem;padding:.46rem .15rem;border-bottom:1px dashed #F5E6EC;font-size:.84rem;font-weight:700;color:#5C465A;line-height:1.35}
+.instSteps .num{flex:0 0 auto;width:1.45rem;height:1.45rem;border-radius:50%;background:#FFEAF2;color:#C2557A;font-weight:900;font-size:.8rem;display:flex;align-items:center;justify-content:center}
 .instSteps .txt{flex:1 1 auto;min-width:0}
 .instSteps .ui{flex:0 0 auto;font-size:.96rem}
-.instTip{font-size:.66rem;font-weight:700;color:var(--ink2);line-height:1.4;margin:.05rem 0 .45rem}
-.instChrome{display:block;text-align:center;padding:.56rem;border-radius:13px;background:#EAF4FF;color:#20649B;font-size:.78rem;font-weight:900;text-decoration:none;margin-bottom:.36rem}
-.instOk{width:100%;padding:.7rem;border-radius:14px;background:linear-gradient(180deg,#FF9EBB,#EF6E93);color:#fff;font-family:"Jua",sans-serif;font-size:.94rem}
+.instTip{font-size:.76rem;font-weight:700;color:var(--ink2);line-height:1.4;margin:.05rem 0 .45rem}
+.instChrome{display:block;text-align:center;padding:.56rem;border-radius:13px;background:#EAF4FF;color:#20649B;font-size:.86rem;font-weight:900;text-decoration:none;margin-bottom:.36rem}
+.instOk{width:100%;padding:.7rem;border-radius:14px;background:linear-gradient(180deg,#FF9EBB,#EF6E93);color:#fff;font-family:"Jua",sans-serif;font-size:1.02rem}
 
 /* ── 이야기(오프닝·탈출) ── */
 .storyWrap{position:fixed;inset:0;z-index:70;display:flex;align-items:center;justify-content:center;
@@ -254,8 +279,8 @@ a{color:inherit}
 .storyWrap.esc{background:radial-gradient(90% 62% at 50% 26%,#7E63BE 0%,#3A2B58 74%)}
 .storyWrap.esc .scene{max-width:336px}
 .story{position:relative;width:100%;max-width:400px;text-align:center;color:#FFF7EE;margin:auto}
-.storyX{position:absolute;right:0;top:-.3rem;width:1.9rem;height:1.9rem;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;font-size:.8rem;line-height:1}
-.storyTop{margin:.1rem 0 .45rem;font-size:.68rem;font-weight:900;color:#FFE6A8;letter-spacing:.02em}
+.storyX{position:absolute;right:0;top:-.3rem;width:2.1rem;height:2.1rem;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;font-size:.9rem;line-height:1}
+.storyTop{margin:.1rem 0 .45rem;font-size:.76rem;font-weight:900;color:#FFE6A8;letter-spacing:.02em}
 .scene{position:relative;width:100%;max-width:300px;aspect-ratio:300/220;margin:.05rem auto .5rem}
 .sceneArt{position:absolute;inset:0}
 .sceneArt svg{width:100%;height:100%;display:block}
@@ -322,32 +347,39 @@ a{color:inherit}
 .sparks{position:absolute;inset:0;pointer-events:none}
 .sparks span{position:absolute;color:#FFE9A8;font-size:.72rem;opacity:.2;animation:tw 2.8s infinite ease-in-out}
 @keyframes tw{0%,100%{opacity:.12;transform:scale(.75)}50%{opacity:1;transform:scale(1.2)}}
-.sceneCap{margin:0 0 .4rem;font-size:.7rem;font-weight:800;color:#D5C7F2;line-height:1.35}
-.storyTxt{font-size:.84rem;line-height:1.66;color:#F3EBFF;margin:.15rem 0 .35rem}
+.sceneCap{margin:0 0 .4rem;font-size:.78rem;font-weight:800;color:#D5C7F2;line-height:1.35}
+.storyTxt{font-size:.92rem;line-height:1.62;color:#F3EBFF;margin:.15rem 0 .35rem}
 .storyTxt b{color:#FFE6A8}
 .storySay{margin:.15rem 0 .7rem;padding:.55rem .68rem;border-radius:14px;background:rgba(255,255,255,.14);
-  border:1px solid rgba(255,233,168,.42);font-size:.86rem;font-weight:900;color:#FFF5DC;line-height:1.45}
+  border:1px solid rgba(255,233,168,.42);font-size:.94rem;font-weight:900;color:#FFF5DC;line-height:1.45}
 .storyGo{width:100%;padding:.74rem;border-radius:15px;background:linear-gradient(180deg,#FFE9A3,#FFBE3D);color:#4A2C00;
-  font-family:"Jua",sans-serif;font-size:.96rem;box-shadow:0 10px 22px rgba(0,0,0,.3)}
-.storySkip{display:block;width:100%;margin-top:.4rem;padding:.45rem;border-radius:12px;color:#D9CFF2;font-size:.7rem;font-weight:800;text-decoration:underline}
+  font-family:"Jua",sans-serif;font-size:1.04rem;box-shadow:0 10px 22px rgba(0,0,0,.3)}
+.storySkip{display:block;width:100%;margin-top:.4rem;padding:.45rem;border-radius:12px;color:#D9CFF2;font-size:.78rem;font-weight:800;text-decoration:underline}
 .praiseEn{font-family:"Jua",sans-serif;font-size:1.42rem;color:#FFE9A8;margin:.05rem 0 0;text-shadow:0 3px 10px rgba(0,0,0,.32);line-height:1.2}
-.praiseKo{font-size:.8rem;font-weight:800;color:#F3EBFF;margin:.15rem 0 .2rem;line-height:1.4}
-.escStats{font-size:.62rem;font-weight:800;color:#C9B9E8;margin:0 0 .6rem;line-height:1.4}
+.praiseKo{font-size:.86rem;font-weight:800;color:#F3EBFF;margin:.15rem 0 .2rem;line-height:1.4}
+.escStats{font-size:.72rem;font-weight:800;color:#C9B9E8;margin:0 0 .6rem;line-height:1.4}
 
 /* ── 토스트 ── */
 .toast{position:fixed;left:50%;bottom:calc(1.1rem + env(safe-area-inset-bottom));transform:translateX(-50%);
-  background:#FFFFFF;color:#4A3547;padding:.5rem .85rem;border-radius:14px;font-size:.74rem;font-weight:800;
+  background:#FFFFFF;color:#4A3547;padding:.5rem .85rem;border-radius:14px;font-size:.82rem;font-weight:800;
   z-index:90;max-width:86vw;text-align:center;box-shadow:0 8px 22px rgba(160,110,140,.3);border:1px solid var(--line);
   opacity:0;transition:opacity .22s ease;pointer-events:none;line-height:1.35}
 .toast.on{opacity:1}
 
+@media (max-width:352px){
+  html{font-size:18.5px}
+  .head .badge{width:1.95rem;height:1.95rem}
+  .chip.ic{padding:.2rem .22rem;font-size:.86rem}
+  .chips{gap:.12rem}
+  .daytxt{font-size:.96rem}
+}
 @media (max-width:372px){
-  html{font-size:17px}
-  .head h1{font-size:1rem}
-  .chip{padding:.28rem .3rem;font-size:.56rem}
-  .daytxt{font-size:.9rem}
-  .paper{height:clamp(290px, calc(100dvh - 416px), 452px)}
-  .qstep{font-size:.54rem}
+  .head h1{font-size:1rem;letter-spacing:-.03em}
+  .head .sub{font-size:.66rem}
+  .chip.ic{padding:.26rem .3rem;font-size:.92rem}
+  .daytxt{font-size:1rem}
+  .paper{height:clamp(276px, calc(100dvh - 448px), 452px)}
+  .qstep{font-size:.68rem}
 }
 @media (max-height:740px){
   .storyTxt{font-size:.72rem;line-height:1.5}
@@ -372,7 +404,7 @@ a{color:inherit}
     <div class="badge" id="headBadge" aria-hidden="true"></div>
     <div class="ttlwrap">
       <h1>다이아몬드 성</h1>
-      <p class="sub">미미 &amp; 테오 탈출 다꾸</p>
+      <p class="sub">미미 &amp; 테오 다꾸</p>
     </div>
     <div class="chips">
       <button type="button" class="chip ic" id="storyBtn" aria-label="이야기 다시 보기">📖</button>
@@ -389,10 +421,10 @@ a{color:inherit}
         <span class="daytxt" id="dayTxt">11월 26일 목요일</span>
         <span class="todaychip" id="todayChip">오늘</span>
       </button>
-      <span class="savedtag" id="savedTag">저장됨 ✓</span>
+
     </div>
     <button type="button" class="dnav" id="nextDay" aria-label="다음 날짜 보기">›</button>
-    <button type="button" class="recbtn" id="recBtn" aria-label="월별 기록 달력과 목록 보기">📅 기록</button>
+    <button type="button" class="recbtn" id="recBtn" aria-label="월별 기록 달력과 목록 보기" title="기록 달력">📅</button>
   </div>
 
   <div class="moodbar">
@@ -409,7 +441,7 @@ a{color:inherit}
     <div class="qsteps" id="qSteps" role="group" aria-label="탈출 열쇠 4단계"></div>
     <button type="button" class="escapeBtn" id="escapeBtn" hidden>🌀 차원의 문 열고 탈출하기!</button>
     <div class="qdoneRow" id="qDoneRow" hidden>
-      <button type="button" class="qdone" id="replayEsc" aria-label="탈출 연출 다시 보기">💎 탈출 완료! 차원의 문이 활짝 열렸어요 🔁</button>
+      <button type="button" class="qdone" id="replayEsc" aria-label="탈출 연출 다시 보기">💎 탈출 완료 🔁</button>
       <button type="button" class="qnew" id="newPageBtn">📖 새 페이지</button>
     </div>
   </div>
@@ -417,10 +449,19 @@ a{color:inherit}
   <main class="paperwrap">
     <div class="paper" id="paper" data-pat="grid">
       <div class="pghead" id="pgDate">11월 26일 목요일</div>
+      <span class="savedtag" id="savedTag">저장됨 ✓</span>
       <div class="pgmood" id="pgMood" hidden>😊</div>
       <textarea id="pgText" class="pgtext" maxlength="2000" spellcheck="false"
         placeholder="오늘 하루는 어땠나요?&#10;편하게 적어 보세요 🐹"></textarea>
       <div class="objs" id="objs"></div>
+      <div class="objctl" id="objCtl" hidden role="toolbar" aria-label="붙인 스티커 조절">
+        <button type="button" data-act="rotl" aria-label="왼쪽으로 돌리기">↺</button>
+        <button type="button" data-act="small" aria-label="작게 줄이기">−</button>
+        <button type="button" data-act="big" aria-label="크게 키우기">＋</button>
+        <button type="button" data-act="rotr" aria-label="오른쪽으로 돌리기">↻</button>
+        <button type="button" data-act="del" class="del" aria-label="스티커 지우기">🗑</button>
+        <button type="button" data-act="ok" class="ok" aria-label="꾸미기 마치기">✓</button>
+      </div>
     </div>
   </main>
 
@@ -432,11 +473,14 @@ a{color:inherit}
   </div>
 
   <div class="objbar" id="objbar" hidden>
-    <button type="button" class="obtn" id="rotBtn" aria-label="조금 돌리기">↻ 돌리기</button>
-    <button type="button" class="obtn" id="smallBtn" aria-label="작게">➖ 작게</button>
-    <button type="button" class="obtn" id="bigBtn" aria-label="크게">➕ 크게</button>
-    <button type="button" class="obtn del" id="delBtn" aria-label="지우기">🗑 지우기</button>
-    <button type="button" class="obtn done" id="doneBtn" aria-label="꾸미기 마치기">✓ 완료</button>
+    <p class="objcap"><span id="objCap">스티커</span><span class="sz" id="objSize">100%</span></p>
+    <div class="objrow">
+      <button type="button" class="obtn" id="rotBtn" aria-label="조금 돌리기">↻ 돌리기</button>
+      <button type="button" class="obtn" id="smallBtn" aria-label="작게">➖ 작게</button>
+      <button type="button" class="obtn" id="bigBtn" aria-label="크게">➕ 크게</button>
+      <button type="button" class="obtn del" id="delBtn" aria-label="지우기">🗑 지우기</button>
+      <button type="button" class="obtn done" id="doneBtn" aria-label="꾸미기 마치기">✓ 완료</button>
+    </div>
   </div>
 
   <button type="button" class="bigsave" id="saveOpen">🖼️ 이미지로 저장 · 공유</button>
@@ -462,10 +506,11 @@ a{color:inherit}
 <div class="sheetWrap" id="lySticker" hidden>
   <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="tSticker">
     <div class="sh">
-      <h2 id="tSticker">🧸 와글링 스티커</h2>
+      <h2 id="tSticker">🧸 스티커 58종</h2>
       <button type="button" class="x" data-close aria-label="스티커 서랍 닫기">✕</button>
     </div>
-    <p class="lead">누르면 종이에 붙어요. 손가락으로 옮기고 돌려 보세요.</p>
+    <p class="lead">누르면 종이에 붙어요. 손가락으로 끌어 옮기고, 두 손가락으로 크기·회전을 바꿔요.</p>
+    <div class="sttabs" id="stickerTabs" role="tablist" aria-label="스티커 분류"></div>
     <div class="stgrid" id="stickerList"></div>
   </div>
 </div>
@@ -585,6 +630,11 @@ a{color:inherit}
   function todayKey() { return keyOf(todayDate()); }
   function barDate(d) { return (d.getMonth() + 1) + '월 ' + d.getDate() + '일 (' + KO_DOW[d.getDay()] + ')'; }
   function shortDate(d) { return (d.getMonth() + 1) + '월 ' + d.getDate() + '일 ' + KO_DOW[d.getDay()] + '요일'; }
+  function tightDate(d) { return (d.getMonth() + 1) + '월 ' + d.getDate() + '일 (' + KO_DOW[d.getDay()] + ')'; }
+  function barDate(d, no) {
+    var t = (window.innerWidth < 382 ? tightDate(d) : shortDate(d));
+    return t + (no > 1 ? ' · ' + no + '쪽' : '');
+  }
   function isToday(k) { return dateKeyOf(k) === todayKey(); }
 
   /* ═════════════ 날짜·요일·날씨 (모든 앱 공통 기본) ═════════════ */
@@ -760,9 +810,9 @@ a{color:inherit}
     teo: { n: '테오', svg: '<svg' + W + '><ellipse cx="50" cy="90" rx="23" ry="4" fill="#8A6A4A" opacity=".12"/><ellipse cx="28" cy="36" rx="9.5" ry="10.5" fill="#FFD9A0"/><ellipse cx="72" cy="36" rx="9.5" ry="10.5" fill="#FFD9A0"/><ellipse cx="28" cy="36" rx="4.6" ry="5.6" fill="#FFAE9E"/><ellipse cx="72" cy="36" rx="4.6" ry="5.6" fill="#FFAE9E"/><ellipse cx="50" cy="58" rx="30" ry="29" fill="#FFF0D6"/><path d="M21 52a29 29 0 0 1 58 0" fill="#FFE3B4" opacity=".65"/><ellipse cx="50" cy="69" rx="17" ry="13" fill="#FFFBF0"/><circle cx="40" cy="54" r="3.8" fill="#4B3A2E"/><circle cx="60" cy="54" r="3.8" fill="#4B3A2E"/><circle cx="41.4" cy="52.5" r="1.3" fill="#FFF"/><circle cx="61.4" cy="52.5" r="1.3" fill="#FFF"/><ellipse cx="31" cy="63" rx="5.2" ry="3.3" fill="#FFB3A6" opacity=".9"/><ellipse cx="69" cy="63" rx="5.2" ry="3.3" fill="#FFB3A6" opacity=".9"/><path d="M50 62v3" stroke="#B5865A" stroke-width="1.8" stroke-linecap="round"/><path d="M50 65c-1.6 2.6-4.4 2.4-5.6.6M50 65c1.6 2.6 4.4 2.4 5.6.6" stroke="#B5865A" stroke-width="1.8" fill="none" stroke-linecap="round"/><ellipse cx="37" cy="85" rx="8.6" ry="5" fill="#7FD3C4"/><ellipse cx="63" cy="85" rx="8.6" ry="5" fill="#7FD3C4"/><path d="M29 84h16M55 84h16" stroke="#4FB3A3" stroke-width="1.5" stroke-linecap="round"/></svg>' },
     mimi: { n: '미미', svg: '<svg' + W + '><ellipse cx="50" cy="90" rx="23" ry="4" fill="#8A6A4A" opacity=".12"/><ellipse cx="28" cy="37" rx="9.5" ry="10.5" fill="#FFD3DE"/><ellipse cx="72" cy="37" rx="9.5" ry="10.5" fill="#FFD3DE"/><ellipse cx="28" cy="37" rx="4.6" ry="5.6" fill="#FF9DB8"/><ellipse cx="72" cy="37" rx="4.6" ry="5.6" fill="#FF9DB8"/><ellipse cx="50" cy="59" rx="30" ry="29" fill="#FFF2F6"/><path d="M21 53a29 29 0 0 1 58 0" fill="#FFD9E4" opacity=".75"/><ellipse cx="50" cy="70" rx="17" ry="13" fill="#FFFBFD"/><circle cx="40" cy="55" r="3.8" fill="#5A3A46"/><circle cx="60" cy="55" r="3.8" fill="#5A3A46"/><circle cx="41.4" cy="53.5" r="1.3" fill="#FFF"/><circle cx="61.4" cy="53.5" r="1.3" fill="#FFF"/><path d="M36 60.5l-3-2M64 60.5l3-2" stroke="#C98598" stroke-width="1.4" stroke-linecap="round"/><ellipse cx="31" cy="64" rx="5.2" ry="3.3" fill="#FFB0C6" opacity=".9"/><ellipse cx="69" cy="64" rx="5.2" ry="3.3" fill="#FFB0C6" opacity=".9"/><path d="M50 63v2.6" stroke="#C4859A" stroke-width="1.8" stroke-linecap="round"/><path d="M50 65.6c-1.5 2.4-4.2 2.2-5.3.5M50 65.6c1.5 2.4 4.2 2.2 5.3.5" stroke="#C4859A" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M24 22l-8-6v12zM24 22l8-6v12z" fill="#FF8FAE"/><circle cx="24" cy="22" r="3.2" fill="#FF6F97"/><ellipse cx="38" cy="86" rx="8.6" ry="5" fill="#FFB3C6"/><ellipse cx="62" cy="86" rx="8.6" ry="5" fill="#FFB3C6"/></svg>' },
     watt: { n: '와트메이커', svg: '<svg' + W + '><ellipse cx="50" cy="90" rx="23" ry="4" fill="#8A6A4A" opacity=".12"/><ellipse cx="27" cy="46" rx="8.5" ry="9" fill="#FFD9A0"/><ellipse cx="73" cy="46" rx="8.5" ry="9" fill="#FFD9A0"/><ellipse cx="50" cy="62" rx="28" ry="26" fill="#FFF0D6"/><ellipse cx="50" cy="71" rx="16" ry="12" fill="#FFFBF0"/><circle cx="40" cy="58" r="3.7" fill="#4B3A2E"/><circle cx="60" cy="58" r="3.7" fill="#4B3A2E"/><circle cx="41.3" cy="56.6" r="1.2" fill="#FFF"/><circle cx="61.3" cy="56.6" r="1.2" fill="#FFF"/><ellipse cx="31" cy="66" rx="4.8" ry="3.1" fill="#FFB3A6" opacity=".9"/><ellipse cx="69" cy="66" rx="4.8" ry="3.1" fill="#FFB3A6" opacity=".9"/><path d="M44 68q6 4.5 12 0" stroke="#B5865A" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M25 44a25 25 0 0 1 50 0z" fill="#FFC53D"/><rect x="18" y="42" width="64" height="7.5" rx="3.7" fill="#FFB020"/><path d="M53 24l-9 13h6l-3 9 10-13h-6z" fill="#FFFDF4"/><ellipse cx="38" cy="87" rx="8.4" ry="4.6" fill="#4B9CD3"/><ellipse cx="62" cy="87" rx="8.4" ry="4.6" fill="#4B9CD3"/></svg>' },
-    temi: { n: '꼬마로봇 테미', svg: '<svg' + W + '><ellipse cx="50" cy="90" rx="22" ry="4" fill="#8A6A4A" opacity=".12"/><path d="M50 20v6" stroke="#9BC6DE" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="16" r="4.6" fill="#FF8A3D"/><rect x="25" y="26" width="50" height="42" rx="15" fill="#EAF8FF" stroke="#A8D8F0" stroke-width="2"/><rect x="33" y="36" width="34" height="24" rx="10" fill="#D6EEFF"/><circle cx="42" cy="46" r="3.5" fill="#4A6B85"/><circle cx="58" cy="46" r="3.5" fill="#4A6B85"/><circle cx="43.2" cy="44.8" r="1.1" fill="#FFF"/><circle cx="59.2" cy="44.8" r="1.1" fill="#FFF"/><path d="M45 54q5 3.6 10 0" stroke="#4A6B85" stroke-width="2" fill="none" stroke-linecap="round"/><rect x="16" y="42" width="7" height="14" rx="3.5" fill="#9BD4F5"/><rect x="77" y="42" width="7" height="14" rx="3.5" fill="#9BD4F5"/><rect x="34" y="68" width="32" height="18" rx="9" fill="#CFEBFF" stroke="#A8D8F0" stroke-width="2"/><path d="M50 83c-3.4-2.4-6-4.6-6-6.6 0-2.2 2.6-3.1 4-1.3l2 2.2 2-2.2c1.4-1.8 4-.9 4 1.3 0 2-2.6 4.2-6 6.6z" fill="#FF7FA3"/></svg>' },
-    note: { n: '클로벨 음표', svg: '<svg' + W + '><path d="M42 64V32l24-7v32" stroke="#8E74D8" stroke-width="6" fill="none" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="35" cy="68" rx="9.5" ry="7.5" fill="#8E74D8"/><ellipse cx="59" cy="61" rx="9.5" ry="7.5" fill="#8E74D8"/><path d="M69 20l2.4 5.6 5.6 2.4-5.6 2.4L69 36l-2.4-5.6-5.6-2.4 5.6-2.4z" fill="#FFC53D"/><path d="M25 28l1.7 3.8 3.8 1.7-3.8 1.7L25 39l-1.7-3.8-3.8-1.7 3.8-1.7z" fill="#FFD98A"/></svg>' },
-    mic: { n: '클로벨 마이크', svg: '<svg' + W + '><rect x="38" y="12" width="24" height="36" rx="12" fill="#9BD4F5"/><path d="M44 21h12M44 29h12M44 37h12" stroke="#E7F6FF" stroke-width="3" stroke-linecap="round"/><ellipse cx="43" cy="23" rx="2.6" ry="6" fill="#FFF" opacity=".55"/><path d="M30 42a20 20 0 0 0 40 0" stroke="#5FAEE0" stroke-width="5" fill="none" stroke-linecap="round"/><rect x="47.5" y="62" width="5" height="13" rx="2.5" fill="#B9CFDD"/><ellipse cx="50" cy="79" rx="16" ry="5.5" fill="#CFE0EC"/><circle cx="74" cy="30" r="3.4" fill="#FFC53D"/></svg>' },
+    temi: { n: '테미', svg: '<svg' + W + '><ellipse cx="50" cy="90" rx="22" ry="4" fill="#8A6A4A" opacity=".12"/><path d="M50 20v6" stroke="#9BC6DE" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="16" r="4.6" fill="#FF8A3D"/><rect x="25" y="26" width="50" height="42" rx="15" fill="#EAF8FF" stroke="#A8D8F0" stroke-width="2"/><rect x="33" y="36" width="34" height="24" rx="10" fill="#D6EEFF"/><circle cx="42" cy="46" r="3.5" fill="#4A6B85"/><circle cx="58" cy="46" r="3.5" fill="#4A6B85"/><circle cx="43.2" cy="44.8" r="1.1" fill="#FFF"/><circle cx="59.2" cy="44.8" r="1.1" fill="#FFF"/><path d="M45 54q5 3.6 10 0" stroke="#4A6B85" stroke-width="2" fill="none" stroke-linecap="round"/><rect x="16" y="42" width="7" height="14" rx="3.5" fill="#9BD4F5"/><rect x="77" y="42" width="7" height="14" rx="3.5" fill="#9BD4F5"/><rect x="34" y="68" width="32" height="18" rx="9" fill="#CFEBFF" stroke="#A8D8F0" stroke-width="2"/><path d="M50 83c-3.4-2.4-6-4.6-6-6.6 0-2.2 2.6-3.1 4-1.3l2 2.2 2-2.2c1.4-1.8 4-.9 4 1.3 0 2-2.6 4.2-6 6.6z" fill="#FF7FA3"/></svg>' },
+    note: { n: '음표', svg: '<svg' + W + '><path d="M42 64V32l24-7v32" stroke="#8E74D8" stroke-width="6" fill="none" stroke-linejoin="round" stroke-linecap="round"/><ellipse cx="35" cy="68" rx="9.5" ry="7.5" fill="#8E74D8"/><ellipse cx="59" cy="61" rx="9.5" ry="7.5" fill="#8E74D8"/><path d="M69 20l2.4 5.6 5.6 2.4-5.6 2.4L69 36l-2.4-5.6-5.6-2.4 5.6-2.4z" fill="#FFC53D"/><path d="M25 28l1.7 3.8 3.8 1.7-3.8 1.7L25 39l-1.7-3.8-3.8-1.7 3.8-1.7z" fill="#FFD98A"/></svg>' },
+    mic: { n: '마이크', svg: '<svg' + W + '><rect x="38" y="12" width="24" height="36" rx="12" fill="#9BD4F5"/><path d="M44 21h12M44 29h12M44 37h12" stroke="#E7F6FF" stroke-width="3" stroke-linecap="round"/><ellipse cx="43" cy="23" rx="2.6" ry="6" fill="#FFF" opacity=".55"/><path d="M30 42a20 20 0 0 0 40 0" stroke="#5FAEE0" stroke-width="5" fill="none" stroke-linecap="round"/><rect x="47.5" y="62" width="5" height="13" rx="2.5" fill="#B9CFDD"/><ellipse cx="50" cy="79" rx="16" ry="5.5" fill="#CFE0EC"/><circle cx="74" cy="30" r="3.4" fill="#FFC53D"/></svg>' },
     isopod: { n: '공벌레', svg: '<svg' + W + '><ellipse cx="50" cy="90" rx="22" ry="4" fill="#8A6A4A" opacity=".12"/><path d="M30 40q-9-8-15-5M70 40q9-8 15-5" stroke="#93A9BB" stroke-width="2.6" fill="none" stroke-linecap="round"/><ellipse cx="50" cy="58" rx="30" ry="23" fill="#AFC2D1"/><path d="M38 42q4 16 0 32M46 40q4 18 0 36M54 40q-4 18 0 36M62 42q-4 16 0 32" stroke="#93A9BB" stroke-width="1.5" fill="none" opacity=".9"/><ellipse cx="50" cy="44" rx="17" ry="9" fill="#C6D6E2"/><circle cx="43" cy="46" r="2.7" fill="#5B6E80"/><circle cx="57" cy="46" r="2.7" fill="#5B6E80"/><circle cx="43.9" cy="45.1" r=".9" fill="#FFF"/><circle cx="57.9" cy="45.1" r=".9" fill="#FFF"/><ellipse cx="40" cy="60" rx="9" ry="3.6" fill="#FFF" opacity=".3"/><path d="M34 79l-4 6M44 82v5M56 82v5M66 79l4 6" stroke="#93A9BB" stroke-width="2.4" stroke-linecap="round"/></svg>' },
     crown: { n: '천사 왕관', svg: '<svg' + W + '><path d="M24 50c-9-5-13-15-8-20 6-5 13 2 13 11" fill="#FFF8E8" stroke="#E9D3AC" stroke-width="1.6"/><path d="M76 50c9-5 13-15 8-20-6-5-13 2-13 11" fill="#FFF8E8" stroke="#E9D3AC" stroke-width="1.6"/><path d="M28 62l-3-26 13 10L50 24l12 22 13-10-3 26z" fill="#FFC53D" stroke="#E8A921" stroke-width="2" stroke-linejoin="round"/><rect x="27" y="60" width="46" height="9" rx="4.5" fill="#FFB020"/><circle cx="38" cy="52" r="3" fill="#FF8FAE"/><circle cx="50" cy="50" r="3.4" fill="#8FD8FF"/><circle cx="62" cy="52" r="3" fill="#FF8FAE"/><path d="M22 26l1.6 3.6 3.6 1.6-3.6 1.6L22 36.4l-1.6-3.6-3.6-1.6 3.6-1.6z" fill="#FFF1BE"/><path d="M80 30l1.4 3.2 3.2 1.4-3.2 1.4L80 39.2l-1.4-3.2-3.2-1.4 3.2-1.4z" fill="#FFF1BE"/></svg>' },
     candle: { n: '촛대', svg: '<svg' + W + '><ellipse cx="50" cy="90" rx="20" ry="4" fill="#8A6A4A" opacity=".12"/><ellipse cx="50" cy="82" rx="15" ry="4.4" fill="#E3C79A"/><path d="M37 82h26l-3 7H40z" fill="#D9B77F"/><rect x="42" y="46" width="16" height="36" rx="4" fill="#FFF3DC" stroke="#E8D2AE" stroke-width="2"/><path d="M44 52v10M56 58v8" stroke="#EBD8B8" stroke-width="3" stroke-linecap="round"/><path d="M50 20c6.6 6.4 9.6 10.6 9.6 14.6a9.6 9.6 0 0 1-19.2 0c0-4 4.2-9.2 9.6-14.6z" fill="#FFC53D"/><path d="M50 30c3 3.2 4.4 5.4 4.4 7.4a4.4 4.4 0 0 1-8.8 0c0-2 2-4.4 4.4-7.4z" fill="#FFF3C4"/><path d="M43 26l1.6 3.6 3.6 1.6-3.6 1.6L43 36.4l-1.6-3.6-3.6-1.6 3.6-1.6z" fill="#FFE9A8"/></svg>' },
@@ -780,7 +830,83 @@ a{color:inherit}
     berry: { n: '딸기', svg: '<svg' + W + '><path d="M50 88c-16-8-26-24-26-38 0-8 10-14 26-14s26 6 26 14c0 14-10 30-26 38z" fill="#FF7A7A"/><path d="M32 36q8-12 18-8 10-4 18 8-9 5-18 5t-18-5z" fill="#7BCF8E"/><g fill="#FFE9A8"><ellipse cx="40" cy="52" rx="1.9" ry="2.8"/><ellipse cx="52" cy="56" rx="1.9" ry="2.8"/><ellipse cx="62" cy="52" rx="1.9" ry="2.8"/><ellipse cx="46" cy="68" rx="1.9" ry="2.8"/><ellipse cx="58" cy="68" rx="1.9" ry="2.8"/><ellipse cx="50" cy="78" rx="1.7" ry="2.5"/></g></svg>' },
     letter: { n: '편지', svg: '<svg' + W + '><rect x="16" y="30" width="68" height="46" rx="6" fill="#FFF8E8" stroke="#E6D2AE" stroke-width="2"/><path d="M18 34l32 24 32-24" fill="#FFFDF6" stroke="#E6D2AE" stroke-width="2" stroke-linejoin="round"/><path d="M50 74c-2.6-1.8-4.6-3.4-4.6-5 0-1.6 2-2.3 3-1l1.6 1.7 1.6-1.7c1-1.3 3-.6 3 1 0 1.6-2 3.2-4.6 5z" fill="#FF8FAE"/></svg>' }
   };
-  var SORDER = ['portal', 'diamond', 'key', 'castle', 'duo', 'mimi', 'teo', 'crown', 'candle', 'ribbon', 'watt', 'temi', 'note', 'mic', 'isopod', 'star', 'heart', 'flower', 'coffee', 'cake', 'rainbow', 'tape', 'cloud', 'moon', 'clover', 'berry', 'letter'];
+  /* ═════════════ 스티커 v2 추가 31종 (꽃·햄스터·세희세영·다꾸) — 자체 SVG ═════════════ */
+  var MORE = {
+    blossom: { n: "벚꽃", cat: "flower", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><defs><radialGradient id=\"blp1\" cx=\"50%\" cy=\"35%\" r=\"70%\"><stop offset=\"0\" stop-color=\"#FFFFFF\"/><stop offset=\".55\" stop-color=\"#FFDCEA\"/><stop offset=\"1\" stop-color=\"#FFA9C8\"/></radialGradient></defs><path d=\"M14 90q14-8 24-20\" stroke=\"#B08163\" stroke-width=\"3\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M30 78q6-8 12-10\" stroke=\"#C4936F\" stroke-width=\"2.2\" fill=\"none\" stroke-linecap=\"round\"/><ellipse cx=\"26\" cy=\"72\" rx=\"4.4\" ry=\"3\" fill=\"#FFC2D8\" transform=\"rotate(-30 26 72)\"/><ellipse cx=\"50\" cy=\"20\" rx=\"10.5\" ry=\"13.5\" fill=\"url(#blp1)\" stroke=\"#F59EC0\" stroke-width=\"1.1\" transform=\"rotate(0.0 50 44)\"/><ellipse cx=\"50\" cy=\"20\" rx=\"10.5\" ry=\"13.5\" fill=\"url(#blp1)\" stroke=\"#F59EC0\" stroke-width=\"1.1\" transform=\"rotate(72.0 50 44)\"/><ellipse cx=\"50\" cy=\"20\" rx=\"10.5\" ry=\"13.5\" fill=\"url(#blp1)\" stroke=\"#F59EC0\" stroke-width=\"1.1\" transform=\"rotate(144.0 50 44)\"/><ellipse cx=\"50\" cy=\"20\" rx=\"10.5\" ry=\"13.5\" fill=\"url(#blp1)\" stroke=\"#F59EC0\" stroke-width=\"1.1\" transform=\"rotate(216.0 50 44)\"/><ellipse cx=\"50\" cy=\"20\" rx=\"10.5\" ry=\"13.5\" fill=\"url(#blp1)\" stroke=\"#F59EC0\" stroke-width=\"1.1\" transform=\"rotate(288.0 50 44)\"/><path d=\"M50 8.5q2.6 2.6 0 5q-2.6-2.4 0-5\" fill=\"#FFB8D4\" transform=\"rotate(0 50 44)\"/><path d=\"M50 8.5q2.6 2.6 0 5q-2.6-2.4 0-5\" fill=\"#FFB8D4\" transform=\"rotate(72 50 44)\"/><path d=\"M50 8.5q2.6 2.6 0 5q-2.6-2.4 0-5\" fill=\"#FFB8D4\" transform=\"rotate(144 50 44)\"/><path d=\"M50 8.5q2.6 2.6 0 5q-2.6-2.4 0-5\" fill=\"#FFB8D4\" transform=\"rotate(216 50 44)\"/><path d=\"M50 8.5q2.6 2.6 0 5q-2.6-2.4 0-5\" fill=\"#FFB8D4\" transform=\"rotate(288 50 44)\"/><circle cx=\"50\" cy=\"44\" r=\"8\" fill=\"#FFF0B8\"/><circle cx=\"50\" cy=\"44\" r=\"4.8\" fill=\"#FFD166\"/><circle cx=\"50\" cy=\"36\" r=\"1.5\" fill=\"#F28FB6\"/><circle cx=\"58\" cy=\"41\" r=\"1.5\" fill=\"#F28FB6\"/><circle cx=\"55\" cy=\"50\" r=\"1.5\" fill=\"#F28FB6\"/><circle cx=\"45\" cy=\"50\" r=\"1.5\" fill=\"#F28FB6\"/><circle cx=\"42\" cy=\"41\" r=\"1.5\" fill=\"#F28FB6\"/><path d=\"M80 20L81.08 24.92L86 26L81.08 27.08L80 32L78.92 27.08L74 26L78.92 24.92Z\" fill=\"#FFE9A8\"/><path d=\"M22 15.6L22.79 19.21L26.4 20L22.79 20.79L22 24.4L21.21 20.79L17.6 20L21.21 19.21Z\" fill=\"#FFE9A8\"/></svg>" },
+    rose: { n: "장미", cat: "flower", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><defs><radialGradient id=\"rop1\" cx=\"50%\" cy=\"35%\" r=\"70%\"><stop offset=\"0\" stop-color=\"#FFD6E2\"/><stop offset=\"1\" stop-color=\"#E1567C\"/></radialGradient></defs><ellipse cx=\"50\" cy=\"90\" rx=\"18\" ry=\"3.4\" fill=\"#8A6A4A\" opacity=\".12\"/><path d=\"M50 74v14\" stroke=\"#5FAE74\" stroke-width=\"4\" stroke-linecap=\"round\"/><ellipse cx=\"33\" cy=\"80\" rx=\"12\" ry=\"6\" fill=\"#6FBF84\" transform=\"rotate(-24 33 80)\"/><ellipse cx=\"67\" cy=\"83\" rx=\"11\" ry=\"5.6\" fill=\"#5FAE74\" transform=\"rotate(22 67 83)\"/><circle cx=\"50\" cy=\"46\" r=\"29\" fill=\"#E1567C\"/><circle cx=\"50\" cy=\"46\" r=\"23.5\" fill=\"#F0728F\"/><circle cx=\"50\" cy=\"46\" r=\"17.5\" fill=\"#FA8FAC\"/><circle cx=\"50\" cy=\"46\" r=\"11\" fill=\"#FDB0C4\"/><path d=\"M50 46c5.6 0 8 3.8 6 6.8-2.2 3.2-7.6 2.4-8.8-1.4-1.4-4.4 3.4-8.6 9-7.6 6.6 1.2 9.4 8 6 13.4-3.4 5.6-12 6.2-17.4 1.6-5.6-4.8-5.6-14 0-19.6 6-6 16.6-5.4 22.6.8\" fill=\"none\" stroke=\"#C93F63\" stroke-width=\"2.1\" stroke-linecap=\"round\" opacity=\".8\"/><ellipse cx=\"36\" cy=\"28\" rx=\"8\" ry=\"4.2\" fill=\"#FFFFFF\" opacity=\".35\" transform=\"rotate(-32 36 28)\"/><path d=\"M82 20L83.08 24.92L88 26L83.08 27.08L82 32L80.92 27.08L76 26L80.92 24.92Z\" fill=\"#FFE9A8\"/><path d=\"M18 29.4L18.83 33.17L22.6 34L18.83 34.83L18 38.6L17.17 34.83L13.4 34L17.17 33.17Z\" fill=\"#FFD3E4\"/></svg>" },
+    sunflower: { n: "해바라기", cat: "flower", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><path d=\"M50 66v26\" stroke=\"#5FAE74\" stroke-width=\"4.6\" stroke-linecap=\"round\"/><ellipse cx=\"34\" cy=\"80\" rx=\"13\" ry=\"6.4\" fill=\"#6FBF84\" transform=\"rotate(-26 34 80)\"/><ellipse cx=\"50\" cy=\"18\" rx=\"6.4\" ry=\"13\" fill=\"#FFC53D\" stroke=\"#EFA61F\" stroke-width=\"1\" transform=\"rotate(0.0 50 44)\"/><ellipse cx=\"50\" cy=\"18\" rx=\"6.4\" ry=\"13\" fill=\"#FFC53D\" stroke=\"#EFA61F\" stroke-width=\"1\" transform=\"rotate(30.0 50 44)\"/><ellipse cx=\"50\" cy=\"18\" rx=\"6.4\" ry=\"13\" fill=\"#FFC53D\" stroke=\"#EFA61F\" stroke-width=\"1\" transform=\"rotate(60.0 50 44)\"/><ellipse cx=\"50\" cy=\"18\" rx=\"6.4\" ry=\"13\" fill=\"#FFC53D\" stroke=\"#EFA61F\" stroke-width=\"1\" transform=\"rotate(90.0 50 44)\"/><ellipse cx=\"50\" cy=\"18\" rx=\"6.4\" ry=\"13\" fill=\"#FFC53D\" stroke=\"#EFA61F\" stroke-width=\"1\" transform=\"rotate(120.0 50 44)\"/><ellipse cx=\"50\" cy=\"18\" rx=\"6.4\" ry=\"13\" fill=\"#FFC53D\" stroke=\"#EFA61F\" stroke-width=\"1\" transform=\"rotate(150.0 50 44)\"/><ellipse cx=\"50\" cy=\"18\" rx=\"6.4\" ry=\"13\" fill=\"#FFC53D\" stroke=\"#EFA61F\" stroke-width=\"1\" transform=\"rotate(180.0 50 44)\"/><ellipse cx=\"50\" cy=\"18\" rx=\"6.4\" ry=\"13\" fill=\"#FFC53D\" stroke=\"#EFA61F\" stroke-width=\"1\" transform=\"rotate(210.0 50 44)\"/><ellipse cx=\"50\" cy=\"18\" rx=\"6.4\" ry=\"13\" fill=\"#FFC53D\" stroke=\"#EFA61F\" stroke-width=\"1\" transform=\"rotate(240.0 50 44)\"/><ellipse cx=\"50\" cy=\"18\" rx=\"6.4\" ry=\"13\" fill=\"#FFC53D\" stroke=\"#EFA61F\" stroke-width=\"1\" transform=\"rotate(270.0 50 44)\"/><ellipse cx=\"50\" cy=\"18\" rx=\"6.4\" ry=\"13\" fill=\"#FFC53D\" stroke=\"#EFA61F\" stroke-width=\"1\" transform=\"rotate(300.0 50 44)\"/><ellipse cx=\"50\" cy=\"18\" rx=\"6.4\" ry=\"13\" fill=\"#FFC53D\" stroke=\"#EFA61F\" stroke-width=\"1\" transform=\"rotate(330.0 50 44)\"/><circle cx=\"50\" cy=\"44\" r=\"15.5\" fill=\"#8A5A2B\"/><circle cx=\"50\" cy=\"44\" r=\"13\" fill=\"#A9702F\"/><g fill=\"#6B421E\" opacity=\".75\"><circle cx=\"45\" cy=\"38\" r=\"1.5\"/><circle cx=\"53\" cy=\"37\" r=\"1.5\"/><circle cx=\"57\" cy=\"44\" r=\"1.5\"/><circle cx=\"51\" cy=\"48\" r=\"1.5\"/><circle cx=\"43\" cy=\"46\" r=\"1.5\"/><circle cx=\"47\" cy=\"52\" r=\"1.3\"/><circle cx=\"56\" cy=\"51\" r=\"1.3\"/></g><path d=\"M84 16.4L85.01 20.99L89.6 22L85.01 23.01L84 27.6L82.99 23.01L78.4 22L82.99 20.99Z\" fill=\"#FFE9A8\"/></svg>" },
+    tulip: { n: "튤립", cat: "flower", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><defs><linearGradient id=\"tup1\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#FFB3C9\"/><stop offset=\"1\" stop-color=\"#F0658C\"/></linearGradient></defs><path d=\"M50 54v32\" stroke=\"#5FAE74\" stroke-width=\"4.4\" stroke-linecap=\"round\"/><path d=\"M50 74c-14-2-20-12-16-20 9 0 14 9 16 20z\" fill=\"#6FBF84\"/><path d=\"M50 80c12-2 17-10 14-18-8 0-12 8-14 18z\" fill=\"#5FAE74\"/><path d=\"M32 40c0-12 7-20 18-20s18 8 18 20c0 11-8 18-18 18s-18-7-18-18z\" fill=\"url(#tup1)\" stroke=\"#E2547A\" stroke-width=\"1.6\"/><path d=\"M50 20v36\" stroke=\"#E2547A\" stroke-width=\"1.6\" opacity=\".7\"/><path d=\"M41 24c-4 5-5 13-2 20\" stroke=\"#E2547A\" stroke-width=\"1.6\" fill=\"none\" opacity=\".55\"/><path d=\"M59 24c4 5 5 13 2 20\" stroke=\"#E2547A\" stroke-width=\"1.6\" fill=\"none\" opacity=\".55\"/><path d=\"M76 19L76.9 23.1L81 24L76.9 24.9L76 29L75.1 24.9L71 24L75.1 23.1Z\" fill=\"#FFE9A8\"/></svg>" },
+    daisy: { n: "데이지", cat: "flower", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><path d=\"M50 62v28\" stroke=\"#6FBF84\" stroke-width=\"3.6\" stroke-linecap=\"round\"/><ellipse cx=\"66\" cy=\"78\" rx=\"10\" ry=\"5\" fill=\"#7BCF8E\" transform=\"rotate(24 66 78)\"/><ellipse cx=\"50\" cy=\"17\" rx=\"7\" ry=\"13.5\" fill=\"#FFFFFF\" stroke=\"#E7D9C6\" stroke-width=\"1.1\" transform=\"rotate(0.0 50 42)\"/><ellipse cx=\"50\" cy=\"17\" rx=\"7\" ry=\"13.5\" fill=\"#FFFFFF\" stroke=\"#E7D9C6\" stroke-width=\"1.1\" transform=\"rotate(36.0 50 42)\"/><ellipse cx=\"50\" cy=\"17\" rx=\"7\" ry=\"13.5\" fill=\"#FFFFFF\" stroke=\"#E7D9C6\" stroke-width=\"1.1\" transform=\"rotate(72.0 50 42)\"/><ellipse cx=\"50\" cy=\"17\" rx=\"7\" ry=\"13.5\" fill=\"#FFFFFF\" stroke=\"#E7D9C6\" stroke-width=\"1.1\" transform=\"rotate(108.0 50 42)\"/><ellipse cx=\"50\" cy=\"17\" rx=\"7\" ry=\"13.5\" fill=\"#FFFFFF\" stroke=\"#E7D9C6\" stroke-width=\"1.1\" transform=\"rotate(144.0 50 42)\"/><ellipse cx=\"50\" cy=\"17\" rx=\"7\" ry=\"13.5\" fill=\"#FFFFFF\" stroke=\"#E7D9C6\" stroke-width=\"1.1\" transform=\"rotate(180.0 50 42)\"/><ellipse cx=\"50\" cy=\"17\" rx=\"7\" ry=\"13.5\" fill=\"#FFFFFF\" stroke=\"#E7D9C6\" stroke-width=\"1.1\" transform=\"rotate(216.0 50 42)\"/><ellipse cx=\"50\" cy=\"17\" rx=\"7\" ry=\"13.5\" fill=\"#FFFFFF\" stroke=\"#E7D9C6\" stroke-width=\"1.1\" transform=\"rotate(252.0 50 42)\"/><ellipse cx=\"50\" cy=\"17\" rx=\"7\" ry=\"13.5\" fill=\"#FFFFFF\" stroke=\"#E7D9C6\" stroke-width=\"1.1\" transform=\"rotate(288.0 50 42)\"/><ellipse cx=\"50\" cy=\"17\" rx=\"7\" ry=\"13.5\" fill=\"#FFFFFF\" stroke=\"#E7D9C6\" stroke-width=\"1.1\" transform=\"rotate(324.0 50 42)\"/><circle cx=\"50\" cy=\"42\" r=\"11\" fill=\"#FFD166\"/><circle cx=\"50\" cy=\"42\" r=\"7\" fill=\"#FFC53D\"/><g fill=\"#F0A823\" opacity=\".8\"><circle cx=\"47\" cy=\"39\" r=\"1.1\"/><circle cx=\"53\" cy=\"40\" r=\"1.1\"/><circle cx=\"50\" cy=\"46\" r=\"1.1\"/><circle cx=\"54\" cy=\"45\" r=\"1\"/></g></svg>" },
+    bouquet: { n: "꽃다발", cat: "flower", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><path d=\"M36 60h28l-6 26H42z\" fill=\"#FFE3EC\" stroke=\"#E7B9CB\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/><path d=\"M36 60h28M44 62l-2 24M56 62l2 24\" stroke=\"#E7B9CB\" stroke-width=\"1.2\" fill=\"none\"/><g stroke=\"#5FAE74\" stroke-width=\"2.4\" fill=\"none\" stroke-linecap=\"round\"><path d=\"M42 58 38 38\"/><path d=\"M50 58V30\"/><path d=\"M58 58l5-18\"/></g><ellipse cx=\"26\" cy=\"34\" rx=\"9\" ry=\"5\" fill=\"#7BCF8E\" transform=\"rotate(-30 26 34)\"/><ellipse cx=\"72\" cy=\"30\" rx=\"8\" ry=\"4.6\" fill=\"#6FBF84\" transform=\"rotate(28 72 30)\"/><circle cx=\"37\" cy=\"33\" r=\"10.5\" fill=\"#F98BAE\" stroke=\"#EE7098\" stroke-width=\"1.2\"/><circle cx=\"37\" cy=\"33\" r=\"4.6\" fill=\"#FFD166\"/><circle cx=\"50\" cy=\"24\" r=\"9.4\" fill=\"#FFB6C8\" stroke=\"#F5A3C0\" stroke-width=\"1.2\"/><circle cx=\"50\" cy=\"24\" r=\"4\" fill=\"#FFE9A8\"/><circle cx=\"63\" cy=\"35\" r=\"8.6\" fill=\"#C9B3F1\" stroke=\"#B79CF0\" stroke-width=\"1.2\"/><circle cx=\"63\" cy=\"35\" r=\"3.6\" fill=\"#FFF0B8\"/><circle cx=\"46\" cy=\"46\" r=\"6.4\" fill=\"#FFFFFF\" stroke=\"#E7D9C6\" stroke-width=\"1\"/><circle cx=\"46\" cy=\"46\" r=\"2.6\" fill=\"#FFD166\"/><circle cx=\"58\" cy=\"48\" r=\"5.4\" fill=\"#FFD3E4\" stroke=\"#F0B6CB\" stroke-width=\"1\"/><path d=\"M44 66h12l-6 8z\" fill=\"#F98BAE\"/><path d=\"M50 66l-9 5M50 66l9 5\" stroke=\"#F98BAE\" stroke-width=\"3.4\" stroke-linecap=\"round\"/><path d=\"M80 47L80.9 51.1L85 52L80.9 52.9L80 57L79.1 52.9L75 52L79.1 51.1Z\" fill=\"#FFE9A8\"/></svg>" },
+    butterfly: { n: "나비", cat: "flower", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><defs><linearGradient id=\"btp1\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#FFD9EC\"/><stop offset=\"1\" stop-color=\"#F08FC0\"/></linearGradient><linearGradient id=\"btp2\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#EAF3FF\"/><stop offset=\"1\" stop-color=\"#BFD8F7\"/></linearGradient></defs><g transform=\"rotate(-6 50 50)\"><path d=\"M50 48C40 28 20 20 15 31c-5 12 13 23 29 20z\" fill=\"url(#btp1)\" stroke=\"#C98FC6\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/><path d=\"M50 52c-9 5-16 15-11 21 5 6 13-1 15-13z\" fill=\"url(#btp2)\" stroke=\"#C98FC6\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/><g transform=\"translate(100,0) scale(-1,1)\"><path d=\"M50 48C40 28 20 20 15 31c-5 12 13 23 29 20z\" fill=\"url(#btp1)\" stroke=\"#C98FC6\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/><path d=\"M50 52c-9 5-16 15-11 21 5 6 13-1 15-13z\" fill=\"url(#btp2)\" stroke=\"#C98FC6\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/></g><circle cx=\"27\" cy=\"34\" r=\"4.2\" fill=\"#FFFFFF\" opacity=\".75\"/><circle cx=\"73\" cy=\"34\" r=\"4.2\" fill=\"#FFFFFF\" opacity=\".75\"/><circle cx=\"30\" cy=\"58\" r=\"2.6\" fill=\"#FFFFFF\" opacity=\".65\"/><circle cx=\"70\" cy=\"58\" r=\"2.6\" fill=\"#FFFFFF\" opacity=\".65\"/><ellipse cx=\"50\" cy=\"54\" rx=\"3.4\" ry=\"15\" fill=\"#5C4A6B\"/><path d=\"M48 40c-3-6-7-9-11-10M52 40c3-6 7-9 11-10\" stroke=\"#5C4A6B\" stroke-width=\"1.6\" fill=\"none\" stroke-linecap=\"round\"/><circle cx=\"36\" cy=\"29\" r=\"2.2\" fill=\"#5C4A6B\"/><circle cx=\"64\" cy=\"29\" r=\"2.2\" fill=\"#5C4A6B\"/></g></svg>" },
+    hydrangea: { n: "수국", cat: "flower", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><path d=\"M50 66v24\" stroke=\"#5FAE74\" stroke-width=\"3.8\" stroke-linecap=\"round\"/><ellipse cx=\"33\" cy=\"82\" rx=\"12\" ry=\"5.6\" fill=\"#6FBF84\" transform=\"rotate(-24 33 82)\"/><ellipse cx=\"67\" cy=\"80\" rx=\"11\" ry=\"5.2\" fill=\"#5FAE74\" transform=\"rotate(22 67 80)\"/><circle cx=\"50\" cy=\"17\" r=\"7.14\" fill=\"#B79CF0\"/><circle cx=\"57\" cy=\"24\" r=\"7.14\" fill=\"#B79CF0\"/><circle cx=\"50\" cy=\"31\" r=\"7.14\" fill=\"#B79CF0\"/><circle cx=\"43\" cy=\"24\" r=\"7.14\" fill=\"#B79CF0\"/><circle cx=\"50\" cy=\"24\" r=\"3.22\" fill=\"#FFF6C9\"/><circle cx=\"36\" cy=\"25.4\" r=\"6.732\" fill=\"#9FB8F0\"/><circle cx=\"42.6\" cy=\"32\" r=\"6.732\" fill=\"#9FB8F0\"/><circle cx=\"36\" cy=\"38.6\" r=\"6.732\" fill=\"#9FB8F0\"/><circle cx=\"29.4\" cy=\"32\" r=\"6.732\" fill=\"#9FB8F0\"/><circle cx=\"36\" cy=\"32\" r=\"3.036\" fill=\"#FFF6C9\"/><circle cx=\"64\" cy=\"25.4\" r=\"6.732\" fill=\"#C9B3F1\"/><circle cx=\"70.6\" cy=\"32\" r=\"6.732\" fill=\"#C9B3F1\"/><circle cx=\"64\" cy=\"38.6\" r=\"6.732\" fill=\"#C9B3F1\"/><circle cx=\"57.4\" cy=\"32\" r=\"6.732\" fill=\"#C9B3F1\"/><circle cx=\"64\" cy=\"32\" r=\"3.036\" fill=\"#FFF6C9\"/><circle cx=\"26\" cy=\"37.8\" r=\"6.324\" fill=\"#C9B3F1\"/><circle cx=\"32.2\" cy=\"44\" r=\"6.324\" fill=\"#C9B3F1\"/><circle cx=\"26\" cy=\"50.2\" r=\"6.324\" fill=\"#C9B3F1\"/><circle cx=\"19.8\" cy=\"44\" r=\"6.324\" fill=\"#C9B3F1\"/><circle cx=\"26\" cy=\"44\" r=\"2.852\" fill=\"#FFF6C9\"/><circle cx=\"74\" cy=\"37.8\" r=\"6.324\" fill=\"#B79CF0\"/><circle cx=\"80.2\" cy=\"44\" r=\"6.324\" fill=\"#B79CF0\"/><circle cx=\"74\" cy=\"50.2\" r=\"6.324\" fill=\"#B79CF0\"/><circle cx=\"67.8\" cy=\"44\" r=\"6.324\" fill=\"#B79CF0\"/><circle cx=\"74\" cy=\"44\" r=\"2.852\" fill=\"#FFF6C9\"/><circle cx=\"43\" cy=\"37\" r=\"7.14\" fill=\"#A9C6F7\"/><circle cx=\"50\" cy=\"44\" r=\"7.14\" fill=\"#A9C6F7\"/><circle cx=\"43\" cy=\"51\" r=\"7.14\" fill=\"#A9C6F7\"/><circle cx=\"36\" cy=\"44\" r=\"7.14\" fill=\"#A9C6F7\"/><circle cx=\"43\" cy=\"44\" r=\"3.22\" fill=\"#FFF6C9\"/><circle cx=\"57\" cy=\"37\" r=\"7.14\" fill=\"#9FB8F0\"/><circle cx=\"64\" cy=\"44\" r=\"7.14\" fill=\"#9FB8F0\"/><circle cx=\"57\" cy=\"51\" r=\"7.14\" fill=\"#9FB8F0\"/><circle cx=\"50\" cy=\"44\" r=\"7.14\" fill=\"#9FB8F0\"/><circle cx=\"57\" cy=\"44\" r=\"3.22\" fill=\"#FFF6C9\"/><circle cx=\"50\" cy=\"29.6\" r=\"6.528\" fill=\"#D9C9F6\"/><circle cx=\"56.4\" cy=\"36\" r=\"6.528\" fill=\"#D9C9F6\"/><circle cx=\"50\" cy=\"42.4\" r=\"6.528\" fill=\"#D9C9F6\"/><circle cx=\"43.6\" cy=\"36\" r=\"6.528\" fill=\"#D9C9F6\"/><circle cx=\"50\" cy=\"36\" r=\"2.944\" fill=\"#FFF6C9\"/><circle cx=\"36\" cy=\"50\" r=\"6.12\" fill=\"#B79CF0\"/><circle cx=\"42\" cy=\"56\" r=\"6.12\" fill=\"#B79CF0\"/><circle cx=\"36\" cy=\"62\" r=\"6.12\" fill=\"#B79CF0\"/><circle cx=\"30\" cy=\"56\" r=\"6.12\" fill=\"#B79CF0\"/><circle cx=\"36\" cy=\"56\" r=\"2.76\" fill=\"#FFF6C9\"/><circle cx=\"64\" cy=\"50\" r=\"6.12\" fill=\"#C9B3F1\"/><circle cx=\"70\" cy=\"56\" r=\"6.12\" fill=\"#C9B3F1\"/><circle cx=\"64\" cy=\"62\" r=\"6.12\" fill=\"#C9B3F1\"/><circle cx=\"58\" cy=\"56\" r=\"6.12\" fill=\"#C9B3F1\"/><circle cx=\"64\" cy=\"56\" r=\"2.76\" fill=\"#FFF6C9\"/><circle cx=\"50\" cy=\"49.4\" r=\"6.732\" fill=\"#A9C6F7\"/><circle cx=\"56.6\" cy=\"56\" r=\"6.732\" fill=\"#A9C6F7\"/><circle cx=\"50\" cy=\"62.6\" r=\"6.732\" fill=\"#A9C6F7\"/><circle cx=\"43.4\" cy=\"56\" r=\"6.732\" fill=\"#A9C6F7\"/><circle cx=\"50\" cy=\"56\" r=\"3.036\" fill=\"#FFF6C9\"/><path d=\"M84 19L84.9 23.1L89 24L84.9 24.9L84 29L83.1 24.9L79 24L83.1 23.1Z\" fill=\"#FFE9A8\"/></svg>" },
+    lily: { n: "백합", cat: "flower", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><defs><linearGradient id=\"lyp1\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#FFFFFF\"/><stop offset=\"1\" stop-color=\"#F3E4F2\"/></linearGradient></defs><path d=\"M50 56v32\" stroke=\"#5FAE74\" stroke-width=\"4.2\" stroke-linecap=\"round\"/><ellipse cx=\"35\" cy=\"80\" rx=\"12\" ry=\"5.4\" fill=\"#6FBF84\" transform=\"rotate(-26 35 80)\"/><g fill=\"url(#lyp1)\" stroke=\"#DCC9E8\" stroke-width=\"1.4\" stroke-linejoin=\"round\"><path d=\"M50 52c-6-8-6-20 0-32 6 12 6 24 0 32z\"/><path d=\"M50 52c-9-4-16-13-18-26 12 5 18 16 18 26z\"/><path d=\"M50 52c9-4 16-13 18-26-12 5-18 16-18 26z\"/><path d=\"M50 52c-10 4-19 1-25-8 11-3 19 1 25 8z\"/><path d=\"M50 52c10 4 19 1 25-8-11-3-19 1-25 8z\"/><path d=\"M50 52c-4 6-3 14 2 20 4-7 4-14-2-20z\"/></g><g stroke=\"#F2B03C\" stroke-width=\"2\" fill=\"none\" stroke-linecap=\"round\"><path d=\"M50 50 42 34\"/><path d=\"M50 50 58 34\"/><path d=\"M50 50v-16\"/></g><g fill=\"#E08A3C\"><circle cx=\"42\" cy=\"33\" r=\"2.4\"/><circle cx=\"58\" cy=\"33\" r=\"2.4\"/><circle cx=\"50\" cy=\"31\" r=\"2.1\"/></g><path d=\"M80 35L80.9 39.1L85 40L80.9 40.9L80 45L79.1 40.9L75 40L79.1 39.1Z\" fill=\"#FFE9A8\"/></svg>" },
+    pot: { n: "화분", cat: "flower", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><ellipse cx=\"50\" cy=\"88\" rx=\"22\" ry=\"3.6\" fill=\"#8A6A4A\" opacity=\".12\"/><path d=\"M32 62h36l-4.5 24H36.5z\" fill=\"#E79B6B\" stroke=\"#C97A4B\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/><rect x=\"29\" y=\"56\" width=\"42\" height=\"9\" rx=\"3\" fill=\"#F0AC7E\" stroke=\"#C97A4B\" stroke-width=\"1.5\"/><g stroke=\"#5FAE74\" stroke-width=\"2.6\" fill=\"none\" stroke-linecap=\"round\"><path d=\"M50 56V32\"/><path d=\"M50 44c-8-2-12-8-12-14\"/><path d=\"M50 46c8-2 12-8 12-14\"/></g><ellipse cx=\"30\" cy=\"26\" rx=\"10\" ry=\"5.4\" fill=\"#6FBF84\" transform=\"rotate(-32 30 26)\"/><ellipse cx=\"70\" cy=\"26\" rx=\"10\" ry=\"5.4\" fill=\"#5FAE74\" transform=\"rotate(32 70 26)\"/><circle cx=\"50\" cy=\"24\" r=\"8.2\" fill=\"#F98BAE\"/><circle cx=\"50\" cy=\"24\" r=\"3.6\" fill=\"#FFD166\"/><circle cx=\"38\" cy=\"38\" r=\"5\" fill=\"#FFB6C8\"/><circle cx=\"38\" cy=\"38\" r=\"2.2\" fill=\"#FFE9A8\"/><path d=\"M39 78h22\" stroke=\"#C97A4B\" stroke-width=\"1.4\" opacity=\".7\"/></svg>" },
+    leaf: { n: "유칼립투스", cat: "flower", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><path d=\"M50 92C46 70 42 50 30 30\" stroke=\"#7FA88A\" stroke-width=\"2.8\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M50 92c4-16 12-30 22-42\" stroke=\"#7FA88A\" stroke-width=\"2.8\" fill=\"none\" stroke-linecap=\"round\"/><ellipse cx=\"34\" cy=\"34\" rx=\"7.6\" ry=\"11.4\" fill=\"#BFE3CD\" stroke=\"#8CBE9E\" stroke-width=\"1.2\" transform=\"rotate(-34 34 34)\"/><ellipse cx=\"42\" cy=\"44\" rx=\"7.6\" ry=\"11.4\" fill=\"#BFE3CD\" stroke=\"#8CBE9E\" stroke-width=\"1.2\" transform=\"rotate(-46 42 44)\"/><ellipse cx=\"38\" cy=\"56\" rx=\"7.6\" ry=\"11.4\" fill=\"#BFE3CD\" stroke=\"#8CBE9E\" stroke-width=\"1.2\" transform=\"rotate(-20 38 56)\"/><ellipse cx=\"34\" cy=\"68\" rx=\"7.6\" ry=\"11.4\" fill=\"#BFE3CD\" stroke=\"#8CBE9E\" stroke-width=\"1.2\" transform=\"rotate(-30 34 68)\"/><ellipse cx=\"30\" cy=\"80\" rx=\"7.6\" ry=\"11.4\" fill=\"#BFE3CD\" stroke=\"#8CBE9E\" stroke-width=\"1.2\" transform=\"rotate(-16 30 80)\"/><ellipse cx=\"62\" cy=\"34\" rx=\"7.6\" ry=\"11.4\" fill=\"#A8D8BC\" stroke=\"#8CBE9E\" stroke-width=\"1.2\" transform=\"rotate(30 62 34)\"/><ellipse cx=\"58\" cy=\"46\" rx=\"7.6\" ry=\"11.4\" fill=\"#A8D8BC\" stroke=\"#8CBE9E\" stroke-width=\"1.2\" transform=\"rotate(20 58 46)\"/><ellipse cx=\"64\" cy=\"58\" rx=\"7.6\" ry=\"11.4\" fill=\"#A8D8BC\" stroke=\"#8CBE9E\" stroke-width=\"1.2\" transform=\"rotate(34 64 58)\"/><ellipse cx=\"68\" cy=\"70\" rx=\"7.6\" ry=\"11.4\" fill=\"#A8D8BC\" stroke=\"#8CBE9E\" stroke-width=\"1.2\" transform=\"rotate(22 68 70)\"/><ellipse cx=\"72\" cy=\"80\" rx=\"7.6\" ry=\"11.4\" fill=\"#A8D8BC\" stroke=\"#8CBE9E\" stroke-width=\"1.2\" transform=\"rotate(30 72 80)\"/><circle cx=\"30\" cy=\"28\" r=\"4\" fill=\"#D9C9F6\"/><circle cx=\"80\" cy=\"44\" r=\"3.4\" fill=\"#D9C9F6\"/><path d=\"M24 39.6L24.79 43.21L28.4 44L24.79 44.79L24 48.4L23.21 44.79L19.6 44L23.21 43.21Z\" fill=\"#FFE9A8\"/></svg>" },
+    lavender: { n: "라벤더", cat: "flower", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><g stroke=\"#7FA88A\" stroke-width=\"2.4\" fill=\"none\" stroke-linecap=\"round\"><path d=\"M38 92V46\"/><path d=\"M50 92V38\"/><path d=\"M62 92V50\"/></g><ellipse cx=\"30\" cy=\"76\" rx=\"11\" ry=\"5\" fill=\"#A8D8BC\" transform=\"rotate(-30 30 76)\"/><ellipse cx=\"70\" cy=\"82\" rx=\"10\" ry=\"4.6\" fill=\"#8FC9A8\" transform=\"rotate(28 70 82)\"/><g fill=\"#A98FE0\"><ellipse cx=\"38\" cy=\"44\" rx=\"4\" ry=\"3\"/><ellipse cx=\"38\" cy=\"36\" rx=\"4.4\" ry=\"3.2\"/><ellipse cx=\"38\" cy=\"28\" rx=\"4\" ry=\"3\"/><ellipse cx=\"38\" cy=\"21\" rx=\"3.2\" ry=\"2.6\"/><ellipse cx=\"50\" cy=\"36\" rx=\"4.2\" ry=\"3.2\"/><ellipse cx=\"50\" cy=\"28\" rx=\"4.6\" ry=\"3.4\"/><ellipse cx=\"50\" cy=\"20\" rx=\"4\" ry=\"3\"/><ellipse cx=\"50\" cy=\"13\" rx=\"3.2\" ry=\"2.6\"/><ellipse cx=\"62\" cy=\"48\" rx=\"4\" ry=\"3\"/><ellipse cx=\"62\" cy=\"40\" rx=\"4.4\" ry=\"3.2\"/><ellipse cx=\"62\" cy=\"32\" rx=\"4\" ry=\"3\"/><ellipse cx=\"62\" cy=\"25\" rx=\"3.2\" ry=\"2.6\"/></g><g fill=\"#C9B3F1\"><ellipse cx=\"41\" cy=\"40\" rx=\"3.4\" ry=\"2.6\"/><ellipse cx=\"53\" cy=\"32\" rx=\"3.6\" ry=\"2.8\"/><ellipse cx=\"59\" cy=\"44\" rx=\"3.4\" ry=\"2.6\"/></g><path d=\"M22 29L22.9 33.1L27 34L22.9 34.9L22 39L21.1 34.9L17 34L21.1 33.1Z\" fill=\"#FFE9A8\"/></svg>" },
+    hMimiStar: { n: "미미 & 별", cat: "hamster", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><ellipse cx=\"50\" cy=\"90\" rx=\"23\" ry=\"4\" fill=\"#8A6A4A\" opacity=\".12\"/><ellipse cx=\"28\" cy=\"37\" rx=\"9.6\" ry=\"10.6\" fill=\"#FFD3DE\"/><ellipse cx=\"28\" cy=\"37\" rx=\"4.6\" ry=\"5.6\" fill=\"#FF9DB8\"/><ellipse cx=\"72\" cy=\"37\" rx=\"9.6\" ry=\"10.6\" fill=\"#FFD3DE\"/><ellipse cx=\"72\" cy=\"37\" rx=\"4.6\" ry=\"5.6\" fill=\"#FF9DB8\"/><ellipse cx=\"50\" cy=\"56\" rx=\"29\" ry=\"27\" fill=\"#FFF2F6\"/><path d=\"M21 50a29 29 0 0 1 58 0\" fill=\"#FFD9E4\" opacity=\".7\"/><ellipse cx=\"50\" cy=\"67\" rx=\"16\" ry=\"12\" fill=\"#FFFBFD\"/><circle cx=\"40\" cy=\"53\" r=\"3.8\" fill=\"#5A3A46\"/><circle cx=\"41.4\" cy=\"51.5\" r=\"1.3\" fill=\"#FFF\"/><circle cx=\"60\" cy=\"53\" r=\"3.8\" fill=\"#5A3A46\"/><circle cx=\"61.4\" cy=\"51.5\" r=\"1.3\" fill=\"#FFF\"/><path d=\"M46 61l-3-2M54 61l3-2\" stroke=\"#C98598\" stroke-width=\"1.4\" stroke-linecap=\"round\"/><ellipse cx=\"31\" cy=\"63\" rx=\"5.2\" ry=\"3.3\" fill=\"#FFB0C6\" opacity=\".9\"/><ellipse cx=\"69\" cy=\"63\" rx=\"5.2\" ry=\"3.3\" fill=\"#FFB0C6\" opacity=\".9\"/><path d=\"M50 62v2.4\" stroke=\"#C4859A\" stroke-width=\"1.8\" stroke-linecap=\"round\"/><path d=\"M50 64.4c-1.5 2.4-4.2 2.2-5.3.5M50 64.4c1.5 2.4 4.2 2.2 5.3.5\" stroke=\"#C4859A\" stroke-width=\"1.8\" fill=\"none\" stroke-linecap=\"round\"/><ellipse cx=\"30\" cy=\"84\" rx=\"8.6\" ry=\"5\" fill=\"#FFB3C6\"/><ellipse cx=\"70\" cy=\"84\" rx=\"8.6\" ry=\"5\" fill=\"#FFB3C6\"/><path d=\"M50 78l2.6 5.4 6 .8-4.4 4.2 1.1 6-5.3-2.8-5.3 2.8 1.1-6-4.4-4.2 6-.8z\" fill=\"#FFC53D\" stroke=\"#EFAF1C\" stroke-width=\"1.4\" stroke-linejoin=\"round\"/><path d=\"M20 24.6L20.97 29.03L25.4 30L20.97 30.97L20 35.4L19.03 30.97L14.6 30L19.03 29.03Z\" fill=\"#FFE9A8\"/><path d=\"M82 35.6L82.79 39.21L86.4 40L82.79 40.79L82 44.4L81.21 40.79L77.6 40L81.21 39.21Z\" fill=\"#FFD3E4\"/></svg>" },
+    hTeoNap: { n: "테오 낮잠", cat: "hamster", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><ellipse cx=\"50\" cy=\"88\" rx=\"34\" ry=\"6\" fill=\"#8A6A4A\" opacity=\".1\"/><ellipse cx=\"50\" cy=\"76\" rx=\"35\" ry=\"13\" fill=\"#E7DBFA\" stroke=\"#C9B3F1\" stroke-width=\"1.6\"/><path d=\"M18 74c6 4 14 6 32 6s26-2 32-6\" fill=\"none\" stroke=\"#C9B3F1\" stroke-width=\"1.4\" opacity=\".8\"/><ellipse cx=\"30\" cy=\"52\" rx=\"8.4\" ry=\"9.2\" fill=\"#FFD9A0\"/><ellipse cx=\"30\" cy=\"52\" rx=\"4\" ry=\"5\" fill=\"#FFAE9E\"/><ellipse cx=\"68\" cy=\"52\" rx=\"8.4\" ry=\"9.2\" fill=\"#FFD9A0\"/><ellipse cx=\"68\" cy=\"52\" rx=\"4\" ry=\"5\" fill=\"#FFAE9E\"/><ellipse cx=\"49\" cy=\"64\" rx=\"27\" ry=\"23\" fill=\"#FFF0D6\"/><path d=\"M22 60a27 23 0 0 1 54 0\" fill=\"#FFE3B4\" opacity=\".6\"/><ellipse cx=\"49\" cy=\"72\" rx=\"15\" ry=\"10\" fill=\"#FFFBF0\"/><path d=\"M35 60q5 4 10 0M53 60q5 4 10 0\" stroke=\"#4B3A2E\" stroke-width=\"2.2\" fill=\"none\" stroke-linecap=\"round\"/><ellipse cx=\"30\" cy=\"68\" rx=\"5\" ry=\"3.2\" fill=\"#FFB3A6\" opacity=\".85\"/><ellipse cx=\"68\" cy=\"68\" rx=\"5\" ry=\"3.2\" fill=\"#FFB3A6\" opacity=\".85\"/><ellipse cx=\"49\" cy=\"70\" rx=\"2.6\" ry=\"2\" fill=\"#C4859A\"/><path d=\"M45 74q4 3 8 0\" stroke=\"#B5865A\" stroke-width=\"1.6\" fill=\"none\" stroke-linecap=\"round\"/><g stroke=\"#8E74D8\" stroke-width=\"2.6\" fill=\"none\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><path d=\"M70 30h9l-9 9h9\"/><path d=\"M81 18h7l-7 7h7\"/></g><path d=\"M20 27L20.9 31.1L25 32L20.9 32.9L20 37L19.1 32.9L15 32L19.1 31.1Z\" fill=\"#D9C9F6\"/></svg>" },
+    hWattRun: { n: "와트 달리기", cat: "hamster", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><g stroke=\"#C9B3F1\" stroke-width=\"2.6\" stroke-linecap=\"round\" opacity=\".85\"><path d=\"M8 48h9\"/><path d=\"M4 58h11\"/><path d=\"M9 68h8\"/></g><ellipse cx=\"50\" cy=\"90\" rx=\"20\" ry=\"3.6\" fill=\"#8A6A4A\" opacity=\".12\"/><ellipse cx=\"29\" cy=\"44\" rx=\"8.6\" ry=\"9.4\" fill=\"#FFD9A0\"/><ellipse cx=\"29\" cy=\"44\" rx=\"4.2\" ry=\"5.2\" fill=\"#FFAE9E\"/><ellipse cx=\"71\" cy=\"44\" rx=\"8.6\" ry=\"9.4\" fill=\"#FFD9A0\"/><ellipse cx=\"71\" cy=\"44\" rx=\"4.2\" ry=\"5.2\" fill=\"#FFAE9E\"/><ellipse cx=\"50\" cy=\"58\" rx=\"27\" ry=\"25\" fill=\"#FFF0D6\"/><ellipse cx=\"50\" cy=\"68\" rx=\"15\" ry=\"11\" fill=\"#FFFBF0\"/><circle cx=\"40\" cy=\"55\" r=\"3.7\" fill=\"#4B3A2E\"/><circle cx=\"60\" cy=\"55\" r=\"3.7\" fill=\"#4B3A2E\"/><circle cx=\"41.3\" cy=\"53.5\" r=\"1.2\" fill=\"#FFF\"/><circle cx=\"61.3\" cy=\"53.5\" r=\"1.2\" fill=\"#FFF\"/><ellipse cx=\"31\" cy=\"63\" rx=\"4.8\" ry=\"3.1\" fill=\"#FFB3A6\" opacity=\".9\"/><ellipse cx=\"69\" cy=\"63\" rx=\"4.8\" ry=\"3.1\" fill=\"#FFB3A6\" opacity=\".9\"/><path d=\"M44 65q6 5 12 0\" stroke=\"#B5865A\" stroke-width=\"1.8\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M25 41a25 25 0 0 1 50 0z\" fill=\"#FFC53D\"/><rect x=\"18\" y=\"39\" width=\"64\" height=\"7.5\" rx=\"3.7\" fill=\"#FFB020\"/><path d=\"M53 22l-9 13h6l-3 9 10-13h-6z\" fill=\"#FFFDF4\"/><ellipse cx=\"34\" cy=\"86\" rx=\"8.6\" ry=\"4.8\" fill=\"#4B9CD3\" transform=\"rotate(-18 34 86)\"/><ellipse cx=\"64\" cy=\"88\" rx=\"8.6\" ry=\"4.8\" fill=\"#4B9CD3\" transform=\"rotate(16 64 88)\"/><path d=\"M78 62l1.8 4 4 1.8-4 1.8-1.8 4-1.8-4-4-1.8 4-1.8z\" fill=\"#FFE9A8\"/></svg>" },
+    hPeek: { n: "구멍에서", cat: "hamster", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><defs><clipPath id=\"hpk1\"><ellipse cx=\"50\" cy=\"64\" rx=\"28\" ry=\"17\"/></clipPath></defs><ellipse cx=\"50\" cy=\"66\" rx=\"36\" ry=\"24\" fill=\"#F2E3D0\" stroke=\"#DCC7AE\" stroke-width=\"2\"/><ellipse cx=\"50\" cy=\"64\" rx=\"29\" ry=\"18\" fill=\"#7A6350\"/><ellipse cx=\"50\" cy=\"64\" rx=\"29\" ry=\"18\" fill=\"#8A7159\"/><g clip-path=\"url(#hpk1)\"><ellipse cx=\"29\" cy=\"52\" rx=\"9\" ry=\"10\" fill=\"#FFD3DE\"/><ellipse cx=\"29\" cy=\"52\" rx=\"4.4\" ry=\"5.4\" fill=\"#FF9DB8\"/><ellipse cx=\"71\" cy=\"52\" rx=\"9\" ry=\"10\" fill=\"#FFD3DE\"/><ellipse cx=\"71\" cy=\"52\" rx=\"4.4\" ry=\"5.4\" fill=\"#FF9DB8\"/><ellipse cx=\"50\" cy=\"70\" rx=\"27\" ry=\"25\" fill=\"#FFF2F6\"/><path d=\"M23 64a27 25 0 0 1 54 0\" fill=\"#FFD9E4\" opacity=\".7\"/><ellipse cx=\"50\" cy=\"80\" rx=\"15\" ry=\"11\" fill=\"#FFFBFD\"/><circle cx=\"40\" cy=\"66\" r=\"3.8\" fill=\"#5A3A46\"/><circle cx=\"41.4\" cy=\"64.5\" r=\"1.3\" fill=\"#FFF\"/><circle cx=\"60\" cy=\"66\" r=\"3.8\" fill=\"#5A3A46\"/><circle cx=\"61.4\" cy=\"64.5\" r=\"1.3\" fill=\"#FFF\"/><ellipse cx=\"32\" cy=\"76\" rx=\"5\" ry=\"3.2\" fill=\"#FFB0C6\"/><ellipse cx=\"68\" cy=\"76\" rx=\"5\" ry=\"3.2\" fill=\"#FFB0C6\"/><ellipse cx=\"50\" cy=\"78\" rx=\"2.6\" ry=\"2\" fill=\"#C4859A\"/><path d=\"M46 81q4 3 8 0\" stroke=\"#C4859A\" stroke-width=\"1.7\" fill=\"none\" stroke-linecap=\"round\"/></g><path d=\"M21 64a29 18 0 0 0 58 0\" fill=\"none\" stroke=\"#DCC7AE\" stroke-width=\"2.6\" opacity=\".9\"/><ellipse cx=\"30\" cy=\"64\" rx=\"7.4\" ry=\"5\" fill=\"#FFE3EC\" stroke=\"#FFC3D6\" stroke-width=\"1.2\"/><ellipse cx=\"70\" cy=\"64\" rx=\"7.4\" ry=\"5\" fill=\"#FFE3EC\" stroke=\"#FFC3D6\" stroke-width=\"1.2\"/><path d=\"M26 62v3M30 61v3.4M34 62v3\" stroke=\"#F0A9C0\" stroke-width=\"1.1\" stroke-linecap=\"round\"/><path d=\"M66 62v3M70 61v3.4M74 62v3\" stroke=\"#F0A9C0\" stroke-width=\"1.1\" stroke-linecap=\"round\"/><path d=\"M84 35.4L84.83 39.17L88.6 40L84.83 40.83L84 44.6L83.17 40.83L79.4 40L83.17 39.17Z\" fill=\"#FFE9A8\"/></svg>" },
+    hCookie: { n: "쿠키 먹방", cat: "hamster", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><ellipse cx=\"50\" cy=\"90\" rx=\"23\" ry=\"4\" fill=\"#8A6A4A\" opacity=\".12\"/><ellipse cx=\"28\" cy=\"37\" rx=\"9.6\" ry=\"10.6\" fill=\"#FFD3DE\"/><ellipse cx=\"28\" cy=\"37\" rx=\"4.6\" ry=\"5.6\" fill=\"#FF9DB8\"/><ellipse cx=\"72\" cy=\"37\" rx=\"9.6\" ry=\"10.6\" fill=\"#FFD3DE\"/><ellipse cx=\"72\" cy=\"37\" rx=\"4.6\" ry=\"5.6\" fill=\"#FF9DB8\"/><ellipse cx=\"50\" cy=\"56\" rx=\"29\" ry=\"27\" fill=\"#FFF0D6\"/><path d=\"M21 50a29 29 0 0 1 58 0\" fill=\"#FFE3B4\" opacity=\".65\"/><ellipse cx=\"50\" cy=\"68\" rx=\"17\" ry=\"13\" fill=\"#FFFBF0\"/><path d=\"M36 54q4-5 9-2M64 54q-4-5-9-2\" stroke=\"#4B3A2E\" stroke-width=\"2.2\" fill=\"none\" stroke-linecap=\"round\"/><ellipse cx=\"30\" cy=\"64\" rx=\"5.6\" ry=\"3.6\" fill=\"#FFB3A6\" opacity=\".9\"/><ellipse cx=\"70\" cy=\"64\" rx=\"5.6\" ry=\"3.6\" fill=\"#FFB3A6\" opacity=\".9\"/><path d=\"M50 63v2\" stroke=\"#B5865A\" stroke-width=\"1.8\" stroke-linecap=\"round\"/><path d=\"M45 66q5 6 10 0\" fill=\"#E4708C\" stroke=\"#B5865A\" stroke-width=\"1.4\" stroke-linejoin=\"round\"/><ellipse cx=\"31\" cy=\"86\" rx=\"8.6\" ry=\"5\" fill=\"#7FD3C4\"/><ellipse cx=\"69\" cy=\"86\" rx=\"8.6\" ry=\"5\" fill=\"#7FD3C4\"/><circle cx=\"50\" cy=\"80\" r=\"12\" fill=\"#E0A45E\" stroke=\"#C08343\" stroke-width=\"1.6\"/><g fill=\"#8A5A2B\"><circle cx=\"45\" cy=\"76\" r=\"1.8\"/><circle cx=\"55\" cy=\"79\" r=\"1.8\"/><circle cx=\"48\" cy=\"85\" r=\"1.5\"/><circle cx=\"55\" cy=\"85\" r=\"1.5\"/><circle cx=\"44\" cy=\"82\" r=\"1.3\"/></g><path d=\"M22 74l1.6 3.6 3.6 1.6-3.6 1.6L22 84.4l-1.6-3.6-3.6-1.6 3.6-1.6z\" fill=\"#FFE9A8\"/></svg>" },
+    hCheer: { n: "만세", cat: "hamster", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><ellipse cx=\"50\" cy=\"90\" rx=\"23\" ry=\"4\" fill=\"#8A6A4A\" opacity=\".12\"/><ellipse cx=\"28\" cy=\"37\" rx=\"9.6\" ry=\"10.6\" fill=\"#FFD3DE\"/><ellipse cx=\"28\" cy=\"37\" rx=\"4.6\" ry=\"5.6\" fill=\"#FF9DB8\"/><ellipse cx=\"72\" cy=\"37\" rx=\"9.6\" ry=\"10.6\" fill=\"#FFD3DE\"/><ellipse cx=\"72\" cy=\"37\" rx=\"4.6\" ry=\"5.6\" fill=\"#FF9DB8\"/><ellipse cx=\"50\" cy=\"56\" rx=\"29\" ry=\"27\" fill=\"#FFF2F6\"/><path d=\"M21 50a29 29 0 0 1 58 0\" fill=\"#FFD9E4\" opacity=\".7\"/><ellipse cx=\"50\" cy=\"67\" rx=\"16\" ry=\"12\" fill=\"#FFFBFD\"/><circle cx=\"40\" cy=\"53\" r=\"3.8\" fill=\"#5A3A46\"/><circle cx=\"41.4\" cy=\"51.5\" r=\"1.3\" fill=\"#FFF\"/><circle cx=\"60\" cy=\"53\" r=\"3.8\" fill=\"#5A3A46\"/><circle cx=\"61.4\" cy=\"51.5\" r=\"1.3\" fill=\"#FFF\"/><path d=\"M46 61l-3-2M54 61l3-2\" stroke=\"#C98598\" stroke-width=\"1.4\" stroke-linecap=\"round\"/><ellipse cx=\"31\" cy=\"63\" rx=\"5.4\" ry=\"3.4\" fill=\"#FFB0C6\" opacity=\".9\"/><ellipse cx=\"69\" cy=\"63\" rx=\"5.4\" ry=\"3.4\" fill=\"#FFB0C6\" opacity=\".9\"/><path d=\"M50 62v2.4\" stroke=\"#C4859A\" stroke-width=\"1.8\" stroke-linecap=\"round\"/><path d=\"M44 66q6 5 12 0\" stroke=\"#C4859A\" stroke-width=\"1.8\" fill=\"none\" stroke-linecap=\"round\"/><ellipse cx=\"14\" cy=\"56\" rx=\"7\" ry=\"9\" fill=\"#FFD3DE\" transform=\"rotate(-24 14 56)\"/><ellipse cx=\"86\" cy=\"56\" rx=\"7\" ry=\"9\" fill=\"#FFD3DE\" transform=\"rotate(24 86 56)\"/><path d=\"M14 56c-4-4-5-9-3-12M86 56c4-4 5-9 3-12\" stroke=\"#FF9DB8\" stroke-width=\"1.6\" fill=\"none\" stroke-linecap=\"round\"/><ellipse cx=\"36\" cy=\"87\" rx=\"8.4\" ry=\"4.8\" fill=\"#FFB3C6\"/><ellipse cx=\"64\" cy=\"87\" rx=\"8.4\" ry=\"4.8\" fill=\"#FFB3C6\"/><path d=\"M50 22c-2.8-3.6-8-1-8 2.6 0 2.8 4.2 5 8 7.4 3.8-2.4 8-4.6 8-7.4 0-3.6-5.2-6.2-8-2.6z\" fill=\"#FF7FA3\"/><path d=\"M24 21.4L24.83 25.17L28.6 26L24.83 26.83L24 30.6L23.17 26.83L19.4 26L23.17 25.17Z\" fill=\"#FFE9A8\"/><path d=\"M76 25L76.9 29.1L81 30L76.9 30.9L76 35L75.1 30.9L71 30L75.1 29.1Z\" fill=\"#FFE9A8\"/></svg>" },
+    sehee: { n: "세희 (니키)", cat: "clovelle", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><defs><radialGradient id=\"she1\" cx=\"50%\" cy=\"35%\" r=\"70%\"><stop offset=\"0\" stop-color=\"#FFF6FA\"/><stop offset=\"1\" stop-color=\"#FFD9E8\"/></radialGradient></defs><circle cx=\"50\" cy=\"50\" r=\"44\" fill=\"url(#she1)\" stroke=\"#FFFFFF\" stroke-width=\"2.4\"/><path d=\"M50 92c-14 0-24 4-24 4h48s-10-4-24-4z\" fill=\"#FFF3DC\"/><path d=\"M20 56c0-20 13-34 30-34s30 14 30 34c0 12-2 22-6 30-3 5-9 4-10-2-1-8-2-14-4-18-4 4-6 6-10 6s-6-2-10-6c-2 4-3 10-4 18-1 6-7 7-10 2-4-8-6-18-6-30z\" fill=\"#7A4A2E\"/><path d=\"M22 58c0-18 12-30 28-30\" stroke=\"#9C6438\" stroke-width=\"3\" fill=\"none\" stroke-linecap=\"round\" opacity=\".8\"/><path d=\"M22 96c1-13 12-21 28-21s27 8 28 21z\" fill=\"#FFF6E4\" stroke=\"#EFD9BC\" stroke-width=\"1.6\"/><path d=\"M38 76l12 14 12-14\" fill=\"none\" stroke=\"#FFB6C8\" stroke-width=\"3.4\" stroke-linejoin=\"round\"/><path d=\"M34 84c2 6 4 9 6 12M66 84c-2 6-4 9-6 12\" stroke=\"#F7C8D6\" stroke-width=\"1.4\" fill=\"none\"/><ellipse cx=\"50\" cy=\"48\" rx=\"18.5\" ry=\"19.5\" fill=\"#FFE7DA\"/><path d=\"M31 44c1-13 9-20 19-20s18 7 19 20c-6-6-12-9-19-9s-13 3-19 9z\" fill=\"#7A4A2E\"/><path d=\"M34 38c4-4 9-6 16-6\" stroke=\"#9C6438\" stroke-width=\"2.4\" fill=\"none\" stroke-linecap=\"round\" opacity=\".85\"/><ellipse cx=\"42\" cy=\"50\" rx=\"3.6\" ry=\"4.4\" fill=\"#4A2B22\"/><ellipse cx=\"58\" cy=\"50\" rx=\"3.6\" ry=\"4.4\" fill=\"#4A2B22\"/><circle cx=\"43.4\" cy=\"48.4\" r=\"1.4\" fill=\"#FFF\"/><circle cx=\"59.4\" cy=\"48.4\" r=\"1.4\" fill=\"#FFF\"/><path d=\"M38 43q3-2 6-.6M62 43q-3-2-6-.6\" stroke=\"#6B3A2A\" stroke-width=\"1.4\" fill=\"none\" stroke-linecap=\"round\"/><ellipse cx=\"35\" cy=\"57\" rx=\"4.2\" ry=\"2.6\" fill=\"#FFB3A6\" opacity=\".9\"/><ellipse cx=\"65\" cy=\"57\" rx=\"4.2\" ry=\"2.6\" fill=\"#FFB3A6\" opacity=\".9\"/><path d=\"M47 58q3 2.6 6 0\" stroke=\"#C4666B\" stroke-width=\"1.8\" fill=\"none\" stroke-linecap=\"round\"/><g transform=\"translate(31,32)\"><ellipse cx=\"0\" cy=\"-4.6\" rx=\"2.6\" ry=\"3.2\" fill=\"#FFC2D8\" stroke=\"#F58FB2\" stroke-width=\"0.8\" transform=\"rotate(0.0 0 0)\"/><ellipse cx=\"0\" cy=\"-4.6\" rx=\"2.6\" ry=\"3.2\" fill=\"#FFC2D8\" stroke=\"#F58FB2\" stroke-width=\"0.8\" transform=\"rotate(72.0 0 0)\"/><ellipse cx=\"0\" cy=\"-4.6\" rx=\"2.6\" ry=\"3.2\" fill=\"#FFC2D8\" stroke=\"#F58FB2\" stroke-width=\"0.8\" transform=\"rotate(144.0 0 0)\"/><ellipse cx=\"0\" cy=\"-4.6\" rx=\"2.6\" ry=\"3.2\" fill=\"#FFC2D8\" stroke=\"#F58FB2\" stroke-width=\"0.8\" transform=\"rotate(216.0 0 0)\"/><ellipse cx=\"0\" cy=\"-4.6\" rx=\"2.6\" ry=\"3.2\" fill=\"#FFC2D8\" stroke=\"#F58FB2\" stroke-width=\"0.8\" transform=\"rotate(288.0 0 0)\"/><circle cx=\"0\" cy=\"0\" r=\"2\" fill=\"#FFE9A8\"/></g><g transform=\"rotate(14 72 74)\"><rect x=\"68.4\" y=\"62\" width=\"8.6\" height=\"16\" rx=\"4.3\" fill=\"#C9CFD8\" stroke=\"#98A2AE\" stroke-width=\"1.2\"/><path d=\"M70.6 66h4.2M70.6 69.6h4.2M70.6 73.2h4.2\" stroke=\"#EFF4F8\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><rect x=\"71.3\" y=\"77\" width=\"2.8\" height=\"9\" rx=\"1.4\" fill=\"#8E97A1\"/><ellipse cx=\"72.7\" cy=\"87\" rx=\"4.6\" ry=\"1.8\" fill=\"#B7C0CA\"/></g><path d=\"M76 21L76.9 25.1L81 26L76.9 26.9L76 31L75.1 26.9L71 26L75.1 25.1Z\" fill=\"#FFE9A8\"/></svg>" },
+    seyoung: { n: "세영 (샤인)", cat: "clovelle", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><defs><radialGradient id=\"syg1\" cx=\"50%\" cy=\"35%\" r=\"70%\"><stop offset=\"0\" stop-color=\"#F4FFFB\"/><stop offset=\"1\" stop-color=\"#D6F0E8\"/></radialGradient></defs><circle cx=\"50\" cy=\"50\" r=\"44\" fill=\"url(#syg1)\" stroke=\"#FFFFFF\" stroke-width=\"2.4\"/><path d=\"M20 96c2-14 13-22 30-22s28 8 30 22z\" fill=\"#A8E0D4\" stroke=\"#8ACBBE\" stroke-width=\"1.4\"/><path d=\"M38 77l12 15 12-15\" fill=\"#FFFFFF\"/><path d=\"M50 80l-4 16h8z\" fill=\"#FFD98A\"/><path d=\"M26 84c0 5 1 9 3 12M74 84c0 5-1 9-3 12\" stroke=\"#D9C6F5\" stroke-width=\"4\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M24 54c0-16 11-26 26-26s26 10 26 26c0 8-1 14-3 18-2-6-4-10-6-12-3 5-9 8-17 8s-14-3-17-8c-2 2-4 6-6 12-2-4-3-10-3-18z\" fill=\"#2E2A33\"/><ellipse cx=\"50\" cy=\"50\" rx=\"18\" ry=\"19\" fill=\"#FFE7DA\"/><path d=\"M32 46c1-12 8-19 18-19s17 7 18 19c-5-7-11-10-18-10s-13 3-18 10z\" fill=\"#2E2A33\"/><path d=\"M24 38c0-12 11-20 26-20s26 8 26 20z\" fill=\"#C9B6F0\" stroke=\"#B09CE4\" stroke-width=\"1.4\"/><path d=\"M24 38h52\" stroke=\"#B09CE4\" stroke-width=\"1.4\"/><path d=\"M20 38c-4 1-6 4-6 7h14z\" fill=\"#B9A6E6\"/><path d=\"M42 30h16\" stroke=\"#F0E8FF\" stroke-width=\"2.4\" stroke-linecap=\"round\"/><circle cx=\"50\" cy=\"26\" r=\"2\" fill=\"#FFD9A0\"/><ellipse cx=\"42\" cy=\"51\" rx=\"3.6\" ry=\"4.4\" fill=\"#2E2A33\"/><ellipse cx=\"58\" cy=\"51\" rx=\"3.6\" ry=\"4.4\" fill=\"#2E2A33\"/><circle cx=\"43.4\" cy=\"49.4\" r=\"1.4\" fill=\"#FFF\"/><circle cx=\"59.4\" cy=\"49.4\" r=\"1.4\" fill=\"#FFF\"/><path d=\"M38 44.6q3-2 6-.6M62 44.6q-3-2-6-.6\" stroke=\"#2E2A33\" stroke-width=\"1.4\" fill=\"none\" stroke-linecap=\"round\"/><ellipse cx=\"35\" cy=\"58\" rx=\"4\" ry=\"2.5\" fill=\"#FFB3A6\" opacity=\".85\"/><ellipse cx=\"65\" cy=\"58\" rx=\"4\" ry=\"2.5\" fill=\"#FFB3A6\" opacity=\".85\"/><path d=\"M47 58q3.4 3 6.6-.4\" stroke=\"#C4666B\" stroke-width=\"1.8\" fill=\"none\" stroke-linecap=\"round\"/><circle cx=\"31\" cy=\"56\" r=\"1.6\" fill=\"#FFD166\"/><g transform=\"translate(3,7) rotate(-34 72 76)\"><path d=\"M71 64c5 0 8 4 8 8s-3 7-8 7-8-3-8-7 3-8 8-8z\" fill=\"#D79A57\" stroke=\"#A96F35\" stroke-width=\"1.3\"/><path d=\"M71 76c6 0 10 5 10 10s-4 10-10 10-10-5-10-10 4-10 10-10z\" fill=\"#E2AA6B\" stroke=\"#A96F35\" stroke-width=\"1.3\"/><circle cx=\"71\" cy=\"86\" r=\"4.4\" fill=\"#5A3A2A\"/><circle cx=\"71\" cy=\"86\" r=\"2\" fill=\"#3A2418\"/><rect x=\"69.4\" y=\"46\" width=\"3.2\" height=\"24\" rx=\"1.4\" fill=\"#8A5A30\" stroke=\"#6F4522\" stroke-width=\".8\"/><rect x=\"67.8\" y=\"40\" width=\"6.4\" height=\"7\" rx=\"1.6\" fill=\"#5A3A2A\"/><path d=\"M71 44v42\" stroke=\"#FFF3DC\" stroke-width=\".7\" opacity=\".9\"/><path d=\"M69 60h4M69 64h4\" stroke=\"#C9CFD8\" stroke-width=\"1\"/></g><path d=\"M24 21.4L24.83 25.17L28.6 26L24.83 26.83L24 30.6L23.17 26.83L19.4 26L23.17 25.17Z\" fill=\"#FFE9A8\"/></svg>" },
+    sspair: { n: "세희 & 세영", cat: "clovelle", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><defs><radialGradient id=\"ssp1\" cx=\"50%\" cy=\"35%\" r=\"70%\"><stop offset=\"0\" stop-color=\"#FFF6FB\"/><stop offset=\"1\" stop-color=\"#E7DAFB\"/></radialGradient></defs><circle cx=\"50\" cy=\"50\" r=\"44\" fill=\"url(#ssp1)\" stroke=\"#FFFFFF\" stroke-width=\"2.4\"/><path d=\"M52 94c0-9 7-15 16-15s16 6 16 15z\" fill=\"#A8E0D4\"/><path d=\"M68 60c0-10 5-16 12-16s12 6 12 16c0 5-1 9-2 11-1-4-2-6-4-7-2 3-4 4-8 4s-6-1-8-4c-2 1-3 3-4 7-1-2-2-6-2-11z\" fill=\"#2E2A33\"/><ellipse cx=\"76\" cy=\"66\" rx=\"9.6\" ry=\"10\" fill=\"#FFE7DA\"/><path d=\"M66 62c0-7 4-11 10-11s10 4 10 11c-3-4-6-5-10-5s-7 1-10 5z\" fill=\"#2E2A33\"/><path d=\"M66 60c0-6 4-10 10-10s10 4 10 10z\" fill=\"#C9B6F0\"/><ellipse cx=\"72\" cy=\"67\" rx=\"2\" ry=\"2.4\" fill=\"#2E2A33\"/><ellipse cx=\"81\" cy=\"67\" rx=\"2\" ry=\"2.4\" fill=\"#2E2A33\"/><path d=\"M74 72q2 1.8 4 0\" stroke=\"#C4666B\" stroke-width=\"1.4\" fill=\"none\" stroke-linecap=\"round\"/><ellipse cx=\"68\" cy=\"71\" rx=\"2.2\" ry=\"1.4\" fill=\"#FFB3A6\"/><path d=\"M28 94c0-9 7-15 16-15s16 6 16 15z\" fill=\"#FFF6E4\"/><path d=\"M20 62c0-12 6-20 15-20s15 8 15 20c0 7-1 12-3 16-1-5-2-8-3-10-2 3-4 4-7 4s-5-1-7-4c-1 2-2 5-3 10-2-4-3-9-3-16z\" fill=\"#7A4A2E\"/><ellipse cx=\"36\" cy=\"64\" rx=\"9.6\" ry=\"10\" fill=\"#FFE7DA\"/><path d=\"M26 60c0-7 4-11 10-11s10 4 10 11c-3-4-6-5-10-5s-7 1-10 5z\" fill=\"#7A4A2E\"/><ellipse cx=\"32\" cy=\"65\" rx=\"2\" ry=\"2.4\" fill=\"#4A2B22\"/><ellipse cx=\"41\" cy=\"65\" rx=\"2\" ry=\"2.4\" fill=\"#4A2B22\"/><path d=\"M34 70q2 2 4 0\" stroke=\"#C4666B\" stroke-width=\"1.4\" fill=\"none\" stroke-linecap=\"round\"/><ellipse cx=\"28\" cy=\"69\" rx=\"2.2\" ry=\"1.4\" fill=\"#FFB3A6\"/><g transform=\"translate(24,50)\"><ellipse cx=\"0\" cy=\"-3.6\" rx=\"2\" ry=\"2.6\" fill=\"#FFC2D8\" stroke=\"#F58FB2\" stroke-width=\"0.7\" transform=\"rotate(0.0 0 0)\"/><ellipse cx=\"0\" cy=\"-3.6\" rx=\"2\" ry=\"2.6\" fill=\"#FFC2D8\" stroke=\"#F58FB2\" stroke-width=\"0.7\" transform=\"rotate(72.0 0 0)\"/><ellipse cx=\"0\" cy=\"-3.6\" rx=\"2\" ry=\"2.6\" fill=\"#FFC2D8\" stroke=\"#F58FB2\" stroke-width=\"0.7\" transform=\"rotate(144.0 0 0)\"/><ellipse cx=\"0\" cy=\"-3.6\" rx=\"2\" ry=\"2.6\" fill=\"#FFC2D8\" stroke=\"#F58FB2\" stroke-width=\"0.7\" transform=\"rotate(216.0 0 0)\"/><ellipse cx=\"0\" cy=\"-3.6\" rx=\"2\" ry=\"2.6\" fill=\"#FFC2D8\" stroke=\"#F58FB2\" stroke-width=\"0.7\" transform=\"rotate(288.0 0 0)\"/><circle cx=\"0\" cy=\"0\" r=\"1.5\" fill=\"#FFE9A8\"/></g><path d=\"M50 30c-2.6-3.4-7.6-1-7.6 2.6 0 2.7 4 4.8 7.6 7 3.6-2.2 7.6-4.3 7.6-7 0-3.6-5-6-7.6-2.6z\" fill=\"#FF7FA3\"/><path d=\"M72 35.6L72.79 39.21L76.4 40L72.79 40.79L72 44.4L71.21 40.79L67.6 40L71.21 39.21Z\" fill=\"#FFE9A8\"/><path d=\"M28 34L28.72 37.28L32 38L28.72 38.72L28 42L27.28 38.72L24 38L27.28 37.28Z\" fill=\"#FFE9A8\"/></svg>" },
+    bow: { n: "리본", cat: "deco", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><defs><linearGradient id=\"bwp1\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#FFD9E8\"/><stop offset=\"1\" stop-color=\"#FFA9C8\"/></linearGradient></defs><path d=\"M46 56c-4 12-10 20-19 25M54 56c4 12 10 20 19 25\" stroke=\"#F07FA5\" stroke-width=\"8\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M46 56c-4 12-10 20-19 25M54 56c4 12 10 20 19 25\" stroke=\"#FFB6D5\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/><path d=\"M50 44C40 26 22 24 18 34c-4 11 12 20 32 16z\" fill=\"url(#bwp1)\" stroke=\"#EE9CBB\" stroke-width=\"1.6\"/><path d=\"M50 44c10-18 28-20 32-10 4 11-12 20-32 16z\" fill=\"url(#bwp1)\" stroke=\"#EE9CBB\" stroke-width=\"1.6\"/><path d=\"M50 44C42 32 30 30 26 37c-3 8 8 14 24 13z\" fill=\"#FFD3E4\" opacity=\".7\"/><path d=\"M50 44c8-12 20-14 24-7 3 8-8 14-24 13z\" fill=\"#FFD3E4\" opacity=\".7\"/><ellipse cx=\"50\" cy=\"46\" rx=\"8\" ry=\"7.4\" fill=\"#FF8FB8\" stroke=\"#EE7098\" stroke-width=\"1.4\"/><ellipse cx=\"47.6\" cy=\"43.6\" rx=\"2.6\" ry=\"2\" fill=\"#FFD9E8\"/><path d=\"M22 19.6L22.79 23.21L26.4 24L22.79 24.79L22 28.4L21.21 24.79L17.6 24L21.21 23.21Z\" fill=\"#FFE9A8\"/><path d=\"M80 57L80.9 61.1L85 62L80.9 62.9L80 67L79.1 62.9L75 62L79.1 61.1Z\" fill=\"#FFE9A8\"/></svg>" },
+    washi2: { n: "체크 테이프", cat: "deco", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><g transform=\"rotate(-12 50 50)\"><path d=\"M12 34h76v32H12l5-5-5-5 5-5-5-6 5-5-5-6z\" fill=\"#EAF7F1\" stroke=\"#C9E7DA\" stroke-width=\"1.2\"/><rect x=\"17\" y=\"34\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"27.8\" y=\"34\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"38.6\" y=\"34\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"49.4\" y=\"34\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"60.2\" y=\"34\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"71\" y=\"34\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"81.8\" y=\"34\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"22.4\" y=\"39.4\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"33.2\" y=\"39.4\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"44\" y=\"39.4\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"54.8\" y=\"39.4\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"65.6\" y=\"39.4\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"76.4\" y=\"39.4\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"87.2\" y=\"39.4\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"17\" y=\"44.8\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"27.8\" y=\"44.8\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"38.6\" y=\"44.8\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"49.4\" y=\"44.8\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"60.2\" y=\"44.8\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"71\" y=\"44.8\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"81.8\" y=\"44.8\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"22.4\" y=\"50.2\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"33.2\" y=\"50.2\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"44\" y=\"50.2\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"54.8\" y=\"50.2\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"65.6\" y=\"50.2\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"76.4\" y=\"50.2\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><rect x=\"87.2\" y=\"50.2\" width=\"5.4\" height=\"5.4\" fill=\"#BFE3CD\"/><path d=\"M12 34h76v32H12l5-5-5-5 5-5-5-6 5-5-5-6z\" fill=\"none\" stroke=\"#A8D8BC\" stroke-width=\"1.4\"/></g><path d=\"M20 71.4L20.83 75.17L24.6 76L20.83 76.83L20 80.6L19.17 76.83L15.4 76L19.17 75.17Z\" fill=\"#FFE9A8\"/><path d=\"M82 18L82.72 21.28L86 22L82.72 22.72L82 26L81.28 22.72L78 22L81.28 21.28Z\" fill=\"#FFD3E4\"/></svg>" },
+    sparkle: { n: "반짝이", cat: "deco", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><path d=\"M42 16L47.4 40.6L72 46L47.4 51.4L42 76L36.6 51.4L12 46L36.6 40.6Z\" fill=\"#FFD54A\"/><path d=\"M72 12L74.52 23.48L86 26L74.52 28.52L72 40L69.48 28.52L58 26L69.48 23.48Z\" fill=\"#FFF0B8\"/><path d=\"M24 12L25.8 20.2L34 22L25.8 23.8L24 32L22.2 23.8L14 22L22.2 20.2Z\" fill=\"#FFE9A8\"/><path d=\"M74 61L75.62 68.38L83 70L75.62 71.62L74 79L72.38 71.62L65 70L72.38 68.38Z\" fill=\"#FFC53D\"/><path d=\"M26 65L27.26 70.74L33 72L27.26 73.26L26 79L24.74 73.26L19 72L24.74 70.74Z\" fill=\"#FFE9A8\"/><circle cx=\"58\" cy=\"22\" r=\"2.2\" fill=\"#FFC53D\"/><circle cx=\"20\" cy=\"48\" r=\"1.8\" fill=\"#FFD54A\"/><circle cx=\"66\" cy=\"58\" r=\"2\" fill=\"#FFE9A8\"/><circle cx=\"36\" cy=\"24\" r=\"1.6\" fill=\"#FFE9A8\"/></svg>" },
+    crownDia: { n: "다이아몬드 왕관", cat: "deco", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><defs><linearGradient id=\"cdp1\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#FFE38F\"/><stop offset=\"1\" stop-color=\"#FFC53D\"/></linearGradient></defs><path d=\"M24 64l-3-30 15 12L50 22l14 24 15-12-3 30z\" fill=\"url(#cdp1)\" stroke=\"#DCA22A\" stroke-width=\"2\" stroke-linejoin=\"round\"/><rect x=\"24\" y=\"62\" width=\"52\" height=\"10\" rx=\"5\" fill=\"#FFC53D\" stroke=\"#DCA22A\" stroke-width=\"1.8\"/><path d=\"M50 22l-5.6 9h11.2z\" fill=\"#BFE3FF\"/><path d=\"M36 52l-3.4 6h6.8z\" fill=\"#E6D9FF\"/><path d=\"M64 52l3.4 6h-6.8z\" fill=\"#E6D9FF\"/><circle cx=\"50\" cy=\"67\" r=\"3.4\" fill=\"#A9D6F7\" stroke=\"#6FAEDF\" stroke-width=\"1.2\"/><circle cx=\"34\" cy=\"67\" r=\"2.6\" fill=\"#FF9DB8\"/><circle cx=\"66\" cy=\"67\" r=\"2.6\" fill=\"#FF9DB8\"/><path d=\"M33 44l8 5\" stroke=\"#FFF3C4\" stroke-width=\"2\" stroke-linecap=\"round\" opacity=\".8\"/><path d=\"M80 21L80.9 25.1L85 26L80.9 26.9L80 31L79.1 26.9L75 26L79.1 25.1Z\" fill=\"#FFE9A8\"/><path d=\"M20 26L20.72 29.28L24 30L20.72 30.72L20 34L19.28 30.72L16 30L19.28 29.28Z\" fill=\"#FFE9A8\"/></svg>" },
+    macaron: { n: "마카롱", cat: "deco", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><defs><linearGradient id=\"mcp1\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#FFD9E6\"/><stop offset=\"1\" stop-color=\"#FFB8D0\"/></linearGradient></defs><ellipse cx=\"50\" cy=\"88\" rx=\"26\" ry=\"3.6\" fill=\"#8A6A4A\" opacity=\".12\"/><path d=\"M20 44c0-12 13-20 30-20s30 8 30 20z\" fill=\"url(#mcp1)\" stroke=\"#F0A0BC\" stroke-width=\"1.5\" stroke-linejoin=\"round\"/><path d=\"M20 44q5 6 10 0 5 6 10 0 5 6 10 0 5 6 10 0 5 6 10 0 5 6 10 0\" fill=\"#FFC2D8\" stroke=\"#F0A0BC\" stroke-width=\"1.5\" stroke-linejoin=\"round\"/><path d=\"M21 50h58c2 0 3 2 2 4-2 4-8 6-14 6H33c-6 0-12-2-14-6-1-2 0-4 2-4z\" fill=\"#FFF6DA\" stroke=\"#F0D9A8\" stroke-width=\"1.2\"/><path d=\"M20 60q5-6 10 0 5-6 10 0 5-6 10 0 5-6 10 0 5-6 10 0 5-6 10 0\" fill=\"#FFC2D8\" stroke=\"#F0A0BC\" stroke-width=\"1.5\" stroke-linejoin=\"round\"/><path d=\"M20 60h60v6c0 10-13 17-30 17s-30-7-30-17z\" fill=\"url(#mcp1)\" stroke=\"#F0A0BC\" stroke-width=\"1.5\" stroke-linejoin=\"round\"/><ellipse cx=\"36\" cy=\"34\" rx=\"9\" ry=\"4\" fill=\"#FFFFFF\" opacity=\".5\" transform=\"rotate(-14 36 34)\"/><g fill=\"#FFFFFF\" opacity=\".65\"><circle cx=\"30\" cy=\"66\" r=\"1.3\"/><circle cx=\"42\" cy=\"70\" r=\"1.1\"/><circle cx=\"60\" cy=\"68\" r=\"1.3\"/><circle cx=\"68\" cy=\"64\" r=\"1\"/></g><path d=\"M80 23.4L80.83 27.17L84.6 28L80.83 28.83L80 32.6L79.17 28.83L75.4 28L79.17 27.17Z\" fill=\"#FFE9A8\"/></svg>" },
+    donut: { n: "도넛", cat: "deco", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><ellipse cx=\"50\" cy=\"88\" rx=\"24\" ry=\"3.6\" fill=\"#8A6A4A\" opacity=\".12\"/><circle cx=\"50\" cy=\"52\" r=\"32\" fill=\"#E8B77E\"/><path d=\"M50 20a32 32 0 0 1 32 32c0 8-8 10-12 6-4-4-2-10-8-10s-6 8-12 8-6-8-12-8-6 12-12 12c-4 0-8-8-8-8a32 32 0 0 1 32-32z\" fill=\"#FF9DB8\"/><circle cx=\"50\" cy=\"52\" r=\"32\" fill=\"none\" stroke=\"#D99A62\" stroke-width=\"1.6\" opacity=\".5\"/><circle cx=\"50\" cy=\"52\" r=\"11\" fill=\"#FFF8F0\" stroke=\"#E8B77E\" stroke-width=\"1.6\"/><g stroke-width=\"3\" stroke-linecap=\"round\"><path d=\"M34 36l4-4\" stroke=\"#FFD166\"/><path d=\"M62 32l4 3\" stroke=\"#A8D8F5\"/><path d=\"M70 50l5-1\" stroke=\"#B8E8A8\"/><path d=\"M28 52l4 3\" stroke=\"#FFD166\"/><path d=\"M56 42l4-3\" stroke=\"#C9B3F1\"/><path d=\"M42 60l4 2\" stroke=\"#FFD166\"/><path d=\"M64 62l3 4\" stroke=\"#A8D8F5\"/></g><ellipse cx=\"38\" cy=\"32\" rx=\"7\" ry=\"3.4\" fill=\"#FFFFFF\" opacity=\".45\" transform=\"rotate(-28 38 32)\"/></svg>" },
+    lolli: { n: "롤리팝", cat: "deco", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><rect x=\"48.4\" y=\"58\" width=\"3.2\" height=\"34\" rx=\"1.6\" fill=\"#F0E3D2\" stroke=\"#DCC9B2\" stroke-width=\"1\"/><circle cx=\"50\" cy=\"42\" r=\"26\" fill=\"#FFE3EE\" stroke=\"#F5A3C0\" stroke-width=\"1.6\"/><path d=\"M50 42c4.6 0 7 3.6 5.2 7-1.9 3.6-8 3.2-9.6-1.2-1.9-5.2 4-9.6 9.4-8.4 6.6 1.5 10 8.6 7 14.6-3.4 6.6-13 8.2-19.4 3.4-7-5.2-7.4-16.4-1-22 6.8-6 18.6-4.8 24 2.4\" fill=\"none\" stroke=\"#F0658C\" stroke-width=\"4.6\" stroke-linecap=\"round\"/><ellipse cx=\"38\" cy=\"26\" rx=\"8\" ry=\"4\" fill=\"#FFFFFF\" opacity=\".55\" transform=\"rotate(-30 38 26)\"/><path d=\"M22 21.4L22.83 25.17L26.6 26L22.83 26.83L22 30.6L21.17 26.83L17.4 26L21.17 25.17Z\" fill=\"#FFE9A8\"/><path d=\"M80 51.8L80.76 55.24L84.2 56L80.76 56.76L80 60.2L79.24 56.76L75.8 56L79.24 55.24Z\" fill=\"#FFE9A8\"/></svg>" },
+    balloon: { n: "하트 풍선", cat: "deco", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><defs><linearGradient id=\"blp2\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#FF9DB8\"/><stop offset=\"1\" stop-color=\"#F0658C\"/></linearGradient></defs><path d=\"M50 64c-2 8-6 16-10 22-3 5 1 8 4 4\" fill=\"none\" stroke=\"#D9B7C7\" stroke-width=\"1.8\" stroke-linecap=\"round\"/><path d=\"M50 62C26 46 16 32 26 22c8-8 19-4 24 6 5-10 16-14 24-6 10 10 0 24-24 40z\" fill=\"url(#blp2)\" stroke=\"#EE7098\" stroke-width=\"1.8\"/><path d=\"M50 60C14 34 29 34 33 44c5 12 7 24 10 27 2 3 5 4 7 4z\" fill=\"#FFD3E4\" opacity=\".55\"/><path d=\"M34 28c-4 2-6 6-5 11\" stroke=\"#FFFFFF\" stroke-width=\"2.6\" fill=\"none\" stroke-linecap=\"round\" opacity=\".7\"/><path d=\"M46 62h8l-4 6z\" fill=\"#EE7098\"/><path d=\"M78 27L78.9 31.1L83 32L78.9 32.9L78 37L77.1 32.9L73 32L77.1 31.1Z\" fill=\"#FFE9A8\"/><path d=\"M22 62L22.72 65.28L26 66L22.72 66.72L22 70L21.28 66.72L18 66L21.28 65.28Z\" fill=\"#FFE9A8\"/></svg>" },
+    stamp: { n: "우표", cat: "deco", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><path d=\"M20 24h60v52H20z\" fill=\"#FFFDF6\" stroke=\"#E3D3BA\" stroke-width=\"1.4\" stroke-dasharray=\"3 3\"/><path d=\"M25 29h50v42H25z\" fill=\"#FFF8E8\" stroke=\"#EAD9C0\" stroke-width=\"1\"/><g transform=\"translate(50,48)\"><ellipse cx=\"0\" cy=\"-11\" rx=\"5.4\" ry=\"7\" fill=\"#FFC2D8\" stroke=\"#F58FB2\" stroke-width=\"1\" transform=\"rotate(0.0 0 0)\"/><ellipse cx=\"0\" cy=\"-11\" rx=\"5.4\" ry=\"7\" fill=\"#FFC2D8\" stroke=\"#F58FB2\" stroke-width=\"1\" transform=\"rotate(60.0 0 0)\"/><ellipse cx=\"0\" cy=\"-11\" rx=\"5.4\" ry=\"7\" fill=\"#FFC2D8\" stroke=\"#F58FB2\" stroke-width=\"1\" transform=\"rotate(120.0 0 0)\"/><ellipse cx=\"0\" cy=\"-11\" rx=\"5.4\" ry=\"7\" fill=\"#FFC2D8\" stroke=\"#F58FB2\" stroke-width=\"1\" transform=\"rotate(180.0 0 0)\"/><ellipse cx=\"0\" cy=\"-11\" rx=\"5.4\" ry=\"7\" fill=\"#FFC2D8\" stroke=\"#F58FB2\" stroke-width=\"1\" transform=\"rotate(240.0 0 0)\"/><ellipse cx=\"0\" cy=\"-11\" rx=\"5.4\" ry=\"7\" fill=\"#FFC2D8\" stroke=\"#F58FB2\" stroke-width=\"1\" transform=\"rotate(300.0 0 0)\"/><circle cx=\"0\" cy=\"0\" r=\"4\" fill=\"#FFD166\"/></g><path d=\"M31 66h38\" stroke=\"#E7B9CB\" stroke-width=\"1.2\"/><path d=\"M56 24c8 4 12 10 16 16\" stroke=\"#D9C9F6\" stroke-width=\"1.6\" fill=\"none\" opacity=\".8\"/><path d=\"M76 27.6L76.79 31.21L80.4 32L76.79 32.79L76 36.4L75.21 32.79L71.6 32L75.21 31.21Z\" fill=\"#FFE9A8\"/></svg>" },
+    pin: { n: "압정", cat: "deco", svg: "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" width=\"100\" height=\"100\"><defs><linearGradient id=\"pnp1\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0\" stop-color=\"#FF9DB0\"/><stop offset=\"1\" stop-color=\"#E86A83\"/></linearGradient></defs><path d=\"M50 46l-3 34 3 6 3-6z\" fill=\"#B9C2CC\" stroke=\"#98A2AE\" stroke-width=\"1\"/><ellipse cx=\"50\" cy=\"46\" rx=\"16\" ry=\"6\" fill=\"#E86A83\"/><path d=\"M34 46c0-10 7-18 16-18s16 8 16 18z\" fill=\"url(#pnp1)\" stroke=\"#D14B68\" stroke-width=\"1.4\"/><ellipse cx=\"43\" cy=\"35\" rx=\"5\" ry=\"3\" fill=\"#FFFFFF\" opacity=\".45\" transform=\"rotate(-30 43 35)\"/><ellipse cx=\"50\" cy=\"46\" rx=\"16\" ry=\"6\" fill=\"none\" stroke=\"#D14B68\" stroke-width=\"1.4\"/></svg>" }
+  };
+  Object.keys(MORE).forEach(function (k) { STICKERS[k] = MORE[k]; });
+
+  /* 분류 탭 */
+  var STABS = [
+    { k: 'all', n: '전체' },
+    { k: 'flower', n: '🌸 꽃' },
+    { k: 'hamster', n: '🐹 햄스터' },
+    { k: 'clovelle', n: '🎤 세희·세영' },
+    { k: 'deco', n: '🎀 다꾸' },
+    { k: 'story', n: '💎 성 이야기' }
+  ];
+  var CAT_OLD = { portal: 'story', diamond: 'story', key: 'story', castle: 'story',
+    crown: 'story', candle: 'story', isopod: 'story', rainbow: 'story', cloud: 'story',
+    moon: 'story', duo: 'hamster', mimi: 'hamster', teo: 'hamster', watt: 'hamster',
+    temi: 'hamster', note: 'clovelle', mic: 'clovelle', ribbon: 'deco', star: 'deco',
+    heart: 'deco', flower: 'flower', clover: 'flower', coffee: 'deco', cake: 'deco',
+    tape: 'deco', berry: 'deco', letter: 'deco' };
+  Object.keys(CAT_OLD).forEach(function (k) { if (STICKERS[k] && !STICKERS[k].cat) STICKERS[k].cat = CAT_OLD[k]; });
+  var SORDER = [
+    'sehee', 'seyoung', 'sspair', 'duo', 'mimi', 'teo', 'watt', 'temi',
+    'hMimiStar', 'hTeoNap', 'hWattRun', 'hPeek', 'hCookie', 'hCheer',
+    'blossom', 'rose', 'sunflower', 'tulip', 'daisy', 'bouquet', 'butterfly', 'hydrangea',
+    'lily', 'pot', 'leaf', 'lavender', 'flower', 'clover',
+    'bow', 'washi2', 'sparkle', 'crownDia', 'macaron', 'donut', 'lolli', 'balloon', 'stamp', 'pin',
+    'heart', 'star', 'ribbon', 'tape', 'cake', 'coffee', 'berry', 'letter',
+    'portal', 'diamond', 'key', 'castle', 'crown', 'candle', 'note', 'mic', 'isopod', 'rainbow', 'cloud', 'moon'
+  ];
+  var CAT_OLD = { portal: 'story', diamond: 'story', key: 'story', castle: 'story',
+    crown: 'story', candle: 'story', isopod: 'story', rainbow: 'story', cloud: 'story',
+    moon: 'story', duo: 'hamster', mimi: 'hamster', teo: 'hamster', watt: 'hamster',
+    temi: 'hamster', note: 'clovelle', mic: 'clovelle', ribbon: 'deco', star: 'deco',
+    heart: 'deco', flower: 'flower', clover: 'flower', coffee: 'deco', cake: 'deco',
+    tape: 'deco', berry: 'deco', letter: 'deco' };
+  Object.keys(CAT_OLD).forEach(function (k) { if (STICKERS[k] && !STICKERS[k].cat) STICKERS[k].cat = CAT_OLD[k]; });
+  var SORDER = [
+    'sehee', 'seyoung', 'sspair', 'duo', 'mimi', 'teo', 'watt', 'temi',
+    'hMimiStar', 'hTeoNap', 'hWattRun', 'hPeek', 'hCookie', 'hCheer',
+    'blossom', 'rose', 'sunflower', 'tulip', 'daisy', 'bouquet', 'butterfly', 'hydrangea',
+    'lily', 'pot', 'leaf', 'lavender', 'flower', 'clover',
+    'bow', 'washi2', 'sparkle', 'crownDia', 'macaron', 'donut', 'lolli', 'balloon', 'stamp', 'pin',
+    'heart', 'star', 'ribbon', 'tape', 'cake', 'coffee', 'berry', 'letter',
+    'portal', 'diamond', 'key', 'castle', 'crown', 'candle', 'note', 'mic', 'isopod', 'rainbow', 'cloud', 'moon'
+  ];
 
   /* ═════════════ 성 그림(이야기 장면) ═════════════ */
   var CASTLE_SVG = '<svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
@@ -1022,6 +1148,7 @@ a{color:inherit}
     objsEl.innerHTML = '';
     (work.objs || []).forEach(function (o) { objsEl.appendChild(objEl(o)); });
     syncBar();
+    syncCtl();
   }
   function elOf(id) { return objsEl.querySelector('.obj[data-id="' + id + '"]'); }
   function objOf(id) {
@@ -1034,42 +1161,151 @@ a{color:inherit}
       el.classList.toggle('sel', el.dataset.id === selId);
     });
     syncBar();
+    syncCtl();
+  }
+  function objName(o) {
+    if (!o) return '스티커';
+    if (o.kind === 'photo') return '내 사진';
+    var st = STICKERS[o.key];
+    return st ? st.n : '스티커';
   }
   function syncBar() {
     var on = !!selId;
     $('#objbar').hidden = !on;
     $('#tools').hidden = on;
+    if (!on) return;
+    var o = objOf(selId);
+    if (!o) return;
+    $('#objCap').textContent = objName(o);
+    $('#objSize').textContent = Math.round((o.s || 1) * 100) + '% · ' + Math.round(o.r || 0) + '°';
+  }
+  /* ── 종이 위 조절 막대(선택한 스티커 옆에 뜬다) ── */
+  function syncCtl() {
+    var ctl = document.getElementById('objCtl');
+    if (!ctl) return;
+    var o = selId ? objOf(selId) : null;
+    var el = o ? elOf(o.id) : null;
+    if (!o || !el) { ctl.hidden = true; ctl.dataset.id = ''; return; }
+    ctl.hidden = false;
+    ctl.dataset.id = o.id;
+    placeCtl(el, o);
+  }
+  function placeCtl(el, o) {
+    var ctl = document.getElementById('objCtl');
+    if (!ctl || ctl.hidden || !el) return;
+    var W = paperEl.clientWidth, H = paperEl.clientHeight;
+    var halfH = (el.offsetHeight * (o.s || 1)) / 2;
+    var cw = ctl.offsetWidth || 250, ch = ctl.offsetHeight || 44;
+    var x = o.fx * W;
+    var y = o.fy * H + halfH + ch / 2 + 8;
+    if (y + ch / 2 > H - 3) y = o.fy * H - halfH - ch / 2 - 8;
+    ctl.style.left = clamp(x, cw / 2 + 3, W - cw / 2 - 3) + 'px';
+    ctl.style.top = clamp(y, ch / 2 + 3, H - ch / 2 - 3) + 'px';
+  }
+  function applyObj(o, el) {
+    if (!o) return;
+    el = el || elOf(o.id);
+    if (!el) return;
+    var rect = paperEl.getBoundingClientRect();
+    var halfW = (el.offsetWidth * (o.s || 1)) / 2 / rect.width;
+    var halfH = (el.offsetHeight * (o.s || 1)) / 2 / rect.height;
+    var mx = Math.min(0.45, halfW * 0.72), my = Math.min(0.45, halfH * 0.72);
+    o.fx = clamp(o.fx, mx, 1 - mx);
+    o.fy = clamp(o.fy, my, 1 - my);
+    posObj(el, o);
+    placeCtl(el, o);
+  }
+  function deleteSel() {
+    var o = selId && objOf(selId);
+    if (!o) return;
+    if (o.kind === 'photo' && o.pid) delete db.photos[o.pid];
+    work.objs = work.objs.filter(function (x) { return x.id !== o.id; });
+    selId = null;
+    renderObjs();
+    renderQuest();
+    saveNow();
+    toast('지웠어요.');
   }
   function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
 
+  /* 붙인 스티커: 한 손가락으로 끌어 옮기기 · 두 손가락으로 크기·회전 */
+  var drag = null;
+  function startPinch() {
+    if (!drag) return;
+    var ids = Object.keys(drag.ptr);
+    if (ids.length < 2) return;
+    var p1 = drag.ptr[ids[0]], p2 = drag.ptr[ids[1]];
+    var d = Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2)) || 1;
+    var a = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
+    drag.base = { d: d, a: a, s: drag.o.s || 1, r: drag.o.r || 0 };
+  }
+  function dragStep() {
+    if (!drag) return;
+    drag.raf = requestAnimationFrame(dragStep);
+    var o = drag.o, el = drag.el, ids = Object.keys(drag.ptr);
+    if (ids.length >= 2) {
+      var p1 = drag.ptr[ids[0]], p2 = drag.ptr[ids[1]];
+      var d = Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2)) || 1;
+      var a = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
+      if (!drag.base) startPinch();
+      if (drag.base) {
+        o.s = Math.round(clamp(drag.base.s * d / drag.base.d, 0.4, 3) * 100) / 100;
+        var r = drag.base.r + (a - drag.base.a);
+        o.r = Math.round(((r % 360) + 540) % 360 - 180);
+        drag.moved = true;
+        applyObj(o, el);
+      }
+    } else if (ids.length === 1) {
+      var p = drag.ptr[ids[0]];
+      var fx = (p.x - p.dx) / drag.rect.width;
+      var fy = (p.y - p.dy) / drag.rect.height;
+      if (Math.abs(fx - o.fx) > 0.0005 || Math.abs(fy - o.fy) > 0.0005) drag.moved = true;
+      o.fx = fx; o.fy = fy;
+      applyObj(o, el);
+    }
+    syncBar();
+  }
   function bindObj(el, o) {
     el.addEventListener('pointerdown', function (e) {
-      if (e.button !== undefined && e.button > 0) return;
+      if (e.pointerType === 'mouse' && e.button > 0) return;
+      if (e.cancelable) e.preventDefault();
+      e.stopPropagation();
+      if (!drag || drag.id !== o.id) {
+        drag = { id: o.id, el: el, o: o, rect: paperEl.getBoundingClientRect(), ptr: {}, base: null, moved: false, raf: 0 };
+      }
       select(o.id);
-      var rect = paperEl.getBoundingClientRect();
-      var dx = e.clientX - (rect.left + o.fx * rect.width);
-      var dy = e.clientY - (rect.top + o.fy * rect.height);
-      var moved = false;
+      var mx = e.clientX - drag.rect.left, my = e.clientY - drag.rect.top;
+      drag.ptr[e.pointerId] = { x: mx, y: my, dx: mx - o.fx * drag.rect.width, dy: my - o.fy * drag.rect.height };
       try { el.setPointerCapture(e.pointerId); } catch (err) {}
-      function mv(ev) {
-        var px = ev.clientX - rect.left - dx;
-        var py = ev.clientY - rect.top - dy;
-        o.fx = clamp(px / rect.width, 0.05, 0.95);
-        o.fy = clamp(py / rect.height, 0.06, 0.94);
-        posObj(el, o);
-        moved = true;
-        ev.preventDefault();
+      el.classList.add('dragging');
+      if (Object.keys(drag.ptr).length >= 2) startPinch();
+      if (!drag.raf) drag.raf = requestAnimationFrame(dragStep);
+    });
+    el.addEventListener('pointermove', function (e) {
+      if (!drag || drag.id !== o.id || !drag.ptr[e.pointerId]) return;
+      if (e.cancelable) e.preventDefault();
+      drag.ptr[e.pointerId].x = e.clientX - drag.rect.left;
+      drag.ptr[e.pointerId].y = e.clientY - drag.rect.top;
+    });
+    function endDrag(e) {
+      if (!drag || drag.id !== o.id) return;
+      try { delete drag.ptr[e.pointerId]; } catch (err) {}
+      if (Object.keys(drag.ptr).length === 0) {
+        var moved = drag.moved;
+        if (drag.raf) cancelAnimationFrame(drag.raf);
+        el.classList.remove('dragging');
+        drag = null;
+        if (moved) { saveNow(); syncBar(); }
+        else { select(o.id); }
+      } else {
+        drag.base = null;
+        startPinch();
       }
-      function up() {
-        el.removeEventListener('pointermove', mv);
-        el.removeEventListener('pointerup', up);
-        el.removeEventListener('pointercancel', up);
-        if (moved) saveNow();
-      }
-      el.addEventListener('pointermove', mv);
-      el.addEventListener('pointerup', up);
-      el.addEventListener('pointercancel', up);
-      e.preventDefault();
+    }
+    el.addEventListener('pointerup', endDrag);
+    el.addEventListener('pointercancel', endDrag);
+    el.addEventListener('pointerleave', function (e) {
+      if (drag && drag.id === o.id && !drag.ptr[e.pointerId]) el.classList.remove('dragging');
     });
   }
 
@@ -1078,13 +1314,15 @@ a{color:inherit}
     var n = work.objs.length;
     var o = {
       id: newId(), kind: 'sticker', key: key,
-      fx: clamp(0.5 + ((n % 3) - 1) * 0.13 + (Math.random() * 0.06 - 0.03), 0.12, 0.88),
-      fy: clamp(0.56 + ((n % 2) ? 0.1 : -0.1) + (Math.random() * 0.06 - 0.03), 0.15, 0.88),
+      fx: [0.24, 0.5, 0.76][n % 3] + (Math.random() * 0.04 - 0.02),
+      fy: clamp([0.58, 0.7, 0.62][n % 3] + Math.floor(n / 3) * 0.09 + (Math.random() * 0.04 - 0.02), 0.3, 0.86),
       s: 1, r: -10 + Math.round(Math.random() * 20)
     };
     work.objs.push(o);
+    selId = o.id;
     renderObjs();
     renderQuest();
+    applyObj(o, elOf(o.id));
     saveNow();
     return o.id;
   }
@@ -1221,7 +1459,7 @@ a{color:inherit}
   function renderDayChrome() {
     var d = parseKey(view);
     var no = pageNoOf(view);
-    $('#dayTxt').textContent = shortDate(d) + (no > 1 ? ' · ' + no + '쪽' : '');
+    $('#dayTxt').textContent = barDate(d, no);
     $('#todayChip').hidden = !isToday(view);
     $('#pgDate').textContent = shortDate(d) + (no > 1 ? ' · ' + no + '쪽' : '');
     $('#nextDay').disabled = (dateKeyOf(view) >= todayKey());
@@ -1326,20 +1564,43 @@ a{color:inherit}
   }
 
   /* ═════════════ 스티커 시트 ═════════════ */
+  var stCat = 'all';
+  function catList(c) {
+    return SORDER.filter(function (k) { return c === 'all' || (STICKERS[k] && STICKERS[k].cat === c); });
+  }
   function buildStickerSheet() {
+    var tabs = document.getElementById('stickerTabs');
+    if (tabs) {
+      tabs.innerHTML = '';
+      STABS.forEach(function (t) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'stab' + (stCat === t.k ? ' on' : '');
+        b.dataset.cat = t.k;
+        b.setAttribute('role', 'tab');
+        b.setAttribute('aria-selected', stCat === t.k ? 'true' : 'false');
+        b.textContent = t.n + ' ' + catList(t.k).length;
+        b.addEventListener('click', function () { stCat = t.k; build_sticker_grid(); buildStickerSheet(); });
+        tabs.appendChild(b);
+      });
+    }
+    build_sticker_grid();
+  }
+  function build_sticker_grid() {
     var box = $('#stickerList');
     box.innerHTML = '';
-    SORDER.forEach(function (k) {
+    catList(stCat).forEach(function (k) {
       var st = STICKERS[k];
+      if (!st) return;
       var b = document.createElement('button');
       b.type = 'button'; b.className = 'st';
       b.dataset.key = k;
-      b.innerHTML = st.svg;
+      b.innerHTML = '<span class="sti">' + st.svg + '</span><span class="stn">' + st.n + '</span>';
       b.setAttribute('aria-label', st.n + ' 스티커 붙이기');
       b.addEventListener('click', function () {
         addSticker(k);
         closeTop();
-        toast(st.n + ' 스티커를 붙였어요. 손가락으로 옮겨 보세요.');
+        toast(st.n + ' 스티커를 붙였어요. 끌어서 옮겨 보세요.');
       });
       box.appendChild(b);
     });
@@ -1859,39 +2120,58 @@ a{color:inherit}
     try { e.target.value = ''; } catch (err) {}
   });
 
+  function nudgeSel(fn) {
+    var o = selId && objOf(selId);
+    if (!o) return;
+    fn(o);
+    applyObj(o, elOf(o.id));
+    saveNow();
+    syncBar();
+  }
   $('#rotBtn').addEventListener('click', function () {
-    var o = selId && objOf(selId); if (!o) return;
-    o.r = ((o.r || 0) + 15) % 360;
-    if (o.r > 180) o.r -= 360;
-    posObj(elOf(o.id), o); saveNow();
+    nudgeSel(function (o) {
+      var r = (o.r || 0) + 15;
+      o.r = ((r % 360) + 540) % 360 - 180;
+    });
   });
   $('#smallBtn').addEventListener('click', function () {
-    var o = selId && objOf(selId); if (!o) return;
-    o.s = Math.max(0.45, Math.round(o.s * 0.8 * 100) / 100);
-    posObj(elOf(o.id), o); saveNow();
+    nudgeSel(function (o) { o.s = Math.max(0.4, Math.round(o.s * 0.82 * 100) / 100); });
   });
   $('#bigBtn').addEventListener('click', function () {
-    var o = selId && objOf(selId); if (!o) return;
-    o.s = Math.min(2.4, Math.round(o.s * 1.25 * 100) / 100);
-    posObj(elOf(o.id), o); saveNow();
+    nudgeSel(function (o) { o.s = Math.min(3, Math.round(o.s * 1.2 * 100) / 100); });
   });
-  $('#delBtn').addEventListener('click', function () {
-    var o = selId && objOf(selId); if (!o) return;
-    if (o.kind === 'photo' && o.pid) delete db.photos[o.pid];
-    work.objs = work.objs.filter(function (x) { return x.id !== o.id; });
-    selId = null;
-    renderObjs();
-    renderQuest();
-    saveNow();
-    toast('지웠어요.');
-  });
+  $('#delBtn').addEventListener('click', deleteSel);
   $('#doneBtn').addEventListener('click', function () { select(null); saveNow(); toast('꾸미기 완료! 글로 이어서 써 보세요 ✍️'); });
+
+  /* 종이 위 조절 막대 */
+  (function () {
+    var ctl = document.getElementById('objCtl');
+    if (!ctl) return;
+    ctl.addEventListener('click', function (e) {
+      var b = e.target.closest ? e.target.closest('[data-act]') : null;
+      if (!b) return;
+      e.preventDefault();
+      e.stopPropagation();
+      var act = b.dataset.act;
+      if (act === 'del') { deleteSel(); return; }
+      if (act === 'ok') { select(null); saveNow(); toast('꾸미기 완료! 글로 이어서 써 보세요 ✍️'); return; }
+      if (act === 'pinch') { toast('두 손가락으로 벌리면 크기가, 돌리면 회전이 바뀌어요.'); return; }
+      nudgeSel(function (o) {
+        if (act === 'rotl' || act === 'rotr') {
+          var r = (o.r || 0) + (act === 'rotr' ? 15 : -15);
+          o.r = ((r % 360) + 540) % 360 - 180;
+        } else if (act === 'small') o.s = Math.max(0.4, Math.round(o.s * 0.82 * 100) / 100);
+        else if (act === 'big') o.s = Math.min(3, Math.round(o.s * 1.2 * 100) / 100);
+      });
+    });
+  })();
 
   textEl.addEventListener('input', function () { work.text = textEl.value; renderQuest(); saveSoon(); });
   textEl.addEventListener('focus', function () { if (selId) select(null); });
   paperEl.addEventListener('pointerdown', function (e) {
     if (e.target === textEl || e.target === paperEl || e.target === objsEl) select(null);
   });
+  window.addEventListener('resize', syncCtl);
 
   $('#saveOpen').addEventListener('click', openSave);
   $('#dlBtn').addEventListener('click', downloadPng);
@@ -1969,6 +2249,10 @@ a{color:inherit}
       };
     },
     add: addSticker,
+    keys: function () { return SORDER.slice(); },
+    svgOf: function (k) { return STICKERS[k] ? STICKERS[k].svg : ''; },
+    nameOf: function (k) { return STICKERS[k] ? STICKERS[k].n : ''; },
+    catOf: function (k) { return STICKERS[k] ? STICKERS[k].cat : ''; },
     escape: openEscape,
     newPage: newPage,
     cardSize: function () {
