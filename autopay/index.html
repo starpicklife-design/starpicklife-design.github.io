@@ -1206,9 +1206,10 @@ h1,h2,h3{margin:0}
   }
 
   function editMonthLabel() {
+    var isCur = sameMonth(today(), vy, vm);
     $('#editPaidLabel').textContent = lang === 'ko'
-      ? '이번 달(' + (vm + 1) + '월) 이체 완료'
-      : 'Paid for ' + MON_EN[vm] + (sameMonth(today(), vy, vm) ? '' : ' ' + vy);
+      ? (isCur ? '이번 달(' + (vm + 1) + '월) 이체 완료' : (vm + 1) + '월 이체 완료')
+      : ('Paid for ' + MON_EN[vm] + (isCur ? ' (this month)' : ' ' + vy));
     $('#editTitle').textContent = editingId ? t('editEdit') : t('editNew');
   }
 
@@ -1529,7 +1530,17 @@ h1,h2,h3{margin:0}
   }
   function instStepsHTML() {
     var rows;
-    if (uaIsIOS()) {
+    if (lang === 'en') {
+      if (uaIsIOS()) {
+        rows = [['Tap the <b>Share ⤴</b> button at the bottom (or top)', '⤴'], ['Scroll and tap <b>Add to Home Screen</b>', '➕'], ['Tap <b>Add</b> — done!', '✅']];
+      } else if (uaIsSamsung()) {
+        rows = [['Tap the <b>menu ≡</b> at the bottom', '≡'], ['Tap <b>Add page to Home screen</b>', '➕'], ['Tap <b>Add</b> — done!', '✅']];
+      } else if (uaIsAndroid()) {
+        rows = [['Tap the <b>three dots ⋮</b> at the top right', '⋮'], ['Tap <b>Add to Home screen</b> (or Install app)', '➕'], ['Tap <b>Add</b> — done!', '✅']];
+      } else {
+        rows = [['Click the <b>install icon</b> in the address bar', '⋮'], ['Click <b>Install</b> to open it in an app window', '➕'], ['On a phone you can <b>add it to the home screen</b>', '📱']];
+      }
+    } else if (uaIsIOS()) {
       rows = [['화면 아래(또는 위)의 <b>공유 버튼 ⤴</b>을 눌러요', '⤴'], ['목록을 내려 <b>홈 화면에 추가</b>를 눌러요', '➕'], ['오른쪽 위 <b>추가</b>를 누르면 끝!', '✅']];
     } else if (uaIsSamsung()) {
       rows = [['화면 아래의 <b>메뉴 ≡</b>를 눌러요', '≡'], ['<b>홈 화면에 추가</b>를 눌러요', '➕'], ['<b>추가</b>를 누르면 끝!', '✅']];
@@ -1543,6 +1554,12 @@ h1,h2,h3{margin:0}
     }).join('');
   }
   function instTipHTML() {
+    if (lang === 'en') {
+      if (uaIsIOS()) return 'For Safari. On Chrome, tap <b>⋮</b> at the top right → <b>Add to Home screen</b>.';
+      if (uaIsSamsung()) return 'The Samsung Internet menu ≡ is at the <b>bottom centre</b>.';
+      if (uaIsAndroid()) return 'Samsung Internet: <b>≡</b> → Add page to Home screen. iPhone: <b>Share ⤴</b> → Add to Home Screen.';
+      return 'Phone Chrome: <b>⋮ → Add to Home screen</b>. iPhone Safari: <b>Share ⤴ → Add to Home Screen</b>.';
+    }
     if (uaIsIOS()) return '사파리 기준이에요. 크롬으로 열었다면 오른쪽 위 <b>⋮</b> → <b>홈 화면에 추가</b>를 눌러 주세요.';
     if (uaIsSamsung()) return '삼성 인터넷 메뉴 ≡ 는 화면 <b>아래 가운데</b>에 있어요.';
     if (uaIsAndroid()) return '삼성 인터넷은 <b>≡</b> → 홈 화면에 추가, 아이폰은 <b>공유 ⤴</b> → 홈 화면에 추가예요.';
