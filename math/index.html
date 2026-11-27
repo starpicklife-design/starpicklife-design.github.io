@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#10233F" />
+<!-- build: 2026-11-27 wagling-math v1 · 중·고등 수학 공부 노트 (방정식·그래프·도형·공식집) · 기록은 기기에만 -->
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="와글링 수학" />
+<meta name="description" content="와글링 수학 — 중·고등 수학 공부 노트. 일차·이차방정식 단계별 풀이, 함수 그래프 실시간 조작, 도형 넓이·부피·피타고라스, 핵심 공식집. 기록은 이 기기에만 저장, 광고 없음." />
+<title>와글링 수학 · 중·고등 수학 공부 노트</title>
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+<style>
+:root{
+  --navy:#10233F; --navy2:#173257; --navy3:#24446E;
+  --paper:#F3F6FB; --card:#FFFFFF; --ink:#152238; --ink2:#5B6A82; --ink3:#8A97AC;
+  --line:#DFE6F1; --line2:#EDF1F8;
+  --blue:#2B5FD9; --blue-d:#1E47A8; --blue-bg:#EAF0FE;
+  --amber:#C07A16; --amber-bg:#FDF3DF; --amber-line:#F1D9A8;
+  --green:#1B7A52; --green-bg:#E7F5EE; --green-line:#B7E2CD;
+  --red:#B03227; --red-bg:#FBEAE7; --red-line:#F0C3BC;
+  --shadow:0 3px 14px rgba(16,35,63,.07);
+  --shadow2:0 8px 26px rgba(16,35,63,.13);
+  --math:"Iowan Old Style","Palatino Linotype","Book Antiqua",Cambria,Georgia,"Times New Roman",serif;
+  --tabh:4.5rem;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none !important}
+html{font-size:17px;-webkit-text-size-adjust:100%}
+html,body{margin:0;padding:0}
+body{
+  min-height:100vh;background:var(--paper);color:var(--ink);
+  font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",system-ui,-apple-system,sans-serif;
+  line-height:1.5;word-break:keep-all;overflow-wrap:break-word;overflow-x:hidden;
+  padding-bottom:calc(var(--tabh) + env(safe-area-inset-bottom) + .5rem);
+}
+button{font-family:inherit;color:inherit;cursor:pointer;border:0;background:none}
+input{font-family:inherit;font-size:1rem;color:var(--ink);min-width:0}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #4F86F7;outline-offset:2px}
+b,strong{font-weight:900}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ── 머리말 ───────────────────────────────── */
+.top{
+  position:sticky;top:0;z-index:40;color:#F2F6FF;
+  background:linear-gradient(160deg,#173257 0%,#10233F 55%,#0B1B33 100%);
+  padding:calc(.42rem + env(safe-area-inset-top)) .55rem .44rem;
+  box-shadow:0 4px 18px rgba(8,20,38,.28);
+}
+.topin{display:flex;align-items:center;gap:.4rem;max-width:34rem;margin:0 auto}
+.brand{display:flex;align-items:center;gap:.4rem;flex:1 1 auto;min-width:0}
+.logo{
+  flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  width:2.05rem;height:2.05rem;border-radius:.68rem;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);
+  font-size:1.12rem;line-height:1;
+}
+.btxt{min-width:0}
+.brand h1{margin:0;font-size:1.02rem;line-height:1.15;letter-spacing:-.04em;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand .sub{margin:.06rem 0 0;font-size:.62rem;line-height:1.2;font-weight:700;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbtns{display:flex;gap:.24rem;flex:0 0 auto}
+.tbtn{
+  border:1px solid rgba(255,255,255,.32);background:rgba(255,255,255,.1);color:#F2F6FF;
+  border-radius:.62rem;padding:.3rem .4rem;font-size:.68rem;font-weight:800;line-height:1.1;
+  min-height:2.1rem;white-space:nowrap;display:inline-flex;align-items:center;gap:.12rem;
+}
+.tbtn:active{transform:translateY(1px)}
+.tbtn[aria-pressed="true"]{background:#F2F6FF;color:var(--navy);border-color:#F2F6FF}
+@media (max-width:369px){
+  .logo{display:none}
+  .brand h1{font-size:.94rem}
+  .brand .sub{display:none}
+  .tbtn{font-size:.62rem;padding:.28rem .32rem;min-height:2rem;gap:.06rem}
+  .topin{gap:.3rem}
+}
+@media (max-width:330px){
+  .tbtn{font-size:.58rem;padding:.26rem .26rem}
+  .brand h1{font-size:.88rem}
+}
+
+/* ── 공통 ────────────────────────────────── */
+main{max-width:34rem;margin:0 auto;padding:0 .05rem}
+.page{padding:.1rem 0 .7rem;animation:fade .2s ease}
+@keyframes fade{from{opacity:.5;transform:translateY(3px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.page{animation:none}}
+.phead{margin:.7rem .7rem .1rem}
+.phead h2{margin:0;font-size:1.14rem;line-height:1.25;letter-spacing:-.04em;font-weight:900}
+.phead p{margin:.14rem 0 0;font-size:.74rem;line-height:1.42;color:var(--ink2);font-weight:700}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:1.05rem;
+  margin:.55rem .55rem;padding:.78rem .8rem;box-shadow:var(--shadow);
+}
+.card h3{margin:0 0 .5rem;font-size:.94rem;font-weight:900;letter-spacing:-.03em;line-height:1.25}
+.tiny{margin:.36rem 0 0;font-size:.66rem;line-height:1.45;color:var(--ink3);font-weight:700;text-align:center}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.3rem;
+  min-height:2.75rem;padding:.5rem .8rem;border-radius:.8rem;
+  background:#EEF2F9;color:var(--navy);font-size:.86rem;font-weight:900;letter-spacing:-.02em;
+  border:1px solid var(--line);white-space:nowrap;
+}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn.soft{background:var(--blue-bg);color:var(--blue-d);border-color:#CBD9F8}
+.btn.wide{width:100%}
+.btn:disabled{opacity:.45;cursor:default}
+.chips{display:flex;flex-wrap:wrap;gap:.34rem;margin:.5rem .55rem .1rem}
+.chip{
+  flex:1 1 auto;min-width:0;padding:.46rem .5rem;border-radius:.72rem;
+  background:#fff;border:1.5px solid var(--line);color:var(--ink2);
+  font-size:.76rem;font-weight:900;letter-spacing:-.02em;text-align:center;line-height:1.2;
+}
+.chip.on{background:var(--navy);border-color:var(--navy);color:#fff;box-shadow:0 3px 10px rgba(16,35,63,.2)}
+.pill{
+  display:inline-flex;align-items:center;justify-content:center;min-width:1.3rem;height:1.3rem;
+  padding:0 .32rem;border-radius:99px;background:#fff;color:var(--blue-d);font-size:.68rem;font-weight:900;
+}
+
+/* ── 홈 ──────────────────────────────────── */
+.herocard{
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(43,95,217,.10), transparent 60%),
+    linear-gradient(180deg,#FFFFFF,#FAFCFF);
+  border-color:#D9E2F1;
+}
+.heroline{display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem}
+.eyebrow{margin:0;font-size:.66rem;font-weight:900;letter-spacing:.06em;color:var(--blue-d);text-transform:uppercase}
+.hdate{margin:.08rem 0 0;font-size:.98rem;font-weight:900;letter-spacing:-.04em}
+.hbadge{font-size:1.5rem;line-height:1}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.4rem;margin:.66rem 0 .56rem}
+.stat{
+  background:#F6F9FF;border:1px solid #E3EBFA;border-radius:.85rem;
+  padding:.44rem .2rem .4rem;text-align:center;min-width:0;
+}
+.sv{display:block;font-size:1.34rem;font-weight:900;line-height:1.12;letter-spacing:-.05em;font-variant-numeric:tabular-nums;color:var(--navy)}
+.stat:first-child .sv{color:var(--blue-d)}
+.stat:last-child .sv{color:var(--amber)}
+.sl{display:block;margin-top:.08rem;font-size:.64rem;font-weight:800;color:var(--ink2);letter-spacing:-.02em}
+.menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;margin:.1rem .55rem .3rem}
+.mcard{
+  display:flex;flex-direction:column;align-items:flex-start;gap:.16rem;
+  background:#fff;border:1px solid var(--line);border-radius:1rem;
+  padding:.72rem .7rem .66rem;text-align:left;min-width:0;min-height:7.1rem;
+  box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.mcard::after{content:"›";position:absolute;right:.6rem;top:.5rem;font-size:1.3rem;color:#C3CEE0;font-weight:700}
+.mcard:active{transform:translateY(1px)}
+.mico{display:flex;align-items:center;justify-content:center;width:2.15rem;height:2.15rem;border-radius:.7rem;font-size:1.12rem;line-height:1;margin-bottom:.1rem}
+.i-eq{background:#E7EEFF}.i-graph{background:#E6F6EF}.i-geo{background:#FDF1E0}.i-form{background:#F0ECFB}
+.mt{display:block;font-size:.87rem;font-weight:900;letter-spacing:-.03em;line-height:1.25;padding-right:.9rem}
+.md{display:block;font-size:.67rem;line-height:1.35;color:var(--ink2);font-weight:700}
+.tipcard{padding:.6rem .8rem}
+.tipcard .tiny{text-align:left;margin:0}
+
+/* ── 방정식 ───────────────────────────────── */
+.probcard{padding:.82rem .8rem .8rem}
+.probhead{display:flex;align-items:center;justify-content:space-between;gap:.4rem;margin-bottom:.5rem}
+.plabel{font-size:.7rem;font-weight:900;color:var(--ink3);letter-spacing:.02em}
+.ptag{font-size:.64rem;font-weight:900;color:var(--blue-d);background:var(--blue-bg);border-radius:99px;padding:.2rem .52rem;white-space:nowrap}
+.ptag.quad{color:#7A4A0C;background:var(--amber-bg)}
+.eq{
+  font-family:var(--math);font-weight:600;letter-spacing:.005em;
+  font-size:clamp(1.5rem,7.4vw,1.95rem);line-height:1.45;color:var(--navy);
+  padding:.3rem 0 .5rem;text-align:center;font-variant-numeric:tabular-nums;
+  overflow-x:auto;overflow-y:hidden;white-space:nowrap;
+}
+.eq i{font-style:italic;padding-right:.01em}
+.eq sub{font-size:.62em;vertical-align:-.28em}
+.eq sup{font-size:.62em;vertical-align:.44em}
+.alabel{display:block;font-size:.68rem;font-weight:900;color:var(--ink2);margin:.1rem 0 .3rem}
+.ansrow{display:flex;gap:.36rem}
+.ansin{
+  flex:1 1 auto;min-width:0;height:3rem;border-radius:.8rem;border:2px solid var(--line);
+  background:#FAFCFF;padding:0 .7rem;font-size:1.12rem;font-family:var(--math);font-weight:600;
+  text-align:center;letter-spacing:.01em;
+}
+.ansin:focus{border-color:var(--blue);background:#fff;outline:none}
+.ansrow .btn{flex:0 0 auto;min-width:4.2rem;height:3rem;min-height:3rem;font-size:.9rem}
+.keypad{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.32rem;margin-top:.42rem}
+#pgEq.solving .keypad{display:none}
+.kb{
+  height:2.45rem;border-radius:.66rem;background:#F4F7FC;border:1px solid var(--line);
+  font-family:var(--math);font-size:1.06rem;font-weight:700;color:var(--navy);
+  display:flex;align-items:center;justify-content:center;
+}
+.kb:active{background:#E6EDF9}
+.kb.fn{font-family:inherit;font-size:.76rem;font-weight:900;color:var(--ink2)}
+.fb{margin-top:.5rem;border-radius:.72rem;padding:.5rem .66rem;font-size:.82rem;font-weight:900;line-height:1.35}
+.fb.ok{background:var(--green-bg);color:var(--green);border:1px solid var(--green-line)}
+.fb.no{background:var(--red-bg);color:var(--red);border:1px solid var(--red-line)}
+.fb .fbsub{display:block;margin-top:.14rem;font-size:.7rem;font-weight:800;opacity:.86}
+.probacts{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.5rem}
+.steps{margin:.1rem 0 0;padding:0 0 0 1.35rem;font-size:.84rem;line-height:1.6;color:var(--ink)}
+.steps li{margin:.34rem 0;padding-left:.1rem}
+.steps li::marker{color:var(--blue);font-weight:900;font-size:.8em}
+.steps .m{font-family:var(--math);font-size:1.03rem;font-weight:600;color:var(--navy);white-space:nowrap}
+.steps .ansline{color:var(--green);font-weight:900}
+.steps .ansline .m{color:var(--green)}
+.steps .why{display:block;font-size:.68rem;color:var(--ink3);font-weight:700;margin-top:.04rem}
+.session{margin:.5rem .7rem 0;font-size:.7rem;font-weight:800;color:var(--ink3);text-align:center}
+.retrybar{
+  display:flex;align-items:center;justify-content:space-between;gap:.4rem;
+  margin:.5rem .55rem 0;padding:.46rem .68rem;border-radius:.72rem;
+  background:var(--amber-bg);border:1px solid var(--amber-line);color:#7A4A0C;
+  font-size:.73rem;font-weight:900;
+}
+.retrybar button{font-size:.68rem;font-weight:900;color:#8A5209;text-decoration:underline;padding:.2rem .1rem}
+
+/* ── 그래프 ───────────────────────────────── */
+.eqline{font-size:clamp(1.35rem,6.6vw,1.72rem);padding:.05rem 0 .35rem;text-align:left;padding-left:.1rem}
+#geoFormula{font-size:1.04rem;line-height:1.55;white-space:normal;overflow:visible;font-weight:700;padding:.06rem 0 .3rem;letter-spacing:-.01em}
+.canvasWrap{
+  margin:.1rem 0 .2rem;border:1px solid var(--line2);border-radius:.9rem;
+  background:#FCFDFF;overflow:hidden;
+}
+#graph{display:block;width:100%;height:clamp(230px,62vw,300px);touch-action:manipulation}
+.srow{padding:.34rem 0;border-top:1px dashed var(--line2)}
+.srow:first-child{border-top:0}
+.shead{display:flex;align-items:baseline;justify-content:space-between;gap:.4rem;margin-bottom:.08rem}
+.sname{font-size:.76rem;font-weight:900;letter-spacing:-.02em}
+.sname .sv2{font-family:var(--math);font-size:.94rem;font-style:italic;color:var(--blue-d);margin-right:.22rem}
+.sval{font-family:var(--math);font-size:1rem;font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.sctl{display:flex;align-items:center;gap:.4rem}
+.sstep{
+  flex:0 0 auto;width:2.1rem;height:2.1rem;border-radius:.6rem;background:#F1F5FC;
+  border:1px solid var(--line);font-size:1.06rem;font-weight:900;color:var(--ink2);
+  display:flex;align-items:center;justify-content:center;line-height:1;
+}
+.sstep:active{background:#E3EBF9}
+.sctl input[type=range]{flex:1 1 auto;min-width:0;width:100%}
+input[type=range]{-webkit-appearance:none;appearance:none;height:2.1rem;background:transparent;margin:0}
+input[type=range]::-webkit-slider-runnable-track{height:.42rem;border-radius:99px;background:#E3E9F4;border:1px solid #D7E0EE}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:1.5rem;height:1.5rem;margin-top:-.58rem;border-radius:50%;
+  background:#fff;border:3px solid var(--blue);box-shadow:0 2px 6px rgba(16,35,63,.25);
+}
+input[type=range]::-moz-range-track{height:.42rem;border-radius:99px;background:#E3E9F4;border:1px solid #D7E0EE}
+input[type=range]::-moz-range-thumb{width:1.3rem;height:1.3rem;border-radius:50%;background:#fff;border:3px solid var(--blue);box-shadow:0 2px 6px rgba(16,35,63,.25)}
+.info{margin:0;padding:0}
+.irow{display:flex;align-items:baseline;justify-content:space-between;gap:.5rem;padding:.34rem 0;border-top:1px dashed var(--line2)}
+.irow:first-child{border-top:0;padding-top:.05rem}
+.ik{flex:0 0 auto;font-size:.73rem;font-weight:900;color:var(--ink2)}
+.iv{flex:1 1 auto;text-align:right;font-size:.82rem;font-weight:900;color:var(--navy);min-width:0}
+.iv .m{font-family:var(--math);font-size:1rem;font-weight:600}
+.iv small{display:block;font-size:.65rem;font-weight:700;color:var(--ink3);margin-top:.02rem}
+.iv .fr{display:inline-flex}
+.iv em{font-style:normal;color:var(--blue-d)}
+
+/* ── 도형 ─────────────────────────────────── */
+.geoviz{margin:.1rem 0 .3rem;background:#FBFDFF;border:1px solid var(--line2);border-radius:.9rem;padding:.2rem 0}
+.geoviz svg{display:block;width:100%;height:auto;max-height:10.5rem;margin:0 auto}
+.ginputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem;margin:.3rem 0 .1rem}
+.gfield{min-width:0}
+.gfield label{display:block;font-size:.68rem;font-weight:900;color:var(--ink2);margin-bottom:.2rem}
+.gfield input{
+  width:100%;height:2.8rem;border-radius:.7rem;border:2px solid var(--line);background:#FAFCFF;
+  padding:0 .55rem;font-size:1.04rem;font-family:var(--math);font-weight:600;text-align:center;
+}
+.gfield input:focus{border-color:var(--blue);background:#fff;outline:none}
+.resbox{background:#F7FAFF;border:1px solid #E1EAFA;border-radius:.85rem;padding:.55rem .68rem;margin-top:.5rem}
+.resrow{display:flex;align-items:baseline;justify-content:space-between;gap:.5rem;padding:.24rem 0}
+.resrow + .resrow{border-top:1px dashed #DDE7F7}
+.resk{font-size:.75rem;font-weight:900;color:var(--ink2);flex:0 0 auto}
+.resv{font-family:var(--math);font-size:1.16rem;font-weight:700;color:var(--navy);text-align:right;font-variant-numeric:tabular-nums}
+.resv small{font-family:inherit;font-size:.68rem;color:var(--ink3);margin-left:.16rem;font-weight:800}
+.resv em{font-style:normal;color:var(--blue-d)}
+.numline{margin:.34rem 0 0;font-family:var(--math);font-size:.88rem;line-height:1.5;color:var(--ink2);font-weight:600}
+.numline .fr{display:inline-flex}
+.pythnote{margin:.3rem 0 0;font-size:.7rem;color:var(--ink3);font-weight:700;text-align:center}
+.practice .pheadline{display:flex;align-items:center;justify-content:space-between;gap:.4rem}
+.practice .q{font-family:var(--math);font-size:1rem;line-height:1.55;color:var(--navy);font-weight:600;margin:.1rem 0 .4rem}
+.practice .q b{font-weight:700;color:var(--blue-d)}
+
+/* ── 공식집 ───────────────────────────────── */
+.searchwrap{position:relative;margin:.5rem .55rem .2rem}
+.searchwrap input{
+  width:100%;height:3rem;border-radius:.85rem;border:2px solid var(--line);background:#fff;
+  padding:0 2.4rem 0 .9rem;font-size:.86rem;font-weight:700;
+}
+.searchwrap input:focus{border-color:var(--blue);outline:none}
+.searchwrap .si{position:absolute;right:.8rem;top:50%;transform:translateY(-50%);font-size:1rem;color:var(--ink3);pointer-events:none}
+.fgroup{margin:.7rem .7rem .1rem;font-size:.68rem;font-weight:900;letter-spacing:.04em;color:var(--ink3);text-transform:uppercase}
+.fcard{margin:.38rem .55rem;background:#fff;border:1px solid var(--line);border-radius:.9rem;padding:.62rem .72rem;box-shadow:var(--shadow)}
+.fcard h4{margin:0;font-size:.78rem;font-weight:900;color:var(--ink2);letter-spacing:-.02em;line-height:1.3}
+.fform{margin:.26rem 0 .18rem;font-family:var(--math);font-size:1.08rem;line-height:1.5;color:var(--navy);font-weight:600;overflow-x:auto;overflow-y:hidden;padding-bottom:.06rem}
+.fform .fr{display:inline-flex}
+.fnote{margin:0;font-size:.68rem;line-height:1.45;color:var(--ink3);font-weight:700}
+.fform sup{font-size:.64em;vertical-align:.44em}
+.fform sub{font-size:.64em;vertical-align:-.26em}
+.fempty{margin:1.2rem .7rem;text-align:center;font-size:.8rem;font-weight:800;color:var(--ink3)}
+
+/* ── 수식 조각 ────────────────────────────── */
+.fr{display:inline-flex;flex-direction:column;vertical-align:-.5em;text-align:center;line-height:1.06;font-size:.86em;margin:0 .1em}
+.fr .fn{border-bottom:1.6px solid currentColor;padding:0 .14em}
+.fr .fd{padding:0 .14em}
+.rad{border-top:1.6px solid currentColor;padding:0 .12em;margin-left:.02em}
+.mono{font-family:var(--math)}
+
+/* ── 탭바 ─────────────────────────────────── */
+.tabbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:35;display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  background:rgba(255,255,255,.97);border-top:1px solid var(--line);
+  padding:.24rem .2rem calc(.24rem + env(safe-area-inset-bottom));
+  box-shadow:0 -3px 16px rgba(16,35,63,.06);backdrop-filter:blur(6px);
+}
+.tab{display:flex;flex-direction:column;align-items:center;gap:.06rem;padding:.24rem 0;min-width:0;border-radius:.7rem;color:var(--ink3)}
+.tab .ti{font-size:1.06rem;line-height:1.1;filter:grayscale(1);opacity:.75}
+.tab .tl{font-size:.6rem;font-weight:900;letter-spacing:-.03em;line-height:1.1;white-space:nowrap}
+.tab.on{color:var(--navy)}
+.tab.on .ti{filter:none;opacity:1}
+.tab.on .tl{color:var(--navy)}
+.tab.on::after{content:"";display:block;width:.9rem;height:.16rem;border-radius:99px;background:var(--blue);margin-top:.1rem}
+@media (max-width:330px){.tab .tl{font-size:.55rem}.tab .ti{font-size:.98rem}}
+
+/* ── 설치 안내 · 토스트 ───────────────────── */
+.modal{position:fixed;inset:0;z-index:60;background:rgba(9,19,34,.55);display:flex;align-items:flex-end;justify-content:center;padding:0}
+.sheet{
+  width:100%;max-width:34rem;background:#fff;border-radius:1.2rem 1.2rem 0 0;
+  padding:1rem 1rem calc(1rem + env(safe-area-inset-bottom));box-shadow:var(--shadow2);
+  animation:up .22s ease;
+}
+@keyframes up{from{transform:translateY(18px);opacity:.6}to{transform:none;opacity:1}}
+.sheet h3{margin:0 0 .3rem;font-size:1.02rem;font-weight:900;letter-spacing:-.04em}
+.sheet .lead{margin:0 0 .5rem;font-size:.78rem;line-height:1.5;color:var(--ink2);font-weight:700}
+.inststeps{margin:0 0 .5rem;padding-left:1.2rem;font-size:.76rem;line-height:1.6;color:var(--ink);font-weight:700}
+.inststeps li{margin:.22rem 0}
+.sheet .tiny{text-align:left}
+.sheet .btn{margin-top:.5rem}
+.btn.chrome{background:#1A73E8;color:#fff;border-color:#1A73E8;text-decoration:none;width:100%}
+.toast{
+  position:fixed;left:50%;bottom:calc(var(--tabh) + 1.1rem + env(safe-area-inset-bottom));
+  transform:translateX(-50%) translateY(.4rem);z-index:70;
+  background:rgba(16,35,63,.94);color:#F4F8FF;border-radius:99px;
+  padding:.5rem 1rem;font-size:.76rem;font-weight:800;max-width:88vw;text-align:center;
+  opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;
+}
+.toast.show{opacity:1;transform:translateX(-50%)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="topin">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">📘</span>
+      <div class="btxt">
+        <h1 data-i18n="appName">와글링 수학</h1>
+        <p class="sub" data-i18n="tagline">중·고등 수학 공부 노트</p>
+      </div>
+    </div>
+    <div class="topbtns">
+      <button id="btnLang" class="tbtn" type="button" aria-pressed="false" aria-label="한국어 / English">🌐 <span>한/EN</span></button>
+      <button id="installBtn" class="tbtn" type="button">📲 <span data-i18n="install">설치</span></button>
+      <button id="shareBtn" class="tbtn" type="button">📤 <span data-i18n="share">공유</span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ══ 홈 ══ -->
+<section id="pgHome" class="page">
+  <div class="herocard card">
+    <div class="heroline">
+      <div>
+        <p class="eyebrow" data-i18n="todayStudy">오늘의 학습</p>
+        <p class="hdate" id="homeDate">—</p>
+      </div>
+      <span class="hbadge" aria-hidden="true">📘</span>
+    </div>
+    <div class="stats">
+      <div class="stat"><span class="sv" id="stSolved">0</span><span class="sl" data-i18n="statSolved">푼 문제</span></div>
+      <div class="stat"><span class="sv" id="stAcc">–</span><span class="sl" data-i18n="statAcc">정답률</span></div>
+      <div class="stat"><span class="sv" id="stWrong">0</span><span class="sl" data-i18n="statWrong">오답</span></div>
+    </div>
+    <button type="button" id="btnRetry" class="btn wide soft"><span data-i18n="retryBtn">오답 다시 풀기</span><span class="pill" id="retryCount">0</span></button>
+    <p class="tiny" id="totalLine">총 푼 문제 0 · 정답 0</p>
+  </div>
+
+  <div class="phead">
+    <h2 data-i18n="menuTitle">무엇을 공부할까요?</h2>
+    <p data-i18n="menuSub">네 가지 도구로 중·고등 수학을 차근차근</p>
+  </div>
+  <div class="menu">
+    <button class="mcard" type="button" data-go="eq">
+      <span class="mico i-eq" aria-hidden="true">✏️</span>
+      <span class="mt" data-i18n="cardEq">일차·이차방정식</span>
+      <span class="md" data-i18n="cardEqD">문제를 풀고 단계별 해설</span>
+    </button>
+    <button class="mcard" type="button" data-go="graph">
+      <span class="mico i-graph" aria-hidden="true">📈</span>
+      <span class="mt" data-i18n="cardGraph">함수 그래프</span>
+      <span class="md" data-i18n="cardGraphD">슬라이더로 그래프가 움직여요</span>
+    </button>
+    <button class="mcard" type="button" data-go="geo">
+      <span class="mico i-geo" aria-hidden="true">🔺</span>
+      <span class="mt" data-i18n="cardGeo">도형 넓이·부피</span>
+      <span class="md" data-i18n="cardGeoD">공식·계산기·피타고라스</span>
+    </button>
+    <button class="mcard" type="button" data-go="form">
+      <span class="mico i-form" aria-hidden="true">📖</span>
+      <span class="mt" data-i18n="cardForm">핵심 공식집</span>
+      <span class="md" data-i18n="cardFormD">중·고등 필수 공식 검색</span>
+    </button>
+  </div>
+  <div class="card tipcard">
+    <p class="tiny" data-i18n="privacyNote">기록은 이 기기에만 저장되고, 어디로도 보내지 않아요.</p>
+  </div>
+</section>
+
+<!-- ══ 방정식 ══ -->
+<section id="pgEq" class="page" hidden>
+  <div class="phead">
+    <h2>✏️ <span data-i18n="eqTitle">방정식 풀이 연습</span></h2>
+    <p data-i18n="eqDesc">해가 깔끔하게 떨어지는 문제가 나와요</p>
+  </div>
+  <div class="chips" role="group" aria-label="난이도">
+    <button class="chip on" type="button" data-mode="basic" data-i18n="modeBasic">기초 · 일차</button>
+    <button class="chip" type="button" data-mode="quad" data-i18n="modeQuad">심화 · 이차</button>
+    <button class="chip" type="button" data-mode="mix" data-i18n="modeMix">섞기</button>
+  </div>
+
+  <div id="retrybar" class="retrybar" hidden>
+    <span id="retryText">오답 복습</span>
+    <button type="button" id="retryQuit" data-i18n="retryQuit">그만두기</button>
+  </div>
+
+  <div class="card probcard">
+    <div class="probhead">
+      <span class="plabel" id="eqNo">문제 1</span>
+      <span class="ptag" id="eqTag">일차방정식</span>
+    </div>
+    <div class="eq" id="eqText">—</div>
+    <label class="alabel" for="eqInput" id="eqAnsLabel">답</label>
+    <div class="ansrow">
+      <input id="eqInput" class="ansin" type="text" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="예: 3" />
+      <button id="eqCheck" class="btn primary" type="button" data-i18n="check">확인</button>
+    </div>
+    <div class="keypad" id="eqPad"></div>
+    <div class="fb" id="eqFb" role="status" aria-live="polite" hidden></div>
+    <div class="probacts">
+      <button id="eqSolBtn" class="btn" type="button">해설 보기</button>
+      <button id="eqNext" class="btn soft" type="button" data-i18n="nextProblem">다음 문제</button>
+    </div>
+  </div>
+
+  <div class="card" id="eqSolCard" hidden>
+    <h3 data-i18n="solutionTitle">풀이 과정</h3>
+    <ol class="steps" id="eqSteps"></ol>
+  </div>
+  <p class="session" id="eqSession"></p>
+</section>
+
+<!-- ══ 그래프 ══ -->
+<section id="pgGraph" class="page" hidden>
+  <div class="phead">
+    <h2>📈 <span data-i18n="graphTitle">함수 그래프 눈으로 보기</span></h2>
+    <p data-i18n="graphDesc">슬라이더를 움직이면 그래프가 바로 움직여요</p>
+  </div>
+  <div class="chips" role="group" aria-label="함수 종류">
+    <button class="chip on" type="button" data-fn="lin" data-i18n="fnLin">일차함수 y = ax + b</button>
+    <button class="chip" type="button" data-fn="quad" data-i18n="fnQuad">이차함수 y = ax² + bx + c</button>
+  </div>
+
+  <div class="card">
+    <div class="eq eqline" id="fnEq">y = 2x + 1</div>
+    <div class="canvasWrap"><canvas id="graph" width="600" height="560" aria-label="함수 그래프"></canvas></div>
+    <div id="sliders"></div>
+    <p class="tiny" data-i18n="graphTip">가로축은 x, 세로축은 y예요. −/+ 버튼으로 0.5씩 움직여요.</p>
+  </div>
+
+  <div class="card">
+    <h3 data-i18n="readGraph">그래프 읽기</h3>
+    <div class="info" id="fnInfo"></div>
+  </div>
+</section>
+
+<!-- ══ 도형 ══ -->
+<section id="pgGeo" class="page" hidden>
+  <div class="phead">
+    <h2>🔺 <span data-i18n="geoTitle">도형 넓이·부피</span></h2>
+    <p data-i18n="geoDesc">공식을 보고, 숫자를 넣으면 그림과 함께 계산돼요</p>
+  </div>
+  <div class="chips" role="group" aria-label="도형">
+    <button class="chip on" type="button" data-shape="tri" data-i18n="shapeTri">🔺 삼각형</button>
+    <button class="chip" type="button" data-shape="circle" data-i18n="shapeCircle">⭕ 원</button>
+    <button class="chip" type="button" data-shape="cyl" data-i18n="shapeCyl">🥫 원기둥</button>
+    <button class="chip" type="button" data-shape="pyth" data-i18n="shapePyth">📐 피타고라스</button>
+  </div>
+
+  <div class="card">
+    <div class="eq eqline" id="geoFormula">넓이 = ½ × 밑변 × 높이</div>
+    <div class="geoviz" id="geoViz"></div>
+    <div class="ginputs" id="geoInputs"></div>
+    <div class="resbox" id="geoRes"></div>
+    <p class="numline" id="geoNums"></p>
+  </div>
+
+  <div class="card practice">
+    <div class="pheadline">
+      <h3 data-i18n="practiceTitle">연습 문제</h3>
+      <button id="geoNew" class="btn soft" type="button" data-i18n="newProblem">새 문제</button>
+    </div>
+    <p class="q" id="geoQ">—</p>
+    <label class="alabel" for="geoInput" id="geoAnsLabel" data-i18n="answerLabel">답</label>
+    <div class="ansrow">
+      <input id="geoInput" type="text" inputmode="decimal" autocomplete="off" placeholder="예: 12" />
+      <button id="geoCheck" class="btn primary" type="button" data-i18n="check">확인</button>
+    </div>
+    <div class="fb" id="geoFb" role="status" aria-live="polite" hidden></div>
+    <div class="probacts">
+      <button id="geoSolBtn" class="btn" type="button">해설 보기</button>
+    </div>
+    <ol class="steps" id="geoSteps" hidden></ol>
+  </div>
+</section>
+
+<!-- ══ 공식집 ══ -->
+<section id="pgForm" class="page" hidden>
+  <div class="phead">
+    <h2>📖 <span data-i18n="formTitle">핵심 수학 공식집</span></h2>
+    <p data-i18n="formDesc">중·고등 필수 공식을 찾아보세요</p>
+  </div>
+  <div class="searchwrap">
+    <input id="formSearch" type="search" autocomplete="off" placeholder="공식 검색 (예: 근의 공식, 지수, 넓이)" aria-label="공식 검색" />
+    <span class="si" aria-hidden="true">🔍</span>
+  </div>
+  <p class="session" id="formCount"></p>
+  <div id="formulaList"></div>
+</section>
+
+</main>
+
+<nav class="tabbar" aria-label="주요 메뉴">
+  <button class="tab on" type="button" data-page="home"><span class="ti">📘</span><span class="tl" data-i18n="navHome">홈</span></button>
+  <button class="tab" type="button" data-page="eq"><span class="ti">✏️</span><span class="tl" data-i18n="navEq">방정식</span></button>
+  <button class="tab" type="button" data-page="graph"><span class="ti">📈</span><span class="tl" data-i18n="navGraph">그래프</span></button>
+  <button class="tab" type="button" data-page="geo"><span class="ti">🔺</span><span class="tl" data-i18n="navGeo">도형</span></button>
+  <button class="tab" type="button" data-page="form"><span class="ti">📖</span><span class="tl" data-i18n="navForm">공식</span></button>
+</nav>
+
+<div id="instModal" class="modal" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="instTitle">
+    <h3 id="instTitle">홈 화면에 추가</h3>
+    <p id="instLead" class="lead"></p>
+    <ol id="instSteps" class="inststeps"></ol>
+    <p id="instMini" class="tiny"></p>
+    <a id="instChrome" class="btn chrome" hidden>크롬으로 바로 열기</a>
+    <button id="instClose" class="btn wide primary" type="button">알겠어요</button>
+  </div>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   와글링 수학 · wagling-math v1
+   개인정보 0 · 서버 0 · 기록은 이 기기(localStorage)에만
+   ═══════════════════════════════════════════════════════════ */
+'use strict';
+
+var $ = function (s, r) { return (r || document).querySelector(s); };
+var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+var MINUS = '\u2212';
+
+/* ── 수식 도우미 ───────────────────────────── */
+function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { var t = a % b; a = b; b = t; } return a || 1; }
+function red(n, d) { if (d < 0) { n = -n; d = -d; } var g = gcd(n, d); return [n / g, d / g]; }
+function num(v) { return String(v).replace('-', MINUS); }
+function dec(v, dp) { var n = Number(v); if (!isFinite(n)) return '—'; var f = Number(n.toFixed(dp == null ? 2 : dp)); return num(String(f)); }
+function fracStr(n, d) { var r = red(n, d); return r[1] === 1 ? String(r[0]).replace('-', MINUS) : num(r[0]) + '/' + r[1]; }
+function fracHtml(n, d) {
+  var r = red(n, d);
+  if (r[1] === 1) return num(r[0]);
+  return '<span class="fr"><span class="fn">' + num(r[0]) + '</span><span class="fd">' + r[1] + '</span></span>';
+}
+function radHtml(n) { return '\u221a<span class="rad">' + n + '</span>'; }
+function polyHtml(terms) {
+  var out = '';
+  terms.forEach(function (t) {
+    if (!t.c) return;
+    var neg = t.c < 0, abs = Math.abs(t.c);
+    var body = (abs === 1 && t.v ? '' : num(abs)) + (t.v ? '<i>' + t.v + '</i>' + (t.sup ? '<sup>' + t.sup + '</sup>' : '') : '');
+    if (out === '') out = (neg ? MINUS : '') + body;
+    else out += (neg ? ' ' + MINUS + ' ' : ' + ') + body;
+  });
+  return out === '' ? '0' : out;
+}
+function fracBig(nHtml, dHtml) { return '<span class="fr"><span class="fn">' + nHtml + '</span><span class="fd">' + dHtml + '</span></span>'; }
+function uid() { return 'p' + Math.random().toString(36).slice(2, 9) + Date.now().toString(36).slice(-3); }
+
+/* ── 말 사전 ──────────────────────────────── */
+var I = {
+  ko: {
+    appName: '와글링 수학', tagline: '중·고등 수학 공부 노트', install: '설치', share: '공유',
+    todayStudy: '오늘의 학습', statSolved: '푼 문제', statAcc: '정답률', statWrong: '오답',
+    retryBtn: '오답 다시 풀기', retryEmpty: '아직 오답이 없어요.', retryQuit: '그만두기',
+    retryText: '오답 복습 {i}/{n}', retryAllDone: '오답을 모두 풀었어요!', retryRemoved: '오답 목록에서 지웠어요.',
+    menuTitle: '무엇을 공부할까요?', menuSub: '네 가지 도구로 중·고등 수학을 차근차근',
+    cardEq: '일차·이차방정식', cardEqD: '문제를 풀고 단계별 해설',
+    cardGraph: '함수 그래프', cardGraphD: '슬라이더로 그래프가 움직여요',
+    cardGeo: '도형 넓이·부피', cardGeoD: '공식·계산기·피타고라스',
+    cardForm: '핵심 공식집', cardFormD: '중·고등 필수 공식 검색',
+    privacyNote: '기록은 이 기기에만 저장되고, 어디로도 보내지 않아요.',
+    totalLine: '총 {n}문제 · 정답 {c}개',
+    eqTitle: '방정식 풀이 연습', eqDesc: '해가 깔끔하게 떨어지는 문제가 나와요',
+    modeBasic: '기초 · 일차', modeQuad: '심화 · 이차', modeMix: '섞기',
+    problemNo: '문제 {n}', tagLinear: '일차방정식', tagQuad: '이차방정식',
+    answerLabel: '답', twoRootsHint: '근 두 개',
+    answerPh: '예: 3 또는 3/2', answerPhQuad: '예: 3, -2',
+    check: '확인', showSolution: '해설 보기', hideSolution: '해설 닫기', nextProblem: '다음 문제',
+    solutionTitle: '풀이 과정',
+    enterAnswer: '답을 먼저 입력해 주세요.',
+    badAnswer: '숫자로 입력해 주세요. 예: 3/2',
+    badAnswerQuad: '두 근을 쉼표로 나눠 주세요. 예: 3, -2',
+    correctMsg: '정답이에요!', correctSub: '아래 해설에서 풀이 과정을 확인해 보세요.',
+    wrongMsg: '아쉬워요, 다시 풀어 봐요.', wrongSub: '한 번 더 생각하거나 해설을 펼쳐 보세요.',
+    attempts: '{n}번째 시도', sessionStat: '이번 공부 {n}문제 · 정답 {c}개',
+    stepGiven: '주어진 식', stepMoveConst: '상수항을 오른쪽으로 이항해요',
+    stepDivide: '양변을 {a}로 나눠요', stepMoveX: 'x가 있는 항을 왼쪽으로 모아요',
+    stepSimplify: '정리해요', stepCoeffs: '계수를 확인해요',
+    stepDisc: '판별식 D = b² − 4ac 를 계산해요', stepFormula: '근의 공식에 대입해요',
+    stepAnswer: '따라서 답은', stepCheck: '인수분해로 검산하면',
+    graphTitle: '함수 그래프 눈으로 보기', graphDesc: '슬라이더를 움직이면 그래프가 바로 움직여요',
+    fnLin: '일차함수 y = ax + b', fnQuad: '이차함수 y = ax² + bx + c',
+    graphTip: '가로축은 x, 세로축은 y예요. −/+ 버튼으로 0.5씩 움직여요.',
+    readGraph: '그래프 읽기',
+    labSlope: '기울기 a', labYint: 'y절편 b', labA2: '이차항 a', labB: '일차항 b', labC: 'y절편 c',
+    slope: '기울기', yInt: 'y절편', xInt: 'x절편', vertex: '꼭짓점', axis: '축', opening: '볼록 방향',
+    up: '아래로 볼록 (∪)', down: '위로 볼록 (∩)', none: '없음',
+    slopeUp: 'x가 1 늘면 y가 {a} 늘어요', slopeDown: 'x가 1 늘면 y가 {a} 줄어요',
+    slopeFlat: '기울기 0 — 수평선이에요', aZero: 'a = 0이면 일차함수예요',
+    twoRoots: '두 점에서 만나요', oneRoot: '한 점에서 만나요 (중근)', noRoots: 'x축과 만나지 않아요',
+    geoTitle: '도형 넓이·부피', geoDesc: '공식을 보고, 숫자를 넣으면 그림과 함께 계산돼요',
+    shapeTri: '🔺 삼각형', shapeCircle: '⭕ 원', shapeCyl: '🥫 원기둥', shapePyth: '📐 피타고라스',
+    base: '밑변', height: '높이', radius: '반지름', sideA: '변 a', sideB: '변 b',
+    area: '넓이', volume: '부피', surface: '겉넓이', circumference: '둘레', hypotenuse: '빗변 c',
+    geoFTri: '넓이 = ½ × 밑변 × 높이', geoFCircle: '넓이 = πr² · 둘레 = 2πr',
+    geoFCyl: '부피 = πr²h · 겉넓이 = 2πr² + 2πrh', geoFPyth: 'a² + b² = c²',
+    pythNote: '직각삼각형에서 두 변의 제곱의 합은 빗변의 제곱과 같아요.',
+    practiceTitle: '연습 문제', newProblem: '새 문제',
+    geoQTri: '밑변 {b}, 높이 {h}인 삼각형의 넓이는?',
+    geoQPythC: '직각삼각형의 두 변이 {a}, {b}일 때 빗변 c는?',
+    geoQPythLeg: '빗변이 {c}, 한 변이 {a}인 직각삼각형의 다른 변은?',
+    geoAnswerPh: '예: 12', answerLabel2: '답',
+    formTitle: '핵심 수학 공식집', formDesc: '중·고등 필수 공식을 찾아보세요',
+    formSearchPh: '공식 검색 (예: 근의 공식, 지수, 넓이)',
+    formCount: '{n}개 공식', formEmpty: '찾는 공식이 없어요. 다른 말로 검색해 보세요.',
+    gExpand: '곱셈공식 · 인수분해', gQuad: '이차방정식 · 이차함수', gExpo: '지수 · 로그',
+    gTrig: '삼각비', gShape: '도형', gSeq: '수열',
+    navHome: '홈', navEq: '방정식', navGraph: '그래프', navGeo: '도형', navForm: '공식',
+    instTitle: '홈 화면에 추가', instLead: '이 앱을 휴대폰에 설치하면 앱처럼 열리고, 인터넷이 없어도 열려요.',
+    instS1: '이 화면을 크롬(아이폰은 사파리)에서 열어요.', instS2: '오른쪽 위 ⋮ 메뉴(아이폰은 공유 버튼)를 눌러요.',
+    instS3: '‘홈 화면에 추가’ 또는 ‘앱 설치’를 골라요.', instS4: '추가를 누르면 홈 화면에 📘 아이콘이 생겨요.',
+    instMini: '가입 없음 · 광고 없음 · 개인정보를 받지 않아요.', instChromeBtn: '크롬으로 바로 열기', instOk: '알겠어요',
+    instAlready: '이미 설치되어 있어요.', installedMsg: '설치되었어요!',
+    shareText: '와글링 수학 — 방정식·그래프·도형·공식집으로 중·고등 수학 공부. 무료, 기록은 기기에만.',
+    shareCopied: '링크를 복사했어요.', shareCopyFail: '링크를 복사하지 못했어요.',
+    dateLocale: 'ko-KR', and: '또는'
+  },
+  en: {
+    appName: 'Wagling Math', tagline: 'Math study notes', install: 'Install', share: 'Share',
+    todayStudy: 'Today', statSolved: 'Solved', statAcc: 'Accuracy', statWrong: 'To review',
+    retryBtn: 'Review mistakes', retryEmpty: 'No mistakes to review yet.', retryQuit: 'Stop',
+    retryText: 'Mistake review {i}/{n}', retryAllDone: 'All mistakes cleared!', retryRemoved: 'Removed from your review list.',
+    menuTitle: 'What shall we study?', menuSub: 'Four tools for middle & high school math',
+    cardEq: 'Linear & quadratic', cardEqD: 'Solve with step-by-step help',
+    cardGraph: 'Function graphs', cardGraphD: 'Move sliders, watch the graph',
+    cardGeo: 'Area & volume', cardGeoD: 'Formulas, calculator, Pythagoras',
+    cardForm: 'Formula book', cardFormD: 'Essential formulas, searchable',
+    privacyNote: 'Your records stay on this device. Nothing is sent anywhere.',
+    totalLine: 'Total {n} solved · {c} correct',
+    eqTitle: 'Equation practice', eqDesc: 'Every problem has a clean answer',
+    modeBasic: 'Basic · Linear', modeQuad: 'Advanced · Quadratic', modeMix: 'Mixed',
+    problemNo: 'Problem {n}', tagLinear: 'Linear equation', tagQuad: 'Quadratic equation',
+    answerLabel: 'Answer', twoRootsHint: 'two roots',
+    answerPh: 'e.g. 3 or 3/2', answerPhQuad: 'e.g. 3, -2',
+    check: 'Check', showSolution: 'Show steps', hideSolution: 'Hide steps', nextProblem: 'Next problem',
+    solutionTitle: 'Step by step',
+    enterAnswer: 'Please type an answer first.',
+    badAnswer: 'Type a number, e.g. 3/2',
+    badAnswerQuad: 'Type two roots separated by a comma, e.g. 3, -2',
+    correctMsg: 'Correct!', correctSub: 'Open the steps below to see how it works.',
+    wrongMsg: 'Not quite — try again.', wrongSub: 'Think once more, or open the steps.',
+    attempts: 'attempt {n}', sessionStat: 'This session: {n} solved · {c} correct',
+    stepGiven: 'the equation', stepMoveConst: 'Move the constant to the right',
+    stepDivide: 'Divide both sides by {a}', stepMoveX: 'Collect the x terms on the left',
+    stepSimplify: 'Simplify', stepCoeffs: 'Identify the coefficients',
+    stepDisc: 'Discriminant D = b² − 4ac', stepFormula: 'Put it into the quadratic formula',
+    stepAnswer: 'So the answer is', stepCheck: 'Factored form checks out as',
+    graphTitle: 'See function graphs', graphDesc: 'Move a slider — the graph moves with it',
+    fnLin: 'Linear y = ax + b', fnQuad: 'Quadratic y = ax² + bx + c',
+    graphTip: 'x is horizontal, y is vertical. The −/+ buttons move by 0.5.',
+    readGraph: 'Read the graph',
+    labSlope: 'Slope a', labYint: 'y-intercept b', labA2: 'Quadratic term a', labB: 'Linear term b', labC: 'y-intercept c',
+    slope: 'Slope', yInt: 'y-intercept', xInt: 'x-intercept', vertex: 'Vertex', axis: 'Axis of symmetry', opening: 'Opening',
+    up: 'Opens up (∪)', down: 'Opens down (∩)', none: 'none',
+    slopeUp: 'each +1 in x adds {a} to y', slopeDown: 'each +1 in x takes {a} from y',
+    slopeFlat: 'slope 0 — a horizontal line', aZero: 'a = 0 makes this a line, not a quadratic',
+    twoRoots: 'crosses at two points', oneRoot: 'touches at one point (double root)', noRoots: 'never crosses the x-axis',
+    geoTitle: 'Area & volume', geoDesc: 'See the formula, type numbers, get the picture and the result',
+    shapeTri: '🔺 Triangle', shapeCircle: '⭕ Circle', shapeCyl: '🥫 Cylinder', shapePyth: '📐 Pythagoras',
+    base: 'Base', height: 'Height', radius: 'Radius', sideA: 'Side a', sideB: 'Side b',
+    area: 'Area', volume: 'Volume', surface: 'Surface area', circumference: 'Circumference', hypotenuse: 'Hypotenuse c',
+    geoFTri: 'Area = ½ × base × height', geoFCircle: 'Area = πr² · Circumference = 2πr',
+    geoFCyl: 'Volume = πr²h · Surface = 2πr² + 2πrh', geoFPyth: 'a² + b² = c²',
+    pythNote: 'In a right triangle the squares of the two legs add up to the square of the hypotenuse.',
+    practiceTitle: 'Practice', newProblem: 'New problem',
+    geoQTri: 'What is the area of a triangle with base {b} and height {h}?',
+    geoQPythC: 'The two legs of a right triangle are {a} and {b}. What is the hypotenuse c?',
+    geoQPythLeg: 'The hypotenuse is {c} and one leg is {a}. What is the other leg?',
+    geoAnswerPh: 'e.g. 12', answerLabel2: 'Answer',
+    formTitle: 'Formula book', formDesc: 'Find the middle & high school formulas you need',
+    formSearchPh: 'Search formulas (e.g. quadratic, area)',
+    formCount: '{n} formulas', formEmpty: 'No formula found. Try another word.',
+    gExpand: 'Expansion · Factoring', gQuad: 'Quadratics', gExpo: 'Exponents · Logs',
+    gTrig: 'Trigonometry', gShape: 'Geometry', gSeq: 'Sequences',
+    navHome: 'Home', navEq: 'Equations', navGraph: 'Graph', navGeo: 'Shapes', navForm: 'Formulas',
+    instTitle: 'Add to Home screen', instLead: 'Install this app on your phone — it opens like an app and works offline.',
+    instS1: 'Open this page in Chrome (Safari on iPhone).', instS2: 'Tap the ⋮ menu (or the Share button in Safari).',
+    instS3: 'Choose “Add to Home screen” / “Install app”.', instS4: 'Tap Add — the 📘 icon appears on your home screen.',
+    instMini: 'No sign-up, no ads, no personal information.', instChromeBtn: 'Open in Chrome', instOk: 'Got it',
+    instAlready: 'Already installed.', installedMsg: 'Installed!',
+    shareText: 'Wagling Math — equations, graphs, shapes and a formula book for middle & high school. Free; records stay on your device.',
+    shareCopied: 'Link copied.', shareCopyFail: 'Could not copy the link.',
+    dateLocale: 'en-US', and: 'or'
+  }
+};
+
+/* ── 상태 ─────────────────────────────────── */
+var KEY = 'waglingMath.v1';
+function defaultState() {
+  return { lang: 'ko', days: {}, total: 0, totalC: 0, wrong: [], mode: 'basic', fn: 'lin' };
+}
+var S = defaultState();
+function load() {
+  try {
+    var raw = localStorage.getItem(KEY);
+    if (!raw) return;
+    var d = JSON.parse(raw);
+    if (!d || typeof d !== 'object') return;
+    S.lang = d.lang === 'en' ? 'en' : 'ko';
+    S.days = (d.days && typeof d.days === 'object') ? d.days : {};
+    S.total = Number(d.total) || 0;
+    S.totalC = Number(d.totalC) || 0;
+    S.wrong = Array.isArray(d.wrong) ? d.wrong.filter(function (p) { return p && p.type; }).slice(0, 40) : [];
+    S.mode = ['basic', 'quad', 'mix'].indexOf(d.mode) >= 0 ? d.mode : 'basic';
+    S.fn = d.fn === 'quad' ? 'quad' : 'lin';
+  } catch (e) { /* 저장소를 못 쓰면 메모리로만 동작 */ }
+}
+function save() {
+  try {
+    localStorage.setItem(KEY, JSON.stringify({ lang: S.lang, days: S.days, total: S.total, totalC: S.totalC, wrong: S.wrong, mode: S.mode, fn: S.fn }));
+  } catch (e) { /* 무시 */ }
+}
+function T(k, v) {
+  var s = (I[S.lang] && I[S.lang][k] != null) ? I[S.lang][k] : (I.ko[k] != null ? I.ko[k] : k);
+  if (v) s = s.replace(/\{(\w+)\}/g, function (m, g) { return v[g] != null ? String(v[g]) : m; });
+  return s;
+}
+function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+function todayKey() { var d = new Date(); return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
+
+/* ── 기록 ─────────────────────────────────── */
+function record(sec, ok) {
+  var k = todayKey();
+  var t = S.days[k] || (S.days[k] = { n: 0, c: 0 });
+  t.n++; if (ok) t.c++;
+  S.total++; if (ok) S.totalC++;
+  var keys = Object.keys(S.days).sort();
+  if (keys.length > 90) { keys.slice(0, keys.length - 90).forEach(function (x) { delete S.days[x]; }); }
+  save(); renderHome();
+}
+function addWrong(p) {
+  if (!p || !p.id) return;
+  var exists = S.wrong.some(function (w) { return w.id === p.id; });
+  if (exists) return;
+  var copy = JSON.parse(JSON.stringify(p));
+  S.wrong.unshift(copy);
+  if (S.wrong.length > 30) S.wrong.length = 30;
+  save(); renderHome();
+}
+function removeWrong(p) {
+  if (!p || !p.id) return;
+  var before = S.wrong.length;
+  S.wrong = S.wrong.filter(function (w) { return w.id !== p.id; });
+  if (S.wrong.length !== before) { save(); renderHome(); }
+}
+function renderHome() {
+  var k = todayKey();
+  var t = S.days[k] || { n: 0, c: 0 };
+  var elS = $('#stSolved'), elA = $('#stAcc'), elW = $('#stWrong');
+  if (!elS) return;
+  elS.textContent = t.n;
+  elA.textContent = t.n ? Math.round(t.c / t.n * 100) + '%' : '–';
+  elW.textContent = S.wrong.length;
+  $('#retryCount').textContent = S.wrong.length;
+  $('#totalLine').textContent = T('totalLine', { n: S.total, c: S.totalC });
+  try {
+    $('#homeDate').textContent = new Intl.DateTimeFormat(T('dateLocale'), { month: 'long', day: 'numeric', weekday: 'long' }).format(new Date());
+  } catch (e) { $('#homeDate').textContent = k; }
+  if (S.lang === 'en') $('#homeDate').textContent = new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric' }).format(new Date());
+}
+
+/* ── 언어 ─────────────────────────────────── */
+function applyStatic() {
+  document.documentElement.lang = S.lang === 'en' ? 'en' : 'ko';
+  $$('[data-i18n]').forEach(function (el) {
+    var k = el.getAttribute('data-i18n');
+    if (I[S.lang] && I[S.lang][k] != null) el.textContent = I[S.lang][k];
+  });
+  $('#btnLang').setAttribute('aria-pressed', S.lang === 'en' ? 'true' : 'false');
+  $('#formSearch').setAttribute('placeholder', T('formSearchPh'));
+  $('#formSearch').setAttribute('aria-label', T('formSearchPh'));
+  if (!solOpen) $('#eqSolBtn').textContent = T('showSolution');
+  if (!gStepsOpen) $('#geoSolBtn').textContent = T('showSolution');
+  document.title = S.lang === 'en' ? 'Wagling Math · Middle & high school math notes' : '와글링 수학 · 중·고등 수학 공부 노트';
+}
+function setLang(l) {
+  S.lang = l === 'en' ? 'en' : 'ko';
+  save();
+  applyStatic();
+  syncDynamic();
+}
+function syncDynamic() {
+  renderHome();
+  if (cur) { paintEq(); }
+  renderGraphAll();
+  renderGeo();
+  renderGeoQ();
+  renderFormulas();
+  if (retry) updateRetryBar();
+  if (geoReady) { syncGeoAnswerUi(); if (gStepsOpen) renderGeoSol(); }
+}
+
+/* ── 토스트 ───────────────────────────────── */
+var toastTimer = null;
+function toast(msg) {
+  var el = $('#toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function () { el.classList.remove('show'); }, 2200);
+}
+
+/* ── 화면 전환 · 뒤로가기 ─────────────────── */
+var page = 'home';
+var NAV = [{ p: 'home' }];
+var PAGE_ID = { home: 'pgHome', eq: 'pgEq', graph: 'pgGraph', geo: 'pgGeo', form: 'pgForm' };
+function showPage(p) {
+  page = p;
+  Object.keys(PAGE_ID).forEach(function (k) { var el = $('#' + PAGE_ID[k]); if (el) el.hidden = (k !== p); });
+  $$('.tab').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-page') === p); });
+  window.scrollTo(0, 0);
+  if (p === 'home') renderHome();
+  if (p === 'eq' && !cur) nextProblem();
+  if (p === 'graph') requestAnimationFrame(drawGraph);
+  if (p === 'geo') { if (!geoReady) { initGeo(); } renderGeo(); }
+  if (p === 'form') renderFormulas();
+}
+function go(p) {
+  if (!PAGE_ID[p] || p === page) return;
+  try { history.pushState({ wp: NAV.length + 1 }, ''); } catch (e) {}
+  NAV.push({ p: p });
+  showPage(p);
+}
+window.addEventListener('popstate', function () {
+  if (!$('#instModal').hidden) { $('#instModal').hidden = true; }
+  if (NAV.length > 1) NAV.pop();
+  showPage(NAV[NAV.length - 1].p);
+});
+
+/* ── 설치 · 공유 ──────────────────────────── */
+var instPrompt = null, instDone = false;
+function isStandalone() {
+  try {
+    if (window.matchMedia && (window.matchMedia('(display-mode: standalone)').matches || window.matchMedia('(display-mode: minimal-ui)').matches)) return true;
+  } catch (e) {}
+  return navigator.standalone === true;
+}
+function isAndroid() { return /Android/i.test(navigator.userAgent || ''); }
+function inAppBrowser() { return /KAKAOTALK|Instagram|NAVER|FBAN|FBAV|Line\//i.test(navigator.userAgent || ''); }
+function chromeIntent() {
+  var host = location.host || 'starpicklife-design.github.io';
+  var path = (location.pathname || '/math/') + (location.search || '');
+  return 'intent://' + host + path + '#Intent;scheme=https;package=com.android.chrome;end';
+}
+function syncInstall() { var b = $('#installBtn'); if (b) b.hidden = instDone || isStandalone(); }
+function openInstall() {
+  $('#instTitle').textContent = T('instTitle');
+  $('#instLead').textContent = T('instLead');
+  $('#instSteps').innerHTML = ['instS1', 'instS2', 'instS3', 'instS4'].map(function (k) { return '<li>' + T(k) + '</li>'; }).join('');
+  $('#instMini').textContent = T('instMini');
+  $('#instClose').textContent = T('instOk');
+  var ch = $('#instChrome'), show = isAndroid() && inAppBrowser();
+  ch.hidden = !show;
+  if (show) { ch.textContent = T('instChromeBtn'); ch.setAttribute('href', chromeIntent()); }
+  $('#instModal').hidden = false;
+}
+function closeInstall() { $('#instModal').hidden = true; }
+function installTap() {
+  if (instDone || isStandalone()) { toast(T('instAlready')); return; }
+  if (instPrompt) {
+    var dp = instPrompt; instPrompt = null;
+    try {
+      dp.prompt();
+      if (dp.userChoice && dp.userChoice.then) dp.userChoice.then(function (r) { if (r && r.outcome === 'accepted') toast(T('installedMsg')); syncInstall(); }, function () {});
+      return;
+    } catch (e) {}
+  }
+  openInstall();
+}
+function legacyCopy(text, ok, fail) {
+  try {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed'; ta.style.top = '-9999px';
+    document.body.appendChild(ta); ta.select();
+    var done = document.execCommand && document.execCommand('copy');
+    document.body.removeChild(ta);
+    if (done) ok(); else fail();
+  } catch (e) { fail(); }
+}
+function copyText(text, ok, fail) {
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, function () { legacyCopy(text, ok, fail); });
+  else legacyCopy(text, ok, fail);
+}
+function shareApp() {
+  var p = { title: S.lang === 'en' ? 'Wagling Math' : '와글링 수학', text: T('shareText'), url: 'https://starpicklife-design.github.io/math/' };
+  var usable = true;
+  try { if (navigator.canShare && !navigator.canShare(p)) usable = false; } catch (e) {}
+  var ok = function () { toast(T('shareCopied')); };
+  var fail = function () { toast(T('shareCopyFail')); };
+  if (navigator.share && usable) {
+    try {
+      var r = navigator.share(p);
+      if (r && r.then) r.then(function () {}, function (err) { if (err && err.name === 'AbortError') return; copyText(p.text + '\n\n' + p.url, ok, fail); });
+      return;
+    } catch (e) {}
+  }
+  copyText(p.text + '\n\n' + p.url, ok, fail);
+}
+
+/* ═══════════════ 2. 방정식 풀이 연습 ═══════════════ */
+var cur = null, qNo = 0, attempts = 0, answered = false, solOpen = false;
+var session = { n: 0, c: 0 };
+var retry = null;
+
+function ri(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+
+function genLinear() {
+  var kind = pick(['one', 'one', 'both', 'frac']);
+  if (kind === 'both') {
+    var a, c, x, b, d;
+    do { a = ri(2, 9); c = ri(1, 9); } while (a === c);
+    x = ri(-8, 8); b = ri(-10, 10); d = (a - c) * x + b;
+    return { id: uid(), type: 'lin', kind: 'both', a: a, b: b, c: c, d: d, ans: [{ n: x, d: 1 }] };
+  }
+  if (kind === 'frac') {
+    var q = pick([2, 3, 4, 5, 6]);
+    var p;
+    do { p = ri(-9, 9); } while (p === 0 || gcd(Math.abs(p), q) !== 1);
+    var k = pick([1, 2]);
+    var a2 = q * k, b2 = ri(-6, 6), c2 = k * p + b2;
+    return { id: uid(), type: 'lin', kind: 'frac', a: a2, b: b2, c: c2, ans: [{ n: p, d: q }] };
+  }
+  var a3 = ri(2, 9), x3 = ri(-9, 9), b3 = ri(-12, 12);
+  if (b3 === 0) b3 = ri(1, 9);
+  return { id: uid(), type: 'lin', kind: 'one', a: a3, b: b3, c: a3 * x3 + b3, ans: [{ n: x3, d: 1 }] };
+}
+
+function genQuad() {
+  var a, r1, r2;
+  if (Math.random() < 0.68) {
+    a = pick([1, 1, 1, 2, -1]);
+    r1 = ri(-6, 6); r2 = ri(-6, 6);
+    if (r1 === r2 && Math.random() < 0.65) r2 = r1 + pick([-3, -2, -1, 1, 2, 3]);
+  } else {
+    a = 2;
+    r1 = { n: pick([-5, -3, -1, 1, 3, 5]), d: 2 };
+    r2 = { n: ri(-4, 4), d: 1 };
+  }
+  var R1 = (typeof r1 === 'number') ? { n: r1, d: 1 } : r1;
+  var R2 = (typeof r2 === 'number') ? { n: r2, d: 1 } : r2;
+  var sumN = R1.n * R2.d + R2.n * R1.d, sumD = R1.d * R2.d;
+  var prodN = R1.n * R2.n, prodD = R1.d * R2.d;
+  var b = -a * sumN / sumD;
+  var c = a * prodN / prodD;
+  if (!Number.isInteger(b) || !Number.isInteger(c) || (b === 0 && c === 0)) return genQuad();
+  return { id: uid(), type: 'quad', a: a, b: b, c: c, roots: [R1, R2], ans: [R1, R2] };
+}
+function genProblem() {
+  if (S.mode === 'basic') return genLinear();
+  if (S.mode === 'quad') return genQuad();
+  return Math.random() < 0.5 ? genLinear() : genQuad();
+}
+
+function linHtml(p) {
+  var L = polyHtml([{ c: p.a, v: 'x' }, { c: p.b }]);
+  var R = (p.kind === 'both') ? polyHtml([{ c: p.c, v: 'x' }, { c: p.d }]) : num(p.c);
+  return L + ' = ' + R;
+}
+function quadHtml(p) {
+  return polyHtml([{ c: p.a, v: 'x', sup: '2' }, { c: p.b, v: 'x' }, { c: p.c }]) + ' = 0';
+}
+function probHtml(p) { return p.type === 'lin' ? linHtml(p) : quadHtml(p); }
+
+/* ── 답 파싱 ──────────────────────────────── */
+function toRatio(txt) {
+  var neg = txt.charAt(0) === '-';
+  var t = neg ? txt.slice(1) : txt;
+  var dot = t.indexOf('.');
+  if (dot >= 0) {
+    var ip = t.slice(0, dot) || '0', fp = t.slice(dot + 1);
+    var d = Math.pow(10, fp.length);
+    var n = (parseInt(ip, 10) || 0) * d + (parseInt(fp, 10) || 0);
+    return { n: neg ? -n : n, d: d };
+  }
+  var v = parseInt(t, 10);
+  if (isNaN(v)) return null;
+  return { n: neg ? -v : v, d: 1 };
+}
+function parseAnswer(raw) {
+  var s = String(raw == null ? '' : raw).trim();
+  if (!s) return null;
+  s = s.replace(/[\u2212\u2013\u2014]/g, '-').replace(/\s+/g, '');
+  s = s.replace(/x=/gi, '').replace(/=/g, '');
+  s = s.replace(/\ub610\ub294/g, ',').replace(/or/gi, ',').replace(/\uacfc/g, ',');
+  var parts = s.split(/[,;]/).filter(Boolean);
+  if (!parts.length || parts.length > 3) return null;
+  var out = [];
+  for (var i = 0; i < parts.length; i++) {
+    var m = parts[i].match(/^(-?\d+(?:\.\d+)?)(?:\/(-?\d+(?:\.\d+)?))?$/);
+    if (!m) return null;
+    var a = toRatio(m[1]);
+    var b = m[2] ? toRatio(m[2]) : { n: 1, d: 1 };
+    if (!a || !b || b.n === 0) return null;
+    // (a/b) ÷ (c/d) = (a*d)/(b*c)
+    var n = a.n * b.d, d = a.d * b.n;
+    var r = red(n, d);
+    out.push({ n: r[0], d: r[1] });
+  }
+  return out;
+}
+function sameVal(x, y) { return x.n * y.d === y.n * x.d; }
+function rootsMatch(parsed, need) {
+  if (need.length === 1) return parsed.length === 1 && sameVal(parsed[0], need[0]);
+  if (parsed.length === 1) return sameVal(need[0], need[1]) && sameVal(parsed[0], need[0]);
+  if (parsed.length !== 2) return false;
+  return (sameVal(parsed[0], need[0]) && sameVal(parsed[1], need[1])) ||
+         (sameVal(parsed[0], need[1]) && sameVal(parsed[1], need[0]));
+}
+
+/* ── 화면 그리기 ──────────────────────────── */
+function paintEq() {
+  if (!cur) return;
+  $('#eqText').innerHTML = probHtml(cur);
+  var tag = $('#eqTag');
+  tag.textContent = cur.type === 'lin' ? T('tagLinear') : T('tagQuad');
+  tag.className = 'ptag' + (cur.type === 'quad' ? ' quad' : '');
+  $('#eqAnsLabel').textContent = T('answerLabel') + (cur.type === 'quad' ? ' · ' + T('twoRootsHint') : '');
+  var inp = $('#eqInput');
+  inp.placeholder = T(cur.type === 'quad' ? 'answerPhQuad' : 'answerPh');
+  $('#eqNo').textContent = T('problemNo', { n: qNo });
+  $('#eqSolBtn').textContent = T(solOpen ? 'hideSolution' : 'showSolution');
+  renderEqSession();
+  if (solOpen) renderSteps();
+}
+function renderEqSession() {
+  $('#eqSession').textContent = T('sessionStat', { n: session.n, c: session.c });
+}
+function resetEqUi() {
+  $('#eqInput').value = '';
+  var fb = $('#eqFb'); fb.hidden = true; fb.className = 'fb'; fb.innerHTML = '';
+  $('#eqSolCard').hidden = true;
+  $('#pgEq').classList.remove('solving');
+  $('#eqSolBtn').textContent = T('showSolution');
+  solOpen = false;
+}
+function nextProblem() {
+  attempts = 0; answered = false; solOpen = false;
+  if (retry) {
+    retry.i++;
+    if (retry.i >= retry.queue.length) { endRetry(true); return; }
+    cur = retry.queue[retry.i];
+    updateRetryBar();
+  } else {
+    cur = genProblem();
+  }
+  qNo++;
+  resetEqUi();
+  paintEq();
+}
+
+function feedback(ok) {
+  var fb = $('#eqFb');
+  fb.className = 'fb ' + (ok ? 'ok' : 'no');
+  fb.hidden = false;
+  var sub = ok ? T('correctSub') : T('wrongSub');
+  if (!ok && attempts > 1) sub += ' · ' + T('attempts', { n: attempts });
+  fb.innerHTML = (ok ? '\u2713 ' : '\u2715 ') + '<b>' + T(ok ? 'correctMsg' : 'wrongMsg') + '</b><span class="fbsub">' + sub + '</span>';
+}
+function checkEq() {
+  if (!cur) return;
+  var raw = $('#eqInput').value.trim();
+  if (!raw) { toast(T('enterAnswer')); return; }
+  var parsed = parseAnswer(raw);
+  if (!parsed || parsed.length > 2) { toast(T(cur.type === 'quad' ? 'badAnswerQuad' : 'badAnswer')); return; }
+  var ok = cur.type === 'lin' ? (parsed.length === 1 && sameVal(parsed[0], cur.ans[0])) : rootsMatch(parsed, cur.ans);
+  attempts++;
+  if (!answered) {
+    answered = true; session.n++;
+    if (ok) session.c++;
+    record('eq', ok);
+    renderEqSession();
+  }
+  if (ok) {
+    feedback(true);
+    if (retry) removeWrong(cur);
+  } else {
+    feedback(false);
+    if (!retry) addWrong(cur);
+  }
+}
+function toggleSolution() {
+  if (!cur) return;
+  solOpen = !solOpen;
+  $('#eqSolCard').hidden = !solOpen;
+  $('#pgEq').classList.toggle('solving', solOpen);
+  $('#eqSolBtn').textContent = T(solOpen ? 'hideSolution' : 'showSolution');
+  if (solOpen) renderSteps();
+}
+function renderSteps() {
+  if (!cur) return;
+  $('#eqSteps').innerHTML = cur.type === 'lin' ? stepsLinear(cur) : stepsQuad(cur);
+}
+
+/* ── 풀이 과정 ────────────────────────────── */
+function li(why, math) { return '<li><span class="m">' + math + '</span><span class="why">' + why + '</span></li>'; }
+function answerLi(p) {
+  var r1 = p.ans[0], r2 = p.ans[1];
+  var s = 'x = ' + fracHtml(r1.n, r1.d);
+  if (r2 && !sameVal(r1, r2)) s += ' ' + T('and') + ' x = ' + fracHtml(r2.n, r2.d);
+  return '<li class="ansline"><span class="m">' + T('stepAnswer') + ' ' + s + '</span></li>';
+}
+function stepsLinear(p) {
+  var out = [];
+  out.push(li(T('stepGiven'), linHtml(p)));
+  if (p.kind === 'both') {
+    var left = polyHtml([{ c: p.a, v: 'x' }]) + ' ' + MINUS + ' ' + polyHtml([{ c: p.c, v: 'x' }]);
+    var right = num(p.d) + (p.b !== 0 ? ' ' + (p.b > 0 ? MINUS : '+') + ' ' + Math.abs(p.b) : '');
+    out.push(li(T('stepMoveX'), left + ' = ' + right));
+    var coef = p.a - p.c;
+    out.push(li(T('stepSimplify'), polyHtml([{ c: coef, v: 'x' }]) + ' = ' + num(p.d - p.b)));
+    if (coef !== 1) out.push(li(T('stepDivide', { a: coef }), 'x = ' + fracHtml(p.d - p.b, coef)));
+  } else {
+    if (p.b !== 0) {
+      out.push(li(T('stepMoveConst'), polyHtml([{ c: p.a, v: 'x' }]) + ' = ' + num(p.c) + ' ' + (p.b > 0 ? MINUS : '+') + ' ' + Math.abs(p.b) + ' = ' + num(p.c - p.b)));
+    }
+    if (p.a !== 1) out.push(li(T('stepDivide', { a: p.a }), 'x = ' + fracHtml(p.c - p.b, p.a)));
+  }
+  out.push(answerLi(p));
+  return out.join('');
+}
+function factorHtml(r) {
+  if (r.n === 0) return 'x';
+  return '(x ' + (r.n > 0 ? MINUS : '+') + ' ' + fracHtml(Math.abs(r.n), r.d) + ')';
+}
+function stepsQuad(p) {
+  var out = [];
+  out.push(li(T('stepGiven'), quadHtml(p)));
+  out.push(li(T('stepCoeffs'), 'a = ' + num(p.a) + ', b = ' + num(p.b) + ', c = ' + num(p.c)));
+  var bb = p.b * p.b, fac = 4 * p.a * p.c, D = bb - fac;
+  out.push(li(T('stepDisc'), 'D = (' + num(p.b) + ')\u00b2 ' + MINUS + ' 4\u00b7(' + num(p.a) + ')\u00b7(' + num(p.c) + ') = ' + num(bb) + ' ' + (fac >= 0 ? MINUS : '+') + ' ' + Math.abs(fac) + ' = ' + num(D)));
+  if (D >= 0) {
+    out.push(li(T('stepFormula'), 'x = ' + fracBig(num(-p.b) + ' \u00b1 ' + radHtml(D), num(2 * p.a))));
+  }
+  var r1 = p.roots[0], r2 = p.roots[1];
+  if (p.a === 1 && r1.d === 1 && r2.d === 1) {
+    out.push(li(T('stepCheck'), factorHtml(r1) + factorHtml(r2) + ' = 0'));
+  }
+  out.push(answerLi(p));
+  return out.join('');
+}
+
+/* ── 오답 복습 ────────────────────────────── */
+function startRetry() {
+  if (!S.wrong.length) { toast(T('retryEmpty')); return; }
+  retry = { queue: JSON.parse(JSON.stringify(S.wrong)), i: 0 };
+  cur = retry.queue[0];
+  qNo = 1; attempts = 0; answered = false; solOpen = false;
+  if (page !== 'eq') { go('eq'); }
+  resetEqUi();
+  paintEq();
+  updateRetryBar();
+}
+function updateRetryBar() {
+  if (!retry) { $('#retrybar').hidden = true; return; }
+  $('#retrybar').hidden = false;
+  $('#retryText').textContent = T('retryText', { i: retry.i + 1, n: retry.queue.length });
+}
+function endRetry(done) {
+  retry = null;
+  $('#retrybar').hidden = true;
+  if (done) toast(S.wrong.length ? T('retryEmpty') : T('retryAllDone'));
+  nextProblem();
+}
+
+/* ── 키패드 · 사건 ───────────────────────── */
+function buildPad() {
+  var rows = [['1', '2', '3', '\u232b'], ['4', '5', '6', '\u2212'], ['7', '8', '9', '/'], ['0', ',', '.', 'C']];
+  var html = '';
+  rows.forEach(function (r) {
+    r.forEach(function (k) {
+      var cls = 'kb' + ((k === '\u232b' || k === 'C') ? ' fn' : '');
+      html += '<button type="button" class="' + cls + '" data-k="' + k + '" aria-label="' + (k === '\u232b' ? 'backspace' : k === 'C' ? 'clear' : k) + '">' + k + '</button>';
+    });
+  });
+  $('#eqPad').innerHTML = html;
+  $('#eqPad').addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('button') : null;
+    if (!b) return;
+    var k = b.getAttribute('data-k');
+    var inp = $('#eqInput');
+    if (k === 'C') inp.value = '';
+    else if (k === '\u232b') inp.value = inp.value.slice(0, -1);
+    else inp.value += (k === '\u2212' ? '-' : k);
+  });
+}
+function setMode(m) {
+  if (['basic', 'quad', 'mix'].indexOf(m) < 0) return;
+  S.mode = m; save();
+  $$('.chip[data-mode]').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-mode') === m); });
+  if (retry) { retry = null; $('#retrybar').hidden = true; }
+  session = { n: 0, c: 0 }; qNo = 0;
+  nextProblem();
+}
+function bindEq() {
+  buildPad();
+  $('#eqCheck').addEventListener('click', checkEq);
+  $('#eqInput').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); checkEq(); } });
+  $('#eqSolBtn').addEventListener('click', toggleSolution);
+  $('#eqNext').addEventListener('click', nextProblem);
+  $('#btnRetry').addEventListener('click', startRetry);
+  $('#retryQuit').addEventListener('click', function () { retry = null; $('#retrybar').hidden = true; nextProblem(); });
+  $$('.chip[data-mode]').forEach(function (b) {
+    b.addEventListener('click', function () { setMode(b.getAttribute('data-mode')); });
+    b.classList.toggle('on', b.getAttribute('data-mode') === S.mode);
+  });
+}
+
+/* ═══════════════ 3. 함수 그래프 ═══════════════ */
+var G = { fn: (S.fn === 'quad' ? 'quad' : 'lin'), lin: { a: 2, b: 1 }, quad: { a: 1, b: -2, c: -3 } };
+
+function sliderDefs() {
+  if (G.fn === 'lin') return [
+    { k: 'a', label: 'labSlope', min: -4, max: 4 },
+    { k: 'b', label: 'labYint', min: -6, max: 6 }
+  ];
+  return [
+    { k: 'a', label: 'labA2', min: -2, max: 2 },
+    { k: 'b', label: 'labB', min: -6, max: 6 },
+    { k: 'c', label: 'labC', min: -6, max: 6 }
+  ];
+}
+function fnHtml() {
+  var co = G[G.fn];
+  if (G.fn === 'lin') return 'y = ' + polyHtml([{ c: co.a, v: 'x' }, { c: co.b }]);
+  return 'y = ' + polyHtml([{ c: co.a, v: 'x', sup: '2' }, { c: co.b, v: 'x' }, { c: co.c }]);
+}
+function buildSliders() {
+  var co = G[G.fn];
+  $('#sliders').innerHTML = sliderDefs().map(function (d) {
+    var v = co[d.k];
+    return '<div class="srow">' +
+      '<div class="shead"><span class="sname"><span class="sv2">' + d.k + '</span>' + T(d.label) + '</span>' +
+      '<output class="sval" id="sv_' + d.k + '">' + num(v) + '</output></div>' +
+      '<div class="sctl">' +
+      '<button class="sstep" type="button" data-k="' + d.k + '" data-d="-0.5" aria-label="' + d.k + ' minus 0.5">' + MINUS + '</button>' +
+      '<input type="range" min="' + d.min + '" max="' + d.max + '" step="0.5" value="' + v + '" data-k="' + d.k + '" aria-label="' + T(d.label) + '">' +
+      '<button class="sstep" type="button" data-k="' + d.k + '" data-d="0.5" aria-label="' + d.k + ' plus 0.5">+</button>' +
+      '</div></div>';
+  }).join('');
+}
+function setCoef(k, v) {
+  var co = G[G.fn];
+  var d = null;
+  sliderDefs().forEach(function (x) { if (x.k === k) d = x; });
+  if (!d) return;
+  v = Math.max(d.min, Math.min(d.max, Math.round(v * 2) / 2));
+  co[k] = v;
+  var inp = $('input[type=range][data-k="' + k + '"]');
+  if (inp) inp.value = String(v);
+  var out = $('#sv_' + k);
+  if (out) out.textContent = num(v);
+  $('#fnEq').innerHTML = fnHtml();
+  renderGraphInfo();
+  drawGraph();
+}
+function renderGraphAll() {
+  $$('.chip[data-fn]').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-fn') === G.fn); });
+  if (!$('#sliders')) return;
+  buildSliders();
+  $('#fnEq').innerHTML = fnHtml();
+  renderGraphInfo();
+  if (!$('#pgGraph').hidden) requestAnimationFrame(drawGraph);
+}
+function irow(k, v, sub) {
+  return '<div class="irow"><span class="ik">' + k + '</span><span class="iv"><span class="m">' + v + '</span>' + (sub ? '<small>' + sub + '</small>' : '') + '</span></div>';
+}
+function renderGraphInfo() {
+  if (!$('#fnInfo')) return;
+  var co = G[G.fn], rows = [];
+  if (G.fn === 'lin') {
+    var a = co.a, b = co.b;
+    var sub = a === 0 ? T('slopeFlat') : (a > 0 ? T('slopeUp', { a: num(Math.abs(a)) }) : T('slopeDown', { a: num(Math.abs(a)) }));
+    rows.push(irow(T('slope'), 'a = ' + num(a), sub));
+    rows.push(irow(T('yInt'), 'b = ' + num(b), '(' + num(0) + ', ' + num(b) + ')'));
+    if (a !== 0) rows.push(irow(T('xInt'), 'x = ' + fracHtml(-b * 10, a * 10), a === 0 ? '' : 'y = 0'));
+    else rows.push(irow(T('xInt'), T('none'), ''));
+  } else {
+    var a2 = co.a, b2 = co.b, c2 = co.c;
+    var D = b2 * b2 - 4 * a2 * c2;
+    if (a2 === 0) {
+      rows.push(irow(T('opening'), T('none'), T('aZero')));
+      rows.push(irow(T('yInt'), 'c = ' + num(c2), '(0, ' + num(c2) + ')'));
+    } else {
+      var vx = -b2 / (2 * a2), vy = c2 - b2 * b2 / (4 * a2);
+      rows.push(irow(T('opening'), a2 > 0 ? T('up') : T('down'), ''));
+      rows.push(irow(T('vertex'), '(' + dec(vx, 2) + ', ' + dec(vy, 2) + ')', ''));
+      rows.push(irow(T('axis'), 'x = ' + dec(vx, 2), ''));
+      rows.push(irow(T('yInt'), 'c = ' + num(c2), '(0, ' + num(c2) + ')'));
+      if (D > 0) {
+        var sD = Math.sqrt(D);
+        var r1 = (-b2 + sD) / (2 * a2), r2 = (-b2 - sD) / (2 * a2);
+        rows.push(irow(T('xInt'), 'x = ' + dec(r1, 2) + ', ' + dec(r2, 2), T('twoRoots')));
+      } else if (D === 0) {
+        rows.push(irow(T('xInt'), 'x = ' + dec(-b2 / (2 * a2), 2), T('oneRoot')));
+      } else {
+        rows.push(irow(T('xInt'), T('none'), T('noRoots')));
+      }
+    }
+  }
+  $('#fnInfo').innerHTML = rows.join('');
+}
+
+function drawGraph() {
+  var c = $('#graph');
+  if (!c || $('#pgGraph').hidden) return;
+  var w = c.clientWidth, h = c.clientHeight;
+  if (!w || !h) return;
+  var dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+  if (c.width !== Math.round(w * dpr) || c.height !== Math.round(h * dpr)) {
+    c.width = Math.round(w * dpr); c.height = Math.round(h * dpr);
+  }
+  var ctx = c.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, w, h);
+
+  var pad = 12;
+  var unit = Math.min(w - pad * 2, h - pad * 2) / 12;
+  var cx = w / 2, cy = h / 2;
+  var co = G[G.fn];
+  var f = G.fn === 'lin'
+    ? function (x) { return co.a * x + co.b; }
+    : function (x) { return co.a * x * x + co.b * x + co.c; };
+
+  // 모눈
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = '#E7EDF7';
+  ctx.beginPath();
+  for (var i = -6; i <= 6; i++) {
+    var gx = Math.round(cx + i * unit) + .5;
+    var gy = Math.round(cy + i * unit) + .5;
+    if (gx > 0 && gx < w) { ctx.moveTo(gx, 0); ctx.lineTo(gx, h); }
+    if (gy > 0 && gy < h) { ctx.moveTo(0, gy); ctx.lineTo(w, gy); }
+  }
+  ctx.stroke();
+
+  // 축
+  ctx.strokeStyle = '#AEBED6';
+  ctx.lineWidth = 1.6;
+  ctx.beginPath();
+  ctx.moveTo(0, Math.round(cy) + .5); ctx.lineTo(w, Math.round(cy) + .5);
+  ctx.moveTo(Math.round(cx) + .5, h); ctx.lineTo(Math.round(cx) + .5, 0);
+  ctx.stroke();
+
+  // 눈금 숫자 (곡선 위에서도 읽히도록 흰 테두리)
+  ctx.font = '600 10px system-ui, -apple-system, sans-serif';
+  ctx.textBaseline = 'top';
+  ctx.lineJoin = 'round';
+  function tick(txt, x, y, align) {
+    ctx.textAlign = align;
+    ctx.lineWidth = 3.4; ctx.strokeStyle = '#FCFDFF';
+    ctx.strokeText(txt, x, y);
+    ctx.fillStyle = '#8FA0B8';
+    ctx.fillText(txt, x, y);
+  }
+  for (var t = -6; t <= 6; t++) {
+    if (!t || t % 2) continue;
+    var px = cx + t * unit, py = cy + t * unit;
+    if (px > 10 && px < w - 10) tick(String(t).replace('-', MINUS), px, Math.min(Math.max(cy + 4, 4), h - 14), 'center');
+    if (py > 12 && py < h - 12) tick(String(t).replace('-', MINUS), Math.max(cx - 6, 14), py - 6, 'right');
+  }
+  // 축 이름
+  ctx.fillStyle = '#7C8CA4';
+  ctx.font = 'italic 700 12px Georgia, serif';
+  ctx.textAlign = 'right'; ctx.textBaseline = 'top';
+  ctx.fillText('x', w - 5, Math.min(cy + 5, h - 16));
+  ctx.textAlign = 'left';
+  ctx.fillText('y', Math.min(cx + 5, w - 14), 4);
+
+  // 곡선
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(0, 0, w, h);
+  ctx.clip();
+  ctx.beginPath();
+  var started = false;
+  for (var sx = 0; sx <= w; sx += 1) {
+    var xv = (sx - cx) / unit;
+    var yv = f(xv);
+    if (!isFinite(yv)) { started = false; continue; }
+    var sy = cy - yv * unit;
+    if (sy < -80 || sy > h + 80) { started = false; continue; }
+    if (!started) { ctx.moveTo(sx, sy); started = true; }
+    else ctx.lineTo(sx, sy);
+  }
+  ctx.strokeStyle = '#2B5FD9';
+  ctx.lineWidth = 2.6;
+  ctx.lineJoin = 'round';
+  ctx.stroke();
+
+  // 중요한 점
+  function dot(xv, yv) {
+    if (!isFinite(xv) || !isFinite(yv)) return;
+    var px2 = cx + xv * unit, py2 = cy - yv * unit;
+    if (px2 < 4 || px2 > w - 4 || py2 < 4 || py2 > h - 4) return;
+    ctx.beginPath(); ctx.arc(px2, py2, 5.2, 0, Math.PI * 2);
+    ctx.fillStyle = '#F2B24A'; ctx.fill();
+    ctx.lineWidth = 2; ctx.strokeStyle = '#fff'; ctx.stroke();
+  }
+  if (G.fn === 'lin') {
+    dot(0, co.b);
+  } else if (co.a !== 0) {
+    dot(-co.b / (2 * co.a), co.c - co.b * co.b / (4 * co.a));
+    dot(0, co.c);
+  }
+  ctx.restore();
+}
+
+var resizeTm = null;
+function bindGraph() {
+  $$('.chip[data-fn]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var f = b.getAttribute('data-fn');
+      if (f === G.fn) return;
+      G.fn = f; S.fn = f; save();
+      renderGraphAll();
+    });
+  });
+  var wrap = $('#sliders');
+  wrap.addEventListener('input', function (e) {
+    var inp = e.target;
+    if (inp && inp.type === 'range') setCoef(inp.getAttribute('data-k'), parseFloat(inp.value));
+  });
+  wrap.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('button.sstep') : null;
+    if (!b) return;
+    var k = b.getAttribute('data-k'), d = parseFloat(b.getAttribute('data-d'));
+    setCoef(k, G[G.fn][k] + d);
+  });
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTm);
+    resizeTm = setTimeout(drawGraph, 140);
+  });
+  window.addEventListener('orientationchange', function () { setTimeout(drawGraph, 220); });
+}
+
+/* ═══════════════ 4. 도형 넓이·부피 ═══════════════ */
+var GEO = { shape: 'tri', tri: { b: 6, h: 4 }, circle: { r: 5 }, cyl: { r: 3, h: 5 }, pyth: { a: 3, b: 4 } };
+var geoReady = false, gq = null, gAnswered = false, gStepsOpen = false;
+
+function geoInputDefs() {
+  var s = GEO.shape;
+  if (s === 'tri') return [{ k: 'b', label: 'base' }, { k: 'h', label: 'height' }];
+  if (s === 'circle') return [{ k: 'r', label: 'radius' }];
+  if (s === 'cyl') return [{ k: 'r', label: 'radius' }, { k: 'h', label: 'height' }];
+  return [{ k: 'a', label: 'sideA' }, { k: 'b', label: 'sideB' }];
+}
+function geoFormulaKey() {
+  return GEO.shape === 'tri' ? 'geoFTri' : GEO.shape === 'circle' ? 'geoFCircle' : GEO.shape === 'cyl' ? 'geoFCyl' : 'geoFPyth';
+}
+function renderGeo() {
+  if (!$('#geoInputs')) return;
+  $$('.chip[data-shape]').forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-shape') === GEO.shape); });
+  $('#geoFormula').textContent = T(geoFormulaKey());
+  renderGeoInputs();
+  updateGeoCalc();
+  syncGeoAnswerUi();
+}
+function renderGeoInputs() {
+  var co = GEO[GEO.shape];
+  $('#geoInputs').innerHTML = geoInputDefs().map(function (d) {
+    var v = co[d.k];
+    return '<div class="gfield"><label for="gi_' + d.k + '">' + T(d.label) + '</label>' +
+      '<input id="gi_' + d.k + '" data-k="' + d.k + '" type="number" inputmode="decimal" min="0" step="1" value="' + (v == null ? '' : v) + '"></div>';
+  }).join('');
+  $$('#geoInputs input').forEach(function (inp) {
+    inp.addEventListener('input', function () {
+      var k = inp.getAttribute('data-k');
+      var v = parseFloat(String(inp.value).replace(',', '.'));
+      if (!isFinite(v) || v < 0) v = 0;
+      GEO[GEO.shape][k] = v;
+      updateGeoCalc();
+    });
+  });
+}
+function resRow(label, value, unit) {
+  return '<div class="resrow"><span class="resk">' + label + '</span><span class="resv">' + value + (unit ? '<small>' + unit + '</small>' : '') + '</span></div>';
+}
+function updateGeoCalc() {
+  var s = GEO.shape, v = GEO[s];
+  var viz = '', res = '', nums = '';
+  if (s === 'tri') {
+    var b = v.b, h = v.h, area = b * h / 2;
+    viz = svgTriFig(b, h);
+    res = resRow(T('area'), dec(area, 2), 'cm\u00b2');
+    nums = '\u00bd \u00d7 ' + num(b) + ' \u00d7 ' + num(h) + ' = ' + dec(area, 2);
+  } else if (s === 'circle') {
+    var r = v.r, ar = Math.PI * r * r, ci = 2 * Math.PI * r;
+    viz = svgCircleFig(r);
+    res = resRow(T('area'), dec(ar, 2), 'cm\u00b2') + resRow(T('circumference'), dec(ci, 2), 'cm');
+    nums = '\u03c0 \u00d7 ' + num(r) + '\u00b2 = ' + dec(r * r, 2) + '\u03c0 \u2248 ' + dec(ar, 2) + '<br>2\u03c0 \u00d7 ' + num(r) + ' = ' + dec(2 * r, 2) + '\u03c0 \u2248 ' + dec(ci, 2);
+  } else if (s === 'cyl') {
+    var r2 = v.r, h2 = v.h, vol = Math.PI * r2 * r2 * h2, sf = 2 * Math.PI * r2 * r2 + 2 * Math.PI * r2 * h2;
+    viz = svgCylFig(r2, h2);
+    res = resRow(T('volume'), dec(vol, 2), 'cm\u00b3') + resRow(T('surface'), dec(sf, 2), 'cm\u00b2');
+    nums = '\u03c0 \u00d7 ' + num(r2) + '\u00b2 \u00d7 ' + num(h2) + ' = ' + dec(r2 * r2 * h2, 2) + '\u03c0 \u2248 ' + dec(vol, 2) +
+      '<br>2\u03c0 \u00d7 ' + num(r2) + ' \u00d7 (' + num(r2) + ' + ' + num(h2) + ') = ' + dec(2 * r2 * (r2 + h2), 2) + '\u03c0 \u2248 ' + dec(sf, 2);
+  } else {
+    var a = v.a, b2 = v.b, n = a * a + b2 * b2, c = Math.sqrt(n);
+    viz = svgPythFig(a, b2);
+    var exact = (Math.abs(Math.round(c) - c) < 1e-9) ? String(Math.round(c)) : radHtml(dec(n, 2)) + ' \u2248 ' + dec(c, 2);
+    res = resRow(T('hypotenuse'), (Math.abs(Math.round(c) - c) < 1e-9) ? String(Math.round(c)) : dec(c, 2), 'cm');
+    nums = num(a) + '\u00b2 + ' + num(b2) + '\u00b2 = ' + dec(a * a, 2) + ' + ' + dec(b2 * b2, 2) + ' = ' + dec(n, 2) +
+      '<br>c = ' + (Math.abs(Math.round(c) - c) < 1e-9 ? '\u221a' + dec(n, 2) + ' = ' + String(Math.round(c)) : exact);
+  }
+  $('#geoViz').innerHTML = viz;
+  $('#geoRes').innerHTML = res;
+  $('#geoNums').innerHTML = nums;
+  $('#geoFormula').textContent = T(geoFormulaKey());
+  $('#geoSolBtn').textContent = T(gStepsOpen ? 'hideSolution' : 'showSolution');
+}
+function svgTriFig(b, h) {
+  return '<svg viewBox="0 0 240 150" role="img" aria-label="' + T('shapeTri') + '">' +
+    '<polygon points="26,124 214,124 128,26" fill="#EAF1FE" stroke="#2B5FD9" stroke-width="2.2" stroke-linejoin="round"/>' +
+    '<line x1="128" y1="26" x2="128" y2="124" stroke="#C07A16" stroke-width="1.8" stroke-dasharray="5 4"/>' +
+    '<path d="M128 112 h12 v12" fill="none" stroke="#C07A16" stroke-width="1.5"/>' +
+    '<text x="120" y="142" text-anchor="middle" font-size="15" font-family="Georgia,serif" fill="#152238">' + num(b) + '</text>' +
+    '<text x="137" y="80" font-size="15" font-family="Georgia,serif" fill="#C07A16">' + num(h) + '</text>' +
+    '</svg>';
+}
+function svgCircleFig(r) {
+  return '<svg viewBox="0 0 240 150" role="img" aria-label="' + T('shapeCircle') + '">' +
+    '<circle cx="120" cy="76" r="48" fill="#EAF1FE" stroke="#2B5FD9" stroke-width="2.2"/>' +
+    '<circle cx="120" cy="76" r="2.5" fill="#2B5FD9"/>' +
+    '<line x1="120" y1="76" x2="168" y2="76" stroke="#C07A16" stroke-width="1.8" stroke-dasharray="5 4"/>' +
+    '<text x="143" y="70" text-anchor="middle" font-size="15" font-family="Georgia,serif" fill="#C07A16">' + num(r) + '</text>' +
+    '</svg>';
+}
+function svgCylFig(r, h) {
+  return '<svg viewBox="0 0 240 150" role="img" aria-label="' + T('shapeCyl') + '">' +
+    '<path d="M74 40 v78 a46 12 0 0 0 92 0 v-78" fill="#EAF1FE" stroke="#2B5FD9" stroke-width="2.2"/>' +
+    '<ellipse cx="120" cy="40" rx="46" ry="12" fill="#F5F9FF" stroke="#2B5FD9" stroke-width="2.2"/>' +
+    '<line x1="120" y1="40" x2="166" y2="40" stroke="#C07A16" stroke-width="1.7" stroke-dasharray="4 4"/>' +
+    '<text x="143" y="34" text-anchor="middle" font-size="14" font-family="Georgia,serif" fill="#C07A16">' + num(r) + '</text>' +
+    '<line x1="186" y1="40" x2="186" y2="118" stroke="#C07A16" stroke-width="1.6" stroke-dasharray="4 4"/>' +
+    '<text x="196" y="84" font-size="14" font-family="Georgia,serif" fill="#C07A16">' + num(h) + '</text>' +
+    '</svg>';
+}
+function svgPythFig(a, b) {
+  return '<svg viewBox="0 0 240 150" role="img" aria-label="' + T('shapePyth') + '">' +
+    '<polygon points="40,124 200,124 40,40" fill="#EAF1FE" stroke="#2B5FD9" stroke-width="2.2" stroke-linejoin="round"/>' +
+    '<path d="M40 112 h12 v12" fill="none" stroke="#C07A16" stroke-width="1.6"/>' +
+    '<text x="130" y="141" text-anchor="middle" font-size="15" font-family="Georgia,serif" fill="#152238">' + num(b) + '</text>' +
+    '<text x="27" y="86" text-anchor="end" font-size="15" font-family="Georgia,serif" fill="#152238">' + num(a) + '</text>' +
+    '<text x="128" y="72" font-size="15" font-family="Georgia,serif" fill="#2B5FD9">c</text>' +
+    '</svg>';
+}
+
+/* ── 도형 연습 문제 ──────────────────────── */
+function newGeoProblem() {
+  var kind = pick(['tri', 'pythC', 'pythLeg']);
+  if (kind === 'tri') {
+    var b, h;
+    do { b = ri(3, 16); h = ri(2, 12); } while ((b * h) % 2 !== 0);
+    gq = { k: 'tri', b: b, h: h, ans: b * h / 2 };
+  } else {
+    var tri = pick([[3, 4, 5], [5, 12, 13], [6, 8, 10], [8, 15, 17], [9, 12, 15], [7, 24, 25], [12, 16, 20]]);
+    if (kind === 'pythC') gq = { k: 'pythC', a: tri[0], b: tri[1], c: tri[2], ans: tri[2] };
+    else gq = { k: 'pythLeg', a: tri[0], b: tri[1], c: tri[2], ans: tri[1] };
+  }
+  gAnswered = false; gStepsOpen = false;
+  $('#geoInput').value = '';
+  var fb = $('#geoFb'); fb.hidden = true; fb.className = 'fb';
+  $('#geoSteps').hidden = true;
+  $('#geoSolBtn').textContent = T('showSolution');
+  renderGeoQ();
+}
+function renderGeoQ() {
+  if (!gq || !$('#geoQ')) return;
+  var html = '';
+  if (gq.k === 'tri') html = T('geoQTri', { b: '<b>' + gq.b + '</b>', h: '<b>' + gq.h + '</b>' });
+  else if (gq.k === 'pythC') html = T('geoQPythC', { a: '<b>' + gq.a + '</b>', b: '<b>' + gq.b + '</b>' });
+  else html = T('geoQPythLeg', { c: '<b>' + gq.c + '</b>', a: '<b>' + gq.a + '</b>' });
+  $('#geoQ').innerHTML = html;
+  $('#geoInput').placeholder = T('geoAnswerPh');
+  if (gStepsOpen) renderGeoSol();
+}
+function geoStepsHtml() {
+  if (!gq) return '';
+  var out = [];
+  if (gq.k === 'tri') {
+    out.push(li(T('geoFTri'), '\u00bd \u00d7 ' + gq.b + ' \u00d7 ' + gq.h + ' = ' + gq.ans));
+    out.push('<li class="ansline"><span class="m">' + T('stepAnswer') + ' ' + gq.ans + ' cm\u00b2</span></li>');
+  } else if (gq.k === 'pythC') {
+    out.push(li('a\u00b2 + b\u00b2 = c\u00b2', gq.a + '\u00b2 + ' + gq.b + '\u00b2 = ' + (gq.a * gq.a) + ' + ' + (gq.b * gq.b) + ' = ' + (gq.a * gq.a + gq.b * gq.b)));
+    out.push(li('c = \u221a' + (gq.a * gq.a + gq.b * gq.b), 'c = ' + gq.ans));
+    out.push('<li class="ansline"><span class="m">' + T('stepAnswer') + ' ' + gq.ans + ' cm</span></li>');
+  } else {
+    out.push(li('c\u00b2 \u2212 a\u00b2 = b\u00b2', gq.c + '\u00b2 \u2212 ' + gq.a + '\u00b2 = ' + (gq.c * gq.c) + ' \u2212 ' + (gq.a * gq.a) + ' = ' + (gq.c * gq.c - gq.a * gq.a)));
+    out.push(li('b = \u221a' + (gq.c * gq.c - gq.a * gq.a), 'b = ' + gq.ans));
+    out.push('<li class="ansline"><span class="m">' + T('stepAnswer') + ' ' + gq.ans + ' cm</span></li>');
+  }
+  return out.join('');
+}
+function renderGeoSol() { $('#geoSteps').innerHTML = geoStepsHtml(); $('#geoSteps').hidden = !gStepsOpen; }
+function checkGeo() {
+  if (!gq) return;
+  var raw = $('#geoInput').value.trim();
+  if (!raw) { toast(T('enterAnswer')); return; }
+  var p = parseAnswer(raw);
+  if (!p || p.length !== 1) { toast(T('badAnswer')); return; }
+  var ok = Math.abs(p[0].n / p[0].d - gq.ans) < 1e-6;
+  if (!gAnswered) { gAnswered = true; record('geo', ok); }
+  var fb = $('#geoFb');
+  fb.className = 'fb ' + (ok ? 'ok' : 'no');
+  fb.hidden = false;
+  fb.innerHTML = (ok ? '\u2713 ' : '\u2715 ') + '<b>' + T(ok ? 'correctMsg' : 'wrongMsg') + '</b><span class="fbsub">' + T(ok ? 'correctSub' : 'wrongSub') + '</span>';
+  if (ok) { gStepsOpen = true; renderGeoSol(); $('#geoSolBtn').textContent = T('hideSolution'); }
+}
+function syncGeoAnswerUi() {
+  if ($('#geoInput')) $('#geoInput').placeholder = T('geoAnswerPh');
+}
+function initGeo() {
+  geoReady = true;
+  $$('.chip[data-shape]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var s = b.getAttribute('data-shape');
+      if (s === GEO.shape) return;
+      GEO.shape = s;
+      renderGeo();
+    });
+  });
+  $('#geoCheck').addEventListener('click', checkGeo);
+  $('#geoInput').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); checkGeo(); } });
+  $('#geoNew').addEventListener('click', newGeoProblem);
+  $('#geoSolBtn').addEventListener('click', function () {
+    if (!gq) return;
+    gStepsOpen = !gStepsOpen;
+    renderGeoSol();
+    $('#geoSolBtn').textContent = T(gStepsOpen ? 'hideSolution' : 'showSolution');
+  });
+  renderGeo();
+  newGeoProblem();
+}
+
+/* ═══════════════ 5. 공식집 ═══════════════ */
+var FORMULAS = [
+  { g: 'expand', t: { ko: '합의 제곱', en: 'Square of a sum' }, f: '(a + b)<sup>2</sup> = a<sup>2</sup> + 2ab + b<sup>2</sup>', n: { ko: '가장 기본이 되는 전개 공식', en: 'The most basic expansion' }, tags: '곱셈공식 전개 제곱 expansion square' },
+  { g: 'expand', t: { ko: '차의 제곱', en: 'Square of a difference' }, f: '(a \u2212 b)<sup>2</sup> = a<sup>2</sup> \u2212 2ab + b<sup>2</sup>', n: { ko: '가운데 항의 부호만 다르다', en: 'Only the middle sign changes' }, tags: '곱셈공식 전개 제곱 expansion square' },
+  { g: 'expand', t: { ko: '합과 차의 곱', en: 'Difference of squares' }, f: '(a + b)(a \u2212 b) = a<sup>2</sup> \u2212 b<sup>2</sup>', n: { ko: '두 수의 합과 차를 곱하면 제곱의 차', en: 'Sum times difference gives the difference of squares' }, tags: '곱셈공식 인수분해 합차 factoring' },
+  { g: 'expand', t: { ko: '인수분해 기본형', en: 'Basic factoring' }, f: 'x<sup>2</sup> + (a + b)x + ab = (x + a)(x + b)', n: { ko: '곱해서 ab, 더해서 a+b가 되는 두 수', en: 'Two numbers that multiply to ab and add to a+b' }, tags: '인수분해 factoring 이차식' },
+  { g: 'expand', t: { ko: 'a² + b² 변형', en: 'Alternate form' }, f: 'a<sup>2</sup> + b<sup>2</sup> = (a + b)<sup>2</sup> \u2212 2ab', n: { ko: '합의 제곱에서 2ab를 빼면 된다', en: 'Subtract 2ab from the square of the sum' }, tags: '곱셈공식 변형 expansion identity' },
+  { g: 'expand', t: { ko: '세제곱의 합과 차', en: 'Sum and difference of cubes' }, f: 'a<sup>3</sup> + b<sup>3</sup> = (a + b)(a<sup>2</sup> \u2212 ab + b<sup>2</sup>)<br>a<sup>3</sup> \u2212 b<sup>3</sup> = (a \u2212 b)(a<sup>2</sup> + ab + b<sup>2</sup>)', n: { ko: '고등 과정 인수분해에서 자주 나온다', en: 'Common in high school factoring' }, tags: '곱셈공식 인수분해 세제곱 cubes factoring' },
+
+  { g: 'quad', t: { ko: '근의 공식', en: 'Quadratic formula' }, f: 'x = ' + fracBig(MINUS + 'b \u00b1 ' + radHtml('b<sup>2</sup> \u2212 4ac'), '2a'), n: { ko: 'ax² + bx + c = 0 (a ≠ 0)의 해', en: 'The roots of ax² + bx + c = 0 (a ≠ 0)' }, tags: '이차방정식 근의공식 quadratic formula root' },
+  { g: 'quad', t: { ko: '판별식', en: 'Discriminant' }, f: 'D = b<sup>2</sup> \u2212 4ac', n: { ko: 'D>0 서로 다른 두 근 · D=0 중근 · D<0 실근 없음', en: 'D>0 two roots · D=0 one root · D<0 no real roots' }, tags: '이차방정식 판별식 discriminant' },
+  { g: 'quad', t: { ko: '근과 계수의 관계', en: 'Sum and product of roots' }, f: '\u03b1 + \u03b2 = ' + fracBig(MINUS + 'b', 'a') + ', \u00a0 \u03b1\u03b2 = ' + fracBig('c', 'a'), n: { ko: '두 근의 합과 곱을 계수로 바로 구한다', en: 'Read the sum and product straight from the coefficients' }, tags: '이차방정식 근 계수 vieta' },
+  { g: 'quad', t: { ko: '이차함수의 꼭짓점', en: 'Vertex of a parabola' }, f: 'y = ax<sup>2</sup> + bx + c \u2192 \u00a0 (' + fracBig(MINUS + 'b', '2a') + ', ' + fracBig('4ac \u2212 b<sup>2</sup>', '4a') + ')', n: { ko: '축은 x = −b/2a', en: 'Axis of symmetry x = −b/2a' }, tags: '이차함수 꼭짓점 포물선 vertex parabola' },
+  { g: 'quad', t: { ko: '표준형', en: 'Vertex form' }, f: 'y = a(x \u2212 p)<sup>2</sup> + q', n: { ko: '꼭짓점 (p, q), 축 x = p', en: 'Vertex (p, q), axis x = p' }, tags: '이차함수 표준형 꼭짓점 vertex form' },
+
+  { g: 'expo', t: { ko: '지수의 곱', en: 'Product of powers' }, f: 'a<sup>m</sup> \u00d7 a<sup>n</sup> = a<sup>m+n</sup>', n: { ko: '밑이 같으면 지수를 더한다', en: 'Same base: add the exponents' }, tags: '지수법칙 exponent power' },
+  { g: 'expo', t: { ko: '지수의 나눗셈', en: 'Quotient of powers' }, f: 'a<sup>m</sup> \u00f7 a<sup>n</sup> = a<sup>m\u2212n</sup>', n: { ko: '밑이 같으면 지수를 뺀다', en: 'Same base: subtract the exponents' }, tags: '지수법칙 exponent power' },
+  { g: 'expo', t: { ko: '거듭제곱의 거듭제곱', en: 'Power of a power' }, f: '(a<sup>m</sup>)<sup>n</sup> = a<sup>mn</sup>', n: { ko: '지수를 서로 곱한다', en: 'Multiply the exponents' }, tags: '지수법칙 exponent power' },
+  { g: 'expo', t: { ko: '곱의 거듭제곱', en: 'Power of a product' }, f: '(ab)<sup>n</sup> = a<sup>n</sup>b<sup>n</sup>', n: { ko: '각각을 n제곱한다', en: 'Raise each factor to the power' }, tags: '지수법칙 exponent power' },
+  { g: 'expo', t: { ko: '영과 음의 지수', en: 'Zero and negative exponents' }, f: 'a<sup>0</sup> = 1, \u00a0 a<sup>\u2212n</sup> = ' + fracBig('1', 'a<sup>n</sup>') + ' \u00a0 (a \u2260 0)', n: { ko: '음의 지수는 역수', en: 'A negative exponent means the reciprocal' }, tags: '지수법칙 음의지수 exponent zero' },
+  { g: 'expo', t: { ko: '분수 지수', en: 'Fractional exponent' }, f: 'a<sup>m/n</sup> = <sup>n</sup>\u221a<span class="rad">a<sup>m</sup></span>', n: { ko: '분모가 근호의 차수가 된다', en: 'The denominator becomes the root index' }, tags: '지수법칙 근호 지수 exponent root' },
+  { g: 'expo', t: { ko: '로그의 정의', en: 'Definition of a log' }, f: 'log<sub>a</sub> b = c \u21d4 a<sup>c</sup> = b', n: { ko: 'a > 0, a \u2260 1, b > 0', en: 'a > 0, a \u2260 1, b > 0' }, tags: '로그 log 정의' },
+  { g: 'expo', t: { ko: '로그의 곱', en: 'Log of a product' }, f: 'log<sub>a</sub> MN = log<sub>a</sub> M + log<sub>a</sub> N', n: { ko: '곱은 로그의 합', en: 'A product becomes a sum' }, tags: '로그 log 법칙' },
+  { g: 'expo', t: { ko: '로그의 나눗셈·거듭제곱', en: 'Log rules' }, f: 'log<sub>a</sub> ' + fracBig('M', 'N') + ' = log<sub>a</sub> M \u2212 log<sub>a</sub> N<br>log<sub>a</sub> M<sup>k</sup> = k\u00b7log<sub>a</sub> M', n: { ko: '나눗셈은 차, 거듭제곱은 계수로', en: 'Division becomes subtraction, powers become multipliers' }, tags: '로그 log 법칙' },
+
+  { g: 'trig', t: { ko: '삼각비의 정의', en: 'Trigonometric ratios' }, f: 'sin \u03b8 = ' + fracBig('a', 'c') + ', \u00a0 cos \u03b8 = ' + fracBig('b', 'c') + ', \u00a0 tan \u03b8 = ' + fracBig('a', 'b'), n: { ko: '직각삼각형: a = 대변, b = 밑변, c = 빗변', en: 'Right triangle: a = opposite, b = adjacent, c = hypotenuse' }, tags: '삼각비 sin cos tan 삼각형' },
+  { g: 'trig', t: { ko: '특수각의 삼각비', en: 'Special angles' }, f: 'sin 30\u00b0 = 1/2, 45\u00b0 = \u221a2/2, 60\u00b0 = \u221a3/2<br>cos 30\u00b0 = \u221a3/2, 45\u00b0 = \u221a2/2, 60\u00b0 = 1/2<br>tan 30\u00b0 = \u221a3/3, 45\u00b0 = 1, 60\u00b0 = \u221a3', n: { ko: '표로 외워 두면 편하다', en: 'Worth memorising as a table' }, tags: '삼각비 특수각 30 45 60 sin cos tan' },
+  { g: 'trig', t: { ko: '삼각비의 관계', en: 'Trig identities' }, f: 'sin<sup>2</sup>\u03b8 + cos<sup>2</sup>\u03b8 = 1<br>tan \u03b8 = ' + fracBig('sin \u03b8', 'cos \u03b8'), n: { ko: '피타고라스에서 나오는 관계', en: 'Comes straight from Pythagoras' }, tags: '삼각비 항등식 identity sin cos tan' },
+
+  { g: 'shape', t: { ko: '삼각형의 넓이', en: 'Triangle area' }, f: 'S = ' + fracBig('1', '2') + ' \u00d7 \ubc11\ubcc0 \u00d7 \ub192\uc774', n: { ko: '밑변과 높이가 직각으로 만날 때', en: 'Base and height at a right angle' }, tags: '도형 넓이 삼각형 area triangle' },
+  { g: 'shape', t: { ko: '원의 넓이와 둘레', en: 'Circle' }, f: 'S = \u03c0r<sup>2</sup>, \u00a0 l = 2\u03c0r', n: { ko: '반지름 r, 원주율 \u03c0 \u2248 3.14', en: 'Radius r, π ≈ 3.14' }, tags: '도형 원 넓이 둘레 area circle' },
+  { g: 'shape', t: { ko: '부채꼴', en: 'Sector' }, f: 'l = 2\u03c0r \u00d7 ' + fracBig('\u03b8', '360') + ', \u00a0 S = ' + fracBig('1', '2') + 'lr', n: { ko: '중심각 \u03b8\u00b0인 부채꼴의 호 l과 넓이 S', en: 'Arc l and area S for a central angle θ°' }, tags: '도형 부채꼴 호 넓이 sector arc' },
+  { g: 'shape', t: { ko: '원기둥', en: 'Cylinder' }, f: 'V = \u03c0r<sup>2</sup>h<br>S = 2\u03c0r<sup>2</sup> + 2\u03c0rh', n: { ko: '부피 V, 겉넓이 S', en: 'Volume V, surface area S' }, tags: '도형 원기둥 부피 겉넓이 cylinder volume surface' },
+  { g: 'shape', t: { ko: '사다리꼴의 넓이', en: 'Trapezoid area' }, f: 'S = ' + fracBig('1', '2') + '(a + b)h', n: { ko: '두 밑변 a, b와 높이 h', en: 'Parallel sides a, b and height h' }, tags: '도형 사다리꼴 넓이 trapezoid area' },
+  { g: 'shape', t: { ko: '피타고라스 정리', en: 'Pythagorean theorem' }, f: 'a<sup>2</sup> + b<sup>2</sup> = c<sup>2</sup>', n: { ko: '직각삼각형의 두 변과 빗변의 관계', en: 'Legs and hypotenuse of a right triangle' }, tags: '도형 피타고라스 직각삼각형 pythagoras' },
+
+  { g: 'seq', t: { ko: '등차수열', en: 'Arithmetic sequence' }, f: 'a<sub>n</sub> = a<sub>1</sub> + (n \u2212 1)d<br>S<sub>n</sub> = ' + fracBig('n(a<sub>1</sub> + a<sub>n</sub>)', '2'), n: { ko: '공차 d, 첫째항 a₁', en: 'Common difference d, first term a₁' }, tags: '수열 등차수열 합 sequence arithmetic' },
+  { g: 'seq', t: { ko: '등비수열', en: 'Geometric sequence' }, f: 'a<sub>n</sub> = a<sub>1</sub>r<sup>n\u22121</sup><br>S<sub>n</sub> = ' + fracBig('a<sub>1</sub>(r<sup>n</sup> \u2212 1)', 'r \u2212 1') + ' \u00a0(r \u2260 1)', n: { ko: '공비 r, 첫째항 a₁', en: 'Common ratio r, first term a₁' }, tags: '수열 등비수열 합 sequence geometric' }
+];
+var GROUPS = ['expand', 'quad', 'expo', 'trig', 'shape', 'seq'];
+function gKey(g) { return 'g' + g.charAt(0).toUpperCase() + g.slice(1); }
+function renderFormulas() {
+  if (!$('#formulaList')) return;
+  var box = $('#formulaList');
+  var q = ($('#formSearch') ? $('#formSearch').value : '').trim().toLowerCase();
+  var list = FORMULAS.filter(function (f) {
+    if (!q) return true;
+    var hay = (f.t.ko + ' ' + f.t.en + ' ' + f.n.ko + ' ' + f.n.en + ' ' + f.tags + ' ' + T(gKey(f.g))).toLowerCase();
+    return hay.indexOf(q) >= 0;
+  });
+  $('#formCount').textContent = T('formCount', { n: list.length });
+  if (!list.length) { box.innerHTML = '<p class="fempty">' + T('formEmpty') + '</p>'; return; }
+  var html = '';
+  GROUPS.forEach(function (g) {
+    var rows = list.filter(function (f) { return f.g === g; });
+    if (!rows.length) return;
+    html += '<div class="fgroup">' + T(gKey(g)) + '</div>';
+    rows.forEach(function (f) {
+      html += '<div class="fcard"><h4>' + f.t[S.lang] + '</h4><div class="fform">' + f.f + '</div><p class="fnote">' + f.n[S.lang] + '</p></div>';
+    });
+  });
+  box.innerHTML = html;
+}
+
+/* ═══════════════ 6. 시작 ═══════════════ */
+function bindGlobal() {
+  $$('.tab').forEach(function (b) {
+    b.addEventListener('click', function () { go(b.getAttribute('data-page')); });
+  });
+  $$('[data-go]').forEach(function (b) {
+    b.addEventListener('click', function () { go(b.getAttribute('data-go')); });
+  });
+  $('#btnLang').addEventListener('click', function () { setLang(S.lang === 'ko' ? 'en' : 'ko'); });
+  $('#installBtn').addEventListener('click', installTap);
+  $('#shareBtn').addEventListener('click', shareApp);
+  $('#instClose').addEventListener('click', closeInstall);
+  $('#instModal').addEventListener('click', function (e) { if (e.target === $('#instModal')) closeInstall(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('#instModal').hidden) closeInstall(); });
+  window.addEventListener('appinstalled', function () { instDone = true; instPrompt = null; syncInstall(); toast(T('installedMsg')); });
+  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); instPrompt = e; });
+  $('#formSearch').addEventListener('input', renderFormulas);
+}
+function boot() {
+  load();
+  G.fn = S.fn === 'quad' ? 'quad' : 'lin';
+  applyStatic();
+  renderHome();
+  bindEq();
+  bindGraph();
+  bindGlobal();
+  renderGraphAll();
+  renderFormulas();
+  showPage('home');
+  syncInstall();
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () { navigator.serviceWorker.register('./sw.js').catch(function () {}); });
+  }
+}
+
+/* 검수용 손잡이 (화면에는 보이지 않음) */
+window.__math = {
+  get info() { return { page: page, mode: S.mode, lang: S.lang, total: S.total, wrong: S.wrong.length, hasProblem: !!cur, fn: G.fn }; },
+  get problem() { return cur; },
+  get geoProblem() { return gq; },
+  go: go, setMode: setMode, startRetry: startRetry, nextProblem: nextProblem,
+  check: checkEq, showSteps: toggleSolution, drawGraph: drawGraph,
+  setCoef: function (k, v) { setCoef(k, v); },
+  setFn: function (f) { G.fn = f; S.fn = f; save(); renderGraphAll(); },
+  setShape: function (s) { GEO.shape = s; renderGeo(); },
+  newGeo: newGeoProblem, checkGeo: checkGeo
+};
+
+boot();
+</script>
+</body>
+</html>
