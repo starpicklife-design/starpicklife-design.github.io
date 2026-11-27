@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://starpicklife-design.github.io/</loc>
-    <lastmod>2026-11-25T20:28:28+09:00</lastmod>
+    <lastmod>2026-11-27T14:10:00+09:00</lastmod>
   </url>
   <url>
     <loc>https://starpicklife-design.github.io/menu/</loc>
@@ -25,12 +25,24 @@
     <lastmod>2026-11-25T18:55:18+09:00</lastmod>
   </url>
   <url>
+    <loc>https://starpicklife-design.github.io/namecard/</loc>
+    <lastmod>2026-11-27T13:47:04+09:00</lastmod>
+  </url>
+  <url>
     <loc>https://starpicklife-design.github.io/dining/</loc>
     <lastmod>2026-11-24T19:26:16+09:00</lastmod>
   </url>
   <url>
     <loc>https://starpicklife-design.github.io/party/</loc>
     <lastmod>2026-11-24T19:26:16+09:00</lastmod>
+  </url>
+  <url>
+    <loc>https://starpicklife-design.github.io/lyrics/</loc>
+    <lastmod>2026-11-27T13:44:12+09:00</lastmod>
+  </url>
+  <url>
+    <loc>https://starpicklife-design.github.io/piano/</loc>
+    <lastmod>2026-11-27T14:02:20+09:00</lastmod>
   </url>
   <url>
     <loc>https://starpicklife-design.github.io/pronounce/</loc>
@@ -49,7 +61,15 @@
     <lastmod>2026-11-25T20:28:28+09:00</lastmod>
   </url>
   <url>
+    <loc>https://starpicklife-design.github.io/autopay/</loc>
+    <lastmod>2026-11-27T13:47:05+09:00</lastmod>
+  </url>
+  <url>
     <loc>https://starpicklife-design.github.io/card-maker/</loc>
     <lastmod>2026-11-27T08:59:00+09:00</lastmod>
+  </url>
+  <url>
+    <loc>https://starpicklife-design.github.io/diary/</loc>
+    <lastmod>2026-11-27T00:18:42+09:00</lastmod>
   </url>
 </urlset>
