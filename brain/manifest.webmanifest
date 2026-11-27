@@ -1,0 +1,22 @@
+{
+  "name": "와글링 두뇌놀이 · Wagling Brain Play",
+  "short_name": "두뇌놀이",
+  "description": "그림 짝맞추기·속담·생활 계산·한지 붓글씨까지, 어르신이 큰 글씨와 큰 버튼으로 즐기는 무료 두뇌 놀이. 기록은 이 기기에만 저장되고 광고·회원가입이 없어요.",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "id": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#FBF2DF",
+  "theme_color": "#241F19",
+  "categories": ["education", "health", "entertainment"],
+  "icons": [
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

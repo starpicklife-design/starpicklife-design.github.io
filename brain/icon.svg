@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="와글링 두뇌놀이">
+  <defs>
+    <linearGradient id="hanji" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FDF5E2"/>
+      <stop offset="1" stop-color="#EEDBB5"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#hanji)"/>
+  <path d="M256 108a148 148 0 0 1 132 215" fill="none" stroke="#1E1913" stroke-width="34" stroke-linecap="round"/>
+  <path d="M388 323a148 148 0 0 1-268 42" fill="none" stroke="#1E1913" stroke-width="26" stroke-linecap="round"/>
+  <rect x="318" y="300" width="104" height="104" rx="14" fill="#A8352A"/>
+  <text x="370" y="380" font-size="66" font-weight="700" text-anchor="middle" fill="#FBF2DF"
+        font-family="'Noto Sans KR','Noto Sans CJK KR','Malgun Gothic',sans-serif">두</text>
+</svg>
