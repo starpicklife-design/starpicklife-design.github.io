@@ -1,0 +1,21 @@
+{
+  "name": "와글링 텃밭 · Wagling Garden",
+  "short_name": "와글링 텃밭",
+  "description": "월별·지역별 파종 달력과 내 손안의 식물 키우기 — 씨앗부터 수확까지, 수확 축하 카드까지. 무료, 가입 없음, 광고 없음.",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "id": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#F7FBF3",
+  "theme_color": "#14512F",
+  "categories": ["lifestyle", "education", "entertainment"],
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

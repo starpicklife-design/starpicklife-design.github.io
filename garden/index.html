@@ -1,0 +1,2121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#14512F" />
+<meta name="google" content="notranslate" />
+<!-- build: 2026-11-27 와글링 텃밭 (Wagling Garden) v1 — 로컬 시제품
+     · 📅 월별·지역별 농사 파종 달력: 1~12월 × 중부/남부, 작물 25종(씨 뿌리기·모종·수확), 검색
+     · 내 텃밭 메모: 심은 날짜·작물·메모를 이 기기에 저장 → 며칠째인지 표시
+     · 🌱 내 손안의 식물 키우기: 씨앗 6종 → 화분 → 💧물·☀️햇빛·🌿돌봄 → 씨앗·새싹·잎·꽃·열매
+     · 🎉 수확 축하 카드: 100% 자체 SVG 그림 → PNG 저장 · 카톡/문자 공유 · 도감 기록
+     · 상단 🌐 한/EN · 📲 설치 · 📤 공유 · 폰 뒤로가기(popstate) · 오프라인 PWA
+     · 개인정보 0 · 서버/DB/유료 API 0 · 기록은 이 기기(localStorage)에만 -->
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="와글링 텃밭" />
+<meta name="description" content="와글링 텃밭 — 월별·지역별 파종 달력과 내 손안의 식물 키우기. 씨앗부터 수확 축하 카드까지, 무료·가입 없음·광고 없음." />
+<title>와글링 텃밭 · 파종 달력과 내 손안의 식물</title>
+<style>
+:root{
+  --bg:#F7FBF3; --card:#FFFFFF; --ink:#101A12; --ink2:#38493C; --ink3:#63776A;
+  --green:#1F6B3B; --green2:#2E8B4F; --greenbg:#E8F5E6; --greenline:#CFE0C8;
+  --amber:#A9610A; --amberbg:#FFF0D2; --amberline:#EBD3A0;
+  --teal:#0E6B6E; --tealbg:#DFF3F3; --tealline:#BFE1E1;
+  --line:#DCE8D6; --shadow:0 2px 10px rgba(30,60,35,.09); --red:#B3352B;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:21px;-webkit-text-size-adjust:100%}
+html,body{overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR","Segoe UI",sans-serif;
+  line-height:1.42;word-break:keep-all;overflow-wrap:break-word;
+  padding-bottom:calc(4.9rem + env(safe-area-inset-bottom))}
+[hidden]{display:none !important}
+button{font-family:inherit;cursor:pointer;color:inherit;border:0;background:none}
+button:focus-visible,[tabindex]:focus-visible,a:focus-visible{outline:3px solid #E9971F;outline-offset:2px}
+img,svg{max-width:100%}
+a{color:inherit}
+
+/* ── 머리말 ─────────────────────────────── */
+.top{background:linear-gradient(158deg,#123F26 0%,#1F6B3B 55%,#2C8050 100%);color:#F7FFF5;
+  padding:calc(.42rem + env(safe-area-inset-top)) .55rem .5rem;
+  box-shadow:0 3px 14px rgba(20,60,30,.28)}
+.brand{display:flex;align-items:center;gap:.4rem}
+.logo{font-size:1.6rem;line-height:1;flex:0 0 auto;filter:drop-shadow(0 1px 2px rgba(0,0,0,.25))}
+.btxt{flex:1 1 auto;min-width:0}
+.brand h1{margin:0;font-size:1.24rem;line-height:1.16;letter-spacing:-.035em;font-weight:900;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand .sub{margin:.06rem 0 0;font-size:.84rem;font-weight:800;line-height:1.2;opacity:.95;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbtns{display:flex;gap:.22rem;flex:0 0 auto}
+.topbtns button{border:1px solid rgba(247,255,245,.5);background:rgba(255,255,255,.16);color:#F7FFF5;
+  border-radius:.62rem;padding:.3rem .46rem;font-size:.8rem;font-weight:900;line-height:1.1;
+  min-height:2.6rem;white-space:nowrap}
+.topbtns button:active{transform:translateY(1px)}
+
+/* ── 화면 ───────────────────────────────── */
+.view{padding:.55rem .55rem 0;max-width:34rem;margin:0 auto}
+.secHead{margin:.85rem 0 .42rem}
+.secHead:first-child{margin-top:.1rem}
+.secHead h2{margin:0;font-size:1.24rem;letter-spacing:-.03em;display:flex;align-items:center;gap:.28rem}
+.secHead h2 .cnt{font-size:.84rem;font-weight:900;color:var(--green);background:var(--greenbg);
+  border:1px solid var(--greenline);border-radius:999px;padding:.1rem .45rem;letter-spacing:0}
+.secHead p{margin:.18rem 0 0;font-size:.9rem;color:var(--ink2);line-height:1.38;font-weight:700}
+
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:1rem;padding:.6rem .66rem;box-shadow:var(--shadow)}
+
+/* ── 지역 고르기 ─────────────────────────── */
+.regrow{display:flex;gap:.35rem}
+.regbtn{flex:1 1 0;min-width:0;min-height:3.2rem;border-radius:.8rem;border:1.5px solid var(--greenline);
+  background:#FFF;color:var(--ink2);font-weight:900;font-size:1rem;letter-spacing:-.02em;
+  display:flex;align-items:center;justify-content:center;gap:.25rem;padding:0 .2rem}
+.regbtn[aria-pressed="true"]{background:linear-gradient(180deg,#2E8B4F,#1F6B3B);color:#FFF;border-color:#17592F;
+  box-shadow:0 2px 8px rgba(31,107,59,.28)}
+.regnote{margin:.34rem 0 0;font-size:.84rem;color:var(--ink2);line-height:1.36;font-weight:700}
+
+/* ── 12달 ───────────────────────────────── */
+.months{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:.3rem;margin-top:.5rem}
+.mbtn{position:relative;min-height:3.2rem;border-radius:.78rem;border:1.5px solid var(--greenline);
+  background:#FFF;font-weight:900;font-size:clamp(.92rem,4.7vw,1.08rem);letter-spacing:-.05em;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05;color:#20351F;padding:0}
+.mbtn .mc{font-size:.62rem;font-weight:800;letter-spacing:0;color:var(--ink3);margin-top:.1rem}
+.mbtn.on{background:linear-gradient(180deg,#2E8B4F,#1F6B3B);color:#FFF;border-color:#17592F;
+  box-shadow:0 2px 8px rgba(31,107,59,.28)}
+.mbtn.on .mc{color:#DDF2D8}
+.mbtn.now::before{content:'';position:absolute;top:.22rem;right:.28rem;width:.4rem;height:.4rem;
+  border-radius:50%;background:#E9971F;box-shadow:0 0 0 2px #FFF}
+.mbtn.on.now::before{box-shadow:0 0 0 2px #1F6B3B}
+
+/* ── 검색 ───────────────────────────────── */
+.searchbox{margin-top:.55rem;position:relative}
+.searchbox input{width:100%;min-height:3.2rem;border-radius:.8rem;border:1.5px solid var(--greenline);
+  background:#FFF;font-family:inherit;font-size:1rem;font-weight:800;color:var(--ink);padding:0 .8rem 0 2.35rem;
+  letter-spacing:-.02em}
+.searchbox input::placeholder{color:#93A296;font-weight:700}
+.searchbox .si{position:absolute;left:.72rem;top:50%;transform:translateY(-50%);font-size:1rem;opacity:.8;pointer-events:none}
+
+/* ── 이번 달 요약 ────────────────────────── */
+.sumline{margin-top:.5rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;
+  background:linear-gradient(160deg,#EAF7E6,#F7FDF3);border:1.5px solid var(--greenline);
+  border-radius:.9rem;padding:.52rem .68rem}
+.sumline b{font-size:1.08rem;letter-spacing:-.03em}
+.sumline .sm{font-size:.86rem;color:var(--ink2);font-weight:800}
+
+/* ── 이번 달 할 일 ───────────────────────── */
+.todoGrp{background:var(--card);border:1.5px solid var(--line);border-radius:1rem;padding:.5rem .58rem .58rem;
+  box-shadow:var(--shadow);margin-top:.5rem}
+.todoH{display:flex;align-items:center;gap:.32rem;margin-bottom:.42rem}
+.todoH b{font-size:1.06rem;letter-spacing:-.02em}
+.todoH .tk{font-size:1.2rem;line-height:1}
+.todoH i{font-style:normal;margin-left:auto;font-size:.84rem;font-weight:900;color:var(--green);
+  background:var(--greenbg);border-radius:999px;padding:.1rem .48rem;border:1px solid var(--greenline)}
+.todoGrp.plug .todoH i{color:var(--teal);background:var(--tealbg);border-color:var(--tealline)}
+.todoGrp.harv .todoH i{color:var(--amber);background:var(--amberbg);border-color:var(--amberline)}
+.chips{display:flex;flex-wrap:wrap;gap:.32rem}
+.chip{min-height:2.9rem;display:inline-flex;align-items:center;gap:.3rem;border:1.5px solid var(--greenline);
+  background:#FFF;border-radius:999px;padding:.32rem .78rem;font-weight:900;font-size:.98rem;letter-spacing:-.02em;
+  color:#1F3520}
+.chip em{font-style:normal;font-size:1rem;line-height:1}
+.chip:active{transform:translateY(1px)}
+.emptyline{margin:.2rem 0 0;font-size:.94rem;color:var(--ink2);line-height:1.45;font-weight:700}
+.emptyline b{color:var(--green)}
+
+/* ── 12달 띠 ─────────────────────────────── */
+.ruler{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:2px;margin:.1rem 0 .18rem}
+.ruler span{text-align:center;font-size:.66rem;font-weight:800;color:var(--ink3)}
+.strip{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:2px;margin-top:.4rem}
+.scell{display:flex;flex-direction:column;gap:1px;border-radius:2px}
+.scell i{display:block;height:5px;border-radius:1.5px;background:#EAF0E5}
+.scell .sg.on{background:#3F9C56}
+.scell .st.on{background:#2E9E9E}
+.scell .sa.on{background:#E9971F}
+.scell.now{outline:2px solid #1F6B3B;outline-offset:1px}
+
+/* ── 작물 목록 ───────────────────────────── */
+.cropRow{display:block;width:100%;text-align:left;background:var(--card);border:1.5px solid var(--line);
+  border-radius:1rem;padding:.52rem .6rem .58rem;box-shadow:var(--shadow);margin-top:.42rem}
+.cropRow:active{transform:translateY(1px)}
+.crowTop{display:flex;align-items:flex-start;gap:.45rem}
+.ce{font-size:1.45rem;line-height:1.15;flex:0 0 auto}
+.cmain{flex:1 1 auto;min-width:0}
+.cmain b{display:block;font-size:1.12rem;letter-spacing:-.03em;line-height:1.2}
+.cmain i{display:block;font-style:normal;font-size:.8rem;color:var(--ink3);font-weight:800;line-height:1.25}
+.cmain .cr{display:block;font-size:.9rem;color:var(--ink2);font-weight:800;margin-top:.2rem;line-height:1.45}
+.cmain .cr .ph{display:inline-block;white-space:nowrap;margin-right:.5rem}
+.cst{flex:0 0 auto;font-size:.74rem;font-weight:900;color:var(--green);background:var(--greenbg);
+  border:1px solid var(--greenline);border-radius:.5rem;padding:.14rem .36rem;line-height:1.3;text-align:center;max-width:6.4rem}
+
+/* ── 내 텃밭 기록 ────────────────────────── */
+.plot{background:var(--card);border:1.5px solid var(--line);border-radius:1rem;padding:.55rem .62rem;
+  box-shadow:var(--shadow);margin-top:.44rem}
+.ptop{display:flex;align-items:center;gap:.42rem}
+.ptop .pe{font-size:1.4rem;line-height:1}
+.ptop .pm{flex:1 1 auto;min-width:0}
+.ptop .pm b{display:block;font-size:1.08rem;letter-spacing:-.03em;line-height:1.2}
+.ptop .pm i{display:block;font-style:normal;font-size:.82rem;color:var(--ink2);font-weight:800}
+.pdays{flex:0 0 auto;font-weight:900;font-size:1rem;color:#FFF;background:linear-gradient(180deg,#2E8B4F,#1F6B3B);
+  border-radius:.6rem;padding:.24rem .52rem;line-height:1.1;white-space:nowrap}
+.pmemo{margin:.36rem 0 0;font-size:.92rem;color:var(--ink2);line-height:1.45;background:#F7FBF3;
+  border-radius:.6rem;padding:.34rem .5rem}
+.pfoot{display:flex;align-items:center;gap:.4rem;margin-top:.4rem}
+.pharv{font-size:.84rem;font-weight:900;color:var(--amber);background:var(--amberbg);border:1px solid var(--amberline);
+  border-radius:999px;padding:.16rem .52rem;line-height:1.3}
+.pharv.hot{background:#FFE1B8;border-color:#EBB96A;color:#7E4505}
+.pdel{margin-left:auto;min-width:2.8rem;min-height:2.6rem;border-radius:.6rem;border:1.5px solid #E7D5D0;
+  background:#FFF;font-size:.9rem;font-weight:900;color:var(--red)}
+
+/* ── 작물 자세히 ─────────────────────────── */
+.backbtn{display:inline-flex;align-items:center;gap:.3rem;min-height:2.95rem;padding:0 .8rem;
+  border-radius:.7rem;border:1.5px solid var(--greenline);background:#FFF;font-weight:900;font-size:.96rem;color:var(--green)}
+.dhead{display:flex;align-items:center;gap:.6rem;margin-top:.5rem}
+.dhead .de{font-size:2.6rem;line-height:1}
+.dhead .dn{flex:1 1 auto;min-width:0}
+.dhead .dn b{display:block;font-size:1.62rem;letter-spacing:-.04em;line-height:1.1}
+.dhead .dn i{display:block;font-style:normal;font-size:.9rem;color:var(--ink3);font-weight:800}
+.bandgrid{display:grid;grid-template-columns:4.2rem repeat(12,minmax(0,1fr));gap:2px;margin-top:.5rem}
+.bandgrid .bh,.bandgrid .bm{font-size:.66rem;font-weight:800;color:var(--ink3);text-align:center;
+  display:flex;align-items:center;justify-content:center;min-height:1.05rem}
+.bandgrid .bm.now{color:var(--green);font-weight:900}
+.bandgrid .bl{font-size:.8rem;font-weight:900;color:var(--ink2);display:flex;align-items:center;white-space:nowrap;gap:.12rem}
+.bandgrid .bc{min-height:1.8rem;border-radius:.34rem;background:#F1F5EC}
+.bandgrid .bc.on{box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}
+.bandgrid .bc.sow.on{background:linear-gradient(180deg,#63BC74,#3F9C56)}
+.bandgrid .bc.plug.on{background:linear-gradient(180deg,#57B9B9,#2E9E9E)}
+.bandgrid .bc.harv.on{background:linear-gradient(180deg,#F5B85A,#E9971F)}
+.bandgrid .bc.now{outline:2px solid #1F6B3B;outline-offset:-1px}
+.inforow{display:flex;gap:.5rem;padding:.48rem 0;border-bottom:1px dashed var(--line)}
+.inforow:last-child{border-bottom:0}
+.inforow .ik{flex:0 0 5.6rem;font-size:.9rem;font-weight:900;color:var(--green)}
+.inforow .iv{flex:1 1 auto;min-width:0;font-size:.96rem;line-height:1.45;color:var(--ink);font-weight:700}
+.addplot{margin-top:.6rem}
+.addplot label{display:block;font-size:.86rem;font-weight:900;color:var(--ink2);margin:.36rem 0 .22rem}
+.addplot input{width:100%;min-height:3rem;border-radius:.66rem;border:1.5px solid var(--greenline);
+  background:#FFF;font-family:inherit;font-size:.98rem;font-weight:700;color:var(--ink);padding:0 .6rem}
+.pri{width:100%;min-height:3.15rem;border-radius:.75rem;border:1.5px solid #17592F;
+  background:linear-gradient(180deg,#3C9B5A,#1F6B3B);color:#FFF;font-weight:900;font-size:1.06rem;margin-top:.5rem}
+.pri:active{transform:translateY(1px)}
+
+/* ── 씨앗 고르기 ─────────────────────────── */
+.seedgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem}
+.seed{display:block;width:100%;text-align:center;background:var(--card);border:1.5px solid var(--line);
+  border-radius:1rem;padding:.5rem .4rem .55rem;box-shadow:var(--shadow)}
+.seed:active{transform:translateY(1px)}
+.seed .spv{display:flex;justify-content:center;align-items:flex-end;height:6.6rem}
+.seed .spv svg{width:6.6rem;height:6.6rem;display:block}
+.seed b{display:block;font-size:1.06rem;letter-spacing:-.03em;margin-top:.22rem;line-height:1.2}
+.seed i{display:block;font-style:normal;font-size:.8rem;color:var(--ink3);font-weight:800;line-height:1.28;margin-top:.06rem}
+.hint{margin:.62rem 0 0;font-size:.88rem;color:var(--ink2);line-height:1.45;text-align:center;font-weight:700}
+
+/* ── 키우기 ─────────────────────────────── */
+.potcard{background:linear-gradient(170deg,#FFFFFF 0%,#F3FAEE 70%,#EAF5E3 100%);
+  border:1.5px solid var(--greenline);border-radius:1.1rem;box-shadow:var(--shadow);
+  padding:.45rem .55rem .5rem;margin-top:.2rem;position:relative;overflow:hidden}
+.potTop{display:flex;align-items:center;gap:.35rem}
+.stageBadge{font-size:.9rem;font-weight:900;color:#FFF;background:linear-gradient(180deg,#2E8B4F,#1F6B3B);
+  border-radius:999px;padding:.2rem .62rem;line-height:1.2}
+.dayBadge{margin-left:auto;font-size:.86rem;font-weight:900;color:var(--green);background:#FFF;
+  border:1.5px solid var(--greenline);border-radius:999px;padding:.18rem .58rem;line-height:1.2}
+.scene{position:relative;display:flex;justify-content:center;align-items:flex-end;padding:.1rem 0 0}
+.scene svg{width:min(76vw,18rem);height:auto;display:block}
+.scene .sway{transform-origin:120px 170px;animation:sway 4.6s ease-in-out infinite}
+@keyframes sway{0%,100%{transform:rotate(-1.1deg)}50%{transform:rotate(1.1deg)}}
+.scene.pop svg{animation:popIn .5s ease-out}
+@keyframes popIn{0%{transform:scale(.94)}55%{transform:scale(1.05)}100%{transform:scale(1)}}
+.plantName{text-align:center;font-weight:900;font-size:1.24rem;letter-spacing:-.03em;margin-top:.18rem}
+.plantSay{text-align:center;font-size:.94rem;font-weight:800;color:var(--ink2);margin-top:.1rem;min-height:1.4rem}
+.floaty{position:absolute;left:50%;bottom:38%;font-size:1.5rem;pointer-events:none;
+  animation:floatUp 1s ease-out forwards;z-index:3}
+@keyframes floatUp{0%{opacity:0;transform:translate(-50%,6px) scale(.8)}
+  25%{opacity:1}100%{opacity:0;transform:translate(-50%,-58px) scale(1.15)}}
+.needs{margin-top:.55rem;display:flex;flex-direction:column;gap:.32rem}
+.need{display:flex;align-items:center;gap:.45rem;background:#FFF;border:1.5px solid var(--line);
+  border-radius:.7rem;padding:.38rem .55rem}
+.need .nl{flex:0 0 4.9rem;font-size:.94rem;font-weight:900;letter-spacing:-.02em}
+.need .nbar{flex:1 1 auto;min-width:0;height:.68rem;border-radius:999px;background:#EDF2E8;overflow:hidden}
+.need .nbar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#63BC74,#2E8B4F);
+  transition:width .35s ease}
+.need.w .nbar i{background:linear-gradient(90deg,#7FD3F0,#2E9ED6)}
+.need.s .nbar i{background:linear-gradient(90deg,#FFD46B,#E9A61F)}
+.need.f .nbar i{background:linear-gradient(90deg,#8FD07B,#3F9C56)}
+.need .nn{flex:0 0 auto;font-size:.86rem;font-weight:900;color:var(--ink2);min-width:2.6rem;text-align:right}
+.careRow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.4rem;margin-top:.55rem}
+.care{min-height:5.4rem;border-radius:.95rem;border:1.5px solid var(--line);background:#FFF;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.12rem;
+  font-weight:900;font-size:.98rem;letter-spacing:-.03em;box-shadow:var(--shadow)}
+.care b{font-size:1.68rem;line-height:1.1}
+.care.water{background:linear-gradient(180deg,#FFFFFF,#EAF7FE);border-color:#BDE2F2}
+.care.sun{background:linear-gradient(180deg,#FFFFFF,#FFF7E2);border-color:#F0DCA8}
+.care.feed{background:linear-gradient(180deg,#FFFFFF,#F0FAEA);border-color:#CBE6BF}
+.care:active{transform:translateY(2px)}
+.care:disabled{opacity:.45}
+.harvestBtn{width:100%;min-height:3.8rem;border-radius:.95rem;border:1.5px solid #C48110;
+  background:linear-gradient(180deg,#FFD46B,#EFA022);color:#3B2604;font-weight:900;font-size:1.2rem;
+  margin-top:.55rem;box-shadow:0 4px 14px rgba(230,150,25,.4);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 4px 14px rgba(230,150,25,.40)}50%{box-shadow:0 8px 24px rgba(230,150,25,.72)}}
+.growTools{display:flex;gap:.4rem;margin-top:.5rem}
+.growTools button{flex:1 1 0;min-height:3.05rem;border-radius:.75rem;border:1.5px solid var(--greenline);
+  background:#FFF;font-weight:900;font-size:.94rem;color:var(--green)}
+
+/* ── 도감 ───────────────────────────────── */
+.bkRow{display:flex;align-items:center;gap:.45rem;background:var(--card);border:1.5px solid var(--line);
+  border-radius:1rem;padding:.45rem .55rem;box-shadow:var(--shadow);margin-top:.44rem}
+.bkRow .bkv{flex:0 0 4.1rem;height:4.1rem;display:flex;align-items:flex-end;justify-content:center;overflow:hidden}
+.bkRow .bkv svg{width:4.1rem;height:4.1rem;display:block}
+.bkRow .bkm{flex:1 1 auto;min-width:0}
+.bkRow .bkm b{display:block;font-size:1.06rem;letter-spacing:-.03em;line-height:1.2}
+.bkRow .bkm i{display:block;font-style:normal;font-size:.82rem;color:var(--ink2);font-weight:800;line-height:1.35}
+.bkRow .bkm em{display:inline-block;font-style:normal;margin-top:.18rem;font-size:.78rem;font-weight:900;
+  color:var(--amber);background:var(--amberbg);border:1px solid var(--amberline);border-radius:999px;padding:.06rem .42rem}
+.bkA{display:flex;flex-direction:column;gap:.28rem;flex:0 0 auto}
+.bkA button{min-height:2.5rem;min-width:3.1rem;border-radius:.6rem;border:1.5px solid var(--greenline);
+  background:#FFF;font-size:.8rem;font-weight:900;color:var(--green);padding:0 .3rem}
+.bkA button.dl{color:var(--red);border-color:#E7D5D0}
+.bookEmpty{text-align:center;padding:1.2rem .6rem;color:var(--ink2);font-size:.96rem;line-height:1.55;font-weight:700;
+  background:#FFF;border:1.5px dashed var(--greenline);border-radius:1rem}
+
+/* ── 탭바 ───────────────────────────────── */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;
+  background:rgba(255,255,255,.97);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border-top:1.5px solid var(--line);padding:.2rem .25rem calc(.2rem + env(safe-area-inset-bottom));
+  box-shadow:0 -3px 14px rgba(30,60,35,.07)}
+.tbtn{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.02rem;min-height:3.7rem;border-radius:.7rem;font-weight:900;color:var(--ink3)}
+.tbtn span{font-size:1.35rem;line-height:1.1}
+.tbtn i{font-style:normal;font-size:.86rem;font-weight:900;letter-spacing:-.02em}
+.tbtn[aria-selected="true"]{color:var(--green);background:var(--greenbg)}
+
+/* ── 토스트 ─────────────────────────────── */
+.toast{position:fixed;left:50%;bottom:calc(5.4rem + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(.4rem);
+  z-index:90;display:flex;align-items:center;gap:.5rem;max-width:92vw;
+  background:rgba(20,40,26,.96);color:#F6FFF2;border-radius:.85rem;padding:.52rem .58rem .52rem .82rem;
+  font-size:.9rem;font-weight:800;line-height:1.38;opacity:0;pointer-events:none;
+  transition:opacity .18s,transform .18s;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+.toast button{flex:0 0 auto;background:#FFD98A;color:#3B2A05;border-radius:.55rem;padding:.34rem .6rem;
+  font-weight:900;font-size:.8rem}
+
+/* ── 모달 ───────────────────────────────── */
+.modal{position:fixed;inset:0;z-index:80;background:rgba(18,35,22,.6);display:flex;align-items:center;
+  justify-content:center;padding:.8rem}
+.mcard{background:#FFFDF8;border-radius:1.1rem;max-width:23rem;width:100%;padding:.85rem .85rem .75rem;
+  box-shadow:0 14px 40px rgba(15,35,20,.35);max-height:88vh;overflow:auto}
+.mcard h3{margin:0 0 .35rem;font-size:1.12rem;letter-spacing:-.03em}
+.mcard p{margin:0 0 .5rem;font-size:.92rem;color:var(--ink2);line-height:1.5;font-weight:700}
+.mcard ol{margin:0 0 .5rem;padding-left:1.15rem;font-size:.94rem;line-height:1.7;color:#33402F;font-weight:700}
+.mcard .mini{font-size:.82rem;color:var(--ink3);margin:.2rem 0 .6rem}
+.mcard .mrow{display:flex;gap:.4rem}
+.mcard .mrow button,.mcard .mrow a{flex:1 1 0;min-width:0;min-height:3.05rem;border-radius:.7rem;
+  display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.94rem;
+  border:1.5px solid #D8CBAE;background:#FFFDF7;color:#4A3A1A;text-decoration:none;text-align:center;padding:0 .3rem}
+.mcard .mrow .pri2{background:linear-gradient(180deg,#FFDB8A,#F2AC2E);border-color:#D99320;color:#3B2A05}
+.cardWrap{display:flex;justify-content:center;margin:.1rem 0 .55rem}
+.cardWrap canvas{width:100%;max-width:19rem;height:auto;border-radius:.8rem;box-shadow:0 6px 20px rgba(20,50,25,.18);display:block}
+
+/* ── 좁은 화면 ───────────────────────────── */
+/* 폰: 앱 이름이 잘리지 않게 버튼을 아래 줄로 내림 */
+@media (max-width:479px){
+  .brand{flex-wrap:wrap;row-gap:.34rem}
+  .btxt{flex:1 1 auto}
+  .brand .sub{display:none}
+  .topbtns{flex:1 1 100%;justify-content:flex-end;gap:.24rem;margin-top:-.06rem}
+  .topbtns button{padding:.3rem .5rem;font-size:.8rem;min-height:2.7rem;border-radius:.62rem}
+  .logo{font-size:1.5rem}
+  .brand{gap:.34rem}
+  .brand h1{font-size:1.24rem}
+}
+@media (max-width:419px){
+  .brand .sub{display:none}
+  .topbtns{gap:.16rem}
+  .topbtns button{padding:.26rem .34rem;font-size:.72rem;min-height:2.45rem;border-radius:.55rem}
+  .logo{font-size:1.42rem}
+  .brand{gap:.3rem}
+  .brand h1{font-size:1.1rem}
+}
+@media (max-width:379px){
+  .months{gap:.24rem}
+  .mbtn{border-radius:.66rem;min-height:3rem}
+  .mbtn .mc{font-size:.56rem}
+  .bandgrid{grid-template-columns:3.7rem repeat(12,minmax(0,1fr))}
+  .inforow .ik{flex:0 0 5rem;font-size:.86rem}
+  .need .nl{flex:0 0 4.4rem;font-size:.9rem}
+}
+@media (max-width:359px){
+  .months{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .bandgrid .bh,.bandgrid .bm{font-size:.52rem;letter-spacing:-.06em}
+  .bandgrid .bl{font-size:.76rem}
+  .mbtn{font-size:1rem;min-height:2.95rem}
+  .cropRow{padding:.48rem .5rem .54rem}
+  .cst{font-size:.68rem;max-width:5.4rem}
+  .seedgrid{gap:.36rem}
+  .care{min-height:5rem;font-size:.92rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .scene .sway,.scene.pop svg,.harvestBtn{animation:none !important}
+  .floaty{animation:none !important;opacity:0}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">🌱</span>
+    <div class="btxt">
+      <h1 id="appTitle">와글링 텃밭</h1>
+      <p class="sub" id="appSub">파종 달력 · 내 손안의 식물</p>
+    </div>
+    <div class="topbtns">
+      <button id="btnLang" type="button">🌐 한/EN</button>
+      <button id="installBtn" type="button">📲 <span id="instLbl">설치</span></button>
+      <button id="shareBtn" type="button">📤 <span id="shareLbl">공유</span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ══ 파종 달력 ══ -->
+  <section class="view" id="viewCal">
+    <div class="regrow" id="regRow">
+      <button class="regbtn" type="button" data-region="c" aria-pressed="false">🏙️ <span id="regCLbl">중부 지방</span></button>
+      <button class="regbtn" type="button" data-region="s" aria-pressed="true">🌊 <span id="regSLbl">남부 지방</span></button>
+    </div>
+    <p class="regnote" id="regNote">남부(부산·경남·전남 등)는 중부보다 2~3주 빨라요</p>
+
+    <div class="months" id="monthGrid" role="group" aria-label="달 고르기"></div>
+
+    <div class="searchbox">
+      <span class="si" aria-hidden="true">🔍</span>
+      <input id="q" type="search" inputmode="search" autocomplete="off" enterkeyhint="search"
+             placeholder="작물 이름 검색 (예: 상추)" aria-label="작물 검색" />
+    </div>
+
+    <div class="sumline" id="sumLine"></div>
+
+    <div class="secHead">
+      <h2 id="todoTitle">이번 달에 할 일</h2>
+      <p id="todoSub">작물을 누르면 심는 간격·물주기·햇빛을 볼 수 있어요</p>
+    </div>
+    <div id="todoWrap"></div>
+
+    <div class="secHead">
+      <h2 id="myGTitle">내 텃밭</h2>
+      <p id="myGSub">심은 날짜를 적으면 며칠째인지 세어 드려요</p>
+    </div>
+    <div id="myGarden"></div>
+
+    <div class="secHead">
+      <h2 id="allTitle">전체 작물 <span class="cnt" id="allCnt">25</span></h2>
+      <p id="allSub">12달을 한눈에 — 초록 씨, 청록 모종, 주황 수확</p>
+    </div>
+    <div class="ruler" id="ruler" aria-hidden="true"></div>
+    <div id="cropList"></div>
+    <p class="hint" id="calHint">달과 지역을 바꾸면 시기가 함께 바뀌어요</p>
+  </section>
+
+  <!-- ══ 식물 키우기 ══ -->
+  <section class="view" id="viewGrow" hidden>
+    <div id="seedPick">
+      <div class="secHead">
+        <h2 id="seedTitle">씨앗 고르기</h2>
+        <p id="seedSub">마음에 드는 씨앗을 골라 화분에 심어 보세요</p>
+      </div>
+      <div class="seedgrid" id="seedGrid"></div>
+      <p class="hint" id="seedHint">하루 1분, 물·햇빛·돌보기로 키워요 · 기록은 이 기기에만 저장돼요</p>
+    </div>
+
+    <div id="growView" hidden>
+      <div class="potcard">
+        <div class="potTop">
+          <span class="stageBadge" id="stageBadge">씨앗</span>
+          <span class="dayBadge" id="dayBadge">1일째</span>
+        </div>
+        <div class="scene" id="scene"></div>
+        <div class="plantName" id="plantName">방울토마토</div>
+        <div class="plantSay" id="plantSay">물을 기다려요</div>
+      </div>
+
+      <div class="needs" id="needs"></div>
+
+      <div class="careRow">
+        <button class="care water" type="button" data-care="w"><b>💧</b><span id="careWLbl">물 주기</span></button>
+        <button class="care sun" type="button" data-care="s"><b>☀️</b><span id="careSLbl">햇빛 쬐기</span></button>
+        <button class="care feed" type="button" data-care="f"><b>🌿</b><span id="careFLbl">거름·돌보기</span></button>
+      </div>
+
+      <button class="harvestBtn" id="harvestBtn" type="button" hidden>🧺 수확하기</button>
+
+      <div class="growTools">
+        <button id="growBook" type="button">📔 수확 도감</button>
+        <button id="growReset" type="button">🌱 다른 씨앗</button>
+      </div>
+      <p class="hint" id="growHint">돌볼수록 쑥쑥 자라요 · 다 키우면 축하 카드가 나와요</p>
+    </div>
+  </section>
+
+  <!-- ══ 수확 도감 ══ -->
+  <section class="view" id="viewBook" hidden>
+    <div class="secHead">
+      <h2 id="bookTitle">수확 도감</h2>
+      <p id="bookSub">내가 키워서 수확한 식물들이에요</p>
+    </div>
+    <div id="bookList"></div>
+  </section>
+
+  <!-- ══ 작물 자세히 ══ -->
+  <section class="view" id="viewCrop" hidden>
+    <button class="backbtn" id="cropBack" type="button">← <span id="backLbl">달력으로</span></button>
+    <div class="dhead">
+      <span class="de" id="cropEmoji">🥬</span>
+      <div class="dn">
+        <b id="cropName">상추</b>
+        <i id="cropEn">Lettuce</i>
+      </div>
+    </div>
+    <div class="card" style="margin-top:.55rem">
+      <div id="cropBand"></div>
+      <div id="cropInfo"></div>
+    </div>
+    <div class="card addplot">
+      <b id="addTitle" style="font-size:.95rem;letter-spacing:-.02em">🌱 내 텃밭에 심었어요</b>
+      <label for="plotDate" id="dateLbl">심은 날</label>
+      <input type="date" id="plotDate" />
+      <label for="plotMemo" id="memoLbl">메모</label>
+      <input type="text" id="plotMemo" maxlength="40" autocomplete="off" placeholder="예: 2번 밭, 모종 3포기" />
+      <button class="pri" id="plotAdd" type="button">기록하기</button>
+    </div>
+  </section>
+
+</main>
+
+<nav class="tabbar" role="tablist">
+  <button class="tbtn" type="button" data-tab="cal" role="tab" aria-selected="true"><span>📅</span><i id="tabCalLbl">달력</i></button>
+  <button class="tbtn" type="button" data-tab="grow" role="tab" aria-selected="false"><span>🌱</span><i id="tabGrowLbl">키우기</i></button>
+  <button class="tbtn" type="button" data-tab="book" role="tab" aria-selected="false"><span>📔</span><i id="tabBookLbl">도감</i></button>
+</nav>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- 수확 축하 카드 -->
+<div class="modal" id="cardModal" hidden>
+  <div class="mcard" role="dialog" aria-modal="true" aria-labelledby="cardTitle">
+    <h3 id="cardTitle">🎉 수확했어요!</h3>
+    <p id="cardLead">수확 축하 카드를 만들어 두었어요. 저장하거나 카톡·문자로 보내 보세요.</p>
+    <div class="cardWrap"><canvas id="cardCanvas" width="1080" height="1350"></canvas></div>
+    <div class="mrow">
+      <button id="cardSave" class="pri2" type="button">🖼️ 저장</button>
+      <a id="cardShare" href="#" role="button">📤 보내기</a>
+    </div>
+    <div class="mrow" style="margin-top:.38rem">
+      <a id="cardSms" href="#" role="button">✉️ 문자</a>
+      <button id="cardClose" type="button">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 설치 안내 -->
+<div class="modal" id="instModal" hidden>
+  <div class="mcard" role="dialog" aria-modal="true" aria-labelledby="instTitle">
+    <h3 id="instTitle">홈 화면에 앱으로 설치</h3>
+    <p id="instLead"></p>
+    <ol id="instSteps"></ol>
+    <p class="mini" id="instMini"></p>
+    <div class="mrow">
+      <a id="instChrome" class="pri2" href="#" hidden>🌐 크롬으로 바로 열기</a>
+      <button id="instClose" type="button">알겠어요</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ══════════════════ 0. 도우미 ══════════════════ */
+function $(s){ return document.querySelector(s); }
+function $$(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); }
+function esc(s){
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+  });
+}
+function pad2(n){ return (n < 10 ? '0' : '') + n; }
+function todayISO(){
+  var d = new Date();
+  return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+}
+function isoToDate(iso){
+  var p = String(iso || '').split('-');
+  if(p.length !== 3) return null;
+  var d = new Date(Number(p[0]), Number(p[1]) - 1, Number(p[2]));
+  return isNaN(d.getTime()) ? null : d;
+}
+function startOfDay(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime(); }
+function dayNo(iso){
+  var d = isoToDate(iso); if(!d) return 1;
+  var diff = Math.floor((startOfDay(new Date()) - startOfDay(d)) / 86400000);
+  return Math.max(1, diff + 1);
+}
+function tsDayNo(ts){
+  var diff = Math.floor((startOfDay(new Date()) - startOfDay(new Date(ts))) / 86400000);
+  return Math.max(1, diff + 1);
+}
+
+/* ══════════════════ 1. 말 (한/EN) ══════════════════ */
+var MON_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var STR = {
+  ko:{
+    appTitle:'와글링 텃밭', appSub:'파종 달력 · 내 손안의 식물',
+    tabCal:'달력', tabGrow:'키우기', tabBook:'도감',
+    instLbl:'설치', shareLbl:'공유',
+    regionC:'중부 지방', regionS:'남부 지방',
+    regionNote:'남부(부산·경남·전남 등)는 중부보다 2~3주 빨라요',
+    searchPh:'작물 이름 검색 (예: 상추)',
+    todoTitle:'이번 달에 할 일',
+    todoSub:'작물을 누르면 심는 간격·물주기·햇빛을 볼 수 있어요',
+    grpSow:'씨 뿌리기', grpPlug:'모종 심기', grpHarv:'수확하기',
+    noneMonth:'이번 달엔 심을 것도, 거둘 것도 없어요. 다른 달을 눌러 보세요.',
+    myGTitle:'내 텃밭', myGSub:'심은 날짜를 적으면 며칠째인지 세어 드려요',
+    myGEmpty:'아직 심은 기록이 없어요. 아래 작물을 눌러 「기록하기」로 적어 두세요.',
+    allTitle:'전체 작물', allSub:'12달을 한눈에 — 초록 씨, 청록 모종, 주황 수확',
+    calHint:'달과 지역을 바꾸면 시기가 함께 바뀌어요',
+    cropsN:'가지', daysN:'일째', harvNow:'지금 수확 철',
+    agoDay:function(n){ return '심은 지 ' + n + '일째'; },
+    sowL:'씨 뿌리기', plugL:'모종 심기', harvL:'수확',
+    gapL:'심는 간격', waterL:'물주기', sunL:'햇빛', tipL:'한 줄 팁',
+    addTitle:'🌱 내 텃밭에 심었어요', dateLbl:'심은 날', memoLbl:'메모',
+    memoPh:'예: 2번 밭, 모종 3포기', plotAddBtn:'기록하기',
+    plotAdded:'내 텃밭에 적어 두었어요', plotDel:'기록을 지웠어요', undo:'되돌리기',
+    mustCrop:'작물을 먼저 골라 주세요',
+    plantedOn:function(d){ return '심은 날 ' + d; },
+    harvRange:function(r){ return '🧺 수확 ' + r; },
+    backCal:'달력으로',
+    seedTitle:'씨앗 고르기', seedSub:'마음에 드는 씨앗을 골라 화분에 심어 보세요',
+    seedHint:'하루 1분, 물·햇빛·돌보기로 키워요 · 기록은 이 기기에만 저장돼요',
+    plantBtn:'이 씨앗 심기',
+    stageNames:['씨앗','새싹','잎이 무성','꽃','열매'],
+    stageRipe:'열매 맺음', dayTxt:function(n){ return n + '일째'; },
+    careWLbl:'물 주기', careSLbl:'햇빛 쬐기', careFLbl:'거름·돌보기',
+    needW:'💧 물', needS:'☀️ 햇빛', needF:'🌿 돌봄',
+    sayW:'💧 목이 말라요', sayS:'☀️ 햇빛이 고파요', sayF:'🌿 돌봄이 필요해요', sayOk:'잘 자라고 있어요 🌱',
+    sayFull:'지금은 충분해요 🙂',
+    growHint:'돌볼수록 쑥쑥 자라요 · 다 키우면 축하 카드가 나와요',
+    grew1:'새싹이 돋았어요! 🌱', grew2:'잎이 무성해졌어요 🍃', grew3:'꽃이 피었어요! 🌼', grew4:'열매가 맺혔어요! 🍅',
+    harvestBtn:'🧺 수확하기', growBookBtn:'📔 수확 도감', growResetBtn:'🌱 다른 씨앗',
+    resetAsk:'지금 키우는 식물을 그만 키울까요?', resetDone:'새 씨앗을 고를 수 있어요', resetUndo:'다시 키우기',
+    bookTitle:'수확 도감', bookSub:'내가 키워서 수확한 식물들이에요',
+    bookEmpty:'아직 수확한 식물이 없어요.\n🌱 키우기에서 씨앗을 심고 물·햇빛·돌보기를 눌러 보세요.',
+    bookSee:'카드 보기', bookDel:'지우기', bookDelDone:'도감에서 지웠어요',
+    harvestDone:'도감에 담았어요', cardTitleTxt:'🎉 수확했어요!',
+    cardLead:'수확 축하 카드를 만들었어요. 저장하거나 카톡·문자로 보내 보세요.',
+    cardSaveTxt:'🖼️ 저장', cardShareTxt:'📤 보내기', cardSmsTxt:'✉️ 문자', closeBtn:'닫기',
+    pngSaved:'카드 이미지를 저장했어요', pngFail:'저장이 안 됐어요 · 이미지를 길게 눌러 저장해 주세요',
+    copiedShare:'보낼 글을 복사했어요 · 카톡·문자에 붙여넣어 주세요',
+    shareFail:'공유가 안 됐어요 · 카드 저장을 눌러 주세요',
+    cardMsg:function(name, days, care){
+      return '와글링 텃밭에서 ' + name + '을(를) 키워 수확했어요! ' + days + '일 만에, 돌봄 ' + care + '번 🌱 ' +
+        'https://starpicklife-design.github.io/garden/';
+    },
+    smsMsg:function(name, days, care){
+      return '와글링 텃밭에서 ' + name + '을(를) 키워 수확했어요! ' + days + '일 만에, 돌봄 ' + care + '번 🌱';
+    },
+    cardLine1:function(a, b){ return '심은 날 ' + a + '  ·  수확한 날 ' + b; },
+    cardLine2:function(d, c){ return d + '일 만에 수확  ·  돌봄 ' + c + '번'; },
+    cardHead:'수확했어요!', cardFoot:'와글링 텃밭 · Wagling Garden',
+    realDur:'텃밭에서는 ', realDur2:'',
+    instTitle:'홈 화면에 앱으로 설치', instLed:'설치하면 인터넷이 없어도 열려요. 무료이고 광고도 없어요.',
+    instS1:'크롬(또는 사파리)으로 이 페이지를 엽니다',
+    instS2:'오른쪽 위 ⋮ (또는 공유 버튼)을 누릅니다',
+    instS3:'「앱 설치」 또는 「홈 화면에 추가」를 고릅니다',
+    instS4:'홈 화면의 🌱 아이콘으로 열면 앱처럼 커집니다',
+    instMini:'아이폰은 사파리 공유 → 「홈 화면에 추가」예요.',
+    instOk:'알겠어요',
+    instAlready:'이미 앱으로 열려 있어요 🙂', installedMsg:'설치했어요! 홈 화면에서 열어 주세요 🌱',
+    instChromeBtn:'🌐 크롬으로 바로 열기',
+    shareTitle:'와글링 텃밭', shareText:'월별·지역별 파종 달력 + 내 손안의 식물 키우기 — 무료, 광고 없음',
+    shareCopied:'주소를 복사했어요 · 붙여넣기 해 주세요',
+    shareCopyFail:'복사가 안 됐어요. 주소창의 주소를 복사해 주세요',
+    sureNo:'내 기록은 이 기기에만 있어요'
+  },
+  en:{
+    appTitle:'Wagling Garden', appSub:'Sowing calendar · Pocket plant',
+    tabCal:'Calendar', tabGrow:'Grow', tabBook:'Album',
+    instLbl:'Install', shareLbl:'Share',
+    regionC:'Central', regionS:'South',
+    regionNote:'The south (Busan, Gyeongnam, Jeonnam) runs 2–3 weeks ahead of the centre.',
+    searchPh:'Search a crop (e.g. lettuce)',
+    todoTitle:'This month',
+    todoSub:'Tap a crop to see spacing, watering and sunlight',
+    grpSow:'Sow seeds', grpPlug:'Plant seedlings', grpHarv:'Harvest',
+    noneMonth:'Nothing to sow or pick this month. Try another month.',
+    myGTitle:'My garden', myGSub:'Write down the planting day and we count the days',
+    myGEmpty:'No planting records yet. Tap a crop below and press “Record”.',
+    allTitle:'All crops', allSub:'Twelve months at a glance — green sow, teal seedling, orange harvest',
+    calHint:'Change the month or region and the timings change with it',
+    cropsN:'crops', daysN:'day', harvNow:'Harvest now',
+    agoDay:function(n){ return 'Day ' + n; },
+    sowL:'Sow', plugL:'Seedling', harvL:'Harvest',
+    gapL:'Spacing', waterL:'Water', sunL:'Sun', tipL:'One tip',
+    addTitle:'🌱 I planted this', dateLbl:'Planted on', memoLbl:'Note',
+    memoPh:'e.g. bed 2, three seedlings', plotAddBtn:'Record it',
+    plotAdded:'Added to my garden', plotDel:'Record deleted', undo:'Undo',
+    mustCrop:'Pick a crop first',
+    plantedOn:function(d){ return 'Planted ' + d; },
+    harvRange:function(r){ return '🧺 Harvest ' + r; },
+    backCal:'Calendar',
+    seedTitle:'Choose a seed', seedSub:'Pick a seed and plant it in the pot',
+    seedHint:'One minute a day — water, sun and care. Saved on this device only.',
+    plantBtn:'Plant this seed',
+    stageNames:['Seed','Sprout','Leafy','Flower','Fruit'],
+    stageRipe:'Fruiting', dayTxt:function(n){ return 'Day ' + n; },
+    careWLbl:'Water', careSLbl:'Sunshine', careFLbl:'Care',
+    needW:'💧 Water', needS:'☀️ Sun', needF:'🌿 Care',
+    sayW:'💧 I am thirsty', sayS:'☀️ I need sunshine', sayF:'🌿 I need some care', sayOk:'Growing nicely 🌱',
+    sayFull:'That is plenty for now 🙂',
+    growHint:'Care for it and it grows · a celebration card at harvest',
+    grew1:'A sprout appeared! 🌱', grew2:'Lots of leaves now 🍃', grew3:'It flowered! 🌼', grew4:'Fruit is here! 🍅',
+    harvestBtn:'🧺 Harvest', growBookBtn:'📔 Album', growResetBtn:'🌱 Another seed',
+    resetAsk:'Stop growing this plant?', resetDone:'Pick a new seed', resetUndo:'Keep growing',
+    bookTitle:'Harvest album', bookSub:'Everything you grew and picked',
+    bookEmpty:'Nothing harvested yet.\n🌱 Pick a seed in Grow and tap water, sun and care.',
+    bookSee:'Card', bookDel:'Delete', bookDelDone:'Removed from the album',
+    harvestDone:'Saved to the album', cardTitleTxt:'🎉 Harvest time!',
+    cardLead:'Your celebration card is ready. Save it or send it by message.',
+    cardSaveTxt:'🖼️ Save', cardShareTxt:'📤 Send', cardSmsTxt:'✉️ SMS', closeBtn:'Close',
+    pngSaved:'Card image saved', pngFail:'Could not save · long-press the image to save it',
+    copiedShare:'Message copied · paste it into your chat or SMS app',
+    shareFail:'Sharing failed · try saving the card',
+    cardMsg:function(name, days, care){
+      return 'I grew and harvested ' + name + ' in Wagling Garden! ' + days + ' days, ' + care + ' times of care 🌱 ' +
+        'https://starpicklife-design.github.io/garden/';
+    },
+    smsMsg:function(name, days, care){
+      return 'I grew and harvested ' + name + ' in Wagling Garden! ' + days + ' days, ' + care + ' times of care 🌱';
+    },
+    cardLine1:function(a, b){ return 'Planted ' + a + '  ·  Harvested ' + b; },
+    cardLine2:function(d, c){ return 'Harvested in ' + d + ' days  ·  ' + c + ' times of care'; },
+    cardHead:'Harvest time!', cardFoot:'와글링 텃밭 · Wagling Garden',
+    realDur:'In a real garden: ', realDur2:'',
+    instTitle:'Install this app', instLed:'Installed, it opens without internet. Free, no ads.',
+    instS1:'Open this page in Chrome (or Safari)',
+    instS2:'Tap ⋮ at the top right (or the Share button)',
+    instS3:'Choose “Install app” or “Add to Home Screen”',
+    instS4:'Open the 🌱 icon on your home screen',
+    instMini:'On iPhone: Safari Share → “Add to Home Screen”.',
+    instOk:'Got it',
+    instAlready:'You are already in the installed app 🙂', installedMsg:'Installed! Open it from your home screen 🌱',
+    instChromeBtn:'🌐 Open in Chrome',
+    shareTitle:'Wagling Garden', shareText:'A sowing calendar for every month and region + a pocket plant to grow — free, no ads',
+    shareCopied:'Link copied — paste it anywhere',
+    shareCopyFail:'Copy failed. Please copy the address bar link.',
+    sureNo:'Your records stay on this device'
+  }
+};
+function t(k){ var d = STR[S.lang] || STR.ko; var v = d[k]; if(v === undefined) v = STR.ko[k]; return v; }
+function cropName(c){ return S.lang === 'en' ? c.en : c.ko; }
+function cropSub(c){ return S.lang === 'en' ? c.ko : c.en; }
+function monthLabel(m){ return S.lang === 'en' ? MON_EN[m - 1] : (m + '월'); }
+function dateLabel(iso){
+  var d = isoToDate(iso); if(!d) return iso || '';
+  return S.lang === 'en' ? (MON_EN[d.getMonth()] + ' ' + d.getDate()) : (d.getMonth() + 1 + '월 ' + d.getDate() + '일');
+}
+function dateLabelTs(ts){
+  var d = new Date(ts);
+  return S.lang === 'en' ? (MON_EN[d.getMonth()] + ' ' + d.getDate()) : (d.getMonth() + 1 + '월 ' + d.getDate() + '일');
+}
+function rangeText(months){
+  if(!months || !months.length) return S.lang === 'en' ? '—' : '—';
+  var out = [], i = 0;
+  var ms = months.slice().sort(function(a,b){ return a-b; });
+  while(i < ms.length){
+    var a = ms[i], b = a;
+    while(i + 1 < ms.length && ms[i+1] === b + 1){ i++; b = ms[i]; }
+    if(a === b) out.push(monthLabel(a));
+    else out.push(monthLabel(a) + '–' + monthLabel(b).replace(/월$/, ''));
+    i++;
+  }
+  return out.join(', ');
+}
+
+/* ══════════════════ 2. 작물 자료 (25종) ══════════════════ */
+function R(){
+  var a = [], i, j;
+  for(i = 0; i < arguments.length; i++){
+    var r = arguments[i];
+    for(j = r[0]; j <= r[1]; j++) a.push(j);
+  }
+  return a;
+}
+var CROPS = [
+  { id:'potato', ko:'감자', en:'Potato', e:'🥔',
+    sow:{ c:R([2,3]), s:R([2,3]) }, plug:null, harv:{ c:R([6,7]), s:R([5,6]) },
+    gap:{ ko:'포기 사이 25~30cm, 15cm 깊이', en:'25–30 cm apart, 15 cm deep' },
+    water:{ ko:'심을 때 듬뿍, 싹이 난 뒤 2~3번', en:'Soak at planting, then 2–3 times' },
+    sun:{ ko:'하루 6시간 이상', en:'6+ hours a day' },
+    tip:{ ko:'싹이 10cm 자라면 흙을 북돋아 주세요.', en:'Hill soil around the stems at 10 cm.' } },
+  { id:'sweetpotato', ko:'고구마', en:'Sweet potato', e:'🍠',
+    sow:null, plug:{ c:R([5,5]), s:R([4,5]) }, harv:{ c:R([9,10]), s:R([9,11]) },
+    gap:{ ko:'모종 사이 30cm', en:'30 cm between slips' },
+    water:{ ko:'심은 날만 충분히, 뒤엔 거의 주지 않아요', en:'Water only at planting, then keep it dry' },
+    sun:{ ko:'하루 8시간, 볕이 잘 드는 자리', en:'Full sun, 8+ hours' },
+    tip:{ ko:'줄기가 길게 뻗어요. 넓은 곳이나 큰 화분에 심으세요.', en:'Vines spread wide — give it room.' } },
+  { id:'lettuce', ko:'상추', en:'Lettuce', e:'🥬',
+    sow:{ c:R([3,5],[8,9]), s:R([3,5],[9,10]) }, plug:{ c:R([4,5],[9,9]), s:R([4,5],[9,10]) },
+    harv:{ c:R([5,6],[9,10]), s:R([5,6],[10,11]) },
+    gap:{ ko:'포기 사이 15~20cm', en:'15–20 cm apart' },
+    water:{ ko:'겉흙이 마르면 듬뿍, 자주', en:'Water well whenever the top soil dries' },
+    sun:{ ko:'4~6시간, 반그늘도 괜찮아요', en:'4–6 hours, light shade is fine' },
+    tip:{ ko:'바깥잎부터 따면 오래 먹을 수 있어요.', en:'Pick outer leaves and it keeps growing.' } },
+  { id:'spinach', ko:'시금치', en:'Spinach', e:'🍃',
+    sow:{ c:R([3,4],[9,10]), s:R([2,3],[9,11]) }, plug:null, harv:{ c:R([4,5],[10,11]), s:R([4,5],[11,12]) },
+    gap:{ ko:'포기 사이 10cm', en:'10 cm apart' },
+    water:{ ko:'조금씩 자주, 마르지 않게', en:'Little and often, keep it moist' },
+    sun:{ ko:'4시간이면 충분, 반그늘 OK', en:'4 hours is enough, light shade OK' },
+    tip:{ ko:'봄보다 가을 파종이 훨씬 쉬워요.', en:'Autumn sowing is much easier than spring.' } },
+  { id:'cabbage', ko:'배추', en:'Napa cabbage', e:'🥬',
+    sow:{ c:R([8,8]), s:R([8,9]) }, plug:{ c:R([8,9]), s:R([9,9]) }, harv:{ c:R([10,11]), s:R([10,12]) },
+    gap:{ ko:'포기 사이 35~40cm', en:'35–40 cm apart' },
+    water:{ ko:'아침에 듬뿍, 속이 차기 시작하면 더', en:'Water well in the morning' },
+    sun:{ ko:'하루 6시간', en:'6 hours a day' },
+    tip:{ ko:'김장 배추는 8월 중순~말에 심어요.', en:'For kimchi cabbage, sow mid-to-late August.' } },
+  { id:'radish', ko:'무', en:'Radish', e:'🌿',
+    sow:{ c:R([4,5],[8,9]), s:R([3,4],[8,9]) }, plug:null, harv:{ c:R([6,7],[10,11]), s:R([5,6],[10,12]) },
+    gap:{ ko:'포기 사이 20~25cm', en:'20–25 cm apart' },
+    water:{ ko:'일정하게, 갑자기 많이 주면 갈라져요', en:'Keep even moisture or roots split' },
+    sun:{ ko:'하루 6시간', en:'6 hours a day' },
+    tip:{ ko:'솎아서 20cm 간격을 꼭 지켜 주세요.', en:'Thin to 20 cm or the roots stay small.' } },
+  { id:'chili', ko:'고추', en:'Chili pepper', e:'🌶️',
+    sow:{ c:R([2,3]), s:R([2,3]) }, plug:{ c:R([5,5]), s:R([4,5]) }, harv:{ c:R([7,10]), s:R([6,10]) },
+    gap:{ ko:'포기 사이 40~50cm', en:'40–50 cm apart' },
+    water:{ ko:'2~3일 간격으로 흠뻑', en:'Every 2–3 days, deeply' },
+    sun:{ ko:'하루 8시간', en:'8 hours a day' },
+    tip:{ ko:'씨앗은 2~3월 집 안에서 싹을 틔워요.', en:'Start seeds indoors in Feb–Mar.' } },
+  { id:'tomato', ko:'토마토', en:'Tomato', e:'🍅',
+    sow:{ c:R([3,4]), s:R([3,4]) }, plug:{ c:R([5,5]), s:R([4,5]) }, harv:{ c:R([7,9]), s:R([6,10]) },
+    gap:{ ko:'포기 사이 50cm, 지주대 세우기', en:'50 cm apart, with a stake' },
+    water:{ ko:'아침에 규칙적으로, 잎에 물이 안 닿게', en:'Regular morning water at the base' },
+    sun:{ ko:'하루 8시간', en:'8 hours a day' },
+    tip:{ ko:'키가 크면 지주대에 묶어 주세요.', en:'Tie it to a stake as it grows.' } },
+  { id:'cucumber', ko:'오이', en:'Cucumber', e:'🥒',
+    sow:{ c:R([4,5]), s:R([4,5]) }, plug:{ c:R([5,5]), s:R([4,5]) }, harv:{ c:R([7,9]), s:R([6,10]) },
+    gap:{ ko:'포기 사이 60cm', en:'60 cm apart' },
+    water:{ ko:'많이, 하루 한 번', en:'Plenty, once a day' },
+    sun:{ ko:'하루 8시간', en:'8 hours a day' },
+    tip:{ ko:'덩굴이 뻗어요. 오이망을 세워 주세요.', en:'Give the vines a trellis.' } },
+  { id:'pumpkin', ko:'호박', en:'Pumpkin', e:'🎃',
+    sow:{ c:R([4,5]), s:R([4,4]) }, plug:{ c:R([5,5]), s:R([4,5]) }, harv:{ c:R([7,9]), s:R([6,10]) },
+    gap:{ ko:'포기 사이 1m', en:'1 m between plants' },
+    water:{ ko:'흠뻑, 마르면 바로', en:'Deep water when dry' },
+    sun:{ ko:'하루 8시간', en:'8 hours a day' },
+    tip:{ ko:'넓게 자라요. 텃밭 가장자리에 심으세요.', en:'Plant at the edge — it spreads.' } },
+  { id:'garlic', ko:'마늘', en:'Garlic', e:'🧄',
+    sow:{ c:R([9,10]), s:R([9,10]) }, plug:null, harv:{ c:R([6,6]), s:R([5,6]) },
+    gap:{ ko:'10~15cm 간격, 5cm 깊이', en:'10–15 cm apart, 5 cm deep' },
+    water:{ ko:'심을 때만, 겨울엔 거의 필요 없어요', en:'Water at planting only' },
+    sun:{ ko:'하루 6시간', en:'6 hours a day' },
+    tip:{ ko:'씨쪽의 뿌리가 아래로 가게 심으세요.', en:'Plant cloves root-down.' } },
+  { id:'onion', ko:'양파', en:'Onion', e:'🧅',
+    sow:{ c:R([8,9]), s:R([9,9]) }, plug:{ c:R([10,11]), s:R([10,11]) }, harv:{ c:R([6,6]), s:R([5,6]) },
+    gap:{ ko:'포기 사이 10~15cm', en:'10–15 cm apart' },
+    water:{ ko:'심은 뒤 충분, 봄부터 자주', en:'Water well after planting; often in spring' },
+    sun:{ ko:'하루 6시간', en:'6 hours a day' },
+    tip:{ ko:'11월에 심어 겨울을 나면 5~6월에 수확해요.', en:'Overwinter from November, harvest May–June.' } },
+  { id:'welshonion', ko:'대파', en:'Green onion', e:'🌱',
+    sow:{ c:R([3,4],[9,9]), s:R([3,5],[9,10]) }, plug:{ c:R([5,6]), s:R([5,6]) }, harv:{ c:R([7,11]), s:R([6,12]) },
+    gap:{ ko:'포기 사이 10cm', en:'10 cm apart' },
+    water:{ ko:'겉흙이 마르면 충분히', en:'Water when the surface dries' },
+    sun:{ ko:'하루 6시간', en:'6 hours a day' },
+    tip:{ ko:'깊게 파서 심으면 흰 부분이 길어져요.', en:'Plant deep for long white stems.' } },
+  { id:'scallion', ko:'쪽파', en:'Scallion', e:'🌱',
+    sow:{ c:R([8,9]), s:R([8,10]) }, plug:null, harv:{ c:R([10,11]), s:R([10,12]) },
+    gap:{ ko:'5~8cm 간격', en:'5–8 cm apart' },
+    water:{ ko:'심은 뒤 충분, 겨울에도 가끔', en:'Water after planting; occasionally in winter' },
+    sun:{ ko:'하루 5~6시간', en:'5–6 hours a day' },
+    tip:{ ko:'조금씩 나눠 심으면 겨울 내내 먹어요.', en:'Plant in batches for winter picking.' } },
+  { id:'carrot', ko:'당근', en:'Carrot', e:'🥕',
+    sow:{ c:R([3,4],[7,8]), s:R([2,3],[8,9]) }, plug:null, harv:{ c:R([6,7],[10,11]), s:R([5,6],[11,12]) },
+    gap:{ ko:'솎아서 5~8cm', en:'Thin to 5–8 cm' },
+    water:{ ko:'일정하게, 마르면 갈라져요', en:'Even moisture or roots split' },
+    sun:{ ko:'하루 6시간', en:'6 hours a day' },
+    tip:{ ko:'씨를 얕게 뿌리고 흙을 가볍게 눌러 주세요.', en:'Sow shallow and press the soil lightly.' } },
+  { id:'soybean', ko:'콩', en:'Soybean', e:'🌱',
+    sow:{ c:R([5,6]), s:R([5,6]) }, plug:null, harv:{ c:R([9,10]), s:R([9,10]) },
+    gap:{ ko:'포기 사이 30cm', en:'30 cm apart' },
+    water:{ ko:'꽃 필 때와 콩이 알찰 때 충분히', en:'Water at flowering and pod fill' },
+    sun:{ ko:'하루 8시간', en:'8 hours a day' },
+    tip:{ ko:'척박한 땅에서도 잘 자라요.', en:'Soybeans do well even in poor soil.' } },
+  { id:'corn', ko:'옥수수', en:'Corn', e:'🌽',
+    sow:{ c:R([4,5]), s:R([3,4]) }, plug:null, harv:{ c:R([7,8]), s:R([7,8]) },
+    gap:{ ko:'포기 사이 25~30cm', en:'25–30 cm apart' },
+    water:{ ko:'줄기가 굵어질 때 충분히', en:'Plenty while stems thicken' },
+    sun:{ ko:'하루 8시간', en:'8 hours a day' },
+    tip:{ ko:'두 줄 이상 나란히 심어야 알이 잘 들어요.', en:'Plant at least two rows for full kernels.' } },
+  { id:'chive', ko:'부추', en:'Chives', e:'🌿',
+    sow:{ c:R([3,4]), s:R([3,5]) }, plug:{ c:R([4,5]), s:R([4,5]) }, harv:{ c:R([6,11]), s:R([5,12]) },
+    gap:{ ko:'포기 사이 15cm', en:'15 cm apart' },
+    water:{ ko:'겉흙이 마르면', en:'When the surface dries' },
+    sun:{ ko:'하루 6시간', en:'6 hours a day' },
+    tip:{ ko:'한 번 심으면 몇 해 내내 베어 먹어요.', en:'Cut and it comes back for years.' } },
+  { id:'perilla', ko:'깻잎', en:'Perilla', e:'🍃',
+    sow:{ c:R([4,5]), s:R([4,4]) }, plug:{ c:R([5,6]), s:R([5,6]) }, harv:{ c:R([6,9]), s:R([6,10]) },
+    gap:{ ko:'포기 사이 25cm', en:'25 cm apart' },
+    water:{ ko:'아침에 충분히', en:'Water well in the morning' },
+    sun:{ ko:'하루 6시간', en:'6 hours a day' },
+    tip:{ ko:'꽃대가 나오면 잘라 주세요. 잎이 억세져요.', en:'Pinch flower buds to keep leaves tender.' } },
+  { id:'strawberry', ko:'딸기', en:'Strawberry', e:'🍓',
+    sow:null, plug:{ c:R([9,10]), s:R([10,10]) }, harv:{ c:R([5,6]), s:R([4,5]) },
+    gap:{ ko:'포기 사이 25~30cm', en:'25–30 cm apart' },
+    water:{ ko:'조금씩 자주, 잎에 안 닿게', en:'Little and often, keep leaves dry' },
+    sun:{ ko:'하루 6시간', en:'6 hours a day' },
+    tip:{ ko:'가을에 심어 겨울을 나면 봄에 열려요.', en:'Plant in autumn, fruit next spring.' } },
+  { id:'broccoli', ko:'브로콜리', en:'Broccoli', e:'🥦',
+    sow:{ c:R([8,8]), s:R([8,9]) }, plug:{ c:R([8,9]), s:R([9,9]) }, harv:{ c:R([10,11]), s:R([11,12]) },
+    gap:{ ko:'포기 사이 45cm', en:'45 cm apart' },
+    water:{ ko:'충분히, 마르지 않게', en:'Keep it moist' },
+    sun:{ ko:'하루 6시간', en:'6 hours a day' },
+    tip:{ ko:'꽃봉오리가 단단할 때 수확하세요.', en:'Harvest while the buds are tight.' } },
+  { id:'headcabbage', ko:'양배추', en:'Cabbage', e:'🥬',
+    sow:{ c:R([4,5],[8,8]), s:R([4,4],[8,9]) }, plug:{ c:R([5,6],[8,9]), s:R([4,5],[9,9]) },
+    harv:{ c:R([7,8],[10,11]), s:R([6,7],[11,12]) },
+    gap:{ ko:'포기 사이 40cm', en:'40 cm apart' },
+    water:{ ko:'충분히, 잎에 물이 고이지 않게', en:'Water well, avoid water in the head' },
+    sun:{ ko:'하루 6시간', en:'6 hours a day' },
+    tip:{ ko:'봄 심기는 벌레가 많아요. 가을이 편해요.', en:'Autumn crops have fewer pests.' } },
+  { id:'eggplant', ko:'가지', en:'Eggplant', e:'🍆',
+    sow:{ c:R([3,4]), s:R([3,4]) }, plug:{ c:R([5,5]), s:R([4,5]) }, harv:{ c:R([7,9]), s:R([6,10]) },
+    gap:{ ko:'포기 사이 50cm', en:'50 cm apart' },
+    water:{ ko:'아침에 흠뻑', en:'Soak in the morning' },
+    sun:{ ko:'하루 8시간', en:'8 hours a day' },
+    tip:{ ko:'첫 꽃은 따 주면 가지가 튼튼해져요.', en:'Pinch the first flower for a stronger plant.' } },
+  { id:'yeolmu', ko:'열무', en:'Young radish', e:'🥬',
+    sow:{ c:R([3,5],[8,9]), s:R([3,5],[9,10]) }, plug:null, harv:{ c:R([5,6],[9,10]), s:R([5,6],[10,11]) },
+    gap:{ ko:'포기 사이 10~15cm', en:'10–15 cm apart' },
+    water:{ ko:'자주 조금씩', en:'Little and often' },
+    sun:{ ko:'4~6시간', en:'4–6 hours' },
+    tip:{ ko:'30일이면 먹을 수 있어요. 김치로 담그면 여름 별미!', en:'Ready in 30 days — great as kimchi.' } },
+  { id:'sunflower', ko:'해바라기', en:'Sunflower', e:'🌻',
+    sow:{ c:R([4,5]), s:R([3,4]) }, plug:null, harv:{ c:R([8,9]), s:R([8,9]) },
+    gap:{ ko:'포기 사이 40cm', en:'40 cm apart' },
+    water:{ ko:'싹이 날 때 충분, 꽃 필 때 더', en:'Water well at sprouting and flowering' },
+    sun:{ ko:'하루 8시간, 해를 따라가요', en:'Full sun, 8+ hours' },
+    tip:{ ko:'키가 2m까지 자라요. 바람이 약한 곳에 심으세요.', en:'Can reach 2 m — shelter it from wind.' } }
+];
+var CROP = {};
+CROPS.forEach(function(c){ CROP[c.id] = c; });
+
+/* ══════════════════ 3. 키우기 씨앗 6종 ══════════════════ */
+var PLANTS = [
+  { id:'tomato', ko:'방울토마토', en:'Cherry tomato', e:'🍅', real:{ ko:'텃밭에서는 약 100일', en:'about 100 days in a garden' },
+    pv:'56 62 128 118', svt:[150, 128, 106, 86, 60], needs:[[1,1,1],[2,2,1],[3,2,2],[3,3,2]] },
+  { id:'lettuce', ko:'상추', en:'Lettuce', e:'🥬', real:{ ko:'텃밭에서는 약 40일', en:'about 40 days in a garden' },
+    pv:'60 100 120 80', svt:[152, 143, 130, 118, 108], needs:[[1,1,1],[2,1,1],[2,2,1],[2,2,2]] },
+  { id:'sweetpotato', ko:'고구마', en:'Sweet potato', e:'🍠', real:{ ko:'텃밭에서는 약 130일', en:'about 130 days in a garden' },
+    pv:'56 76 128 106', svt:[150, 140, 116, 100, 74], needs:[[1,1,1],[2,2,1],[2,2,2],[3,2,2]] },
+  { id:'sunflower', ko:'해바라기', en:'Sunflower', e:'🌻', real:{ ko:'텃밭에서는 약 90일', en:'about 90 days in a garden' },
+    pv:'48 12 144 170', svt:[150, 132, 96, 68, 12], needs:[[1,1,1],[2,2,1],[2,2,2],[3,3,2]] },
+  { id:'strawberry', ko:'딸기', en:'Strawberry', e:'🍓', real:{ ko:'텃밭에서는 약 200일', en:'about 200 days in a garden' },
+    pv:'62 110 116 76', svt:[152, 148, 136, 128, 120], needs:[[1,1,1],[2,2,1],[2,2,2],[3,3,3]] },
+  { id:'chili', ko:'고추', en:'Chili', e:'🌶️', real:{ ko:'텃밭에서는 약 120일', en:'about 120 days in a garden' },
+    pv:'64 78 112 100', svt:[150, 136, 110, 90, 72], needs:[[1,1,1],[2,2,1],[3,2,2],[3,3,2]] }
+];
+var PLANT = {};
+PLANTS.forEach(function(p){ PLANT[p.id] = p; });
+
+/* ══════════════════ 4. 그림 (100% 자체 SVG) ══════════════════ */
+var UID = 0;
+function P_leaf(x, y, len, wid, rot, fill, vein){
+  return '<g transform="translate(' + x + ' ' + y + ') rotate(' + rot + ')">' +
+    '<path d="M0 0 Q' + (-wid) + ' ' + (-len * 0.5) + ' 0 ' + (-len) + ' Q' + wid + ' ' + (-len * 0.5) + ' 0 0 Z" fill="' + fill + '"/>' +
+    '<path d="M0 -3 L0 ' + (-len * 0.85) + '" stroke="' + vein + '" stroke-width="1" opacity=".4" fill="none"/></g>';
+}
+function P_round(x, y, len, wid, rot, fill, vein){
+  return '<g transform="translate(' + x + ' ' + y + ') rotate(' + rot + ')">' +
+    '<path d="M0 0 C' + (-wid) + ' ' + (-len * 0.2) + ' ' + (-wid * 0.8) + ' ' + (-len * 0.75) + ' ' + (-wid * 0.2) + ' ' + (-len * 0.92) +
+    ' C0 ' + (-len * 1.02) + ' ' + (wid * 0.2) + ' ' + (-len * 0.92) + ' ' + (wid * 0.8) + ' ' + (-len * 0.75) +
+    ' C' + wid + ' ' + (-len * 0.2) + ' ' + (wid * 0.5) + ' ' + (-len * 0.05) + ' 0 0 Z" fill="' + fill + '"/>' +
+    '<path d="M0 -2 L0 ' + (-len * 0.8) + '" stroke="' + vein + '" stroke-width="1" opacity=".35" fill="none"/></g>';
+}
+function P_heart(x, y, len, rot, fill, vein){
+  var w = len * 0.52;
+  return '<g transform="translate(' + x + ' ' + y + ') rotate(' + rot + ')">' +
+    '<path d="M0 0 C' + (-w) + ' ' + (-len * 0.18) + ' ' + (-w * 1.05) + ' ' + (-len * 0.62) + ' ' + (-w * 0.45) + ' ' + (-len * 0.86) +
+    ' C' + (-w * 0.18) + ' ' + (-len * 0.99) + ' 0 ' + (-len * 0.8) + ' 0 ' + (-len * 0.72) +
+    ' C0 ' + (-len * 0.8) + ' ' + (w * 0.18) + ' ' + (-len * 0.99) + ' ' + (w * 0.45) + ' ' + (-len * 0.86) +
+    ' C' + (w * 1.05) + ' ' + (-len * 0.62) + ' ' + w + ' ' + (-len * 0.18) + ' 0 0 Z" fill="' + fill + '"/>' +
+    '<path d="M0 -2 L0 ' + (-len * 0.66) + '" stroke="' + vein + '" stroke-width="1" opacity=".35" fill="none"/></g>';
+}
+function P_flower(x, y, r, petal, center){
+  var s = '';
+  for(var i = 0; i < 5; i++){
+    var a = i * 72 * Math.PI / 180;
+    s += '<circle cx="' + (x + Math.cos(a) * r * 0.85).toFixed(1) + '" cy="' + (y + Math.sin(a) * r * 0.85).toFixed(1) +
+      '" r="' + (r * 0.62).toFixed(1) + '" fill="' + petal + '"/>';
+  }
+  s += '<circle cx="' + x + '" cy="' + y + '" r="' + (r * 0.42).toFixed(1) + '" fill="' + center + '"/>';
+  return s;
+}
+function seedsOnSoil(){
+  return '<ellipse cx="103" cy="169" rx="7.5" ry="5" fill="#8A5A2B"/>' +
+    '<ellipse cx="118" cy="172" rx="8" ry="5.2" fill="#7A4C22"/>' +
+    '<ellipse cx="134" cy="168" rx="6.4" ry="4.2" fill="#8A5A2B"/>' +
+    '<path d="M118 170 q0 -7 0 -9" stroke="#4E8C3F" stroke-width="2.4" fill="none" stroke-linecap="round"/>' +
+    '<path d="M118 163 q5 -4 8 -1" stroke="#5FA84C" stroke-width="2" fill="none" stroke-linecap="round"/>';
+}
+function artTomato(stage, f){
+  if(stage === 0) return seedsOnSoil();
+  var h = [0, 28, 54, 72, 84][stage] + (stage < 4 ? f * 8 : 0);
+  var topY = 170 - h;
+  var s = '<path d="M120 170 Q' + (119 + (stage > 1 ? 3 : 0)) + ' ' + (170 - h * 0.55) + ' 120 ' + topY +
+    '" stroke="#3C7F3E" stroke-width="5" fill="none" stroke-linecap="round"/>';
+  if(stage >= 2){
+    s += '<path d="M120 ' + (170 - h * 0.48) + ' q-19 -9 -25 -24" stroke="#3C7F3E" stroke-width="3.4" fill="none" stroke-linecap="round"/>';
+    s += '<path d="M120 ' + (170 - h * 0.62) + ' q19 -7 27 -21" stroke="#3C7F3E" stroke-width="3.4" fill="none" stroke-linecap="round"/>';
+  }
+  var n = stage === 1 ? 2 : (stage === 2 ? 6 : 9);
+  var greens = ['#438F46', '#51A354', '#38813C'];
+  for(var i = 0; i < n; i++){
+    var tt = (i + 1) / (n + 1);
+    var y = 170 - h * tt * 0.92;
+    var side = i % 2 === 0 ? -1 : 1;
+    var len = 15 + stage * 4.4 + (i % 3) * 2;
+    s += P_leaf(120 + side * 3, y, len, len * 0.7, side * 55 + (i % 3 - 1) * 9, greens[i % 3], '#2C6631');
+  }
+  if(stage >= 3){
+    s += '<circle cx="120" cy="' + (topY + 5) + '" r="6.4" fill="#FFD34E"/>' +
+      '<circle cx="112" cy="' + (topY + 11) + '" r="5.2" fill="#FFDF72"/>' +
+      '<circle cx="128" cy="' + (topY + 12) + '" r="4.8" fill="#FFD34E"/>';
+  }
+  if(stage >= 4){
+    [[104, topY + 30, 11], [133, topY + 18, 10], [118, topY + 48, 12]].forEach(function(r, i){
+      s += '<circle cx="' + r[0] + '" cy="' + r[1] + '" r="' + r[2] + '" fill="' + (i === 1 ? '#E4453A' : '#D93B32') + '"/>' +
+        '<circle cx="' + (r[0] - r[2] * 0.32) + '" cy="' + (r[1] - r[2] * 0.36) + '" r="' + (r[2] * 0.25) + '" fill="#FF9A8E" opacity=".85"/>' +
+        '<path d="M' + (r[0] - r[2] * 0.85) + ' ' + (r[1] - r[2] * 0.75) + ' l' + (r[2] * 0.42) + ' -3.4 l' + (r[2] * 0.42) + ' 3.4 z" fill="#3F8F45"/>';
+    });
+  }
+  return s;
+}
+function artLettuce(stage, f){
+  if(stage === 0){
+    return '<ellipse cx="112" cy="170" rx="5" ry="3.4" fill="#8A5A2B"/><ellipse cx="126" cy="171" rx="5" ry="3.4" fill="#7A4C22"/>';
+  }
+  var Rr = [0, 20, 36, 46, 54][stage] + f * 4;
+  var s = '';
+  var outerCols = ['#4FA843', '#5FBF4E', '#469C3C'];
+  var n1 = stage === 1 ? 4 : (stage === 2 ? 6 : 7);
+  for(var i = 0; i < n1; i++){
+    var rot = (i - (n1 - 1) / 2) * (116 / (n1 - 1 || 1));
+    var len = Rr * (0.92 + (i % 2) * 0.12);
+    s += P_round(120, 167, len, len * 0.52, rot, outerCols[i % 3], '#2F7A32');
+  }
+  if(stage >= 2){
+    var innerCols = ['#77CE60', '#8AD86E'];
+    for(var k = 0; k < 5; k++){
+      s += P_round(120, 162, Rr * 0.62, Rr * 0.3, (k - 2) * 30, innerCols[k % 2], '#5AA84A');
+    }
+  }
+  if(stage >= 4){
+    for(var j = 0; j < 5; j++){
+      s += P_round(120, 158, Rr * 0.4, Rr * 0.2, (j - 2) * 26, '#B6E296', '#8CC46F');
+    }
+  }
+  return s;
+}
+function artSweetpotato(stage, f){
+  if(stage === 0) return seedsOnSoil();
+  var h = [0, 28, 50, 62, 68][stage] + (stage < 4 ? f * 6 : 0);
+  var topY = 170 - h;
+  var s = '<path d="M120 170 Q118 ' + (170 - h * 0.6) + ' 120 ' + topY + '" stroke="#3C7F3E" stroke-width="4" fill="none" stroke-linecap="round"/>';
+  if(stage >= 2){
+    s += '<path d="M120 ' + (topY + 12) + ' q22 -7 33 8 q9 12 1 25" stroke="#3C7F3E" stroke-width="3.2" fill="none" stroke-linecap="round"/>';
+    s += '<path d="M120 ' + (topY + 20) + ' q-22 -5 -33 10 q-9 12 -1 22" stroke="#3C7F3E" stroke-width="3.2" fill="none" stroke-linecap="round"/>';
+  }
+  var n = stage === 1 ? 3 : (stage === 2 ? 7 : 10);
+  var greens = ['#4E9B48', '#5CAD52', '#41893C'];
+  var pts = [[120, 170 - h * 0.95], [148, topY + 24], [92, topY + 32], [154, topY + 40], [86, topY + 48], [120, topY + 14], [136, topY + 32], [106, topY + 26], [146, topY + 54], [120, topY + 6]];
+  for(var i = 0; i < n; i++){
+    var p = pts[i];
+    s += P_heart(p[0], p[1], 16 + (i % 3) * 4, (i % 2 ? 26 : -26), greens[i % 3], '#2E7031');
+  }
+  if(stage >= 4){
+    // 땅속 고구마(투시): 화분 속에 점선으로 보여 주기
+    s += '<g opacity=".8"><ellipse cx="120" cy="201" rx="27" ry="12" fill="#D9A469"/>' +
+      '<ellipse cx="112" cy="197" rx="6" ry="2.6" fill="#E8BC88"/>' +
+      '<ellipse cx="120" cy="201" rx="27" ry="12" fill="none" stroke="#A06A33" stroke-width="1.6" stroke-dasharray="4 3"/>' +
+      '<path d="M100 205 q6 4 12 0 M124 206 q6 4 12 0" stroke="#A06A33" stroke-width="1.3" fill="none"/></g>';
+  }
+  return s;
+}
+function artSunflower(stage, f){
+  if(stage === 0) return seedsOnSoil();
+  var h = [0, 34, 70, 96, 108][stage] + (stage < 4 ? f * 10 : 0);
+  var topY = 170 - h;
+  var s = '<path d="M120 170 Q' + (118 - (stage > 1 ? 2 : 0)) + ' ' + (170 - h * 0.5) + ' 120 ' + topY +
+    '" stroke="#3F7F35" stroke-width="5" fill="none" stroke-linecap="round"/>';
+  var ln = stage === 1 ? 1 : (stage === 2 ? 3 : 5);
+  var ys = [0.55, 0.4, 0.7, 0.84, 0.3];
+  for(var i = 0; i < ln; i++){
+    var side = i % 2 === 0 ? -1 : 1;
+    var y = 170 - h * ys[i % 5];
+    s += P_heart(120 + side * 4, y, 18 + stage * 2.4, side * 66, i % 2 ? '#4E9B48' : '#3F8B3C', '#2E6E30');
+  }
+  if(stage === 3){
+    s += '<ellipse cx="120" cy="' + (topY - 6) + '" rx="11" ry="15" fill="#5DA84E"/>' +
+      '<path d="M' + 112 + ' ' + (topY - 18) + ' q8 -5 16 0" stroke="#F2C544" stroke-width="3" fill="none" stroke-linecap="round"/>';
+  }
+  if(stage >= 4){
+    var cy = topY - 10;
+    for(var k = 0; k < 14; k++){
+      var a = k * (360 / 14) * Math.PI / 180;
+      s += '<ellipse cx="' + (120 + Math.cos(a) * 24).toFixed(1) + '" cy="' + (cy + Math.sin(a) * 24).toFixed(1) +
+        '" rx="7.5" ry="15" fill="#FFC93C" transform="rotate(' + (k * (360 / 14)).toFixed(0) + ' ' +
+        (120 + Math.cos(a) * 24).toFixed(1) + ' ' + (cy + Math.sin(a) * 24).toFixed(1) + ')"/>';
+    }
+    s += '<circle cx="120" cy="' + cy + '" r="13" fill="#6B4A22"/>' +
+      '<circle cx="116" cy="' + (cy - 4) + '" r="1.6" fill="#3E2A12"/><circle cx="124" cy="' + (cy + 2) + '" r="1.6" fill="#3E2A12"/>' +
+      '<circle cx="118" cy="' + (cy + 6) + '" r="1.6" fill="#3E2A12"/><circle cx="125" cy="' + (cy - 5) + '" r="1.6" fill="#3E2A12"/>';
+  }
+  return s;
+}
+function artStrawberry(stage, f){
+  if(stage === 0){
+    return '<ellipse cx="112" cy="170" rx="5" ry="3.4" fill="#8A5A2B"/><ellipse cx="126" cy="171" rx="5" ry="3.4" fill="#7A4C22"/>';
+  }
+  var s = '';
+  var Rr = [0, 16, 26, 31, 35][stage] + f * 3;
+  var n = stage === 1 ? 3 : (stage === 2 ? 4 : 5);
+  var cols = ['#4E9B48', '#5CAD52', '#41893C'];
+  for(var i = 0; i < n; i++){
+    var ang = (i - (n - 1) / 2) * 34;
+    var len = Rr * 0.95;
+    var lx = 120 + Math.sin(ang * Math.PI / 180) * 16;
+    s += P_round(lx, 166, len, len * 0.58, ang, cols[i % 3], '#2E7031');
+    s += P_round(lx - 7, 166, len * 0.7, len * 0.4, ang - 34, cols[(i + 1) % 3], '#2E7031');
+    s += P_round(lx + 7, 166, len * 0.7, len * 0.4, ang + 34, cols[(i + 2) % 3], '#2E7031');
+  }
+  if(stage === 3){
+    s += P_flower(104, 146, 7.5, '#FFFFFF', '#FFD34E');
+    s += P_flower(136, 142, 7, '#FFFFFF', '#FFD34E');
+  }
+  if(stage >= 4){
+    [[98, 152, 1.5], [124, 146, 1.6], [144, 156, 1.4]].forEach(function(b){
+      var x = b[0], y = b[1], sc = b[2];
+      s += '<g transform="translate(' + x + ' ' + y + ') scale(' + sc + ')">' +
+        '<path d="M0 0 C-8 8 -8 20 0 25 C8 20 8 8 0 0 Z" fill="#E23B4E"/>' +
+        '<circle cx="-3.5" cy="9" r="1" fill="#FFE9A8"/><circle cx="3" cy="13" r="1" fill="#FFE9A8"/>' +
+        '<circle cx="0" cy="19" r="1" fill="#FFE9A8"/><circle cx="-1" cy="5" r=".9" fill="#FFE9A8"/>' +
+        '<path d="M-9 1 l4 -5 l3 4 l3 -5 l4 5 l3 -3 l-3 6 z" fill="#3F8F45"/></g>';
+    });
+  }
+  return s;
+}
+function artChili(stage, f){
+  if(stage === 0) return seedsOnSoil();
+  var h = [0, 32, 56, 70, 78][stage] + (stage < 4 ? f * 7 : 0);
+  var topY = 170 - h;
+  var s = '<path d="M120 170 Q120 ' + (170 - h * 0.6) + ' 120 ' + topY + '" stroke="#3A7B39" stroke-width="4.4" fill="none" stroke-linecap="round"/>';
+  if(stage >= 2){
+    s += '<path d="M120 ' + (170 - h * 0.5) + ' q-20 -11 -29 -27" stroke="#3A7B39" stroke-width="3.2" fill="none" stroke-linecap="round"/>';
+    s += '<path d="M120 ' + (170 - h * 0.62) + ' q20 -9 31 -24" stroke="#3A7B39" stroke-width="3.2" fill="none" stroke-linecap="round"/>';
+  }
+  var n = stage === 1 ? 3 : (stage === 2 ? 9 : 13);
+  var pts = [[120, topY + 2], [104, topY + 20], [138, topY + 16], [94, topY + 34], [148, topY + 30], [120, topY + 24], [110, topY + 46], [132, topY + 42], [120, topY + 36], [98, topY + 54], [144, topY + 56], [120, topY + 60], [110, topY + 8]];
+  var greens = ['#3F8F45', '#4AA152', '#37813D'];
+  for(var i = 0; i < n; i++){
+    var p = pts[i];
+    s += P_leaf(p[0], p[1], 17 + (i % 3) * 3, 8.4, (i % 2 ? 58 : -58) + (i % 3 - 1) * 10, greens[i % 3], '#2C6631');
+  }
+  if(stage === 3){
+    s += P_flower(104, topY + 14, 6, '#FFFDF5', '#E9C25B');
+    s += P_flower(136, topY + 22, 5.5, '#FFFDF5', '#E9C25B');
+  }
+  if(stage >= 4){
+    [[100, topY + 24, -14], [136, topY + 34, 12], [118, topY + 52, -6]].forEach(function(r){
+      s += '<path d="M' + r[0] + ' ' + r[1] + ' q' + r[2] * 0.4 + ' 14 ' + r[2] * 0.2 + ' 27" stroke="#D63227" stroke-width="8.6" fill="none" stroke-linecap="round"/>' +
+        '<path d="M' + (r[0] - 3) + ' ' + (r[1] - 4) + ' l6 0" stroke="#3F8F45" stroke-width="2.6" stroke-linecap="round"/>';
+    });
+  }
+  return s;
+}
+var ART = {
+  tomato: artTomato, lettuce: artLettuce, sweetpotato: artSweetpotato,
+  sunflower: artSunflower, strawberry: artStrawberry, chili: artChili
+};
+function plantScene(sp, stage, frac, withPot, viewBox){
+  var u = 'g' + (++UID);
+  var art = (ART[sp] || artTomato)(stage, frac || 0);
+  var s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + (viewBox || '0 0 240 240') + '" role="img" aria-label="">';
+  if(withPot !== false){
+    s += '<circle cx="200" cy="48" r="17" fill="#FFE7A8" opacity=".7"/>' +
+      '<circle cx="182" cy="70" r="7" fill="#FFF3D2" opacity=".75"/>' +
+      '<g fill="#FFFFFF" opacity=".75">' +
+        '<ellipse cx="66" cy="62" rx="17" ry="9"/><ellipse cx="80" cy="58" rx="13" ry="8"/>' +
+        '<ellipse cx="54" cy="56" rx="10" ry="7"/>' +
+      '</g>' +
+      '<g fill="#FFFFFF" opacity=".55">' +
+        '<ellipse cx="170" cy="118" rx="11" ry="6"/><ellipse cx="180" cy="115" rx="7" ry="5"/>' +
+      '</g>' +
+      '<defs>' +
+      '<linearGradient id="' + u + 'p" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#D5895A"/><stop offset="1" stop-color="#A85C33"/></linearGradient>' +
+      '<linearGradient id="' + u + 's" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6B4A2F"/><stop offset="1" stop-color="#4A3120"/></linearGradient>' +
+      '</defs>' +
+      '<ellipse cx="120" cy="234" rx="60" ry="7" fill="#1F4D2E" opacity=".13"/>' +
+      '<path d="M64 176 L176 176 L166 228 Q165 233 159 233 L81 233 Q75 233 74 228 Z" fill="url(#' + u + 'p)"/>' +
+      '<rect x="56" y="165" width="128" height="15" rx="6" fill="#C97B4A"/>' +
+      '<ellipse cx="120" cy="171" rx="54" ry="8.5" fill="url(#' + u + 's)"/>';
+  }
+  s += '<g class="sway">' + art + '</g></svg>';
+  return s;
+}
+
+/* ══════════════════ 5. 기억 (이 기기에만) ══════════════════ */
+var KEY = 'wagle-garden-v1';
+var KEY_PLOTS = 'wagle-garden-plots-v1';
+var KEY_GROW = 'wagle-garden-grow-v1';
+var KEY_BOOK = 'wagle-garden-book-v1';
+
+var S = { lang:'ko', region:'s', month:new Date().getMonth() + 1 };
+function loadSettings(){
+  try{
+    var o = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if(o){
+      if(o.lang === 'en' || o.lang === 'ko') S.lang = o.lang;
+      if(o.region === 'c' || o.region === 's') S.region = o.region;
+      if(o.month >= 1 && o.month <= 12) S.month = o.month;
+    }
+  }catch(e){}
+}
+function saveSettings(){
+  try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){}
+}
+var PLOTS = [];
+function loadPlots(){
+  try{
+    var a = JSON.parse(localStorage.getItem(KEY_PLOTS) || '[]');
+    PLOTS = Array.isArray(a) ? a.filter(function(x){ return x && CROP[x.crop]; }) : [];
+  }catch(e){ PLOTS = []; }
+}
+function savePlots(){
+  try{ localStorage.setItem(KEY_PLOTS, JSON.stringify(PLOTS)); }catch(e){}
+}
+var G = { plant:null };
+function loadGrow(){
+  try{
+    var o = JSON.parse(localStorage.getItem(KEY_GROW) || 'null');
+    if(o && PLANT[o.sp]){
+      G.plant = {
+        sp:o.sp, stage:Math.max(0, Math.min(4, Number(o.stage) || 0)),
+        w:Number(o.w) || 0, s:Number(o.s) || 0, f:Number(o.f) || 0,
+        care:Number(o.care) || 0, plantedAt:Number(o.plantedAt) || Date.now()
+      };
+    }
+  }catch(e){ G.plant = null; }
+}
+function saveGrow(){
+  try{
+    if(G.plant) localStorage.setItem(KEY_GROW, JSON.stringify(G.plant));
+    else localStorage.removeItem(KEY_GROW);
+  }catch(e){}
+}
+var BOOK = [];
+function loadBook(){
+  try{
+    var a = JSON.parse(localStorage.getItem(KEY_BOOK) || '[]');
+    BOOK = Array.isArray(a) ? a.filter(function(x){ return x && PLANT[x.sp]; }) : [];
+  }catch(e){ BOOK = []; }
+}
+function saveBook(){
+  try{ localStorage.setItem(KEY_BOOK, JSON.stringify(BOOK)); }catch(e){}
+}
+
+/* ══════════════════ 6. 달력 그리기 ══════════════════ */
+function has(m, i){ return !!m && m.indexOf(i) >= 0; }
+function phasesOf(c, m, reg){
+  var out = [];
+  if(c.sow && has(c.sow[reg], m)) out.push('sow');
+  if(c.plug && has(c.plug[reg], m)) out.push('plug');
+  if(c.harv && has(c.harv[reg], m)) out.push('harv');
+  return out;
+}
+function countsOf(c, m, reg){ return phasesOf(c, m, reg).length; }
+
+function renderMonths(){
+  var h = '';
+  for(var m = 1; m <= 12; m++){
+    var n = 0;
+    CROPS.forEach(function(c){ if(countsOf(c, m, S.region)) n++; });
+    h += '<button type="button" class="mbtn' + (m === S.month ? ' on' : '') + (m === new Date().getMonth() + 1 ? ' now' : '') +
+      '" data-m="' + m + '" aria-pressed="' + (m === S.month ? 'true' : 'false') + '">' + monthLabel(m) +
+      '<span class="mc">' + (n ? n + (S.lang === 'en' ? '' : '가지') : '—') + '</span></button>';
+  }
+  $('#monthGrid').innerHTML = h;
+}
+function renderSum(){
+  var n = 0;
+  CROPS.forEach(function(c){ if(countsOf(c, S.month, S.region)) n++; });
+  var reg = S.region === 'c' ? t('regionC') : t('regionS');
+  $('#sumLine').innerHTML = '<b>' + monthLabel(S.month) + ' · ' + reg + '</b>' +
+    '<span class="sm">' + (S.lang === 'en' ? (n + ' crops this month') : ('이번 달 할 일 ' + n + '가지')) + '</span>';
+}
+function renderTodos(){
+  var groups = [
+    { k:'sow', cls:'', icon:'🌱', name:t('grpSow'), list:[] },
+    { k:'plug', cls:'plug', icon:'🌿', name:t('grpPlug'), list:[] },
+    { k:'harv', cls:'harv', icon:'🧺', name:t('grpHarv'), list:[] }
+  ];
+  CROPS.forEach(function(c){
+    var ph = phasesOf(c, S.month, S.region);
+    ph.forEach(function(k){
+      groups.forEach(function(g){ if(g.k === k) g.list.push(c); });
+    });
+  });
+  var total = groups.reduce(function(a, g){ return a + g.list.length; }, 0);
+  var h = '';
+  if(!total){
+    h = '<div class="card"><p class="emptyline">' + t('noneMonth') + '</p></div>';
+  } else {
+    groups.forEach(function(g){
+      if(!g.list.length) return;
+      h += '<div class="todoGrp ' + g.cls + '"><div class="todoH"><span class="tk">' + g.icon + '</span><b>' + g.name +
+        '</b><i>' + g.list.length + '</i></div><div class="chips">';
+      g.list.forEach(function(c){
+        h += '<button type="button" class="chip" data-crop="' + c.id + '"><em>' + c.e + '</em>' + esc(cropName(c)) + '</button>';
+      });
+      h += '</div></div>';
+    });
+  }
+  $('#todoWrap').innerHTML = h;
+}
+function stripHTML(c, big){
+  var h = '<div class="strip">';
+  for(var m = 1; m <= 12; m++){
+    var ph = phasesOf(c, m, S.region);
+    h += '<div class="scell' + (m === S.month ? ' now' : '') + '">' +
+      '<i class="sg' + (ph.indexOf('sow') >= 0 ? ' on' : '') + '"></i>' +
+      '<i class="st' + (ph.indexOf('plug') >= 0 ? ' on' : '') + '"></i>' +
+      '<i class="sa' + (ph.indexOf('harv') >= 0 ? ' on' : '') + '"></i></div>';
+  }
+  return h + '</div>';
+}
+function renderCrops(){
+  var q = ($('#q') && $('#q').value || '').trim().toLowerCase();
+  var list = CROPS.filter(function(c){
+    if(!q) return true;
+    return (c.ko + ' ' + c.en + ' ' + c.id).toLowerCase().indexOf(q) >= 0;
+  });
+  var h = '';
+  list.forEach(function(c){
+    var ph = phasesOf(c, S.month, S.region);
+    var badge = '';
+    if(ph.length){
+      badge = (S.lang === 'en' ? 'This month ' : '이번 달 ') +
+        ph.map(function(k){ return k === 'sow' ? '🌱' : (k === 'plug' ? '🌿' : '🧺'); }).join('');
+    }
+    var lines = [];
+    if(c.sow) lines.push('<span class="ph">🌱 ' + rangeText(c.sow[S.region]) + '</span>');
+    if(c.plug) lines.push('<span class="ph">🌿 ' + rangeText(c.plug[S.region]) + '</span>');
+    lines.push('<span class="ph">🧺 ' + rangeText(c.harv[S.region]) + '</span>');
+    h += '<button type="button" class="cropRow" data-crop="' + c.id + '">' +
+      '<div class="crowTop"><span class="ce">' + c.e + '</span>' +
+      '<span class="cmain"><b>' + esc(cropName(c)) + '</b><i>' + esc(cropSub(c)) + '</i>' +
+      '<span class="cr">' + lines.join('') + '</span></span>' +
+      (badge ? '<span class="cst">' + badge + '</span>' : '') + '</div>' +
+      stripHTML(c) + '</button>';
+  });
+  if(!list.length){
+    h = '<div class="card"><p class="emptyline">' +
+      (S.lang === 'en' ? 'No crop matches that name.' : '그 이름의 작물을 찾지 못했어요.') + '</p></div>';
+  }
+  $('#cropList').innerHTML = h;
+  $('#allCnt').textContent = list.length;
+}
+function renderRuler(){
+  var h = '';
+  for(var m = 1; m <= 12; m++) h += '<span' + (m === S.month ? ' style="color:#1F6B3B;font-weight:900"' : '') + '>' + m + '</span>';
+  $('#ruler').innerHTML = h;
+}
+
+/* ══════════════════ 7. 내 텃밭 기록 ══════════════════ */
+function plotRange(c){
+  var m = c.harv[S.region];
+  return rangeText(m);
+}
+function renderPlots(){
+  var box = $('#myGarden');
+  if(!PLOTS.length){
+    box.innerHTML = '<div class="card"><p class="emptyline">' + t('myGEmpty') + '</p></div>';
+    return;
+  }
+  var list = PLOTS.slice().sort(function(a, b){ return (b.date || '').localeCompare(a.date || ''); });
+  var h = '';
+  list.forEach(function(p){
+    var c = CROP[p.crop]; if(!c) return;
+    var d = dayNo(p.date);
+    var hot = has(c.harv[S.region], new Date().getMonth() + 1);
+    h += '<div class="plot" data-plot="' + esc(p.id) + '">' +
+      '<div class="ptop"><span class="pe">' + c.e + '</span>' +
+      '<span class="pm"><b>' + esc(cropName(c)) + '</b><i>' + t('plantedOn')(dateLabel(p.date)) + '</i></span>' +
+      '<span class="pdays">' + (S.lang === 'en' ? ('D+' + d) : (d + '일째')) + '</span></div>' +
+      (p.memo ? '<p class="pmemo">' + esc(p.memo) + '</p>' : '') +
+      '<div class="pfoot"><span class="pharv' + (hot ? ' hot' : '') + '">' + (hot ? '🧺 ' + t('harvNow') : t('harvRange')(plotRange(c))) + '</span>' +
+      '<button type="button" class="pdel" data-del="' + esc(p.id) + '">🗑️</button></div></div>';
+  });
+  box.innerHTML = h || ('<div class="card"><p class="emptyline">' + t('myGEmpty') + '</p></div>');
+}
+
+/* ══════════════════ 8. 작물 자세히 ══════════════════ */
+var CUR = null;
+function renderCropDetail(id){
+  var c = CROP[id]; if(!c) return;
+  CUR = id;
+  $('#cropEmoji').textContent = c.e;
+  $('#cropName').textContent = cropName(c);
+  $('#cropEn').textContent = cropSub(c);
+  var reg = S.region;
+  var h = '<div class="bandgrid"><div class="bh">' + (S.lang === 'en' ? 'Mon' : '월') + '</div>';
+  for(var m = 1; m <= 12; m++) h += '<div class="bm' + (m === S.month ? ' now' : '') + '">' + m + '</div>';
+  var rows = [
+    ['🌱 ' + (S.lang === 'en' ? 'Sow' : '씨'), 'sow', c.sow ? c.sow[reg] : []],
+    ['🌿 ' + (S.lang === 'en' ? 'Seedling' : '모종'), 'plug', c.plug ? c.plug[reg] : []],
+    ['🧺 ' + (S.lang === 'en' ? 'Pick' : '수확'), 'harv', c.harv[reg]]
+  ];
+  rows.forEach(function(r){
+    h += '<div class="bl">' + r[0] + '</div>';
+    for(var m = 1; m <= 12; m++){
+      var on = r[2].indexOf(m) >= 0;
+      h += '<div class="bc ' + r[1] + (on ? ' on' : '') + (m === S.month ? ' now' : '') + '"' +
+        (on ? ' title="' + monthLabel(m) + ' ' + r[0] + '"' : '') + '></div>';
+    }
+  });
+  h += '</div>';
+  $('#cropBand').innerHTML = h;
+
+  var info = '';
+  if(c.sow) info += '<div class="inforow"><span class="ik">🌱 ' + t('sowL') + '</span><span class="iv">' + rangeText(c.sow[reg]) + '</span></div>';
+  if(c.plug) info += '<div class="inforow"><span class="ik">🌿 ' + t('plugL') + '</span><span class="iv">' + rangeText(c.plug[reg]) + '</span></div>';
+  info += '<div class="inforow"><span class="ik">🧺 ' + t('harvL') + '</span><span class="iv">' + rangeText(c.harv[reg]) + '</span></div>';
+  info += '<div class="inforow"><span class="ik">' + t('gapL') + '</span><span class="iv">' + esc(c.gap[S.lang]) + '</span></div>';
+  info += '<div class="inforow"><span class="ik">💧 ' + t('waterL') + '</span><span class="iv">' + esc(c.water[S.lang]) + '</span></div>';
+  info += '<div class="inforow"><span class="ik">☀️ ' + t('sunL') + '</span><span class="iv">' + esc(c.sun[S.lang]) + '</span></div>';
+  info += '<div class="inforow"><span class="ik">💡 ' + t('tipL') + '</span><span class="iv">' + esc(c.tip[S.lang]) + '</span></div>';
+  $('#cropInfo').innerHTML = info;
+
+  $('#dateLbl').textContent = t('dateLbl');
+  $('#memoLbl').textContent = t('memoLbl');
+  $('#plotAdd').textContent = t('plotAddBtn');
+  $('#plotMemo').placeholder = t('memoPh');
+  if(!$('#plotDate').value) $('#plotDate').value = todayISO();
+  $('#viewCrop').setAttribute('data-crop', id);
+}
+
+/* ══════════════════ 9. 키우기 ══════════════════ */
+function renderSeeds(){
+  var h = '';
+  PLANTS.forEach(function(p){
+    h += '<button type="button" class="seed" data-seed="' + p.id + '">' +
+      '<span class="spv">' + plantScene(p.id, 4, 0, false, p.pv) + '</span>' +
+      '<b>' + esc(S.lang === 'en' ? p.en : p.ko) + '</b>' +
+      '<i>' + esc(p.real[S.lang]) + '</i></button>';
+  });
+  $('#seedGrid').innerHTML = h;
+}
+function needOf(p, st){
+  var n = p.needs[Math.min(st, p.needs.length - 1)];
+  return { w:n[0], s:n[1], f:n[2] };
+}
+function growFrac(p, g){
+  var n = needOf(p, g.stage);
+  var a = n.w ? g.w / n.w : 1, b = n.s ? g.s / n.s : 1, c = n.f ? g.f / n.f : 1;
+  return Math.max(0, Math.min(1, Math.min(a, Math.min(b, c))));
+}
+function renderGrow(){
+  if(!G.plant){
+    $('#seedPick').hidden = false;
+    $('#growView').hidden = true;
+    renderSeeds();
+    return;
+  }
+  $('#seedPick').hidden = true;
+  $('#growView').hidden = false;
+  var g = G.plant, p = PLANT[g.sp];
+  var stage = Math.min(4, g.stage);
+  var frac = stage >= 4 ? 0 : growFrac(p, g);
+  var svt = p.svt[stage];
+  var camTop = Math.max(0, svt - 12);
+  var camBox = '0 ' + camTop + ' 240 ' + (242 - camTop);
+  $('#scene').innerHTML = plantScene(g.sp, stage, frac, true, camBox);
+  $('#stageBadge').textContent = stage >= 4 ? t('stageRipe') : t('stageNames')[stage];
+  $('#dayBadge').textContent = t('dayTxt')(tsDayNo(g.plantedAt));
+  $('#plantName').textContent = S.lang === 'en' ? p.en : p.ko;
+  $('#careWLbl').textContent = t('careWLbl');
+  $('#careSLbl').textContent = t('careSLbl');
+  $('#careFLbl').textContent = t('careFLbl');
+
+  var n = needOf(p, stage);
+  var rows = [
+    ['w', t('needW'), g.w, n.w],
+    ['s', t('needS'), g.s, n.s],
+    ['f', t('needF'), g.f, n.f]
+  ];
+  var h = '';
+  rows.forEach(function(r){
+    var pct = r[3] ? Math.min(100, Math.round(r[2] / r[3] * 100)) : 100;
+    h += '<div class="need ' + r[0] + '"><span class="nl">' + r[1] + '</span>' +
+      '<div class="nbar"><i style="width:' + pct + '%"></i></div>' +
+      '<span class="nn">' + Math.min(r[2], r[3]) + '/' + r[3] + '</span></div>';
+  });
+  $('#needs').innerHTML = h;
+
+  // 말풍선
+  var say = t('sayOk');
+  if(stage < 4){
+    var dw = n.w - g.w, ds = n.s - g.s, df = n.f - g.f;
+    var mx = Math.max(dw, ds, df);
+    if(mx > 0){
+      if(mx === dw) say = t('sayW');
+      else if(mx === ds) say = t('sayS');
+      else say = t('sayF');
+    }
+  } else {
+    say = S.lang === 'en' ? 'Ready to harvest! 🧺' : '수확할 때예요! 🧺';
+  }
+  $('#plantSay').textContent = say;
+  $('#harvestBtn').hidden = stage < 4;
+  $('#growBook').textContent = t('growBookBtn');
+  $('#growReset').textContent = t('growResetBtn');
+  $('#growHint').textContent = t('growHint');
+}
+function floaty(ch){
+  var sc = $('#scene');
+  if(!sc) return;
+  var el = document.createElement('span');
+  el.className = 'floaty';
+  el.textContent = ch;
+  el.style.marginLeft = (Math.random() * 40 - 20).toFixed(0) + 'px';
+  sc.appendChild(el);
+  setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); }, 1100);
+}
+function stageUpMsg(stage){
+  if(stage === 1) return t('grew1');
+  if(stage === 2) return t('grew2');
+  if(stage === 3) return t('grew3');
+  return t('grew4');
+}
+function care(kind){
+  var g = G.plant; if(!g) return;
+  var p = PLANT[g.sp];
+  if(g.stage >= 4){ toast(t('harvestBtn')); return; }
+  var n = needOf(p, g.stage);
+  if(kind === 'w'){ if(g.w >= n.w){ toast(t('sayFull')); return; } g.w++; floaty('💧'); }
+  if(kind === 's'){ if(g.s >= n.s){ toast(t('sayFull')); return; } g.s++; floaty('☀️'); }
+  if(kind === 'f'){ if(g.f >= n.f){ toast(t('sayFull')); return; } g.f++; floaty('🌿'); }
+  g.care++;
+  if(g.w >= n.w && g.s >= n.s && g.f >= n.f){
+    g.stage = Math.min(4, g.stage + 1);
+    g.w = 0; g.s = 0; g.f = 0;
+    if(g.stage >= 4){
+      g.w = n.w; g.s = n.s; g.f = n.f;
+    }
+    toast(stageUpMsg(g.stage));
+  }
+  saveGrow();
+  renderGrow();
+  var sc = $('#scene');
+  if(sc){ sc.classList.remove('pop'); void sc.offsetWidth; sc.classList.add('pop'); }
+}
+
+/* ══════════════════ 10. 수확 축하 카드 ══════════════════ */
+var CARD = null;
+function roundRect(ctx, x, y, w, h, r){
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+function svgImage(markup){
+  return new Promise(function(resolve){
+    var blob = new Blob([markup], { type:'image/svg+xml;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var img = new Image();
+    img.onload = function(){ URL.revokeObjectURL(url); resolve(img); };
+    img.onerror = function(){ URL.revokeObjectURL(url); resolve(null); };
+    img.src = url;
+    setTimeout(function(){ resolve(img.complete && img.naturalWidth ? img : null); }, 2500);
+  });
+}
+function cardFont(w){
+  return '900 ' + w + 'px "Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif';
+}
+function drawCard(canvas, rec){
+  var p = PLANT[rec.sp];
+  var W = 1080, H = 1350;
+  canvas.width = W; canvas.height = H;
+  var c = canvas.getContext('2d');
+  var g = c.createLinearGradient(0, 0, W, H);
+  g.addColorStop(0, '#F4FBEF'); g.addColorStop(.55, '#FBFDF4'); g.addColorStop(1, '#FFF3DD');
+  c.fillStyle = g; c.fillRect(0, 0, W, H);
+
+  // 장식 동그라미
+  var dots = [[90,300,26,'#CFEAC0'],[980,420,34,'#FBE3AE'],[120,1050,20,'#CFEAC0'],[960,980,24,'#E7F2DC'],[80,760,14,'#FBE3AE'],[1000,760,12,'#CFEAC0']];
+  dots.forEach(function(d){
+    c.beginPath(); c.arc(d[0], d[1], d[2], 0, Math.PI * 2); c.fillStyle = d[3]; c.fill();
+  });
+
+  // 테두리
+  c.strokeStyle = '#2E7D46'; c.lineWidth = 9;
+  roundRect(c, 40, 40, W - 80, H - 80, 54); c.stroke();
+
+  // 제목 띠
+  c.fillStyle = '#1F6B3B';
+  roundRect(c, 110, 96, W - 220, 132, 66); c.fill();
+  c.fillStyle = '#FFFDF5';
+  c.font = cardFont(58); c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.fillText(t('cardHead'), W / 2, 164);
+
+  // 그림
+  c.textAlign = 'center';
+  return svgImage(plantScene(rec.sp, 4, 1, true)).then(function(img){
+    if(img) c.drawImage(img, 150, 226, 780, 780);
+
+    // 이름
+    c.fillStyle = '#14251A';
+    c.font = cardFont(92);
+    c.textBaseline = 'alphabetic';
+    c.fillText(S.lang === 'en' ? p.en : p.ko, W / 2, 1062);
+    c.fillStyle = '#5B6E5E';
+    c.font = '800 38px "Noto Sans CJK KR","Apple SD Gothic Neo",sans-serif';
+    c.fillText(S.lang === 'en' ? p.ko : p.en, W / 2, 1112);
+
+    // 통계
+    c.fillStyle = 'rgba(255,255,255,.82)';
+    roundRect(c, 120, 1134, W - 240, 122, 32); c.fill();
+    c.strokeStyle = '#CFE0C8'; c.lineWidth = 3;
+    roundRect(c, 120, 1134, W - 240, 122, 32); c.stroke();
+    c.fillStyle = '#2E4632';
+    c.font = '800 33px "Noto Sans CJK KR","Apple SD Gothic Neo",sans-serif';
+    c.fillText(t('cardLine1')(dateLabelTs(rec.plantedAt), dateLabelTs(rec.at)), W / 2, 1182);
+    c.fillStyle = '#1F6B3B';
+    c.font = cardFont(36);
+    c.fillText(t('cardLine2')(rec.days, rec.care), W / 2, 1232);
+
+    // 발자국
+    c.fillStyle = '#6E8471';
+    c.font = '700 26px "Noto Sans CJK KR","Apple SD Gothic Neo",sans-serif';
+    c.fillText(t('cardFoot'), W / 2, 1296);
+    return true;
+  });
+}
+function cardBlob(cb){
+  var canvas = $('#cardCanvas');
+  try{
+    if(canvas.toBlob) canvas.toBlob(function(b){ cb(b); }, 'image/png');
+    else cb(null);
+  }catch(e){ cb(null); }
+}
+function openCard(rec){
+  CARD = rec;
+  var canvas = $('#cardCanvas');
+  drawCard(canvas, rec);
+  $('#cardTitle').textContent = t('cardTitleTxt');
+  $('#cardLead').textContent = t('cardLead');
+  $('#cardSave').textContent = t('cardSaveTxt');
+  $('#cardShare').textContent = t('cardShareTxt');
+  $('#cardSms').textContent = t('cardSmsTxt');
+  $('#cardClose').textContent = t('closeBtn');
+  var txt = t('smsMsg')(S.lang === 'en' ? PLANT[rec.sp].en : PLANT[rec.sp].ko, rec.days, rec.care);
+  $('#cardSms').setAttribute('href', 'sms:?body=' + encodeURIComponent(txt));
+  openModal('cardModal');
+}
+function saveCard(){
+  cardBlob(function(b){
+    if(!b){ toast(t('pngFail')); return; }
+    var a = document.createElement('a');
+    var url = URL.createObjectURL(b);
+    a.href = url;
+    a.download = 'wagle-garden-' + (CARD ? CARD.sp : 'plant') + '.png';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){ URL.revokeObjectURL(url); if(a.parentNode) a.parentNode.removeChild(a); }, 4000);
+    toast(t('pngSaved'));
+  });
+}
+function shareCard(){
+  cardBlob(function(b){
+    if(!b){ toast(t('pngFail')); return; }
+    var rec = CARD;
+    var txt = t('cardMsg')(S.lang === 'en' ? PLANT[rec.sp].en : PLANT[rec.sp].ko, rec.days, rec.care);
+    var file = null;
+    try{ file = new File([b], 'wagle-garden.png', { type:'image/png' }); }catch(e){ file = null; }
+    var canFiles = false;
+    try{ canFiles = !!(file && navigator.canShare && navigator.canShare({ files:[file] })); }catch(e){ canFiles = false; }
+    if(canFiles && navigator.share){
+      navigator.share({ files:[file], text:txt, title:t('shareTitle') }).catch(function(){});
+      return;
+    }
+    if(navigator.share){
+      navigator.share({ text:txt, title:t('shareTitle') }).catch(function(){ copyText(txt, function(){ toast(t('copiedShare')); }, function(){ toast(t('shareFail')); }); });
+      return;
+    }
+    copyText(txt, function(){ toast(t('copiedShare')); }, function(){ toast(t('shareFail')); });
+  });
+}
+function harvestNow(){
+  var g = G.plant; if(!g) return;
+  var rec = {
+    id:'h' + Date.now() + Math.floor(Math.random() * 999),
+    sp:g.sp, at:Date.now(), plantedAt:g.plantedAt,
+    care:g.care, days:tsDayNo(g.plantedAt)
+  };
+  BOOK.unshift(rec);
+  if(BOOK.length > 60) BOOK.length = 60;
+  saveBook();
+  G.plant = null;
+  saveGrow();
+  renderGrow();
+  renderBook();
+  openCard(rec);
+  toast(t('harvestDone'));
+}
+
+/* ══════════════════ 11. 수확 도감 ══════════════════ */
+function renderBook(){
+  var box = $('#bookList');
+  if(!BOOK.length){
+    box.innerHTML = '<div class="bookEmpty">' + esc(t('bookEmpty')).replace(/\n/g, '<br>') + '</div>';
+    return;
+  }
+  var h = '';
+  BOOK.forEach(function(r){
+    var p = PLANT[r.sp];
+    h += '<div class="bkRow" data-book="' + esc(r.id) + '">' +
+      '<span class="bkv">' + plantScene(r.sp, 4, 0, false, PLANT[r.sp].pv) + '</span>' +
+      '<span class="bkm"><b>' + esc(S.lang === 'en' ? p.en : p.ko) + '</b>' +
+      '<i>' + t('cardLine2')(r.days, r.care) + '</i>' +
+      '<em>' + dateLabelTs(r.at) + '</em></span>' +
+      '<span class="bkA"><button type="button" data-see="' + esc(r.id) + '">' + t('bookSee') + '</button>' +
+      '<button type="button" class="dl" data-bdel="' + esc(r.id) + '" aria-label="' + esc(t('bookDel')) + '">🗑️</button></span></div>';
+  });
+  box.innerHTML = h;
+}
+
+/* ══════════════════ 12. 화면 전환 · 폰 뒤로가기 ══════════════════ */
+var VIEWS = { cal:'viewCal', grow:'viewGrow', book:'viewBook' };
+var TAB = 'cal';
+var NAV = [{ v:'tab', tab:'cal' }];
+function showTab(tab){
+  TAB = tab;
+  Object.keys(VIEWS).forEach(function(k){
+    var el = document.getElementById(VIEWS[k]);
+    if(el) el.hidden = (k !== tab);
+  });
+  $('#viewCrop').hidden = true;
+  $$('.tbtn').forEach(function(b){ b.setAttribute('aria-selected', b.dataset.tab === tab ? 'true' : 'false'); });
+  if(tab === 'cal'){ renderMonths(); renderSum(); renderTodos(); renderPlots(); renderCrops(); renderRuler(); }
+  if(tab === 'grow'){ renderGrow(); }
+  if(tab === 'book'){ renderBook(); }
+  try{ window.scrollTo(0, 0); } catch(e){}
+}
+function showCropScreen(id){
+  Object.keys(VIEWS).forEach(function(k){
+    var el = document.getElementById(VIEWS[k]);
+    if(el) el.hidden = true;
+  });
+  renderCropDetail(id);
+  $('#viewCrop').hidden = false;
+  try{ window.scrollTo(0, 0); } catch(e){}
+}
+function applyDesc(d){
+  if(!d){ showTab('cal'); return; }
+  if(d.v === 'tab'){ showTab(d.tab); return; }
+  if(d.v === 'crop'){ showCropScreen(d.id); }
+}
+function navPush(d){
+  NAV.push(d);
+  try{ history.pushState({ wg:NAV.length }, ''); }catch(e){}
+  applyDesc(d);
+}
+window.addEventListener('popstate', function(){
+  if(SKIP_POP > 0){ SKIP_POP--; return; }
+  if(MODS.length){
+    if(MOD_PUSH > 0) MOD_PUSH--;
+    closeTopModal();
+    return;
+  }
+  NAV.pop();
+  var d = NAV.length ? NAV[NAV.length - 1] : { v:'tab', tab:'cal' };
+  applyDesc(d);
+});
+
+/* ══════════════════ 13. 모달 · 토스트 ══════════════════ */
+var MODS = [], MOD_PUSH = 0, SKIP_POP = 0;
+function openModal(id){
+  var el = document.getElementById(id);
+  if(!el) return;
+  el.hidden = false;
+  MODS.push(id);
+  MOD_PUSH++;
+  try{ history.pushState({ wgModal:1 }, ''); }catch(e){}
+}
+function closeTopModal(){
+  var id = MODS.pop();
+  if(id){
+    var el = document.getElementById(id);
+    if(el) el.hidden = true;
+  }
+}
+function closeModal(id){
+  var el = document.getElementById(id);
+  if(el) el.hidden = true;
+  var i = MODS.lastIndexOf(id);
+  if(i >= 0) MODS.splice(i, 1);
+  if(MOD_PUSH > 0){           /* 모달용으로 밀어 둔 history 칸을 닫을 때 반납 */
+    MOD_PUSH--;
+    SKIP_POP++;
+    try{ history.back(); }catch(e){ SKIP_POP--; }
+  }
+}
+var toastTimer = null;
+function toast(msg, undoFn){
+  var el = $('#toast');
+  el.innerHTML = '<span>' + esc(msg) + '</span>' + (undoFn ? '<button type="button">' + esc(t('undo')) + '</button>' : '');
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  if(undoFn){
+    var b = el.querySelector('button');
+    if(b) b.addEventListener('click', function(){
+      el.classList.remove('show');
+      undoFn();
+    }, { once:true });
+    toastTimer = setTimeout(function(){ el.classList.remove('show'); }, 5200);
+  } else {
+    toastTimer = setTimeout(function(){ el.classList.remove('show'); }, 1900);
+  }
+}
+function copyText(text, ok, fail){
+  function legacy(){
+    try{
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed'; ta.style.top = '-9999px';
+      document.body.appendChild(ta); ta.select();
+      var done = document.execCommand && document.execCommand('copy');
+      document.body.removeChild(ta);
+      if(done) ok(); else fail();
+    }catch(e){ fail(); }
+  }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(ok, legacy);
+  } else legacy();
+}
+
+/* ══════════════════ 14. 설치 · 공유 ══════════════════ */
+var instPrompt = null, instDone = false;
+function isStandalone(){
+  try{
+    if(window.matchMedia){
+      if(window.matchMedia('(display-mode: standalone)').matches) return true;
+      if(window.matchMedia('(display-mode: minimal-ui)').matches) return true;
+    }
+  }catch(e){}
+  if(navigator.standalone === true) return true;
+  return false;
+}
+function isAndroid(){ return /Android/i.test(navigator.userAgent || ''); }
+function inAppBrowser(){ return /KAKAOTALK|Instagram|NAVER|FBAN|FBAV|Line\//i.test(navigator.userAgent || ''); }
+function chromeIntent(){
+  var host = location.host || 'starpicklife-design.github.io';
+  var path = (location.pathname || '/garden/') + (location.search || '');
+  return 'intent://' + host + path + '#Intent;scheme=https;package=com.android.chrome;end';
+}
+function syncInstall(){ var b = $('#installBtn'); if(b) b.hidden = instDone || isStandalone(); }
+function openInstall(){
+  $('#instTitle').textContent = t('instTitle');
+  $('#instLead').textContent = t('instLed');
+  $('#instSteps').innerHTML = ['instS1','instS2','instS3','instS4'].map(function(k){ return '<li>' + t(k) + '</li>'; }).join('');
+  $('#instMini').textContent = t('instMini');
+  $('#instClose').textContent = t('instOk');
+  var ch = $('#instChrome'), show = isAndroid() && inAppBrowser();
+  ch.hidden = !show;
+  if(show){ ch.textContent = t('instChromeBtn'); ch.setAttribute('href', chromeIntent()); }
+  openModal('instModal');
+}
+function installTap(){
+  if(instDone || isStandalone()){ toast(t('instAlready')); return; }
+  if(instPrompt){
+    var dp = instPrompt; instPrompt = null;
+    try{
+      dp.prompt();
+      if(dp.userChoice && dp.userChoice.then){
+        dp.userChoice.then(function(r){ if(r && r.outcome === 'accepted') toast(t('installedMsg')); syncInstall(); }, function(){});
+      }
+      return;
+    }catch(e){}
+  }
+  openInstall();
+}
+function shareApp(){
+  var p = { title:t('shareTitle'), text:t('shareText'), url:'https://starpicklife-design.github.io/garden/' };
+  var usable = true;
+  try{ if(navigator.canShare && !navigator.canShare(p)) usable = false; }catch(e){}
+  var ok = function(){ toast(t('shareCopied')); };
+  var fail = function(){ toast(t('shareCopyFail')); };
+  if(navigator.share && usable){
+    try{
+      var r = navigator.share(p);
+      if(r && r.then) r.then(function(){}, function(err){ if(err && err.name === 'AbortError') return; copyText(p.text + '\n\n' + p.url, ok, fail); });
+      return;
+    }catch(e){}
+  }
+  copyText(p.text + '\n\n' + p.url, ok, fail);
+}
+
+/* ══════════════════ 15. 말 적용 ══════════════════ */
+function applyLang(){
+  document.documentElement.lang = S.lang;
+  document.title = S.lang === 'en' ? 'Wagling Garden · Sowing calendar and pocket plant' : '와글링 텃밭 · 파종 달력과 내 손안의 식물';
+  $('#appTitle').textContent = t('appTitle');
+  $('#appSub').textContent = t('appSub');
+  $('#instLbl').textContent = S.lang === 'en' ? 'Install' : '설치';
+  $('#shareLbl').textContent = S.lang === 'en' ? 'Share' : '공유';
+  $('#tabCalLbl').textContent = t('tabCal');
+  $('#tabGrowLbl').textContent = t('tabGrow');
+  $('#tabBookLbl').textContent = t('tabBook');
+  $('#regCLbl').textContent = t('regionC');
+  $('#regSLbl').textContent = t('regionS');
+  $('#regNote').textContent = t('regionNote');
+  $('#q').placeholder = t('searchPh');
+  $('#todoTitle').textContent = t('todoTitle');
+  $('#todoSub').textContent = t('todoSub');
+  $('#myGTitle').textContent = t('myGTitle');
+  $('#myGSub').textContent = t('myGSub');
+  $('#allTitle').innerHTML = esc(t('allTitle')) + ' <span class="cnt" id="allCnt"></span>';
+  if(TAB === 'cal') $('#allCnt').textContent = $('#cropList').querySelectorAll('[data-crop]').length || CROPS.length;
+  $('#allSub').textContent = t('allSub');
+  $('#calHint').textContent = t('calHint');
+  $('#seedTitle').textContent = t('seedTitle');
+  $('#seedSub').textContent = t('seedSub');
+  $('#seedHint').textContent = t('seedHint');
+  $('#bookTitle').textContent = t('bookTitle');
+  $('#bookSub').textContent = t('bookSub');
+  $('#backLbl').textContent = t('backCal');
+  $('#addTitle').textContent = t('addTitle');
+  $('#plotAdd').textContent = t('plotAddBtn');
+  $('#instClose').textContent = t('instOk');
+  if(CUR){
+    var savedDate = $('#plotDate').value, savedMemo = $('#plotMemo').value;
+    renderCropDetail(CUR);
+    $('#plotDate').value = savedDate; $('#plotMemo').value = savedMemo;
+  }
+  if(CARD && !$('#cardModal').hidden){
+    drawCard($('#cardCanvas'), CARD);
+    $('#cardTitle').textContent = t('cardTitleTxt');
+    $('#cardLead').textContent = t('cardLead');
+    $('#cardSave').textContent = t('cardSaveTxt');
+    $('#cardShare').textContent = t('cardShareTxt');
+    $('#cardSms').textContent = t('cardSmsTxt');
+    $('#cardClose').textContent = t('closeBtn');
+    $('#cardSms').setAttribute('href', 'sms:?body=' + encodeURIComponent(t('smsMsg')(S.lang === 'en' ? PLANT[CARD.sp].en : PLANT[CARD.sp].ko, CARD.days, CARD.care)));
+  }
+  $$('.regbtn').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.region === S.region ? 'true' : 'false'); });
+  if(TAB === 'cal'){ renderMonths(); renderSum(); renderTodos(); renderPlots(); renderCrops(); renderRuler(); }
+  if(TAB === 'grow'){ renderGrow(); }
+  if(TAB === 'book'){ renderBook(); }
+  applyLangStatic();
+}
+function applyLangStatic(){
+  $('#growBook').textContent = t('growBookBtn');
+  $('#growReset').textContent = t('growResetBtn');
+  $('#growHint').textContent = t('growHint');
+  $('#harvestBtn').textContent = t('harvestBtn');
+}
+
+/* ══════════════════ 16. 사건 ══════════════════ */
+function selectMonth(m){
+  S.month = m; saveSettings();
+  renderMonths(); renderSum(); renderTodos(); renderCrops(); renderRuler();
+  if(!$('#viewCrop').hidden && CUR) renderCropDetail(CUR);
+}
+function selectRegion(r){
+  if(S.region === r) return;
+  S.region = r; saveSettings();
+  $$('.regbtn').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.region === r ? 'true' : 'false'); });
+  renderMonths(); renderSum(); renderTodos(); renderPlots(); renderCrops(); renderRuler();
+  if(!$('#viewCrop').hidden && CUR) renderCropDetail(CUR);
+}
+function pickSeed(id){
+  if(!PLANT[id]) return;
+  G.plant = { sp:id, stage:0, w:0, s:0, f:0, care:0, plantedAt:Date.now() };
+  saveGrow();
+  renderGrow();
+  toast(S.lang === 'en' ? 'Planted! Tap water, sun and care 🌱' : '심었어요! 물·햇빛·돌보기를 눌러 보세요 🌱');
+}
+function resetGrow(){
+  if(!G.plant) return;
+  var old = G.plant;
+  G.plant = null; saveGrow(); renderGrow();
+  toast(t('resetDone'), function(){
+    G.plant = old; saveGrow(); renderGrow();
+    toast(t('resetUndo'));
+  });
+}
+function addPlot(){
+  var id = $('#viewCrop').getAttribute('data-crop');
+  if(!CROP[id]){ toast(t('mustCrop')); return; }
+  var date = $('#plotDate').value || todayISO();
+  var memo = ($('#plotMemo').value || '').trim().slice(0, 40);
+  PLOTS.push({ id:'p' + Date.now() + Math.floor(Math.random() * 999), crop:id, date:date, memo:memo, at:Date.now() });
+  savePlots();
+  $('#plotMemo').value = '';
+  renderPlots();
+  toast(t('plotAdded'));
+}
+function delPlot(id){
+  var i = -1;
+  for(var k = 0; k < PLOTS.length; k++) if(PLOTS[k].id === id){ i = k; break; }
+  if(i < 0) return;
+  var item = PLOTS.splice(i, 1)[0];
+  savePlots(); renderPlots();
+  toast(t('plotDel'), function(){
+    PLOTS.splice(i, 0, item); savePlots(); renderPlots();
+  });
+}
+function delBook(id){
+  var i = -1;
+  for(var k = 0; k < BOOK.length; k++) if(BOOK[k].id === id){ i = k; break; }
+  if(i < 0) return;
+  var item = BOOK.splice(i, 1)[0];
+  saveBook(); renderBook();
+  toast(t('bookDelDone'), function(){
+    BOOK.splice(i, 0, item); saveBook(); renderBook();
+  });
+}
+function findBook(id){
+  for(var i = 0; i < BOOK.length; i++) if(BOOK[i].id === id) return BOOK[i];
+  return null;
+}
+
+function bind(){
+  $('#monthGrid').addEventListener('click', function(e){
+    var b = e.target.closest ? e.target.closest('.mbtn') : null;
+    if(!b) return;
+    selectMonth(Number(b.dataset.m));
+  });
+  $('#regRow').addEventListener('click', function(e){
+    var b = e.target.closest ? e.target.closest('.regbtn') : null;
+    if(!b) return;
+    selectRegion(b.dataset.region);
+  });
+  $('#q').addEventListener('input', renderCrops);
+  $('#q').addEventListener('search', renderCrops);
+
+  $('#todoWrap').addEventListener('click', function(e){
+    var b = e.target.closest ? e.target.closest('[data-crop]') : null;
+    if(!b) return;
+    navPush({ v:'crop', id:b.dataset.crop });
+  });
+  $('#cropList').addEventListener('click', function(e){
+    var b = e.target.closest ? e.target.closest('[data-crop]') : null;
+    if(!b) return;
+    navPush({ v:'crop', id:b.dataset.crop });
+  });
+  $('#myGarden').addEventListener('click', function(e){
+    var d = e.target.closest ? e.target.closest('[data-del]') : null;
+    if(!d) return;
+    e.stopPropagation();
+    delPlot(d.dataset.del);
+  });
+  $('#cropBack').addEventListener('click', function(){
+    if(NAV.length > 1) history.back();
+    else navPush({ v:'tab', tab:'cal' });
+  });
+  $('#plotAdd').addEventListener('click', addPlot);
+
+  $$('.tbtn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var tab = b.dataset.tab;
+      if(TAB === tab && $('#viewCrop').hidden) return;
+      navPush({ v:'tab', tab:tab });
+    });
+  });
+
+  $('#seedGrid').addEventListener('click', function(e){
+    var b = e.target.closest ? e.target.closest('[data-seed]') : null;
+    if(!b) return;
+    pickSeed(b.dataset.seed);
+  });
+  $$('.care').forEach(function(b){
+    b.addEventListener('click', function(){ care(b.dataset.care); });
+  });
+  $('#harvestBtn').addEventListener('click', harvestNow);
+  $('#growReset').addEventListener('click', resetGrow);
+  $('#growBook').addEventListener('click', function(){ navPush({ v:'tab', tab:'book' }); });
+
+  $('#bookList').addEventListener('click', function(e){
+    var see = e.target.closest ? e.target.closest('[data-see]') : null;
+    if(see){
+      var r = findBook(see.dataset.see);
+      if(r) openCard(r);
+      return;
+    }
+    var del = e.target.closest ? e.target.closest('[data-bdel]') : null;
+    if(del) delBook(del.dataset.bdel);
+  });
+
+  $('#btnLang').addEventListener('click', function(){
+    S.lang = (S.lang === 'ko') ? 'en' : 'ko';
+    saveSettings();
+    applyLang();
+  });
+  $('#installBtn').addEventListener('click', installTap);
+  $('#shareBtn').addEventListener('click', shareApp);
+  $('#instClose').addEventListener('click', function(){ closeModal('instModal'); });
+  $('#instModal').addEventListener('click', function(e){ if(e.target === $('#instModal')) closeModal('instModal'); });
+
+  $('#cardSave').addEventListener('click', saveCard);
+  $('#cardShare').addEventListener('click', function(e){ e.preventDefault(); shareCard(); });
+  $('#cardClose').addEventListener('click', function(){ closeModal('cardModal'); });
+  $('#cardModal').addEventListener('click', function(e){ if(e.target === $('#cardModal')) closeModal('cardModal'); });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ if(MODS.length) closeTopModal(); }
+  });
+  window.addEventListener('appinstalled', function(){ instDone = true; instPrompt = null; syncInstall(); toast(t('installedMsg')); });
+  window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); instPrompt = e; });
+
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', function(){ navigator.serviceWorker.register('./sw.js').catch(function(){}); });
+  }
+}
+
+/* ══════════════════ 17. 시작 ══════════════════ */
+function init(){
+  loadSettings(); loadPlots(); loadGrow(); loadBook();
+  $('#plotDate').value = todayISO();
+  applyLang();
+  showTab('cal');
+  bind();
+  syncInstall();
+  if(G.plant) renderGrow();
+}
+
+init();
+
+/* 검수용 (읽기 전용) */
+window.__garden = {
+  state:S, crops:CROPS, plots:function(){ return PLOTS; }, grow:function(){ return G.plant; },
+  book:function(){ return BOOK; }, nav:function(){ return NAV.slice(); },
+  version:'v1'
+};
+})();
+</script>
+</body>
+</html>

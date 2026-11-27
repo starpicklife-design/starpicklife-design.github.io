@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#0F4C42" />
+<meta name="google" content="notranslate" />
+<!-- build: 2026-11-27 와글링 한국여행 (Wagling Korea Travel) v1 · 시제품 -->
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="와글링 한국여행" />
+<meta name="description" content="외국인·내국인을 위한 한국 관광 가이드 — 서울·부산·경주·제주·전주·김해·안동·강릉 명소 30곳, 가는 법·입장료·먹거리·큰 글씨 한국어 카드. 설치 없이 무료, 오프라인에서도 열립니다." />
+<title>와글링 한국여행 · Wagling Korea Travel</title>
+<style>
+:root{
+  --bg:#FFF9F0; --card:#FFFFFF; --ink:#221A12; --ink2:#5E4B3A; --line:#E9DAC2;
+  --brand:#0F4C42; --brand2:#0A3A32; --gold:#C8912B; --red:#B4342A;
+  --soft:#F5EEDF; --shadow:0 2px 10px rgba(80,55,30,.09);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:19px;-webkit-text-size-adjust:100%}
+@media (min-width:390px){ html{font-size:20px} }
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.5;
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic","Noto Sans","Noto Sans CJK KR","Noto Sans KR","Liberation Sans","DejaVu Sans","FreeSans",Arial,Helvetica,sans-serif;
+  padding-bottom:calc(4.6rem + env(safe-area-inset-bottom))}
+button{font-family:inherit;cursor:pointer;color:inherit;border:0;background:none;font-size:inherit}
+a{color:inherit}
+img,svg{display:block}
+[hidden]{display:none !important}
+h1,h2,h3,p{margin:0}
+.wrap{max-width:620px;margin:0 auto}
+
+/* ── 상단 ── */
+.top{background:linear-gradient(180deg,#FFF3DF 0%,#FFF9F0 100%);border-bottom:1px solid var(--line);
+  padding:.5rem .7rem .55rem;position:relative;z-index:5}
+.hrow{display:flex;align-items:center;gap:.42rem}
+.logo{font-size:1.62rem;line-height:1;flex:0 0 auto}
+.hrow h1{font-size:1.1rem;font-weight:900;letter-spacing:-.01em;line-height:1.25;
+  flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body[data-lang="en"] .hrow h1{font-size:.99rem}
+.pill{display:flex;align-items:center;gap:.18rem;background:#fff;border:2px solid #DCC9A8;color:#3E2E1E;
+  border-radius:2rem;padding:.22rem .52rem;font-size:.84rem;font-weight:900;min-height:2.3rem;white-space:nowrap;flex:0 0 auto}
+.pill:active{transform:translateY(1px)}
+.pill.inst{background:linear-gradient(180deg,#FFD873,#EFB03A);border-color:#A9690A;color:#3B2A1E}
+.globe{font-size:.95rem}
+.pill .sl{opacity:.45;font-weight:800}
+.pill .lg{opacity:.38}
+.pill .lg.on{opacity:1}
+.hsub{display:flex;align-items:flex-end;gap:.4rem;margin-top:.34rem}
+.tag{font-size:.78rem;color:var(--ink2);font-weight:700;line-height:1.4;flex:1 1 auto;min-width:0;word-break:keep-all}
+.tools{display:flex;gap:.3rem;flex:0 0 auto}
+
+/* ── 소개 ── */
+.intro{margin:.62rem .7rem 0;background:#fff;border:2px solid var(--line);border-radius:1rem;
+  padding:.6rem .7rem;font-size:.9rem;line-height:1.5;color:#3A2C1F;box-shadow:var(--shadow)}
+.intro b{font-weight:900}
+
+/* ── 지역 칩 ── */
+.chips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.4rem;margin:.62rem .7rem 0}
+.chip{display:flex;align-items:center;justify-content:center;gap:.22rem;min-width:0;width:100%;
+  background:#fff;border:2px solid #E4D3B8;border-radius:.8rem;padding:.42rem .2rem;font-size:.9rem;
+  font-weight:900;color:#413122;min-height:2.9rem;line-height:1.2;box-shadow:0 1px 3px rgba(90,60,35,.06)}
+.chip .ic{font-size:1rem;line-height:1}
+.chip .cn{min-width:0;font-size:.94rem;line-height:1.18;font-weight:900;text-align:left;word-break:keep-all;overflow:hidden;text-overflow:ellipsis}
+.chip .ct{font-size:.72rem;font-weight:900;color:#8C6A3D;flex:0 0 auto}
+.chip.on{background:var(--brand);border-color:var(--brand2);color:#fff;box-shadow:0 3px 9px rgba(15,76,66,.28)}
+.chip.on .ct{color:#FFE6AE}
+body[data-lang="en"] .chip .ic{display:none}
+body[data-lang="en"] .chip .cn{font-size:.86rem;letter-spacing:-.01em}
+@media (max-width:359px){
+  .chips{gap:.3rem;margin-left:.55rem;margin-right:.55rem}
+  .chip{padding:.36rem .16rem;min-height:2.7rem}
+  .chip .ic{display:none}
+  .chip .cn{font-size:.84rem;text-align:center}
+  body[data-lang="en"] .chip .cn{font-size:.82rem}
+}
+
+/* ── 목록 ── */
+.secbar{display:flex;align-items:baseline;gap:.4rem;margin:.85rem .7rem .5rem}
+.secbar h2{font-size:1.06rem;font-weight:900}
+.secbar .cnt{font-size:.82rem;font-weight:900;color:#7A5C33;background:#F6EAD3;border-radius:.6rem;padding:.1rem .42rem}
+.list{padding:0 .7rem}
+.spot{display:block;width:100%;text-align:left;background:var(--card);border:2px solid var(--line);
+  border-radius:1.1rem;overflow:hidden;margin-bottom:.7rem;box-shadow:var(--shadow)}
+.spot:active{transform:translateY(1px)}
+.illwrap{position:relative;background:#E8EFEA}
+.ill{width:100%;height:auto;display:block;aspect-ratio:320/150}
+.rg{position:absolute;left:.5rem;top:.5rem;background:rgba(255,255,255,.94);color:#173D34;
+  font-size:.78rem;font-weight:900;padding:.18rem .5rem;border-radius:1rem;border:1px solid rgba(0,0,0,.05)}
+.heart{position:absolute;right:.45rem;top:.45rem;width:2.9rem;height:2.9rem;border-radius:50%;
+  background:rgba(255,255,255,.95);border:2px solid #EADCC6;display:grid;place-items:center;
+  font-size:1.35rem;line-height:1;box-shadow:0 2px 6px rgba(0,0,0,.10)}
+.heart.on{background:#FFEFF0;border-color:#F0B6BA}
+.sbody{padding:.6rem .72rem .72rem}
+.nm{font-size:1.16rem;font-weight:900;line-height:1.28;letter-spacing:-.01em}
+.nm .en{display:block;font-size:.84rem;font-weight:700;color:#6B5847;margin-top:.12rem;letter-spacing:0}
+.charm{font-size:1rem;line-height:1.5;margin-top:.34rem;color:#332519;word-break:keep-all}
+.tr{font-size:.88rem;line-height:1.45;color:#2F5449;background:#EDF5F1;border-radius:.6rem;
+  padding:.36rem .48rem;margin-top:.45rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.chips2{display:flex;flex-wrap:wrap;gap:.32rem;margin-top:.5rem}
+.tag2{font-size:.8rem;font-weight:800;border-radius:.55rem;padding:.2rem .46rem;background:#F7EEDD;
+  color:#5A4429;border:1px solid #E7D6BA;text-decoration:none;white-space:nowrap}
+.tag2.map{background:#E6F1EC;color:#10493B;border-color:#C3DDD2}
+.tag2.more{background:#FFF;color:#7A5C33;border-color:#E7D6BA}
+
+/* ── 상세 ── */
+.detail{padding:0 .7rem}
+.dhead{display:flex;align-items:center;gap:.5rem;margin:.6rem 0 .5rem}
+.dback{display:flex;align-items:center;gap:.3rem;background:#fff;border:2px solid #E4D3B8;border-radius:2rem;
+  padding:.3rem .7rem;font-size:.9rem;font-weight:900;min-height:2.6rem;color:#413122}
+.dhead .rg2{margin-left:auto;font-size:.82rem;font-weight:900;color:#2F5449;background:#E6F1EC;
+  border:1px solid #C3DDD2;border-radius:1rem;padding:.16rem .55rem;white-space:nowrap}
+.dhero{position:relative;border-radius:1.1rem;overflow:hidden;box-shadow:var(--shadow)}
+.dtitle{font-size:1.42rem;font-weight:900;line-height:1.25;margin-top:.7rem;letter-spacing:-.015em;word-break:keep-all}
+.dtitle .en{display:block;font-size:.92rem;font-weight:700;color:#6B5847;margin-top:.14rem;letter-spacing:0}
+.dcharm{font-size:1.02rem;line-height:1.55;margin-top:.4rem;color:#302215;word-break:keep-all}
+
+/* 큰 글씨 한국어 손짓 카드 */
+.taxi{margin-top:.8rem;background:linear-gradient(160deg,#0F4C42,#18695B);color:#fff;border-radius:1.1rem;
+  padding:.8rem .85rem .85rem;box-shadow:0 6px 18px rgba(15,76,66,.26)}
+.taxi .lb{font-size:.85rem;font-weight:800;opacity:.94;line-height:1.4}
+.taxi .big{font-size:1.72rem;font-weight:900;line-height:1.22;margin:.3rem 0 .1rem;
+  word-break:keep-all;letter-spacing:-.015em}
+.taxi .say{font-size:1.2rem;font-weight:900;color:#FFE39B;line-height:1.35;word-break:keep-all}
+.taxi .trow{display:flex;gap:.4rem;margin-top:.6rem;flex-wrap:wrap}
+.tbtn{display:flex;align-items:center;gap:.28rem;background:#fff;color:#0F4C42;border-radius:2rem;
+  padding:.34rem .72rem;font-size:.88rem;font-weight:900;min-height:2.6rem}
+
+.maps{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin-top:.7rem}
+.mbtn{display:flex;align-items:center;justify-content:center;gap:.3rem;background:#fff;border:2px solid #DCC9A8;
+  border-radius:.8rem;padding:.5rem .3rem;font-size:.9rem;font-weight:900;min-height:3rem;color:#3E2E1E;text-decoration:none}
+.mbtn.g{background:#EAF3EC;border-color:#C6DED3;color:#10493B}
+.mbtn.n{background:#EAF0FA;border-color:#C7D6F0;color:#1B3F7A}
+
+.rows{margin-top:.85rem;background:#fff;border:2px solid var(--line);border-radius:1.05rem;padding:.2rem .8rem}
+.row{padding:.62rem 0;border-bottom:1px solid #F1E6D2}
+.row:last-child{border-bottom:0}
+.row .k{font-size:.83rem;font-weight:900;color:#2F5449;letter-spacing:.01em}
+.row .v{font-size:1rem;line-height:1.55;margin-top:.16rem;color:#2A1E14;word-break:keep-all}
+
+.memo{margin-top:.85rem;background:#fff;border:2px solid var(--line);border-radius:1.05rem;padding:.7rem .8rem}
+.memo .k{font-size:.92rem;font-weight:900}
+.memo textarea{width:100%;min-height:5.2rem;margin-top:.45rem;border:2px solid #EADBC4;border-radius:.75rem;
+  padding:.55rem .6rem;font-family:inherit;font-size:.98rem;line-height:1.5;color:#2A1E14;background:#FFFDF8;resize:vertical}
+.memo .hint{font-size:.78rem;color:#7A6349;margin-top:.34rem;min-height:1.1rem}
+
+.dfoot{display:flex;gap:.45rem;margin:.8rem 0 .4rem;flex-wrap:wrap}
+.bigbtn{flex:1 1 12rem;display:flex;align-items:center;justify-content:center;gap:.35rem;background:var(--brand);
+  color:#fff;border-radius:.9rem;padding:.75rem .8rem;font-size:1rem;font-weight:900;min-height:3.3rem}
+
+/* ── 찜 화면 ── */
+.empty{margin:.9rem .7rem;background:#fff;border:2px dashed #E0CDB0;border-radius:1rem;padding:1.1rem .9rem;
+  text-align:center;font-size:.95rem;line-height:1.6;color:#5E4B3A}
+.favrow{display:flex;gap:.6rem;background:#fff;border:2px solid var(--line);border-radius:1rem;padding:.55rem;
+  margin-bottom:.6rem;align-items:center;width:100%;text-align:left}
+.favrow .th{width:5.2rem;height:3.9rem;border-radius:.7rem;overflow:hidden;flex:0 0 auto;background:#E8EFEA}
+.favrow .th svg{width:100%;height:100%}
+.favrow .fx{flex:1 1 auto;min-width:0}
+.favrow .fn{display:block;font-size:1rem;font-weight:900;line-height:1.3}
+.favrow .fr{display:block;font-size:.8rem;color:#2F5449;font-weight:800;margin-top:.12rem}
+.favrow .fm{display:block;font-size:.86rem;color:#6B5847;margin-top:.24rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.favrow .x{flex:0 0 auto;background:#F7EEDD;border:1px solid #E7D6BA;border-radius:.6rem;padding:.3rem .5rem;font-size:.86rem;font-weight:900}
+
+/* ── 손짓 카드 ── */
+.pc{display:flex;align-items:center;gap:.6rem;width:100%;text-align:left;background:#fff;border:2px solid #E9DAC2;
+  border-radius:1rem;padding:.62rem .66rem;margin-bottom:.55rem;box-shadow:0 1px 5px rgba(90,60,35,.07)}
+.pc:active{transform:translateY(1px)}
+.pc .ic{font-size:1.5rem;width:2.95rem;height:2.95rem;flex:0 0 auto;display:grid;place-items:center;
+  background:#F3EBDC;border-radius:.8rem;line-height:1}
+.pc .tx{flex:1 1 auto;min-width:0}
+.pc .ko{display:block;font-size:1.28rem;font-weight:900;line-height:1.3;letter-spacing:-.01em;word-break:keep-all}
+.pc .en{display:block;font-size:.84rem;color:#6B5847;margin-top:.14rem;line-height:1.35}
+.pc .sp{flex:0 0 auto;font-size:1.15rem;width:2.7rem;height:2.7rem;display:grid;place-items:center;
+  background:#EAF3EE;border-radius:50%}
+
+/* ── 큰 카드(전체 화면) ── */
+.bigcard{position:fixed;inset:0;z-index:60;background:#fff;display:flex;flex-direction:column;
+  padding:calc(.7rem + env(safe-area-inset-top)) .8rem calc(.8rem + env(safe-area-inset-bottom))}
+.bigcard .bx{display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+.bigcard .bt{font-size:.9rem;font-weight:900;color:#2F5449}
+.bigcard .cl{background:#F1E7D5;border-radius:2rem;padding:.34rem .8rem;font-size:.9rem;font-weight:900;min-height:2.6rem}
+.bigcard .mid{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;text-align:center;padding:.4rem 0}
+.bigcard .iko{font-size:2.6rem;line-height:1}
+.bigcard .bko{font-size:clamp(2rem,10.5vw,3.2rem);font-weight:900;line-height:1.22;letter-spacing:-.02em;color:#120C07;word-break:keep-all}
+.bigcard .ben{font-size:1.02rem;color:#4A3A2A;line-height:1.4;word-break:keep-all}
+.bigcard .brm{font-size:.86rem;color:#7A6349;font-style:italic}
+.bigcard .bact{display:flex;flex-direction:column;gap:.5rem}
+.bigcard .spk{display:flex;align-items:center;justify-content:center;gap:.4rem;background:var(--brand);color:#fff;
+  border-radius:1rem;padding:.85rem;font-size:1.05rem;font-weight:900;min-height:3.4rem}
+.bigcard .tip{font-size:.8rem;color:#6B5847;text-align:center;line-height:1.4}
+
+/* ── 하단 탭 ── */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;background:#FFFDF7;
+  border-top:2px solid #E9DAC2;padding-bottom:env(safe-area-inset-bottom)}
+.tabs .wrap{display:flex;width:100%;max-width:620px;margin:0 auto}
+.tab{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;
+  padding:.4rem .1rem .38rem;font-size:.76rem;font-weight:900;color:#7A6349;min-height:3.5rem;position:relative}
+.tab .ti{font-size:1.35rem;line-height:1}
+.tab .tl{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--brand);background:#F4F9F6}
+.tab[aria-selected="true"]::before{content:"";position:absolute;top:0;left:18%;right:18%;height:3px;background:var(--brand);border-radius:0 0 3px 3px}
+.tab .badge{position:absolute;top:.25rem;right:calc(50% - 1.5rem);background:var(--red);color:#fff;font-size:.66rem;
+  font-weight:900;border-radius:1rem;padding:.04rem .3rem;line-height:1.4}
+
+/* ── 설치 모달 · 토스트 ── */
+.modal{position:fixed;inset:0;z-index:70;background:rgba(30,20,10,.45);display:flex;align-items:flex-end;justify-content:center}
+.modal .box{background:#fff;border-radius:1.2rem 1.2rem 0 0;padding:1rem .9rem calc(1.1rem + env(safe-area-inset-bottom));
+  width:100%;max-width:620px}
+.modal h2{font-size:1.1rem;font-weight:900}
+.modal p{font-size:.93rem;line-height:1.55;margin-top:.4rem;color:#3A2C1F}
+.modal .close{width:100%;margin-top:.8rem;background:var(--brand);color:#fff;border-radius:.9rem;padding:.8rem;
+  font-size:1rem;font-weight:900;min-height:3.2rem}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(4.4rem + env(safe-area-inset-bottom));
+  z-index:80;background:rgba(25,18,12,.92);color:#fff;font-size:.9rem;font-weight:800;padding:.55rem .9rem;
+  border-radius:2rem;max-width:calc(100% - 2rem);text-align:center}
+@media (min-width:430px){ html{font-size:20.5px} }
+</style>
+</head>
+<body data-lang="ko">
+<header class="top">
+  <div class="wrap">
+    <div class="hrow">
+      <span class="logo" aria-hidden="true">🏯</span>
+      <h1 id="appName">와글링 한국여행</h1>
+      <button type="button" id="langBtn" class="pill" aria-label="한국어 / English">
+        <span class="globe" aria-hidden="true">🌐</span><span class="lg" data-l="ko">한</span><span class="sl">/</span><span class="lg" data-l="en">EN</span>
+      </button>
+    </div>
+    <div class="hsub">
+      <p class="tag" id="tagline">관광지 30곳 · 가는 법·입장료·먹거리</p>
+      <div class="tools">
+        <button type="button" id="installBtn" class="pill inst">📲 <span id="instLbl">설치</span></button>
+        <button type="button" id="shareBtn" class="pill">📤 <span id="shareLbl">공유</span></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ① 관광지 -->
+  <section id="view-list">
+    <div class="wrap">
+      <div class="intro" id="intro"></div>
+      <div class="chips" id="chips" role="tablist" aria-label="지역"></div>
+      <div class="secbar"><h2 id="listTitle">지역별 명소</h2><span class="cnt" id="listCnt"></span></div>
+      <div class="list" id="list"></div>
+    </div>
+  </section>
+
+  <!-- ② 찜 -->
+  <section id="view-fav" hidden>
+    <div class="wrap">
+      <div class="secbar"><h2 id="favTitle">찜한 곳</h2><span class="cnt" id="favCnt"></span></div>
+      <div class="list" id="favList"></div>
+    </div>
+  </section>
+
+  <!-- ③ 손짓 카드 -->
+  <section id="view-card" hidden>
+    <div class="wrap">
+      <div class="intro" id="cardIntro"></div>
+      <div class="list" id="phraseList"></div>
+    </div>
+  </section>
+
+  <!-- ④ 명소 상세 -->
+  <section id="view-spot" hidden>
+    <div class="wrap detail" id="detail"></div>
+  </section>
+</main>
+
+<nav class="tabs" aria-label="화면 이동">
+  <div class="wrap">
+    <button type="button" class="tab" data-tab="list" role="tab" aria-selected="true" aria-controls="view-list"><span class="ti" aria-hidden="true">🗺️</span><span class="tl" data-t="tabList">관광지</span></button>
+    <button type="button" class="tab" data-tab="fav" role="tab" aria-selected="false" aria-controls="view-fav"><span class="ti" aria-hidden="true">❤️</span><span class="tl" data-t="tabFav">찜</span><span class="badge" id="favBadge" hidden></span></button>
+    <button type="button" class="tab" data-tab="card" role="tab" aria-selected="false" aria-controls="view-card"><span class="ti" aria-hidden="true">💬</span><span class="tl" data-t="tabCard">손짓 카드</span></button>
+  </div>
+</nav>
+
+<div class="bigcard" id="bigCard" hidden role="dialog" aria-modal="true" aria-label="큰 글씨 한국어 카드">
+  <div class="bx">
+    <span class="bt" id="bcTitle">큰 글씨 카드</span>
+    <button type="button" class="cl" id="bcClose">닫기</button>
+  </div>
+  <div class="mid">
+    <span class="iko" id="bcIcon" aria-hidden="true">💬</span>
+    <p class="bko" id="bcKo">여기 가 주세요</p>
+    <p class="ben" id="bcEn">Please take me here.</p>
+    <p class="brm" id="bcRom">yeogi ga juseyo</p>
+  </div>
+  <div class="bact">
+    <button type="button" class="spk" id="bcSpeak">🔊 <span id="bcSpeakLbl">한국어로 읽어 주기</span></button>
+    <p class="tip" id="bcTip">이 화면을 그대로 보여 주세요.</p>
+  </div>
+</div>
+
+<div class="modal" id="installModal" hidden>
+  <div class="box">
+    <h2 id="inTitle">홈 화면에 설치</h2>
+    <p id="inBody"></p>
+    <button type="button" class="close" id="inClose">알겠어요</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script>
+"use strict";
+/* ══════════════════════════════════════════════════════════
+   와글링 한국여행 v1 — 지역별 명소 30 · 한/EN · 찜·메모 · 큰 글씨 카드
+   · 외부 API·서버·개인정보 없음 · 그림은 전부 이 파일 안의 SVG
+   ══════════════════════════════════════════════════════════ */
+
+/* ── 색 팔레트 (명소 그림의 하늘·물·지붕) ── */
+var PAL = {
+  dawn:  {s1:'#FFE2B4', s2:'#FFB68A', sun:'#FFD166', far:'#8A6552', near:'#5E4437', gnd:'#F3E3C9', wat:'#8FBECB', roof:'#FFF7E6', acc:'#B4342A'},
+  day:   {s1:'#CFEAF4', s2:'#9AD2E6', sun:'#FFD75E', far:'#7FA98F', near:'#557F6C', gnd:'#EBE2CE', wat:'#67AEC7', roof:'#FFFBF0', acc:'#2E7D5B'},
+  dusk:  {s1:'#F8C4A6', s2:'#8E70A6', sun:'#FFE0A3', far:'#4E3F6B', near:'#322847', gnd:'#D9C7B4', wat:'#7B88BA', roof:'#FFF0D8', acc:'#B4342A'},
+  night: {s1:'#16233E', s2:'#2E4A72', sun:'#F4E3A6', far:'#101B31', near:'#0A1322', gnd:'#2A3448', wat:'#2C4868', roof:'#F2E6CB', acc:'#E9B44C'},
+  sea:   {s1:'#C6ECF2', s2:'#7EC4DA', sun:'#FFDE7A', far:'#6FA3A8', near:'#40787C', gnd:'#F0E4CA', wat:'#3E9BB8', roof:'#FFF8EC', acc:'#C0552F'},
+  forest:{s1:'#DCF0DA', s2:'#9FD1AA', sun:'#FFE07A', far:'#5C8F6C', near:'#36634B', gnd:'#E5E7CE', wat:'#6FAFB4', roof:'#FFF9EC', acc:'#8A4B2A'},
+  sand:  {s1:'#FFEDCB', s2:'#F7D08F', sun:'#FFD166', far:'#B08B62', near:'#7E6045', gnd:'#F4E6C8', wat:'#6FB7C4', roof:'#FFFAF0', acc:'#9C3B2E'},
+  mist:  {s1:'#E8E9E6', s2:'#C3CBC6', sun:'#F4DFA8', far:'#9AA8A0', near:'#6E7E76', gnd:'#E9E6DC', wat:'#8FA9A9', roof:'#FFFBF2', acc:'#7A4B34'},
+  autumn:{s1:'#FFE0AC', s2:'#F0A96C', sun:'#FFD06B', far:'#9C6B42', near:'#6C4A2E', gnd:'#EFE0C0', wat:'#7FB3BE', roof:'#FFF6E6', acc:'#A8392B'},
+  snow:  {s1:'#EAF3F8', s2:'#BED6E4', sun:'#FFE6A8', far:'#9FB4C0', near:'#71889A', gnd:'#F4F7F7', wat:'#7DA3B8', roof:'#FFFDF7', acc:'#3F6D8C'}
+};
+
+/* ── 지역 ── */
+var REGIONS = [
+  {id:'all',    ic:'🗺️', ko:'전체',      en:'All'},
+  {id:'seoul',  ic:'🏙️', ko:'서울',      en:'Seoul'},
+  {id:'busan',  ic:'🌊', ko:'부산',      en:'Busan'},
+  {id:'gyeongju',ic:'🗿',ko:'경주',      en:'Gyeongju'},
+  {id:'jeju',   ic:'🍊', ko:'제주',      en:'Jeju'},
+  {id:'jeonju', ic:'🏮', ko:'전주',      en:'Jeonju'},
+  {id:'gimhae', ic:'🏺', ko:'김해·경남', en:'Gimhae'},
+  {id:'andong', ic:'🎭', ko:'안동',      en:'Andong'},
+  {id:'gangneung',ic:'☕',ko:'강릉',     en:'Gangneung'}
+];
+
+/* ── 명소 30곳: [한국어, English] ── */
+var SPOTS = [
+{id:'gyeongbok', rg:'seoul', ill:'palace', pal:'dawn', q:'경복궁 서울 종로구',
+ nm:['경복궁','Gyeongbokgung Palace'],
+ charm:['조선 500년의 중심, 근정전과 경회루가 펼치는 가장 웅장한 궁궐.','The grand heart of the Joseon dynasty — Korea’s most majestic palace.'],
+ tr:['3호선 경복궁역 5번 출구에서 도보 2분. 5호선 광화문역 2번 출구·3호선 안국역 1번 출구에서 도보 6분. 버스는 ‘경복궁’ 정류장(109·171·272·710 등).','Line 3 Gyeongbokgung Stn, Exit 5 (2-min walk). Also Gwanghwamun Stn (Line 5) Exit 2 or Anguk Stn (Line 3) Exit 1, 6 min. Buses stop at “Gyeongbokgung” (109, 171, 272, 710).'],
+ tm:['오전 9~11시가 한산해요. 봄·가을이 가장 좋고, 2시간이면 넉넉해요.','Quietest 9–11 am. Best in spring and autumn; allow 2 hours.'],
+ tmS:['봄·가을','Spring·Fall'],
+ fee:['어른 3,000원. 만 24세 이하·만 65세 이상 내국인과 한복 착용자는 무료.','Adults 3,000 won. Free for Koreans under 25 or over 64, and for anyone wearing hanbok.'],
+ feeS:['3,000원','₩3,000'],
+ cl:['매주 화요일 휴궁(공휴일이면 개방). 11~2월 09:00~17:00, 입장 마감 16:00.','Closed Tuesdays (open if a holiday). Nov–Feb 09:00–17:00, last entry 16:00.'],
+ eat:['서촌 통인시장 기름떡볶이·도토리묵, 토속촌 삼계탕(도보 10분).','Seochon’s Tongin Market (oil tteokbokki), Tosokchon ginseng chicken soup (10-min walk).']},
+
+{id:'changdeok', rg:'seoul', ill:'palace', pal:'dusk', q:'창덕궁 서울 종로구 율곡로 99',
+ nm:['창덕궁','Changdeokgung Palace'],
+ charm:['유네스코 세계유산, 후원의 숲과 연못이 만드는 조선 최고의 정원.','A UNESCO site — Joseon’s finest garden of woods and ponds in the rear Huwon.'],
+ tr:['3호선 안국역 3번 출구에서 도보 5분(389m). 1·3·5호선 종로3가역 7번 출구에서 도보 10분.','Line 3 Anguk Stn, Exit 3 (5-min walk). Jongno 3-ga Stn (Lines 1·3·5) Exit 7, 10 min.'],
+ tm:['오전이 한산해요. 봄·가을, 후원까지 보면 2시간 30분.','Mornings are quiet. Spring or autumn; 2.5 hours with the rear garden.'],
+ tmS:['봄·가을','Spring·Fall'],
+ fee:['어른 3,000원. 후원은 5,000원이 더 들고 시간제 예약제예요.','Adults 3,000 won. The Huwon garden adds 5,000 won, with timed entry.'],
+ feeS:['3,000원','₩3,000'],
+ cl:['매주 월요일 휴궁. 11~1월 09:00~17:30, 입장 마감 16:30.','Closed Mondays. Nov–Jan 09:00–17:30, last entry 16:30.'],
+ eat:['북촌 손만두, 익선동 한식·카페 골목.','Bukchon son-mandu dumplings; the hanok cafés of Ikseon-dong.']},
+
+{id:'nseoultower', rg:'seoul', ill:'tower', pal:'night', q:'남산서울타워 서울 용산구',
+ nm:['남산서울타워','N Seoul Tower'],
+ charm:['서울 한가운데 480m, 도시 전체를 한눈에 담는 전망대와 사랑의 자물쇠.','480 m above central Seoul — a view over the whole city and walls of love locks.'],
+ tr:['4호선 명동역 3번 출구에서 남산케이블카까지 도보 10분. 충무로역에서 01A·01B 순환버스.','Line 4 Myeongdong Stn Exit 3, then 10 min to the Namsan cable car. Or bus 01A/01B from Chungmuro Stn.'],
+ tm:['해질 무렵~밤(야경)이 최고예요. 1시간 30분.','Best at dusk into night for the city lights. Allow 1.5 hours.'],
+ tmS:['야경','Night view'],
+ fee:['전망대 어른 29,000원. 케이블카 왕복 15,000원은 따로예요. 광장과 산책로는 무료.','Observatory 29,000 won; cable car 15,000 won round trip extra. The plaza and trails are free.'],
+ feeS:['29,000원','₩29,000'],
+ cl:['연중무휴. 전망대 10:00~22:30(주말 23:00).','Open daily. Observatory 10:00–22:30 (23:00 weekends).'],
+ eat:['명동교자 칼국수·만두, 남산돈까스.','Myeongdong Kyoja noodles and dumplings; Namsan donkatsu.']},
+
+{id:'gwangjang', rg:'seoul', ill:'market', pal:'autumn', q:'광장시장 서울 종로구 창경궁로 88',
+ nm:['광장시장','Gwangjang Market'],
+ charm:['100년 넘은 시장, 빈대떡·마약김밥·육회가 한 상에 모이는 서울의 부엌.','A century-old market — bindaetteok, mini gimbap and raw beef at one table.'],
+ tr:['1호선 종로5가역 8번 출구에서 62m. 2·5호선 을지로4가역 4번 출구에서 100m.','Line 1 Jongno 5-ga Stn Exit 8 — 62 m. Euljiro 4-ga Stn (Lines 2·5) Exit 4 — 100 m.'],
+ tm:['저녁 6시 전이 덜 붐벼요. 1~2시간.','Before 6 pm is calmer. One to two hours.'],
+ tmS:['저녁 전','Before dinner'],
+ fee:['입장 무료. 먹자골목은 09:00~23:00 연중무휴.','Free entry. The food alleys run 09:00–23:00 all year.'],
+ feeS:['무료','Free'],
+ cl:['시장 기본 운영·구제상가는 일요일 휴무, 먹자골목은 일요일도 영업.','Market stalls and the vintage shops close Sundays; the food alleys stay open.'],
+ eat:['순희네 빈대떡, 마약김밥, 육회·보쌈.','Soonhee’s bindaetteok, mini gimbap, yukhoe and bossam.']},
+
+{id:'haeundae', rg:'busan', ill:'beach', pal:'sea', q:'해운대해수욕장 부산 해운대구',
+ nm:['해운대 해수욕장','Haeundae Beach'],
+ charm:['부산을 대표하는 1.5km 백사장, 여름밤 불꽃과 도시의 불빛.','Busan’s 1.5 km white-sand beach, with summer fireworks and city lights.'],
+ tr:['2호선 해운대역 5·7번 출구에서 도보 10분. KTX 해운대역에서도 도보권이에요.','Line 2 Haeundae Stn, Exit 5 or 7 (10-min walk). Also walkable from Haeundae KTX station.'],
+ tm:['이른 아침 산책이나 여름밤. 1시간.','Early-morning walks or summer nights. About an hour.'],
+ tmS:['여름','Summer'],
+ fee:['무료. 샤워장·선베드만 유료예요.','Free. Only showers and sunbeds are paid.'],
+ feeS:['무료','Free'],
+ cl:['24시간 개방. 해수욕은 여름 개장 기간에만.','Open 24 hours; swimming only during the summer season.'],
+ eat:['해운대 밀면, 씨앗호떡, 해운대시장 회.','Haeundae milmyeon noodles, seed hotteok, sashimi at Haeundae Market.']},
+
+{id:'gamcheon', rg:'busan', ill:'village', pal:'day', q:'감천문화마을 부산 사하구',
+ nm:['감천문화마을','Gamcheon Culture Village'],
+ charm:['산비탈에 색색의 집이 쌓인 마을, 골목마다 벽화와 바다 전망.','Pastel houses stacked on a hillside — murals in every alley and a view to the sea.'],
+ tr:['1호선 토성역 6번 출구 → 마을버스 사하1-1·서구2·서구2-2 → 감정초등학교 하차, 도보 5분.','Line 1 Toseong Stn Exit 6 → village bus Saha 1-1, Seogu 2 or 2-2 → Gamjeong Elementary, then 5 min on foot.'],
+ tm:['오전 10시~낮. 계단이 많아 편한 신발 필수. 2시간.','Late morning to afternoon; many stairs, wear flat shoes. Two hours.'],
+ tmS:['봄·가을','Spring·Fall'],
+ fee:['마을 산책은 무료. 안내소 스탬프 지도와 일부 시설만 유료.','Walking the village is free; only the stamp map and some exhibits are paid.'],
+ feeS:['무료','Free'],
+ cl:['연중무휴. 안내센터 09:00~18:00(11~2월 17:00). 주민이 사는 곳이라 조용히.','Open daily. Info center 09:00–18:00 (to 17:00 Nov–Feb). Residents live here — keep it quiet.'],
+ eat:['마을 카페, 부산 어묵, 감천 사진관 앞 커피.','Village cafés, Busan fish cake, coffee by the photo studio.']},
+
+{id:'taejongdae', rg:'busan', ill:'cliff', pal:'sea', q:'태종대 부산 영도구 전망로 24',
+ nm:['태종대','Taejongdae Park'],
+ charm:['영도 끝 절벽 위에서 동해가 탁 트이는 곳, 흰 등대와 기암절벽.','A cliff at the tip of Yeongdo with open sea, a white lighthouse and rock walls.'],
+ tr:['1호선 남포역 6번 출구 → 8·17·30·88·186번 버스 → 태종대 정류장(약 30분).','Line 1 Nampo Stn Exit 6 → bus 8, 17, 30, 88 or 186 → Taejongdae stop (about 30 min).'],
+ tm:['맑은 오전이나 일몰 무렵. 2시간.','A clear morning or around sunset. Two hours.'],
+ tmS:['사계절','All year'],
+ fee:['입장 무료. 다누비열차는 안전점검으로 멈춰 있고, 무료 순환버스가 수~일 운행해요.','Free entry. The Danubi train is paused for safety checks; a free shuttle runs Wed–Sun.'],
+ feeS:['무료','Free'],
+ cl:['공원 04:00~24:00(동절기 05:00~). 순환버스는 월·화 휴무.','Park 04:00–24:00 (from 05:00 in winter). The shuttle rests Mon–Tue.'],
+ eat:['태종대 앞 회센터, 영도 어묵과 흰여울 카페.','Raw-fish center by the park; Yeongdo fish cake and Huinnyeoul cafés.']},
+
+{id:'gwangalli', rg:'busan', ill:'beach', pal:'dusk', q:'광안리해수욕장 부산 수영구',
+ nm:['광안리 해수욕장','Gwangalli Beach'],
+ charm:['광안대교가 통째로 걸리는 밤바다, 금요일 밤 불꽃과 버스킹.','The bridge fills the night sea here — Friday fireworks and busking on the sand.'],
+ tr:['2호선 광안역 3·5번 출구에서 도보 10분. 버스는 ‘광안리해수욕장’ 정류장.','Line 2 Gwangan Stn, Exit 3 or 5 (10-min walk). Buses stop at “Gwangalli Beach”.'],
+ tm:['해질 무렵~밤(다리 야경). 1시간 30분.','Dusk to night for the lit bridge. About 1.5 hours.'],
+ tmS:['야경','Night view'],
+ fee:['무료.','Free.'],
+ feeS:['무료','Free'],
+ cl:['24시간 개방. 해수욕은 여름 개장 기간에만.','Open 24 hours; swimming in the summer season only.'],
+ eat:['광안리 회·조개구이, 밀면, 바닷가 카페.','Sashimi and grilled shellfish, milmyeon, beachfront cafés.']},
+
+{id:'bulguksa', rg:'gyeongju', ill:'temple', pal:'forest', q:'불국사 경주시 불국로 385',
+ nm:['불국사','Bulguksa Temple'],
+ charm:['다보탑·석가탑과 청운교·백운교, 천년 신라의 석조미가 남은 세계유산.','A UNESCO temple of Silla stonework — Dabotap and Seokgatap pagodas, stone bridges.'],
+ tr:['경주역에서 700·711번(약 60분), 시내에서 10·11번 → ‘불국사’ 정류장 하차.','From Gyeongju Stn take bus 700 or 711 (about 60 min); from downtown bus 10 or 11. Get off at “Bulguksa”.'],
+ tm:['아침 9시 개장 직후가 한산해요. 봄·가을, 1시간 30분.','Quietest right after the 9 am opening. Spring or autumn; 1.5 hours.'],
+ tmS:['봄·가을','Spring·Fall'],
+ fee:['무료(2023년 5월부터 관람료 폐지). 경내 박물관만 어른 2,000원.','Free (temple admission abolished in May 2023). Only the temple museum charges 2,000 won.'],
+ feeS:['무료','Free'],
+ cl:['연중무휴. 11~1월 09:00~17:00(입장 마감).','Open daily. Nov–Jan 09:00–17:00, last entry 17:00.'],
+ eat:['불국사 앞 산채비빔밥·도토리묵, 경주 황남빵.','Wild-herb bibimbap and acorn jelly near the gate; Gyeongju Hwangnam bread.']},
+
+{id:'seokguram', rg:'gyeongju', ill:'temple', pal:'dawn', q:'석굴암 경주시 불국로 873-243',
+ nm:['석굴암','Seokguram Grotto'],
+ charm:['토함산 정상 가까이, 돌로 지은 둥근 방에 본존불이 동해를 바라보는 곳.','Near the summit of Mt. Toham, a stone rotunda where the Buddha faces the East Sea.'],
+ tr:['불국사에서 12번 버스(약 20분, 매시 정각 출발). 경주역 700번 → 불국사에서 환승.','Bus 12 from Bulguksa (about 20 min, leaves on the hour). From Gyeongju Stn take 700 and transfer at Bulguksa.'],
+ tm:['맑은 아침(일출 무렵). 1시간.','A clear morning, around sunrise. One hour.'],
+ tmS:['일출','Sunrise'],
+ fee:['무료(2023년 5월부터).','Free (since May 2023).'],
+ feeS:['무료','Free'],
+ cl:['연중무휴. 11~1월 09:00~17:00. 기상특보 때는 출입 통제.','Open daily. Nov–Jan 09:00–17:00. Closed in severe-weather alerts.'],
+ eat:['불국사 앞 산채정식, 보문단지 카페.','Mountain-vegetable meals below Bulguksa; cafés in Bomun resort area.']},
+
+{id:'daereungwon', rg:'gyeongju', ill:'tomb', pal:'forest', q:'대릉원 천마총 경주시 계림로 9',
+ nm:['대릉원·천마총','Daereungwon & Cheonmachong'],
+ charm:['도심 한가운데 초록 능선이 물결치는 신라 왕릉 떼, 천마총 안으로 들어가 볼 수 있어요.','Green Silla burial mounds ripple through downtown — and you can step inside Cheonmachong.'],
+ tr:['경주역에서 도보 20분·버스 5분. 시내버스 ‘대릉원’ 정류장 하차.','20 min on foot or 5 min by bus from Gyeongju Stn. Get off at “Daereungwon”.'],
+ tm:['아침·낮 산책. 봄·가을, 1시간.','Morning or midday stroll. Spring or autumn; one hour.'],
+ tmS:['봄·가을','Spring·Fall'],
+ fee:['대릉원 입장 무료, 천마총 내부만 어른 3,000원.','Garden entry free; inside Cheonmachong 3,000 won.'],
+ feeS:['무료','Free'],
+ cl:['연중무휴. 정문 09:00~22:00, 천마총 09:00~21:30.','Open daily. Main gate 09:00–22:00; Cheonmachong to 21:30.'],
+ eat:['황리단길 카페·경주 쌈밥, 황남빵.','Hwangnidan-gil cafés, Gyeongju ssam-bap, Hwangnam bread.']},
+
+{id:'wolji', rg:'gyeongju', ill:'pond', pal:'night', q:'동궁과 월지 경주시 원화로 102',
+ nm:['동궁과 월지','Donggung Palace & Wolji Pond'],
+ charm:['밤이 되면 연못에 궁의 불빛이 통째로 잠기는 신라의 야경.','At night the palace lights sink whole into the pond — Silla’s finest night view.'],
+ tr:['대릉원·첨성대에서 도보 10분. 시내버스 ‘동궁과월지’ 정류장 하차.','10 min on foot from Daereungwon and Cheomseongdae. Buses stop at “Donggung & Wolji”.'],
+ tm:['해진 뒤 19~21시. 사계절, 1시간.','19:00–21:00 after dark. Any season; one hour.'],
+ tmS:['야경','Night view'],
+ fee:['어른 3,000원(청소년·군인 2,000원).','Adults 3,000 won (teens and soldiers 2,000).'],
+ feeS:['3,000원','₩3,000'],
+ cl:['연중무휴. 09:00~22:00, 매표 마감 21:30.','Open daily. 09:00–22:00, ticket sales end 21:30.'],
+ eat:['황리단길 야식, 교촌마을 한정식, 경주 빵집.','Late food on Hwangnidan-gil; hanok dinners in Gyochon village.']},
+
+{id:'seongsan', rg:'jeju', ill:'volcano', pal:'dawn', q:'성산일출봉 서귀포시 성산읍',
+ nm:['성산일출봉','Seongsan Ilchulbong'],
+ charm:['바다 위로 솟은 거대한 분화구, 정상에서 맞는 일출이 제주의 첫 장면.','A huge tuff cone rising from the sea — sunrise from the rim is Jeju’s opening scene.'],
+ tr:['제주버스터미널에서 201번 → ‘성산일출봉입구’ 하차(약 1시간 40분). 공항에서는 101번 급행.','Bus 201 from Jeju Bus Terminal to “Seongsan Ilchulbong” (about 1 h 40 min). From the airport, express 101.'],
+ tm:['일출 1시간 전 도착. 봄·가을·겨울 일출이 맑아요. 왕복 1시간 30분.','Arrive an hour before sunrise; clearest in spring, autumn and winter. 1.5 hours round trip.'],
+ tmS:['일출','Sunrise'],
+ fee:['어른 5,000원. 제주도민은 무료.','Adults 5,000 won; Jeju residents free.'],
+ feeS:['5,000원','₩5,000'],
+ cl:['매달 첫째 월요일 휴관(공휴일이면 다음 날). 11~2월 06:00~18:00.','Closed the first Monday each month (next day if a holiday). Nov–Feb 06:00–18:00.'],
+ eat:['성산 갈치조림·고기국수, 오름 카페.','Braised hairtail and pork noodles in Seongsan; cafés with a view.']},
+
+{id:'manjanggul', rg:'jeju', ill:'cave', pal:'mist', q:'만장굴 제주시 구좌읍 만장굴길 182',
+ nm:['만장굴','Manjanggul Lava Tube'],
+ charm:['세계 최장급 용암동굴, 1km 걸어 들어가면 천장의 용암 주름이 그대로.','One of the world’s longest lava tubes — 1 km in, the lava ridges still line the ceiling.'],
+ tr:['제주버스터미널 201번 → 김녕리에서 만장굴 방면 711-1번 환승. 노선은 제주버스정보에서 확인하세요.','Bus 201 to Gimnyeong, then 711-1 toward Manjanggul. Check routes on the Jeju bus app.'],
+ tm:['낮에 가세요. 동굴 안은 서늘해 겉옷이 필요해요. 1시간.','Go in the daytime and bring a layer — the cave is cool. One hour.'],
+ tmS:['사계절','All year'],
+ fee:['어른 4,000원(청소년·어린이 2,000원).','Adults 4,000 won (teens and children 2,000).'],
+ feeS:['4,000원','₩4,000'],
+ cl:['매달 첫째 수요일 휴관. 2026년 12월 1~4일은 시설 정비로 임시 휴관.','Closed the first Wednesday each month. Extra closure 1–4 Dec 2026 for maintenance.'],
+ eat:['김녕 해녀의 집 전복죽, 월정리 카페.','Abalone porridge at Gimnyeong; cafés in Woljeong-ri.']},
+
+{id:'hallasan', rg:'jeju', ill:'mountain', pal:'snow', q:'한라산 성판악 제주시',
+ nm:['한라산 성판악','Hallasan (Seongpanak Trail)'],
+ charm:['백록담까지 이어지는 가장 긴 숲길, 왕복 19km의 느린 산행.','The longest forest trail to Baengnokdam crater — 19 km round trip at an easy pace.'],
+ tr:['제주버스터미널에서 281번(약 45분), 공항에서는 181번 급행 → ‘성판악’ 하차.','Bus 281 from Jeju Bus Terminal (about 45 min); express 181 from the airport. Get off at “Seongpanak”.'],
+ tm:['이른 아침 출발이 필수. 5~10월, 왕복 9시간.','Start early — essential. May–Oct; 9 hours round trip.'],
+ tmS:['5~10월','May–Oct'],
+ fee:['입장 무료. 백록담 구간은 사전 예약 필수(하루 1,000명).','Free. The summit section needs a booking (1,000 people a day).'],
+ feeS:['무료','Free'],
+ cl:['동절기 입산 마감 11:30, 정상 하산 13:30. 기상에 따라 통제.','Winter entry closes 11:30, summit descent by 13:30. Trails close in bad weather.'],
+ eat:['성판악 근처 고기국수, 제주시 흑돼지.','Pork noodles near Seongpanak; black pork in Jeju City.']},
+
+{id:'hyeopjae', rg:'jeju', ill:'beach', pal:'day', q:'협재해수욕장 제주시 한림읍',
+ nm:['협재해수욕장','Hyeopjae Beach'],
+ charm:['얕고 맑은 에메랄드 물빛, 앞바다 비양도와 검은 현무암이 만드는 제주 서쪽 풍경.','Shallow emerald water, Biyangdo island offshore and black basalt — Jeju’s west coast.'],
+ tr:['제주버스터미널에서 202번 → ‘협재해수욕장’ 하차(약 50분).','Bus 202 from Jeju Bus Terminal to “Hyeopjae Beach” (about 50 min).'],
+ tm:['낮~일몰. 6~9월 물놀이, 1시간 30분.','Daytime to sunset. Swim June–Sept; about 1.5 hours.'],
+ tmS:['여름','Summer'],
+ fee:['무료. 샤워장만 유료.','Free; only showers are paid.'],
+ feeS:['무료','Free'],
+ cl:['24시간 개방. 해수욕은 여름 개장 기간에만.','Open 24 hours; swimming in the summer season.'],
+ eat:['한림 횟집·고기국수, 협재 카페.','Seafood and pork noodles in Hallim; Hyeopjae cafés.']},
+
+{id:'udo', rg:'jeju', ill:'island', pal:'sea', q:'우도 제주 서귀포시 성산읍 우도면',
+ nm:['우도','Udo Island'],
+ charm:['배로 15분, 섬 전체가 완만한 오름과 땅콩밭 — 자전거로 한 바퀴 3시간.','Fifteen minutes by ferry: gentle hills, peanut fields and a three-hour loop by bike.'],
+ tr:['성산포항 종합여객터미널에서 도항선(30분 간격, 약 15분). 현장 발권, 신분증 필수.','Ferry from Seongsanpo passenger terminal (every 30 min, about 15 min). Buy on site; ID required.'],
+ tm:['오전 배로 들어가 오후에 나오기. 봄·가을, 3~4시간.','Take a morning ferry and return in the afternoon. Spring or autumn; 3–4 hours.'],
+ tmS:['봄·가을','Spring·Fall'],
+ fee:['배 삯 어른 왕복 약 11,000~11,500원(도립공원 입장료 포함, 터미널이용료 별도일 수 있음).','Ferry about 11,000–11,500 won round trip for adults, park fee included; a terminal fee may apply.'],
+ feeS:['배값 별도','Ferry fare'],
+ cl:['풍랑특보면 결항. 비수기 막배는 17시 전후예요.','Cancelled in high-wave warnings. In low season the last boat leaves around 17:00.'],
+ eat:['우도 땅콩 아이스크림, 전복돌솥밥, 소라빵.','Udo peanut ice cream, abalone stone-pot rice, conch bread.']},
+
+{id:'jeonjuhanok', rg:'jeonju', ill:'village', pal:'autumn', q:'전주한옥마을 전주시 완산구',
+ nm:['전주한옥마을','Jeonju Hanok Village'],
+ charm:['기와지붕이 이어지는 700여 채의 한옥 골목, 한복 입고 걷기 좋은 마을.','Some 700 tiled hanok roofs — the best village in Korea for a walk in hanbok.'],
+ tr:['전주역에서 79·119번 등 시내버스(약 25분) → ‘전동성당(한옥마을)’ 하차. 택시는 약 7,000원.','Bus 79 or 119 from Jeonju Stn (about 25 min) to “Jeondong Cathedral (Hanok Village)”. Taxi about 7,000 won.'],
+ tm:['오전이나 해질 무렵. 봄·가을, 2~3시간.','Morning or dusk. Spring or autumn; 2–3 hours.'],
+ tmS:['봄·가을','Spring·Fall'],
+ fee:['마을 산책 무료. 한복 대여·체험만 유료.','Walking is free; hanbok rental and crafts are paid.'],
+ feeS:['무료','Free'],
+ cl:['연중무휴(상점별 영업시간은 달라요).','Open daily; shop hours vary.'],
+ eat:['전주비빔밥, 콩나물국밥, 길거리 초코파이.','Jeonju bibimbap, bean-sprout soup, street choco-pie.']},
+
+{id:'gyeonggijeon', rg:'jeonju', ill:'palace', pal:'forest', q:'경기전 전주시 완산구 태조로 44',
+ nm:['경기전','Gyeonggijeon Shrine'],
+ charm:['태조 이성계의 어진을 모신 곳, 한옥마을 한가운데 고요한 사당과 숲.','A shrine for King Taejo’s portrait, a quiet grove in the middle of the hanok village.'],
+ tr:['한옥마을 태조로 안. 전주역 버스 ‘전동성당’ 하차 후 도보 5분.','Inside the village on Taejo-ro; 5 min on foot from the “Jeondong Cathedral” bus stop.'],
+ tm:['오전이 고요해요. 40분.','Mornings are quiet. About 40 minutes.'],
+ tmS:['사계절','All year'],
+ fee:['어른 3,000원. 매월 마지막 주 수요일은 무료.','Adults 3,000 won; free on the last Wednesday of each month.'],
+ feeS:['3,000원','₩3,000'],
+ cl:['연중무휴. 11~2월 09:00~18:00, 입장 마감 17:00.','Open daily. Nov–Feb 09:00–18:00, last entry 17:00.'],
+ eat:['한옥마을 비빔밥·한옥 카페, 전주 막걸리.','Village bibimbap and hanok cafés; Jeonju makgeolli.']},
+
+{id:'jeondong', rg:'jeonju', ill:'church', pal:'mist', q:'전동성당 전주시 완산구 태조로 51',
+ nm:['전동성당','Jeondong Catholic Cathedral'],
+ charm:['붉은 벽돌 로마네스크 성당, 순교 터 위에 세워진 호남 첫 성당.','A red-brick Romanesque cathedral built on the site of Korea’s first martyrdoms.'],
+ tr:['한옥마을 입구. 시내버스 ‘전동성당(한옥마을)’ 하차 즉시.','At the village entrance; get off at “Jeondong Cathedral (Hanok Village)”.'],
+ tm:['낮, 빛이 좋은 오전. 30분.','Daytime; best light in the morning. 30 minutes.'],
+ tmS:['사계절','All year'],
+ fee:['무료.','Free.'],
+ feeS:['무료','Free'],
+ cl:['09:00~17:00 개방, 미사 시간에는 관람 제한. 연중무휴.','Open 09:00–17:00, closed to visits during Mass. Open daily.'],
+ eat:['남부시장 청년몰, 피순대와 모주.','Nambu Market’s youth mall; blood sausage and moju rice drink.']},
+
+{id:'surowang', rg:'gimhae', ill:'tomb', pal:'forest', q:'김해 수로왕릉 김해시 가락로93번길 26',
+ nm:['김해 수로왕릉','Tomb of King Suro'],
+ charm:['가야를 세운 수로왕의 능, 도심 속 잔디 언덕과 숭선전의 고요함.','The tomb of King Suro, founder of Gaya — a grassy mound and quiet shrine in town.'],
+ tr:['부산김해경전철 김해시청역에서 도보 약 10분. 시내버스 ‘수로왕릉’ 정류장 하차.','About 10 min on foot from Gimhae City Hall Stn (Busan–Gimhae light rail); buses stop at “Surowangneung”.'],
+ tm:['아침 산책. 40분.','A morning stroll. About 40 minutes.'],
+ tmS:['사계절','All year'],
+ fee:['무료. 전용 주차장은 없어요.','Free. There is no dedicated parking.'],
+ feeS:['무료','Free'],
+ cl:['연중무휴. 11~2월 09:00~18:00.','Open daily. Nov–Feb 09:00–18:00.'],
+ eat:['김해 빙떡·돼지국밥, 수로왕릉 앞 카페.','Gimhae bingtteok rice cakes and pork soup; cafés by the tomb.']},
+
+{id:'daeseongdong', rg:'gimhae', ill:'museum', pal:'day', q:'대성동고분박물관 김해시 가야의길 126',
+ nm:['대성동고분박물관','Daeseong-dong Tombs Museum'],
+ charm:['금관가야 왕들의 무덤 위에 세운 박물관, 유리 너머로 고분 단면이 그대로.','A museum built over Geumgwan Gaya royal tombs — the burial sections behind glass.'],
+ tr:['김해 시내버스로 ‘김해박물관·대성동고분군’ 정류장 하차. 김해시청에서 차로 10분.','Local bus to “Gimhae National Museum / Daeseong-dong Tombs”; 10 min by car from City Hall.'],
+ tm:['낮, 비 오는 날 특히 좋아요. 1시간.','Daytime — especially good on a rainy day. One hour.'],
+ tmS:['사계절','All year'],
+ fee:['무료.','Free.'],
+ feeS:['무료','Free'],
+ cl:['매주 월요일·1월 1일·설·추석 당일 휴관. 09:00~18:00.','Closed Mondays, 1 Jan and Lunar New Year / Chuseok days. 09:00–18:00.'],
+ eat:['김해 국밥·빙떡, 김해박물관 카페.','Gimhae soup rice and rice cakes; museum café.']},
+
+{id:'railpark', rg:'gimhae', ill:'rail', pal:'day', q:'김해낙동강레일파크 김해시 생림면 마사로473번길 41',
+ nm:['김해낙동강레일파크','Gimhae Nakdong River Rail Park'],
+ charm:['옛 철길 위 레일바이크로 낙동강을 달리고, 와인동굴까지 이어지는 30분.','Pedal a rail bike along the old track above the Nakdong River, 30 minutes to a wine cave.'],
+ tr:['시내버스 60번 ‘북곡마을’ 하차 도보 5분(배차 약 70분). 삼랑진역에서 콜택시 5분.','Bus 60 to “Bukgok Village”, then 5 min on foot (about 70-min headway). Or 5 min by taxi from Samnangjin Stn.'],
+ tm:['낮. 1시간 30분, 사계절.','Daytime. About 1.5 hours, any season.'],
+ tmS:['사계절','All year'],
+ fee:['레일바이크 2인 18,000원·3인 23,000원·4인 28,000원(와인동굴 포함 상품 별도).','Rail bike: 18,000 won for 2, 23,000 for 3, 28,000 for 4 (wine cave package extra).'],
+ feeS:['2인 18,000원','₩18,000 / 2'],
+ cl:['매주 월요일 휴장. 동절기 09:30~17:00.','Closed Mondays. Winter hours 09:30–17:00.'],
+ eat:['레일파크 매점, 삼랑진 돼지국밥.','Rail park snack bar; pork soup in Samnangjin.']},
+
+{id:'dongpirang', rg:'gimhae', ill:'village', pal:'autumn', q:'통영 동피랑 벽화마을 통영시 동피랑1길 6-18',
+ nm:['통영 동피랑 벽화마을','Tongyeong Dongpirang Mural Village'],
+ charm:['항구를 내려다보는 벼랑 언덕, 골목마다 130여 점의 벽화와 바다.','A cliffside village over the harbour — some 130 murals along the alleys.'],
+ tr:['통영 시외버스터미널에서 시내버스·택시 10분 → 중앙시장 뒤편. 공영주차장에서 도보 5분.','10 min by local bus or taxi from Tongyeong bus terminal, behind Jungang Market. 5 min on foot from the public car park.'],
+ tm:['오전이나 해질 무렵. 1시간 30분.','Morning or dusk. About 1.5 hours.'],
+ tmS:['사계절','All year'],
+ fee:['무료.','Free.'],
+ feeS:['무료','Free'],
+ cl:['연중무휴. 주민이 사는 곳이라 조용히 걸어 주세요.','Open daily. Residents live here — walk quietly.'],
+ eat:['통영 충무김밥·꿀빵, 중앙시장 해산물.','Tongyeong Chungmu gimbap, honey balls, seafood at Jungang Market.']},
+
+{id:'hahoe', rg:'andong', ill:'river', pal:'autumn', q:'안동 하회마을 안동시 풍천면 전서로 186',
+ nm:['안동 하회마을','Andong Hahoe Village'],
+ charm:['낙동강이 S자로 감싸 도는 600년 양반 마을, 하회탈과 기와·초가의 골목.','A 600-year clan village inside an S-bend of the Nakdong River — masks, tiles and thatch.'],
+ tr:['안동터미널에서 210번(약 50분) → 하회마을 하차. 주차장~마을 셔틀버스 무료.','Bus 210 from Andong Terminal (about 50 min) to Hahoe. A free shuttle links the car park and village.'],
+ tm:['오전~낮. 봄·가을, 1시간 30분.','Morning to afternoon. Spring or autumn; 1.5 hours.'],
+ tmS:['봄·가을','Spring·Fall'],
+ fee:['어른 5,000원(안동시민 1,000원).','Adults 5,000 won (Andong residents 1,000).'],
+ feeS:['5,000원','₩5,000'],
+ cl:['연중무휴. 4~9월 09:00~18:00(입장 마감 17:30), 10~3월 마감 16:30.','Open daily. Apr–Sep 09:00–18:00 (last entry 17:30); Oct–Mar last entry 16:30.'],
+ eat:['안동찜닭, 하회마을 전통찻집, 간고등어.','Andong jjimdak, village tea houses, salted mackerel.']},
+
+{id:'dosan', rg:'andong', ill:'seowon', pal:'mist', q:'도산서원 안동시 도산면 도산서원길 154',
+ nm:['도산서원','Dosan Seowon'],
+ charm:['퇴계 이황이 머문 서원, 낙동강과 소나무 숲이 감싸는 조용한 배움터.','The academy where Toegye taught — a quiet study wrapped in pines above the river.'],
+ tr:['안동터미널에서 도산서원 방면 시내버스(약 40~50분). 버스 시각은 터미널 안내소에서 확인하세요.','Local bus from Andong Terminal toward Dosan Seowon (about 40–50 min). Check times at the terminal desk.'],
+ tm:['오전. 봄·가을, 1시간.','Morning. Spring or autumn; one hour.'],
+ tmS:['봄·가을','Spring·Fall'],
+ fee:['어른 2,000원(청소년·어린이 1,000원).','Adults 2,000 won (teens and children 1,000).'],
+ feeS:['2,000원','₩2,000'],
+ cl:['연중무휴. 11~1월 09:00~17:00, 입장 마감 16:30.','Open daily. Nov–Jan 09:00–17:00, last entry 16:30.'],
+ eat:['안동찜닭·안동국시, 근처 도토리묵.','Andong jjimdak and noodle soup; acorn jelly nearby.']},
+
+{id:'woryeong', rg:'andong', ill:'bridge', pal:'night', q:'안동 월영교 안동시 상아동',
+ nm:['월영교','Woryeonggyo Bridge'],
+ charm:['안동호를 가로지르는 387m 목책교, 밤이면 다리 위에 은하수 조명이 켜져요.','A 387 m wooden bridge over Andong Lake — at night its Milky Way lights come on.'],
+ tr:['안동역에서 도보 약 20분. 시내버스 ‘월영교’ 정류장 하차.','About 20 min on foot from Andong Stn; buses stop at “Woryeonggyo”.'],
+ tm:['해진 뒤 19~21시. 40분.','19:00–21:00 after dark. 40 minutes.'],
+ tmS:['야경','Night view'],
+ fee:['무료.','Free.'],
+ feeS:['무료','Free'],
+ cl:['24시간 개방.','Open 24 hours.'],
+ eat:['안동 구시장 찜닭·안동국시, 월영교 카페.','Andong’s old market jjimdak and noodles; cafés by the bridge.']},
+
+{id:'gyeongpo', rg:'gangneung', ill:'beach', pal:'day', q:'경포해변 강릉시',
+ nm:['경포해변','Gyeongpo Beach'],
+ charm:['소나무 숲과 호수를 등진 넓은 백사장, 여름밤 버스킹과 해돋이.','A wide beach backed by pine woods and a lake — sunrise and summer-night busking.'],
+ tr:['강릉역·시외버스터미널에서 경포 방면 시내버스(202번 등) 약 20~30분.','Local bus (202 etc.) toward Gyeongpo from Gangneung Stn or the bus terminal, about 20–30 min.'],
+ tm:['일출이나 여름밤. 1시간.','Sunrise or a summer night. One hour.'],
+ tmS:['여름','Summer'],
+ fee:['무료.','Free.'],
+ feeS:['무료','Free'],
+ cl:['24시간 개방. 해수욕은 여름 개장 기간에만.','Open 24 hours; swimming in the summer season.'],
+ eat:['초당순두부, 강릉 중앙시장 닭강정, 커피.','Chodang soft tofu, Gangneung market fried chicken, coffee.']},
+
+{id:'ojukheon', rg:'gangneung', ill:'hanok', pal:'forest', q:'오죽헌 강릉시 율곡로3139번길 24',
+ nm:['오죽헌','Ojukheon House'],
+ charm:['신사임당과 율곡 이이가 태어난 집, 검은 대나무 숲과 옛 기와.','The birthplace of Shin Saimdang and Yulgok Yi I — black bamboo and old tiles.'],
+ tr:['강릉역·시외버스터미널에서 오죽헌 방면 시내버스(202·302번 등) 약 15분.','Local bus (202, 302 etc.) from Gangneung Stn or the terminal, about 15 min.'],
+ tm:['오전. 1시간.','Morning. One hour.'],
+ tmS:['사계절','All year'],
+ fee:['어른 3,000원(강릉시민 무료). 박물관과 함께 관람.','Adults 3,000 won (Gangneung residents free), museum included.'],
+ feeS:['3,000원','₩3,000'],
+ cl:['연중무휴. 09:00~18:00, 입장 마감 17:00. 1월 1일·설·추석 당일은 실내 전시실 휴관.','Open daily. 09:00–18:00, last entry 17:00. Indoor halls closed 1 Jan and Lunar New Year / Chuseok days.'],
+ eat:['강릉 중앙시장 닭강정·감자옹심이, 초당순두부.','Gangneung market fried chicken, potato dumpling soup, soft tofu.']},
+
+{id:'anmok', rg:'gangneung', ill:'beach', pal:'dusk', q:'안목해변 커피거리 강릉시 창해로14번길',
+ nm:['안목해변 커피거리','Anmok Beach Coffee Street'],
+ charm:['파도 바로 앞에서 커피 한 잔, 바다를 마주한 카페 30여 곳의 거리.','Coffee right at the waves — some thirty cafés facing the sea along one street.'],
+ tr:['강릉역에서 225-1·314-1번, 시외버스터미널에서 302-1번 → ‘안목커피거리’ 하차 도보 300m.','Bus 225-1 or 314-1 from Gangneung Stn, or 302-1 from the terminal, to “Anmok Coffee Street”, then 300 m on foot.'],
+ tm:['오전~일몰. 1시간 30분.','Morning to sunset. About 1.5 hours.'],
+ tmS:['사계절','All year'],
+ fee:['해변 무료. 커피값은 카페마다 달라요.','The beach is free; coffee prices vary by café.'],
+ feeS:['무료','Free'],
+ cl:['해변 상시 개방, 카페별 영업시간.','The beach is always open; café hours vary.'],
+ eat:['안목 커피, 강릉 장칼국수, 회센터.','Anmok coffee, Gangneung jang kalguksu, raw-fish centre.']}
+];
+
+/* ── 손짓 카드 12장 ── */
+var PHRASES = [
+ {ic:'🚕', ko:'여기 가 주세요', en:'Please take me here.', rom:'yeogi ga juseyo',
+  tip:['지도에 찍은 주소를 함께 보여 주면 더 좋아요.','Showing the address on a map helps too.']},
+ {ic:'🎫', ko:'입장권 2장 주세요', en:'Two tickets, please.', rom:'ipjangkkwon du jang juseyo',
+  tip:['사람 수를 손가락으로 함께 보여 주세요.','Hold up fingers for the number of people.']},
+ {ic:'🚻', ko:'화장실이 어디예요?', en:'Where is the restroom?', rom:'hwajangsiri eodiyeyo?',
+  tip:['매표소·안내소에서 물어보면 가장 빨라요.','Ask at the ticket booth or info desk.']},
+ {ic:'📷', ko:'사진 찍어 주실 수 있나요?', en:'Could you take a photo for us?', rom:'sajin jjigeo jusil su innayo?',
+  tip:['휴대폰을 건네며 이 화면을 보여 주세요.','Hand over your phone with this screen.']},
+ {ic:'🚪', ko:'출구가 어디예요?', en:'Where is the exit?', rom:'chulguga eodiyeyo?',
+  tip:['지하철·전시장에서 길을 잃었을 때.','For when you are lost in a station or venue.']},
+ {ic:'💰', ko:'이거 얼마예요?', en:'How much is this?', rom:'igeo eolmayeyo?',
+  tip:['가격을 화면이나 계산기에 적어 달라고 하면 확실해요.','Ask them to type the price on a calculator.']},
+ {ic:'💳', ko:'카드로 계산할게요', en:'I’ll pay by card.', rom:'kadeuro gyesanhalgeyo',
+  tip:['계산대에서 카드를 꺼내며 보여 주세요.','Show your card at the counter.']},
+ {ic:'🐢', ko:'천천히 말해 주세요', en:'Please speak slowly.', rom:'cheoncheonhi malhae juseyo',
+  tip:['천천히 말해 주면 대부분 알아들어요.','Most people will slow down for you.']},
+ {ic:'💧', ko:'물 좀 주세요', en:'Some water, please.', rom:'mul jom juseyo',
+  tip:['식당에서는 물이 무료인 경우가 많아요.','Water is usually free in restaurants.']},
+ {ic:'🧳', ko:'짐을 맡길 수 있나요?', en:'Can I leave my luggage here?', rom:'jimeul matgil su innayo?',
+  tip:['역·호텔·관광안내소에 물어보세요.','Ask at stations, hotels or tourist desks.']},
+ {ic:'🚖', ko:'택시를 불러 주세요', en:'Please call a taxi for me.', rom:'taeksireul bulleo juseyo',
+  tip:['앱 택시가 어려울 때 안내소에 부탁해요.','Ask the info desk when the taxi app is hard to use.']},
+ {ic:'🙏', ko:'한국어를 잘 못해요', en:'I don’t speak Korean well.', rom:'hangugeoreul jal mothaeyo',
+  tip:['이 한마디면 대화가 훨씬 편해져요.','One line that makes everything easier.']}
+];
+
+/* ── 화면 글 (한/EN) ── */
+var T = {
+ ko:{ app:'와글링 한국여행', tag:'관광지 30곳 · 가는 법·입장료·먹거리',
+  intro:'<b>서울·부산·경주·제주·전주·김해·안동·강릉</b> 명소 30곳. 지역을 고르고 ❤️로 담아 두세요. 가는 법·입장료·먹거리·큰 글씨 카드가 한 화면에 있어요.',
+  install:'설치', share:'공유', listTitle:'지역별 명소', tabList:'관광지', tabFav:'찜', tabCard:'손짓 카드',
+  favTitle:'찜한 곳', favEmpty:'아직 찜한 곳이 없어요.<br>관광지 목록에서 ❤️를 눌러 담아 보세요.', favEmptyGo:'관광지 보러 가기',
+  cardIntro:'말이 안 통할 때는 <b>큰 글씨 화면을 그대로 보여 주세요</b>. 카드를 누르면 화면 가득 크게 뜨고, 🔊로 한국어 소리도 들려줄 수 있어요.',
+  cardTitle:'여행 중 바로 쓰는 카드', tapBig:'크게 보기', speak:'읽어 주기',
+  howto:'🚇 가는 법', best:'🕘 추천 시간·계절', fee:'🎫 입장료', closed:'📅 휴무·운영시간', eat:'🍜 근처 먹거리',
+  taxiLbl:'🚕 기사님·안내소에 이 화면을 보여 주세요', taxiSay:'여기 가 주세요', showAddr:'이 화면을 그대로 보여 주세요.',
+  mapG:'구글 지도', mapN:'네이버 지도', mapT:'🗺️ 지도', detail:'자세히',
+  memo:'📝 나만의 여행 메모', memoPh:'언제 갈지, 몇 시에 갈지, 함께 갈 사람…', memoHint:'이 폰에만 저장돼요.',
+  saved:'저장했어요', memoDel:'메모 지웠어요',
+  back:'뒤로', addFav:'찜했어요', delFav:'찜을 풀었어요', bigMore:'💬 손짓 카드 더 보기',
+  toastCopy:'복사했어요', toastShareFail:'공유를 열지 못했어요. 주소를 복사했어요.',
+  inTitle:'홈 화면에 설치', inBody:'브라우저 메뉴에서 <b>“홈 화면에 추가”</b>를 골라 주세요.<br>와이파이가 없어도 앱처럼 열립니다. (아이폰은 사파리 하단 공유 버튼 → 홈 화면에 추가)',
+  already:'이미 설치되어 있어요', installing:'설치를 시작해요', installed:'설치했어요',
+  shareText:'와글링 한국여행 · 한국 관광지 30곳 가이드 (외국인·내국인)', shareOk:'공유했어요',
+  bigTitle:'큰 글씨 카드', close:'닫기', sayLbl:'한국어로 읽어 주기',
+  noteSaved:'메모를 저장했어요', regionAll:'전체', places:'곳', none:'이 지역은 준비 중이에요.'},
+ en:{ app:'Wagling Korea Travel', tag:'30 places · how to get there',
+  intro:'<b>Seoul, Busan, Gyeongju, Jeju, Jeonju, Gimhae, Andong and Gangneung</b> — 30 places. Pick a region, tap ❤️ to save. Getting there, tickets, food and big Korean cards, all here.',
+  install:'Install', share:'Share', listTitle:'Places by region', tabList:'Places', tabFav:'Saved', tabCard:'Hand cards',
+  favTitle:'Saved places', favEmpty:'Nothing saved yet.<br>Tap ❤️ on a place to keep it here.', favEmptyGo:'See places',
+  cardIntro:'When words fail, <b>show the big screen</b>. Tap a card to fill the screen, and 🔊 speaks the Korean for you.',
+  cardTitle:'Use these on the road', tapBig:'Show big', speak:'Listen',
+  howto:'🚇 Getting there', best:'🕘 Best time & season', fee:'🎫 Admission', closed:'📅 Closed · hours', eat:'🍜 Nearby food',
+  taxiLbl:'🚕 Show this screen to a taxi driver or info desk', taxiSay:'Take me here, please', showAddr:'Show this screen as it is.',
+  mapG:'Google Maps', mapN:'Naver Map', mapT:'🗺️ Map', detail:'Details',
+  memo:'📝 My travel notes', memoPh:'When to go, what time, who with…', memoHint:'Saved on this phone only.',
+  saved:'Saved', memoDel:'Note cleared',
+  back:'Back', addFav:'Saved to your list', delFav:'Removed from saved', bigMore:'💬 More hand cards',
+  toastCopy:'Copied', toastShareFail:'Could not open sharing — link copied instead.',
+  inTitle:'Add to home screen', inBody:'Open the browser menu and choose <b>“Add to Home screen”</b>.<br>The guide opens offline like an app. (iPhone: Safari share button → Add to Home Screen)',
+  already:'Already installed', installing:'Starting install', installed:'Installed',
+  shareText:'Wagling Korea Travel · a guide to 30 places in Korea (fees, food, big Korean cards)', shareOk:'Shared',
+  bigTitle:'Big card', close:'Close', sayLbl:'Read it in Korean',
+  noteSaved:'Note saved', regionAll:'All', places:'places', none:'Coming soon for this region.'}
+};
+
+/* ── 저장·상태 ── */
+var LS_FAV='wagle-korea-travel:favs', LS_NOTE='wagle-korea-travel:notes', LS_LANG='wagle-korea-travel:lang';
+function lsGet(k, d){ try{ var v=localStorage.getItem(k); return v? JSON.parse(v): d; }catch(e){ return d; } }
+function lsSet(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+function detectLang(){
+  var saved = lsGet(LS_LANG, null);
+  if(saved === 'ko' || saved === 'en') return saved;
+  var n = (navigator.language || 'ko').toLowerCase();
+  return n.indexOf('ko') === 0 ? 'ko' : 'en';
+}
+var lang = detectLang(), li = lang === 'ko' ? 0 : 1;
+var favs = lsGet(LS_FAV, []); if(!Array.isArray(favs)) favs = [];
+var notes = lsGet(LS_NOTE, {}); if(!notes || typeof notes !== 'object') notes = {};
+var st = {tab:'list', rg:'all', id:null};
+var listScroll = 0;
+
+function t(k){ return (T[lang] && T[lang][k] !== undefined) ? T[lang][k] : (T.ko[k] || ''); }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function spotById(id){ for(var i=0;i<SPOTS.length;i++){ if(SPOTS[i].id===id) return SPOTS[i]; } return null; }
+function regionById(id){ for(var i=0;i<REGIONS.length;i++){ if(REGIONS[i].id===id) return REGIONS[i]; } return REGIONS[0]; }
+function isFav(id){ return favs.indexOf(id) >= 0; }
+function $(s){ return document.querySelector(s); }
+function toast(msg){ var el=$('#toast'); if(!el) return; el.textContent=msg; el.hidden=false;
+  clearTimeout(toast._t); toast._t=setTimeout(function(){ el.hidden=true; }, 1900); }
+
+/* ══════════ 명소 그림 (이 파일 안에서 직접 그린 SVG) ══════════ */
+function hills(p, y1, y2){
+  return '<path d="M0,'+y1+' C42,'+(y1-26)+' 86,'+(y1-10)+' 128,'+(y1+6)+' C172,'+(y1+24)+' 210,'+(y1-4)+' 252,'+(y1-12)
+    +' C286,'+(y1-18)+' 302,'+(y1-4)+' 320,'+(y1+6)+' L320,150 L0,150 Z" fill="'+p.far+'"/>'
+   + '<path d="M0,'+y2+' C38,'+(y2-16)+' 76,'+(y2-4)+' 116,'+(y2+8)+' C158,'+(y2+20)+' 196,'+(y2-2)+' 236,'+(y2-8)
+    +' C272,'+(y2-14)+' 300,'+(y2+2)+' 320,'+(y2+10)+' L320,150 L0,150 Z" fill="'+p.near+'"/>';
+}
+function sun(p, cx, cy, r){
+  return '<circle cx="'+cx+'" cy="'+cy+'" r="'+(r*2.4)+'" fill="'+p.sun+'" opacity=".18"/>'
+       + '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="'+p.sun+'"/>';
+}
+function ground(p, y){ return '<rect x="0" y="'+y+'" width="320" height="'+(150-y)+'" fill="'+p.gnd+'"/>'; }
+function water(p, y){ return '<rect x="0" y="'+y+'" width="320" height="'+(150-y)+'" fill="'+p.wat+'"/>'
+  + '<g stroke="#FFFFFF" stroke-opacity=".45" stroke-width="2" stroke-linecap="round">'
+  + '<path d="M18,'+(y+12)+' q12,-6 24,0"/><path d="M62,'+(y+24)+' q12,-6 24,0"/>'
+  + '<path d="M120,'+(y+14)+' q12,-6 24,0"/><path d="M182,'+(y+26)+' q12,-6 24,0"/>'
+  + '<path d="M244,'+(y+16)+' q12,-6 24,0"/><path d="M286,'+(y+30)+' q12,-6 24,0"/></g>'; }
+function roof(cx, top, half, h, fill, shade){
+  var rh = half * 0.30;
+  var d = 'M'+(cx-half)+','+(top+h)
+    + ' Q'+(cx-half*0.55)+','+(top+h*0.42)+' '+(cx-rh)+','+top
+    + ' L'+(cx+rh)+','+top
+    + ' Q'+(cx+half*0.55)+','+(top+h*0.42)+' '+(cx+half)+','+(top+h)
+    + ' Q'+cx+','+(top+h*1.22)+' '+(cx-half)+','+(top+h)+' Z';
+  return '<path d="'+d+'" fill="'+fill+'"/>'
+    + '<path d="M'+(cx-half)+','+(top+h)+' Q'+cx+','+(top+h*1.22)+' '+(cx+half)+','+(top+h)
+    + ' L'+(cx+half)+','+(top+h*1.10)+' Q'+cx+','+(top+h*1.10)+' '+(cx-half)+','+(top+h*1.10)+' Z" fill="'+(shade||fill)+'" opacity=".55"/>';
+}
+function tree(x, y, s, c){
+  return '<path d="M'+x+','+y+' l'+(s*0.16)+','+(s*0.9)+' l'+(s*0.7)+',0 Z" fill="'+c+'"/>';
+}
+function pine(x, y, s, c){
+  return '<path d="M'+x+','+(y-s)+' L'+(x+s*0.42)+','+(y-s*0.35)+' L'+(x+s*0.2)+','+(y-s*0.35)
+   +' L'+(x+s*0.55)+','+y+' L'+(x-s*0.55)+','+y+' L'+(x-s*0.2)+','+(y-s*0.35)+' L'+(x-s*0.42)+','+(y-s*0.35)+' Z" fill="'+c+'"/>';
+}
+
+var SCENE = {
+  palace: function(p){
+    return sun(p, 46, 28, 14) + hills(p, 96, 118) + ground(p, 144)
+      + '<rect x="70" y="132" width="180" height="12" rx="2" fill="'+p.gnd+'"/>'
+      + '<rect x="70" y="132" width="180" height="3" fill="#C9B48E" opacity=".7"/>'
+      + '<rect x="88" y="100" width="144" height="34" fill="#C69C60"/>'
+      + '<g fill="#7B5330"><rect x="100" y="104" width="9" height="30"/><rect x="128" y="104" width="9" height="30"/>'
+      + '<rect x="156" y="104" width="9" height="30"/><rect x="184" y="104" width="9" height="30"/><rect x="212" y="104" width="9" height="30"/></g>'
+      + '<rect x="146" y="106" width="28" height="28" fill="'+p.acc+'"/>'
+      + roof(160, 74, 108, 26, p.roof)
+      + '<rect x="124" y="70" width="72" height="16" fill="#C69C60"/>'
+      + '<g fill="#7B5330"><rect x="134" y="72" width="7" height="14"/><rect x="157" y="72" width="7" height="14"/><rect x="180" y="72" width="7" height="14"/></g>'
+      + roof(160, 46, 62, 22, p.roof)
+      + '<rect x="152" y="38" width="16" height="9" rx="2" fill="#C69C60"/>';
+  },
+  tower: function(p){
+    return sun(p, 50, 26, 11) + hills(p, 96, 120) + ground(p, 140)
+      + '<path d="M112,140 Q160,90 208,140 Z" fill="'+p.near+'"/>'
+      + '<rect x="153" y="40" width="14" height="66" fill="#E7DCC4"/>'
+      + '<path d="M144,40 L176,40 L171,24 L149,24 Z" fill="#E7DCC4"/>'
+      + '<rect x="139" y="38" width="42" height="10" rx="3" fill="'+p.acc+'"/>'
+      + '<rect x="158" y="8" width="4" height="17" fill="#E7DCC4"/>'
+      + '<circle cx="160" cy="52" r="4" fill="'+p.sun+'"/>'
+      + '<g fill="#FFF4D2" opacity=".55"><rect x="156" y="72" width="8" height="6"/><rect x="156" y="88" width="8" height="6"/></g>';
+  },
+  market: function(p){
+    var out = sun(p, 44, 26, 12) + hills(p, 100, 120) + ground(p, 106);
+    var cols = ['#C0392B','#2E7D5B','#C8912B','#2F5D8C'];
+    for(var i=0;i<4;i++){
+      var x = 12 + i*78, c = cols[i%4];
+      out += '<rect x="'+x+'" y="84" width="68" height="38" fill="#FFF7E8"/>'
+        + '<path d="M'+(x-6)+',84 L'+(x+74)+',84 L'+(x+64)+',66 L'+(x+4)+',66 Z" fill="'+c+'"/>'
+        + '<path d="M'+(x-6)+',84 L'+(x+74)+',84 L'+(x+74)+',90 L'+(x-6)+',90 Z" fill="'+c+'" opacity=".45"/>'
+        + '<rect x="'+(x+10)+'" y="96" width="14" height="24" rx="2" fill="#E4CEA8"/>'
+        + '<g fill="'+p.sun+'"><circle cx="'+(x+46)+'" cy="98" r="5"/><circle cx="'+(x+56)+'" cy="98" r="5"/><circle cx="'+(x+46)+'" cy="108" r="5"/><circle cx="'+(x+56)+'" cy="108" r="5"/></g>';
+    }
+    return out + '<g fill="#FFF7E8" opacity=".65"><circle cx="132" cy="52" r="6"/><circle cx="146" cy="44" r="4"/><circle cx="158" cy="50" r="5"/></g>';
+  },
+  beach: function(p){
+    var out = sun(p, 54, 28, 15) + hills(p, 90, 104) + water(p, 100)
+      + '<path d="M0,150 L320,150 L320,120 Q160,106 0,124 Z" fill="'+p.gnd+'"/>'
+      + '<g stroke="#FFFFFF" stroke-opacity=".55" stroke-width="2" fill="none" stroke-linecap="round">'
+      + '<path d="M24,112 q14,-6 28,0"/><path d="M188,108 q14,-6 28,0"/><path d="M252,118 q14,-6 28,0"/></g>'
+      + '<path d="M104,122 L104,86" stroke="#8A6B45" stroke-width="4"/>'
+      + '<path d="M104,86 Q76,90 66,108 Q88,100 104,104 Q120,100 142,108 Q132,90 104,86 Z" fill="'+p.acc+'"/>'
+      + '<path d="M104,86 Q90,88 82,100 Q96,96 104,100 Z" fill="#FFFFFF" opacity=".55"/>'
+      + '<path d="M216,126 L216,100" stroke="#8A6B45" stroke-width="3"/>'
+      + '<path d="M216,100 Q200,104 194,116 Q208,112 216,114 Q224,112 238,116 Q232,104 216,100 Z" fill="#EAC46C"/>'
+      + '<g fill="'+p.near+'" opacity=".65"><circle cx="60" cy="132" r="3"/><circle cx="70" cy="136" r="2"/><circle cx="286" cy="130" r="3"/></g>';
+    return out;
+  },
+  village: function(p){
+    var out = sun(p, 46, 28, 12) + hills(p, 74, 96);
+    var cols = ['#F2D7C6','#EFC9A8','#D9E7D2','#F6E3B8','#E3D2EC','#F3C7C2'];
+    for(var r=0;r<3;r++){
+      for(var c=0;c<5-r;c++){
+        var w=34, h=24-r*3, x=40+c*(w+8)+r*14, y=70+r*22;
+        out += '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="'+cols[(r*5+c)%6]+'"/>'
+          + '<path d="M'+(x-4)+','+y+' L'+(x+w+4)+','+y+' L'+(x+w-2)+','+(y-9)+' L'+(x+2)+','+(y-9)+' Z" fill="'+p.acc+'" opacity=".8"/>'
+          + '<rect x="'+(x+6)+'" y="'+(y+8)+'" width="7" height="7" fill="#7C6A55" opacity=".5"/>';
+      }
+    }
+    return out + ground(p, 136);
+  },
+  cliff: function(p){
+    return sun(p, 46, 26, 13) + hills(p, 96, 110) + water(p, 98)
+      + '<path d="M0,150 L0,64 L34,58 L70,74 L96,96 L120,112 L140,150 Z" fill="'+p.near+'"/>'
+      + '<path d="M96,150 L120,112 L128,120 L116,150 Z" fill="#FFFFFF" opacity=".15"/>'
+      + '<rect x="40" y="24" width="13" height="38" fill="#FFFFFF"/>'
+      + '<rect x="37" y="20" width="19" height="7" rx="2" fill="'+p.acc+'"/>'
+      + '<path d="M40,34 L53,34" stroke="#C9D6D2" stroke-width="3"/>'
+      + '<circle cx="46" cy="16" r="3" fill="'+p.sun+'"/>'
+      + '<g fill="'+p.near+'" opacity=".5"><path d="M196,120 q6,-8 12,0 q-6,-4 -12,0"/><path d="M222,132 q6,-8 12,0 q-6,-4 -12,0"/></g>';
+  },
+  temple: function(p){
+    return sun(p, 52, 26, 12) + hills(p, 90, 108) + ground(p, 138)
+      + roof(160, 62, 46, 20, p.roof)
+      + '<rect x="138" y="82" width="44" height="14" fill="#B54A38"/>'
+      + roof(160, 88, 40, 18, p.roof)
+      + '<rect x="140" y="106" width="40" height="12" fill="#B54A38"/>'
+      + roof(160, 112, 34, 16, p.roof)
+      + '<rect x="150" y="128" width="20" height="14" fill="#C69C60"/>'
+      + pine(64, 144, 30, '#2E5B44') + pine(256, 146, 26, '#2E5B44');
+  },
+  tomb: function(p){
+    return sun(p, 48, 26, 13) + hills(p, 96, 112)
+      + '<rect x="0" y="120" width="320" height="30" fill="'+p.gnd+'"/>'
+      + '<path d="M128,150 Q160,124 192,150 Z" fill="#D9CBAF"/>'
+      + '<path d="M26,146 Q74,74 122,146 Z" fill="#5C8A56"/>'
+      + '<path d="M40,146 Q74,96 108,146" fill="none" stroke="#7FA86F" stroke-width="3" opacity=".8"/>'
+      + '<path d="M104,150 Q166,64 228,150 Z" fill="#4E7A4A"/>'
+      + '<path d="M124,150 Q166,88 208,150" fill="none" stroke="#6E9A62" stroke-width="3" opacity=".85"/>'
+      + '<path d="M212,150 Q256,96 300,150 Z" fill="#5C8A56"/>'
+      + '<path d="M0,138 Q60,128 120,138 Q200,150 320,134 L320,150 L0,150 Z" fill="'+p.gnd+'" opacity=".55"/>'
+      + pine(20, 148, 26, '#264C39') + pine(304, 148, 22, '#264C39');
+  },
+  pond: function(p){
+    var out = '<rect width="320" height="150" fill="'+p.s2+'"/>' + sun(p, 46, 26, 12) + hills(p, 84, 100)
+      + water(p, 100);
+    out += roof(160, 56, 42, 18, p.roof) + '<rect x="140" y="74" width="40" height="20" fill="#B54A38"/>'
+      + '<rect x="150" y="94" width="6" height="14" fill="#8A6B45"/><rect x="164" y="94" width="6" height="14" fill="#8A6B45"/>'
+      + '<g opacity=".5"><rect x="140" y="108" width="40" height="18" fill="'+p.roof+'"/><rect x="150" y="106" width="6" height="14" fill="'+p.acc+'"/></g>'
+      + '<circle cx="250" cy="126" r="8" fill="'+p.acc+'" opacity=".45"/><circle cx="236" cy="128" r="5" fill="'+p.acc+'" opacity=".35"/>'
+      + '<circle cx="70" cy="130" r="6" fill="#FFFFFF" opacity=".25"/>';
+    return out;
+  },
+  volcano: function(p){
+    return '<rect width="320" height="150" fill="'+p.s2+'"/>' + sun(p, 60, 48, 20)
+      + '<g stroke="'+p.sun+'" stroke-width="3" stroke-opacity=".35" stroke-linecap="round">'
+      + '<path d="M60,14 L60,4"/><path d="M36,22 L29,15"/><path d="M84,22 L91,15"/></g>'
+      + water(p, 100)
+      + '<path d="M84,150 Q160,40 236,150 Z" fill="'+p.near+'"/>'
+      + '<path d="M118,94 Q160,70 202,94 Q160,82 118,94 Z" fill="#2B3F35"/>'
+      + '<path d="M0,150 L0,128 Q60,122 120,128 Q200,136 320,122 L320,150 Z" fill="'+p.gnd+'" opacity=".5"/>';
+  },
+  cave: function(p){
+    var out = hills(p, 78, 96) + ground(p, 120)
+      + '<path d="M40,150 L40,52 Q160,10 280,52 L280,150 Z" fill="'+p.near+'"/>'
+      + '<path d="M96,150 Q96,84 160,84 Q224,84 224,150 Z" fill="#231C16"/>'
+      + '<path d="M96,150 Q96,84 160,84 Q224,84 224,150 Z" fill="none" stroke="'+p.sun+'" stroke-opacity=".3" stroke-width="3"/>';
+    out += '<g fill="'+p.far+'"><path d="M120,84 l6,20 l6,-20 Z"/><path d="M146,82 l5,26 l5,-26 Z"/><path d="M172,84 l6,18 l6,-18 Z"/><path d="M196,86 l5,14 l5,-14 Z"/></g>';
+    return out;
+  },
+  mountain: function(p){
+    return '<rect width="320" height="150" fill="'+p.s1+'"/>' + sun(p, 62, 30, 14)
+      + '<path d="M-10,150 L60,44 L108,104 L146,66 L206,150 Z" fill="'+p.far+'"/>'
+      + '<path d="M120,150 L196,58 L248,104 L288,72 L330,150 Z" fill="'+p.near+'"/>'
+      + '<path d="M176,88 L196,58 L214,86 Q196,96 176,88 Z" fill="#FFFFFF" opacity=".85"/>'
+      + '<path d="M96,132 Q160,112 224,132 Q160,124 96,132 Z" fill="#FFFFFF" opacity=".55"/>'
+      + '<path d="M0,150 L0,138 Q80,128 160,138 Q240,148 320,136 L320,150 Z" fill="'+p.gnd+'"/>';
+  },
+  island: function(p){
+    var out = '<rect width="320" height="150" fill="'+p.s2+'"/>' + sun(p, 56, 30, 13) + water(p, 92);
+    out += '<path d="M120,92 Q170,58 226,92 Z" fill="'+p.near+'"/>'
+      + '<path d="M148,92 Q160,74 172,92 Z" fill="'+p.far+'"/>'
+      + '<rect x="196" y="52" width="10" height="30" fill="#FFFFFF"/>'
+      + '<rect x="193" y="48" width="16" height="6" rx="2" fill="'+p.acc+'"/>'
+      + '<g opacity=".9"><path d="M18,124 l26,0 l-4,11 l-18,0 Z" fill="#F4ECDC"/>'
+      + '<rect x="28" y="112" width="9" height="12" fill="#E3D2B4"/></g>'
+      + '<g stroke="#FFFFFF" stroke-opacity=".5" stroke-width="2" fill="none" stroke-linecap="round">'
+      + '<path d="M64,116 q12,-5 24,0"/><path d="M210,120 q12,-5 24,0"/></g>';
+    return out;
+  },
+  rail: function(p){
+    var out = sun(p, 48, 26, 12) + hills(p, 84, 104) + ground(p, 96);
+    out += '<path d="M0,150 L156,92" stroke="#9A7B52" stroke-width="5"/>'
+      + '<path d="M320,150 L164,92" stroke="#9A7B52" stroke-width="5"/>'
+      + '<g stroke="#7A5D3A" stroke-width="3" opacity=".55">'
+      + '<path d="M26,142 L150,99"/><path d="M294,142 L170,99"/>'
+      + '<path d="M62,128 L143,101"/><path d="M258,128 L177,101"/>'
+      + '<path d="M94,116 L137,103"/><path d="M226,116 L183,103"/></g>'
+      + '<rect x="120" y="66" width="80" height="26" rx="6" fill="'+p.acc+'"/>'
+      + '<rect x="132" y="56" width="56" height="12" rx="4" fill="#FFF3DC"/>'
+      + '<circle cx="134" cy="94" r="7" fill="#3A2B1E"/><circle cx="186" cy="94" r="7" fill="#3A2B1E"/>'
+      + '<rect x="150" y="46" width="4" height="12" fill="#3A2B1E"/><rect x="168" y="46" width="4" height="12" fill="#3A2B1E"/>';
+    return out;
+  },
+  museum: function(p){
+    return sun(p, 52, 26, 12) + hills(p, 90, 110) + ground(p, 116)
+      + '<path d="M150,128 Q196,60 242,128 Z" fill="#5F8A5B"/>'
+      + '<rect x="52" y="76" width="132" height="52" fill="#EDE3D0"/>'
+      + '<rect x="52" y="68" width="132" height="10" fill="'+p.acc+'"/>'
+      + '<g fill="#8FB3C4"><rect x="64" y="86" width="20" height="30"/><rect x="92" y="86" width="20" height="30"/><rect x="120" y="86" width="20" height="30"/><rect x="148" y="86" width="20" height="30"/></g>'
+      + '<rect x="196" y="100" width="70" height="28" fill="#EDE3D0"/>'
+      + '<rect x="196" y="94" width="70" height="8" fill="'+p.acc+'"/>';
+  },
+  bridge: function(p){
+    var out = '<rect width="320" height="150" fill="'+p.s2+'"/>' + sun(p, 44, 24, 11) + hills(p, 82, 96) + water(p, 100);
+    out += '<path d="M0,104 L320,92" stroke="'+p.roof+'" stroke-width="7"/>'
+      + '<path d="M0,104 L320,92" stroke="'+p.gnd+'" stroke-width="2" opacity=".55"/>'
+      + '<g stroke="'+p.roof+'" stroke-width="4">'
+      + '<path d="M30,102 L30,128"/><path d="M86,100 L86,126"/><path d="M142,98 L142,124"/>'
+      + '<path d="M198,96 L198,122"/><path d="M254,94 L254,120"/><path d="M306,92 L306,118"/></g>'
+      + '<g fill="'+p.sun+'">'
+      + '<circle cx="52" cy="99" r="2.5"/><circle cx="108" cy="97" r="2.5"/><circle cx="164" cy="95" r="2.5"/>'
+      + '<circle cx="220" cy="93" r="2.5"/><circle cx="276" cy="91" r="2.5"/></g>';
+    return out;
+  },
+  river: function(p){
+    var out = sun(p, 54, 28, 13) + hills(p, 84, 102);
+    out += '<path d="M0,150 L0,112 Q80,96 160,116 Q240,136 320,118 L320,150 Z" fill="'+p.wat+'"/>'
+      + '<path d="M0,118 Q80,102 160,122 Q240,142 320,124" fill="none" stroke="#FFF" stroke-opacity=".4" stroke-width="2"/>';
+    for(var i=0;i<5;i++){
+      var x = 44 + i*48, y = 104 - (i%2)*6;
+      out += roof(x, y-14, 22, 10, p.roof) + '<rect x="'+(x-14)+'" y="'+(y-4)+'" width="28" height="12" fill="#C69C60"/>';
+    }
+    out += pine(292, 118, 24, '#2E5B44') + pine(20, 122, 20, '#2E5B44');
+    return out;
+  },
+  church: function(p){
+    return sun(p, 52, 26, 12) + hills(p, 92, 110) + ground(p, 128)
+      + '<rect x="112" y="66" width="96" height="62" fill="#B0604F"/>'
+      + '<path d="M112,66 L208,66 L160,34 Z" fill="#8E4A3C"/>'
+      + '<rect x="150" y="18" width="20" height="24" fill="#B0604F"/>'
+      + '<path d="M150,18 L170,18 L160,4 Z" fill="#8E4A3C"/>'
+      + '<rect x="152" y="8" width="3" height="14" fill="#F4E6C8"/><rect x="147" y="12" width="13" height="3" fill="#F4E6C8"/>'
+      + '<circle cx="160" cy="88" r="12" fill="#F2D7A8"/>'
+      + '<rect x="128" y="96" width="14" height="32" rx="7" fill="#7A3B30"/>'
+      + '<rect x="178" y="96" width="14" height="32" rx="7" fill="#7A3B30"/>'
+      + '<rect x="154" y="112" width="12" height="16" fill="#6B352C"/>';
+  },
+  hanok: function(p){
+    return sun(p, 48, 26, 12) + hills(p, 88, 108) + ground(p, 124)
+      + roof(150, 74, 74, 30, p.roof) + '<rect x="86" y="104" width="128" height="10" fill="#C69C60"/>'
+      + '<rect x="98" y="114" width="8" height="14" fill="#7B5330"/><rect x="126" y="114" width="8" height="14" fill="#7B5330"/>'
+      + '<rect x="166" y="114" width="8" height="14" fill="#7B5330"/><rect x="194" y="114" width="8" height="14" fill="#7B5330"/>'
+      + '<rect x="140" y="112" width="20" height="16" fill="'+p.acc+'"/>'
+      + '<path d="M236,128 L236,88 M248,128 L248,84 M260,128 L260,92" stroke="#2C3B33" stroke-width="4"/>'
+      + '<circle cx="236" cy="86" r="6" fill="#3F6A41"/><circle cx="248" cy="80" r="7" fill="#3F6A41"/><circle cx="260" cy="88" r="6" fill="#3F6A41"/>';
+  },
+  seowon: function(p){
+    return sun(p, 54, 26, 11) + hills(p, 86, 104) + ground(p, 126)
+      + roof(180, 66, 78, 26, p.roof)
+      + '<rect x="112" y="92" width="136" height="12" fill="#C69C60"/>'
+      + '<rect x="124" y="104" width="8" height="20" fill="#7B5330"/><rect x="156" y="104" width="8" height="20" fill="#7B5330"/>'
+      + '<rect x="196" y="104" width="8" height="20" fill="#7B5330"/><rect x="228" y="104" width="8" height="20" fill="#7B5330"/>'
+      + '<rect x="272" y="80" width="30" height="44" fill="#E8DCC4"/>'
+      + pine(60, 128, 34, '#2E5B44') + pine(38, 132, 26, '#356B4C')
+      + '<path d="M0,138 Q80,128 160,138 Q240,148 320,136" fill="none" stroke="'+p.wat+'" stroke-width="4" opacity=".7"/>';
+  }
+};
+
+function illSVG(s, uid){
+  var p = PAL[s.pal] || PAL.day;
+  var fn = SCENE[s.ill] || SCENE.beach;
+  var inner = fn(p);
+  return '<svg class="ill" viewBox="0 0 320 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">'
+    + '<defs><linearGradient id="sk' + uid + '" x1="0" y1="0" x2="0" y2="1">'
+    + '<stop offset="0" stop-color="' + p.s1 + '"/><stop offset="1" stop-color="' + p.s2 + '"/></linearGradient></defs>'
+    + '<rect width="320" height="150" fill="url(#sk' + uid + ')"/>' + inner + '</svg>';
+}
+
+/* ══════════ 그리기 ══════════ */
+function renderHeader(){
+  document.body.setAttribute('data-lang', lang);
+  document.documentElement.setAttribute('lang', lang);
+  $('#appName').textContent = t('app');
+  $('#tagline').textContent = t('tag');
+  $('#instLbl').textContent = t('install');
+  $('#shareLbl').textContent = t('share');
+  var lgs = document.querySelectorAll('#langBtn .lg');
+  for(var i=0;i<lgs.length;i++){ lgs[i].className = 'lg' + (lgs[i].getAttribute('data-l') === lang ? ' on' : ''); }
+  $('#langBtn').setAttribute('aria-label', lang === 'ko' ? '영어로 보기' : '한국어로 보기');
+  $('#intro').innerHTML = t('intro');
+  $('#cardIntro').innerHTML = t('cardIntro');
+  $('#listTitle').textContent = t('listTitle');
+  $('#favTitle').textContent = t('favTitle');
+  var tabs = document.querySelectorAll('.tab .tl');
+  for(var j=0;j<tabs.length;j++){ tabs[j].textContent = t(tabs[j].getAttribute('data-t')); }
+  $('#inTitle').textContent = t('inTitle');
+  $('#inBody').innerHTML = t('inBody');
+  $('#inClose').textContent = t('close');
+  $('#bcTitle').textContent = t('bigTitle');
+  $('#bcClose').textContent = t('close');
+  $('#bcSpeakLbl').textContent = t('sayLbl');
+  document.title = lang === 'ko' ? '와글링 한국여행 · Wagling Korea Travel' : 'Wagling Korea Travel · 와글링 한국여행';
+}
+
+function renderChips(){
+  var counts = {}; SPOTS.forEach(function(s){ counts[s.rg] = (counts[s.rg]||0)+1; });
+  var html = '';
+  REGIONS.forEach(function(r){
+    html += '<button type="button" class="chip'+(st.rg===r.id?' on':'')+'" data-rg="'+r.id+'" role="tab" aria-selected="'+(st.rg===r.id)+'">'
+      + '<span class="ic" aria-hidden="true">'+r.ic+'</span><span class="cn">'+esc(r[lang])+'</span></button>';
+  });
+  $('#chips').innerHTML = html;
+}
+
+function cardHTML(s){
+  var r = regionById(s.rg);
+  var fav = isFav(s.id);
+  return '<div class="spot" role="button" tabindex="0" data-id="'+s.id+'" aria-label="'+esc(s.nm[li])+' '+esc(t('detail'))+'">'
+    + '<div class="illwrap">'+illSVG(s,'L'+s.id)
+    + '<span class="rg">'+r.ic+' '+esc(r[lang])+'</span>'
+    + '<button type="button" class="heart'+(fav?' on':'')+'" data-heart="'+s.id+'" aria-pressed="'+fav+'" aria-label="❤️ '+esc(s.nm[li])+'">'+(fav?'❤️':'🤍')+'</button>'
+    + '</div>'
+    + '<div class="sbody">'
+    + '<h3 class="nm">'+esc(s.nm[li])+(li===1?'':'<span class="en">'+esc(s.nm[1])+'</span>')+(li===0?'':'')+'</h3>'
+    + '<p class="charm">'+esc(s.charm[li])+'</p>'
+    + '<p class="tr">'+esc(s.tr[li])+'</p>'
+    + '<div class="chips2"><span class="tag2">🎫 '+esc(s.feeS[li])+'</span><span class="tag2">🕘 '+esc(s.tmS[li])+'</span>'
+    + '<a class="tag2 map" href="'+gmap(s)+'" target="_blank" rel="noopener">'+t('mapT')+'</a>'
+    + '<span class="tag2 more">'+t('detail')+' →</span></div>'
+    + '</div></div>';
+}
+
+function gmap(s){ return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(s.q); }
+function nmap(s){ return 'https://map.naver.com/p/search/' + encodeURIComponent(s.nm[0]); }
+
+function renderList(){
+  var arr = SPOTS.filter(function(s){ return st.rg === 'all' || s.rg === st.rg; });
+  $('#listCnt').textContent = arr.length + (lang==='ko'?'곳':' '+t('places'));
+  $('#list').innerHTML = arr.length ? arr.map(cardHTML).join('') : '<div class="empty">'+t('none')+'</div>';
+}
+
+function renderFav(){
+  $('#favCnt').textContent = favs.length + (lang==='ko'?'곳':' '+t('places'));
+  var badge = $('#favBadge');
+  if(favs.length){ badge.hidden = false; badge.textContent = favs.length; } else { badge.hidden = true; }
+  if(!favs.length){
+    $('#favList').innerHTML = '<div class="empty">'+t('favEmpty')+'<br><br><button type="button" class="mbtn g" data-tab="list" style="width:100%">'+t('favEmptyGo')+'</button></div>';
+    return;
+  }
+  var html = '';
+  favs.forEach(function(id){
+    var s = spotById(id); if(!s) return;
+    var r = regionById(s.rg), note = notes[id] || '';
+    html += '<div class="favrow" role="button" tabindex="0" data-id="'+s.id+'">'
+      + '<span class="th">'+illSVG(s,'F'+s.id)+'</span>'
+      + '<span class="fx"><span class="fn">'+esc(s.nm[li])+'</span>'
+      + '<span class="fr">'+r.ic+' '+esc(r[lang])+' · 🎫 '+esc(s.feeS[li])+'</span>'
+      + (note ? '<span class="fm">📝 '+esc(note)+'</span>' : '')
+      + '</span>'
+      + '<button type="button" class="x" data-heart="'+s.id+'" aria-label="'+esc(t('delFav'))+'">✕</button>'
+      + '</div>';
+  });
+  $('#favList').innerHTML = html;
+}
+
+function renderPhrases(){
+  var html = '';
+  PHRASES.forEach(function(p, i){
+    html += '<button type="button" class="pc" data-ph="'+i+'">'
+      + '<span class="ic" aria-hidden="true">'+p.ic+'</span>'
+      + '<span class="tx"><span class="ko">'+esc(p.ko)+'</span><span class="en">'+esc(p.en)+'</span>'
+      + '<span class="en" style="color:#8A7357;font-style:italic">'+esc(p.rom)+'</span></span>'
+      + '<span class="sp" aria-hidden="true">🔊</span></button>';
+  });
+  $('#phraseList').innerHTML = html;
+}
+
+function renderDetail(){
+  var s = spotById(st.id);
+  if(!s){ st.tab='list'; st.id=null; renderAll(); return; }
+  var r = regionById(s.rg), fav = isFav(s.id);
+  var note = notes[s.id] || '';
+  var html = ''
+    + '<div class="dhead"><button type="button" class="dback" data-act="back">← '+t('back')+'</button>'
+    + '<span class="rg2">'+r.ic+' '+esc(r[lang])+'</span></div>'
+    + '<div class="dhero">'+illSVG(s,'D'+s.id)
+    + '<button type="button" class="heart'+(fav?' on':'')+'" data-heart="'+s.id+'" aria-pressed="'+fav+'" aria-label="❤️">'+(fav?'❤️':'🤍')+'</button></div>'
+    + '<h2 class="dtitle">'+esc(s.nm[li])+(li===1?'':'<span class="en">'+esc(s.nm[1])+'</span>')+'</h2>'
+    + '<p class="dcharm">'+esc(s.charm[li])+'</p>'
+    + '<div class="taxi"><p class="lb">'+t('taxiLbl')+'</p>'
+    +   '<p class="big" lang="ko">'+esc(s.nm[0])+'</p>'
+    +   '<p class="say" lang="ko">여기 가 주세요</p>'
+    +   '<div class="trow"><button type="button" class="tbtn" data-speak="'+esc(s.nm[0])+', 여기 가 주세요">🔊 '+t('speak')+'</button></div></div>'
+    + '<div class="maps"><a class="mbtn g" href="'+gmap(s)+'" target="_blank" rel="noopener">🗺️ '+t('mapG')+'</a>'
+    +   '<a class="mbtn n" href="'+nmap(s)+'" target="_blank" rel="noopener">🧭 '+t('mapN')+'</a></div>'
+    + '<div class="rows">'
+    +   row(t('howto'), s.tr[li]) + row(t('best'), s.tm[li]) + row(t('fee'), s.fee[li])
+    +   row(t('closed'), s.cl[li]) + row(t('eat'), s.eat[li])
+    + '</div>'
+    + '<div class="memo"><p class="k">'+t('memo')+'</p>'
+    +   '<textarea id="memoBox" placeholder="'+esc(t('memoPh'))+'" aria-label="'+esc(t('memo'))+'">'+esc(note)+'</textarea>'
+    +   '<p class="hint" id="memoHint">'+t('memoHint')+'</p></div>'
+    + '<div class="dfoot"><button type="button" class="bigbtn" data-tab="card">💬 '+t('bigMore')+'</button></div>';
+  $('#detail').innerHTML = html;
+}
+function row(k, v){ return '<div class="row"><p class="k">'+k+'</p><p class="v">'+esc(v)+'</p></div>'; }
+
+function renderTabs(){
+  var tabs = document.querySelectorAll('.tab');
+  for(var i=0;i<tabs.length;i++){
+    var on = tabs[i].getAttribute('data-tab') === st.tab;
+    tabs[i].setAttribute('aria-selected', on ? 'true' : 'false');
+  }
+}
+
+function renderAll(){
+  renderHeader();
+  var isSpot = !!st.id && st.tab === 'list';
+  $('#view-list').hidden = !(st.tab === 'list' && !isSpot);
+  $('#view-fav').hidden = !(st.tab === 'fav' && !isSpot);
+  $('#view-card').hidden = !(st.tab === 'card' && !isSpot);
+  $('#view-spot').hidden = !isSpot;
+  renderTabs();
+  if(st.tab === 'list' && !isSpot) { renderChips(); renderList(); }
+  if(st.tab === 'fav') renderFav();
+  if(st.tab === 'card') renderPhrases();
+  if(isSpot) renderDetail();
+}
+
+/* ══════════ 뒤로가기 · 이동 ══════════ */
+function code(){ return JSON.stringify(st); }
+function pushState(){ try{ history.pushState({wg:1, st:code()}, '', location.href); }catch(e){} }
+function replaceState(){ try{ history.replaceState({wg:1, st:code()}, '', location.href); }catch(e){} }
+function nav(patch){
+  if(st.tab === 'list' && !st.id) listScroll = window.scrollY || 0;
+  Object.assign(st, patch);
+  renderAll(); pushState();
+  if(st.id || st.tab !== 'list'){ window.scrollTo(0, 0); }
+}
+function goBack(){ try{ history.back(); }catch(e){ st.id = null; renderAll(); } }
+window.addEventListener('popstate', function(ev){
+  var raw = ev.state && ev.state.st;
+  var prev = st;
+  hideBig();  /* 큰 카드는 겹쳐 띄우는 화면이라 뒤로가기에서 늘 닫는다 */
+  if(raw){ try{ st = JSON.parse(raw); }catch(e){ st = {tab:'list', rg:'all', id:null}; } }
+  else { st = {tab:'list', rg:'all', id:null}; }
+  renderAll();
+  if(prev.id && !st.id && st.tab === 'list'){ setTimeout(function(){ window.scrollTo(0, listScroll || 0); }, 0); }
+  else window.scrollTo(0, 0);
+});
+
+/* ══════════ 소리(TTS) ══════════ */
+function speak(text){
+  try{
+    if(!('speechSynthesis' in window)) { toast(lang==='ko'?'이 브라우저는 소리를 지원하지 않아요.':'This browser has no speech.'); return; }
+    window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'ko-KR'; u.rate = .92; u.pitch = 1;
+    var v = window.speechSynthesis.getVoices().filter(function(x){ return (x.lang||'').toLowerCase().indexOf('ko') === 0; })[0];
+    if(v) u.voice = v;
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+/* ══════════ 큰 카드 ══════════ */
+var bigIdx = -1;
+function openBig(i){
+  var p = PHRASES[i]; if(!p) return;
+  bigIdx = i;
+  $('#bcIcon').textContent = p.ic;
+  $('#bcKo').textContent = p.ko;
+  $('#bcEn').textContent = p.en;
+  $('#bcRom').textContent = p.rom;
+  $('#bcTip').textContent = p.tip[li];
+  $('#bcSpeakLbl').textContent = t('sayLbl');
+  $('#bcClose').textContent = t('close');
+  $('#bigCard').hidden = false;
+  document.body.style.overflow = 'hidden';
+  pushState();
+}
+function closeBig(){
+  if(!$('#bigCard').hidden){
+    goBack();
+    setTimeout(function(){ if(!$('#bigCard').hidden) hideBig(); }, 260);
+    return;
+  }
+  hideBig();
+}
+function hideBig(){ $('#bigCard').hidden = true; document.body.style.overflow = ''; bigIdx = -1; }
+
+/* ══════════ 클릭 처리 ══════════ */
+document.addEventListener('click', function(ev){
+  var el = ev.target;
+  function closest(sel){ var n = el; while(n && n !== document.body){ if(n.matches && n.matches(sel)) return n; n = n.parentNode; } return null; }
+  var heart = closest('[data-heart]');
+  if(heart){
+    ev.preventDefault(); ev.stopPropagation();
+    var id = heart.getAttribute('data-heart');
+    var i = favs.indexOf(id);
+    if(i >= 0){ favs.splice(i,1); lsSet(LS_FAV, favs); toast(t('delFav')); }
+    else { favs.push(id); lsSet(LS_FAV, favs); toast(t('addFav')); }
+    renderAll();
+    return;
+  }
+  var rg = closest('[data-rg]');
+  if(rg){
+    if(rg.getAttribute('data-rg') === st.rg) return;
+    nav({rg: rg.getAttribute('data-rg')});
+    return;
+  }
+  var tab = closest('[data-tab]');
+  if(tab){
+    var tv = tab.getAttribute('data-tab');
+    if(st.tab === tv && !st.id) { window.scrollTo(0,0); return; }
+    nav({tab: tv, id: null});
+    return;
+  }
+  var ph = closest('[data-ph]');
+  if(ph){ openBig(parseInt(ph.getAttribute('data-ph'), 10)); return; }
+  var sp = closest('[data-speak]');
+  if(sp){ speak(sp.getAttribute('data-speak')); return; }
+  var act = closest('[data-act]');
+  if(act){ if(act.getAttribute('data-act') === 'back') goBack(); return; }
+  var card = closest('.spot[data-id], .favrow[data-id]');
+  if(card && !closest('a')){
+    var cid = card.getAttribute('data-id');
+    nav({tab: 'list', id: cid});
+    return;
+  }
+  var m = closest('.mbtn');
+  if(m) return;
+});
+document.addEventListener('keydown', function(ev){
+  if(ev.key === 'Enter'){
+    var el = ev.target;
+    if(el && el.matches && el.matches('.spot[data-id], .favrow[data-id]')){
+      nav({tab:'list', id: el.getAttribute('data-id')});
+    }
+  }
+  if(ev.key === 'Escape'){
+    if(!$('#bigCard').hidden) closeBig();
+    else if(!$('#installModal').hidden) closeInstall();
+  }
+});
+
+/* ══════════ 메모 저장 ══════════ */
+document.addEventListener('input', function(ev){
+  var t2 = ev.target;
+  if(t2 && t2.id === 'memoBox'){
+    var id = st.id; if(!id) return;
+    var v = t2.value;
+    notes[id] = v;
+    if(!v) delete notes[id];
+    lsSet(LS_NOTE, notes);
+    var hint = $('#memoHint');
+    if(hint){ hint.textContent = t('noteSaved'); clearTimeout(speak._mt);
+      speak._mt = setTimeout(function(){ if($('#memoHint')) $('#memoHint').textContent = t('memoHint'); }, 1400); }
+  }
+});
+
+/* ══════════ 언어 ══════════ */
+$('#langBtn').addEventListener('click', function(){
+  lang = (lang === 'ko') ? 'en' : 'ko'; li = lang === 'ko' ? 0 : 1;
+  lsSet(LS_LANG, lang);
+  renderAll(); pushState();
+});
+
+/* ══════════ 설치 · 공유 ══════════ */
+function isStandalone(){ try{ return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; }catch(e){ return false; } }
+var deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', function(e){ if(e && e.preventDefault) e.preventDefault(); deferredPrompt = e; });
+function showInstall(){ $('#installModal').hidden = false; }
+function closeInstall(){ if($('#installModal').hidden) return; $('#installModal').hidden = true; }
+$('#inClose').addEventListener('click', closeInstall);
+$('#installModal').addEventListener('click', function(e){ if(e.target === $('#installModal')) closeInstall(); });
+$('#installBtn').addEventListener('click', function(){
+  if(isStandalone()){ toast(t('already')); return; }
+  if(deferredPrompt){ var d = deferredPrompt; deferredPrompt = null;
+    try{ d.prompt(); if(d.userChoice && d.userChoice.then) d.userChoice.then(function(r){ if(r && r.outcome === 'accepted') toast(t('installing')); }, function(){}); return; }catch(e){}
+  }
+  showInstall();
+});
+window.addEventListener('appinstalled', function(){ toast(t('installed')); deferredPrompt = null; });
+
+var SHARE_URL = 'https://starpicklife-design.github.io/tour/';
+function legacyCopy(text, done, fail){
+  try{ var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly','');
+    ta.style.cssText = 'position:fixed;left:-9999px;top:0'; document.body.appendChild(ta); ta.select();
+    var ok = document.execCommand('copy'); document.body.removeChild(ta); (ok ? done : fail)(); }catch(e){ fail(); }
+}
+function shareApp(){
+  var payload = {title: t('app'), text: t('shareText'), url: SHARE_URL};
+  var usable = true;
+  try{ if(navigator.canShare && !navigator.canShare(payload)) usable = false; }catch(e){}
+  if(navigator.share && usable){
+    try{ navigator.share(payload).then(function(){}, function(err){ if(err && err.name === 'AbortError') return; copyShare(payload); }); return; }catch(e){}
+  }
+  copyShare(payload);
+}
+function copyShare(p){
+  var full = p.text + '\n\n' + p.url;
+  var done = function(){ toast(t('toastCopy')); }, fail = function(){ toast(t('toastShareFail')); };
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(full).then(done, function(){ legacyCopy(full, done, fail); }); }
+  else legacyCopy(full, done, fail);
+}
+$('#shareBtn').addEventListener('click', shareApp);
+$('#bcClose').addEventListener('click', closeBig);
+$('#bcSpeak').addEventListener('click', function(){
+  if(bigIdx >= 0) speak(PHRASES[bigIdx].ko);
+});
+
+/* ══════════ 시작 ══════════ */
+if(!history.state || !history.state.st){ replaceState(); }
+renderAll();
+if('serviceWorker' in navigator){
+  window.addEventListener('load', function(){ navigator.serviceWorker.register('./sw.js').catch(function(){}); });
+}
+</script>
+</body>
+</html>
