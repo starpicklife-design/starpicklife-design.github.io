@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#0F4C42" />
 <meta name="google" content="notranslate" />
-<!-- build: 2026-11-27 와글링 한국여행 (Wagling Korea Travel) v1 · 시제품 -->
+<!-- build: 2026-11-27 와글링 한국여행 (Wagling Korea Travel) v3 · 내 사진 여행 도감 · 앨범 인쇄(책자) · 글씨 잘림 0 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
@@ -13,7 +13,7 @@
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="와글링 한국여행" />
-<meta name="description" content="외국인·내국인을 위한 한국 관광 가이드 — 서울·부산·경주·제주·전주·김해·안동·강릉 명소 30곳, 가는 법·입장료·먹거리·큰 글씨 한국어 카드. 설치 없이 무료, 오프라인에서도 열립니다." />
+<meta name="description" content="외국인·내국인을 위한 한국 관광 가이드 — 서울·부산·경주·제주·전주·김해·안동·강릉 명소 30곳, 가는 법·입장료·먹거리·큰 글씨 한국어 카드. 내가 찍은 사진으로 채우는 여행 도감과 인쇄용 여행 앨범. 설치 없이 무료, 오프라인에서도 열립니다." />
 <title>와글링 한국여행 · Wagling Korea Travel</title>
 <style>
 :root{
@@ -39,7 +39,7 @@ h1,h2,h3,p{margin:0}
   padding:.5rem .7rem .55rem;position:relative;z-index:5}
 .hrow{display:flex;align-items:center;gap:.42rem}
 .logo{font-size:1.62rem;line-height:1;flex:0 0 auto}
-.hrow h1{font-size:1.1rem;font-weight:900;letter-spacing:-.01em;line-height:1.25;
+.hrow h1{font-size:1.1rem;font-weight:900;letter-spacing:-.01em;line-height:1.34;padding-block:.06rem;
   flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 body[data-lang="en"] .hrow h1{font-size:.99rem}
 .pill{display:flex;align-items:center;gap:.18rem;background:#fff;border:2px solid #DCC9A8;color:#3E2E1E;
@@ -65,7 +65,8 @@ body[data-lang="en"] .hrow h1{font-size:.99rem}
   background:#fff;border:2px solid #E4D3B8;border-radius:.8rem;padding:.42rem .2rem;font-size:.9rem;
   font-weight:900;color:#413122;min-height:2.9rem;line-height:1.2;box-shadow:0 1px 3px rgba(90,60,35,.06)}
 .chip .ic{font-size:1rem;line-height:1}
-.chip .cn{min-width:0;font-size:.94rem;line-height:1.18;font-weight:900;text-align:left;word-break:keep-all;overflow:hidden;text-overflow:ellipsis}
+.chip .cn{min-width:0;font-size:.94rem;line-height:1.34;font-weight:900;text-align:left;word-break:keep-all;overflow:hidden;text-overflow:ellipsis}
+.chip .cn{padding-block:.06rem}
 .chip .ct{font-size:.72rem;font-weight:900;color:#8C6A3D;flex:0 0 auto}
 .chip.on{background:var(--brand);border-color:var(--brand2);color:#fff;box-shadow:0 3px 9px rgba(15,76,66,.28)}
 .chip.on .ct{color:#FFE6AE}
@@ -87,8 +88,53 @@ body[data-lang="en"] .chip .cn{font-size:.86rem;letter-spacing:-.01em}
 .spot{display:block;width:100%;text-align:left;background:var(--card);border:2px solid var(--line);
   border-radius:1.1rem;overflow:hidden;margin-bottom:.7rem;box-shadow:var(--shadow)}
 .spot:active{transform:translateY(1px)}
-.illwrap{position:relative;background:#E8EFEA}
-.ill{width:100%;height:auto;display:block;aspect-ratio:320/150}
+.illwrap{position:relative;background:linear-gradient(180deg,#FBF4E5,#F5EAD5)}
+
+/* ── 내 사진 자리(여행 우표 틀) ── */
+.shot{position:relative;padding:.55rem .55rem .12rem;background:#FFFDF7;border:1px solid #F2E4CB;
+  border-radius:.5rem;box-shadow:0 1px 3px rgba(90,60,35,.07)}
+.shot .cnr{position:absolute;width:.62rem;height:.62rem;border:2px solid #DCC9A8;pointer-events:none;border-radius:1px}
+.shot .cnr.tl{left:.16rem;top:.16rem;border-right:0;border-bottom:0}
+.shot .cnr.tr{right:.16rem;top:.16rem;border-left:0;border-bottom:0}
+.shot .cnr.bl{left:.16rem;bottom:.16rem;border-right:0;border-top:0}
+.shot .cnr.br{right:.16rem;bottom:.16rem;border-left:0;border-top:0}
+.shot .phwrap{position:relative;display:block;width:100%;aspect-ratio:640/380;border-radius:.32rem;overflow:hidden;background:#FBF1DE;margin:0;padding:0;border:0;font:inherit;color:inherit;text-align:center}
+.shot .phwrap::after{content:"";position:absolute;inset:0;border-radius:.32rem;pointer-events:none;
+  box-shadow:inset 0 0 0 3px #FFFDF7, inset 0 0 0 4px #EBDCBE}
+.shot img{width:100%;height:100%;object-fit:cover;display:block}
+.shot .phwrap.empty{border:2.5px dashed #D9C39C;background:linear-gradient(180deg,#FFFDF6,#F9EEDA);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.26rem;padding:.4rem}
+.shot .cam{font-size:1.75rem;line-height:1;opacity:.9}
+.shot .et{font-size:.82rem;font-weight:900;color:#8A6A3F;line-height:1.36;text-align:center;word-break:keep-all;padding:0 .6rem}
+.shot .eb{display:inline-flex;align-items:center;gap:.2rem;margin-top:.12rem;font-size:.8rem;font-weight:900;color:#0F4C42;
+  background:#EAF3EE;border:1.5px solid #BFDBD0;border-radius:2rem;padding:.22rem .62rem;min-height:2rem}
+.shot .cap{display:flex;align-items:center;justify-content:space-between;gap:.4rem;padding:.26rem .1rem 0;
+  font-size:.66rem;font-weight:900;letter-spacing:.05em;color:#A98B5C;line-height:1.3}
+.shot .cap .rgc{color:#8A6A3F}
+
+/* 내 사진 개수 · 인쇄 */
+.pcount{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:.14rem .45rem;margin:.5rem .7rem 0;
+  background:#fff;border:2px solid #EFDFC2;border-radius:.9rem;padding:.32rem .4rem .34rem .6rem;
+  font-size:.84rem;font-weight:900;color:#5C4526;box-shadow:var(--shadow)}
+.pcount .lb{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+.pcount .lb b{color:var(--brand);font-size:.95rem}
+.pcount .bar{grid-row:2;grid-column:1 / -1;height:.3rem;border-radius:1rem;background:#F2E6CE;overflow:hidden}
+.pcount .pbtn{grid-row:1;grid-column:2}
+@media (max-width:389px){
+  .pcount{font-size:.76rem;padding-left:.48rem}
+  .pcount .lb b{font-size:.88rem}
+  .pcount .pbtn{padding:.24rem .42rem;font-size:.76rem}
+  .pcount .pbtn .pb-tx{display:none}
+}
+.pcount .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#E7B44C,#0F4C42);border-radius:1rem;transition:width .3s}
+.pcount .pbtn{flex:0 0 auto;display:inline-flex;align-items:center;gap:.2rem;background:#F4F9F6;border:1.5px solid #C6DED3;
+  color:#10493B;border-radius:.7rem;padding:.28rem .5rem;font-size:.8rem;font-weight:900;min-height:2.2rem}
+
+/* 상세 사진 버튼 */
+.phacts{display:flex;gap:.4rem;margin-top:.5rem;flex-wrap:wrap}
+.phbtn{flex:1 1 8rem;display:flex;align-items:center;justify-content:center;gap:.3rem;background:#fff;border:2px solid #DCC9A8;
+  border-radius:.8rem;padding:.45rem .5rem;font-size:.9rem;font-weight:900;min-height:2.9rem;color:#3E2E1E}
+.phbtn.del{background:#FFF6F2;border-color:#EDCFC0;color:#8A3B24;flex:0 1 auto}
 .rg{position:absolute;left:.5rem;top:.5rem;background:rgba(255,255,255,.94);color:#173D34;
   font-size:.78rem;font-weight:900;padding:.18rem .5rem;border-radius:1rem;border:1px solid rgba(0,0,0,.05)}
 .heart{position:absolute;right:.45rem;top:.45rem;width:2.9rem;height:2.9rem;border-radius:50%;
@@ -100,7 +146,8 @@ body[data-lang="en"] .chip .cn{font-size:.86rem;letter-spacing:-.01em}
 .nm .en{display:block;font-size:.84rem;font-weight:700;color:#6B5847;margin-top:.12rem;letter-spacing:0}
 .charm{font-size:1rem;line-height:1.5;margin-top:.34rem;color:#332519;word-break:keep-all}
 .tr{font-size:.88rem;line-height:1.45;color:#2F5449;background:#EDF5F1;border-radius:.6rem;
-  padding:.36rem .48rem;margin-top:.45rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  padding:.4rem .52rem;margin-top:.45rem;word-break:keep-all;
+  overflow:visible;display:block;-webkit-line-clamp:none;max-height:none}
 .chips2{display:flex;flex-wrap:wrap;gap:.32rem;margin-top:.5rem}
 .tag2{font-size:.8rem;font-weight:800;border-radius:.55rem;padding:.2rem .46rem;background:#F7EEDD;
   color:#5A4429;border:1px solid #E7D6BA;text-decoration:none;white-space:nowrap}
@@ -157,12 +204,15 @@ body[data-lang="en"] .chip .cn{font-size:.86rem;letter-spacing:-.01em}
   text-align:center;font-size:.95rem;line-height:1.6;color:#5E4B3A}
 .favrow{display:flex;gap:.6rem;background:#fff;border:2px solid var(--line);border-radius:1rem;padding:.55rem;
   margin-bottom:.6rem;align-items:center;width:100%;text-align:left}
-.favrow .th{width:5.2rem;height:3.9rem;border-radius:.7rem;overflow:hidden;flex:0 0 auto;background:#E8EFEA}
-.favrow .th svg{width:100%;height:100%}
+.favrow .th{width:5.2rem;height:3.9rem;border-radius:.7rem;overflow:hidden;flex:0 0 auto;background:#F7EEDD;
+  display:grid;place-items:center;border:1.5px dashed #E0CDB0}
+.favrow .th img{width:100%;height:100%;object-fit:cover;border:0}
+.favrow .th .thnone{font-size:1.45rem;opacity:.55;line-height:1}
 .favrow .fx{flex:1 1 auto;min-width:0}
 .favrow .fn{display:block;font-size:1rem;font-weight:900;line-height:1.3}
 .favrow .fr{display:block;font-size:.8rem;color:#2F5449;font-weight:800;margin-top:.12rem}
-.favrow .fm{display:block;font-size:.86rem;color:#6B5847;margin-top:.24rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.favrow .fm{display:block;font-size:.86rem;color:#6B5847;margin-top:.24rem;word-break:keep-all;
+  display:block;-webkit-line-clamp:none;overflow:visible}
 .favrow .x{flex:0 0 auto;background:#F7EEDD;border:1px solid #E7D6BA;border-radius:.6rem;padding:.3rem .5rem;font-size:.86rem;font-weight:900}
 
 /* ── 손짓 카드 ── */
@@ -217,7 +267,71 @@ body[data-lang="en"] .chip .cn{font-size:.86rem;letter-spacing:-.01em}
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(4.4rem + env(safe-area-inset-bottom));
   z-index:80;background:rgba(25,18,12,.92);color:#fff;font-size:.9rem;font-weight:800;padding:.55rem .9rem;
   border-radius:2rem;max-width:calc(100% - 2rem);text-align:center}
+.printbar{margin:0 .7rem .65rem}
+.printhint{font-size:.76rem;line-height:1.45;color:#7A6349;margin-top:.34rem;word-break:keep-all}
+.printbar .bigbtn{width:100%;flex:1 1 auto}
 @media (min-width:430px){ html{font-size:20.5px} }
+
+/* ══════════ 인쇄: 나의 한국여행 앨범(책자) ══════════ */
+#printBook{display:none}
+@media print{
+  @page{ size:A4 portrait; margin:0 }
+  html{ font-size:12pt }
+  html,body{ margin:0; padding:0; background:#fff }
+  body > *:not(#printBook){ display:none !important }
+  #printBook{ display:block !important }
+  body,#printBook{ -webkit-print-color-adjust:exact; print-color-adjust:exact }
+
+  #printBook .pb{ position:relative; box-sizing:border-box; width:210mm; min-height:296mm;
+    background:#FFFDF8; page-break-after:always; break-after:page; page-break-inside:avoid; overflow:hidden }
+  #printBook .pb:last-child{ page-break-after:auto; break-after:auto }
+
+  /* 바인더 타공 여백 안내(왼쪽 12mm 선 · 3개 구멍) */
+  .pb-punch{ position:absolute; left:12mm; top:18mm; bottom:18mm; border-left:.25mm dotted #E4D9C5 }
+  .pb-hole{ position:absolute; left:9mm; width:6mm; height:6mm; border:.35mm dashed #CFC2AC; border-radius:50% }
+  .pb-hole.h1{ top:52mm } .pb-hole.h2{ top:145mm } .pb-hole.h3{ top:238mm }
+
+  /* 표지 */
+  .pb-cover{ display:flex; align-items:center; justify-content:center; background:#FFF9F0; padding:40mm 32mm 40mm 42mm }
+  .pb-cover-in{ width:100%; text-align:center; border:1.4mm double #C8912B; border-radius:2mm; padding:26mm 16mm 24mm }
+  .pb-kicker{ font-size:8.5pt; letter-spacing:.3em; color:#8A6A3F; font-weight:700 }
+  .pb-ruler{ width:26mm; height:.6mm; background:#C8912B; margin:8mm auto }
+  .pb-title{ font-size:29pt; font-weight:900; color:#123B33; line-height:1.24; letter-spacing:-.01em }
+  .pb-subtitle{ font-size:13pt; color:#5E4B3A; margin-top:4mm; letter-spacing:.04em }
+  .pb-cov-cnt{ font-size:10.5pt; color:#3A2C1F; margin-top:16mm }
+  .pb-cov-note{ font-size:9pt; color:#7A6349; margin-top:3mm; line-height:1.5 }
+  .pb-cov-date{ font-size:9.5pt; color:#8A6A3F; margin-top:6mm }
+  .pb-cov-foot{ font-size:8pt; color:#A08B6C; margin-top:24mm; letter-spacing:.06em }
+
+  /* 한 명소 = 한 페이지 */
+  .pb-page{ display:flex; flex-direction:column; padding:16mm 14mm 16mm 30mm }
+  .pb-body{ flex:1 1 auto; display:flex; flex-direction:column; justify-content:center }
+  .pb-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:5mm }
+  .pb-rg{ font-size:8.5pt; font-weight:900; color:#10493B; background:#E6F1EC; border:.3mm solid #C3DDD2;
+    border-radius:10mm; padding:.8mm 4mm }
+  .pb-idx{ font-size:8pt; color:#A08B6C; letter-spacing:.12em }
+  .pb-shot{ width:100%; height:118mm; overflow:hidden; background:#F7EFDD;
+    border:.6mm solid #fff; box-shadow:0 0 0 .3mm #E7D8BC; border-radius:1mm }
+  .pb-shot img{ width:100%; height:100%; object-fit:cover; display:block }
+  .pb-shot.empty{ display:grid; place-items:center; border:.4mm dashed #CBB794; color:#B39D78; font-size:10pt; font-weight:700 }
+  .pb-name{ font-size:22pt; font-weight:900; color:#1B2A1F; margin-top:7mm; line-height:1.2; letter-spacing:-.01em }
+  .pb-en{ font-size:10.5pt; color:#6B5847; margin-top:1.5mm }
+  .pb-charm{ font-size:10.5pt; line-height:1.7; color:#3A2C1F; margin-top:5mm }
+  .pb-memo{ margin-top:6mm; background:#FFFBF1; border-left:1mm solid #C8912B; padding:4mm 5mm }
+  .pb-memo .k{ font-size:8pt; font-weight:900; color:#8A6A3F; letter-spacing:.06em }
+  .pb-memo .v{ font-size:10.5pt; line-height:1.65; color:#2A1E14; margin-top:1.5mm; white-space:pre-wrap }
+  .pb-memo .lines span{ display:block; height:8mm; border-bottom:.25mm solid #EADCC2 }
+  .pb-page.compact .pb-shot{ height:88mm }
+  .pb-page.compact .pb-charm{ font-size:9.5pt; line-height:1.6; margin-top:3mm }
+  .pb-page.compact .pb-name{ font-size:18pt; margin-top:5mm }
+  .pb-info{ border-top:.3mm solid #E9DAC2; padding-top:4mm; font-size:8.5pt; line-height:1.6;
+    color:#5E4B3A; display:flex; flex-direction:column; gap:1.5mm }
+  .pb-num{ position:absolute; right:14mm; bottom:9mm; font-size:8pt; color:#A08B6C }
+  .pb-end{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6mm; text-align:center }
+  .pb-end .t{ font-size:16pt; font-weight:900; color:#123B33 }
+  .pb-cov-tip{ position:absolute; left:30mm; bottom:12mm; font-size:7.5pt; color:#A08B6C; letter-spacing:.02em }
+  .pb-end .s{ font-size:10pt; color:#6B5847 }
+}
 </style>
 </head>
 <body data-lang="ko">
@@ -237,6 +351,11 @@ body[data-lang="en"] .chip .cn{font-size:.86rem;letter-spacing:-.01em}
         <button type="button" id="shareBtn" class="pill">📤 <span id="shareLbl">공유</span></button>
       </div>
     </div>
+    <div class="pcount" id="photoCount">
+      <span class="lb">📷 <span id="pcLbl">내 여행 사진</span> <b id="pcNum">0</b> <span id="pcOf">/ 30곳</span></span>
+      <span class="bar" aria-hidden="true"><i id="pcBar"></i></span>
+      <button type="button" class="pbtn" id="printTop">🖨️ <span id="printLbl" class="pb-tx">앨범 인쇄</span></button>
+    </div>
   </div>
 </header>
 
@@ -255,6 +374,8 @@ body[data-lang="en"] .chip .cn{font-size:.86rem;letter-spacing:-.01em}
   <section id="view-fav" hidden>
     <div class="wrap">
       <div class="secbar"><h2 id="favTitle">찜한 곳</h2><span class="cnt" id="favCnt"></span></div>
+      <div class="printbar"><button type="button" class="bigbtn" id="printBtn">🖨️ <span id="printLbl2">앨범 인쇄 · PDF 저장</span></button>
+        <p class="printhint" id="printHint">사진·메모를 채운 곳으로 여행 책자가 만들어져요. 인쇄 창에서 <b>배경 그래픽</b>을 켜면 색이 그대로 나와요.</p></div>
       <div class="list" id="favList"></div>
     </div>
   </section>
@@ -308,26 +429,15 @@ body[data-lang="en"] .chip .cn{font-size:.86rem;letter-spacing:-.01em}
 
 <div class="toast" id="toast" hidden></div>
 
+<!-- 인쇄용 여행 앨범(책자) — 화면에서는 숨기고 인쇄할 때만 보인다 -->
+<div id="printBook" aria-hidden="true"></div>
+
 <script>
 "use strict";
 /* ══════════════════════════════════════════════════════════
    와글링 한국여행 v1 — 지역별 명소 30 · 한/EN · 찜·메모 · 큰 글씨 카드
    · 외부 API·서버·개인정보 없음 · 그림은 전부 이 파일 안의 SVG
    ══════════════════════════════════════════════════════════ */
-
-/* ── 색 팔레트 (명소 그림의 하늘·물·지붕) ── */
-var PAL = {
-  dawn:  {s1:'#FFE2B4', s2:'#FFB68A', sun:'#FFD166', far:'#8A6552', near:'#5E4437', gnd:'#F3E3C9', wat:'#8FBECB', roof:'#FFF7E6', acc:'#B4342A'},
-  day:   {s1:'#CFEAF4', s2:'#9AD2E6', sun:'#FFD75E', far:'#7FA98F', near:'#557F6C', gnd:'#EBE2CE', wat:'#67AEC7', roof:'#FFFBF0', acc:'#2E7D5B'},
-  dusk:  {s1:'#F8C4A6', s2:'#8E70A6', sun:'#FFE0A3', far:'#4E3F6B', near:'#322847', gnd:'#D9C7B4', wat:'#7B88BA', roof:'#FFF0D8', acc:'#B4342A'},
-  night: {s1:'#16233E', s2:'#2E4A72', sun:'#F4E3A6', far:'#101B31', near:'#0A1322', gnd:'#2A3448', wat:'#2C4868', roof:'#F2E6CB', acc:'#E9B44C'},
-  sea:   {s1:'#C6ECF2', s2:'#7EC4DA', sun:'#FFDE7A', far:'#6FA3A8', near:'#40787C', gnd:'#F0E4CA', wat:'#3E9BB8', roof:'#FFF8EC', acc:'#C0552F'},
-  forest:{s1:'#DCF0DA', s2:'#9FD1AA', sun:'#FFE07A', far:'#5C8F6C', near:'#36634B', gnd:'#E5E7CE', wat:'#6FAFB4', roof:'#FFF9EC', acc:'#8A4B2A'},
-  sand:  {s1:'#FFEDCB', s2:'#F7D08F', sun:'#FFD166', far:'#B08B62', near:'#7E6045', gnd:'#F4E6C8', wat:'#6FB7C4', roof:'#FFFAF0', acc:'#9C3B2E'},
-  mist:  {s1:'#E8E9E6', s2:'#C3CBC6', sun:'#F4DFA8', far:'#9AA8A0', near:'#6E7E76', gnd:'#E9E6DC', wat:'#8FA9A9', roof:'#FFFBF2', acc:'#7A4B34'},
-  autumn:{s1:'#FFE0AC', s2:'#F0A96C', sun:'#FFD06B', far:'#9C6B42', near:'#6C4A2E', gnd:'#EFE0C0', wat:'#7FB3BE', roof:'#FFF6E6', acc:'#A8392B'},
-  snow:  {s1:'#EAF3F8', s2:'#BED6E4', sun:'#FFE6A8', far:'#9FB4C0', near:'#71889A', gnd:'#F4F7F7', wat:'#7DA3B8', roof:'#FFFDF7', acc:'#3F6D8C'}
-};
 
 /* ── 지역 ── */
 var REGIONS = [
@@ -706,7 +816,7 @@ var PHRASES = [
 /* ── 화면 글 (한/EN) ── */
 var T = {
  ko:{ app:'와글링 한국여행', tag:'관광지 30곳 · 가는 법·입장료·먹거리',
-  intro:'<b>서울·부산·경주·제주·전주·김해·안동·강릉</b> 명소 30곳. 지역을 고르고 ❤️로 담아 두세요. 가는 법·입장료·먹거리·큰 글씨 카드가 한 화면에 있어요.',
+  intro:'<b>서울·부산·경주·제주·전주·김해·안동·강릉</b> 명소 30곳. 지역을 고르고 ❤️로 담아 두세요. 가는 법·입장료·먹거리와 함께 <b>📷 내가 찍은 사진</b>으로 채우는 여행 도감이에요. 사진은 이 폰에만 저장돼요.',
   install:'설치', share:'공유', listTitle:'지역별 명소', tabList:'관광지', tabFav:'찜', tabCard:'손짓 카드',
   favTitle:'찜한 곳', favEmpty:'아직 찜한 곳이 없어요.<br>관광지 목록에서 ❤️를 눌러 담아 보세요.', favEmptyGo:'관광지 보러 가기',
   cardIntro:'말이 안 통할 때는 <b>큰 글씨 화면을 그대로 보여 주세요</b>. 카드를 누르면 화면 가득 크게 뜨고, 🔊로 한국어 소리도 들려줄 수 있어요.',
@@ -722,9 +832,15 @@ var T = {
   already:'이미 설치되어 있어요', installing:'설치를 시작해요', installed:'설치했어요',
   shareText:'와글링 한국여행 · 한국 관광지 30곳 가이드 (외국인·내국인)', shareOk:'공유했어요',
   bigTitle:'큰 글씨 카드', close:'닫기', sayLbl:'한국어로 읽어 주기',
-  noteSaved:'메모를 저장했어요', regionAll:'전체', places:'곳', none:'이 지역은 준비 중이에요.'},
+  noteSaved:'메모를 저장했어요', regionAll:'전체', places:'곳', none:'이 지역은 준비 중이에요.',
+  myPhotos:'내 여행 사진', pcOf:'/ 30곳', shotEmpty:'방문 사진을 찍거나 골라서 채워 보세요', shotSlot:'사진 자리',
+  shotPick:'사진 넣기', shotChange:'사진 바꾸기', shotDelete:'사진 지우기', myShot:'내 사진',
+  photoSaved:'사진을 넣었어요', photoDeleted:'사진을 지웠어요', photoUndo:'되돌리기',
+  photoFull:'저장 공간이 부족해요. 사진 하나를 지우고 다시 해 주세요.', photoErr:'사진을 열지 못했어요. 다른 사진으로 해 보세요.',
+  printAlbum:'앨범 인쇄', printAlbum2:'앨범 인쇄 · PDF 저장', printAll:'아직 채운 사진이 없어 지금 목록을 인쇄해요.',
+  printHint:'사진·메모를 채운 곳으로 여행 책자가 만들어져요. 인쇄 창에서 <b>배경 그래픽</b>을 켜면 색이 그대로 나와요.'},
  en:{ app:'Wagling Korea Travel', tag:'30 places · how to get there',
-  intro:'<b>Seoul, Busan, Gyeongju, Jeju, Jeonju, Gimhae, Andong and Gangneung</b> — 30 places. Pick a region, tap ❤️ to save. Getting there, tickets, food and big Korean cards, all here.',
+  intro:'<b>Seoul, Busan, Gyeongju, Jeju, Jeonju, Gimhae, Andong and Gangneung</b> — 30 places. Pick a region, tap ❤️ to save, and fill each place with <b>your own 📷 photo</b>. Photos stay on this phone only.',
   install:'Install', share:'Share', listTitle:'Places by region', tabList:'Places', tabFav:'Saved', tabCard:'Hand cards',
   favTitle:'Saved places', favEmpty:'Nothing saved yet.<br>Tap ❤️ on a place to keep it here.', favEmptyGo:'See places',
   cardIntro:'When words fail, <b>show the big screen</b>. Tap a card to fill the screen, and 🔊 speaks the Korean for you.',
@@ -740,11 +856,17 @@ var T = {
   already:'Already installed', installing:'Starting install', installed:'Installed',
   shareText:'Wagling Korea Travel · a guide to 30 places in Korea (fees, food, big Korean cards)', shareOk:'Shared',
   bigTitle:'Big card', close:'Close', sayLbl:'Read it in Korean',
-  noteSaved:'Note saved', regionAll:'All', places:'places', none:'Coming soon for this region.'}
+  noteSaved:'Note saved', regionAll:'All', places:'places', none:'Coming soon for this region.',
+  myPhotos:'My photos', pcOf:'/ 30', shotEmpty:'Take or pick a photo of this place', shotSlot:'Photo space',
+  shotPick:'Add photo', shotChange:'Change photo', shotDelete:'Remove', myShot:'My photo',
+  photoSaved:'Photo added', photoDeleted:'Photo removed', photoUndo:'Undo',
+  photoFull:'Storage is full. Remove a photo and try again.', photoErr:'Could not open that image. Try another one.',
+  printAlbum:'Print album', printAlbum2:'Print album · PDF', printAll:'No photos yet — printing the current list.',
+  printHint:'Your photo-and-note spots become a travel book. Turn on <b>Background graphics</b> in the print dialog to keep the colours.'}
 };
 
 /* ── 저장·상태 ── */
-var LS_FAV='wagle-korea-travel:favs', LS_NOTE='wagle-korea-travel:notes', LS_LANG='wagle-korea-travel:lang';
+var LS_FAV='wagle-korea-travel:favs', LS_NOTE='wagle-korea-travel:notes', LS_LANG='wagle-korea-travel:lang', LS_PHOTO='wagle-korea-travel:photos';
 function lsGet(k, d){ try{ var v=localStorage.getItem(k); return v? JSON.parse(v): d; }catch(e){ return d; } }
 function lsSet(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
 function detectLang(){
@@ -756,6 +878,7 @@ function detectLang(){
 var lang = detectLang(), li = lang === 'ko' ? 0 : 1;
 var favs = lsGet(LS_FAV, []); if(!Array.isArray(favs)) favs = [];
 var notes = lsGet(LS_NOTE, {}); if(!notes || typeof notes !== 'object') notes = {};
+var photos = lsGet(LS_PHOTO, {}); if(!photos || typeof photos !== 'object' || Object.prototype.toString.call(photos) === '[object Array]') photos = {};
 var st = {tab:'list', rg:'all', id:null};
 var listScroll = 0;
 
@@ -765,275 +888,192 @@ function spotById(id){ for(var i=0;i<SPOTS.length;i++){ if(SPOTS[i].id===id) ret
 function regionById(id){ for(var i=0;i<REGIONS.length;i++){ if(REGIONS[i].id===id) return REGIONS[i]; } return REGIONS[0]; }
 function isFav(id){ return favs.indexOf(id) >= 0; }
 function $(s){ return document.querySelector(s); }
-function toast(msg){ var el=$('#toast'); if(!el) return; el.textContent=msg; el.hidden=false;
-  clearTimeout(toast._t); toast._t=setTimeout(function(){ el.hidden=true; }, 1900); }
-
-/* ══════════ 명소 그림 (이 파일 안에서 직접 그린 SVG) ══════════ */
-function hills(p, y1, y2){
-  return '<path d="M0,'+y1+' C42,'+(y1-26)+' 86,'+(y1-10)+' 128,'+(y1+6)+' C172,'+(y1+24)+' 210,'+(y1-4)+' 252,'+(y1-12)
-    +' C286,'+(y1-18)+' 302,'+(y1-4)+' 320,'+(y1+6)+' L320,150 L0,150 Z" fill="'+p.far+'"/>'
-   + '<path d="M0,'+y2+' C38,'+(y2-16)+' 76,'+(y2-4)+' 116,'+(y2+8)+' C158,'+(y2+20)+' 196,'+(y2-2)+' 236,'+(y2-8)
-    +' C272,'+(y2-14)+' 300,'+(y2+2)+' 320,'+(y2+10)+' L320,150 L0,150 Z" fill="'+p.near+'"/>';
-}
-function sun(p, cx, cy, r){
-  return '<circle cx="'+cx+'" cy="'+cy+'" r="'+(r*2.4)+'" fill="'+p.sun+'" opacity=".18"/>'
-       + '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="'+p.sun+'"/>';
-}
-function ground(p, y){ return '<rect x="0" y="'+y+'" width="320" height="'+(150-y)+'" fill="'+p.gnd+'"/>'; }
-function water(p, y){ return '<rect x="0" y="'+y+'" width="320" height="'+(150-y)+'" fill="'+p.wat+'"/>'
-  + '<g stroke="#FFFFFF" stroke-opacity=".45" stroke-width="2" stroke-linecap="round">'
-  + '<path d="M18,'+(y+12)+' q12,-6 24,0"/><path d="M62,'+(y+24)+' q12,-6 24,0"/>'
-  + '<path d="M120,'+(y+14)+' q12,-6 24,0"/><path d="M182,'+(y+26)+' q12,-6 24,0"/>'
-  + '<path d="M244,'+(y+16)+' q12,-6 24,0"/><path d="M286,'+(y+30)+' q12,-6 24,0"/></g>'; }
-function roof(cx, top, half, h, fill, shade){
-  var rh = half * 0.30;
-  var d = 'M'+(cx-half)+','+(top+h)
-    + ' Q'+(cx-half*0.55)+','+(top+h*0.42)+' '+(cx-rh)+','+top
-    + ' L'+(cx+rh)+','+top
-    + ' Q'+(cx+half*0.55)+','+(top+h*0.42)+' '+(cx+half)+','+(top+h)
-    + ' Q'+cx+','+(top+h*1.22)+' '+(cx-half)+','+(top+h)+' Z';
-  return '<path d="'+d+'" fill="'+fill+'"/>'
-    + '<path d="M'+(cx-half)+','+(top+h)+' Q'+cx+','+(top+h*1.22)+' '+(cx+half)+','+(top+h)
-    + ' L'+(cx+half)+','+(top+h*1.10)+' Q'+cx+','+(top+h*1.10)+' '+(cx-half)+','+(top+h*1.10)+' Z" fill="'+(shade||fill)+'" opacity=".55"/>';
-}
-function tree(x, y, s, c){
-  return '<path d="M'+x+','+y+' l'+(s*0.16)+','+(s*0.9)+' l'+(s*0.7)+',0 Z" fill="'+c+'"/>';
-}
-function pine(x, y, s, c){
-  return '<path d="M'+x+','+(y-s)+' L'+(x+s*0.42)+','+(y-s*0.35)+' L'+(x+s*0.2)+','+(y-s*0.35)
-   +' L'+(x+s*0.55)+','+y+' L'+(x-s*0.55)+','+y+' L'+(x-s*0.2)+','+(y-s*0.35)+' L'+(x-s*0.42)+','+(y-s*0.35)+' Z" fill="'+c+'"/>';
-}
-
-var SCENE = {
-  palace: function(p){
-    return sun(p, 46, 28, 14) + hills(p, 96, 118) + ground(p, 144)
-      + '<rect x="70" y="132" width="180" height="12" rx="2" fill="'+p.gnd+'"/>'
-      + '<rect x="70" y="132" width="180" height="3" fill="#C9B48E" opacity=".7"/>'
-      + '<rect x="88" y="100" width="144" height="34" fill="#C69C60"/>'
-      + '<g fill="#7B5330"><rect x="100" y="104" width="9" height="30"/><rect x="128" y="104" width="9" height="30"/>'
-      + '<rect x="156" y="104" width="9" height="30"/><rect x="184" y="104" width="9" height="30"/><rect x="212" y="104" width="9" height="30"/></g>'
-      + '<rect x="146" y="106" width="28" height="28" fill="'+p.acc+'"/>'
-      + roof(160, 74, 108, 26, p.roof)
-      + '<rect x="124" y="70" width="72" height="16" fill="#C69C60"/>'
-      + '<g fill="#7B5330"><rect x="134" y="72" width="7" height="14"/><rect x="157" y="72" width="7" height="14"/><rect x="180" y="72" width="7" height="14"/></g>'
-      + roof(160, 46, 62, 22, p.roof)
-      + '<rect x="152" y="38" width="16" height="9" rx="2" fill="#C69C60"/>';
-  },
-  tower: function(p){
-    return sun(p, 50, 26, 11) + hills(p, 96, 120) + ground(p, 140)
-      + '<path d="M112,140 Q160,90 208,140 Z" fill="'+p.near+'"/>'
-      + '<rect x="153" y="40" width="14" height="66" fill="#E7DCC4"/>'
-      + '<path d="M144,40 L176,40 L171,24 L149,24 Z" fill="#E7DCC4"/>'
-      + '<rect x="139" y="38" width="42" height="10" rx="3" fill="'+p.acc+'"/>'
-      + '<rect x="158" y="8" width="4" height="17" fill="#E7DCC4"/>'
-      + '<circle cx="160" cy="52" r="4" fill="'+p.sun+'"/>'
-      + '<g fill="#FFF4D2" opacity=".55"><rect x="156" y="72" width="8" height="6"/><rect x="156" y="88" width="8" height="6"/></g>';
-  },
-  market: function(p){
-    var out = sun(p, 44, 26, 12) + hills(p, 100, 120) + ground(p, 106);
-    var cols = ['#C0392B','#2E7D5B','#C8912B','#2F5D8C'];
-    for(var i=0;i<4;i++){
-      var x = 12 + i*78, c = cols[i%4];
-      out += '<rect x="'+x+'" y="84" width="68" height="38" fill="#FFF7E8"/>'
-        + '<path d="M'+(x-6)+',84 L'+(x+74)+',84 L'+(x+64)+',66 L'+(x+4)+',66 Z" fill="'+c+'"/>'
-        + '<path d="M'+(x-6)+',84 L'+(x+74)+',84 L'+(x+74)+',90 L'+(x-6)+',90 Z" fill="'+c+'" opacity=".45"/>'
-        + '<rect x="'+(x+10)+'" y="96" width="14" height="24" rx="2" fill="#E4CEA8"/>'
-        + '<g fill="'+p.sun+'"><circle cx="'+(x+46)+'" cy="98" r="5"/><circle cx="'+(x+56)+'" cy="98" r="5"/><circle cx="'+(x+46)+'" cy="108" r="5"/><circle cx="'+(x+56)+'" cy="108" r="5"/></g>';
-    }
-    return out + '<g fill="#FFF7E8" opacity=".65"><circle cx="132" cy="52" r="6"/><circle cx="146" cy="44" r="4"/><circle cx="158" cy="50" r="5"/></g>';
-  },
-  beach: function(p){
-    var out = sun(p, 54, 28, 15) + hills(p, 90, 104) + water(p, 100)
-      + '<path d="M0,150 L320,150 L320,120 Q160,106 0,124 Z" fill="'+p.gnd+'"/>'
-      + '<g stroke="#FFFFFF" stroke-opacity=".55" stroke-width="2" fill="none" stroke-linecap="round">'
-      + '<path d="M24,112 q14,-6 28,0"/><path d="M188,108 q14,-6 28,0"/><path d="M252,118 q14,-6 28,0"/></g>'
-      + '<path d="M104,122 L104,86" stroke="#8A6B45" stroke-width="4"/>'
-      + '<path d="M104,86 Q76,90 66,108 Q88,100 104,104 Q120,100 142,108 Q132,90 104,86 Z" fill="'+p.acc+'"/>'
-      + '<path d="M104,86 Q90,88 82,100 Q96,96 104,100 Z" fill="#FFFFFF" opacity=".55"/>'
-      + '<path d="M216,126 L216,100" stroke="#8A6B45" stroke-width="3"/>'
-      + '<path d="M216,100 Q200,104 194,116 Q208,112 216,114 Q224,112 238,116 Q232,104 216,100 Z" fill="#EAC46C"/>'
-      + '<g fill="'+p.near+'" opacity=".65"><circle cx="60" cy="132" r="3"/><circle cx="70" cy="136" r="2"/><circle cx="286" cy="130" r="3"/></g>';
-    return out;
-  },
-  village: function(p){
-    var out = sun(p, 46, 28, 12) + hills(p, 74, 96);
-    var cols = ['#F2D7C6','#EFC9A8','#D9E7D2','#F6E3B8','#E3D2EC','#F3C7C2'];
-    for(var r=0;r<3;r++){
-      for(var c=0;c<5-r;c++){
-        var w=34, h=24-r*3, x=40+c*(w+8)+r*14, y=70+r*22;
-        out += '<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" fill="'+cols[(r*5+c)%6]+'"/>'
-          + '<path d="M'+(x-4)+','+y+' L'+(x+w+4)+','+y+' L'+(x+w-2)+','+(y-9)+' L'+(x+2)+','+(y-9)+' Z" fill="'+p.acc+'" opacity=".8"/>'
-          + '<rect x="'+(x+6)+'" y="'+(y+8)+'" width="7" height="7" fill="#7C6A55" opacity=".5"/>';
-      }
-    }
-    return out + ground(p, 136);
-  },
-  cliff: function(p){
-    return sun(p, 46, 26, 13) + hills(p, 96, 110) + water(p, 98)
-      + '<path d="M0,150 L0,64 L34,58 L70,74 L96,96 L120,112 L140,150 Z" fill="'+p.near+'"/>'
-      + '<path d="M96,150 L120,112 L128,120 L116,150 Z" fill="#FFFFFF" opacity=".15"/>'
-      + '<rect x="40" y="24" width="13" height="38" fill="#FFFFFF"/>'
-      + '<rect x="37" y="20" width="19" height="7" rx="2" fill="'+p.acc+'"/>'
-      + '<path d="M40,34 L53,34" stroke="#C9D6D2" stroke-width="3"/>'
-      + '<circle cx="46" cy="16" r="3" fill="'+p.sun+'"/>'
-      + '<g fill="'+p.near+'" opacity=".5"><path d="M196,120 q6,-8 12,0 q-6,-4 -12,0"/><path d="M222,132 q6,-8 12,0 q-6,-4 -12,0"/></g>';
-  },
-  temple: function(p){
-    return sun(p, 52, 26, 12) + hills(p, 90, 108) + ground(p, 138)
-      + roof(160, 62, 46, 20, p.roof)
-      + '<rect x="138" y="82" width="44" height="14" fill="#B54A38"/>'
-      + roof(160, 88, 40, 18, p.roof)
-      + '<rect x="140" y="106" width="40" height="12" fill="#B54A38"/>'
-      + roof(160, 112, 34, 16, p.roof)
-      + '<rect x="150" y="128" width="20" height="14" fill="#C69C60"/>'
-      + pine(64, 144, 30, '#2E5B44') + pine(256, 146, 26, '#2E5B44');
-  },
-  tomb: function(p){
-    return sun(p, 48, 26, 13) + hills(p, 96, 112)
-      + '<rect x="0" y="120" width="320" height="30" fill="'+p.gnd+'"/>'
-      + '<path d="M128,150 Q160,124 192,150 Z" fill="#D9CBAF"/>'
-      + '<path d="M26,146 Q74,74 122,146 Z" fill="#5C8A56"/>'
-      + '<path d="M40,146 Q74,96 108,146" fill="none" stroke="#7FA86F" stroke-width="3" opacity=".8"/>'
-      + '<path d="M104,150 Q166,64 228,150 Z" fill="#4E7A4A"/>'
-      + '<path d="M124,150 Q166,88 208,150" fill="none" stroke="#6E9A62" stroke-width="3" opacity=".85"/>'
-      + '<path d="M212,150 Q256,96 300,150 Z" fill="#5C8A56"/>'
-      + '<path d="M0,138 Q60,128 120,138 Q200,150 320,134 L320,150 L0,150 Z" fill="'+p.gnd+'" opacity=".55"/>'
-      + pine(20, 148, 26, '#264C39') + pine(304, 148, 22, '#264C39');
-  },
-  pond: function(p){
-    var out = '<rect width="320" height="150" fill="'+p.s2+'"/>' + sun(p, 46, 26, 12) + hills(p, 84, 100)
-      + water(p, 100);
-    out += roof(160, 56, 42, 18, p.roof) + '<rect x="140" y="74" width="40" height="20" fill="#B54A38"/>'
-      + '<rect x="150" y="94" width="6" height="14" fill="#8A6B45"/><rect x="164" y="94" width="6" height="14" fill="#8A6B45"/>'
-      + '<g opacity=".5"><rect x="140" y="108" width="40" height="18" fill="'+p.roof+'"/><rect x="150" y="106" width="6" height="14" fill="'+p.acc+'"/></g>'
-      + '<circle cx="250" cy="126" r="8" fill="'+p.acc+'" opacity=".45"/><circle cx="236" cy="128" r="5" fill="'+p.acc+'" opacity=".35"/>'
-      + '<circle cx="70" cy="130" r="6" fill="#FFFFFF" opacity=".25"/>';
-    return out;
-  },
-  volcano: function(p){
-    return '<rect width="320" height="150" fill="'+p.s2+'"/>' + sun(p, 60, 48, 20)
-      + '<g stroke="'+p.sun+'" stroke-width="3" stroke-opacity=".35" stroke-linecap="round">'
-      + '<path d="M60,14 L60,4"/><path d="M36,22 L29,15"/><path d="M84,22 L91,15"/></g>'
-      + water(p, 100)
-      + '<path d="M84,150 Q160,40 236,150 Z" fill="'+p.near+'"/>'
-      + '<path d="M118,94 Q160,70 202,94 Q160,82 118,94 Z" fill="#2B3F35"/>'
-      + '<path d="M0,150 L0,128 Q60,122 120,128 Q200,136 320,122 L320,150 Z" fill="'+p.gnd+'" opacity=".5"/>';
-  },
-  cave: function(p){
-    var out = hills(p, 78, 96) + ground(p, 120)
-      + '<path d="M40,150 L40,52 Q160,10 280,52 L280,150 Z" fill="'+p.near+'"/>'
-      + '<path d="M96,150 Q96,84 160,84 Q224,84 224,150 Z" fill="#231C16"/>'
-      + '<path d="M96,150 Q96,84 160,84 Q224,84 224,150 Z" fill="none" stroke="'+p.sun+'" stroke-opacity=".3" stroke-width="3"/>';
-    out += '<g fill="'+p.far+'"><path d="M120,84 l6,20 l6,-20 Z"/><path d="M146,82 l5,26 l5,-26 Z"/><path d="M172,84 l6,18 l6,-18 Z"/><path d="M196,86 l5,14 l5,-14 Z"/></g>';
-    return out;
-  },
-  mountain: function(p){
-    return '<rect width="320" height="150" fill="'+p.s1+'"/>' + sun(p, 62, 30, 14)
-      + '<path d="M-10,150 L60,44 L108,104 L146,66 L206,150 Z" fill="'+p.far+'"/>'
-      + '<path d="M120,150 L196,58 L248,104 L288,72 L330,150 Z" fill="'+p.near+'"/>'
-      + '<path d="M176,88 L196,58 L214,86 Q196,96 176,88 Z" fill="#FFFFFF" opacity=".85"/>'
-      + '<path d="M96,132 Q160,112 224,132 Q160,124 96,132 Z" fill="#FFFFFF" opacity=".55"/>'
-      + '<path d="M0,150 L0,138 Q80,128 160,138 Q240,148 320,136 L320,150 Z" fill="'+p.gnd+'"/>';
-  },
-  island: function(p){
-    var out = '<rect width="320" height="150" fill="'+p.s2+'"/>' + sun(p, 56, 30, 13) + water(p, 92);
-    out += '<path d="M120,92 Q170,58 226,92 Z" fill="'+p.near+'"/>'
-      + '<path d="M148,92 Q160,74 172,92 Z" fill="'+p.far+'"/>'
-      + '<rect x="196" y="52" width="10" height="30" fill="#FFFFFF"/>'
-      + '<rect x="193" y="48" width="16" height="6" rx="2" fill="'+p.acc+'"/>'
-      + '<g opacity=".9"><path d="M18,124 l26,0 l-4,11 l-18,0 Z" fill="#F4ECDC"/>'
-      + '<rect x="28" y="112" width="9" height="12" fill="#E3D2B4"/></g>'
-      + '<g stroke="#FFFFFF" stroke-opacity=".5" stroke-width="2" fill="none" stroke-linecap="round">'
-      + '<path d="M64,116 q12,-5 24,0"/><path d="M210,120 q12,-5 24,0"/></g>';
-    return out;
-  },
-  rail: function(p){
-    var out = sun(p, 48, 26, 12) + hills(p, 84, 104) + ground(p, 96);
-    out += '<path d="M0,150 L156,92" stroke="#9A7B52" stroke-width="5"/>'
-      + '<path d="M320,150 L164,92" stroke="#9A7B52" stroke-width="5"/>'
-      + '<g stroke="#7A5D3A" stroke-width="3" opacity=".55">'
-      + '<path d="M26,142 L150,99"/><path d="M294,142 L170,99"/>'
-      + '<path d="M62,128 L143,101"/><path d="M258,128 L177,101"/>'
-      + '<path d="M94,116 L137,103"/><path d="M226,116 L183,103"/></g>'
-      + '<rect x="120" y="66" width="80" height="26" rx="6" fill="'+p.acc+'"/>'
-      + '<rect x="132" y="56" width="56" height="12" rx="4" fill="#FFF3DC"/>'
-      + '<circle cx="134" cy="94" r="7" fill="#3A2B1E"/><circle cx="186" cy="94" r="7" fill="#3A2B1E"/>'
-      + '<rect x="150" y="46" width="4" height="12" fill="#3A2B1E"/><rect x="168" y="46" width="4" height="12" fill="#3A2B1E"/>';
-    return out;
-  },
-  museum: function(p){
-    return sun(p, 52, 26, 12) + hills(p, 90, 110) + ground(p, 116)
-      + '<path d="M150,128 Q196,60 242,128 Z" fill="#5F8A5B"/>'
-      + '<rect x="52" y="76" width="132" height="52" fill="#EDE3D0"/>'
-      + '<rect x="52" y="68" width="132" height="10" fill="'+p.acc+'"/>'
-      + '<g fill="#8FB3C4"><rect x="64" y="86" width="20" height="30"/><rect x="92" y="86" width="20" height="30"/><rect x="120" y="86" width="20" height="30"/><rect x="148" y="86" width="20" height="30"/></g>'
-      + '<rect x="196" y="100" width="70" height="28" fill="#EDE3D0"/>'
-      + '<rect x="196" y="94" width="70" height="8" fill="'+p.acc+'"/>';
-  },
-  bridge: function(p){
-    var out = '<rect width="320" height="150" fill="'+p.s2+'"/>' + sun(p, 44, 24, 11) + hills(p, 82, 96) + water(p, 100);
-    out += '<path d="M0,104 L320,92" stroke="'+p.roof+'" stroke-width="7"/>'
-      + '<path d="M0,104 L320,92" stroke="'+p.gnd+'" stroke-width="2" opacity=".55"/>'
-      + '<g stroke="'+p.roof+'" stroke-width="4">'
-      + '<path d="M30,102 L30,128"/><path d="M86,100 L86,126"/><path d="M142,98 L142,124"/>'
-      + '<path d="M198,96 L198,122"/><path d="M254,94 L254,120"/><path d="M306,92 L306,118"/></g>'
-      + '<g fill="'+p.sun+'">'
-      + '<circle cx="52" cy="99" r="2.5"/><circle cx="108" cy="97" r="2.5"/><circle cx="164" cy="95" r="2.5"/>'
-      + '<circle cx="220" cy="93" r="2.5"/><circle cx="276" cy="91" r="2.5"/></g>';
-    return out;
-  },
-  river: function(p){
-    var out = sun(p, 54, 28, 13) + hills(p, 84, 102);
-    out += '<path d="M0,150 L0,112 Q80,96 160,116 Q240,136 320,118 L320,150 Z" fill="'+p.wat+'"/>'
-      + '<path d="M0,118 Q80,102 160,122 Q240,142 320,124" fill="none" stroke="#FFF" stroke-opacity=".4" stroke-width="2"/>';
-    for(var i=0;i<5;i++){
-      var x = 44 + i*48, y = 104 - (i%2)*6;
-      out += roof(x, y-14, 22, 10, p.roof) + '<rect x="'+(x-14)+'" y="'+(y-4)+'" width="28" height="12" fill="#C69C60"/>';
-    }
-    out += pine(292, 118, 24, '#2E5B44') + pine(20, 122, 20, '#2E5B44');
-    return out;
-  },
-  church: function(p){
-    return sun(p, 52, 26, 12) + hills(p, 92, 110) + ground(p, 128)
-      + '<rect x="112" y="66" width="96" height="62" fill="#B0604F"/>'
-      + '<path d="M112,66 L208,66 L160,34 Z" fill="#8E4A3C"/>'
-      + '<rect x="150" y="18" width="20" height="24" fill="#B0604F"/>'
-      + '<path d="M150,18 L170,18 L160,4 Z" fill="#8E4A3C"/>'
-      + '<rect x="152" y="8" width="3" height="14" fill="#F4E6C8"/><rect x="147" y="12" width="13" height="3" fill="#F4E6C8"/>'
-      + '<circle cx="160" cy="88" r="12" fill="#F2D7A8"/>'
-      + '<rect x="128" y="96" width="14" height="32" rx="7" fill="#7A3B30"/>'
-      + '<rect x="178" y="96" width="14" height="32" rx="7" fill="#7A3B30"/>'
-      + '<rect x="154" y="112" width="12" height="16" fill="#6B352C"/>';
-  },
-  hanok: function(p){
-    return sun(p, 48, 26, 12) + hills(p, 88, 108) + ground(p, 124)
-      + roof(150, 74, 74, 30, p.roof) + '<rect x="86" y="104" width="128" height="10" fill="#C69C60"/>'
-      + '<rect x="98" y="114" width="8" height="14" fill="#7B5330"/><rect x="126" y="114" width="8" height="14" fill="#7B5330"/>'
-      + '<rect x="166" y="114" width="8" height="14" fill="#7B5330"/><rect x="194" y="114" width="8" height="14" fill="#7B5330"/>'
-      + '<rect x="140" y="112" width="20" height="16" fill="'+p.acc+'"/>'
-      + '<path d="M236,128 L236,88 M248,128 L248,84 M260,128 L260,92" stroke="#2C3B33" stroke-width="4"/>'
-      + '<circle cx="236" cy="86" r="6" fill="#3F6A41"/><circle cx="248" cy="80" r="7" fill="#3F6A41"/><circle cx="260" cy="88" r="6" fill="#3F6A41"/>';
-  },
-  seowon: function(p){
-    return sun(p, 54, 26, 11) + hills(p, 86, 104) + ground(p, 126)
-      + roof(180, 66, 78, 26, p.roof)
-      + '<rect x="112" y="92" width="136" height="12" fill="#C69C60"/>'
-      + '<rect x="124" y="104" width="8" height="20" fill="#7B5330"/><rect x="156" y="104" width="8" height="20" fill="#7B5330"/>'
-      + '<rect x="196" y="104" width="8" height="20" fill="#7B5330"/><rect x="228" y="104" width="8" height="20" fill="#7B5330"/>'
-      + '<rect x="272" y="80" width="30" height="44" fill="#E8DCC4"/>'
-      + pine(60, 128, 34, '#2E5B44') + pine(38, 132, 26, '#356B4C')
-      + '<path d="M0,138 Q80,128 160,138 Q240,148 320,136" fill="none" stroke="'+p.wat+'" stroke-width="4" opacity=".7"/>';
+function toast(msg, actLabel, actFn){
+  var el=$('#toast'); if(!el) return;
+  el.textContent = msg;
+  if(actLabel && actFn){
+    var b=document.createElement('button'); b.type='button'; b.className='tundo'; b.textContent=actLabel;
+    b.addEventListener('click', function(e){ e.stopPropagation(); el.hidden=true; actFn(); });
+    el.appendChild(b);
   }
-};
+  el.hidden=false;
+  clearTimeout(toast._t); toast._t=setTimeout(function(){ el.hidden=true; }, actLabel ? 4200 : 1900);
+}
 
-function illSVG(s, uid){
-  var p = PAL[s.pal] || PAL.day;
-  var fn = SCENE[s.ill] || SCENE.beach;
-  var inner = fn(p);
-  return '<svg class="ill" viewBox="0 0 320 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">'
-    + '<defs><linearGradient id="sk' + uid + '" x1="0" y1="0" x2="0" y2="1">'
-    + '<stop offset="0" stop-color="' + p.s1 + '"/><stop offset="1" stop-color="' + p.s2 + '"/></linearGradient></defs>'
-    + '<rect width="320" height="150" fill="url(#sk' + uid + ')"/>' + inner + '</svg>';
+/* ══════════ 내 여행 사진 (이 폰에만 저장) ══════════ */
+var photoTarget = null, lastDel = null;
+function lsSave(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } }
+function photoN(){ var n=0, k; for(k in photos){ if(photos[k]) n++; } return n; }
+function noteN(){ var n=0, k; for(k in notes){ if(notes[k] && String(notes[k]).replace(/\s/g,'')) n++; } return n; }
+function hasNote(id){ return !!(notes[id] && String(notes[id]).replace(/\s/g,'')); }
+
+function frameHTML(s){
+  var d = photos[s.id] || '', r = regionById(s.rg);
+  if(d){
+    return '<div class="shot"><span class="cnr tl"></span><span class="cnr tr"></span><span class="cnr bl"></span><span class="cnr br"></span>'
+      + '<span class="phwrap"><img src="'+d+'" alt="'+esc(s.nm[li])+' — '+esc(t('myShot'))+'"></span>'
+      + '<span class="cap"><span>📷 '+esc(t('myShot'))+'</span></span></div>';
+  }
+  return '<div class="shot"><span class="cnr tl"></span><span class="cnr tr"></span><span class="cnr bl"></span><span class="cnr br"></span>'
+    + '<button type="button" class="phwrap empty" data-photo="'+s.id+'">'
+    + '<span class="cam" aria-hidden="true">📷</span>'
+    + '<span class="et">'+esc(t('shotEmpty'))+'</span>'
+    + '<span class="eb">'+esc(t('shotPick'))+'</span></button>'
+    + '<span class="cap"><span>'+esc(t('shotSlot'))+'</span></span></div>';
+}
+function thumbHTML(s){
+  var d = photos[s.id];
+  return '<span class="th">' + (d ? '<img src="'+d+'" alt="">' : '<span class="thnone" aria-hidden="true">📷</span>') + '</span>';
+}
+function photoActionsHTML(s){
+  var d = photos[s.id];
+  if(!d) return '';   /* 빈 사진틀은 틀 자체가 '사진 넣기' 버튼이라 버튼을 겹쳐 두지 않는다 */
+  return '<div class="phacts">'
+    + '<button type="button" class="phbtn" data-photo="'+s.id+'">📷 '+esc(t('shotChange'))+'</button>'
+    + '<button type="button" class="phbtn del" data-delphoto="'+s.id+'">🗑️ '+esc(t('shotDelete'))+'</button>'
+    + '</div>';
+}
+
+/* 사진 고르기 → 720×428 JPEG로 줄여 저장 */
+var photoInput = null;
+function openPhotoPicker(id){
+  photoTarget = id;
+  if(!photoInput){
+    photoInput = document.createElement('input');
+    photoInput.type = 'file'; photoInput.accept = 'image/*';
+    photoInput.setAttribute('aria-label', t('shotPick'));
+    photoInput.style.cssText = 'position:fixed;left:-9999px;top:0;width:1px;height:1px;opacity:0';
+    photoInput.addEventListener('change', onPhotoChosen);
+    document.body.appendChild(photoInput);
+  }
+  try{ photoInput.value = ''; }catch(e){}
+  photoInput.click();
+}
+function onPhotoChosen(){
+  var f = photoInput && photoInput.files && photoInput.files[0];
+  var id = photoTarget; photoTarget = null;
+  if(!f || !id) return;
+  if(f.type && f.type.indexOf('image/') !== 0){ toast(t('photoErr')); return; }
+  compressPhoto(f, function(dataUrl){
+    if(!dataUrl){ toast(t('photoErr')); return; }
+    var before = photos[id];
+    photos[id] = dataUrl;
+    if(!lsSave(LS_PHOTO, photos)){
+      if(before) photos[id] = before; else delete photos[id];
+      toast(t('photoFull')); renderAll(); return;
+    }
+    lastDel = null;
+    renderAll();
+    toast(t('photoSaved'));
+  });
+}
+function compressPhoto(file, cb){
+  var url = null, done = false;
+  function finish(v){ if(done) return; done = true; try{ if(url) URL.revokeObjectURL(url); }catch(e){} cb(v); }
+  try{ url = URL.createObjectURL(file); }catch(e){ finish(null); return; }
+  var img = new Image();
+  img.onload = function(){
+    try{
+      var TW = 720, TH = 428;
+      var c = document.createElement('canvas'); c.width = TW; c.height = TH;
+      var ctx = c.getContext('2d');
+      var iw = img.naturalWidth || img.width, ih = img.naturalHeight || img.height;
+      if(!iw || !ih) { finish(null); return; }
+      var tr = TW / TH, sr = iw / ih, sw, sh, sx, sy;
+      if(sr > tr){ sh = ih; sw = Math.round(ih * tr); sx = Math.round((iw - sw) / 2); sy = 0; }
+      else { sw = iw; sh = Math.round(iw / tr); sx = 0; sy = Math.round((ih - sh) * 0.42); }
+      if('imageSmoothingQuality' in ctx) ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, TW, TH);
+      finish(c.toDataURL('image/jpeg', 0.78));
+    }catch(e){ finish(null); }
+  };
+  img.onerror = function(){ finish(null); };
+  img.src = url;
+}
+function delPhoto(id){
+  var before = photos[id]; if(!before) return;
+  delete photos[id];
+  if(!lsSave(LS_PHOTO, photos)){ photos[id] = before; toast(t('photoFull')); return; }
+  lastDel = { id: id, data: before };
+  renderAll();
+  toast(t('photoDeleted'), t('photoUndo'), undoDel);
+}
+function undoDel(){
+  if(!lastDel) return;
+  var d = lastDel; lastDel = null;
+  photos[d.id] = d.data;
+  if(!lsSave(LS_PHOTO, photos)){ delete photos[d.id]; toast(t('photoFull')); renderAll(); return; }
+  renderAll(); toast(t('photoSaved'));
+}
+
+/* ══════════ 인쇄용 여행 앨범(책자) ══════════ */
+function pbHoles(){ return '<span class="pb-punch"></span><span class="pb-hole h1"></span><span class="pb-hole h2"></span><span class="pb-hole h3"></span>'; }
+function buildPrintBook(){
+  var box = $('#printBook'); if(!box) return;
+  var list = [], i, s;
+  for(i=0;i<SPOTS.length;i++){ s=SPOTS[i]; if(photos[s.id] || hasNote(s.id)) list.push(s); }
+  var fallback = false;
+  if(!list.length){
+    fallback = true;
+    for(i=0;i<SPOTS.length;i++){ if(st.rg === 'all' || SPOTS[i].rg === st.rg) list.push(SPOTS[i]); }
+  }
+  var np = photoN(), nn = noteN(), d = new Date();
+  var html = '<section class="pb pb-cover">' + pbHoles()
+    + '<div class="pb-cover-in">'
+    + '<p class="pb-kicker">WAGLING KOREA TRAVEL</p><div class="pb-ruler"></div>'
+    + '<h1 class="pb-title">나의 한국여행 앨범</h1>'
+    + '<p class="pb-subtitle">My Korea Travel Book</p><div class="pb-ruler"></div>'
+    + '<p class="pb-cov-cnt">사진 ' + np + '곳 · 메모 ' + nn + '곳 · 모두 ' + SPOTS.length + '곳 중</p>'
+    + '<p class="pb-cov-note">' + (fallback
+        ? (lang === 'ko' ? '아직 채운 사진이 없어 지금 보고 있는 목록을 담았어요.' : 'No photos yet — this book holds the list you are viewing.')
+        : (lang === 'ko' ? '내가 찍은 사진과 여행 메모를 한 권에 모았어요.' : 'My own photos and travel notes, gathered in one book.')) + '</p>'
+    + '<p class="pb-cov-date">' + d.getFullYear() + '년 ' + (d.getMonth()+1) + '월 ' + d.getDate() + '일</p>'
+    + '<p class="pb-cov-foot">🏯 와글링 한국여행 · starpicklife-design.github.io/tour</p>'
+    + '</div>'
+    + '<p class="pb-cov-tip">왼쪽 점선과 동그라미는 철할 때 구멍 뚫는 자리예요.</p>'
+    + '</section>';
+
+  var total = list.length;
+  list.forEach(function(sp, idx){
+    var r = regionById(sp.rg), ph = photos[sp.id] || '', note = notes[sp.id] || '';
+    var longNote = String(note).replace(/\s/g,'').length > 240;
+    html += '<section class="pb pb-page' + (longNote ? ' compact' : '') + '">' + pbHoles()
+      + '<div class="pb-head"><span class="pb-rg">' + r.ic + ' ' + esc(r[lang]) + '</span></div>'
+      + '<div class="pb-body">'
+      + (ph ? '<div class="pb-shot"><img src="' + ph + '" alt=""></div>'
+            : '<div class="pb-shot empty"><span>📷 ' + (lang === 'ko' ? '사진 자리' : 'photo space') + '</span></div>')
+      + '<h2 class="pb-name">' + esc(sp.nm[0]) + '</h2>'
+      + '<p class="pb-en">' + esc(sp.nm[1]) + '</p>'
+      + '<p class="pb-charm">' + esc(sp.charm[li]) + '</p>'
+      + '<div class="pb-memo' + (hasNote(sp.id) ? '' : ' blank') + '">'
+        + '<p class="k">📝 ' + (lang === 'ko' ? '나의 여행 메모' : 'My travel notes') + '</p>'
+        + (hasNote(sp.id) ? '<p class="v">' + esc(note) + '</p>'
+                          : '<p class="lines"><span></span><span></span><span></span></p>')
+      + '</div>'
+      + '</div>'
+      + '<div class="pb-info"><span>🚇 ' + esc(sp.tr[li]) + '</span><span>🎫 ' + esc(sp.fee[li]) + '</span></div>'
+      + '<p class="pb-num">' + (idx+1) + ' / ' + total + '</p>'
+      + '</section>';
+  });
+
+  html += '<section class="pb pb-end">' + pbHoles()
+    + '<p class="t">' + (lang === 'ko' ? '즐거운 여행 되세요' : 'Have a wonderful trip') + '</p>'
+    + '<p class="s">' + (lang === 'ko' ? '와글링 한국여행 · 여행하기 제일 아름답고 편리한 나라' : 'Wagling Korea Travel') + '</p>'
+    + '</section>';
+  box.innerHTML = html;
+}
+function printAlbum(){
+  buildPrintBook();
+  if(photoN() === 0 && noteN() === 0) toast(t('printAll'));
+  var imgs = Array.prototype.slice.call(document.querySelectorAll('#printBook img'));
+  var left = imgs.length, fired = false;
+  function fire(){ if(fired) return; fired = true; try{ window.print(); }catch(e){} }
+  if(!left) { setTimeout(fire, 40); return; }
+  imgs.forEach(function(im){
+    function one(){ if(--left <= 0) fire(); }
+    if(im.complete) one(); else { im.onload = one; im.onerror = one; }
+  });
+  setTimeout(fire, 1800);
 }
 
 /* ══════════ 그리기 ══════════ */
@@ -1059,6 +1099,15 @@ function renderHeader(){
   $('#bcTitle').textContent = t('bigTitle');
   $('#bcClose').textContent = t('close');
   $('#bcSpeakLbl').textContent = t('sayLbl');
+  $('#pcLbl').textContent = t('myPhotos');
+  $('#pcOf').textContent = t('pcOf');
+  $('#printLbl').textContent = t('printAlbum');
+  $('#printLbl2').textContent = t('printAlbum2');
+  $('#printHint').innerHTML = t('printHint');
+  var pn = photoN();
+  $('#pcNum').textContent = pn;
+  $('#pcBar').style.width = Math.round(pn / SPOTS.length * 100) + '%';
+  $('#photoCount').setAttribute('aria-label', t('myPhotos') + ' ' + pn + ' / ' + SPOTS.length);
   document.title = lang === 'ko' ? '와글링 한국여행 · Wagling Korea Travel' : 'Wagling Korea Travel · 와글링 한국여행';
 }
 
@@ -1076,7 +1125,7 @@ function cardHTML(s){
   var r = regionById(s.rg);
   var fav = isFav(s.id);
   return '<div class="spot" role="button" tabindex="0" data-id="'+s.id+'" aria-label="'+esc(s.nm[li])+' '+esc(t('detail'))+'">'
-    + '<div class="illwrap">'+illSVG(s,'L'+s.id)
+    + '<div class="illwrap">'+frameHTML(s)
     + '<span class="rg">'+r.ic+' '+esc(r[lang])+'</span>'
     + '<button type="button" class="heart'+(fav?' on':'')+'" data-heart="'+s.id+'" aria-pressed="'+fav+'" aria-label="❤️ '+esc(s.nm[li])+'">'+(fav?'❤️':'🤍')+'</button>'
     + '</div>'
@@ -1112,7 +1161,7 @@ function renderFav(){
     var s = spotById(id); if(!s) return;
     var r = regionById(s.rg), note = notes[id] || '';
     html += '<div class="favrow" role="button" tabindex="0" data-id="'+s.id+'">'
-      + '<span class="th">'+illSVG(s,'F'+s.id)+'</span>'
+      + thumbHTML(s)
       + '<span class="fx"><span class="fn">'+esc(s.nm[li])+'</span>'
       + '<span class="fr">'+r.ic+' '+esc(r[lang])+' · 🎫 '+esc(s.feeS[li])+'</span>'
       + (note ? '<span class="fm">📝 '+esc(note)+'</span>' : '')
@@ -1143,8 +1192,9 @@ function renderDetail(){
   var html = ''
     + '<div class="dhead"><button type="button" class="dback" data-act="back">← '+t('back')+'</button>'
     + '<span class="rg2">'+r.ic+' '+esc(r[lang])+'</span></div>'
-    + '<div class="dhero">'+illSVG(s,'D'+s.id)
+    + '<div class="dhero">'+frameHTML(s)
     + '<button type="button" class="heart'+(fav?' on':'')+'" data-heart="'+s.id+'" aria-pressed="'+fav+'" aria-label="❤️">'+(fav?'❤️':'🤍')+'</button></div>'
+    + photoActionsHTML(s)
     + '<h2 class="dtitle">'+esc(s.nm[li])+(li===1?'':'<span class="en">'+esc(s.nm[1])+'</span>')+'</h2>'
     + '<p class="dcharm">'+esc(s.charm[li])+'</p>'
     + '<div class="taxi"><p class="lb">'+t('taxiLbl')+'</p>'
@@ -1252,6 +1302,10 @@ function hideBig(){ $('#bigCard').hidden = true; document.body.style.overflow = 
 document.addEventListener('click', function(ev){
   var el = ev.target;
   function closest(sel){ var n = el; while(n && n !== document.body){ if(n.matches && n.matches(sel)) return n; n = n.parentNode; } return null; }
+  var pb = closest('[data-photo]');
+  if(pb){ ev.preventDefault(); ev.stopPropagation(); openPhotoPicker(pb.getAttribute('data-photo')); return; }
+  var dph = closest('[data-delphoto]');
+  if(dph){ ev.preventDefault(); ev.stopPropagation(); delPhoto(dph.getAttribute('data-delphoto')); return; }
   var heart = closest('[data-heart]');
   if(heart){
     ev.preventDefault(); ev.stopPropagation();
@@ -1364,6 +1418,9 @@ function copyShare(p){
   else legacyCopy(full, done, fail);
 }
 $('#shareBtn').addEventListener('click', shareApp);
+$('#printTop').addEventListener('click', printAlbum);
+$('#printBtn').addEventListener('click', printAlbum);
+window.addEventListener('beforeprint', buildPrintBook);
 $('#bcClose').addEventListener('click', closeBig);
 $('#bcSpeak').addEventListener('click', function(){
   if(bigIdx >= 0) speak(PHRASES[bigIdx].ko);
