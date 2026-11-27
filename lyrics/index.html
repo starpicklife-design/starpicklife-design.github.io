@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#3B2A1F" />
+<!-- build: 2026-11-27 와글링 노래방 v1 · 큰 글씨 가사 · 유튜브 임베드(IFrame API 재생시간 추적) · 내 폰 음악 파일(기기 안에서만) · LRC 타임스탬프 + 일반 가사 자동/한 줄씩 · 글씨 4단계 · 노래방 다크/한지 모드 · 발음 줄 · 애창곡 localStorage · 설치/공유/한영/폰 뒤로가기 · 개인정보·서버·유료 API 없음 -->
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="와글링 노래방" />
+<meta name="description" content="와글링 노래방 — 유튜브 영상이나 내 폰의 음악을 켜면 큰 글씨 가사가 따라옵니다. 가사를 붙여넣기만 하면 되고, 글씨 크기 4단계·노래방 다크 모드·한 줄씩 넘기기·발음 줄까지. 가입 없음, 광고 없음, 개인정보 없음." />
+<title>와글링 노래방 · 큰 글씨 가사로 따라 불러요</title>
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+<style>
+:root{
+  --hanji:#FFF6E6; --hanji2:#FFF0D6; --card:#FFFFFF; --ink:#33251B; --ink2:#6B5745; --ink3:#9A8571;
+  --brown:#3B2A1F; --brown2:#261A12; --line:#EADCC5; --accent:#C0562B; --gold:#D9A227;
+  --shadow:0 2px 10px rgba(70,45,25,.08);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none !important}
+html{font-size:18px;-webkit-text-size-adjust:100%}
+html,body{margin:0;padding:0}
+body{
+  min-height:100vh;background:var(--hanji);color:var(--ink);
+  font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",system-ui,-apple-system,sans-serif;
+  line-height:1.45;word-break:keep-all;overflow-wrap:break-word;overflow-x:hidden;
+  padding-bottom:calc(.8rem + env(safe-area-inset-bottom));
+}
+body.locked{overflow:hidden;height:100vh}
+button{font-family:inherit;color:inherit;cursor:pointer;border:0;background:none}
+input,textarea,select{font-family:inherit;color:var(--ink);min-width:0;max-width:100%}
+h1,h2,h3,p{margin:0}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid #D9A227;outline-offset:2px}
+
+/* ── 상단 ─────────────────────────────── */
+.top{background:linear-gradient(180deg,#FFF0D6,#FFF6E6);border-bottom:1px solid var(--line);padding:calc(.7rem + env(safe-area-inset-top)) .9rem .65rem}
+.brandrow{display:flex;align-items:center;gap:.6rem;max-width:46rem;margin:0 auto}
+.logo{width:2.9rem;height:2.9rem;flex:none;border-radius:.95rem;background:var(--brown);color:#FFE9A8;display:grid;place-items:center;font-size:1.45rem;box-shadow:2px 2px 0 #D8C4A6}
+.btxt{min-width:0}
+.btxt h1{font-size:1.24rem;line-height:1.2;font-weight:900}
+.btxt p{font-size:.78rem;color:var(--ink2);font-weight:800;margin-top:.15rem}
+.tools{display:flex;gap:.4rem;flex-wrap:wrap;max-width:46rem;margin:.6rem auto 0}
+.toolbtn{min-height:2.6rem;padding:0 .85rem;border-radius:999px;background:#fff;border:1px solid var(--line);
+  font-weight:900;font-size:.86rem;box-shadow:var(--shadow);display:inline-flex;align-items:center;gap:.2rem}
+.toolbtn:active{transform:translateY(1px)}
+
+/* ── 첫 화면 ──────────────────────────── */
+main#scr-lib{padding:.9rem .9rem 2rem;max-width:46rem;margin:0 auto}
+.lead{background:linear-gradient(135deg,#FFFDF7,#FFF3DC);border:1px solid var(--line);border-radius:1.1rem;
+  padding:.7rem .8rem;font-size:.84rem;font-weight:800;color:var(--ink2);line-height:1.5;box-shadow:var(--shadow)}
+.lead b{color:var(--ink);font-weight:900}
+.addrow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.45rem;margin:.8rem 0 1rem}
+.add{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.05rem;
+  min-height:4.7rem;padding:.35rem .2rem;border-radius:.95rem;background:#fff;border:1.5px solid var(--line);
+  box-shadow:var(--shadow);font-weight:900;color:var(--ink)}
+.add:active{transform:scale(.985)}
+.add .ic{font-size:1.45rem;line-height:1.1}
+.add b{font-size:.86rem;line-height:1.2}
+.add span{font-size:.68rem;color:var(--ink3);font-weight:800}
+h2.sec{display:flex;align-items:baseline;justify-content:space-between;gap:.4rem;font-size:1.02rem;margin:.2rem 0 .5rem;font-weight:900}
+h2.sec small{font-size:.76rem;color:var(--ink3);font-weight:900}
+.songlist{display:flex;flex-direction:column;gap:.55rem}
+.song{background:var(--card);border:1px solid var(--line);border-radius:1.05rem;padding:.65rem .75rem .6rem;
+  box-shadow:var(--shadow);cursor:pointer}
+.song:active{background:#FFFBEF}
+.stitle{font-size:1.06rem;font-weight:900;line-height:1.25;overflow-wrap:anywhere}
+.smeta{display:flex;gap:.35rem;flex-wrap:wrap;align-items:center;margin-top:.32rem;font-size:.72rem;color:var(--ink3);font-weight:800}
+.badge{background:#F3E7D2;border-radius:999px;padding:.14rem .5rem;font-size:.69rem;font-weight:900;color:#6B4A2F;white-space:nowrap}
+.badge.yt{background:#FFE3E1;color:#A6271D}
+.badge.file{background:#E3F0E6;color:#2F6B3E}
+.badge.prac{background:#E9E7FB;color:#47398C}
+.sline{margin-top:.35rem;font-size:.8rem;color:var(--ink2);font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sacts{display:flex;gap:.4rem;margin-top:.6rem}
+.sing{flex:1;min-height:2.7rem;border-radius:.75rem;background:var(--brown);color:#FFF3DC;font-weight:900;font-size:.92rem}
+.sing:active{background:var(--brown2)}
+.sedit{width:3rem;min-height:2.8rem;border-radius:.75rem;background:#F4E9D6;font-size:1rem;flex:none}
+.empty{background:#fff;border:1.5px dashed var(--line);border-radius:1.1rem;padding:1.6rem 1rem;text-align:center}
+.empty b{display:block;font-size:1rem;margin-bottom:.3rem}
+.empty p{font-size:.84rem;color:var(--ink3);font-weight:700}
+.sample-note{margin:.8rem 0 0;font-size:.72rem;color:var(--ink3);font-weight:700;line-height:1.45}
+
+/* ── 편집 화면 ────────────────────────── */
+#scr-edit{max-width:46rem;margin:0 auto;padding:.85rem .9rem 7.6rem}
+.crumb{display:flex;align-items:center;gap:.55rem;margin-bottom:.6rem}
+.crumb h2{font-size:1.12rem;font-weight:900;flex:1;min-width:0}
+.cbtn{min-height:2.7rem;min-width:2.7rem;border-radius:.8rem;background:#fff;border:1px solid var(--line);font-weight:900;font-size:1rem;padding:0 .7rem}
+.fld{display:block;margin:.75rem 0}
+.fld>span{display:block;font-size:.82rem;font-weight:900;color:var(--ink2);margin-bottom:.3rem}
+.inp{width:100%;border:1.5px solid var(--line);border-radius:.8rem;padding:.7rem .8rem;font-size:1rem;
+  font-weight:700;background:#fff;line-height:1.45}
+.inp:focus{border-color:var(--gold);outline:none}
+textarea.inp{resize:vertical;min-height:7rem}
+fieldset{border:1.5px solid var(--line);border-radius:1rem;padding:.55rem .75rem .8rem;margin:.8rem 0;background:#FFFDF7}
+legend{font-weight:900;font-size:.84rem;padding:0 .35rem;color:var(--ink2)}
+.hint{margin:.35rem 0 0;font-size:.74rem;line-height:1.45;color:var(--ink3);font-weight:700}
+.hint b{color:var(--ink2)}
+.filerow{display:flex;gap:.45rem;align-items:center;flex-wrap:wrap;margin-top:.2rem}
+.filebtn{min-height:2.9rem;border-radius:.8rem;background:#EFE5D2;border:1.5px dashed #CDB79A;font-weight:900;font-size:.88rem;padding:0 .8rem}
+.filechip{font-size:.78rem;font-weight:800;color:var(--ink2);overflow-wrap:anywhere}
+.parse{margin:.4rem 0 0;font-size:.78rem;font-weight:900;color:#2F6B3E}
+.parse.bad{color:#A6271D}
+.err{margin:.4rem 0 0;font-size:.82rem;font-weight:900;color:#A6271D}
+.details{border:1.5px solid var(--line);border-radius:1rem;background:#FFFDF7;padding:.2rem .8rem .6rem;margin:.8rem 0}
+.details summary{font-weight:900;font-size:.86rem;padding:.6rem 0;cursor:pointer;color:var(--ink2)}
+.copy-note{font-size:.72rem;line-height:1.5;color:var(--ink3);font-weight:700;background:#FBF3E4;border-radius:.8rem;padding:.6rem .7rem;margin:.8rem 0 0}
+.danger{margin-top:1rem;min-height:2.9rem;border-radius:.8rem;border:1.5px solid #E8C0B6;background:#FFF2EE;color:#A6271D;font-weight:900;padding:0 1rem}
+.editact{position:fixed;left:0;right:0;bottom:0;z-index:20;background:linear-gradient(180deg,rgba(255,246,230,0),#FFF6E6 38%);
+  padding:.6rem .9rem calc(.6rem + env(safe-area-inset-bottom))}
+.editact .inner{max-width:46rem;margin:0 auto;display:flex;gap:.45rem}
+.primary{flex:1;min-height:3.2rem;border-radius:.9rem;background:var(--accent);color:#FFF8EE;font-weight:900;font-size:1rem;box-shadow:0 3px 0 #96401F}
+.primary:active{transform:translateY(2px);box-shadow:0 1px 0 #96401F}
+.ghost{min-height:3.2rem;border-radius:.9rem;background:#fff;border:1.5px solid var(--line);font-weight:900;font-size:.95rem;padding:0 1rem}
+
+/* ── 노래 화면 ────────────────────────── */
+#scr-play{
+  position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;
+  height:100vh;height:100dvh;background:var(--p-bg);color:var(--p-ink);
+  --p-bg:#FFF6E6; --p-ink:#33251B; --p-ink2:#6B5745; --p-line:#EADCC5; --p-card:#FFFDF8;
+  --p-cur:#9E3A17; --p-curbg:#FFE7A3; --p-next:#5F4C39;
+}
+#scr-play.dark{
+  --p-bg:#0F0C09; --p-ink:#F6EDDC; --p-ink2:#B6A68E; --p-line:#332A21; --p-card:#1B1611;
+  --p-cur:#FFE24D; --p-curbg:transparent; --p-next:#9C8B72;
+}
+.ptop{display:flex;align-items:center;gap:.45rem;flex:none;
+  padding:calc(.45rem + env(safe-area-inset-top)) .55rem .45rem;
+  background:var(--p-card);border-bottom:1px solid var(--p-line)}
+.pback{flex:none;min-height:2.6rem;padding:0 .7rem;border-radius:.75rem;background:var(--p-bg);
+  border:1px solid var(--p-line);color:var(--p-ink);font-weight:900;font-size:.85rem}
+.ptitle{flex:1;min-width:0;text-align:center}
+.ptitle b{display:block;font-size:.98rem;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ptitle span{display:block;font-size:.7rem;color:var(--p-ink2);font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pedit{flex:none;min-height:2.6rem;min-width:2.6rem;border-radius:.75rem;background:var(--p-bg);
+  border:1px solid var(--p-line);color:var(--p-ink);font-size:1rem}
+.player{flex:none;padding:.45rem .55rem;background:var(--p-card);border-bottom:1px solid var(--p-line)}
+.player:empty{display:none}
+.ytWrap{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:.7rem;overflow:hidden}
+.player.collapsed .ytWrap{display:none}
+.ytWrap iframe{position:absolute;inset:0;width:100% !important;height:100% !important;border:0}
+.ytMini{display:none;align-items:center;gap:.5rem;font-size:.8rem;font-weight:800;color:var(--p-ink2);min-height:2.6rem}
+.player.collapsed .ytMini{display:flex}
+.ytMini span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ytCtl{display:flex;justify-content:flex-end;margin-top:.3rem}
+.player.collapsed .ytCtl{display:none}
+.miniBtn{min-height:2.4rem;padding:0 .7rem;border-radius:.65rem;background:var(--p-bg);border:1px solid var(--p-line);
+  color:var(--p-ink);font-weight:900;font-size:.78rem;flex:none}
+.abar{display:flex;flex-direction:column;gap:.3rem}
+.abarrow{display:flex;align-items:center;gap:.45rem}
+.abarrow .time{margin-left:auto}
+.playbtn{flex:none;width:3.1rem;height:3.1rem;border-radius:50%;background:var(--accent);color:#FFF8EE;font-size:1.15rem;
+  display:grid;place-items:center;box-shadow:0 3px 0 #96401F}
+#scr-play.dark .playbtn{background:#FFE24D;color:#221A0C;box-shadow:0 3px 0 #A98C15}
+.playbtn:active{transform:translateY(2px)}
+.jbtn{flex:none;min-height:2.5rem;padding:0 .45rem;border-radius:.65rem;border:1px solid var(--p-line);
+  background:var(--p-bg);color:var(--p-ink);font-weight:900;font-size:.74rem;font-variant-numeric:tabular-nums}
+.abar .grow{flex:1;min-width:0}
+.seek{width:100%;height:1.5rem;accent-color:#C0562B;background:transparent;display:block}
+#scr-play.dark .seek{accent-color:#FFE24D}
+.time{font-size:.72rem;font-weight:900;color:var(--p-ink2);text-align:right;font-variant-numeric:tabular-nums;line-height:1.2}
+.pracbar{display:flex;flex-direction:column;gap:.25rem}
+.pracrow{display:flex;align-items:center;gap:.5rem;width:100%}
+.pracrow .time{margin-left:auto}
+.pracbig{min-height:3rem;padding:0 1rem;border-radius:.8rem;background:var(--accent);color:#FFF8EE;font-weight:900;font-size:.95rem;box-shadow:0 3px 0 #96401F}
+#scr-play.dark .pracbig{background:#FFE24D;color:#221A0C;box-shadow:0 3px 0 #A98C15}
+.pracbar p{font-size:.72rem;color:var(--p-ink2);font-weight:800;margin:0}
+.repick{min-height:2.8rem;border-radius:.7rem;background:#FFF0C9;border:1.5px dashed #D9B45E;color:#7A4A12;font-weight:900;font-size:.82rem;padding:0 .8rem;margin-top:.4rem}
+#scr-play.dark .repick{background:#2A2317;border-color:#7C6526;color:#FFE24D}
+.srctog{display:flex;gap:.3rem;margin-bottom:.35rem}
+.tools2{flex:none;padding:.45rem .55rem;display:flex;flex-direction:column;gap:.35rem;background:var(--p-card);border-bottom:1px solid var(--p-line)}
+.seg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.2rem;background:var(--p-bg);border:1px solid var(--p-line);border-radius:.75rem;padding:.16rem}
+.seg button{min-height:2.45rem;border-radius:.6rem;font-weight:900;font-size:.76rem;color:var(--p-ink2);padding:0 .1rem}
+.seg button[aria-pressed="true"]{background:var(--brown);color:#FFF3DC}
+#scr-play.dark .seg button[aria-pressed="true"]{background:#FFE24D;color:#221A0C}
+.row2{display:flex;gap:.3rem;flex-wrap:wrap;align-items:center}
+.chip{min-height:2.4rem;padding:0 .65rem;border-radius:999px;background:var(--p-bg);border:1px solid var(--p-line);
+  font-weight:900;font-size:.76rem;color:var(--p-ink);white-space:nowrap}
+.chip[aria-pressed="true"]{background:#FFE9A8;color:#7A3B12;border-color:#E4C166}
+#scr-play.dark .chip[aria-pressed="true"]{background:#2A2317;color:#FFE24D;border-color:#6B5723}
+.spd{display:flex;align-items:center;gap:.25rem;background:var(--p-bg);border:1px solid var(--p-line);border-radius:.7rem;padding:.18rem .3rem}
+.spd .lab{font-size:.74rem;font-weight:900;color:var(--p-ink2);padding:0 .35rem}
+.spd button{width:2.3rem;height:2.4rem;border-radius:.6rem;background:var(--p-bg);border:1px solid var(--p-line);
+  font-weight:900;font-size:1rem;color:var(--p-ink)}
+.spd span{font-size:.72rem;font-weight:900;color:var(--p-ink2);min-width:2.6rem;text-align:center;font-variant-numeric:tabular-nums}
+.lyrics{position:relative;flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overflow-anchor:none;
+  padding:1.1rem .8rem 45vh;background:var(--p-bg);scroll-behavior:smooth}
+#lineWrap{--fs:27px}
+.line{margin:.34em 0;padding:.1em .16em;border-radius:.16em;font-weight:900;line-height:1.36;
+  font-size:calc(var(--fs) * .62);color:var(--p-ink2);opacity:.42;overflow-wrap:break-word;word-break:keep-all;
+  transition:opacity .16s ease,color .13s ease}
+.line .sub{display:block;font-size:.44em;font-weight:800;margin-top:.14em;color:var(--p-ink2);opacity:.9;line-height:1.35}
+.line.next{opacity:.72;color:var(--p-next);font-size:calc(var(--fs) * .7)}
+.line.done{opacity:.28}
+.line.current{opacity:1;color:var(--p-cur);font-size:var(--fs);background:var(--p-curbg);
+  text-shadow:0 0 0 transparent;padding:.06em .16em}
+#scr-play.dark .line.current{text-shadow:0 0 22px rgba(255,226,77,.32)}
+#scr-play.dark .line.current .sub{color:#E7D9AE;opacity:.85}
+.lyrics.hide-sub .sub{display:none}
+.lines-empty{padding:2rem .5rem;text-align:center;font-size:.95rem;font-weight:800;color:var(--p-ink2)}
+.linebar{flex:none;display:flex;gap:.4rem;align-items:center;
+  padding:.45rem .55rem calc(.45rem + env(safe-area-inset-bottom));
+  background:var(--p-card);border-top:1px solid var(--p-line)}
+.linebar button{flex:1;min-height:3rem;border-radius:.8rem;background:var(--p-bg);border:1px solid var(--p-line);
+  font-weight:900;font-size:.88rem;color:var(--p-ink)}
+.linebar button:active{transform:scale(.99)}
+.pos{flex:none;min-width:3.4rem;text-align:center;font-size:.78rem;font-weight:900;color:var(--p-ink2);font-variant-numeric:tabular-nums}
+
+/* ── 알림·설치 안내 ───────────────────── */
+#toast{position:fixed;left:50%;bottom:calc(1.1rem + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(2rem);
+  background:#2A1E16;color:#FFF6E4;border-radius:999px;padding:.65rem 1rem;font-size:.84rem;font-weight:900;
+  box-shadow:0 6px 18px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:.22s;z-index:200;max-width:92vw;
+  display:flex;align-items:center;gap:.5rem}
+#toast.on{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+#toast button{background:#FFE9A8;color:#4A2E12;border-radius:999px;padding:.25rem .7rem;font-weight:900;font-size:.8rem}
+.dlg{position:fixed;inset:0;z-index:300;background:rgba(30,20,14,.55);display:flex;align-items:flex-end;justify-content:center;padding:0}
+.dlgcard{width:100%;max-width:30rem;background:#FFF9EE;border-radius:1.2rem 1.2rem 0 0;padding:1.1rem 1rem calc(1rem + env(safe-area-inset-bottom));
+  box-shadow:0 -8px 30px rgba(0,0,0,.25);max-height:88vh;overflow:auto}
+.dlgcard h2{font-size:1.05rem;font-weight:900;margin-bottom:.4rem}
+.dlgcard .lead2{font-size:.84rem;color:var(--ink2);font-weight:800;line-height:1.5}
+.dlgcard ol{margin:.7rem 0 0;padding-left:1.15rem;font-size:.84rem;line-height:1.6;font-weight:700;color:var(--ink2)}
+.dlgcard ol b{color:var(--ink)}
+.dlgcard .mini{font-size:.72rem;color:var(--ink3);font-weight:700;margin-top:.6rem;line-height:1.5}
+.dlgcard .close{width:100%;min-height:3rem;border-radius:.8rem;background:var(--brown);color:#FFF6E4;font-weight:900;font-size:.98rem;margin-top:.8rem}
+.dlgcard .chrome{display:flex;align-items:center;justify-content:center;min-height:2.9rem;border-radius:.8rem;
+  background:#E9F1FB;color:#1B4C86;font-weight:900;font-size:.86rem;text-decoration:none;margin-top:.6rem}
+
+@media (min-width:520px){
+  .seg button{font-size:.85rem}
+  .chip{font-size:.82rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+}
+</style>
+</head>
+<body>
+
+<header class="top" id="topBar">
+  <div class="brandrow">
+    <span class="logo" aria-hidden="true">🎤</span>
+    <div class="btxt">
+      <h1 data-i18n="appName">와글링 노래방</h1>
+      <p data-i18n="appSub">큰 글씨 가사로 따라 불러요</p>
+    </div>
+  </div>
+  <div class="tools">
+    <button type="button" class="toolbtn" id="btnLang" aria-label="English">🌐 EN</button>
+    <button type="button" class="toolbtn" id="installBtn" aria-haspopup="dialog" data-i18n="instPill">📲 설치</button>
+    <button type="button" class="toolbtn" id="shareBtn" data-i18n="sharePill">📤 공유</button>
+  </div>
+</header>
+
+<main id="scr-lib">
+  <p class="lead" data-i18n="lead">노래를 고르면 큰 글씨 가사가 떠요. 글씨 크기·다크 모드·한 줄씩 넘기기를 버튼 하나로 바꿀 수 있어요.</p>
+
+  <div class="addrow">
+    <button type="button" class="add" id="addYt">
+      <span class="ic" aria-hidden="true">📺</span><b data-i18n="addYt">유튜브</b><span data-i18n="addYtSub">링크 넣기</span>
+    </button>
+    <button type="button" class="add" id="addFile">
+      <span class="ic" aria-hidden="true">🎵</span><b data-i18n="addFile">내 음악</b><span data-i18n="addFileSub">폰 파일</span>
+    </button>
+    <button type="button" class="add" id="addBlank">
+      <span class="ic" aria-hidden="true">✍️</span><b data-i18n="addBlank">가사만</b><span data-i18n="addBlankSub">직접 쓰기</span>
+    </button>
+  </div>
+
+  <h2 class="sec"><span data-i18n="libTitle">내 애창곡</span><small id="libCount">0곡</small></h2>
+  <div class="songlist" id="songList"></div>
+  <p class="sample-note" data-i18n="sampleNote">기본 3곡은 민요·전래와 직접 쓴 가사예요. 남의 노래 가사는 넣지 않았어요.</p>
+</main>
+
+<section id="scr-edit" hidden>
+  <div class="crumb">
+    <button type="button" class="cbtn" id="editBack" data-i18n-aria="backAria" aria-label="뒤로">←</button>
+    <h2 id="editHead">새 노래 넣기</h2>
+  </div>
+
+  <form id="songForm" novalidate>
+    <label class="fld"><span data-i18n="fTitle">제목</span>
+      <input class="inp" type="text" id="fTitle" maxlength="80" autocomplete="off" data-ph="phTitle" placeholder="예: 아리랑" />
+      <p class="err" id="errTitle" hidden></p>
+    </label>
+    <label class="fld"><span data-i18n="fArtist">가수 (선택)</span>
+      <input class="inp" type="text" id="fArtist" maxlength="60" autocomplete="off" data-ph="phArtist" placeholder="예: 민요" />
+    </label>
+
+    <fieldset>
+      <legend data-i18n="srcLegend">노래 넣기 (선택) — 유튜브 링크 또는 폰 음악</legend>
+      <label class="fld" style="margin-top:.35rem"><span data-i18n="fYt">유튜브 링크</span>
+        <input class="inp" type="url" id="fYt" inputmode="url" autocomplete="off" data-ph="phYt" placeholder="https://youtu.be/..." />
+        <p class="hint" data-i18n="ytHelp">유튜브 주소를 붙여넣으면 위에 영상이 뜨고, 영상 시간에 맞춰 가사가 넘어가요.</p>
+        <p class="err" id="errYt" hidden></p>
+      </label>
+      <div class="filerow">
+        <button type="button" class="filebtn" id="pickFile" data-i18n="pickFile">🎵 내 폰 음악 파일 고르기</button>
+        <span class="filechip" id="fileChip" data-i18n="noFile">아직 고른 파일이 없어요</span>
+      </div>
+      <input type="file" id="fileInput" accept="audio/*" hidden />
+      <p class="hint" data-i18n="fileHelp">파일은 이 기기 안에서만 열려요. 밖으로 보내지 않아요. (다음에 열 때는 파일을 한 번 더 골라 주세요.)</p>
+    </fieldset>
+
+    <label class="fld"><span data-i18n="fLyrics">가사</span>
+      <textarea class="inp" id="fLyrics" rows="9" data-ph="phLyrics" placeholder="가사를 붙여넣으세요."></textarea>
+      <p class="hint" data-i18n="lrcHelp">줄 앞에 [00:12.34] 처럼 시간을 적으면 그때 맞춰 넘어가요. 없어도 괜찮아요.</p>
+      <p class="parse" id="parseInfo"></p>
+      <p class="err" id="errLyrics" hidden></p>
+    </label>
+
+    <details class="details">
+      <summary data-i18n="subLegend">🔤 발음·메모 줄 (선택)</summary>
+      <p class="hint" data-i18n="subHelp">가사 줄마다 발음이나 뜻을 한 줄씩 적으면 가사 아래 작게 보여요. 가사 안에 | 로 나눠도 돼요.</p>
+      <textarea class="inp" id="fNotes" rows="4" style="margin-top:.4rem" data-ph="phSub" placeholder="예: 아리랑 → a-ri-rang"></textarea>
+    </details>
+
+    <p class="copy-note" data-i18n="copyNote">저작권: 남의 노래 가사를 그대로 올려 공유하면 안 돼요. 이 앱은 내 폰에서 혼자 부르는 연습용이에요.</p>
+    <button type="button" class="danger" id="delBtn" hidden data-i18n="del">이 곡 지우기</button>
+  </form>
+
+  <div class="editact">
+    <div class="inner">
+      <button type="button" class="primary" id="saveSing" data-i18n="saveSing">저장하고 부르기</button>
+      <button type="button" class="ghost" id="saveOnly" data-i18n="save">저장</button>
+    </div>
+  </div>
+</section>
+
+<section id="scr-play" hidden aria-label="노래 부르기">
+  <div class="ptop">
+    <button type="button" class="pback" id="playBack" data-i18n="backToList">← 목록</button>
+    <div class="ptitle"><b id="playTitle">노래</b><span id="playArtist"></span></div>
+    <button type="button" class="pedit" id="playEdit" data-i18n-aria="editAria" aria-label="가사 고치기">✏️</button>
+  </div>
+
+  <div class="player" id="playerBox">
+    <div class="ytWrap" id="ytWrap"><div id="ytFrame"></div></div>
+    <div class="ytMini" id="ytMini"><span id="ytMiniText">📺 유튜브</span><button type="button" class="miniBtn" id="ytShow">영상 보기</button></div>
+    <div class="abar" id="audioBar" hidden>
+      <div class="abarrow">
+        <button type="button" class="playbtn" id="aPlay" aria-label="재생">▶</button>
+        <button type="button" class="jbtn" id="aBack">−10</button>
+        <button type="button" class="jbtn" id="aFwd">+10</button>
+        <span class="time" id="aTime">0:00 / 0:00</span>
+      </div>
+      <input type="range" class="seek" id="aSeek" min="0" max="100" step="0.1" value="0" aria-label="재생 위치" />
+    </div>
+    <div class="ytCtl" id="ytCtl" hidden>
+      <button type="button" class="miniBtn" id="ytCollapse">🎤 가사만 크게</button>
+    </div>
+    <div class="pracbar" id="pracBar" hidden>
+      <div class="pracrow">
+        <button type="button" class="pracbig" id="pracToggle">▶ 따라 부르기</button>
+        <span class="time" id="pracTime">0:00 / 0:00</span>
+      </div>
+      <p data-i18n="practiceHint">반주 없이 가사만으로도 넘겨 드려요.</p>
+    </div>
+    <button type="button" class="repick" id="fileRepick" hidden data-i18n="repick">🎵 파일 다시 고르기</button>
+    <input type="file" id="playFileInput" accept="audio/*" hidden />
+    <audio id="audioEl" preload="metadata"></audio>
+  </div>
+
+  <div class="tools2">
+    <div class="seg" role="group" aria-label="글씨 크기" id="sizeSeg">
+      <button type="button" data-size="0" data-i18n="sz1">보통</button>
+      <button type="button" data-size="1" data-i18n="sz2">크게</button>
+      <button type="button" data-size="2" data-i18n="sz3">더 크게</button>
+      <button type="button" data-size="3" data-i18n="sz4">왕크게</button>
+    </div>
+    <div class="row2">
+      <button type="button" class="chip" id="btnTheme" aria-pressed="true">🌙 노래방</button>
+      <button type="button" class="chip" id="btnSub" aria-pressed="false">🔤 발음 줄</button>
+      <button type="button" class="chip" id="btnMode" aria-pressed="true">⏱ 자동</button>
+    </div>
+    <div class="spd" id="spdBox">
+      <span class="lab" data-i18n="speedLabel">넘김 속도</span>
+      <button type="button" id="spdDown" aria-label="느리게">−</button>
+      <span id="spdVal">4초</span>
+      <button type="button" id="spdUp" aria-label="빠르게">＋</button>
+    </div>
+  </div>
+
+  <div class="lyrics" id="lyrics">
+    <div id="lineWrap"></div>
+  </div>
+
+  <div class="linebar">
+    <button type="button" id="prevLine">◀ 이전</button>
+    <span class="pos" id="linePos">0 / 0</span>
+    <button type="button" id="nextLine">다음 ▶</button>
+  </div>
+</section>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<div class="dlg" id="instModal" role="dialog" aria-modal="true" aria-labelledby="instTitle" hidden>
+  <div class="dlgcard">
+    <h2 id="instTitle">📲 홈 화면에 앱으로 넣기</h2>
+    <p class="lead2" id="instLead"></p>
+    <ol id="instSteps"></ol>
+    <a class="chrome" id="instChrome" href="#" hidden>🌐 크롬으로 바로 열기</a>
+    <p class="mini" id="instMini"></p>
+    <button type="button" class="close" id="instClose">확인</button>
+  </div>
+</div>
+
+<noscript><p style="margin:1rem;font-weight:900">와글링 노래방은 자바스크립트가 필요해요. / Wagling Karaoke needs JavaScript.</p></noscript>
+
+<script>
+(function () {
+  'use strict';
+
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var LS_KEY = 'waglingLyrics.v1';
+  var SIZE_PX = ['22px', '27px', '33px', '40px'];
+  var SHARE_URL = 'https://starpicklife-design.github.io/lyrics/';
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
+  function uid() { return 's' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+  function fmtTime(sec) {
+    sec = Math.max(0, Number(sec) || 0);
+    var m = Math.floor(sec / 60), s = Math.floor(sec % 60);
+    return m + ':' + (s < 10 ? '0' : '') + s;
+  }
+
+  /* ══════════════ 말 (한/EN) ══════════════ */
+  var DICT = {
+    ko: {
+      appName: '와글링 노래방', appSub: '큰 글씨 가사로 따라 불러요',
+      instPill: '📲 설치', sharePill: '📤 공유',
+      lead: '노래를 고르면 큰 글씨 가사가 떠요. 글씨 크기와 화면 모드도 버튼 하나로 바꿔요.',
+      addYt: '유튜브', addYtSub: '링크 넣기', addFile: '내 음악', addFileSub: '폰 파일', addBlank: '가사만', addBlankSub: '직접 쓰기',
+      libTitle: '내 애창곡', songCount: '{n}곡', linesN: '{n}줄',
+      badgeYt: '📺 유튜브', badgeFile: '🎵 내 파일', badgePrac: '🎤 가사만', badgeSample: '기본',
+      sing: '🎤 부르기', editAria: '가사 고치기', backAria: '뒤로', mySong: '내 곡',
+      emptyTitle: '아직 애창곡이 없어요',
+      emptyBody: '위 버튼으로 유튜브 링크나 폰 음악을 넣어 보세요.',
+      noLyricsLine: '가사를 넣어 주세요',
+      sampleNote: '기본 3곡은 민요·전래와 직접 쓴 가사예요. 남의 노래 가사는 넣지 않았어요.',
+      editNew: '새 노래 넣기', editExisting: '노래 고치기',
+      fTitle: '제목', phTitle: '예: 아리랑', fArtist: '가수 (선택)', phArtist: '예: 민요',
+      srcLegend: '노래 넣기 (선택) — 유튜브 링크 또는 폰 음악',
+      fYt: '유튜브 링크', phYt: 'https://youtu.be/... 또는 영상 ID',
+      ytHelp: '유튜브 주소를 붙여넣으면 위에 영상이 뜨고, 영상 시간에 맞춰 가사가 넘어가요.',
+      pickFile: '🎵 내 폰 음악 파일 고르기', noFile: '아직 고른 파일이 없어요', filePicked: '🎵 {name}',
+      fileHelp: '파일은 이 기기 안에서만 열려요. 밖으로 보내지 않아요. (다음에 열 때는 파일을 한 번 더 골라 주세요.)',
+      fLyrics: '가사', phLyrics: '가사를 붙여넣으세요.\n\n[00:12.34] 이렇게 시간을 적으면 그때 맞춰 넘어가요.\n보통 가사는 자동으로 나눠서 넘어가요.',
+      lrcHelp: '줄 앞에 [00:12.34] 처럼 시간을 적으면 그때 맞춰 넘어가요. 없어도 괜찮아요.',
+      subLegend: '🔤 발음·메모 줄 (선택)',
+      subHelp: '가사 줄마다 발음이나 뜻을 한 줄씩 적으면 가사 아래 작게 보여요. 가사 안에 | 로 나눠도 돼요.',
+      phSub: '예: 아리랑 → a-ri-rang',
+      parseTimed: '✓ 시간표시 {n}줄을 읽었어요', parsePlain: '✓ 보통 가사 {n}줄을 읽었어요', parseNone: '가사를 넣어 주세요',
+      copyNote: '저작권: 남의 노래 가사를 그대로 올려 공유하면 안 돼요. 이 앱은 내 폰에서 혼자 부르는 연습용이에요.',
+      saveSing: '저장하고 부르기', save: '저장', del: '이 곡 지우기',
+      errTitle: '제목을 넣어 주세요.', errYt: '유튜브 주소를 확인해 주세요.', errLyrics: '가사를 한 줄 이상 넣어 주세요.',
+      saved: '저장했어요', deleted: '지웠어요', undo: '되돌리기',
+      backToList: '← 목록', sz1: '보통', sz2: '크게', sz3: '더 크게', sz4: '왕크게',
+      themeDark: '🌙 노래방', themeLight: '☀️ 한지', subToggle: '🔤 발음 줄',
+      modeAuto: '⏱ 자동', modeTap: '👆 한 줄씩', secUnit: '{n}초', speedLabel: '넘김 속도',
+      prev: '◀ 이전', next: '다음 ▶', pos: '{i} / {n}',
+      practice: '▶ 따라 부르기', practicePause: '⏸ 잠깐 멈춤',
+      practiceHint: '반주 없이 가사만으로도 넘겨 드려요.',
+      hideVideo: '가사만 크게', showVideo: '영상 보기', ytTag: '📺 유튜브',
+      repick: '🎵 파일 다시 고르기',
+      fileNeeded: '저장된 곡의 파일은 기기에만 있어서 다시 골라야 해요.',
+      ytLoading: '유튜브 준비 중…', ytError: '유튜브를 불러오지 못했어요. 잠시 뒤 다시 해 보세요.',
+      ytNoEmbed: '이 영상은 다른 곳에서 열 수 없어요. 다른 링크를 넣어 주세요.',
+      lyricsEmpty: '가사가 없어요. ✏️에서 가사를 넣어 주세요.',
+      tapHint: '가사를 눌러도 다음 줄로 넘어가요.',
+      instTitle: '📲 홈 화면에 앱으로 넣기',
+      instLead: '아이콘을 한 번 꺼내 두면 앱처럼 바로 열려요. 새로 받는 파일은 없어요.',
+      instS1: '휴대폰에서 이 화면을 <b>크롬</b>으로 열어요.',
+      instS2: '크롬 오른쪽 위 <b>⋮</b> → <b>홈 화면에 추가</b>(또는 <b>앱 설치</b>)를 눌러요.',
+      instS3: '이름이 <b>와글링 노래방</b>인지 보고 <b>추가</b>를 눌러요.',
+      instS4: '아이폰·아이패드는 <b>사파리</b>에서 아래 <b>공유(□↑)</b> → <b>홈 화면에 추가</b>.',
+      instMini: '무료 · 광고 없음 · 개인정보 없음. 가사는 이 폰에만 저장돼요.',
+      instOk: '확인', instChrome: '🌐 크롬으로 바로 열기', instAlready: '이미 앱으로 열려 있어요.',
+      installedMsg: '홈 화면에 넣었어요. 이제 앱처럼 열려요.',
+      shareTitle: '와글링 노래방', shareText: '큰 글씨 가사로 따라 불러요 🎤',
+      shareCopied: '주소를 복사했어요. 붙여넣기로 보내 주세요 📤', shareCopyFail: '공유 창을 열지 못했어요.'
+    },
+    en: {
+      appName: 'Wagling Karaoke', appSub: 'Big lyrics, easy sing-along',
+      instPill: '📲 Install', sharePill: '📤 Share',
+      lead: 'Pick a song and big lyrics appear. Change text size and night mode with one tap.',
+      addYt: 'YouTube', addYtSub: 'paste a link', addFile: 'My music', addFileSub: 'phone file', addBlank: 'Lyrics only', addBlankSub: 'type it',
+      libTitle: 'My songs', songCount: '{n} songs', linesN: '{n} lines',
+      badgeYt: '📺 YouTube', badgeFile: '🎵 My file', badgePrac: '🎤 Lyrics', badgeSample: 'Sample',
+      sing: '🎤 Sing', editAria: 'Edit lyrics', backAria: 'Back', mySong: 'My song',
+      emptyTitle: 'No songs yet',
+      emptyBody: 'Use the buttons above to add a YouTube link or a music file.',
+      noLyricsLine: 'Add some lyrics',
+      sampleNote: 'The 3 samples are folk songs and our own words. No one else’s lyrics are included.',
+      editNew: 'Add a song', editExisting: 'Edit song',
+      fTitle: 'Title', phTitle: 'e.g. Arirang', fArtist: 'Singer (optional)', phArtist: 'e.g. folk song',
+      srcLegend: 'Audio (optional) — YouTube link or a phone file',
+      fYt: 'YouTube link', phYt: 'https://youtu.be/... or video ID',
+      ytHelp: 'Paste a YouTube link and the video appears above; lyrics follow the video time.',
+      pickFile: '🎵 Choose a music file on this phone', noFile: 'No file chosen yet', filePicked: '🎵 {name}',
+      fileHelp: 'The file stays on this device and is never uploaded. (Pick the file again next time.)',
+      fLyrics: 'Lyrics', phLyrics: 'Paste the lyrics here.\n\n[00:12.34] with a time like this, lines change on time.\nPlain lyrics are spread across the song automatically.',
+      lrcHelp: 'Put [00:12.34] at the start of a line to time it. It is optional.',
+      subLegend: '🔤 Pronunciation / note line (optional)',
+      subHelp: 'One note line per lyric line shows small under it. You can also split a line with |.',
+      phSub: 'e.g. Arirang → a-ri-rang',
+      parseTimed: '✓ {n} timed lines', parsePlain: '✓ {n} plain lines', parseNone: 'Add some lyrics',
+      copyNote: 'Copyright: do not post other artists’ lyrics. This app is for practising alone on your own phone.',
+      saveSing: 'Save and sing', save: 'Save', del: 'Delete this song',
+      errTitle: 'Please add a title.', errYt: 'Please check the YouTube link.', errLyrics: 'Please add at least one lyric line.',
+      saved: 'Saved', deleted: 'Deleted', undo: 'Undo',
+      backToList: '← Songs', sz1: 'Normal', sz2: 'Big', sz3: 'Bigger', sz4: 'Huge',
+      themeDark: '🌙 Night', themeLight: '☀️ Daylight', subToggle: '🔤 Notes',
+      modeAuto: '⏱ Auto', modeTap: '👆 Tap', secUnit: '{n}s', speedLabel: 'Line speed',
+      prev: '◀ Prev', next: 'Next ▶', pos: '{i} / {n}',
+      practice: '▶ Start singing', practicePause: '⏸ Pause',
+      practiceHint: 'No backing track? Lyrics advance by themselves.',
+      hideVideo: 'Lyrics only', showVideo: 'Show video', ytTag: '📺 YouTube',
+      repick: '🎵 Pick the file again',
+      fileNeeded: 'The saved file lives only on your phone. Please pick it again.',
+      ytLoading: 'YouTube loading…', ytError: 'Could not load YouTube. Please try again in a moment.',
+      ytNoEmbed: 'This video cannot be played here. Please try another link.',
+      lyricsEmpty: 'No lyrics yet. Tap ✏️ to add them.',
+      tapHint: 'Tap the lyrics to move to the next line.',
+      instTitle: '📲 Put it on your home screen',
+      instLead: 'Add the icon once and it opens like an app. Nothing extra is downloaded.',
+      instS1: 'Open this page in <b>Chrome</b> on your phone.',
+      instS2: 'Tap <b>⋮</b> at the top right → <b>Add to Home screen</b> (or <b>Install app</b>).',
+      instS3: 'Check the name <b>Wagling Karaoke</b> and tap <b>Add</b>.',
+      instS4: 'On iPhone or iPad use <b>Safari</b>: <b>Share (□↑)</b> → <b>Add to Home Screen</b>.',
+      instMini: 'Free · no ads · no personal data. Lyrics stay on this phone.',
+      instOk: 'OK', instChrome: '🌐 Open in Chrome', instAlready: 'Already opened as an app.',
+      installedMsg: 'Added to your home screen. It opens like an app now.',
+      shareTitle: 'Wagling Karaoke', shareText: 'Big lyrics, easy sing-along 🎤',
+      shareCopied: 'Link copied. Paste it to share 📤', shareCopyFail: 'Could not open the share sheet.'
+    }
+  };
+
+  function t(k, vars) {
+    var d = DICT[S.lang] || DICT.ko;
+    var s = (k in d) ? d[k] : (DICT.ko[k] || k);
+    if (vars) { for (var p in vars) { s = s.split('{' + p + '}').join(vars[p]); } }
+    return s;
+  }
+
+  /* ══════════════ 기본 곡 (민요·전래·자체 창작) ══════════════ */
+  var SAMPLES = [
+    {
+      id: 'sample-arirang', title: '아리랑', artist: '민요 · 전래', sample: true,
+      ytId: '', fileName: '', notes: '',
+      lyrics: '[00:00.00]아리랑 아리랑 아라리요\n[00:03.80]아리랑 고개로 넘어간다\n[00:07.60]나를 버리고 가시는 님은\n[00:11.40]십리도 못 가서 발병 난다\n[00:15.20]아리랑 아리랑 아라리요\n[00:19.00]아리랑 고개로 넘어간다'
+    },
+    {
+      id: 'sample-nuiliriya', title: '늴리리야', artist: '민요 · 전래', sample: true,
+      ytId: '', fileName: '', notes: '',
+      lyrics: '늴리리야 늴리리야 니나노\n늴리리야 늴리리야 니나노\n아무렴 그렇지 그렇구 말구\n늴리리야 늴리리야 니나노\n얼씨구 좋다 지화자 좋다\n늴리리야 늴리리야 니나노'
+    },
+    {
+      id: 'sample-goodnight', title: 'Goodnight Song (달빛 자장가)', artist: '와글링 자체 창작', sample: true,
+      ytId: '', fileName: '', notes: '',
+      lyrics: 'Moonlight, moonlight, soft and slow | 문라이트, 문라이트, 소프트 앤 슬로우\nSing me where the warm winds go | 싱 미 웨어 더 웜 윈즈 고우\nClose your eyes and hum along | 클로즈 유어 아이즈 앤 험 얼롱\nThis is our goodnight song | 디스 이즈 아워 굿나잇 송\nMoonlight, moonlight, soft and slow | 문라이트, 문라이트, 소프트 앤 슬로우\nDream a little, then let go | 드림 어 리틀, 덴 렛 고우'
+    }
+  ];
+
+  /* ══════════════ 저장 ══════════════ */
+  var S = { lang: 'ko', size: 2, theme: 'dark', sub: false, mode: 'auto', speed: 4, songs: [], seeded: false };
+
+  function normalizeSong(o) {
+    if (!o || typeof o !== 'object') return null;
+    var title = String(o.title || '').slice(0, 80);
+    if (!title) return null;
+    return {
+      id: String(o.id || uid()),
+      title: title,
+      artist: String(o.artist || '').slice(0, 60),
+      ytId: String(o.ytId || '').slice(0, 20),
+      fileName: String(o.fileName || '').slice(0, 120),
+      lyrics: String(o.lyrics || ''),
+      notes: String(o.notes || ''),
+      sample: !!o.sample,
+      createdAt: Number(o.createdAt) || Date.now()
+    };
+  }
+
+  function loadStore() {
+    var raw = null;
+    try { raw = localStorage.getItem(LS_KEY); } catch (e) {}
+    if (raw) {
+      try {
+        var o = JSON.parse(raw);
+        if (o && typeof o === 'object') {
+          S.lang = o.lang === 'en' ? 'en' : 'ko';
+          S.size = clamp(Number(o.size) || 0, 0, 3);
+          S.theme = o.theme === 'light' ? 'light' : 'dark';
+          S.sub = !!o.sub;
+          S.mode = o.mode === 'tap' ? 'tap' : 'auto';
+          S.speed = clamp(Number(o.speed) || 4, 2, 12);
+          S.seeded = !!o.seeded;
+          if (Array.isArray(o.songs)) {
+            S.songs = o.songs.map(normalizeSong).filter(Boolean);
+          }
+        }
+      } catch (e) {}
+    }
+    if (!S.songs.length && !S.seeded) {
+      S.songs = SAMPLES.map(function (x) {
+        var n = normalizeSong(x); n.sample = true; return n;
+      });
+      S.seeded = true;
+      saveStore();
+    }
+  }
+
+  function saveStore() {
+    try {
+      localStorage.setItem(LS_KEY, JSON.stringify({
+        lang: S.lang, size: S.size, theme: S.theme, sub: S.sub, mode: S.mode, speed: S.speed,
+        songs: S.songs, seeded: S.seeded
+      }));
+    } catch (e) {}
+  }
+
+  function findSong(id) {
+    for (var i = 0; i < S.songs.length; i++) { if (S.songs[i].id === id) return S.songs[i]; }
+    return null;
+  }
+
+  /* 이번에 고른 폰 파일 (기기 밖으로 나가지 않음, 새로고침하면 사라짐) */
+  var localFiles = {};
+
+  /* ══════════════ 화면 전환 ══════════════ */
+  var route = { scr: 'lib', id: null };
+  var dlgOpen = false;
+
+  function showScreen(name) {
+    $('#scr-lib').hidden = name !== 'lib';
+    $('#scr-edit').hidden = name !== 'edit';
+    $('#scr-play').hidden = name !== 'play';
+    document.body.classList.toggle('locked', name === 'play');
+    if (name !== 'play') { stopMedia(); }
+    if (name === 'lib') { renderLib(); window.scrollTo(0, 0); }
+    if (name === 'edit') { window.scrollTo(0, 0); }
+  }
+
+  function openSong(id, push) {
+    var sg = findSong(id);
+    if (!sg) { showLib(); return; }
+    route = { scr: 'play', id: id };
+    if (push !== false) { try { history.pushState({ scr: 'play', id: id }, ''); } catch (e) {} }
+    setupPlay(sg);
+    showScreen('play');
+  }
+
+  function openEdit(id, push) {
+    route = { scr: 'edit', id: id || null };
+    if (push !== false) { try { history.pushState({ scr: 'edit', id: id || null }, ''); } catch (e) {} }
+    renderEdit(id);
+    showScreen('edit');
+  }
+
+  function showLib(push) {
+    route = { scr: 'lib', id: null };
+    if (push) { try { history.pushState({ scr: 'lib' }, ''); } catch (e) {} }
+    showScreen('lib');
+  }
+
+  window.addEventListener('popstate', function (e) {
+    if (dlgOpen) { closeInstall(); return; }
+    var st = (e && e.state) || {};
+    if (st.scr === 'play' && st.id) { openSong(st.id, false); return; }
+    if (st.scr === 'edit') { openEdit(st.id || null, false); return; }
+    if (Pending.afterBack) {
+      var id = Pending.afterBack; Pending.afterBack = null;
+      showLib(false);
+      openSong(id, true);
+      return;
+    }
+    showLib(false);
+  });
+
+  var Pending = { afterBack: null };
+
+  /* ══════════════ 첫 화면 ══════════════ */
+  function songBadge(sg) {
+    if (sg.ytId) return '<span class="badge yt">' + esc(t('badgeYt')) + '</span>';
+    if (sg.fileName || localFiles[sg.id]) return '<span class="badge file">' + esc(t('badgeFile')) + '</span>';
+    return '<span class="badge prac">' + esc(t('badgePrac')) + '</span>';
+  }
+
+  function renderLib() {
+    var list = $('#songList');
+    $('#libCount').textContent = t('songCount', { n: S.songs.length });
+    if (!S.songs.length) {
+      list.innerHTML = '<div class="empty"><b>' + esc(t('emptyTitle')) + '</b><p>' + esc(t('emptyBody')) + '</p></div>';
+      return;
+    }
+    list.innerHTML = S.songs.map(function (sg) {
+      var lines = parseLyrics(sg.lyrics, sg.notes);
+      var first = '';
+      for (var i = 0; i < lines.length; i++) { if (lines[i].text) { first = lines[i].text; break; } }
+      return '<article class="song" data-id="' + esc(sg.id) + '">' +
+        '<div class="stitle">' + esc(sg.title) + '</div>' +
+        '<div class="smeta">' + songBadge(sg) +
+          (sg.artist ? '<span>' + esc(sg.artist) + '</span>' : '') +
+          '<span>' + esc(t('linesN', { n: lines.length })) + '</span>' +
+          (sg.sample ? '<span class="badge">' + esc(t('badgeSample')) + '</span>' : '') +
+        '</div>' +
+        '<div class="sline">' + esc(first || t('noLyricsLine')) + '</div>' +
+        '<div class="sacts">' +
+          '<button type="button" class="sing" data-act="sing">' + esc(t('sing')) + '</button>' +
+          '<button type="button" class="sedit" data-act="edit" aria-label="' + esc(t('editAria')) + '">✏️</button>' +
+        '</div>' +
+      '</article>';
+    }).join('');
+  }
+
+  $('#songList').addEventListener('click', function (e) {
+    var card = e.target.closest('.song');
+    if (!card) return;
+    var id = card.getAttribute('data-id');
+    var act = e.target.closest('[data-act]');
+    if (act && act.getAttribute('data-act') === 'edit') { openEdit(id, true); return; }
+    openSong(id, true);
+  });
+
+  $('#addYt').addEventListener('click', function () { openEdit(null, true); setTimeout(function () { $('#fYt').focus(); }, 260); });
+  $('#addFile').addEventListener('click', function () { openEdit(null, true); setTimeout(function () { $('#pickFile').focus(); }, 260); });
+  $('#addBlank').addEventListener('click', function () { openEdit(null, true); setTimeout(function () { $('#fTitle').focus(); }, 260); });
+
+  /* ══════════════ 가사 읽기 ══════════════ */
+  var LRC = /^\s*\[(\d{1,3}):(\d{1,2})(?:[.:](\d{1,3}))?\]\s*/;
+  var LRC_META = /^\s*\[(ar|ti|al|by|offset|re|ve|length):/i;
+
+  function parseLyrics(raw, notesRaw) {
+    var rawLines = String(raw || '').replace(/\r/g, '').split('\n');
+    var noteLines = String(notesRaw || '').replace(/\r/g, '').split('\n');
+    var out = [];
+    var hasTime = false;
+    for (var i = 0; i < rawLines.length; i++) {
+      var line = rawLines[i];
+      if (!line || !line.trim()) continue;
+      if (LRC_META.test(line)) continue;
+      var tm = null, txt = line;
+      var m = LRC.exec(line);
+      if (m) {
+        hasTime = true;
+        var frac = m[3] ? Number('0.' + m[3]) : 0;
+        tm = Number(m[1]) * 60 + Number(m[2]) + frac;
+        txt = line.slice(m[0].length);
+        var m2 = LRC.exec(txt);
+        if (m2) { txt = txt.slice(m2[0].length); }
+      }
+      var parts = txt.split('|');
+      var main = parts.shift().trim();
+      var sub = parts.join('|').trim();
+      if (!sub) {
+        var nt = (noteLines[out.length] || '').trim();
+        if (nt) sub = nt;
+      }
+      if (!main && !sub) continue;
+      out.push({ text: main, sub: sub, t: tm });
+    }
+    if (!hasTime) { for (var j = 0; j < out.length; j++) out[j].t = null; }
+    return out;
+  }
+
+  function ytParse(input) {
+    var s = String(input || '').trim();
+    if (!s) return '';
+    if (/^[A-Za-z0-9_-]{11}$/.test(s)) return s;
+    var id = '';
+    var m = s.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?[^#]*v=|shorts\/|embed\/|live\/|v\/))([A-Za-z0-9_-]{11})/);
+    if (m) id = m[1];
+    if (!id) {
+      try {
+        var u = new URL(s);
+        var v = u.searchParams.get('v');
+        if (v && /^[A-Za-z0-9_-]{11}$/.test(v)) id = v;
+      } catch (e) {}
+    }
+    return id;
+  }
+
+  /* ══════════════ 노래 넣기/고치기 ══════════════ */
+  var editingId = null;
+  var pendingFile = null;
+
+  function renderEdit(id) {
+    editingId = id || null;
+    var sg = editingId ? findSong(editingId) : null;
+    if (editingId && !sg) { showLib(); return; }
+    pendingFile = sg ? (localFiles[sg.id] || null) : null;
+
+    $('#editHead').textContent = t(sg ? 'editExisting' : 'editNew');
+    $('#fTitle').value = sg ? sg.title : '';
+    $('#fArtist').value = sg ? sg.artist : '';
+    $('#fYt').value = sg && sg.ytId ? 'https://youtu.be/' + sg.ytId : '';
+    $('#fLyrics').value = sg ? sg.lyrics : '';
+    $('#fNotes').value = sg ? sg.notes : '';
+    $('#delBtn').hidden = !sg;
+    $('#errTitle').hidden = true;
+    $('#errYt').hidden = true;
+    $('#errLyrics').hidden = true;
+    updateFileChip();
+    updateParseInfo();
+    applyI18n();
+    $('#editHead').textContent = t(sg ? 'editExisting' : 'editNew');
+  }
+
+  function updateFileChip() {
+    var chip = $('#fileChip');
+    var name = pendingFile ? pendingFile.name : '';
+    if (!name && editingId) {
+      var sg = findSong(editingId);
+      if (sg && sg.fileName) name = sg.fileName;
+    }
+    chip.textContent = name ? t('filePicked', { name: name }) : t('noFile');
+  }
+
+  function updateParseInfo() {
+    var lines = parseLyrics($('#fLyrics').value, $('#fNotes').value);
+    var timed = 0;
+    for (var i = 0; i < lines.length; i++) { if (lines[i].t != null) timed++; }
+    var p = $('#parseInfo');
+    if (!lines.length) { p.textContent = t('parseNone'); p.className = 'parse bad'; return; }
+    p.textContent = timed ? t('parseTimed', { n: lines.length }) : t('parsePlain', { n: lines.length });
+    p.className = 'parse';
+  }
+
+  $('#fLyrics').addEventListener('input', updateParseInfo);
+  $('#fNotes').addEventListener('input', updateParseInfo);
+
+  $('#pickFile').addEventListener('click', function () { $('#fileInput').click(); });
+  $('#fileInput').addEventListener('change', function () {
+    var f = this.files && this.files[0];
+    if (!f) return;
+    if (pendingFile && pendingFile.url) { try { URL.revokeObjectURL(pendingFile.url); } catch (e) {} }
+    pendingFile = { name: f.name, url: URL.createObjectURL(f), blob: f };
+    updateFileChip();
+    toast('🎵 ' + f.name);
+  });
+
+  function clearErrors() {
+    $('#errTitle').hidden = true;
+    $('#errYt').hidden = true;
+    $('#errLyrics').hidden = true;
+  }
+
+  function saveSong(goSing) {
+    clearErrors();
+    var title = $('#fTitle').value.trim();
+    if (!title) {
+      $('#errTitle').textContent = t('errTitle'); $('#errTitle').hidden = false; $('#fTitle').focus(); return;
+    }
+    var ytRaw = $('#fYt').value.trim();
+    var ytId = ytParse(ytRaw);
+    if (ytRaw && !ytId) {
+      $('#errYt').textContent = t('errYt'); $('#errYt').hidden = false; $('#fYt').focus(); return;
+    }
+    var lyrics = $('#fLyrics').value.replace(/\r/g, '');
+    var notes = $('#fNotes').value.replace(/\r/g, '');
+    if (!parseLyrics(lyrics, notes).length) {
+      $('#errLyrics').textContent = t('errLyrics'); $('#errLyrics').hidden = false; $('#fLyrics').focus(); return;
+    }
+
+    var sg = editingId ? findSong(editingId) : null;
+    var isNew = !sg;
+    if (!sg) {
+      sg = { id: uid(), createdAt: Date.now() };
+      S.songs.unshift(sg);
+    }
+    sg.title = title;
+    sg.artist = $('#fArtist').value.trim();
+    sg.ytId = ytId;
+    sg.lyrics = lyrics;
+    sg.notes = notes;
+    sg.sample = false;
+
+    if (pendingFile && pendingFile.url) {
+      localFiles[sg.id] = pendingFile;
+      sg.fileName = pendingFile.name;
+    } else if (!sg.fileName) {
+      sg.fileName = '';
+    }
+    saveStore();
+    toast(t('saved'));
+
+    if (goSing) {
+      // 편집 화면을 뒤로 닫고 노래 화면으로
+      Pending.afterBack = sg.id;
+      try { history.back(); } catch (e) {
+        Pending.afterBack = null; openSong(sg.id, true);
+      }
+    } else {
+      Pending.afterBack = null;
+      try { history.back(); } catch (e) { showLib(false); }
+    }
+  }
+
+  $('#saveSing').addEventListener('click', function () { saveSong(true); });
+  $('#saveOnly').addEventListener('click', function () { saveSong(false); });
+  $('#editBack').addEventListener('click', function () { try { history.back(); } catch (e) { showLib(false); } });
+
+  $('#delBtn').addEventListener('click', function () {
+    if (!editingId) return;
+    var idx = -1;
+    for (var i = 0; i < S.songs.length; i++) { if (S.songs[i].id === editingId) { idx = i; break; } }
+    if (idx < 0) return;
+    var removed = S.songs.splice(idx, 1)[0];
+    if (localFiles[removed.id]) { try { URL.revokeObjectURL(localFiles[removed.id].url); } catch (e) {} delete localFiles[removed.id]; }
+    saveStore();
+    showLib(false);
+    try { history.replaceState({ scr: 'lib' }, ''); } catch (e) {}
+    toast(t('deleted'), { label: t('undo'), fn: function () {
+      S.songs.splice(idx, 0, removed);
+      saveStore();
+      renderLib();
+      toast(t('saved'));
+    } });
+  });
+
+  /* ══════════════ 노래 화면 ══════════════ */
+  var play = {
+    active: false, song: null, lines: [], els: [], index: 0, tapIndex: 0,
+    src: 'practice', timed: false,
+    practice: { t: 0, playing: false, last: 0 },
+    audio: null, yt: null, ytReady: false, ytFailed: false, ytDuration: 0,
+    last: 0, timer: null, seeking: false, manualHold: 0
+  };
+
+  function setupPlay(sg) {
+    stopMedia();
+    play.active = true;
+    play.song = sg;
+    play.lines = parseLyrics(sg.lyrics, sg.notes);
+    play.timed = play.lines.some(function (l) { return l.t != null; });
+    play.index = 0; play.tapIndex = 0; play.manualHold = 0;
+    play.practice = { t: 0, playing: false, last: 0 };
+    play.yt = null; play.ytReady = false; play.ytFailed = false; play.ytDuration = 0;
+
+    $('#playTitle').textContent = sg.title;
+    $('#playArtist').textContent = sg.artist || t(sg.ytId ? 'ytTag' : 'mySong');
+
+    // 플레이어 자리 초기화
+    $('#ytFrame').innerHTML = '';
+    $('#ytWrap').style.display = '';
+    $('#playerBox').classList.remove('collapsed');
+    $('#ytCtl').hidden = true;
+    $('#ytMini').hidden = false;
+    $('#audioBar').hidden = true;
+    $('#pracBar').hidden = true;
+    $('#fileRepick').hidden = true;
+
+    var hasLocal = !!localFiles[sg.id];
+    var src = sg.ytId ? 'yt' : (hasLocal ? 'audio' : 'practice');
+    play.src = src;
+    var needFile = !!sg.fileName && !hasLocal;
+    $('#fileRepick').hidden = true;
+    $('#fileRepick').textContent = t('repick');
+
+    if (src === 'yt') {
+      $('#playerBox').style.display = '';
+      $('#ytCtl').hidden = false;
+      $('#ytCollapse').textContent = '🎤 ' + t('hideVideo');
+      startYT(sg.ytId);
+      if (hasLocal) {
+        $('#fileRepick').hidden = false;
+        $('#fileRepick').textContent = '🎵 ' + (S.lang === 'en' ? 'Play my file instead' : '내 파일로 듣기');
+      } else if (needFile) {
+        $('#fileRepick').hidden = false;
+      }
+    } else if (src === 'audio') {
+      $('#playerBox').style.display = '';
+      $('#ytWrap').style.display = 'none';
+      $('#ytMini').hidden = true;
+      $('#audioBar').hidden = false;
+      $('#pracBar').hidden = true;
+      startAudio(localFiles[sg.id]);
+    } else {
+      $('#ytWrap').style.display = 'none';
+      $('#ytCtl').hidden = true;
+      $('#ytMini').hidden = true;
+      $('#audioBar').hidden = true;
+      $('#pracBar').hidden = false;
+      $('#pracToggle').textContent = t('practice');
+      if (needFile) $('#fileRepick').hidden = false;
+    }
+
+    buildLyrics();
+    applySize(); applyTheme(); applySub(); applyMode();
+    setIndex(play.timed ? 0 : 0, true);
+    updateProgress(0, estimateDuration());
+
+    if (sg.ytId) {
+      // 영상은 사용자가 ▶를 눌러 시작 (자동재생 소리 방지)
+    }
+    startLoop();
+  }
+
+  function buildLyrics() {
+    var wrap = $('#lineWrap');
+    wrap.innerHTML = '';
+    play.els = [];
+    if (!play.lines.length) {
+      wrap.innerHTML = '<p class="lines-empty">' + esc(t('lyricsEmpty')) + '</p>';
+      return;
+    }
+    for (var i = 0; i < play.lines.length; i++) {
+      var l = play.lines[i];
+      var d = document.createElement('div');
+      d.className = 'line';
+      d.setAttribute('data-i', i);
+      var main = document.createElement('span');
+      main.className = 'mtext';
+      main.textContent = l.text || '♪';
+      d.appendChild(main);
+      if (l.sub) {
+        var sub = document.createElement('span');
+        sub.className = 'sub';
+        sub.textContent = l.sub;
+        d.appendChild(sub);
+      }
+      wrap.appendChild(d);
+      play.els.push(d);
+    }
+  }
+
+  function setIndex(i, force) {
+    if (!play.lines.length) { $('#linePos').textContent = '0 / 0'; return; }
+    i = clamp(i, 0, play.lines.length - 1);
+    if (!force && i === play.index) return;
+    play.index = i;
+    for (var k = 0; k < play.els.length; k++) {
+      var el = play.els[k];
+      el.classList.toggle('current', k === i);
+      el.classList.toggle('next', k === i + 1);
+      el.classList.toggle('done', k < i);
+    }
+    $('#linePos').textContent = t('pos', { i: i + 1, n: play.lines.length });
+    var cur = play.els[i];
+    if (cur) {
+      var pane = $('#lyrics');
+      var top = cur.offsetTop - pane.clientHeight * 0.32;
+      try { pane.scrollTo({ top: Math.max(0, top), behavior: 'smooth' }); }
+      catch (e) { pane.scrollTop = Math.max(0, top); }
+    }
+  }
+
+  function mediaDur() {
+    if (play.src === 'audio' && play.audio) {
+      var d = play.audio.duration;
+      return (isFinite(d) && d > 0) ? d : 0;
+    }
+    if (play.src === 'yt' && play.ytDuration > 0) return play.ytDuration;
+    return 0;
+  }
+
+  function estimateDuration() {
+    if (!play.lines.length) return 0;
+    if (play.timed) {
+      var last = 0;
+      for (var i = 0; i < play.lines.length; i++) { if (play.lines[i].t != null) last = Math.max(last, play.lines[i].t); }
+      return last + 6;
+    }
+    var d = mediaDur();
+    if (d > 0) return d;
+    return play.lines.length * S.speed;
+  }
+
+  function startTimeFor(i) {
+    var l = play.lines[i];
+    if (!l) return 0;
+    if (play.timed && l.t != null) return l.t;
+    var d = mediaDur();
+    if (d > 0) return (d / play.lines.length) * i;
+    return i * S.speed;
+  }
+
+  function indexForTime(time) {
+    var n = play.lines.length;
+    if (!n) return -1;
+    if (play.timed) {
+      var idx = 0;
+      for (var i = 0; i < n; i++) {
+        if (play.lines[i].t != null && play.lines[i].t <= time + 0.08) idx = i;
+      }
+      return idx;
+    }
+    var d = mediaDur();
+    if (d > 0) return clamp(Math.floor(time / (d / n)), 0, n - 1);
+    return clamp(Math.floor(time / S.speed), 0, n - 1);
+  }
+
+  function getTime() {
+    if (play.src === 'audio' && play.audio) return play.audio.currentTime || 0;
+    if (play.src === 'yt' && play.yt && play.ytReady && play.yt.getCurrentTime) {
+      try { return play.yt.getCurrentTime() || 0; } catch (e) { return 0; }
+    }
+    if (play.src === 'practice') return play.practice.t;
+    return 0;
+  }
+
+  function isPlaying() {
+    if (play.src === 'audio' && play.audio) return !play.audio.paused && !play.audio.ended;
+    if (play.src === 'yt' && play.yt && play.ytReady) {
+      try { return play.yt.getPlayerState() === 1; } catch (e) { return false; }
+    }
+    if (play.src === 'practice') return play.practice.playing;
+    return false;
+  }
+
+  function startLoop() {
+    if (play.timer) clearInterval(play.timer);
+    play.last = performance.now();
+    play.timer = setInterval(loop, 180);
+  }
+
+  function loop() {
+    if (!play.active) return;
+    var now = performance.now();
+    var dt = (now - play.last) / 1000;
+    play.last = now;
+    if (play.src === 'practice' && play.practice.playing) {
+      play.practice.t += Math.min(dt, 0.6);
+    }
+    var time = getTime();
+    if (isPlaying() && S.mode === 'auto' && !play.seeking) {
+      setIndex(indexForTime(time));
+    }
+    updateProgress(time, play.src === 'practice' ? estimateDuration() : (mediaDur() || estimateDuration()));
+    syncPlayButtons();
+  }
+
+  var lastBtnState = null;
+  function syncPlayButtons() {
+    var playing = isPlaying();
+    if (playing === lastBtnState) return;
+    lastBtnState = playing;
+    var a = $('#aPlay');
+    if (a) a.textContent = playing ? '❚❚' : '▶';
+    var p = $('#pracToggle');
+    if (p) p.textContent = playing ? t('practicePause') : t('practice');
+  }
+
+  function updateProgress(time, dur) {
+    var txt = fmtTime(time) + ' / ' + fmtTime(dur);
+    if (play.src === 'yt') {
+      $('#ytMiniText').textContent = (isPlaying() ? '♪ ' : '') + t('ytTag') + ' · ' + fmtTime(time);
+    }
+    if (play.src === 'audio') {
+      $('#aTime').textContent = txt;
+      if (!play.seeking) {
+        var sk = $('#aSeek');
+        sk.max = String(Math.max(0.1, dur));
+        sk.value = String(clamp(time, 0, dur || 1));
+      }
+    }
+    if (play.src === 'practice') {
+      var pt = $('#pracTime');
+      if (pt) pt.textContent = txt;
+    }
+  }
+
+  function seekTo(time) {
+    time = Math.max(0, time);
+    if (play.src === 'practice') {
+      play.practice.t = time;
+    } else if (play.src === 'audio' && play.audio) {
+      try { play.audio.currentTime = time; } catch (e) {}
+    } else if (play.src === 'yt' && play.yt && play.ytReady) {
+      try { play.yt.seekTo(time, true); } catch (e) {}
+    }
+    var idx = indexForTime(time);
+    if (S.mode === 'tap') play.tapIndex = idx;
+    setIndex(idx, true);
+  }
+
+  function jumpLine(delta) {
+    var n = play.lines.length;
+    if (!n) return;
+    var target;
+    if (S.mode === 'tap') {
+      target = clamp(play.index + delta, 0, n - 1);
+      play.tapIndex = target;
+      setIndex(target, true);
+      return;
+    }
+    target = clamp(play.index + delta, 0, n - 1);
+    seekTo(startTimeFor(target));
+  }
+
+  function togglePlay() {
+    if (play.src === 'practice') {
+      play.practice.playing = !play.practice.playing;
+      play.practice.last = performance.now();
+      if (play.practice.playing) {
+        if (play.practice.t >= estimateDuration() - 0.5) play.practice.t = 0;
+        if (play.timed) setIndex(indexForTime(play.practice.t), true);
+      }
+    } else if (play.src === 'audio' && play.audio) {
+      if (play.audio.paused) {
+        var p = play.audio.play();
+        if (p && p.catch) p.catch(function () { toast(t('ytError')); });
+      } else {
+        play.audio.pause();
+      }
+    } else if (play.src === 'yt' && play.yt && play.ytReady) {
+      try {
+        if (play.yt.getPlayerState() === 1) play.yt.pauseVideo(); else play.yt.playVideo();
+      } catch (e) {}
+    }
+    syncPlayButtons();
+  }
+
+  function stopMedia() {
+    play.active = false;
+    if (play.timer) { clearInterval(play.timer); play.timer = null; }
+    if (play.audio) {
+      try { play.audio.pause(); play.audio.removeAttribute('src'); play.audio.load(); } catch (e) {}
+      play.audio = null;
+    }
+    if (play.yt) {
+      try { if (play.yt.stopVideo) play.yt.stopVideo(); } catch (e) {}
+      try { if (play.yt.destroy) play.yt.destroy(); } catch (e) {}
+      play.yt = null; play.ytReady = false;
+    }
+    play.practice.playing = false;
+    var el = $('#audioEl');
+    if (el) { try { el.pause(); } catch (e) {} }
+    lastBtnState = null;
+  }
+
+  /* ── 유튜브 ── */
+  var ytApiPromise = null;
+  function loadYT() {
+    if (ytApiPromise) return ytApiPromise;
+    ytApiPromise = new Promise(function (resolve, reject) {
+      if (window.YT && window.YT.Player) { resolve(); return; }
+      var done = false;
+      window.onYouTubeIframeAPIReady = function () {
+        done = true;
+        resolve();
+      };
+      var s = document.createElement('script');
+      s.src = 'https://www.youtube.com/iframe_api';
+      s.onerror = function () { ytApiPromise = null; reject(new Error('yt api')); };
+      document.head.appendChild(s);
+      setTimeout(function () { if (!done) { ytApiPromise = null; reject(new Error('yt timeout')); } }, 12000);
+    });
+    return ytApiPromise;
+  }
+
+  function startYT(videoId) {
+    $('#ytFrame').innerHTML = '<div id="ytTarget"></div>';
+    $('#ytMiniText').textContent = t('ytLoading');
+    loadYT().then(function () {
+      if (!play.active || play.song.ytId !== videoId) return;
+      play.yt = new window.YT.Player('ytTarget', {
+        videoId: videoId,
+        width: '100%', height: '100%',
+        playerVars: { playsinline: 1, rel: 0, modestbranding: 1, origin: location.origin },
+        events: {
+          onReady: function (ev) {
+            play.ytReady = true;
+            try { play.ytDuration = ev.target.getDuration() || 0; } catch (e) {}
+            updateProgress(0, play.ytDuration || estimateDuration());
+            applyMode();
+          },
+          onStateChange: function () { syncPlayButtons(); },
+          onError: function () {
+            play.ytFailed = true;
+            $('#ytMiniText').textContent = t('ytNoEmbed');
+            $('#playerBox').classList.add('collapsed');
+            toast(t('ytNoEmbed'));
+          }
+        }
+      });
+    }).catch(function () {
+      play.ytFailed = true;
+      $('#ytMiniText').textContent = t('ytError');
+      $('#playerBox').classList.add('collapsed');
+      toast(t('ytError'));
+    });
+  }
+
+  /* ── 폰 음악 파일 ── */
+  function startAudio(fileObj) {
+    var el = $('#audioEl');
+    play.audio = el;
+    el.onloadedmetadata = function () {
+      $('#aSeek').max = String(el.duration || 100);
+      updateProgress(el.currentTime, el.duration || 0);
+      applyMode();
+    };
+    el.onplay = function () { lastBtnState = null; syncPlayButtons(); };
+    el.onpause = function () { lastBtnState = null; syncPlayButtons(); };
+    el.onended = function () { lastBtnState = null; syncPlayButtons(); };
+    el.src = fileObj.url;
+    el.load();
+  }
+
+  $('#aPlay').addEventListener('click', togglePlay);
+  $('#aBack').addEventListener('click', function () { seekTo(getTime() - 10); });
+  $('#aFwd').addEventListener('click', function () { seekTo(getTime() + 10); });
+  $('#aSeek').addEventListener('pointerdown', function () { play.seeking = true; });
+  $('#aSeek').addEventListener('input', function () { play.seeking = true; });
+  $('#aSeek').addEventListener('change', function () {
+    play.seeking = false;
+    var v = Number(this.value) || 0;
+    if (play.audio) { try { play.audio.currentTime = v; } catch (e) {} }
+    if (S.mode === 'auto') setIndex(indexForTime(v));
+  });
+  $('#aSeek').addEventListener('pointerup', function () { play.seeking = false; });
+
+  $('#pracToggle').addEventListener('click', togglePlay);
+
+  $('#playFileInput').addEventListener('change', function () {
+    var f = this.files && this.files[0];
+    if (!f || !play.song) return;
+    var obj = { name: f.name, url: URL.createObjectURL(f), blob: f };
+    localFiles[play.song.id] = obj;
+    play.song.fileName = f.name;
+    saveStore();
+    $('#fileRepick').hidden = true;
+    $('#audioBar').hidden = false;
+    $('#ytWrap').style.display = 'none';
+    $('#ytMini').hidden = true;
+    $('#pracBar').hidden = true;
+    play.src = 'audio';
+    startAudio(obj);
+    startLoop();
+  });
+
+  $('#fileRepick').addEventListener('click', function () {
+    if (play.song && localFiles[play.song.id]) {
+      play.src = 'audio';
+      $('#ytWrap').style.display = 'none';
+      $('#ytCtl').hidden = true;
+      $('#ytMini').hidden = true;
+      $('#pracBar').hidden = true;
+      $('#audioBar').hidden = false;
+      $('#fileRepick').hidden = true;
+      startAudio(localFiles[play.song.id]);
+      startLoop();
+      toast('🎵 ' + localFiles[play.song.id].name);
+      return;
+    }
+    if (play.song && play.song.ytId) { toast(t('fileNeeded')); }
+    $('#playFileInput').click();
+  });
+
+  $('#ytShow').addEventListener('click', function () {
+    $('#playerBox').classList.remove('collapsed');
+  });
+  $('#ytCollapse').addEventListener('click', function () {
+    $('#playerBox').classList.add('collapsed');
+  });
+
+  // 영상 접기/펼치기: 플레이어 안 접기 버튼은 만들지 않고, 미니바에서만 펼침.
+  // (유튜브 영상은 접을 수 없게 두면 화면이 좁아지므로 '가사만 크게' 필요)
+
+  /* ══════════════ 노래 화면 조작 ══════════════ */
+  function applySize() {
+    var wrap = $('#lineWrap');
+    if (wrap) wrap.style.setProperty('--fs', SIZE_PX[S.size]);
+    $$('#sizeSeg button').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(Number(b.getAttribute('data-size')) === S.size));
+    });
+  }
+  function applyTheme() {
+    var sc = $('#scr-play');
+    sc.classList.toggle('dark', S.theme === 'dark');
+    var b = $('#btnTheme');
+    b.textContent = t(S.theme === 'dark' ? 'themeDark' : 'themeLight');
+    b.setAttribute('aria-pressed', String(S.theme === 'dark'));
+  }
+  function applySub() {
+    var ly = $('#lyrics');
+    ly.classList.toggle('hide-sub', !S.sub);
+    $('#btnSub').setAttribute('aria-pressed', String(!!S.sub));
+    $('#btnSub').textContent = t('subToggle');
+  }
+  function applyMode() {
+    var b = $('#btnMode');
+    b.textContent = t(S.mode === 'auto' ? 'modeAuto' : 'modeTap');
+    b.setAttribute('aria-pressed', String(S.mode === 'auto'));
+    var showSpd = S.mode === 'auto' && !play.timed && mediaDur() === 0;
+    $('#spdBox').hidden = !showSpd;
+    $('#spdVal').textContent = t('secUnit', { n: S.speed });
+  }
+
+  $('#sizeSeg').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-size]');
+    if (!b) return;
+    S.size = clamp(Number(b.getAttribute('data-size')), 0, 3);
+    saveStore();
+    applySize();
+    setIndex(play.index, true);
+  });
+
+  $('#btnTheme').addEventListener('click', function () {
+    S.theme = S.theme === 'dark' ? 'light' : 'dark';
+    saveStore(); applyTheme();
+  });
+  $('#btnSub').addEventListener('click', function () {
+    S.sub = !S.sub;
+    saveStore(); applySub();
+    setIndex(play.index, true);
+  });
+  $('#btnMode').addEventListener('click', function () {
+    S.mode = S.mode === 'auto' ? 'tap' : 'auto';
+    saveStore(); applyMode();
+    if (S.mode === 'tap') play.tapIndex = play.index;
+    toast(S.mode === 'tap' ? t('tapHint') : t('modeAuto'));
+  });
+  $('#spdDown').addEventListener('click', function () { S.speed = clamp(S.speed - 1, 2, 12); saveStore(); applyMode(); if (play.src === 'practice') setIndex(indexForTime(play.practice.t), true); });
+  $('#spdUp').addEventListener('click', function () { S.speed = clamp(S.speed + 1, 2, 12); saveStore(); applyMode(); if (play.src === 'practice') setIndex(indexForTime(play.practice.t), true); });
+
+  $('#prevLine').addEventListener('click', function () { jumpLine(-1); });
+  $('#nextLine').addEventListener('click', function () { jumpLine(1); });
+
+  $('#lyrics').addEventListener('click', function (e) {
+    if (!play.lines.length) return;
+    if (S.mode === 'tap') { jumpLine(1); return; }
+    var l = e.target.closest('.line');
+    if (l) {
+      var i = Number(l.getAttribute('data-i'));
+      if (!isNaN(i)) seekTo(startTimeFor(i));
+    }
+  });
+
+  $('#playBack').addEventListener('click', function () {
+    try { history.back(); } catch (e) { showLib(false); }
+  });
+  $('#playEdit').addEventListener('click', function () {
+    if (!play.song) return;
+    var id = play.song.id;
+    stopMedia();
+    openEdit(id, true);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (route.scr !== 'play') return;
+    if (e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
+    if (e.key === 'ArrowRight') { jumpLine(1); e.preventDefault(); }
+    else if (e.key === 'ArrowLeft') { jumpLine(-1); e.preventDefault(); }
+    else if (e.key === ' ') { togglePlay(); e.preventDefault(); }
+  });
+
+  /* ══════════════ 한/EN ══════════════ */
+  function applyI18n() {
+    document.documentElement.lang = S.lang;
+    document.title = S.lang === 'en'
+      ? 'Wagling Karaoke · big lyrics, easy sing-along'
+      : '와글링 노래방 · 큰 글씨 가사로 따라 불러요';
+    $$('[data-i18n]').forEach(function (el) {
+      var k = el.getAttribute('data-i18n');
+      el.textContent = t(k);
+    });
+    $$('[data-i18n-ph]').forEach(function (el) {
+      el.setAttribute('placeholder', t(el.getAttribute('data-i18n-ph')));
+    });
+    $$('[data-i18n-aria]').forEach(function (el) {
+      el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria')));
+    });
+    var lb = $('#btnLang');
+    lb.textContent = S.lang === 'ko' ? '🌐 EN' : '🌐 한글';
+    lb.setAttribute('aria-label', S.lang === 'ko' ? 'Switch to English' : '한국어로 보기');
+    $('#sizeSeg').setAttribute('aria-label', S.lang === 'en' ? 'Text size' : '글씨 크기');
+    $('#aSeek').setAttribute('aria-label', S.lang === 'en' ? 'Playback position' : '재생 위치');
+    $('#prevLine').textContent = t('prev');
+    $('#nextLine').textContent = t('next');
+    $('#delBtn').textContent = t('del');
+    if (play.song && play.song.ytId) { $('#ytCollapse').textContent = '🎤 ' + t('hideVideo'); }
+    if (play.song) {
+      applyTheme(); applySub(); applyMode();
+      $('#pracToggle').textContent = isPlaying() ? t('practicePause') : t('practice');
+      $('#linePos').textContent = play.lines.length ? t('pos', { i: play.index + 1, n: play.lines.length }) : '0 / 0';
+      if (play.song.ytId && localFiles[play.song.id]) {
+        $('#fileRepick').textContent = S.lang === 'en' ? '🎵 Play my file instead' : '내 파일로 듣기';
+      }
+      $('#playArtist').textContent = play.song.artist || t(play.song.ytId ? 'ytTag' : 'mySong');
+    }
+    if (route.scr === 'edit') { updateFileChip(); updateParseInfo(); }
+    if (route.scr === 'lib') { renderLib(); }
+  }
+
+  $('#btnLang').addEventListener('click', function () {
+    S.lang = S.lang === 'ko' ? 'en' : 'ko';
+    saveStore();
+    applyI18n();
+    if (route.scr === 'edit') { $('#editHead').textContent = t(findSong(editingId) ? 'editExisting' : 'editNew'); }
+  });
+
+  /* ══════════════ 알림 ══════════════ */
+  var toastTimer = null, toastAction = null;
+  function toast(msg, action) {
+    var box = $('#toast');
+    if (!box) return;
+    box.innerHTML = '<span></span>';
+    box.firstChild.textContent = msg;
+    if (action) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = action.label;
+      b.addEventListener('click', function () {
+        box.classList.remove('on');
+        if (action.fn) action.fn();
+      });
+      box.appendChild(b);
+      toastAction = action;
+    } else { toastAction = null; }
+    box.classList.add('on');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      box.classList.remove('on');
+      toastAction = null;
+    }, action ? 5200 : 2400);
+  }
+
+  /* ══════════════ 설치 · 공유 ══════════════ */
+  var instPrompt = null, instDone = false;
+
+  function isStandalone() {
+    try {
+      if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) return true;
+      if (window.matchMedia && window.matchMedia('(display-mode: minimal-ui)').matches) return true;
+    } catch (e) {}
+    if (navigator.standalone === true) return true;
+    if (/^android-app:\/\//i.test(document.referrer || '')) return true;
+    return false;
+  }
+  function isAndroid() { return /Android/i.test(navigator.userAgent || ''); }
+  function inApp() { return /KAKAOTALK|Instagram|NAVER|FBAN|FBAV|Line\//i.test(navigator.userAgent || ''); }
+  function chromeIntent() {
+    var host = location.host || 'starpicklife-design.github.io';
+    var path = (location.pathname || '/lyrics/') + (location.search || '');
+    return 'intent://' + host + path + '#Intent;scheme=https;package=com.android.chrome;end';
+  }
+  function syncInstallPill() {
+    var b = $('#installBtn');
+    if (b) b.hidden = instDone || isStandalone();
+  }
+  function openInstall() {
+    var m = $('#instModal');
+    if (!m) return;
+    $('#instTitle').textContent = t('instTitle');
+    $('#instLead').textContent = t('instLead');
+    $('#instSteps').innerHTML = ['instS1', 'instS2', 'instS3', 'instS4'].map(function (k) { return '<li>' + t(k) + '</li>'; }).join('');
+    $('#instMini').textContent = t('instMini');
+    $('#instClose').textContent = t('instOk');
+    var ch = $('#instChrome');
+    var show = isAndroid() && inApp();
+    ch.hidden = !show;
+    if (show) { ch.textContent = t('instChrome'); ch.setAttribute('href', chromeIntent()); }
+    m.hidden = false;
+    dlgOpen = true;
+    try { history.pushState({ dlg: 'install' }, ''); } catch (e) {}
+    try { $('#instClose').focus(); } catch (e) {}
+  }
+  function closeInstall() {
+    var m = $('#instModal');
+    if (m) m.hidden = true;
+    dlgOpen = false;
+    try { if ($('#installBtn') && !$('#installBtn').hidden) $('#installBtn').focus(); } catch (e) {}
+  }
+  function installTap() {
+    if (instDone || isStandalone()) { toast(t('instAlready')); return; }
+    if (instPrompt) {
+      var dp = instPrompt;
+      instPrompt = null;
+      try {
+        dp.prompt();
+        if (dp.userChoice && dp.userChoice.then) {
+          dp.userChoice.then(function (r) {
+            if (r && r.outcome === 'accepted') toast(t('installedMsg'));
+            syncInstallPill();
+          }, function () {});
+        }
+        return;
+      } catch (e) {}
+    }
+    openInstall();
+  }
+  function legacyCopy(text, done, fail) {
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed'; ta.style.top = '-9999px';
+      document.body.appendChild(ta); ta.select();
+      var ok = document.execCommand && document.execCommand('copy');
+      document.body.removeChild(ta);
+      if (ok) done(); else fail();
+    } catch (e) { fail(); }
+  }
+  function copyText(text, done, fail) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { legacyCopy(text, done, fail); });
+    } else { legacyCopy(text, done, fail); }
+  }
+  function shareApp() {
+    var p = { title: t('shareTitle'), text: t('shareText'), url: SHARE_URL };
+    var ok = true;
+    try { if (navigator.canShare && !navigator.canShare(p)) ok = false; } catch (e) {}
+    var done = function () { toast(t('shareCopied')); };
+    var fail = function () { toast(t('shareCopyFail')); };
+    if (navigator.share && ok) {
+      try {
+        var r = navigator.share(p);
+        if (r && r.then) r.then(function () {}, function (err) {
+          if (err && err.name === 'AbortError') return;
+          copyText(p.text + '\n\n' + p.url, done, fail);
+        });
+        return;
+      } catch (e) {}
+    }
+    copyText(p.text + '\n\n' + p.url, done, fail);
+  }
+
+  $('#installBtn').addEventListener('click', installTap);
+  $('#shareBtn').addEventListener('click', shareApp);
+  $('#instClose').addEventListener('click', function () {
+    if (dlgOpen) { try { history.back(); } catch (e) { closeInstall(); } }
+  });
+  $('#instModal').addEventListener('click', function (e) {
+    if (e.target === $('#instModal') && dlgOpen) { try { history.back(); } catch (er) { closeInstall(); } }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && dlgOpen) { try { history.back(); } catch (er) { closeInstall(); } }
+  });
+  window.addEventListener('appinstalled', function () {
+    instDone = true; instPrompt = null; syncInstallPill(); toast(t('installedMsg'));
+  });
+  window.addEventListener('beforeinstallprompt', function (e) {
+    e.preventDefault();
+    instPrompt = e;
+  });
+
+  /* ══════════════ 시작 ══════════════ */
+  function boot() {
+    loadStore();
+    if (S.lang === 'en') { document.documentElement.lang = 'en'; }
+    applyI18n();
+    renderLib();
+    showScreen('lib');
+    syncInstallPill();
+
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('./sw.js').catch(function () {});
+      });
+    }
+    // 화면 회전/높이 변화에도 노래 화면이 꽉 차도록
+    var setVH = function () { document.documentElement.style.setProperty('--vh', window.innerHeight + 'px'); };
+    setVH();
+    window.addEventListener('resize', setVH);
+    window.addEventListener('pagehide', function () { try { if (play.audio) play.audio.pause(); } catch (e) {} });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
+</body>
+</html>
