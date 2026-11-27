@@ -961,20 +961,21 @@
         ring = gold ? '#D9A21B' : '#9FB3C8', txt = gold ? '#7A5200' : '#3E5A78';
       return '<svg viewBox="0 0 100 100">' +
         '<circle cx="50" cy="50" r="46" fill="' + deep + '"/>' +
-        '<circle cx="50" cy="50" r="41" fill="' + face + '" stroke="' + ring + '" stroke-width="2"/>' +
-        '<circle cx="50" cy="50" r="32" fill="none" stroke="' + ring + '" stroke-width="1.5" opacity=".65"/>' +
-        '<text x="50" y="58" text-anchor="middle" font-size="26" font-weight="900" fill="' + txt + '" font-family="inherit">' + v + '</text>' +
+        '<circle cx="50" cy="50" r="41" fill="' + face + '" stroke="' + ring + '" stroke-width="2.5"/>' +
+        '<circle cx="50" cy="50" r="33" fill="none" stroke="' + ring + '" stroke-width="2" opacity=".7"/>' +
+        '<text x="50" y="53" text-anchor="middle" font-size="28" font-weight="900" fill="' + txt + '" font-family="inherit">' + v + '</text>' +
+        '<text x="50" y="72" text-anchor="middle" font-size="13" font-weight="900" fill="' + txt + '" font-family="inherit" opacity=".8">원</text>' +
         '</svg>';
     }
     var col = (v === 1000) ? ['#CFE3F6', '#4E86BD', '#1F4E7A']
       : (v === 5000) ? ['#FFE0C7', '#C9743A', '#7A3C12']
         : ['#DFF3D9', '#5A9B4E', '#2F5F28'];
     return '<svg viewBox="0 0 120 64">' +
-      '<rect x="1" y="1" width="118" height="62" rx="7" fill="' + col[0] + '" stroke="' + col[1] + '" stroke-width="2"/>' +
-      '<rect x="8" y="8" width="104" height="48" rx="4" fill="none" stroke="' + col[1] + '" stroke-width="1" opacity=".45"/>' +
-      '<circle cx="24" cy="32" r="11" fill="none" stroke="' + col[1] + '" stroke-width="2" opacity=".8"/>' +
-      '<text x="70" y="35" text-anchor="middle" font-size="20" font-weight="900" fill="' + col[2] + '" font-family="inherit">' + v.toLocaleString('en-US') + '</text>' +
-      '<text x="70" y="52" text-anchor="middle" font-size="9" font-weight="800" fill="' + col[2] + '" font-family="inherit" opacity=".75">원</text>' +
+      '<rect x="1.5" y="1.5" width="117" height="61" rx="7" fill="' + col[0] + '" stroke="' + col[1] + '" stroke-width="3"/>' +
+      '<rect x="8" y="8" width="104" height="48" rx="4" fill="none" stroke="' + col[1] + '" stroke-width="1.8" opacity=".5"/>' +
+      '<circle cx="25" cy="32" r="11" fill="none" stroke="' + col[1] + '" stroke-width="2.4" opacity=".85"/>' +
+      '<text x="71" y="35" text-anchor="middle" font-size="23" font-weight="900" fill="' + col[2] + '" font-family="inherit">' + v.toLocaleString('en-US') + '</text>' +
+      '<text x="71" y="53" text-anchor="middle" font-size="12" font-weight="900" fill="' + col[2] + '" font-family="inherit" opacity=".8">원</text>' +
       '</svg>';
   }
   function genMoney(lv) {
