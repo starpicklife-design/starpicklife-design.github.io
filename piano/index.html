@@ -5,7 +5,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#232C57" />
 <meta name="google" content="notranslate" />
-<!-- build: 2026-11-27 와글링 피아노 (Wagling Piano) v2
+<!-- build: 2026-11-28 와글링 피아노 (Wagling Piano) v3 · 쉬운 화음
+     · 🎼 쉬운 화음 탭: 기본 8화음(C Dm Em F G Am G7 C7) + 코드 진행 5가지(만능 4코드·캐논·옛 가요·슬픈 노래·캐럴 마무리)
+     · 📖 쉬운 악보 카드: 음마다 한글 계이름(도·미·솔) + 영문(C·E·G) + 손가락 번호(1·3·5) 큼직하게
+     · 🖐 건반 3개가 한꺼번에 파랗게 빛나고 손가락 번호 배지 → 따라 치면 "딩동! 잘 짚었어요!" → 다음 화음
+     · ▶ 진행 듣기: 코드 진행을 박자에 맞춰 들려주고 지금 화음을 파랗게
+     · 🕐 상단 오늘 날짜·요일·날씨 (김해 기준 · 위치 허용 시 내 위치)
+     · 날씨만 무료 open-meteo를 한 번 불러옴(위치 허용 시에만 내 좌표, 아니면 김해 좌표) · 그 외 서버·DB·유료 API 0 · 기록은 이 기기에만
+     · v2 기능 그대로: 멜로디 녹음·악보 PNG·AI 복사·6악기·비트박스·노래 10곡·한/EN·설치·공유·폰 뒤로가기
+     · v1·v2 기록 → build: 2026-11-27 와글링 피아노 (Wagling Piano) v2
      · 🔴 멜로디 녹음(음이름·옥타브·누른 시각·길이) → 이름 붙여 이 기기에 저장 → ▶ 다시 듣기 → 🗑️ 삭제 5초 되돌리기
      · 🖼️ 악보 PNG 생성(오선지 음표 + 아래 계이름 + 박자/BPM/제목) → 저장 · 카톡/AI 이미지 공유
      · 🤖 AI 작곡용 악보 텍스트 복사(제목·템포·계이름·박자) — 몽이·수노·ChatGPT에 붙여넣기
@@ -27,7 +35,7 @@
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="와글링 피아노" />
-<meta name="description" content="와글링 피아노 — 불빛 따라 치는 노래 피아노. 진짜 소리가 나는 큰 건반, 도레미 계이름, 동요·민요·캐롤 10곡, 화음 반주. 설치 없이 무료, 광고 없음." />
+<meta name="description" content="와글링 피아노 — 불빛 따라 치는 노래 피아노. 진짜 소리가 나는 큰 건반, 도레미 계이름, 동요·민요·캐롤 10곡, 손가락 번호로 따라 치는 쉬운 화음·코드 진행. 설치 없이 무료, 광고 없음." />
 <title>와글링 피아노 · 불빛 따라 치는 노래 피아노</title>
 <style>
 :root{
@@ -65,6 +73,20 @@ img,svg{max-width:100%}
   border-radius:.62rem;padding:.3rem .46rem;font-size:.78rem;font-weight:900;line-height:1.1;
   min-height:2.6rem;white-space:nowrap}
 .topbtns button:active{transform:translateY(1px)}
+/* ── 오늘 날짜 · 요일 · 날씨 ─────────────── */
+.datebar{display:flex;align-items:center;gap:.36rem;width:100%;margin:.28rem 0 0;
+  min-height:1.95rem;padding:.14rem .5rem;border-radius:.6rem;text-align:left;
+  background:rgba(255,255,255,.13);border:1px solid rgba(251,248,255,.34);color:#FBF8FF}
+.datebar:active{transform:translateY(1px)}
+.db-date{font-size:.82rem;font-weight:900;letter-spacing:-.02em;white-space:nowrap;flex:0 0 auto}
+.db-wx{font-size:.82rem;font-weight:900;letter-spacing:-.02em;white-space:nowrap;color:#FFD98A;
+  overflow:hidden;text-overflow:ellipsis;min-width:0}
+.db-wx.loading{color:rgba(251,248,255,.82);font-weight:800}
+.db-place{flex:0 0 auto;margin-left:auto;font-size:.68rem;font-weight:900;white-space:nowrap;
+  padding:.06rem .4rem;border-radius:999px;background:rgba(255,255,255,.18);
+  border:1px solid rgba(251,248,255,.3)}
+@media (max-width:359px){ .db-place{display:none} .db-date{font-size:.76rem} .db-wx{font-size:.76rem} }
+@media (min-width:560px) and (max-height:560px){ .datebar{display:none} }
 
 /* ── 화면 ───────────────────────────────── */
 .view{padding:.5rem .55rem 0}
@@ -253,16 +275,99 @@ img,svg{max-width:100%}
 .speeds button[aria-pressed="true"]{background:linear-gradient(180deg,#FFEFC9,#FFD98A);
   border-color:#E9A93A;color:#5B3A05}
 
-/* ── 화음 ───────────────────────────────── */
-.chordgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:.34rem;margin-top:.1rem}
-.chord{min-height:3.7rem;border-radius:.8rem;border:1.5px solid #D8CBAE;background:#FFFDF7;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.02rem;
-  box-shadow:var(--shadow);padding:.2rem .1rem;overflow:hidden}
-.chord b{font-size:1.24rem;font-weight:900;letter-spacing:-.02em;line-height:1.1;white-space:nowrap}
-.chord i{font-style:normal;font-size:.74rem;color:var(--ink2);white-space:nowrap;line-height:1.1}
-.chord[aria-pressed="true"]{background:linear-gradient(180deg,#FFEFC9,#FFD98A);border-color:#E9A93A}
-.chordnow{margin-top:.5rem;font-size:.98rem;font-weight:900;color:#3F3466;min-height:1.8rem;
+/* ── 쉬운 화음 (v3) ─────────────────────── */
+.segbar{display:flex;gap:.3rem;margin:.05rem 0 .38rem}
+.segbar button{flex:1 1 0;min-width:0;min-height:2.9rem;border-radius:.72rem;border:1.5px solid #D8CBAE;
+  background:#FFFDF7;color:#4A3A1A;font-weight:900;font-size:.92rem;letter-spacing:-.02em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 .2rem}
+.segbar button[aria-pressed="true"]{background:linear-gradient(180deg,#DCE8FF,#A9C4FF);
+  border-color:#5D86D8;color:#14305F;box-shadow:0 2px 9px rgba(70,110,220,.28)}
+.pickrow{display:flex;gap:.28rem;overflow-x:auto;overflow-y:hidden;max-width:100%;
+  padding:.04rem .04rem .3rem;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.pickrow::-webkit-scrollbar{display:none}
+.pick{flex:0 0 auto;min-width:3.5rem;min-height:3.2rem;border-radius:.72rem;border:1.5px solid #D8CBAE;
+  background:#FFFDF7;color:#3F3466;font-weight:900;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:.02rem;padding:.14rem .34rem;box-shadow:var(--shadow)}
+.pick:active{transform:translateY(1px)}
+.pick b{font-size:1.18rem;line-height:1.06;letter-spacing:-.02em;white-space:nowrap}
+.pick i{font-style:normal;font-size:.7rem;color:var(--ink2);white-space:nowrap;line-height:1.1}
+.pick[aria-pressed="true"]{background:linear-gradient(180deg,#DCE8FF,#A9C4FF);border-color:#5D86D8;
+  color:#14305F;box-shadow:0 2px 10px rgba(70,110,220,.3)}
+.pick[aria-pressed="true"] i{color:#2C4E8C}
+.pick.prog{min-width:7.4rem;align-items:flex-start;text-align:left;padding:.28rem .5rem}
+.pick.prog b{font-size:.92rem;white-space:normal;text-align:left;line-height:1.16}
+.pick.prog i{font-size:.72rem;margin-top:.08rem}
+
+/* 쉬운 악보 카드 */
+.easyscore{position:relative;border:1.5px solid #E7D3AE;border-radius:.9rem;
+  background:linear-gradient(180deg,#FFFDF7,#FFF7E9);box-shadow:var(--shadow);
+  padding:.34rem .46rem .42rem;overflow:hidden}
+.eshead{display:flex;align-items:center;gap:.34rem}
+.eclef{font-size:1.42rem;line-height:1;color:#3A3350;flex:0 0 auto}
+.eshead b{font-size:1.28rem;font-weight:900;letter-spacing:-.03em;color:#14305F;flex:0 0 auto}
+.esko{font-size:.8rem;font-weight:900;color:#6B4A0C;background:var(--goldbg);border:1px solid var(--goldline);
+  border-radius:999px;padding:.08rem .44rem;white-space:nowrap;flex:0 1 auto;overflow:hidden;text-overflow:ellipsis}
+.esstep{margin-left:auto;flex:0 0 auto;font-size:.78rem;font-weight:900;color:var(--ink2);white-space:nowrap}
+.esnotes{position:relative;display:flex;flex-direction:column;gap:.16rem;margin-top:.32rem;
+  padding:.08rem 0 .08rem .08rem;border-radius:.5rem;
+  background:repeating-linear-gradient(180deg,transparent 0,transparent 12px,#EBDCC2 12px,#EBDCC2 13px)}
+.esn{display:flex;align-items:center;gap:.4rem;min-height:2.5rem;border-radius:.55rem;
+  border:1.5px solid transparent;background:rgba(255,253,247,.94);padding:.12rem .4rem}
+.esn .fn{flex:0 0 auto;width:2.1rem;height:2.1rem;border-radius:999px;background:#2F6BE0;color:#FBF8FF;
+  font-size:1.14rem;font-weight:900;line-height:2.1rem;text-align:center;
+  box-shadow:0 2px 6px rgba(40,80,190,.35)}
+.esn .esol{flex:0 0 auto;font-size:1.62rem;font-weight:900;color:#14305F;letter-spacing:-.03em;line-height:1.1}
+.esn .elet{flex:0 0 auto;font-size:.98rem;font-weight:900;color:#7A7F8E;letter-spacing:.02em}
+.esn .fname{flex:1 1 auto;min-width:0;font-size:.72rem;font-weight:800;color:var(--ink3);
+  text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.esn.ok{background:linear-gradient(180deg,#E7F6EE,#CCEBDC);border-color:#5FAE8B}
+.esn.ok .fn{background:#1E7A5C}
+.esn.ok .esol{color:#14533C}
+
+/* 코드 진행 단계 */
+.stepstrip{display:flex;gap:.22rem;overflow-x:auto;overflow-y:hidden;max-width:100%;
+  margin-top:.38rem;padding-bottom:.1rem;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.stepstrip::-webkit-scrollbar{display:none}
+.sch{flex:0 0 auto;min-width:2.95rem;min-height:2.55rem;border-radius:.6rem;border:1.5px solid #D8CBAE;
+  background:#FFFDF7;color:#4A3A1A;font-weight:900;font-size:.94rem;line-height:1.08;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:.1rem .26rem}
+.sch i{font-style:normal;font-size:.62rem;color:var(--ink3);font-weight:900}
+.sch.on{background:linear-gradient(180deg,#DCE8FF,#A9C4FF);border-color:#5D86D8;color:#14305F}
+.sch.on i{color:#2C4E8C}
+.sch.done{opacity:.6}
+
+/* 화음 조작 · 알림 */
+.cctl{display:flex;align-items:center;gap:.34rem;margin-top:.44rem}
+.cfb{margin-top:.4rem;font-size:.98rem;font-weight:900;color:#14305F;min-height:1.9rem;line-height:1.3;
   display:flex;align-items:center;gap:.34rem;flex-wrap:wrap;letter-spacing:-.02em}
+.cfb.good{color:#1E7A5C}
+.cfb.bad{color:#C0392B}
+.cfb .chip{font-size:.74rem;font-weight:900;color:#2C4E8C;background:#E8F0FF;border:1px solid #B7CDF5;
+  border-radius:999px;padding:.1rem .46rem;white-space:nowrap}
+
+/* 화음 건반: 파란 불빛 + 손가락 번호 배지 */
+#kbChord .key{overflow:visible}
+#kbChord .key.w.clit{background:linear-gradient(180deg,#E6EEFF 0%,#9DBBF7 62%,#5C86E0 100%);
+  color:#0E2350;box-shadow:inset 0 0 0 2px #BBD2FF,0 0 22px rgba(70,120,240,.85)}
+#kbChord .key.b.clit{background:linear-gradient(180deg,#8FB0F2,#3D63C8);
+  box-shadow:0 0 18px rgba(70,120,240,.95)}
+#kbChord .key .fng{position:absolute;left:50%;top:auto;bottom:2.05rem;z-index:4;
+  transform:translateX(-50%);width:1.8rem;height:1.8rem;border-radius:999px;background:#2F6BE0;
+  color:#FBF8FF;font-size:1.02rem;font-weight:900;line-height:1.7rem;text-align:center;
+  pointer-events:none;border:2px solid #FFFDF7;box-shadow:0 2px 7px rgba(20,40,90,.42)}
+#kbChord .key.b .fng{bottom:auto;top:.2rem;width:1.5rem;height:1.5rem;line-height:1.42rem;font-size:.92rem}
+#kbChord .key.hitok .fng{background:#1E7A5C;border-color:#DFF3E8}
+#kbChord .key.w.cpulse{animation:cpW 1.3s ease-in-out infinite}
+#kbChord .key.b.cpulse{animation:cpB 1.3s ease-in-out infinite}
+@keyframes cpW{0%,100%{box-shadow:inset 0 0 0 2px #BBD2FF,0 0 9px rgba(70,120,240,.45)}
+  50%{box-shadow:inset 0 0 0 3px #E6EEFF,0 0 26px rgba(70,120,240,1)}}
+@keyframes cpB{0%,100%{box-shadow:0 0 8px rgba(70,120,240,.5)}
+  50%{box-shadow:0 0 22px rgba(70,120,240,1)}}
+#kbChord .key.w.press{background:linear-gradient(180deg,#CBDCFF,#7FA3EE 70%,#4470D0)}
+#kbChord .key.b.press{background:linear-gradient(180deg,#9FBCF5,#4E77D8)}
+#kbChord .key.w.hitok{background:linear-gradient(180deg,#DDF1E5,#9FD8BC 66%,#5FAE8B)}
+@media (max-height:829px){ .secHead p#chordSub{display:none} }
+@media (max-height:899px){ #chordHint{display:none} }
 
 /* ── 아래 탭 ─────────────────────────────── */
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;
@@ -402,12 +507,23 @@ img,svg{max-width:100%}
   #viewGuide .br{display:block}
 }
 
-/* 중간 높이 폰(660~829px): 최근 음 줄을 접고 건반을 조금 줄여 한 화면에 담는다 */
-@media (min-height:661px) and (max-height:829px){
+/* 중간 높이 폰(660~869px): 최근 음 줄을 접고 건반을 조금 줄여 한 화면에 담는다 */
+@media (min-height:661px) and (max-height:869px){
   .histrow,.showpos{display:none}
-  :root{--kbh:clamp(108px,16.4vh,180px)}
+  :root{--kbh:clamp(112px,19vh,190px)}
+  .showbox{padding-bottom:.42rem}
   .timbres button{min-height:2.35rem;font-size:.76rem}
   .drum,.loop{min-height:2.45rem}
+  .kbwrap{margin-top:.24rem;padding-bottom:.42rem}
+}
+/* 조금 더 짧은 폰(661~799px): 건반·리듬 줄을 조금 더 줄여 건반 전체가 보이게 */
+@media (min-height:661px) and (max-height:799px){
+  :root{--kbh:clamp(108px,16.8vh,180px)}
+  .timbres button{min-height:2.25rem}
+  .drum,.loop{min-height:2.3rem}
+  .showbox{padding:.26rem .5rem .3rem}
+  .showmain{min-height:2.3rem}
+  .showbig{font-size:2.3rem}
 }
 html.big{font-size:22px}
 /* 폰에서는 안내문 대신 버튼 라벨로 충분 — 건반이 화면 안에 다 들어오게 */
@@ -488,6 +604,11 @@ html.big{font-size:22px}
       <button id="shareBtn" type="button">📤 <span id="shareLbl">공유</span></button>
     </div>
   </div>
+  <button type="button" class="datebar" id="todayCard" aria-label="오늘 날짜와 날씨">
+    <span class="db-date" id="todayDate">11월 28일 (토)</span>
+    <span class="db-wx loading" id="todayWx">날씨 확인 중…</span>
+    <span class="db-place" id="wxPlace">김해</span>
+  </button>
 </header>
 
 <main id="main">
@@ -590,16 +711,35 @@ html.big{font-size:22px}
     <p class="hint" id="gHint">🖐 연습을 누르면 불이 깜빡이는 건반을 기다려요</p>
   </section>
 
-  <!-- ══ 화음 탭 ══ -->
+  <!-- ══ 쉬운 화음 탭 ══ -->
   <section class="view" id="viewChords" hidden>
-    <div class="secHead">
-      <h2 id="chordTitle">화음 도우미</h2>
-      <p id="chordSub">코드를 누르면 세 건반에 불이 들어오고 화음이 울려요</p>
+    <div class="segbar" id="chordMode">
+      <button type="button" data-mode="single" aria-pressed="true">🎵 화음 하나</button>
+      <button type="button" data-mode="prog" aria-pressed="false">🎼 코드 진행</button>
     </div>
-    <div class="chordgrid" id="chordGrid"></div>
-    <div class="chordnow" id="chordNow"></div>
+
+    <div class="pickrow" id="chordPickRow"></div>
+
+    <div class="easyscore">
+      <div class="eshead">
+        <span class="eclef" aria-hidden="true">𝄞</span>
+        <b id="esChord">C</b>
+        <span class="esko" id="esKo">도미솔</span>
+        <span class="esstep" id="esStep"></span>
+      </div>
+      <div class="esnotes" id="esNotes"></div>
+    </div>
+
+    <div class="stepstrip" id="stepStrip" hidden></div>
+
     <div class="kbwrap"><div class="kb" id="kbChord"></div></div>
-    <p class="hint" id="chordHint">노래에 맞춰 코드를 눌러 반주해 보세요</p>
+
+    <div class="cctl">
+      <button class="bigplay" id="chPlay" type="button">🔊 소리 들어보기</button>
+      <button class="pmode" id="chPractice" type="button" aria-pressed="false">👆 따라 치기</button>
+    </div>
+    <div class="cfb" id="chordNow"><span>화음을 골라 보세요</span></div>
+    <p class="hint" id="chordHint">파란 건반과 손가락 번호를 보고 그대로 짚어 보세요</p>
   </section>
 
 </main>
@@ -607,7 +747,7 @@ html.big{font-size:22px}
 <nav class="tabbar" role="tablist">
   <button class="tbtn" type="button" data-tab="keys" role="tab" aria-selected="true"><span>🎹</span><i id="tabKeysLbl">건반</i></button>
   <button class="tbtn" type="button" data-tab="songs" role="tab" aria-selected="false"><span>📚</span><i id="tabSongsLbl">노래</i></button>
-  <button class="tbtn" type="button" data-tab="chords" role="tab" aria-selected="false"><span>🎶</span><i id="tabChordsLbl">화음</i></button>
+  <button class="tbtn" type="button" data-tab="chords" role="tab" aria-selected="false"><span>🎶</span><i id="tabChordsLbl">쉬운 화음</i></button>
 </nav>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -678,7 +818,7 @@ html.big{font-size:22px}
   var STR = {
     ko:{
       appTitle:'와글링 피아노', appSub:'불빛 따라 치는 노래 피아노',
-      tabKeys:'건반', tabSongs:'노래', tabChords:'화음',
+      tabKeys:'건반', tabSongs:'노래', tabChords:'쉬운 화음',
       showLab:'방금 친 음', showEmpty:'도', showEmptyPos:'건반을 눌러 보세요',
       goSongs:'노래 따라 치기 — 불빛 보고 따라 쳐요', octShort:'옥타브', octShortEn:'Octave', hist:'최근',
       otherSong:'다른 노래 고르기', tmPiano:'따뜻한', tmPiano2:'피아노', tmBell:'맑은', tmBell2:'실로폰', tmOrgan:'부드러운', tmOrgan2:'오르간',
@@ -694,8 +834,17 @@ html.big{font-size:22px}
       gWait:'다음 음', gPress:'이 건반을 눌러요', gWrong:'다른 건반이에요 · 불 들어온 건반을 누르세요',
       gDone:'🎉 끝까지 다 쳤어요!', gDoneSub:'처음부터 다시 해 볼까요?',
       midC:'가운데 도', octWord:'옥타브', nth:'번째 음', sharp:'올림',
-      chordTitle:'화음 도우미', chordSub:'코드를 누르면 세 건반에 불이 들어오고 화음이 울려요',
-      chordHint:'노래에 맞춰 코드를 눌러 반주해 보세요', chordPick:'코드를 눌러 보세요',
+      chordTitle:'쉬운 화음', chordSub:'세 건반만 짚으면 화음이 울려요',
+      chordHint:'파란 건반과 손가락 번호를 보고 그대로 짚어 보세요', chordPick:'화음을 골라 보세요',
+      chModeOne:'🎵 화음 하나', chModeProg:'🎼 코드 진행',
+      chPlay:'🔊 소리 들어보기', chPlayProg:'▶ 진행 듣기', chStop:'⏸ 멈춤',
+      chPractice:'👆 따라 치기', chPracticeOn:'👆 따라 치는 중',
+      chHit:'딩동! 잘 짚었어요! 👏', chWrong:'이 건반은 이 화음에 없어요 · 파란 건반을 눌러요',
+      chPressN:'좋아요! {n}개 짚었어요', chDone:'🎉 진행을 끝까지 다 쳤어요!',
+      chPressHint:'파란 건반을 하나씩 눌러 보세요', chScore:'쉬운 악보',
+      chFinger:'오른손', chAllDone:'다 짚었어요! 다음 화음으로 갈까요?',
+      wxLoading:'날씨 확인 중…', wxFail:'날씨 확인 실패', wxNoNet:'인터넷이 없어 날씨를 못 받았어요',
+      wxRetry:'날씨를 다시 확인했어요', wxMyPlace:'내 위치', wxDefault:'김해',
       chordNotes:'계이름', songCount:'곡', notesCount:'음',
       instTitle:'홈 화면에 앱으로 설치', instLed:'설치하면 인터넷이 없어도 열려요. 무료이고 광고도 없어요.',
       instS1:'크롬(또는 사파리)으로 이 페이지를 엽니다',
@@ -706,7 +855,7 @@ html.big{font-size:22px}
       instOk:'알겠어요', instChromeBtn:'🌐 크롬으로 바로 열기',
       instAlready:'이미 앱으로 열려 있어요 🙂',
       installedMsg:'설치했어요! 홈 화면에서 열어 주세요 🎹',
-      shareTitle:'와글링 피아노', shareText:'불빛 따라 치는 피아노 — 도레미 계이름 크게, 동요 10곡 무료',
+      shareTitle:'와글링 피아노', shareText:'불빛 따라 치는 피아노 — 도레미 계이름 크게, 쉬운 화음, 동요 10곡 무료',
       shareCopied:'주소를 복사했어요 · 붙여넣기 해 주세요', shareCopyFail:'복사가 안 됐어요. 주소창의 주소를 복사해 주세요',
       tmGuitar:'기타', tmFlute:'플루트', tmViolin:'바이올린',
       recStart:'🔴 녹음', recStop:'⏹️ 멈춤', melChip:'📂 내 멜로디', sheetBtn:'🎼 악보',
@@ -728,7 +877,7 @@ html.big{font-size:22px}
     },
     en:{
       appTitle:'Wagling Piano', appSub:'Play by the lights',
-      tabKeys:'Keys', tabSongs:'Songs', tabChords:'Chords',
+      tabKeys:'Keys', tabSongs:'Songs', tabChords:'Easy chords',
       showLab:'Last note', showEmpty:'C', showEmptyPos:'Tap a key to start',
       goSongs:'Play along — follow the lights', octShort:'Octave', octShortEn:'Octave', hist:'Recent',
       otherSong:'Choose another song', tmPiano:'Warm', tmPiano2:'piano', tmBell:'Bright', tmBell2:'bells', tmOrgan:'Soft', tmOrgan2:'organ',
@@ -744,8 +893,17 @@ html.big{font-size:22px}
       gWait:'Next note', gPress:'Press this key', gWrong:'Not this key · press the blinking one',
       gDone:'🎉 You played it all!', gDoneSub:'Play it again?',
       midC:'middle C', octWord:'octave', nth:'note', sharp:'',
-      chordTitle:'Chord helper', chordSub:'A chord lights three keys and plays them together',
-      chordHint:'Tap a chord to accompany the songs', chordPick:'Tap a chord',
+      chordTitle:'Easy chords', chordSub:'Press three keys and the chord rings out',
+      chordHint:'Follow the blue keys and the finger numbers', chordPick:'Pick a chord',
+      chModeOne:'🎵 One chord', chModeProg:'🎼 Chord progressions',
+      chPlay:'🔊 Hear it', chPlayProg:'▶ Hear progression', chStop:'⏸ Stop',
+      chPractice:'👆 Follow along', chPracticeOn:'👆 Following along',
+      chHit:'Ding-dong! Perfect! 👏', chWrong:'Not in this chord · press the blue keys',
+      chPressN:'Nice! {n} pressed', chDone:'🎉 You played the whole progression!',
+      chPressHint:'Press the blue keys one by one', chScore:'Easy score',
+      chFinger:'Right hand', chAllDone:'All pressed! Next chord?',
+      wxLoading:'Loading weather…', wxFail:'Weather unavailable', wxNoNet:'No internet for weather',
+      wxRetry:'Weather refreshed', wxMyPlace:'My place', wxDefault:'Gimhae',
       chordNotes:'notes', songCount:'songs', notesCount:'notes',
       instTitle:'Install this app', instLed:'Installed, it opens without internet. Free, no ads.',
       instS1:'Open this page in Chrome (or Safari)',
@@ -756,7 +914,7 @@ html.big{font-size:22px}
       instOk:'Got it', instChromeBtn:'🌐 Open in Chrome',
       instAlready:'You are already in the installed app 🙂',
       installedMsg:'Installed! Open it from your home screen 🎹',
-      shareTitle:'Wagling Piano', shareText:'A follow-the-lights piano for everyone — big Do-Re-Mi labels, 10 free songs',
+      shareTitle:'Wagling Piano', shareText:'A follow-the-lights piano — big Do-Re-Mi labels, easy chords, 10 free songs',
       shareCopied:'Link copied — paste it anywhere', shareCopyFail:'Copy failed. Please copy the address bar link.',
       tmGuitar:'guitar', tmFlute:'flute', tmViolin:'violin',
       recStart:'🔴 Record', recStop:'⏹️ Stop', melChip:'📂 My tunes', sheetBtn:'🎼 Score',
@@ -1474,17 +1632,40 @@ C4 2 ·` }
   function songTitle(s){ return S.lang === 'en' ? s.en : s.ko; }
   function songTag(s){ return S.lang === 'en' ? s.tagEn : s.tag; }
 
-  /* ══════════════════ 7. 화음 ══════════════════ */
+  /* ══════════════════ 7. 화음 ══════════════════
+     fingers: 오른손 손가락 번호(1 엄지 · 2 검지 · 3 중지 · 4 약지 · 5 새끼)
+     7화음은 다섯째 음을 빼고 세 건반만(루트·3도·7도) — 초보자가 짚기 쉽게 */
   var CHORDS = [
-    { id:'C',  ko:'도미솔', notes:[60,64,67] },
-    { id:'Dm', ko:'레파라', notes:[62,65,69] },
-    { id:'Em', ko:'미솔시', notes:[64,67,71] },
-    { id:'F',  ko:'파라도', notes:[65,69,72] },
-    { id:'G',  ko:'솔시레', notes:[67,71,74] },
-    { id:'Am', ko:'라도미', notes:[69,72,76] },
-    { id:'G7', ko:'솔시레파', notes:[67,71,74,77] },
-    { id:'C7', ko:'도미솔시♭', notes:[60,64,67,70] }
+    { id:'C',  ko:'도미솔',   notes:[60,64,67],       fingers:[1,3,5] },
+    { id:'Dm', ko:'레파라',   notes:[62,65,69],       fingers:[1,3,5] },
+    { id:'Em', ko:'미솔시',   notes:[64,67,71],       fingers:[1,3,5] },
+    { id:'F',  ko:'파라도',   notes:[65,69,72],       fingers:[1,3,5] },
+    { id:'G',  ko:'솔시레',   notes:[67,71,74],       fingers:[1,3,5] },
+    { id:'Am', ko:'라도미',   notes:[69,72,76],       fingers:[1,3,5] },
+    { id:'G7', ko:'솔시파',   notes:[67,71,77],       fingers:[1,3,5] },
+    { id:'C7', ko:'도미시♭', notes:[60,64,70],       fingers:[1,3,5],
+      alt:{ 70:'시♭' }, altEn:{ 70:'B♭' } }
   ];
+  var PROGS = [
+    { id:'four',   emoji:'🎵', ko:'만능 4코드',  en:'4-chord song', bpm:92,  chords:['C','G','Am','F'] },
+    { id:'canon',  emoji:'🎼', ko:'캐논 진행',   en:'Canon',        bpm:96,  chords:['C','G','Am','Em','F','C','F','G'] },
+    { id:'oldpop', emoji:'🎙️', ko:'옛 가요',    en:'Old pop',      bpm:88,  chords:['C','Am','F','G'] },
+    { id:'ballad', emoji:'🌙', ko:'슬픈 노래',  en:'Sad song',     bpm:84,  chords:['Am','F','C','G'] },
+    { id:'carol',  emoji:'🎄', ko:'캐럴 마무리', en:'Carol ending', bpm:100, chords:['C','F','G','C'] }
+  ];
+  function chordById(id){
+    for(var i = 0; i < CHORDS.length; i++){ if(CHORDS[i].id === id) return CHORDS[i]; }
+    return CHORDS[0];
+  }
+  function progById(id){
+    for(var i = 0; i < PROGS.length; i++){ if(PROGS[i].id === id) return PROGS[i]; }
+    return PROGS[0];
+  }
+  var FINGER_KO = ['', '엄지', '검지', '중지', '약지', '새끼'];
+  var FINGER_EN = ['', 'thumb', 'index', 'middle', 'ring', 'little'];
+  function fingerName(n){
+    return (S.lang === 'en' ? FINGER_EN : FINGER_KO)[n] || '';
+  }
 
   /* ══════════════════ 8. 화면 그리기 ══════════════════ */
   var view = { keys:'viewKeys', songs:'viewSongs', chords:'viewChords' };
@@ -1512,9 +1693,21 @@ C4 2 ·` }
     $('#gRestart').textContent = t('gRestart');
     $('#gPractice').textContent = g.practice ? t('gPracticeOn') : t('gPractice');
     $('#gHint').textContent = t('gHint');
-    $('#chordTitle').textContent = t('chordTitle');
-    $('#chordSub').textContent = t('chordSub');
+    if($('#chordTitle')) $('#chordTitle').textContent = t('chordTitle');
+    if($('#chordSub')) $('#chordSub').textContent = t('chordSub');
     $('#chordHint').textContent = t('chordHint');
+    if($('#chordPickRow')) renderChords();
+    $$('#chordMode button').forEach(function(b){
+      if(b.dataset.mode === 'prog') b.textContent = t('chModeProg');
+      else b.textContent = t('chModeOne');
+    });
+    if($('#chPractice')){
+      $('#chPractice').setAttribute('aria-pressed', CH.practice ? 'true' : 'false');
+      $('#chPractice').textContent = CH.practice ? t('chPracticeOn') : t('chPractice');
+    }
+    if($('#chPlay')) updateChPlay();
+    if($('#chordNow') && !CH.practice) setChordFeedback(chordLine(curChord()), null);
+    renderToday();
     var gol = $('#gOtherLbl'); if(gol) gol.textContent = t('otherSong');
     renderTimbres();
     paintRec();
@@ -1616,19 +1809,31 @@ C4 2 ·` }
     });
   }
   function renderChords(){
-    var box = $('#chordGrid');
+    var box = $('#chordPickRow');
+    if(!box) return;
     box.innerHTML = '';
-    CHORDS.forEach(function(c){
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'chord';
-      b.dataset.chord = c.id;
-      b.setAttribute('aria-pressed', 'false');
-      b.innerHTML = '<b>' + c.id + '</b><i>' + c.ko + '</i>';
-      b.addEventListener('click', function(){ playChord(c.id); });
-      box.appendChild(b);
-    });
-    $('#chordNow').textContent = t('chordPick');
+    if(CH.mode === 'prog'){
+      PROGS.forEach(function(p){
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'pick prog';
+        b.dataset.prog = p.id;
+        b.innerHTML = '<b>' + p.emoji + ' ' + (S.lang === 'en' ? p.en : p.ko) + '</b><i>' + p.chords.join(' · ') + '</i>';
+        b.setAttribute('aria-pressed', p.id === CH.prog ? 'true' : 'false');
+        box.appendChild(b);
+      });
+    } else {
+      CHORDS.forEach(function(c){
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'pick';
+        b.dataset.chord = c.id;
+        b.innerHTML = '<b>' + c.id + '</b><i>' + c.ko + '</i>';
+        b.setAttribute('aria-pressed', c.id === CH.id ? 'true' : 'false');
+        box.appendChild(b);
+      });
+    }
+    paintChordAll();
   }
 
   /* ══════════════════ 9. 건반 누름 처리 ══════════════════ */
@@ -1655,9 +1860,6 @@ C4 2 ·` }
       $('#gNow').innerHTML = '<span class="chip">' + labelOf(midi) + '</span><span>' + otherOf(midi) + '</span>';
     }
     return v;
-  }
-  function pressChordKey(midi, keyEl){
-    return noteOn(midi);
   }
 
   /* ══════════════════ 10. 곡 연습 ══════════════════ */
@@ -1873,27 +2075,297 @@ C4 2 ·` }
     toast(t('gDone') + ' ' + t('gDoneSub'));
   }
 
-  /* ══════════════════ 11. 화음 소리 ══════════════════ */
-  function playChord(id){
-    var c = null;
-    CHORDS.forEach(function(x){ if(x.id === id) c = x; });
-    if(!c) return;
+  /* ══════════════════ 11. 쉬운 화음 — 소리 · 따라 치기 ══════════════════ */
+  var CH = { mode:'single', id:'C', prog:'four', step:0, practice:false, hit:{}, playing:false, token:0, gen:0, timers:[] };
+
+  function curChord(){
+    if(CH.mode === 'prog'){
+      var p = progById(CH.prog);
+      var i = Math.max(0, Math.min(CH.step, p.chords.length - 1));
+      return chordById(p.chords[i]);
+    }
+    return chordById(CH.id);
+  }
+  function curProg(){ return progById(CH.prog); }
+
+  function chordLine(c){
+    var sol = c.notes.map(function(m){ return solNameOf(c, m); }).join(' ');
+    var let2 = c.notes.map(function(m){ return letNameOf(c, m); }).join(' ');
+    return '<span class="chip">' + c.id + '</span><span>' + sol + ' · ' + let2 + '</span>';
+  }
+  function solNameOf(c, midi){
+    return (c.alt && c.alt[midi]) ? c.alt[midi] : SOL_KO[midi % 12];
+  }
+  function letNameOf(c, midi){
+    return (c.altEn && c.altEn[midi]) ? c.altEn[midi] : SOL_EN[midi % 12];
+  }
+  function setChordFeedback(html, kind){
+    var el = $('#chordNow');
+    if(!el) return;
+    el.className = 'cfb' + (kind ? ' ' + kind : '');
+    el.innerHTML = html || '';
+  }
+
+  function paintChordKeys(){
     var kb = $('#kbChord');
-    $$('#chordGrid .chord').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.chord === id ? 'true' : 'false'); });
-    Array.prototype.forEach.call(kb.querySelectorAll('.lit'), function(k){ k.classList.remove('lit'); });
-    var ties = [];
+    if(!kb) return;
+    Array.prototype.forEach.call(kb.querySelectorAll('.key'), function(k){
+      k.classList.remove('clit'); k.classList.remove('cpulse');
+      k.classList.remove('hitok'); k.classList.remove('bad');
+      var b = k.querySelector('.fng');
+      if(b && b.parentNode) b.parentNode.removeChild(b);
+    });
+    var c = curChord();
+    c.notes.forEach(function(m, i){
+      var el = keyIn(kb, m);
+      if(!el) return;
+      el.classList.add('clit');
+      if(CH.practice) el.classList.add('cpulse');
+      if(CH.hit[m]) el.classList.add('hitok');
+      var badge = document.createElement('span');
+      badge.className = 'fng';
+      badge.textContent = CH.hit[m] ? '✓' : String(c.fingers[i]);
+      el.appendChild(badge);
+    });
+  }
+
+  function paintStepStrip(){
+    var strip = $('#stepStrip');
+    if(!strip) return;
+    if(CH.mode !== 'prog'){ strip.hidden = true; strip.innerHTML = ''; return; }
+    strip.hidden = false;
+    var p = curProg(), html = '';
+    p.chords.forEach(function(id, i){
+      html += '<button type="button" class="sch' + (i === CH.step ? ' on' : '') + (i < CH.step ? ' done' : '') +
+        '" data-step="' + i + '">' + id + '<i>' + (i + 1) + '</i></button>';
+    });
+    strip.innerHTML = html;
+    var on = strip.querySelector('.sch.on');
+    if(on){
+      var want = on.offsetLeft - strip.clientWidth / 2 + on.clientWidth / 2;
+      if(want < 0) want = 0;
+      try{ strip.scrollTo({ left:want, behavior:'smooth' }); }catch(e){ strip.scrollLeft = want; }
+    }
+  }
+
+  function paintChordAll(){
+    var c = curChord(), p = curProg();
+    $$('#chordMode button').forEach(function(b){
+      b.setAttribute('aria-pressed', b.dataset.mode === CH.mode ? 'true' : 'false');
+    });
+    $$('#chordPickRow .pick').forEach(function(b){
+      var on = (CH.mode === 'prog') ? (b.dataset.prog === CH.prog) : (b.dataset.chord === CH.id);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    $('#esChord').textContent = c.id;
+    $('#esKo').textContent = c.ko;
+    $('#esStep').textContent = (CH.mode === 'prog') ? ((CH.step + 1) + ' / ' + p.chords.length) : '';
+    var box = $('#esNotes');
+    box.innerHTML = '';
+    /* 높은 음부터 쌓아 진짜 화음처럼 — 쉬운 악보 카드도 위에서 아래로 */
+    c.notes.map(function(m, i){ return { midi:m, fn:c.fingers[i] }; })
+      .sort(function(a, b){ return b.midi - a.midi; })
+      .forEach(function(n){
+        var row = document.createElement('div');
+        row.className = 'esn' + (CH.hit[n.midi] ? ' ok' : '');
+        row.dataset.midi = String(n.midi);
+        row.innerHTML = '<span class="fn">' + (CH.hit[n.midi] ? '✓' : n.fn) + '</span>' +
+          '<b class="esol">' + solNameOf(c, n.midi) + '</b>' +
+          '<i class="elet">' + letNameOf(c, n.midi) + octOf(n.midi) + '</i>' +
+          '<span class="fname">' + fingerName(n.fn) + '</span>';
+        box.appendChild(row);
+      });
+    paintStepStrip();
+    paintChordKeys();
+    updateChPlay();
+  }
+
+  function updateChPlay(){
+    var b = $('#chPlay');
+    if(!b) return;
+    if(CH.playing){ b.textContent = t('chStop'); b.classList.add('playing'); }
+    else { b.textContent = (CH.mode === 'prog') ? t('chPlayProg') : t('chPlay'); b.classList.remove('playing'); }
+  }
+  function setPracticeBtn(on){
+    CH.practice = !!on;
+    var b = $('#chPractice');
+    if(!b) return;
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    b.textContent = on ? t('chPracticeOn') : t('chPractice');
+  }
+
+  function chordTimersClear(){
+    CH.timers.forEach(function(x){ clearTimeout(x); });
+    CH.timers = [];
+  }
+  function soundChord(c, holdMs){
+    var hold = Math.max(220, holdMs || 1100);
     c.notes.forEach(function(m){
       var v = noteOn(m);
-      ties.push(v);
-      var el = keyIn(kb, m);
-      if(el){ el.classList.add('lit'); }
+      if(!v) return;
+      CH.timers.push(setTimeout(function(){ stopNote(v, 0.24); }, hold));
     });
-    setTimeout(function(){
-      Array.prototype.forEach.call(kb.querySelectorAll('.lit'), function(k){ k.classList.remove('lit'); });
-    }, 900);
-    var names = c.notes.map(function(m){ return (S.label === 'letter') ? (SOL_EN[m%12]+octOf(m)) : SOL_KO[m%12]; }).join(' ');
-    $('#chordNow').innerHTML = '<span class="chip" style="font-size:1.06rem;padding:.2rem .7rem;">' + c.id + '</span><span>' + c.ko + '</span><span class="chip">' + names + '</span>';
-    setTimeout(function(){ ties.forEach(function(v){ stopNote(v, 0.2); }); }, 1400);
+  }
+
+  function playChord(id){
+    if(CH.playing) progStop();
+    chordTimersClear();
+    CH.mode = 'single';
+    CH.id = chordById(id).id;
+    CH.hit = {};
+    paintChordAll();
+    soundChord(curChord(), 1200);
+    setChordFeedback(chordLine(curChord()), null);
+  }
+
+  function chPlayTap(){
+    if(CH.playing){ progStop(); return; }
+    if(CH.mode === 'prog'){ progPlay(); return; }
+    chordTimersClear();
+    CH.hit = {};
+    paintChordAll();
+    soundChord(curChord(), 1300);
+    setChordFeedback(chordLine(curChord()), null);
+  }
+
+  function progStop(){
+    CH.playing = false;
+    CH.token++;
+    chordTimersClear();
+    updateChPlay();
+  }
+
+  function progPlay(){
+    if(CH.playing){ progStop(); return; }
+    var p = curProg();
+    var start = (CH.step >= p.chords.length) ? 0 : CH.step;
+    var token = ++CH.token;
+    var beat = 60000 / p.bpm;
+    var i = start;
+    chordTimersClear();
+    CH.playing = true;
+    CH.hit = {};
+    setPracticeBtn(false);
+    updateChPlay();
+    (function step(){
+      if(token !== CH.token || !CH.playing) return;
+      if(i >= p.chords.length){
+        CH.playing = false; CH.step = 0; CH.hit = {};
+        paintChordAll();
+        setChordFeedback(t('chDone'), 'good');
+        toast(t('chDone'));
+        return;
+      }
+      CH.step = i; CH.hit = {};
+      paintChordAll();
+      var c = chordById(p.chords[i]);
+      soundChord(c, Math.min(1700, beat * 1.75));
+      setChordFeedback(chordLine(c), null);
+      i++;
+      CH.timers.push(setTimeout(step, beat * 2));
+    })();
+  }
+
+  function chPracticeToggle(){
+    if(CH.playing) progStop();
+    if(CH.practice){
+      setPracticeBtn(false);
+      CH.hit = {};
+      paintChordAll();
+      return;
+    }
+    if(CH.mode === 'prog' && CH.step >= curProg().chords.length) CH.step = 0;
+    CH.hit = {};
+    setPracticeBtn(true);
+    paintChordAll();
+    setChordFeedback(chordLine(curChord()), null);
+    toast(t('chPressHint'));
+  }
+
+  function pressChordKey(midi, keyEl){
+    var v = noteOn(midi);
+    var c = curChord();
+    if(!CH.practice) return v;
+    if(CH.playing) progStop();
+    if(c.notes.indexOf(midi) < 0){
+      if(keyEl){
+        keyEl.classList.add('bad');
+        setTimeout(function(){ if(keyEl) keyEl.classList.remove('bad'); }, 320);
+      }
+      setChordFeedback(t('chWrong'), 'bad');
+      return v;
+    }
+    if(CH.hit[midi]) return v;
+    CH.hit[midi] = true;
+    var n = 0;
+    c.notes.forEach(function(m){ if(CH.hit[m]) n++; });
+    paintChordAll();
+    if(n < c.notes.length){
+      setChordFeedback(t('chPressN').replace('{n}', n), null);
+      return v;
+    }
+    /* 세 건반을 다 짚었다 — 딩동! */
+    var done = c, g0 = CH.gen;
+    setTimeout(function(){ soundChord(done, 1000); }, 40);
+    setChordFeedback(t('chHit'), 'good');
+    toast(t('chHit'));
+    CH.timers.push(setTimeout(function(){
+      if(!CH.practice || g0 !== CH.gen) return;
+      CH.hit = {};
+      if(CH.mode === 'prog'){
+        var p = curProg();
+        if(CH.step + 1 < p.chords.length){
+          CH.step += 1;
+          paintChordAll();
+          setChordFeedback(chordLine(curChord()), null);
+        } else {
+          CH.step = 0;
+          setPracticeBtn(false);
+          paintChordAll();
+          setChordFeedback(t('chDone'), 'good');
+          toast(t('chDone'));
+        }
+      } else {
+        paintChordAll();
+        setChordFeedback(t('chAllDone'), 'good');
+      }
+    }, 950));
+    return v;
+  }
+
+  function setChordMode(mode){
+    if(CH.playing) progStop();
+    CH.gen++;
+    CH.mode = (mode === 'prog') ? 'prog' : 'single';
+    CH.hit = {};
+    if(CH.mode === 'prog') CH.step = 0;
+    renderChords();
+    setChordFeedback(CH.mode === 'prog' ? chordLine(curChord()) : t('chordPick'), null);
+  }
+  function selectChord(id){
+    if(CH.playing) progStop();
+    CH.gen++;
+    CH.mode = 'single'; CH.id = chordById(id).id; CH.hit = {};
+    paintChordAll();
+    soundChord(curChord(), 1100);
+    setChordFeedback(chordLine(curChord()), null);
+  }
+  function selectProg(id){
+    if(CH.playing) progStop();
+    CH.gen++;
+    CH.mode = 'prog'; CH.prog = progById(id).id; CH.step = 0; CH.hit = {};
+    renderChords();
+    setChordFeedback(chordLine(curChord()), null);
+  }
+  function selectStep(i){
+    if(CH.playing) progStop();
+    var p = curProg();
+    if(i < 0 || i >= p.chords.length) return;
+    CH.gen++;
+    CH.step = i; CH.hit = {};
+    paintChordAll();
+    soundChord(curChord(), 1100);
+    setChordFeedback(chordLine(curChord()), null);
   }
 
   /* ══════════════════ 12. 화면 전환 · 뒤로가기 ══════════════════ */
@@ -1908,6 +2380,7 @@ C4 2 ·` }
       b.setAttribute('aria-selected', b.dataset.tab === tab ? 'true' : 'false');
     });
     if(tab !== 'guide') stopGuide();
+    if(tab !== 'chords' && CH.playing) progStop();
     if(tab !== 'keys'){ if(PB.id) stopPlayback(); if(REC.on) recStop(); }
     if(tab === 'keys'){
       if(!$('#kbKeys')._wired || !$('#kbKeys').children.length){
@@ -1922,6 +2395,7 @@ C4 2 ·` }
         buildKb($('#kbChord'), 60);
         wireKb($('#kbChord'), pressChordKey);
       }
+      paintChordAll();
     }
     try{ window.scrollTo(0,0); }catch(e){}
   }
@@ -2142,6 +2616,24 @@ C4 2 ·` }
       if(el) el.addEventListener('click', function(e){ if(e.target === el) closeModal(id); });
     });
 
+    /* ── 쉬운 화음 ── */
+    $$('#chordMode button').forEach(function(b){
+      b.addEventListener('click', function(){ setChordMode(b.dataset.mode); });
+    });
+    $('#chordPickRow').addEventListener('click', function(e){
+      var b = e.target && e.target.closest ? e.target.closest('.pick') : null;
+      if(!b) return;
+      if(b.dataset.prog) selectProg(b.dataset.prog);
+      else if(b.dataset.chord) selectChord(b.dataset.chord);
+    });
+    $('#stepStrip').addEventListener('click', function(e){
+      var b = e.target && e.target.closest ? e.target.closest('.sch') : null;
+      if(!b) return;
+      selectStep(parseInt(b.dataset.step, 10));
+    });
+    $('#chPlay').addEventListener('click', chPlayTap);
+    $('#chPractice').addEventListener('click', chPracticeToggle);
+
     /* ── 리듬 패드 ── */
     $$('#drumRow .drum').forEach(function(b){
       b.addEventListener('click', function(){
@@ -2186,8 +2678,13 @@ C4 2 ·` }
         var from = Number(kb.dataset.from) || S.startMidi;
         buildKb(kb, from); wireHome(kb); renderRange();
       }
+      var kc = $('#kbChord');
+      if(kc && kc.children.length){
+        buildKb(kc, 60); wireKb(kc, pressChordKey); paintChordAll();
+      }
       if(cur && !$('#viewGuide').hidden) { openGuide(cur.id, { keepScroll:true }); }
     });
+    $('#todayCard').addEventListener('click', refreshWeather);
     document.addEventListener('pointerdown', function(){ actx(); }, { once:true });
   }
 
@@ -2987,11 +3484,146 @@ C4 2 ·` }
     }
   }
 
+  /* ══════════════════ 19.5 오늘 날짜 · 요일 · 날씨 ══════════════════ */
+  var KO_DOW = ['일', '월', '화', '수', '목', '금', '토'];
+  var EN_DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  var WMO = {
+    0:['☀️','맑음'], 1:['🌤️','대체로 맑음'], 2:['⛅','조금 흐림'], 3:['☁️','흐림'],
+    45:['🌫️','안개'], 48:['🌫️','안개'],
+    51:['🌦️','이슬비'], 53:['🌦️','이슬비'], 55:['🌦️','이슬비'],
+    56:['🌧️','어는 비'], 57:['🌧️','어는 비'],
+    61:['🌧️','비'], 63:['🌧️','비'], 65:['🌧️','비'],
+    66:['🌧️','어는 비'], 67:['🌧️','어는 비'],
+    71:['🌨️','눈'], 73:['🌨️','눈'], 75:['🌨️','눈'], 77:['🌨️','눈'],
+    80:['🌦️','소나기'], 81:['🌦️','소나기'], 82:['🌧️','소나기'],
+    85:['🌨️','눈 소나기'], 86:['🌨️','눈 소나기'],
+    95:['⛈️','천둥번개'], 96:['⛈️','천둥번개'], 99:['⛈️','천둥번개']
+  };
+  var WX_DEFAULT = { lat:35.23, lon:128.89 };   /* 김해 */
+  var WX_KEY = 'wagle-piano-wx';
+  var wxNow = null, wxAt = 0, wxBusy = false, wxSeq = 0, wxRank = 0, wxFail = false, wxMine = false;
+  var WX_TTL = 20 * 60 * 1000;
+
+  function wxPlaceText(){ return wxMine ? t('wxMyPlace') : t('wxDefault'); }
+  function renderToday(){
+    var d = new Date();
+    var dateTxt = (S.lang === 'en')
+      ? (EN_DOW[d.getDay()] + ' ' + (d.getMonth() + 1) + '/' + d.getDate())
+      : ((d.getMonth() + 1) + '월 ' + d.getDate() + '일 (' + KO_DOW[d.getDay()] + ')');
+    var de = $('#todayDate'); if(de) de.textContent = dateTxt;
+    var txt, loading = false;
+    if(wxNow){
+      txt = wxNow.emoji + ' ' + (S.lang === 'en' ? '' : wxNow.ko + ' ') + wxNow.t + '°';
+    } else if(wxFail){ txt = t('wxFail'); }
+    else { txt = t('wxLoading'); loading = true; }
+    var el = $('#todayWx');
+    if(el){ el.textContent = txt; el.classList.toggle('loading', loading); }
+    var pl = $('#wxPlace'); if(pl) pl.textContent = wxPlaceText();
+    var card = $('#todayCard');
+    if(card) card.setAttribute('aria-label', dateTxt + ' · ' + txt + ' · ' + wxPlaceText());
+  }
+  function loadWxCache(){
+    try{
+      var raw = localStorage.getItem(WX_KEY); if(!raw) return;
+      var j = JSON.parse(raw);
+      if(!j || typeof j.t !== 'number') return;
+      if(Date.now() - j.at > 12 * 60 * 60 * 1000) return;
+      var m = WMO[j.code] || ['🌡️', '날씨'];
+      wxNow = { emoji:m[0], ko:m[1], t:Math.round(j.t) };
+      wxAt = j.at; wxMine = !!j.mine;
+    }catch(e){}
+  }
+  function saveWxCache(code, t2){
+    try{ localStorage.setItem(WX_KEY, JSON.stringify({ code:code, t:t2, at:Date.now(), mine:wxMine })); }catch(e){}
+  }
+  function wxUrl(lat, lon){
+    return 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon +
+      '&current=temperature_2m,weather_code&timezone=auto';
+  }
+  function fetchWx(lat, lon, rank){
+    if(!window.fetch || navigator.onLine === false) return Promise.resolve(false);
+    rank = rank || 1;
+    var seq = wxSeq;
+    var ctl = window.AbortController ? new AbortController() : null;
+    var to = null;
+    if(ctl) to = setTimeout(function(){ try{ ctl.abort(); }catch(e){} }, 8000);
+    return fetch(wxUrl(lat, lon), ctl ? { cache:'no-store', signal:ctl.signal } : { cache:'no-store' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(j){
+        if(to) clearTimeout(to);
+        var c = j && j.current;
+        if(!c || typeof c.temperature_2m !== 'number') return false;
+        if(seq !== wxSeq || rank < wxRank) return false;
+        wxRank = rank;
+        var m = WMO[c.weather_code] || ['🌡️', '날씨'];
+        wxNow = { emoji:m[0], ko:m[1], t:Math.round(c.temperature_2m) };
+        wxAt = Date.now(); wxFail = false;
+        saveWxCache(c.weather_code, c.temperature_2m);
+        renderToday();
+        return true;
+      })
+      .catch(function(){ if(to) clearTimeout(to); return false; });
+  }
+  function geoCoords(){
+    return new Promise(function(resolve){
+      if(!navigator.geolocation) return resolve(null);
+      try{
+        navigator.geolocation.getCurrentPosition(function(pos){
+          var c = pos && pos.coords;
+          if(!c) return resolve(null);
+          resolve({ lat:Math.round(c.latitude * 100) / 100, lon:Math.round(c.longitude * 100) / 100 });
+        }, function(){ resolve(null); }, { enableHighAccuracy:false, timeout:8000, maximumAge:600000 });
+      }catch(e){ resolve(null); }
+    });
+  }
+  function loadWeather(){
+    renderToday();
+    if(!wxAt || Date.now() - wxAt > WX_TTL){
+      if(wxBusy) return;
+      wxBusy = true; wxSeq++;
+      fetchWx(WX_DEFAULT.lat, WX_DEFAULT.lon, 1).then(function(ok){
+        wxBusy = false;
+        if(!ok && !wxNow){ wxFail = true; renderToday(); }
+      });
+    }
+    try{
+      if(navigator.geolocation && navigator.permissions && navigator.permissions.query){
+        navigator.permissions.query({ name:'geolocation' }).then(function(st){
+          if(!st || st.state !== 'granted') return;
+          geoCoords().then(function(c){
+            if(c){ wxMine = true; fetchWx(c.lat, c.lon, 2); }
+          });
+        }).catch(function(){});
+      }
+    }catch(e){}
+  }
+  function refreshWeather(){
+    if(navigator.onLine === false){ toast(t('wxNoNet')); return; }
+    function fallback(){
+      wxMine = false;
+      return fetchWx(WX_DEFAULT.lat, WX_DEFAULT.lon, 1).then(function(ok){
+        if(!ok){ wxFail = true; }
+        renderToday();
+        toast(ok ? t('wxRetry') : t('wxFail'));
+      });
+    }
+    wxSeq++;
+    if(!navigator.geolocation){ fallback(); return; }
+    geoCoords().then(function(c){
+      if(!c){ fallback(); return; }
+      wxMine = true;
+      fetchWx(c.lat, c.lon, 2).then(function(ok){ if(!ok) fallback(); else toast(t('wxRetry')); });
+    });
+  }
+
   /* ══════════════════ 20. 시작 ══════════════════ */
   function boot(){
     load();
     loadMel();
     applyLang();
+    loadWxCache();
+    renderToday();
+    loadWeather();
     renderTimbres();
     renderSpeeds();
     renderSongList();
@@ -3045,6 +3677,27 @@ C4 2 ·` }
     practice:function(){ startPractice(); return g.practice; },
     pressGuideKey:function(midi){ return pressGuide(midi, keyIn($('#kbGuide'), midi)); },
     chord:function(id){ playChord(id); return document.querySelector('#chordNow').textContent; },
+    /* v3: 쉬운 화음 */
+    chordMode:function(mode){ setChordMode(mode); return CH.mode; },
+    chordSelect:function(id){ selectChord(id); return CH.id; },
+    progSelect:function(id){ selectProg(id); return CH.prog; },
+    chordStep:function(i){ selectStep(i); return CH.step; },
+    chordPlay:function(){ chPlayTap(); return CH.playing; },
+    progPlay:function(){ progPlay(); return CH.playing; },
+    chordPractice:function(){ chPracticeToggle(); return CH.practice; },
+    chordPress:function(midi){ return pressChordKey(midi, keyIn($('#kbChord'), midi)); },
+    chordState:function(){
+      var c = curChord();
+      return { mode:CH.mode, id:c.id, notes:c.notes.slice(), fingers:c.fingers.slice(),
+        prog:CH.prog, step:CH.step, practice:CH.practice, playing:CH.playing, hit:Object.keys(CH.hit),
+        lit:Array.prototype.map.call(document.querySelectorAll('#kbChord .key.clit'), function(k){ return +k.dataset.midi; }),
+        badges:Array.prototype.map.call(document.querySelectorAll('#kbChord .fng'), function(b){ return b.textContent; }) };
+    },
+    chordFeedback:function(){ return document.querySelector('#chordNow').textContent; },
+    chordScore:function(){ return Array.prototype.map.call(document.querySelectorAll('#esNotes .esn'), function(r){ return r.textContent; }); },
+    chords:function(){ return CHORDS.map(function(c){ return { id:c.id, ko:c.ko, notes:c.notes, fingers:c.fingers }; }); },
+    progs:function(){ return PROGS.map(function(p){ return { id:p.id, ko:p.ko, chords:p.chords, bpm:p.bpm }; }); },
+    today:function(){ return { date:document.querySelector('#todayDate').textContent, wx:document.querySelector('#todayWx').textContent, place:document.querySelector('#wxPlace').textContent }; },
     lit:function(sel){ return Array.prototype.map.call(document.querySelectorAll((sel||'#kbGuide') + ' .lit'), function(k){ return +k.dataset.midi; }); },
     next:function(){ return (cur && cur.notes[g.idx]) ? cur.notes[g.idx].midi : null; },
     strip:function(){ return Array.prototype.map.call(document.querySelectorAll('#gStrip .ncol'), function(c){ return c.textContent; }); },
