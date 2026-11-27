@@ -417,7 +417,6 @@
     art += glow(838, 232, 270, '#FFE7A0', .55);
     art += put('moon', 838, 232, 236, g, '');
     art += '<ellipse cx="838" cy="232" rx="150" ry="150" fill="none" stroke="#F6D68F" stroke-width="1.2" opacity=".25"/>';
-    art += put(YV.zkey, 250, 1216, 290, g, g ? 'url(#soft)' : '');
     /* 별자리 */
     var stars = [[126, 300], [186, 246], [258, 258], [316, 310], [330, 396], [268, 430], [196, 372]];
     art += '<g stroke="#F6D68F" stroke-width="1.8" opacity=".55">' + stars.map(function (p, i) {
@@ -429,6 +428,9 @@
     }).join('');
     art += '<path d="M0 1300c150-60 280 30 420 6s260-60 400-24 180 30 260 18v140H0z" fill="#0C1430" opacity=".9"/>';
     art += pineSil(120, 1340, 5.2, '#0A1128', .95) + pineSil(950, 1350, 4.4, '#0A1128', .95);
+    /* 그 해 띠 동물 — 어두운 밤에도 보이도록 따뜻한 빛을 뒤에 깔고 소나무 앞에 그린다 */
+    art += glow(300, 1196, 200, '#FFE7A0', .34);
+    art += put(YV.zkey, 300, 1196, 300, g, g ? 'url(#soft)' : '');
     art += glow(946, 1236, 130, '#FFE7A0', .5);
     art += put('cheongsachorong', 946, 1230, 150, g, '');
     art += dots(44, 30, '#FFD98A', 1.4, 3, 80, 1300, 1000, 1400, .8);
