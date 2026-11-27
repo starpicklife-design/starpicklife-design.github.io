@@ -1,6 +1,8 @@
 /* 와글링 카드 — 카드 배경 · 사진 액자 그림 (100% 자체 오리지널 SVG)
    v2: 중국식 홍등·금색 구름문양을 걷어내고 한국 전통(청사초롱·까치·소나무·매화·한옥 처마·
-   창호지·색동·한지·해돋이·복주머니)과 크리스마스를 담았다. 2D/3D 두 벌, 사진 액자 8종. */
+   창호지·색동·한지·해돋이·복주머니)과 크리스마스를 담았다. 2D/3D 두 벌, 사진 액자 8종.
+   v3: 해마다 바뀌는 간지·띠를 WC_ART.setYear()로 받아 테마 이름·설명·추천 문구와
+   새해 배경의 띠 동물(십이지신 스티커)을 함께 바꾼다. */
 (function () {
   'use strict';
   var W = 1080, H = 1440, uid = 0;
@@ -184,16 +186,16 @@
   /* ── 테마 ─────────────────────────────────────────────── */
 
   var THEMES = [
-    { id: 'jeongmi', name: '정미년 한지', nameEn: 'Year of the Sheep', tag: '새해', tagEn: 'New Year',
-      sub: '붉은 양의 해 · 한지와 색동', subEn: 'Red sheep year on Korean paper', ink: '#FFF3D6', accent: '#F6D68F', swatch: '#A81C2C', font: 'jua',
-      greeting: '새해 복 많이 받으세요', greetingEn: 'Happy New Year 2027!',
-      chips: ['새해 복 많이 받으세요', '2027 정미년, 복 많이 받으세요', '건강하고 행복한 한 해 되세요', '하는 일마다 형통하소서', '설날 복 많이 받으세요', '올 한 해도 함께해요'],
-      chipsEn: ['Happy New Year 2027!', 'Wishing you a joyful Year of the Sheep', 'May blessings fill your new year', 'Wishing you health and happiness all year', 'Best wishes for the Lunar New Year', 'Happy Seollal to your family'] },
+    { id: 'jeongmi', name: '{G}년 한지', nameEn: '{Y} New Year', tag: '새해', tagEn: 'New Year',
+      sub: '{A}의 해 · 한지와 색동', subEn: 'Year of the {AE} on Korean paper', ink: '#FFF3D6', accent: '#F6D68F', swatch: '#A81C2C', font: 'jua',
+      greeting: '새해 복 많이 받으세요', greetingEn: 'Happy New Year {Y}!',
+      chips: ['새해 복 많이 받으세요', '{Y} {G}년, 복 많이 받으세요', '건강하고 행복한 한 해 되세요', '하는 일마다 형통하소서', '설날 복 많이 받으세요', '올 한 해도 함께해요'],
+      chipsEn: ['Happy New Year {Y}!', 'Wishing you a joyful Year of the {AE}', 'May blessings fill your new year', 'Wishing you health and happiness all year', 'Best wishes for the Lunar New Year', 'Happy Seollal to your family'] },
     { id: 'haedon', name: '신년 해돋이', nameEn: 'New Year Sunrise', tag: '새해', tagEn: 'New Year',
       sub: '첫 해처럼 환한 한 해', subEn: 'A year as bright as the first sun', ink: '#6B2F16', accent: '#C8541A', swatch: '#FFC98F', font: 'jua',
       greeting: '새해 복 많이 받으세요', greetingEn: 'Happy New Year!',
-      chips: ['새해 첫 해처럼 힘차게 시작해요', '2027년, 좋은 일만 가득하길', '해돋이처럼 밝은 한 해 되세요', '새해 복 많이 받으세요', '올 한 해 건강하세요', '새로운 시작을 응원해요'],
-      chipsEn: ['Happy New Year! Here is to new beginnings', 'May your year rise bright as the sun', 'Wishing you a hopeful new morning', 'New year, new light, new joy', 'Warm wishes at sunrise', 'May every day of 2027 shine for you'] },
+      chips: ['새해 첫 해처럼 힘차게 시작해요', '{Y}년, 좋은 일만 가득하길', '해돋이처럼 밝은 한 해 되세요', '새해 복 많이 받으세요', '올 한 해 건강하세요', '새로운 시작을 응원해요'],
+      chipsEn: ['Happy New Year! Here is to new beginnings', 'May your year rise bright as the sun', 'Wishing you a hopeful new morning', 'New year, new light, new joy', 'Warm wishes at sunrise', 'May every day of {Y} shine for you'] },
     { id: 'seollal', name: '설날 창호지', nameEn: 'Seollal Hanji', tag: '설날', tagEn: 'Seollal',
       sub: '떡국 한 그릇의 마음', subEn: 'Warmth of a bowl of tteokguk', ink: '#5A2A21', accent: '#C8302F', swatch: '#F6E7CC', font: 'gowun',
       greeting: '설날 복 많이 받으세요', greetingEn: 'Happy Seollal!',
@@ -202,8 +204,8 @@
     { id: 'byeolbam', name: '새해 새벽별', nameEn: 'Starry New Year', tag: '새해', tagEn: 'New Year',
       sub: '별빛 아래 첫 인사', subEn: 'A first greeting under the stars', ink: '#FFF3D6', accent: '#F6D68F', swatch: '#17224A', font: 'gowun',
       greeting: '새해 복 많이 받으세요', greetingEn: 'Happy New Year under the stars',
-      chips: ['새해 복 많이 받으세요', '별처럼 빛나는 한 해 되세요', '2027 정미년, 복 가득하세요', '소원 이루어지는 한 해', '좋은 일만 가득하세요', '올 한 해도 잘 부탁해요'],
-      chipsEn: ['Happy New Year under the stars', 'May your wishes come true', 'Shine bright in 2027', 'A peaceful new year night to you', 'May the stars guide you', 'Sweet dreams and a happy new year'] },
+      chips: ['새해 복 많이 받으세요', '별처럼 빛나는 한 해 되세요', '{Y} {G}년, 복 가득하세요', '소원 이루어지는 한 해', '좋은 일만 가득하세요', '올 한 해도 잘 부탁해요'],
+      chipsEn: ['Happy New Year under the stars', 'May your wishes come true', 'Shine bright in {Y}', 'A peaceful new year night to you', 'May the stars guide you', 'Sweet dreams and a happy new year'] },
     { id: 'snowtree', name: '눈 내리는 크리스마스', nameEn: 'Snowy Christmas', tag: '크리스마스', tagEn: 'Christmas',
       sub: '반짝이는 트리와 눈', subEn: 'A sparkling tree in the snow', ink: '#F2F7FF', accent: '#9ED4FF', swatch: '#1B2E5C', font: 'jua',
       greeting: '메리 크리스마스!', greetingEn: 'Merry Christmas!',
@@ -253,9 +255,43 @@
   var TMAP = {};
   THEMES.forEach(function (t) { TMAP[t.id] = t; });
 
+  /* ── 해 정보(간지·띠) 연동 ──────────────────────────────
+     index.html이 해마다 계산해 넘겨 주면 테마 이름·설명·문구·배경 띠 동물이 함께 바뀐다. */
+  var YV = { year: 2027, ganji: '정미', color: '붉은', animal: '양', colorAnimal: '붉은 양',
+    animalEn: 'Sheep', colorAnimalEn: 'Red Sheep', emoji: '🐑', zkey: 'zSheep' };
+  var YTPL = THEMES.map(function (th) {
+    var o = {};
+    ['name', 'nameEn', 'sub', 'subEn', 'greeting', 'greetingEn'].forEach(function (k) { o[k] = th[k]; });
+    o.chips = th.chips.slice(); o.chipsEn = th.chipsEn.slice();
+    return o;
+  });
+  function ysub(s) {
+    if (typeof s !== 'string' || s.indexOf('{') < 0) return s;
+    return s.replace(/\{(Y|G|A|AN|AE|ANE|EM)\}/g, function (m, k) {
+      if (k === 'Y') return YV.year;
+      if (k === 'G') return YV.ganji;
+      if (k === 'A') return YV.colorAnimal;
+      if (k === 'AN') return YV.animal;
+      if (k === 'AE') return YV.colorAnimalEn;
+      if (k === 'ANE') return YV.animalEn;
+      if (k === 'EM') return YV.emoji;
+      return m;
+    });
+  }
+  function applyYear(v) {
+    if (v) { for (var k in v) if (v[k] != null) YV[k] = v[k]; }
+    THEMES.forEach(function (th, i) {
+      var tp = YTPL[i];
+      ['name', 'nameEn', 'sub', 'subEn', 'greeting', 'greetingEn'].forEach(function (key) { th[key] = ysub(tp[key]); });
+      th.chips = tp.chips.map(ysub);
+      th.chipsEn = tp.chipsEn.map(ysub);
+    });
+    BGCACHE = {};          /* 배경 그림을 새 띠 동물로 다시 그린다 */
+  }
+
   /* ── 배경 ─────────────────────────────────────────────── */
 
-  /* 정미년 한지 — 붉은 한지 + 한옥 처마 + 청사초롱 + 소나무·매화 + 한복 양 + 복주머니 */
+  /* 정미년 한지 — 붉은 한지 + 한옥 처마 + 청사초롱 + 소나무·매화 + 그 해 띠 동물 + 복주머니 */
   function bgJeongmi(g) {
     var defs = lg('bg', 0, 0, 0, 1, [[0, '#B82C38'], [.32, '#9E1B2B'], [.7, '#80101F'], [1, '#5E0A15']]) +
       rg('warm', .5, .2, .74, [[0, '#FFE3A8', .34], [.5, '#E0645C', .08], [1, '#5C0A15', 0]]) +
@@ -277,7 +313,7 @@
     art += '<g opacity=".85">' + sparklePath(360, 360, 11, '#FFE9A8', .7) + sparklePath(742, 322, 9, '#FFE9A8', .6) + sparklePath(654, 470, 7, '#FFE9A8', .5) + '</g>';
     /* 아래 — 한복 양과 복주머니 */
     art += '<path d="M0 1218c150-40 280-10 420 6s260-8 400-2 180 6 260 0v218H0z" fill="#490812" opacity=".55"/>';
-    art += put('sheepHanbok', 540, 1232, 320, g, g ? 'url(#soft)' : '');
+    art += put(YV.zkey, 540, 1216, 360, g, g ? 'url(#soft)' : '');
     art += put('pouchSaekdong', 208, 1252, 248, g, g ? 'url(#soft)' : '', -6);
     art += put('pouchGold', 856, 1258, 236, g, g ? 'url(#soft)' : '', 7);
     art += put('coin', 336, 1360, 112, g, g ? 'url(#soft)' : '');
@@ -381,7 +417,7 @@
     art += glow(838, 232, 270, '#FFE7A0', .55);
     art += put('moon', 838, 232, 236, g, '');
     art += '<ellipse cx="838" cy="232" rx="150" ry="150" fill="none" stroke="#F6D68F" stroke-width="1.2" opacity=".25"/>';
-    art += put('sheepHanbok', 250, 1216, 290, g, g ? 'url(#soft)' : '');
+    art += put(YV.zkey, 250, 1216, 290, g, g ? 'url(#soft)' : '');
     /* 별자리 */
     var stars = [[126, 300], [186, 246], [258, 258], [316, 310], [330, 396], [268, 430], [196, 372]];
     art += '<g stroke="#F6D68F" stroke-width="1.8" opacity=".55">' + stars.map(function (p, i) {
@@ -825,7 +861,7 @@
   }
   var BGCACHE = {}, FRCACHE = {};
   function bg(themeId, gloss) {
-    var ck = themeId + '|' + (gloss ? 1 : 0);
+    var ck = themeId + '|' + (gloss ? 1 : 0) + '|' + YV.zkey;
     if (BGCACHE[ck]) return BGCACHE[ck];
     uid = 0;
     var f = BG[themeId] || BG.jeongmi;
@@ -848,6 +884,8 @@
     themes: THEMES, theme: function (id) { return TMAP[id] || THEMES[0]; },
     frames: FRAMES,
     bg: bg,
-    frame: frame
+    frame: frame,
+    setYear: applyYear,
+    year: function () { return YV; }
   };
 })();

@@ -4,11 +4,14 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content" />
 <meta name="theme-color" content="#B32433" />
-<meta name="description" content="2027 정미년 새해·설날, 크리스마스, 생일·감사·응원 카드를 스스로 꾸며서 카톡·문자로 바로 보내는 무료 카드 만들기 앱. 한국 전통 문양과 크리스마스, 십이지신 스티커 89종." />
+<meta name="description" content="해마다 간지·띠·설날 날짜가 저절로 바뀌는 새해·설날, 크리스마스, 생일·감사·응원 카드를 스스로 꾸며서 카톡·문자로 바로 보내는 무료 카드 만들기 앱. 한국 전통 문양과 십이지신 스티커 89종." />
 <title>💌 와글링 카드 · 스스로 꾸미는 카드 만들기</title>
-<!-- build: 2026-11-27 와글링 카드 (card-maker) v2
+<!-- build: 2026-11-27 와글링 카드 (card-maker) v3 — 해마다 자동으로 간지·띠·설날·크리스마스 D-day·배경 캐릭터 전환
+     · 설날(음력 1월 1일) 양력 날짜표 2024~2050(한국천문연구원 음양력) + 60갑자 천간 색(푸른·붉은·황금·하얀·검은)·12지신 띠 자동 계산
+     · 3월부터 다음 해 설날로 자동 전환, 홈 배지·설명·D-day·테마 이름·추천 문구·히어로 캐릭터·배경 띠 동물까지 연동
+     · v3: 해마다 자동 전환 · v2: 2D 일러스트 / 3D 입체 / 내 사진 3가지 모드
      · 2D 일러스트 / 3D 입체 / 내 사진 3가지 모드 유지
-     · 테마 13종: 정미년 한지·신년 해돋이·설날 창호지·새해 새벽별·크리스마스 3종·생일·축하·감사·효도·응원·위로
+     · 테마 13종: {간지}년 한지·신년 해돋이·설날 창호지·새해 새벽별·크리스마스 3종·생일·축하·감사·효도·응원·위로
      · 중국식 홍등·금색 구름문양 제거 → 청사초롱·까치·소나무·매화·한옥 처마·창호지·색동·한지·해돋이·복주머니
      · 스티커 89종(2D/3D 두 벌): 한국 새해 18 · 십이지신 12 · 크리스마스 15 · 꽃·자연 10 · 별 5 · 마음 7 · 리본 6 · 파티 8 · 동물 5 · 말풍선 3
      · 글씨 탭 개선 + 카드 글씨 눌러 바로 편집, 테마별 추천 문구 한국어/English 78+78
@@ -336,7 +339,7 @@
     <div class="hero">
       <div class="glow"></div>
       <img class="sheep" id="heroSheep" alt="" />
-      <span class="tag" data-i18n="heroTag">2027 정미년 · 한국 새해 · 크리스마스</span>
+      <span class="tag" data-i18n="heroTag">정미년 · 붉은 양의 해</span>
       <h1 id="heroH1"></h1>
       <p id="heroP"></p>
       <div class="ddays">
@@ -376,7 +379,7 @@
     <button class="iconbtn" id="backBtn" data-i18n-aria="back" aria-label="뒤로">←</button>
     <div class="brand">
       <div>
-        <b id="edTitle">정미년 한지</b>
+        <b id="edTitle">한지 카드</b>
         <small id="edSub">끌어서 옮기고 꾸며 보세요</small>
       </div>
     </div>
@@ -456,6 +459,85 @@
   var CW = 1080, CH = 1440;
   var SITE = 'https://starpicklife-design.github.io/card-maker/';
   var KEY = 'wagleCard.v2';
+
+  /* ══ 해마다 저절로 바뀌는 간지·띠·설날·크리스마스 ═══════════════
+     설날(음력 1월 1일)의 양력 날짜 — 한국천문연구원 음양력 기준(2024~2050).
+     한국 표준시(UTC+9) 기준이라 중국 음력과 하루 다른 해가 있다(예: 2028 설날 = 1월 27일). */
+  var LUNAR_NY = {
+    2024: [2, 10], 2025: [1, 29], 2026: [2, 17], 2027: [2, 7], 2028: [1, 27],
+    2029: [2, 13], 2030: [2, 3], 2031: [1, 23], 2032: [2, 11], 2033: [1, 31],
+    2034: [2, 19], 2035: [2, 8], 2036: [1, 28], 2037: [2, 15], 2038: [2, 4],
+    2039: [1, 24], 2040: [2, 12], 2041: [2, 1], 2042: [1, 22], 2043: [2, 10],
+    2044: [1, 30], 2045: [2, 17], 2046: [2, 6], 2047: [1, 26], 2048: [2, 14],
+    2049: [2, 2], 2050: [1, 23]
+  };
+  var CHEONGAN = ['갑', '을', '병', '정', '무', '기', '경', '신', '임', '계'];
+  var CHEONGAN_COL = ['푸른', '푸른', '붉은', '붉은', '황금', '황금', '하얀', '하얀', '검은', '검은'];
+  var CHEONGAN_COL_EN = ['Blue', 'Blue', 'Red', 'Red', 'Golden', 'Golden', 'White', 'White', 'Black', 'Black'];
+  var JIJI = ['자', '축', '인', '묘', '진', '사', '오', '미', '신', '유', '술', '해'];
+  var JIJI_ANIMAL = ['쥐', '소', '호랑이', '토끼', '용', '뱀', '말', '양', '원숭이', '닭', '개', '돼지'];
+  var JIJI_ANIMAL_EN = ['Rat', 'Ox', 'Tiger', 'Rabbit', 'Dragon', 'Snake', 'Horse', 'Sheep', 'Monkey', 'Rooster', 'Dog', 'Pig'];
+  var JIJI_EMOJI = ['🐭', '🐮', '🐯', '🐰', '🐲', '🐍', '🐴', '🐑', '🐵', '🐔', '🐶', '🐷'];
+  var JIJI_STK = ['zRat', 'zOx', 'zTiger', 'zRabbit', 'zDragon', 'zSnake', 'zHorse', 'zSheep', 'zMonkey', 'zRooster', 'zDog', 'zPig'];
+  var WD_KO = ['일', '월', '화', '수', '목', '금', '토'];
+  var WD_EN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  var MON_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+  function midnight(d) { return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+  function seollalDate(y) {
+    var hit = LUNAR_NY[y];
+    if (!hit) {
+      /* 표 범위 밖(2051년 이후 등)은 19년 메톤 주기의 가장 가까운 해로 어림한다. */
+      var keys = Object.keys(LUNAR_NY).map(Number);
+      var base = keys.reduce(function (a, k) { return Math.abs(k - y) < Math.abs(a - y) ? k : a; }, keys[0]);
+      var shift = Math.round((y - base) / 19) * 19;
+      var sol = new Date(base + shift, LUNAR_NY[base][0] - 1, LUNAR_NY[base][1]);
+      hit = [sol.getMonth() + 1, sol.getDate()];
+    }
+    return new Date(y, hit[0] - 1, hit[1]);
+  }
+  function ganjiOf(y) {
+    var gi = ((y - 4) % 10 + 10) % 10, ji = ((y - 4) % 12 + 12) % 12;
+    return {
+      year: y, gan: CHEONGAN[gi], ji: JIJI[ji], ganji: CHEONGAN[gi] + JIJI[ji],
+      color: CHEONGAN_COL[gi], animal: JIJI_ANIMAL[ji], colorAnimal: CHEONGAN_COL[gi] + ' ' + JIJI_ANIMAL[ji],
+      colorEn: CHEONGAN_COL_EN[gi], animalEn: JIJI_ANIMAL_EN[ji], colorAnimalEn: CHEONGAN_COL_EN[gi] + ' ' + JIJI_ANIMAL_EN[ji],
+      emoji: JIJI_EMOJI[ji], stk: JIJI_STK[ji]
+    };
+  }
+  var NOW = null;                  /* 테스트용 시각 고정(__card.simulate) */
+  function nowDate() { return NOW ? new Date(NOW) : new Date(); }
+  function computeYear(d) {
+    var t = midnight(d), cy = t.getFullYear();
+    var febEnd = new Date(cy, 2, 0);                 /* 그 해 2월 마지막 날 */
+    var target = t <= febEnd ? cy : cy + 1;          /* 설날 전·설날 직후(2월 말까지)=그 해, 3월부터=다음 해 */
+    var seol = seollalDate(target), gi = ganjiOf(target), k;
+    var xy = cy, xd = new Date(cy, 11, 25);          /* 12월 26일부터는 다음 해 12월 25일 */
+    if (t > xd) { xy++; xd = new Date(xy, 11, 25); }
+    var out = {};
+    for (k in gi) out[k] = gi[k];
+    out.targetYear = target;
+    out.today = t; out.seollal = seol; out.seolDays = Math.round((seol - t) / 86400000);
+    out.xmasDate = xd; out.xmasDays = Math.round((xd - t) / 86400000);
+    return out;
+  }
+  var YEAR = null, TOK = {};
+  function tokensOf(Y) {
+    var s = Y.seollal;
+    return {
+      Y: Y.targetYear, G: Y.ganji, A: Y.colorAnimal, AN: Y.animal,
+      AE: Y.colorAnimalEn, ANE: Y.animalEn, EM: Y.emoji,
+      M: s.getMonth() + 1, D: s.getDate(), ME: MON_EN[s.getMonth()],
+      WD: WD_KO[s.getDay()], WDE: WD_EN[s.getDay()]
+    };
+  }
+  function ysub(s) {
+    if (!s || s.indexOf('{') < 0) return s;
+    return s.replace(/\{(Y|G|A|AN|AE|ANE|EM|M|ME|D|WD|WDE)\}/g, function (m, k) {
+      return TOK[k] != null ? TOK[k] : m;
+    });
+  }
+
   var FONT_STACK = {
     jua: '"Jua", "Gowun Dodum", "Malgun Gothic", sans-serif',
     gowun: '"Gowun Dodum", "Jua", "Malgun Gothic", sans-serif',
@@ -471,11 +553,11 @@
       appTitle: '💌 와글링 카드 · 스스로 꾸미는 카드 만들기',
       brand: '와글링 카드', brandSub: '카톡으로 바로 보내요',
       inst: '설치', share: '공유', back: '뒤로', close: '닫기',
-      heroTag: '2027 정미년 · 한국 새해 · 크리스마스',
+      heroTag: '{Y} {G}년 · {A}의 해',
       heroH1: '새해도 크리스마스도,<br>내 손으로 꾸며 보내요',
-      heroP: '정미년 설날은 <b>2027년 2월 7일(일)</b>. 테마를 고르고 스티커와 글씨로 꾸며 카톡·문자로 바로 보내세요.',
+      heroP: '{G}년 설날은 <b>{Y}년 {M}월 {D}일({WD})</b>. 테마를 고르고 스티커와 글씨로 꾸며 카톡·문자로 바로 보내세요.',
       cta: '💌 카드 만들기',
-      dSeollal: '설날까지 D-{n}', dSeollalToday: '오늘이 설날! 🐑', dSeollalPast: '2027 정미년 새해 인사',
+      dSeollal: '설날까지 D-{n}', dSeollalToday: '오늘이 설날! {EM}', dSeollalPast: '{Y} {G}년 새해 인사',
       dXmas: '크리스마스까지 D-{n}', dXmasToday: '오늘이 크리스마스! 🎄', dXmasPast: '메리 크리스마스',
       m2dSub: '손그림 일러스트', m3dSub: '입체 광택', mPhoto: '내 사진', mPhotoSub: '액자에 담기',
       themeTitle: '테마 고르기', frameTitle: '사진 액자 고르기', countThemes: '{n}가지', countStickers: '{n}종',
@@ -525,18 +607,18 @@
       toastPhotoFail: '사진을 읽지 못했어요. 다른 사진으로 해 주세요.', toastInstalled: '홈 화면에 담았어요!',
       toastLinkCopy: '🔗 주소를 복사했어요 · 카톡에 붙여 넣어 보세요', toastLinkFail: '주소를 복사하지 못했어요. 주소창 주소를 길게 눌러 복사해 주세요.',
       toastLang: 'English로 바꿨어요', toastLangKo: '한국어로 바꿨어요',
-      shareAppText: '2027 정미년 새해·설날, 크리스마스, 생일·감사·응원 카드를 내 손으로 꾸며 카톡으로 바로 보내요. 무료·광고 없음, 설치 없이 폰에서 바로!',
+      shareAppText: '{Y} {G}년 새해·설날, 크리스마스, 생일·감사·응원 카드를 내 손으로 꾸며 카톡으로 바로 보내요. 무료·광고 없음, 설치 없이 폰에서 바로!',
       shareTitle: '💌 와글링 카드 · 스스로 꾸미는 카드 만들기'
     },
     en: {
       appTitle: '💌 Wagling Card · Make your own card',
       brand: 'Wagling Card', brandSub: 'Decorate it yourself, send on KakaoTalk',
       inst: 'Install', share: 'Share', back: 'Back', close: 'Close',
-      heroTag: '2027 · Korean New Year · Christmas',
+      heroTag: '{Y} · Year of the {AE}',
       heroH1: 'New Year or Christmas,<br>make it with your own hands',
-      heroP: 'Seollal is <b>February 7, 2027</b>. Pick a theme, add stickers and words, then send it on KakaoTalk or SMS.',
+      heroP: 'Seollal is <b>{ME} {D}, {Y} ({WDE})</b>. Pick a theme, add stickers and words, then send it on KakaoTalk or SMS.',
       cta: '💌 Make a card',
-      dSeollal: 'Seollal in {n} days', dSeollalToday: 'Seollal is today! 🐑', dSeollalPast: 'New Year greetings 2027',
+      dSeollal: 'Seollal in {n} days', dSeollalToday: 'Seollal is today! {EM}', dSeollalPast: 'New Year greetings {Y}',
       dXmas: 'Christmas in {n} days', dXmasToday: 'It is Christmas today! 🎄', dXmasPast: 'Merry Christmas',
       m2dSub: 'Hand-drawn', m3dSub: 'Glossy 3D', mPhoto: 'My photo', mPhotoSub: 'In a frame',
       themeTitle: 'Pick a theme', frameTitle: 'Pick a photo frame', countThemes: '{n} themes', countStickers: '{n} stickers',
@@ -586,7 +668,7 @@
       toastPhotoFail: 'Could not read the photo. Please try another one.', toastInstalled: 'Added to your home screen!',
       toastLinkCopy: '🔗 Link copied · paste it in KakaoTalk', toastLinkFail: 'Could not copy. Long-press the address bar to copy it.',
       toastLang: 'Switched to English', toastLangKo: 'Switched to Korean',
-      shareAppText: 'Make your own New Year, Christmas, birthday and thank-you cards and send them on KakaoTalk. Free, no ads, no install.',
+      shareAppText: 'Make your own {Y} New Year, Christmas, birthday and thank-you cards and send them on KakaoTalk. Free, no ads, no install.',
       shareTitle: '💌 Wagling Card · Make your own card'
     }
   };
@@ -594,8 +676,8 @@
   try { var sv = localStorage.getItem('wagleCard.lang'); if (sv === 'en') LANG = 'en'; } catch (e) {}
   function t(k, vars) {
     var s = (I18N[LANG] && I18N[LANG][k]) || I18N.ko[k] || k;
-    if (vars) s = s.replace(/\{(\w+)\}/g, function (m, x) { return vars[x] != null ? vars[x] : ''; });
-    return s;
+    if (vars) s = s.replace(/\{(\w+)\}/g, function (m, x) { return vars[x] != null ? vars[x] : m; });
+    return ysub(s);
   }
 
   var state = {
@@ -1028,7 +1110,7 @@
       } else {
         b.dataset.theme = it.id;
         var badge = '';
-        if (it.tag === '새해' || it.tag === '설날') badge = '<span class="new">' + (LANG === 'en' ? '2027' : '정미년') + '</span>';
+        if (it.tag === '새해' || it.tag === '설날') badge = '<span class="new">' + (LANG === 'en' ? YEAR.targetYear : YEAR.ganji + '년') + '</span>';
         else if (it.tag === '크리스마스') badge = '<span class="new x">' + (LANG === 'en' ? 'XMAS' : '크리스마스') + '</span>';
         b.innerHTML = badge + '<span class="pic"><img loading="lazy" alt="" src="' + svgUrl(ART.bg(it.id, homeMode === '3d')) + '"></span>' +
           '<span class="cap"><b>' + (LANG === 'en' ? it.nameEn : it.name) + '</b><i>' + tagName(it) + '</i></span>';
@@ -1649,17 +1731,29 @@
     if (sheetKind && !sheetWrap.hidden) buildSheet(sheetKind);
   }
   function syncDDay() {
-    var now = new Date().setHours(0, 0, 0, 0);
-    var seol = Math.ceil((new Date(2027, 1, 7) - now) / 86400000);
-    var xmas = Math.ceil((new Date(2026, 11, 25) - now) / 86400000);
+    if (!YEAR) refreshYear();
+    var seol = YEAR.seolDays, xmas = YEAR.xmasDays;
     $('#ddaySeollal').textContent = seol > 0 ? t('dSeollal', { n: seol }) : (seol === 0 ? t('dSeollalToday') : t('dSeollalPast'));
     $('#ddayXmas').textContent = xmas > 0 ? t('dXmas', { n: xmas }) : (xmas === 0 ? t('dXmasToday') : t('dXmasPast'));
+  }
+  /* 간지·띠·설날·크리스마스를 지금 시각 기준으로 다시 계산해 화면과 그림에 반영한다. */
+  function refreshYear() {
+    YEAR = computeYear(nowDate());
+    TOK = tokensOf(YEAR);
+    if (ART.setYear) ART.setYear({
+      year: YEAR.targetYear, ganji: YEAR.ganji, color: YEAR.color, animal: YEAR.animal,
+      colorAnimal: YEAR.colorAnimal, animalEn: YEAR.animalEn, colorAnimalEn: YEAR.colorAnimalEn,
+      emoji: YEAR.emoji, zkey: YEAR.stk
+    });
+    var hi = $('#heroSheep');
+    if (hi) hi.src = svgUrl(STK.svg(YEAR.stk, false));
+    syncDDay();
   }
 
   /* ── 시작 ── */
   function init() {
     try { history.replaceState({ v: 'home' }, '', location.pathname + location.search); } catch (e) {}
-    $('#heroSheep').src = svgUrl(STK.svg('sheepHanbok', false));
+    refreshYear();          /* 올해(설날 전·직후면 올해, 3월부터는 내년) 간지·띠로 히어로·D-day 갱신 */
     applyLang();
     buildQuick();
     syncInstallBtn();
@@ -1686,7 +1780,23 @@
       setLang: function (l) { LANG = l; applyLang(); },
       textHit: function () { return TEXT_HIT; },
       png: async function () { var b = await buildPNG(); return b ? { type: b.type, bytes: b.size } : null; },
-      overflow: function () { return document.documentElement.scrollWidth - document.documentElement.clientWidth; }
+      overflow: function () { return document.documentElement.scrollWidth - document.documentElement.clientWidth; },
+      year: function () {
+        return {
+          targetYear: YEAR.targetYear, ganji: YEAR.ganji, colorAnimal: YEAR.colorAnimal,
+          animal: YEAR.animal, animalEn: YEAR.animalEn, stk: YEAR.stk,
+          seollal: YEAR.seollal.getFullYear() + '-' + (YEAR.seollal.getMonth() + 1) + '-' + YEAR.seollal.getDate(),
+          seolDays: YEAR.seolDays, xmas: YEAR.xmasDate.getFullYear() + '-' + (YEAR.xmasDate.getMonth() + 1) + '-' + YEAR.xmasDate.getDate(),
+          xmasDays: YEAR.xmasDays, hero: $('#heroSheep').getAttribute('src').slice(0, 60)
+        };
+      },
+      simulate: function (when) {
+        NOW = when ? new Date(when + 'T12:00:00') : null;
+        refreshYear(); applyLang();
+        if (view === 'edit') render();
+        if (view === 'done') drawDone();
+        return YEAR.targetYear + ' ' + YEAR.ganji;
+      }
     };
   }
   init();

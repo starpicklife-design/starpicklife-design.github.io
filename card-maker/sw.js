@@ -1,5 +1,5 @@
 /* 와글링 카드 서비스워커 — 앱 껍데기만 캐시(화면은 네트워크 우선) */
-const CACHE = 'wagle-card-v2';
+const CACHE = 'wagle-card-v3';
 const SHELL = [
   './',
   './index.html',
