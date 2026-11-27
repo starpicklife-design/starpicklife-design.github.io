@@ -309,8 +309,8 @@ input[type=range]::-moz-range-thumb{width:1.35rem;height:1.35rem;border-radius:5
 .gfield{min-width:0}
 .gfield label{display:block;font-size:.78rem;font-weight:900;color:var(--ink2);margin-bottom:.22rem}
 .gfield input{
-  width:100%;height:2.85rem;border-radius:.74rem;border:2px solid #DCE9F8;background:#FBFDFF;
-  padding:0 .55rem;font-size:1.1rem;font-family:var(--math);font-weight:700;text-align:center;color:var(--ink);
+  width:100%;height:2.85rem;border-radius:.74rem;border:2px solid #C7DDF5;background:#FBFDFF;
+  padding:0 .55rem;font-size:1.2rem;font-family:var(--math);font-weight:700;text-align:center;color:var(--ink);
 }
 .gfield input:focus{border-color:var(--skyblue);background:#fff;outline:none;box-shadow:0 0 0 3px rgba(43,127,224,.14)}
 .resbox{background:linear-gradient(180deg,#F6FBFF,#EDF7FF);border:1.5px solid #D3E8FF;border-radius:.88rem;padding:.58rem .7rem;margin-top:.52rem}
@@ -1056,7 +1056,7 @@ function shareApp() {
 }
 
 /* ═══════════════ 2. 방정식 풀이 연습 ═══════════════ */
-var cur = null, qNo = 0, attempts = 0, answered = false, solOpen = false;
+var cur = null, qNo = 0, attempts = 0, answered = false, solOpen = false, gotRight = false;
 var session = { n: 0, c: 0 };
 var retry = null;
 
@@ -1198,7 +1198,7 @@ function resetEqUi() {
   solOpen = false;
 }
 function nextProblem() {
-  attempts = 0; answered = false; solOpen = false;
+  attempts = 0; answered = false; solOpen = false; gotRight = false;
   if (retry) {
     retry.i++;
     if (retry.i >= retry.queue.length) { endRetry(true); return; }
@@ -1250,10 +1250,10 @@ function checkEq() {
   attempts++;
   if (!answered) {
     answered = true; session.n++;
-    if (ok) session.c++;
     record('eq', ok);
-    renderEqSession();
   }
+  if (ok && !gotRight) { gotRight = true; session.c++; }
+  renderEqSession();
   if (ok) {
     streak++;
     feedback(true);
@@ -1332,7 +1332,7 @@ function startRetry() {
   if (!S.wrong.length) { toast(T('retryEmpty')); return; }
   retry = { queue: JSON.parse(JSON.stringify(S.wrong)), i: 0 };
   cur = retry.queue[0];
-  qNo = 1; attempts = 0; answered = false; solOpen = false;
+  qNo = 1; attempts = 0; answered = false; solOpen = false; gotRight = false;
   if (page !== 'eq') { go('eq'); }
   resetEqUi();
   paintEq();
@@ -1580,19 +1580,29 @@ function drawGraph() {
   ctx.stroke();
 
   // 중요한 점
-  function dot(xv, yv) {
+  function dot(xv, yv, label) {
     if (!isFinite(xv) || !isFinite(yv)) return;
     var px2 = cx + xv * unit, py2 = cy - yv * unit;
     if (px2 < 4 || px2 > w - 4 || py2 < 4 || py2 > h - 4) return;
     ctx.beginPath(); ctx.arc(px2, py2, 5.8, 0, Math.PI * 2);
     ctx.fillStyle = '#FFB020'; ctx.fill();
     ctx.lineWidth = 2.6; ctx.strokeStyle = '#fff'; ctx.stroke();
+    if (label) {
+      ctx.font = '800 11px system-ui, -apple-system, sans-serif';
+      ctx.textAlign = 'left'; ctx.textBaseline = 'bottom';
+      var lx = Math.min(px2 + 8, w - 52), ly = Math.max(py2 - 9, 14);
+      ctx.lineWidth = 4.2; ctx.strokeStyle = '#FBFEFD';
+      ctx.strokeText(label, lx, ly);
+      ctx.fillStyle = '#8A4B00';
+      ctx.fillText(label, lx, ly);
+    }
   }
   if (G.fn === 'lin') {
-    dot(0, co.b);
+    dot(0, co.b, '(' + num(0) + ', ' + num(co.b) + ')');
   } else if (co.a !== 0) {
-    dot(-co.b / (2 * co.a), co.c - co.b * co.b / (4 * co.a));
-    dot(0, co.c);
+    var gvx = -co.b / (2 * co.a), gvy = co.c - co.b * co.b / (4 * co.a);
+    dot(gvx, gvy, '(' + dec(gvx, 1) + ', ' + dec(gvy, 1) + ')');
+    dot(0, co.c, '(' + num(0) + ', ' + num(co.c) + ')');
   }
   ctx.restore();
 }
