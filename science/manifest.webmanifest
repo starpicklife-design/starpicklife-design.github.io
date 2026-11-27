@@ -1,0 +1,35 @@
+{
+  "name": "와글링 과학",
+  "short_name": "와글링 과학",
+  "description": "태양계 행성 여행, 온도 실험(얼음·물·수증기), 빛의 삼원색과 자석 놀이, 생활 속 과학 퀴즈 — 눌러서 배우는 과학 놀이",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "id": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "background_color": "#FFFBF4",
+  "theme_color": "#EAF6FF",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

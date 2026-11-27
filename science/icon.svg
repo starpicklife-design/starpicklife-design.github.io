@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#FFF8EC"/>
+      <stop offset="0.52" stop-color="#EDF8FF"/>
+      <stop offset="1" stop-color="#CFE8FF"/>
+    </linearGradient>
+    <linearGradient id="liq" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#93E5F7"/>
+      <stop offset="1" stop-color="#12A2C6"/>
+    </linearGradient>
+    <radialGradient id="planet" cx="0.35" cy="0.3" r="0.85">
+      <stop offset="0" stop-color="#FFC46B"/>
+      <stop offset="0.6" stop-color="#F59327"/>
+      <stop offset="1" stop-color="#D96C14"/>
+    </radialGradient>
+    <clipPath id="flask"><path d="M232 150 h48 v70 l66 148 q8 18 -12 18 H178 q-20 0 -12 -18 l66 -148 Z"/></clipPath>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+
+  <!-- orbit + planet -->
+  <ellipse cx="256" cy="126" rx="158" ry="46" fill="none" stroke="#7FA9D6" stroke-width="6" opacity="0.45" transform="rotate(-9 256 126)"/>
+  <circle cx="136" cy="106" r="27" fill="url(#planet)"/>
+  <ellipse cx="136" cy="106" rx="42" ry="10" fill="none" stroke="#FFD79A" stroke-width="5" opacity="0.85" transform="rotate(-18 136 106)"/>
+
+  <!-- stars -->
+  <circle cx="418" cy="92" r="7" fill="#FFC94A"/>
+  <circle cx="86" cy="196" r="5" fill="#8FB8E6" opacity="0.8"/>
+  <circle cx="430" cy="196" r="4.5" fill="#8FB8E6" opacity="0.7"/>
+  <circle cx="368" cy="146" r="3.5" fill="#8FB8E6" opacity="0.6"/>
+
+  <!-- flask -->
+  <g clip-path="url(#flask)">
+    <rect x="140" y="292" width="232" height="130" fill="url(#liq)"/>
+    <circle cx="212" cy="330" r="12" fill="#FFFFFF" opacity="0.72"/>
+    <circle cx="270" cy="358" r="9" fill="#FFFFFF" opacity="0.6"/>
+    <circle cx="308" cy="320" r="7" fill="#FFFFFF" opacity="0.55"/>
+    <circle cx="238" cy="384" r="6" fill="#FFFFFF" opacity="0.45"/>
+  </g>
+  <path d="M232 150 h48 v70 l66 148 q8 18 -12 18 H178 q-20 0 -12 -18 l66 -148 Z"
+        fill="none" stroke="#5E93BE" stroke-width="14" stroke-linejoin="round"/>
+  <path d="M246 172 v46" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round" opacity="0.75"/>
+  <rect x="232" y="124" width="48" height="30" rx="12" fill="#5E93BE"/>
+</svg>

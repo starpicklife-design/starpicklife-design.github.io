@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#5B3FA8" />
+<meta name="google" content="notranslate" />
+<!-- build: 2026-11-27 와글링 영어블랙홀 (Wagling English Black Hole) v1 · 로컬 시제품 -->
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="영어블랙홀" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23F6F1FF'/%3E%3Cellipse cx='16' cy='16' rx='14' ry='5' fill='none' stroke='%235B3FA8' stroke-width='2' transform='rotate(-18 16 16)'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23352A5C'/%3E%3Ccircle cx='13.5' cy='13.5' r='2' fill='%2374D3B8'/%3E%3C/svg%3E" />
+<meta name="description" content="왕초보 여행영어 49문장을 오늘 배우면 3일·7일·14일·30일 뒤 블랙홀이 다시 꺼내 주는 망각곡선 복습 앱. 큰 글씨·한글 발음·원어민 소리, 설치 없이 무료·오프라인." />
+<title>와글링 영어블랙홀 · Wagling English Black Hole</title>
+<style>
+:root{
+  --bg:#F6F1FF; --bg2:#FBF7FF; --card:#FFFFFF; --ink:#211A33; --ink2:#5C5276;
+  --line:#E6DCF8; --brand:#5B3FA8; --brand2:#43297F; --mint:#0F8C74; --mintbg:#E6F8F1;
+  --gold:#A9740B; --goldbg:#FFF3D6; --rose:#A83255; --rosebg:#FFEDF2;
+  --soft:#F3ECFF; --shadow:0 2px 12px rgba(70,45,130,.10);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{font-size:19px;-webkit-text-size-adjust:100%}
+@media (min-width:390px){ html{font-size:20px} }
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.5;
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic","Noto Sans","Noto Sans CJK KR","Liberation Sans","DejaVu Sans",Arial,Helvetica,sans-serif;
+  padding-bottom:calc(4.9rem + env(safe-area-inset-bottom));
+  background-image:radial-gradient(circle at 14% 6%,rgba(91,63,168,.10),transparent 44%),
+    radial-gradient(circle at 90% 2%,rgba(15,140,116,.10),transparent 40%);
+  background-repeat:no-repeat;background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:radial-gradient(circle,rgba(120,90,190,.30) 1px,transparent 1.4px),
+    radial-gradient(circle,rgba(15,140,116,.22) 1px,transparent 1.4px);
+  background-size:46px 46px,71px 71px;background-position:0 0,23px 31px}
+#app{position:relative;z-index:1}
+button{font-family:inherit;cursor:pointer;color:inherit;border:0;background:none;font-size:inherit}
+input,select{font-family:inherit}
+a{color:inherit}
+img,svg{display:block}
+[hidden]{display:none !important}
+h1,h2,h3,p{margin:0}
+.wrap{max-width:620px;margin:0 auto}
+.pad{padding:0 .7rem}
+
+/* ── 상단 ── */
+.top{background:linear-gradient(180deg,#FFF6E6 0%,#F7F0FF 100%);border-bottom:1px solid var(--line);
+  padding:.5rem .7rem .55rem;position:relative;z-index:5}
+.hrow{display:flex;align-items:center;gap:.4rem}
+.logo{font-size:1.5rem;line-height:1;flex:0 0 auto;width:1.95rem;height:1.95rem}
+.logo svg{width:100%;height:100%}
+.mark{display:inline-flex;width:1.6rem;height:1.6rem;flex:0 0 auto;vertical-align:-.34rem}
+.mark svg{width:100%;height:100%}
+.hrow h1{font-size:1.06rem;font-weight:900;letter-spacing:-.015em;line-height:1.25;
+  flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body[data-lang="en"] .hrow h1{font-size:.9rem}
+.pill{display:flex;align-items:center;justify-content:center;gap:.12rem;background:#fff;border:2px solid #DDD0F2;color:#3B2E5A;
+  border-radius:2rem;padding:.2rem .46rem;font-size:.8rem;font-weight:900;min-height:2.3rem;white-space:nowrap;flex:0 0 auto}
+.pill:active{transform:translateY(1px)}
+.pill.inst{background:linear-gradient(180deg,#FFE290,#F0B93F);border-color:#A9770C;color:#3B2A16}
+.pill .globe{font-size:.95rem}
+.pill .lg{opacity:.34}
+.pill .lg.on{opacity:1}
+.pill .sl{opacity:.4;font-weight:800}
+.hsub{display:flex;align-items:flex-end;gap:.4rem;margin-top:.3rem}
+.tag{font-size:.76rem;color:var(--ink2);font-weight:700;line-height:1.42;flex:1 1 auto;min-width:0;word-break:keep-all}
+.tools{display:flex;gap:.28rem;flex:0 0 auto}
+
+/* ── 히어로(오늘 복습) ── */
+.hero{position:relative;margin:.6rem .7rem 0;border-radius:1.2rem;padding:.7rem .85rem .78rem;
+  background:linear-gradient(150deg,#FFFFFF 0%,#F4ECFF 58%,#E8FAF4 100%);
+  border:2px solid #E1D4F7;box-shadow:0 4px 16px rgba(91,63,168,.13);overflow:hidden}
+.hero::before{content:"";position:absolute;right:-1.6rem;top:-1.5rem;width:8.6rem;height:8.6rem;border-radius:50%;
+  border:1.5px dashed rgba(91,63,168,.22);pointer-events:none}
+.hero::after{content:"";position:absolute;right:-.5rem;top:-.3rem;width:6.2rem;height:6.2rem;border-radius:50%;
+  border:1.5px solid rgba(15,140,116,.20);pointer-events:none}
+.hero .hlbl{font-size:.92rem;font-weight:900;color:#4B3C74;letter-spacing:-.01em;word-break:keep-all}
+.hero .hnum{display:flex;align-items:flex-end;gap:.22rem;margin:.1rem 0 .05rem}
+.hero .hnum b{font-size:2.95rem;line-height:1;font-weight:900;color:var(--brand);letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;text-shadow:0 1px 0 #fff}
+.hero .hnum .unit{font-size:1.3rem;font-weight:900;color:#4B3C74;padding-bottom:.35rem}
+.hero .hint{font-size:.86rem;line-height:1.45;color:#4A3D68;word-break:keep-all;font-weight:700}
+.hero .hchip{display:inline-flex;align-items:center;gap:.2rem;margin-top:.35rem;margin-right:.3rem;
+  background:#FFF3D6;border:1px solid #EFD79A;color:#6B4E08;border-radius:1rem;padding:.12rem .5rem;font-size:.78rem;font-weight:900}
+.hero .hchip.mint{background:var(--mintbg);border-color:#B7E7DA;color:#0A6653}
+.hero .hbtn{margin-top:.6rem;width:100%;display:flex;align-items:center;justify-content:center;gap:.35rem;
+  background:linear-gradient(180deg,#6A4CBC,#4E339B);color:#fff;border-radius:.9rem;padding:.72rem .7rem;
+  font-size:1.08rem;font-weight:900;min-height:3.4rem;box-shadow:0 4px 12px rgba(91,63,168,.28)}
+.hero .hbtn.alt{background:#fff;color:var(--brand);border:2px solid #C8B5EC;box-shadow:none}
+.hero .hbtn:active{transform:translateY(1px)}
+
+/* ── 섹션 제목 ── */
+.secbar{display:flex;align-items:baseline;gap:.4rem;margin:.9rem .7rem .45rem}
+.secbar h2{font-size:1.04rem;font-weight:900;letter-spacing:-.01em}
+.secbar .cnt{font-size:.78rem;font-weight:900;color:#5A3F9B;background:#EDE4FF;border-radius:.55rem;padding:.08rem .42rem}
+
+/* ── 궤도 바 ── */
+.rail{display:flex;height:.9rem;margin:0 .7rem;border-radius:1rem;overflow:hidden;background:#EDE5FB;
+  border:1px solid #DED1F4;gap:2px}
+.rail i{display:block;height:100%;min-width:5px}
+.railempty{display:flex;align-items:center;justify-content:center;height:1.9rem;margin:0 .7rem;
+  border:1.5px dashed #D6C7EF;border-radius:1rem;font-size:.78rem;font-weight:800;color:#6E5D91;background:#FBF7FF}
+
+/* ── 단계판 ── */
+.board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.38rem;margin:.4rem .7rem 0}
+.stg{display:flex;flex-direction:column;align-items:center;gap:.02rem;min-width:0;width:100%;
+  background:var(--cbg,#fff);border:2px solid var(--cbd,#E6DCF8);border-top:5px solid var(--c,#C9B8EE);
+  border-radius:.85rem;padding:.42rem .18rem .45rem;box-shadow:0 1px 5px rgba(70,45,130,.07)}
+.stg:active{transform:translateY(1px)}
+.stg .sl{font-size:.74rem;font-weight:900;color:#3A2E55;line-height:1.2;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.stg .sn{font-size:1.5rem;font-weight:900;line-height:1.1;color:#241B3A;font-variant-numeric:tabular-nums}
+.stg .ss{font-size:.64rem;font-weight:800;color:#6B5C88;line-height:1.15;white-space:nowrap}
+.stg.hit{border-color:var(--c);box-shadow:0 0 0 2px rgba(91,63,168,.16)}
+
+/* ── 이번 주 달력 ── */
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:.16rem;margin:.1rem .7rem 0}
+.wc{display:flex;flex-direction:column;align-items:center;gap:.02rem;background:#fff;border:1.5px solid #E9E0F9;
+  border-radius:.6rem;padding:.3rem 0 .26rem;min-width:0}
+.wc.on{background:#F1E9FF;border-color:#B79CE6}
+.wc .wd{font-size:.66rem;font-weight:900;color:#6B5C88;line-height:1.1}
+.wc .wn{font-size:1.04rem;font-weight:900;color:#241B3A;line-height:1.15;font-variant-numeric:tabular-nums}
+.wc .wn.zero{color:#B8ACC9}
+.wc .wd2{font-size:.6rem;font-weight:800;color:#8C7DA6;line-height:1.1}
+
+/* ── 격려 배너 ── */
+.cheer{display:flex;align-items:center;gap:.55rem;margin:.85rem .7rem 0;background:#fff;
+  border:2px solid #E6DCF8;border-left:7px solid #74D3B8;border-radius:.95rem;padding:.55rem .65rem;box-shadow:var(--shadow)}
+.cheer .cic{font-size:1.6rem;line-height:1;flex:0 0 auto}
+.cheer b{font-size:.95rem;font-weight:900;color:#2C2150;display:block;line-height:1.3;word-break:keep-all}
+.cheer p{font-size:.82rem;color:#5C5276;line-height:1.4;margin-top:.05rem;word-break:keep-all}
+
+/* ── 빠른 버튼 ── */
+.quick{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin:.7rem .7rem .4rem}
+.qbtn{display:flex;align-items:center;justify-content:center;gap:.3rem;background:#fff;border:2px solid #DCCDF3;
+  border-radius:.85rem;padding:.6rem .3rem;font-size:.9rem;font-weight:900;color:#3B2E5A;min-height:3.1rem;word-break:keep-all}
+.qbtn.mint{background:#EDFBF6;border-color:#B9E8DA;color:#08604F}
+
+/* ── 목록 ── */
+.listhead{margin:.6rem .7rem 0}
+.listhead h2{font-size:1.16rem;font-weight:900;letter-spacing:-.01em}
+.listhead p{font-size:.84rem;color:var(--ink2);margin-top:.18rem;line-height:1.45;word-break:keep-all}
+.cats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.3rem;margin:.6rem .7rem 0}
+.cat{display:flex;align-items:center;justify-content:center;gap:.14rem;background:#fff;border:2px solid #E4D9F6;
+  border-radius:.7rem;padding:.36rem .1rem;font-size:.78rem;font-weight:900;min-height:2.6rem;min-width:0;
+  color:#3A2E55;line-height:1.15;white-space:nowrap;overflow:hidden}
+.cat .ci{font-size:.95rem;line-height:1}
+.cat.on{background:var(--brand);border-color:var(--brand2);color:#fff}
+body[data-lang="en"] .cat{font-size:.68rem}
+.notebar{display:flex;align-items:center;gap:.4rem;margin:.6rem .7rem 0;background:#EDE4FF;border:1px solid #D8C8F5;
+  border-radius:.7rem;padding:.4rem .55rem;font-size:.8rem;font-weight:800;color:#3E2C74}
+.notebar button{margin-left:auto;background:#fff;border:1px solid #CDBAEC;border-radius:.55rem;padding:.16rem .45rem;font-size:.76rem;font-weight:900}
+.cards{padding:.55rem .7rem 0}
+.pc{display:block;width:100%;text-align:left;background:var(--card);border:2px solid var(--line);
+  border-radius:1rem;padding:.6rem .66rem .62rem;margin-bottom:.55rem;box-shadow:var(--shadow)}
+.pc:active{transform:translateY(1px)}
+.pc.due{border-color:#F2C77E;background:linear-gradient(180deg,#FFFDF6,#fff)}
+.ptop{display:flex;align-items:center;gap:.34rem}
+.pcat{font-size:.72rem;font-weight:900;color:#5A3F9B;background:#F1EAFF;border-radius:.5rem;padding:.1rem .42rem;white-space:nowrap}
+.pstage{margin-left:auto;font-size:.72rem;font-weight:900;color:#0A6653;background:var(--mintbg);border-radius:.5rem;
+  padding:.1rem .42rem;white-space:nowrap;max-width:52%;overflow:hidden;text-overflow:ellipsis}
+.pstage.today{background:#FFF0CC;color:#7A5205}
+.pstage.none{background:#F2EEF9;color:#6B5C88}
+.pstage.master{background:#FFF0CC;color:#7A5205}
+.psnd{flex:0 0 auto;width:2.5rem;height:2.5rem;display:grid;place-items:center;background:#F0FBF7;
+  border:1.5px solid #C6EADD;border-radius:50%;font-size:1.05rem;margin-left:.1rem}
+.pen{font-size:1.22rem;font-weight:900;line-height:1.28;letter-spacing:-.01em;margin-top:.34rem;
+  color:#1B1430;overflow-wrap:break-word}
+.pko{font-size:.9rem;color:#4C3F68;line-height:1.4;margin-top:.16rem;word-break:keep-all}
+.prom{display:inline-block;font-size:.86rem;font-weight:900;color:#07624F;background:var(--mintbg);
+  border-radius:.5rem;padding:.14rem .45rem;margin-top:.3rem;line-height:1.35}
+.pfoot{display:flex;align-items:center;gap:.4rem;margin-top:.45rem}
+.pbadge{font-size:.74rem;font-weight:800;color:#6B5C88;flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pgo{margin-left:auto;flex:0 0 auto;background:var(--brand);color:#fff;border-radius:.65rem;padding:.36rem .75rem;
+  font-size:.86rem;font-weight:900;min-height:2.5rem}
+.pgo.learn{background:#fff;color:var(--brand);border:2px solid #C8B5EC}
+.empty{margin:.9rem .7rem;background:#fff;border:2px dashed #DCCDF3;border-radius:1rem;padding:1.1rem .85rem;
+  text-align:center;font-size:.92rem;line-height:1.6;color:#5C5276}
+.empty b{display:block;font-size:1.02rem;color:#2C2150;margin-bottom:.2rem}
+
+/* ── 추가 ── */
+.addhead{margin:.7rem .7rem 0}
+.addhead h2{font-size:1.1rem;font-weight:900}
+.addhead p{font-size:.84rem;color:var(--ink2);line-height:1.5;margin-top:.2rem;word-break:keep-all}
+.fl{display:block;font-size:.86rem;font-weight:900;color:#3A2E55;margin:.85rem .7rem .28rem}
+.fl .req{color:#B23A5E}
+.inp{display:block;width:100%;border:2px solid #DFD3F2;border-radius:.8rem;padding:.6rem .65rem;
+  font-size:1.02rem;font-weight:700;color:#211A33;background:#fff;min-height:3.2rem}
+.inp::placeholder{color:#A99FBC;font-weight:600}
+.inp:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(91,63,168,.14)}
+.addwrap{margin:0 .7rem}
+.catpick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.3rem;margin:.5rem 0 .1rem}
+.catpick .cat{font-size:.74rem}
+.bigbtn{display:flex;align-items:center;justify-content:center;gap:.35rem;width:100%;background:linear-gradient(180deg,#6A4CBC,#4E339B);
+  color:#fff;border-radius:.9rem;padding:.72rem;font-size:1.02rem;font-weight:900;min-height:3.4rem;margin-top:1rem;
+  box-shadow:0 4px 12px rgba(91,63,168,.26)}
+.fine{font-size:.78rem;color:#6A5C86;line-height:1.5;margin:.5rem 0 .6rem;word-break:keep-all}
+
+/* ── 하단 탭 ── */
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;background:#FFFDFA;
+  border-top:2px solid #E6DCF8;padding-bottom:env(safe-area-inset-bottom)}
+.tabs .wrap{display:flex;width:100%;max-width:620px;margin:0 auto}
+.tab{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.04rem;
+  padding:.34rem .1rem .38rem;color:#7A6C93;font-weight:800;font-size:.72rem;min-height:3.5rem}
+.tab .ti{font-size:1.22rem;line-height:1.1}
+.tab.on{color:var(--brand)}
+.tab.on .ti{filter:drop-shadow(0 1px 2px rgba(91,63,168,.3))}
+
+/* ── 학습 화면 ── */
+.study{position:fixed;inset:0;z-index:70;display:flex;flex-direction:column;
+  background:linear-gradient(180deg,#FBF6FF 0%,#F2ECFF 65%,#EAF9F4 100%);
+  padding-top:env(safe-area-inset-top)}
+.sbar{display:flex;align-items:center;gap:.5rem;padding:.5rem .7rem .45rem}
+.sback{display:flex;align-items:center;gap:.25rem;background:#fff;border:2px solid #DCCDF3;border-radius:2rem;
+  padding:.3rem .7rem;font-size:.88rem;font-weight:900;min-height:2.6rem;color:#3B2E5A}
+.sprog{font-size:.8rem;font-weight:900;color:#4B3C74;flex:1 1 auto;text-align:right;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pbar{height:.42rem;margin:0 .7rem .1rem;border-radius:1rem;background:#E7DCFA;overflow:hidden}
+.pbar i{display:block;height:100%;background:linear-gradient(90deg,#74D3B8,#5B3FA8);border-radius:1rem;transition:width .25s}
+.sbody{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:.55rem .7rem .6rem;
+  display:flex;flex-direction:column;justify-content:center;justify-content:safe center}
+.shint{text-align:center;font-size:.82rem;font-weight:800;color:#5C5276;margin:.6rem .2rem 0;line-height:1.45;word-break:keep-all}
+.scard{background:#fff;border:2px solid #E4D9F6;border-radius:1.2rem;padding:.8rem .8rem .85rem;box-shadow:0 4px 16px rgba(70,45,130,.10)}
+.srow1{display:flex;align-items:center;gap:.35rem;flex-wrap:wrap}
+.srow1 .pcat{max-width:100%;flex:0 0 auto}
+.scard .pstage{max-width:none;flex:0 0 auto}
+.smask{margin-left:auto;flex:0 0 auto;background:#F4EEFF;border:1.5px solid #DCCDF3;border-radius:.55rem;
+  padding:.2rem .45rem;font-size:.74rem;font-weight:900;color:#4B3C74;min-height:2.1rem}
+.sen2{font-size:1.62rem;font-weight:900;line-height:1.26;letter-spacing:-.02em;color:#130D26;
+  margin-top:.42rem;overflow-wrap:break-word}
+@media (max-width:359px){
+  .sen2{font-size:1.42rem}
+  .smask{font-size:.7rem;padding:.16rem .34rem}
+  .scard .pstage{font-size:.68rem;padding:.08rem .34rem}
+  .scard .pcat{font-size:.68rem}
+}
+.sbtnrow{display:grid;grid-template-columns:1fr 1fr;gap:.35rem;margin-top:.6rem}
+.sbtn{display:flex;align-items:center;justify-content:center;gap:.22rem;background:#F6F1FF;border:2px solid #E1D4F7;
+  border-radius:.7rem;padding:.42rem .2rem;font-size:.82rem;font-weight:900;color:#41325F;min-height:2.9rem;white-space:nowrap}
+.sbtn.on{background:linear-gradient(180deg,#6A4CBC,#4E339B);border-color:#3B2678;color:#fff}
+.srom{font-size:1.2rem;font-weight:900;line-height:1.35;color:#07624F;background:var(--mintbg);
+  border-radius:.8rem;padding:.4rem .55rem;margin-top:.6rem;word-break:keep-all}
+.sko{font-size:1.04rem;font-weight:700;color:#3A2E55;line-height:1.45;margin-top:.45rem;word-break:keep-all}
+.stip{font-size:.82rem;line-height:1.5;color:#5A4416;background:#FFF7E2;border:1px solid #F0DCA6;
+  border-radius:.7rem;padding:.45rem .5rem;margin-top:.5rem;word-break:keep-all}
+.masked{filter:blur(7px);-webkit-filter:blur(7px);user-select:none}
+.sfoot{padding:.55rem .7rem calc(.6rem + env(safe-area-inset-bottom));background:#FFFDFA;
+  border-top:2px solid #E6DCF8;display:flex;flex-direction:column;gap:.4rem}
+.bpass{display:flex;align-items:center;justify-content:center;gap:.35rem;width:100%;min-height:3.4rem;
+  background:linear-gradient(180deg,#19A88A,#0B7D66);color:#fff;border-radius:.9rem;font-size:1.06rem;font-weight:900;
+  box-shadow:0 4px 12px rgba(15,140,116,.26)}
+.bfuzzy{display:flex;align-items:center;justify-content:center;gap:.35rem;width:100%;min-height:3.3rem;
+  background:#fff;color:#8A2F4F;border:2px solid #EFC2D1;border-radius:.9rem;font-size:.98rem;font-weight:900}
+.sinfo{font-size:.84rem;font-weight:800;color:#4B3C74;line-height:1.45;text-align:center;word-break:keep-all}
+.sinfo.big{font-size:.95rem;color:#08604F;background:var(--mintbg);border:1.5px solid #BFE9DC;border-radius:.8rem;padding:.5rem .55rem}
+.slink{align-self:center;background:#F2ECFF;border:1.5px solid #DCCDF3;border-radius:2rem;padding:.24rem .65rem;
+  font-size:.8rem;font-weight:900;color:#4B3C74;min-height:2.3rem}
+.sfoot .bpass:active,.sfoot .bfuzzy:active,.sbtn:active{transform:translateY(1px)}
+
+/* ── 마침 화면 ── */
+.sum{background:#fff;border:2px solid #E4D9F6;border-radius:1.2rem;padding:1rem .85rem;text-align:center;box-shadow:0 4px 16px rgba(70,45,130,.10)}
+.sumic{font-size:3rem;line-height:1}
+.sumt{font-size:1.28rem;font-weight:900;margin-top:.3rem;letter-spacing:-.01em}
+.sums{font-size:.92rem;color:#4C3F68;margin-top:.3rem;line-height:1.5;word-break:keep-all}
+.sumrow{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.8rem}
+.sumbox{background:#F7F2FF;border:1.5px solid #E1D4F7;border-radius:.8rem;padding:.5rem .3rem}
+.sumbox b{display:block;font-size:1.45rem;font-weight:900;color:#241B3A;line-height:1.15}
+.sumbox span{font-size:.76rem;font-weight:800;color:#6B5C88}
+.sumnext{margin-top:.7rem;background:var(--mintbg);border:1px solid #BFE9DC;border-radius:.8rem;padding:.5rem .55rem;
+  font-size:.86rem;font-weight:800;color:#08604F;line-height:1.45;word-break:keep-all}
+
+/* ── 토스트 ── */
+.toast{position:fixed;left:50%;transform:translateX(-50%) translateY(1.2rem);bottom:calc(5.4rem + env(safe-area-inset-bottom));
+  z-index:90;background:#2C2150;color:#fff;border-radius:.8rem;padding:.55rem .75rem;font-size:.86rem;font-weight:800;
+  display:flex;align-items:center;gap:.6rem;max-width:calc(100vw - 1.4rem);box-shadow:0 6px 18px rgba(30,20,60,.28);
+  opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;line-height:1.4}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:none}
+.toast button{background:#fff;color:#2C2150;border-radius:.5rem;padding:.18rem .5rem;font-size:.8rem;font-weight:900;flex:0 0 auto;pointer-events:auto}
+body.study-open .toast{bottom:calc(9.2rem + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(.8rem)}
+body.study-open .toast.on{transform:translateX(-50%) translateY(0)}
+
+/* ── 설치 안내 ── */
+.modal{position:fixed;inset:0;z-index:95;background:rgba(30,20,60,.45);display:flex;align-items:flex-end;justify-content:center}
+.mbox{width:100%;max-width:620px;background:#FFFDFA;border-radius:1.2rem 1.2rem 0 0;padding:1rem .9rem calc(1rem + env(safe-area-inset-bottom));
+  max-height:82vh;overflow-y:auto}
+.mbox h3{font-size:1.1rem;font-weight:900}
+.mbox .mrow{display:flex;gap:.5rem;margin-top:.6rem;font-size:.9rem;line-height:1.5;color:#3A2E55;word-break:keep-all}
+.mbox .mrow b{flex:0 0 1.6rem;font-size:1.1rem}
+.mclose{width:100%;margin-top:.9rem;background:var(--brand);color:#fff;border-radius:.8rem;min-height:3.2rem;font-size:1rem;font-weight:900}
+</style>
+</head>
+<body data-lang="ko">
+<div id="app">
+
+<header class="top">
+  <div class="wrap">
+    <div class="hrow">
+      <span class="logo" aria-hidden="true"><svg viewBox="0 0 40 40"><ellipse cx="20" cy="20" rx="18" ry="6.2" fill="none" stroke="#F0BC46" stroke-width="2.6" transform="rotate(-20 20 20)"/><ellipse cx="20" cy="20" rx="15.6" ry="4.8" fill="none" stroke="#74D3B8" stroke-width="1.6" transform="rotate(-20 20 20)"/><circle cx="20" cy="20" r="10.4" fill="#2E2352"/><circle cx="20" cy="20" r="11.4" fill="none" stroke="#FFF6E2" stroke-width="1.5" opacity=".95"/><circle cx="16.4" cy="16.4" r="2.5" fill="#F6F1FF" opacity=".92"/><circle cx="25.2" cy="24.2" r="1.5" fill="#74D3B8"/></svg></span>
+      <h1 data-k="와글링 영어블랙홀" data-e="Wagling English Black Hole">와글링 영어블랙홀</h1>
+      <button class="pill" id="langBtn" type="button" aria-label="언어 바꾸기 / Language">
+        <span class="globe" aria-hidden="true">🌐</span><span class="lg on" id="lgKo">한</span><span class="sl">/</span><span class="lg" id="lgEn">EN</span>
+      </button>
+    </div>
+    <div class="hsub">
+      <span class="tag" data-k="외국어 소질 없어도 괜찮아요 · 까먹을 때쯤 다시 보여 드릴게요" data-e="You don't need a gift for languages. I'll bring it back just as you start to forget.">외국어 소질 없어도 괜찮아요 · 까먹을 때쯤 다시 보여 드릴게요</span>
+      <div class="tools">
+        <button class="pill inst" id="installBtn" type="button">📲 <span data-k="설치" data-e="Install">설치</span></button>
+        <button class="pill" id="shareBtn" type="button" aria-label="공유">📤</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="view-home"></section>
+  <section id="view-list" hidden></section>
+
+  <section id="view-add" hidden>
+    <div class="wrap">
+      <div class="addhead">
+        <h2 data-k="➕ 내 문장 추가" data-e="➕ Add my own sentence">➕ 내 문장 추가</h2>
+        <p data-k="외우고 싶은 영어 문장을 직접 넣으면 똑같이 3·7·14·30일 블랙홀 복습에 들어가요." data-e="Add any sentence you want to memorise — it joins the same 3·7·14·30-day black hole.">외우고 싶은 영어 문장을 직접 넣으면 똑같이 3·7·14·30일 블랙홀 복습에 들어가요.</p>
+      </div>
+      <div class="addwrap">
+        <div class="catpick" id="catPick"></div>
+        <label class="fl" for="fEn"><span data-k="영어 문장" data-e="English sentence">영어 문장</span> <span class="req">*</span></label>
+        <input id="fEn" class="inp" type="text" placeholder="Where is the restroom?" autocomplete="off" autocapitalize="sentences" />
+        <label class="fl" for="fKo" data-k="한국어 뜻" data-e="Meaning in Korean">한국어 뜻</label>
+        <input id="fKo" class="inp" type="text" placeholder="화장실이 어디예요?" autocomplete="off" />
+        <label class="fl" for="fRom" data-k="한글 발음 (선택)" data-e="Korean sound (optional)">한글 발음 (선택)</label>
+        <input id="fRom" class="inp" type="text" placeholder="웨어 이즈 더 레스트룸?" autocomplete="off" />
+        <button class="bigbtn" id="fSave" type="button"><span class="mark"><svg viewBox="0 0 40 40" aria-hidden="true"><ellipse cx="20" cy="20" rx="18" ry="6.2" fill="none" stroke="#F0BC46" stroke-width="3" transform="rotate(-20 20 20)"/><ellipse cx="20" cy="20" rx="15.6" ry="4.8" fill="none" stroke="#74D3B8" stroke-width="1.9" transform="rotate(-20 20 20)"/><circle cx="20" cy="20" r="10.4" fill="#2E2352"/><circle cx="20" cy="20" r="11.4" fill="none" stroke="#FFF6E2" stroke-width="1.7"/><circle cx="16.4" cy="16.4" r="2.2" fill="#F6F1FF" opacity=".9"/><circle cx="25.2" cy="24.2" r="1.4" fill="#74D3B8"/></svg></span> <span data-k="블랙홀에 담고 오늘 배우기" data-e="Add to the black hole and learn today">블랙홀에 담고 오늘 배우기</span></button>
+        <p class="fine" data-k="내가 넣은 문장은 이 폰에만 저장돼요. 개인정보·서버 없음." data-e="Your sentences stay only on this phone. No personal data, no server.">내가 넣은 문장은 이 폰에만 저장돼요. 개인정보·서버 없음.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<nav class="tabs" aria-label="주 메뉴">
+  <div class="wrap">
+    <button class="tab on" data-tab="home" type="button"><span class="ti" aria-hidden="true">🕳️</span><span data-k="블랙홀" data-e="Black hole">블랙홀</span></button>
+    <button class="tab" data-tab="list" type="button"><span class="ti" aria-hidden="true">✈️</span><span data-k="여행영어" data-e="Travel English">여행영어</span></button>
+    <button class="tab" data-tab="add" type="button"><span class="ti" aria-hidden="true">➕</span><span data-k="문장 추가" data-e="Add">문장 추가</span></button>
+  </div>
+</nav>
+
+<section id="study" class="study" hidden aria-label="학습 화면"></section>
+
+<div id="toast" class="toast" role="status"></div>
+
+<div id="installModal" class="modal" hidden>
+  <div class="mbox">
+    <h3 data-k="📲 홈 화면에 설치하기" data-e="📲 Install to home screen">📲 홈 화면에 설치하기</h3>
+    <div class="mrow"><b>🤖</b><span data-k="크롬에서 오른쪽 위 ⋮ 를 눌러 '앱 설치' 또는 '홈 화면에 추가'를 골라 주세요." data-e="In Chrome, tap ⋮ at the top right and choose 'Install app' or 'Add to Home screen'.">크롬에서 오른쪽 위 ⋮ 를 눌러 '앱 설치' 또는 '홈 화면에 추가'를 골라 주세요.</span></div>
+    <div class="mrow"><b>🍎</b><span data-k="아이폰 사파리에서 아래 공유 버튼을 누르고 '홈 화면에 추가'를 골라 주세요." data-e="On iPhone Safari, tap Share and choose 'Add to Home Screen'.">아이폰 사파리에서 아래 공유 버튼을 누르고 '홈 화면에 추가'를 골라 주세요.</span></div>
+    <div class="mrow"><b>💜</b><span data-k="설치하면 인터넷이 없어도 내 문장과 복습 일정이 그대로 열려요." data-e="Once installed, your sentences and review schedule open even offline.">설치하면 인터넷이 없어도 내 문장과 복습 일정이 그대로 열려요.</span></div>
+    <button class="mclose" id="inClose" type="button" data-k="알겠어요" data-e="Got it">알겠어요</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+"use strict";
+/* ════════════════════════════════════════════════════════════
+   와글링 영어블랙홀 · 망각곡선 4단계 여행영어
+   - 서버 0, 유료 API 0, localStorage만 사용
+   - 오늘 학습 → +3일 → +7일 → +14일 → +30일 → 마스터
+   ════════════════════════════════════════════════════════════ */
+
+var $ = function(s){ return document.querySelector(s); };
+var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
+var MARK = '<svg viewBox="0 0 40 40" aria-hidden="true"><ellipse cx="20" cy="20" rx="18" ry="6.2" fill="none" stroke="#F0BC46" stroke-width="3" transform="rotate(-20 20 20)"/><ellipse cx="20" cy="20" rx="15.6" ry="4.8" fill="none" stroke="#74D3B8" stroke-width="1.9" transform="rotate(-20 20 20)"/><circle cx="20" cy="20" r="10.4" fill="#2E2352"/><circle cx="20" cy="20" r="11.4" fill="none" stroke="#FFF6E2" stroke-width="1.7"/><circle cx="16.4" cy="16.4" r="2.2" fill="#F6F1FF" opacity=".9"/><circle cx="25.2" cy="24.2" r="1.4" fill="#74D3B8"/></svg>';
+
+/* ── 상황 6가지 ── */
+var CATS = [
+  { k:'all',  ic:'✈️', ko:'전체',   en:'All' },
+  { k:'mine', ic:'⭐', ko:'내 문장', en:'Mine' },
+  { k:'apt',  ic:'🛫', ko:'공항',   en:'Airport', fullKo:'공항·입국', fullEn:'Airport & arrival' },
+  { k:'hotel',ic:'🏨', ko:'호텔',   en:'Hotel',   fullKo:'호텔 체크인', fullEn:'Hotel check-in' },
+  { k:'food', ic:'🍽️', ko:'식당',   en:'Food',    fullKo:'식당 주문', fullEn:'Ordering food' },
+  { k:'shop', ic:'🛍️', ko:'쇼핑',   en:'Shop',    fullKo:'쇼핑·계산', fullEn:'Shopping & paying' },
+  { k:'move', ic:'🚕', ko:'교통',   en:'Transit', fullKo:'길찾기·교통', fullEn:'Directions & transit' },
+  { k:'help', ic:'🆘', ko:'긴급',   en:'Help',    fullKo:'긴급·도움', fullEn:'Emergency & help' }
+];
+
+/* ── 여행영어 49문장 ── */
+var PHRASES = [
+  /* 🛫 공항·입국 */
+  { id:'s01', c:'apt', e:'Where is the check-in counter?', k:'체크인 카운터가 어디예요?', r:'웨어 이즈 더 체크인 카운터?', t:'check-in은 "체크인"보다 "쳌인"에 가깝게 한 덩어리로. 문장 끝은 살짝 올려요.' },
+  { id:'s02', c:'apt', e:"I'd like a window seat, please.", k:'창가 자리로 주세요.', r:'아이드 라이크 어 윈도 시트, 플리즈', t:'I\'d like는 "아이드라익"처럼 붙여서. please는 끝을 낮게.' },
+  { id:'s03', c:'apt', e:'How long does the flight take?', k:'비행시간이 얼마나 걸려요?', r:'하우 롱 더즈 더 플라이트 테익?', t:'How long은 "하우롱" 붙여서. take는 "테익"으로 길게.' },
+  { id:'s04', c:'apt', e:'Where can I get my luggage?', k:'짐은 어디서 찾아요?', r:'웨어 캔 아이 겟 마이 러기지?', t:'luggage는 "러기지" — 앞에 힘, 뒤는 가볍게.' },
+  { id:'s05', c:'apt', e:"I'm here on vacation.", k:'여행하러 왔어요.', r:'아임 히어 온 베이케이션', t:'vacation의 v는 윗니를 아랫입술에 붙여 "베".' },
+  { id:'s06', c:'apt', e:"I'll stay for one week.", k:'일주일 머물러요.', r:'아일 스테이 포 원 위크', t:"I'll은 \"아일\" 한 음절. for는 \"포\"로 짧게." },
+  { id:'s07', c:'apt', e:'Nothing to declare.', k:'신고할 물건은 없어요.', r:'너씽 투 디클레어', t:'Nothing은 "낫씽"보다 "너씽"에 가깝게.' },
+  { id:'s08', c:'apt', e:'Where is the exit?', k:'출구가 어디예요?', r:'웨어 이즈 디 엑시트?', t:'the는 "더"가 아니라 "디"로. exit의 x는 "엑스".' },
+  { id:'s09', c:'apt', e:'Where is the restroom?', k:'화장실이 어디예요?', r:'웨어 이즈 더 레스트룸?', t:'restroom은 "레스트룸" — 앞에 힘, 끝은 입을 다물고 "룸".' },
+
+  /* 🏨 호텔 체크인 */
+  { id:'s10', c:'hotel', e:'I have a reservation.', k:'예약했어요.', r:'아이 해브 어 레저베이션', t:'reservation은 "베이"에 힘을 주세요.' },
+  { id:'s11', c:'hotel', e:"I'd like to check in, please.", k:'체크인하고 싶어요.', r:'아이드 라이크 투 체크 인, 플리즈', t:'check in은 두 단어를 붙여 "체크인".' },
+  { id:'s12', c:'hotel', e:'Is breakfast included?', k:'조식이 포함돼 있나요?', r:'이즈 브렉퍼스트 인클루디드?', t:'included의 끝 d를 살짝만. 끝을 올려 물음표처럼.' },
+  { id:'s13', c:'hotel', e:'What time is check-out?', k:'체크아웃은 몇 시예요?', r:'왓 타임 이즈 체크아웃?', t:'check-out의 out을 또렷하게 "아웃".' },
+  { id:'s14', c:'hotel', e:'Could I have a room with a view?', k:'전망 좋은 방으로 주실 수 있나요?', r:'쿠드 아이 해브 어 룸 위드 어 뷰?', t:'with a view는 "위드어 뷰" 붙여서. 뷰에서 입술을 앞으로.' },
+  { id:'s15', c:'hotel', e:"The air conditioner isn't working.", k:'에어컨이 작동하지 않아요.', r:'디 에어컨디셔너 이즌트 워킹', t:'isn\'t의 t는 거의 삼켜요. working은 "워킹".' },
+  { id:'s16', c:'hotel', e:'Can I leave my bags here?', k:'짐을 여기 맡길 수 있나요?', r:'캔 아이 리브 마이 배그즈 히어?', t:'leave는 "리브"로 길게. live와 헷갈리지 마세요.' },
+  { id:'s17', c:'hotel', e:'Could you call a taxi for me?', k:'택시 좀 불러 주시겠어요?', r:'쿠드 유 콜 어 택시 포 미?', t:'call a taxi는 "콜어 택시" 붙여요.' },
+
+  /* 🍽️ 식당 주문 */
+  { id:'s18', c:'food', e:'A table for two, please.', k:'두 명 자리 주세요.', r:'어 테이블 포 투, 플리즈', t:'two의 t를 살짝 살려 "투".' },
+  { id:'s19', c:'food', e:'Could I see the menu, please?', k:'메뉴판 좀 볼 수 있을까요?', r:'쿠드 아이 씨 더 메뉴, 플리즈?', t:'Could I는 "쿠다이" 붙여서.' },
+  { id:'s20', c:'food', e:'What do you recommend?', k:'뭐가 맛있어요?', r:'왓 두 유 레커멘드?', t:'recommend는 "레커멘드" — 앞에 힘.' },
+  { id:'s21', c:'food', e:"I'd like this one, please.", k:'이걸로 주세요.', r:'아이드 라이크 디스 원, 플리즈', t:'메뉴판을 손가락으로 가리키며 "디스 원"을 또렷하게.' },
+  { id:'s22', c:'food', e:'Not spicy, please.', k:'안 맵게 해 주세요.', r:'낫 스파이시, 플리즈', t:'spicy는 "스파이시" — 파이에 힘.' },
+  { id:'s23', c:'food', e:'Can I have some water, please?', k:'물 좀 주시겠어요?', r:'캔 아이 해브 썸 워터, 플리즈?', t:'some water는 "썸 워터". t는 부드럽게.' },
+  { id:'s24', c:'food', e:'Could we have the bill, please?', k:'계산서 주세요.', r:'쿠드 위 해브 더 빌, 플리즈?', t:'미국에선 bill 대신 check(첵)를 써요.' },
+  { id:'s25', c:'food', e:'It was delicious, thank you.', k:'정말 맛있었어요, 고마워요.', r:'잇 워즈 딜리셔스, 땡큐', t:'delicious는 "딜리셔스" — 리에 힘.' },
+
+  /* 🛍️ 쇼핑·계산 */
+  { id:'s26', c:'shop', e:'How much is this?', k:'이거 얼마예요?', r:'하우 머치 이즈 디스?', t:'How much는 "하우머치" 붙여서.' },
+  { id:'s27', c:'shop', e:'Do you have this in a bigger size?', k:'이거 더 큰 사이즈 있어요?', r:'두 유 해브 디스 인 어 비거 사이즈?', t:'bigger는 "비거" — g는 약하게.' },
+  { id:'s28', c:'shop', e:'Can I try it on?', k:'입어 봐도 돼요?', r:'캔 아이 트라이리턴?', t:'try it on은 "트라이리턴"처럼 붙여요.' },
+  { id:'s29', c:'shop', e:"I'm just looking, thank you.", k:'그냥 구경하는 거예요.', r:'아임 저스트 루킹, 땡큐', t:'just는 "저스", looking은 "루킹".' },
+  { id:'s30', c:'shop', e:'Can I pay by card?', k:'카드로 계산할 수 있나요?', r:'캔 아이 페이 바이 카드?', t:'card의 r은 거의 안 들려요. "카드".' },
+  { id:'s31', c:'shop', e:"I'll take it.", k:'이거 살게요.', r:'아일 테이킷', t:'take it은 "테이킷" 붙여서.' },
+  { id:'s32', c:'shop', e:'Could I have a receipt?', k:'영수증 주시겠어요?', r:'쿠드 아이 해브 어 리씨트?', t:'receipt의 p는 소리 나지 않아요. "리씨트".' },
+  { id:'s33', c:'shop', e:'Is there a discount?', k:'할인되나요?', r:'이즈 데어 어 디스카운트?', t:'discount는 "디스카운트" — 카운에 힘.' },
+
+  /* 🚕 길찾기·교통 */
+  { id:'s34', c:'move', e:'How do I get to the station?', k:'역에 어떻게 가요?', r:'하우 두 아이 겟 투 더 스테이션?', t:'get to the station은 "겟투더 스테이션" 붙여서.' },
+  { id:'s35', c:'move', e:'Is it far from here?', k:'여기서 먼가요?', r:'이즈 잇 파 프롬 히어?', t:'far은 "파" — r을 굴리지 않아요.' },
+  { id:'s36', c:'move', e:'Please take me to this address.', k:'이 주소로 가 주세요.', r:'플리즈 테익 미 투 디스 어드레스', t:'주소를 화면으로 보여 주며 말하면 더 쉬워요.' },
+  { id:'s37', c:'move', e:'How much is the fare?', k:'요금이 얼마예요?', r:'하우 머치 이즈 더 페어?', t:'fare는 "페이어"보다 "페어" 한 음절.' },
+  { id:'s38', c:'move', e:'Where is the bus stop?', k:'버스 정류장이 어디예요?', r:'웨어 이즈 더 버스 스탑?', t:'bus stop은 두 s를 끊어 "버스 스탑".' },
+  { id:'s39', c:'move', e:'Which line goes downtown?', k:'시내로 가려면 몇 호선이에요?', r:'위치 라인 고즈 다운타운?', t:'downtown은 "다운타운" — 다운에 힘.' },
+  { id:'s40', c:'move', e:'Could you show me on the map?', k:'지도에서 보여 주시겠어요?', r:'쿠드 유 쇼 미 온 더 맵?', t:'show me는 "쇼미", on the map은 "온더 맵".' },
+  { id:'s41', c:'move', e:'Stop here, please.', k:'여기서 세워 주세요.', r:'스탑 히어, 플리즈', t:'here를 짧게 "히어".' },
+
+  /* 🆘 긴급·도움 */
+  { id:'s42', c:'help', e:'Help me, please!', k:'도와주세요!', r:'헬프 미, 플리즈!', t:'크게, 천천히. 두 단어만으로도 통해요.' },
+  { id:'s43', c:'help', e:'I need a doctor.', k:'의사가 필요해요.', r:'아이 니드 어 닥터', t:'doctor는 "닥터" — 닥에 힘.' },
+  { id:'s44', c:'help', e:'Where is the nearest hospital?', k:'가장 가까운 병원이 어디예요?', r:'웨어 이즈 더 니어리스트 하스피털?', t:'nearest는 "니어리스트". hospital은 "하스피털".' },
+  { id:'s45', c:'help', e:'I lost my passport.', k:'여권을 잃어버렸어요.', r:'아이 로스트 마이 패스포트', t:'lost는 "로스트", passport는 "패스포트".' },
+  { id:'s46', c:'help', e:'Please call the police.', k:'경찰을 불러 주세요.', r:'플리즈 콜 더 폴리스', t:'police의 끝은 "스". "폴리스".' },
+  { id:'s47', c:'help', e:"I don't feel well.", k:'몸이 안 좋아요.', r:'아이 돈 필 웰', t:"don't의 t는 삼켜 \"돈\"." },
+  { id:'s48', c:'help', e:"I'm allergic to peanuts.", k:'땅콩 알레르기가 있어요.', r:'아임 얼러직 투 피넛츠', t:'allergic은 "얼러직" — 러에 힘.' },
+  { id:'s49', c:'help', e:'Could you speak slowly, please?', k:'천천히 말해 주시겠어요?', r:'쿠드 유 스픽 슬로울리, 플리즈?', t:'speak은 "스픽", slowly는 "슬로울리".' }
+];
+
+/* ── 저장 ── */
+var LS = 'wagling.englishhole.v1';
+var INTERVAL = { 1:3, 2:7, 3:14, 4:30, 5:null };
+var STAGES = [
+  { i:0, ko:'오늘',    en:'Today',    subKo:'신규',   subEn:'new',    days:0,  c:'#E7B23F', cbg:'#FFFAEB', cbd:'#F0DCA6' },
+  { i:1, ko:'3일 뒤',  en:'3 days',   subKo:'1단계', subEn:'step 1', days:3,  c:'#74D3B8', cbg:'#F2FDF9', cbd:'#C6EBE0' },
+  { i:2, ko:'7일 뒤',  en:'7 days',   subKo:'2단계', subEn:'step 2', days:7,  c:'#2EAE92', cbg:'#EDFBF6', cbd:'#B9E8DA' },
+  { i:3, ko:'14일 뒤', en:'14 days',  subKo:'3단계', subEn:'step 3', days:14, c:'#A98BEA', cbg:'#F7F2FF', cbd:'#DDD0F4' },
+  { i:4, ko:'30일 뒤', en:'30 days',  subKo:'4단계', subEn:'step 4', days:30, c:'#7A5BD6', cbg:'#F3EEFF', cbd:'#D6C7F2' },
+  { i:5, ko:'🏆 마스터', en:'🏆 Master', subKo:'완전 정복', subEn:'mastered', days:null, c:'#C08A16', cbg:'#FFF8E3', cbd:'#EFD79A' }
+];
+
+function defDB(){ return { v:1, cards:{}, lang:'ko', rate:1, streak:0, lastStudy:'', made:0 }; }
+var DB = defDB();
+function loadDB(){
+  try{
+    var raw = localStorage.getItem(LS);
+    if(!raw) return;
+    var o = JSON.parse(raw);
+    if(o && typeof o === 'object'){
+      DB = Object.assign(defDB(), o);
+      DB.cards = (o.cards && typeof o.cards === 'object') ? o.cards : {};
+      if(DB.rate !== 0.75 && DB.rate !== 1) DB.rate = 1;
+      if(DB.lang !== 'en') DB.lang = 'ko';
+    }
+  }catch(e){ DB = defDB(); }
+}
+function saveDB(){ try{ localStorage.setItem(LS, JSON.stringify(DB)); }catch(e){} }
+var lang = 'ko';
+
+/* ── 날짜 ── */
+function isoOf(d){
+  var x = d ? new Date(d) : new Date();
+  return x.getFullYear() + '-' + String(x.getMonth()+1).padStart(2,'0') + '-' + String(x.getDate()).padStart(2,'0');
+}
+function todayISO(){ return isoOf(); }
+function addDays(iso, n){
+  var p = iso.split('-').map(Number);
+  var d = new Date(p[0], p[1]-1, p[2]);
+  d.setDate(d.getDate() + n);
+  return isoOf(d);
+}
+function parseISO(iso){ var p = iso.split('-').map(Number); return new Date(p[0], p[1]-1, p[2]); }
+var MON_EN = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var WD_KO = ['일','월','화','수','목','금','토'];
+var WD_EN = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+function fmtDate(iso){
+  if(!iso) return '';
+  var d = parseISO(iso);
+  if(lang === 'en') return MON_EN[d.getMonth()] + ' ' + d.getDate();
+  return (d.getMonth()+1) + '월 ' + d.getDate() + '일';
+}
+function fmtWD(iso){
+  var d = parseISO(iso);
+  return lang === 'en' ? WD_EN[d.getDay()] : WD_KO[d.getDay()];
+}
+
+/* ── 언어 ── */
+function t(ko, en){ return lang === 'en' ? en : ko; }
+function applyI18n(){
+  document.documentElement.lang = lang;
+  document.body.setAttribute('data-lang', lang);
+  $$('[data-k]').forEach(function(el){
+    var v = lang === 'en' ? el.getAttribute('data-e') : el.getAttribute('data-k');
+    if(v != null) el.textContent = v;
+  });
+  $('#lgKo').classList.toggle('on', lang !== 'en');
+  $('#lgEn').classList.toggle('on', lang === 'en');
+}
+
+/* ── 카드 도우미 ── */
+function phraseById(id){ for(var i=0;i<PHRASES.length;i++){ if(PHRASES[i].id === id) return PHRASES[i]; } return null; }
+function getCard(id){
+  var p = phraseById(id);
+  var rec = DB.cards[id] || null;
+  if(p) return { id:p.id, c:p.c, e:p.e, k:p.k, r:p.r, t:p.t, rec:rec, custom:false };
+  if(rec) return { id:rec.id, c:rec.cat || 'mine', e:rec.en, k:rec.ko || '', r:rec.rom || '', t:'', rec:rec, custom:true };
+  return null;
+}
+function allCards(){
+  var arr = [];
+  Object.keys(DB.cards).forEach(function(id){
+    var r = DB.cards[id];
+    if(r && r.custom) arr.push(getCard(id));
+  });
+  arr.sort(function(a,b){ return String((b.rec&&b.rec.added)||'').localeCompare(String((a.rec&&a.rec.added)||'')); });
+  PHRASES.forEach(function(p){ arr.push({ id:p.id, c:p.c, e:p.e, k:p.k, r:p.r, t:p.t, rec:DB.cards[p.id] || null, custom:false }); });
+  return arr;
+}
+function isDue(rec){
+  if(!rec) return false;
+  return rec.stage >= 1 && rec.stage <= 4 && !!rec.next && rec.next <= todayISO();
+}
+function dueList(){
+  var t0 = todayISO();
+  return Object.keys(DB.cards).map(function(id){ return { id:id, rec:DB.cards[id] }; })
+    .filter(function(o){ return o.rec && o.rec.stage >= 1 && o.rec.stage <= 4 && o.rec.next && o.rec.next <= t0; })
+    .sort(function(a,b){ return String(a.rec.next).localeCompare(String(b.rec.next)) || (a.rec.stage - b.rec.stage); })
+    .map(function(o){ return o.id; });
+}
+function counts(){
+  var c = [0,0,0,0,0,0];
+  Object.keys(DB.cards).forEach(function(id){
+    var r = DB.cards[id]; if(!r) return;
+    var s = Math.max(0, Math.min(5, Number(r.stage) || 0));
+    c[s]++;
+  });
+  return c;
+}
+function savedCount(){ return Object.keys(DB.cards).length; }
+function nextUpcoming(){
+  var t0 = todayISO(), best = null;
+  Object.keys(DB.cards).forEach(function(id){
+    var r = DB.cards[id];
+    if(!r || r.stage < 1 || r.stage > 4 || !r.next) return;
+    if(r.next > t0 && (!best || r.next < best)) best = r.next;
+  });
+  return best;
+}
+
+/* ── 이동 상태 ── */
+var st = { tab:'home', cat:'all', stage:'all', studyId:null };
+var session = null;      /* { ids:[], i:0, pass:0, again:0, mode:'review'|'single' } */
+var forceReview = false;
+var listScroll = 0;
+var scrollByTab = { home:0, list:0, add:0 };
+
+function code(){ return JSON.stringify(st); }
+function pushState(){ try{ history.pushState({ eh:1, st: code() }, '', location.href); }catch(e){} }
+function replaceState(){ try{ history.replaceState({ eh:1, st: code() }, '', location.href); }catch(e){} }
+
+function nav(patch, opts){
+  opts = opts || {};
+  scrollByTab[st.tab] = window.scrollY || 0;
+  hideToast();
+  Object.assign(st, patch);
+  if(!opts.keepStudy) { session = null; forceReview = false; }
+  renderAll();
+  if(opts.replace) replaceState(); else pushState();
+  if(!opts.noScroll){
+    var target = 0;
+    if(st.tab === 'list' && !patch.forceTop) target = 0;
+    window.scrollTo(0, target);
+  }
+}
+function goBack(){ try{ history.back(); }catch(e){ st.studyId = null; session = null; renderAll(); } }
+
+/* ── 소리(TTS) ── */
+window.__ehSpeak = [];
+function pickEnVoice(){
+  try{
+    var vs = window.speechSynthesis.getVoices() || [];
+    for(var i=0;i<vs.length;i++){ if(/en[-_]US/i.test(vs[i].lang || '')) return vs[i]; }
+    for(var j=0;j<vs.length;j++){ if(/^en/i.test(vs[j].lang || '')) return vs[j]; }
+  }catch(e){}
+  return null;
+}
+function speak(text, rate){
+  var r = (typeof rate === 'number') ? rate : Number(DB.rate) || 1;
+  window.__ehSpeak.push({ text:text, rate:r, lang:'en-US' });
+  if(!('speechSynthesis' in window)){ toast(t('이 브라우저는 소리를 지원하지 않아요.','This browser has no speech.')); return false; }
+  try{
+    window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-US'; u.rate = r; u.pitch = 1;
+    var v = pickEnVoice(); if(v) u.voice = v;
+    window.speechSynthesis.speak(u);
+    return true;
+  }catch(e){ return false; }
+}
+if('speechSynthesis' in window){
+  try{ window.speechSynthesis.addEventListener('voiceschanged', function(){}); }catch(e){}
+}
+
+/* ── 토스트 ── */
+var toastTimer = null, toastAction = null;
+function toast(msg, actionLabel, action){
+  var el = $('#toast');
+  el.innerHTML = '';
+  var span = document.createElement('span'); span.textContent = msg; el.appendChild(span);
+  if(actionLabel && action){
+    var b = document.createElement('button'); b.type = 'button'; b.textContent = actionLabel;
+    b.addEventListener('click', function(){ hideToast(); action(); });
+    el.appendChild(b);
+  }
+  el.classList.add('on');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(hideToast, actionLabel ? 5000 : 2400);
+}
+function hideToast(){ $('#toast').classList.remove('on'); }
+
+/* ══════════ 홈 ══════════ */
+function renderHome(){
+  var c = counts();
+  var total = savedCount();
+  var due = dueList();
+  var newToday = newList().length;
+  var upcoming = nextUpcoming();
+  var hi;
+
+  hi = '<div class="hero">'
+     + '<div class="hlbl">' + t('오늘 블랙홀 복습할 문장','Sentences to review today') + '</div>'
+     + '<div class="hnum"><b>' + due.length + '</b><span class="unit">' + t('개','') + '</span></div>';
+
+  if(due.length > 0){
+    hi += '<div class="hint">' + t('3일 · 7일 · 14일 · 30일 블랙홀이 기다리고 있어요.','Your 3·7·14·30-day black holes are waiting.') + '</div>';
+  }else if(total === 0){
+    hi += '<div class="hint">' + t('아직 담긴 문장이 없어요. 여행영어 49문장 중 골라 담아 보세요!','Nothing saved yet. Pick from the 49 travel sentences!') + '</div>';
+  }else if(newToday > 0){
+    hi += '<div class="hint">' + t('오늘 배울 새 문장 ' + newToday + '개가 기다리고 있어요.','New sentences waiting today: ' + newToday + '.') + '</div>';
+  }else{
+    hi += '<div class="hint">' + t('지금은 복습할 문장이 없어요. 잘 쉬고 있어요!','Nothing to review right now. All caught up!') + '</div>';
+  }
+  if(total > 0){
+    hi += '<div class="hchip mint">' + t('내 블랙홀 ','My black hole ') + total + t('문장',' sentences') + '</div>';
+    if(c[5] > 0) hi += '<div class="hchip">🏆 ' + t('마스터 ', 'Mastered ') + c[5] + '</div>';
+    if(DB.streak > 1) hi += '<div class="hchip">🔥 ' + t('연속 ', 'Streak ') + DB.streak + t('일','d') + '</div>';
+  }
+  if(due.length > 0){
+    hi += '<button class="hbtn" id="heroBtn" type="button" data-hero="review"><span class="mark">' + MARK + '</span> ' + t('복습 시작','Start review') + ' (' + due.length + ')</button>';
+  }else if(newToday > 0){
+    hi += '<button class="hbtn" id="heroBtn" type="button" data-hero="new"><span class="mark">' + MARK + '</span> ' + t('새 문장 배우기','Learn new') + ' (' + newToday + ')</button>';
+  }else if(total === 0){
+    hi += '<button class="hbtn" id="heroBtn" type="button" data-hero="list">✈️ ' + t('여행영어 49문장 보기','See 49 travel sentences') + '</button>';
+  }else{
+    hi += '<button class="hbtn alt" id="heroBtn" type="button" data-hero="list">✈️ ' + t('새 문장 담으러 가기','Add a new sentence') + '</button>';
+  }
+  hi += '</div>';
+
+  /* 궤도 바 */
+  var rail = '<div class="secbar"><h2>' + t('🕳️ 블랙홀 단계판','🕳️ Black hole stages') + '</h2>'
+           + '<span class="cnt">' + total + t('문장',' saved') + '</span></div>';
+  if(total > 0){
+    rail += '<div class="rail">';
+    STAGES.forEach(function(s){
+      if(c[s.i] > 0) rail += '<i style="flex:' + c[s.i] + ' 0 0;background:' + s.c + '"></i>';
+    });
+    rail += '</div>';
+  }else{
+    rail += '<div class="railempty">' + t('아직 0문장 · 문장을 담으면 여기에 궤도가 그려져요','0 sentences yet — the orbit appears as you add them') + '</div>';
+  }
+
+  var board = '<div class="board">';
+  STAGES.forEach(function(s){
+    board += '<button class="stg' + (c[s.i] > 0 ? '' : ' zero') + '" type="button" data-stage-filter="' + s.i + '"'
+      + ' style="--c:' + s.c + ';--cbg:' + s.cbg + ';--cbd:' + s.cbd + '">'
+      + '<span class="sl">' + t(s.ko, s.en) + '</span>'
+      + '<span class="sn">' + c[s.i] + '</span>'
+      + '<span class="ss">' + t(s.subKo, s.subEn) + '</span>'
+      + '</button>';
+  });
+  board += '</div>';
+
+  /* 이번 주 달력 */
+  var t0 = todayISO();
+  var week = '<div class="secbar"><h2>' + t('🗓️ 이번 주 복습 달력','🗓️ This week') + '</h2>'
+           + '<span class="cnt">' + t('숫자 = 그날 복습','count per day') + '</span></div><div class="week">';
+  for(var d=0; d<7; d++){
+    var day = addDays(t0, d), n = 0;
+    Object.keys(DB.cards).forEach(function(id){
+      var r = DB.cards[id];
+      if(!r || r.stage < 1 || r.stage > 4 || !r.next) return;
+      if(d === 0){ if(r.next <= t0) n++; }
+      else if(r.next === day) n++;
+    });
+    var pd = parseISO(day);
+    week += '<div class="wc' + (d === 0 ? ' on' : '') + '">'
+         + '<span class="wd">' + (d === 0 ? t('오늘','Today') : fmtWD(day)) + '</span>'
+         + '<span class="wn' + (n === 0 ? ' zero' : '') + '">' + n + '</span>'
+         + '<span class="wd2">' + (pd.getMonth()+1) + '/' + pd.getDate() + '</span>'
+         + '</div>';
+  }
+  week += '</div>';
+
+  var cheer = '<div class="cheer"><span class="cic" aria-hidden="true">💜</span><div>'
+    + '<b>' + t('외국어 소질 없어도 괜찮아요','No gift for languages? That\'s okay.') + '</b>'
+    + '<p>' + t('까먹을 때쯤 다시 보여 드릴게요!','I\'ll bring it back just as you start to forget!') + '</p></div></div>';
+
+  var quick = '<div class="quick">'
+    + '<button class="qbtn" type="button" data-tab="list">✈️ ' + t('여행영어 49문장','49 travel sentences') + '</button>'
+    + '<button class="qbtn mint" type="button" data-tab="add">➕ ' + t('내 문장 추가','Add my sentence') + '</button>'
+    + '</div>';
+
+  $('#view-home').innerHTML = '<div class="wrap">' + hi + rail + board;
+  if(upcoming && due.length === 0 && total > 0){
+    $('#view-home').innerHTML += '<p class="fine" style="margin:.5rem .7rem 0;text-align:center">'
+      + t('다음 복습은 ','Next review: ') + fmtDate(upcoming) + t(' 이에요.','') + '</p>';
+  }
+  if(newToday > 0 && due.length > 0){
+    $('#view-home').innerHTML += '<p class="fine" style="margin:.5rem .7rem 0;text-align:center">'
+      + t('오늘 새로 배울 문장 ', 'New sentences waiting today: ') + newToday + t('개도 있어요.','') + '</p>';
+  }
+  $('#view-home').innerHTML += week + cheer + quick + '</div>';
+}
+
+/* ══════════ 목록 ══════════ */
+function catInfo(k){
+  for(var i=0;i<CATS.length;i++){ if(CATS[i].k === k) return CATS[i]; }
+  return { k:k, ic:'⭐', ko:'내 문장', en:'Mine', fullKo:'내 문장', fullEn:'My sentence' };
+}
+function stageBadge(rec){
+  if(!rec) return { txt: t('아직 안 담음','Not saved'), cls:'none' };
+  if(rec.stage >= 5) return { txt: '🏆 ' + t('마스터','Mastered'), cls:'master' };
+  if(rec.stage === 0) return { txt: t('오늘 배울 문장','New today'), cls:'today' };
+  if(isDue(rec)) return { txt: '🕳️ ' + t('오늘 복습!','Review today!'), cls:'today' };
+  return { txt: fmtDate(rec.next) + ' ' + t('복습','review'), cls:'' };
+}
+function cardsFor(){
+  var arr = allCards();
+  if(st.cat === 'mine') arr = arr.filter(function(c){ return c.custom; });
+  else if(st.cat !== 'all') arr = arr.filter(function(c){ return c.c === st.cat; });
+  if(st.stage !== 'all') arr = arr.filter(function(c){ return c.rec && Number(c.rec.stage) === Number(st.stage); });
+  return arr;
+}
+function cardHTML(c){
+  var cat = catInfo(c.c);
+  var b = stageBadge(c.rec);
+  var btn;
+  if(!c.rec) btn = t('오늘 배우기','Learn today');
+  else if(isDue(c.rec)) btn = t('복습하기','Review');
+  else if(c.rec.stage >= 5) btn = t('다시 보기','Open');
+  else btn = t('미리 보기','Preview');
+  return '<article class="pc' + (isDue(c.rec) ? ' due' : '') + '" data-id="' + c.id + '">'
+    + '<div class="ptop">'
+    +   '<span class="pcat">' + cat.ic + ' ' + t(cat.fullKo || cat.ko, cat.fullEn || cat.en) + '</span>'
+    +   '<span class="pstage ' + b.cls + '">' + b.txt + '</span>'
+    +   '<button class="psnd" type="button" data-say="' + c.id + '" aria-label="' + t('소리로 듣기','Listen') + '">🔊</button>'
+    + '</div>'
+    + '<p class="pen">' + escapeHTML(c.e) + '</p>'
+    + (c.k ? '<p class="pko">' + escapeHTML(c.k) + '</p>' : '')
+    + (c.r ? '<span class="prom">🗣️ ' + escapeHTML(c.r) + '</span>' : '')
+    + '<div class="pfoot">'
+    +   '<span class="pbadge">' + (c.custom ? '⭐ ' + t('내 문장','My sentence') : t('여행영어','Travel English')) + '</span>'
+    +   '<button class="pgo' + (!c.rec ? ' learn' : '') + '" type="button" data-open="' + c.id + '">' + btn + '</button>'
+    + '</div>'
+    + '</article>';
+}
+function escapeHTML(s){
+  return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function renderList(){
+  var cats = '<div class="cats">';
+  CATS.forEach(function(c){
+    cats += '<button class="cat' + (st.cat === c.k ? ' on' : '') + '" type="button" data-cat="' + c.k + '">'
+      + '<span class="ci" aria-hidden="true">' + c.ic + '</span>' + t(c.ko, c.en) + '</button>';
+  });
+  cats += '</div>';
+
+  var note = '';
+  if(st.stage !== 'all'){
+    var s = STAGES[Number(st.stage)] || STAGES[0];
+    var n = cardsFor().length;
+    note = '<div class="notebar"><span>' + t(s.ko, s.en) + ' · ' + n + t('문장',' sentences') + '</span>'
+         + '<button type="button" data-clear-stage="1">' + t('전체 보기','Show all') + '</button></div>';
+  }
+
+  var items = cardsFor();
+  var body;
+  if(items.length === 0){
+    if(st.cat === 'mine'){
+      body = '<div class="empty"><b>' + t('아직 내가 넣은 문장이 없어요','No sentences of your own yet') + '</b>'
+           + t('문장 추가에서 외우고 싶은 영어를 적어 보세요.','Add one you want to memorise.') + '</div>';
+    }else if(st.stage !== 'all'){
+      body = '<div class="empty"><b>' + t('이 칸에는 아직 문장이 없어요','No sentences in this stage yet') + '</b>'
+           + t('다른 칸을 눌러 보거나 전체 보기로 돌아가세요.','Try another stage or show all.') + '</div>';
+    }else{
+      body = '<div class="empty"><b>' + t('문장이 없어요','Nothing here') + '</b>' + t('다른 상황을 골라 보세요.','Pick another situation.') + '</div>';
+    }
+  }else{
+    body = items.map(cardHTML).join('');
+  }
+
+  $('#view-list').innerHTML = '<div class="wrap">'
+    + '<div class="listhead"><h2>✈️ ' + t('왕초보 여행영어 49문장','Beginner travel English · 49') + '</h2>'
+    + '<p>' + t('상황을 골라 문장을 담으면 3·7·14·30일 뒤 블랙홀이 다시 꺼내 줘요.','Save a sentence and the black hole brings it back in 3·7·14·30 days.') + '</p></div>'
+    + cats + note + '<div class="cards">' + body + '</div></div>';
+}
+
+/* ══════════ 학습 화면 ══════════ */
+function setStudyOpen(on){ document.body.classList.toggle('study-open', !!on); }
+function openStudy(id, opts){
+  opts = opts || {};
+  var c = getCard(id);
+  if(!c) return;
+  if(!session) session = { ids:[id], i:0, pass:0, again:0, mode:'single' };
+  forceReview = !!opts.force;
+  st.tab = st.tab || 'list';
+  st.studyId = id;
+  setStudyOpen(true);
+  $('#study').setAttribute('data-masked','0');
+  $('#study').hidden = false;
+  document.body.style.overflow = 'hidden';
+  renderStudy();
+  hideToast();
+  pushState();
+}
+function startReview(){
+  var ids = dueList();
+  if(ids.length === 0){ toast(t('지금은 복습할 문장이 없어요','Nothing to review right now')); return; }
+  session = { ids: ids.slice(), i:0, pass:0, again:0, mode:'review' };
+  forceReview = false;
+  st.studyId = ids[0];
+  $('#study').setAttribute('data-masked','0');
+  setStudyOpen(true);
+  $('#study').hidden = false;
+  document.body.style.overflow = 'hidden';
+  renderStudy();
+  pushState();
+}
+function newList(){
+  var t0 = todayISO();
+  return Object.keys(DB.cards).map(function(id){ return DB.cards[id]; })
+    .filter(function(r){ return r && Number(r.stage) === 0 && (!r.next || r.next <= t0); })
+    .sort(function(a,b){ return String(a.next||'').localeCompare(String(b.next||'')) || String(a.added||'').localeCompare(String(b.added||'')); })
+    .map(function(r){ return r.id; });
+}
+function startNew(){
+  var ids = newList();
+  if(ids.length === 0){ nav({ tab:'list', cat:'all', stage:'all' }); return; }
+  session = { ids: ids.slice(), i:0, pass:0, again:0, mode:'new' };
+  forceReview = false;
+  st.studyId = ids[0];
+  $('#study').setAttribute('data-masked','0');
+  setStudyOpen(true);
+  $('#study').hidden = false;
+  document.body.style.overflow = 'hidden';
+  renderStudy();
+  pushState();
+}
+function closeStudy(){
+  setStudyOpen(false);
+  $('#study').hidden = true;
+  document.body.style.overflow = '';
+  st.studyId = null;
+  session = null;
+  forceReview = false;
+  renderAll();
+}
+function studyProgress(){
+  if(!session) return { txt:'', pct:0 };
+  if(session.mode === 'review' || session.mode === 'new'){
+    return { txt: (session.mode === 'new' ? t('새 문장 ','New ') : t('오늘의 복습 ','Review ')) + Math.min(session.i+1, session.ids.length) + ' / ' + session.ids.length,
+             pct: Math.round(((session.i + 1) / session.ids.length) * 100) };
+  }
+  return { txt: t('문장 학습','Studying'), pct: 0 };
+}
+function renderStudy(){
+  var box = $('#study');
+  if(!st.studyId){ box.hidden = true; return; }
+  var c = getCard(st.studyId);
+  if(!c){ box.hidden = true; return; }
+
+  if(session && session.mode !== 'single' && session.i >= session.ids.length){ hideToast(); box.innerHTML = summaryHTML(); return; }
+  var today = todayISO();
+
+  var cat = catInfo(c.c);
+  var rec = c.rec;
+  var pr = studyProgress();
+  var due = isDue(rec);
+  var isNew = !rec || rec.stage === 0;
+  var reviewMode = (session && session.mode === 'review') || forceReview || (due && !isNew);
+  var justDone = !!(rec && rec.last === today && rec.next && rec.next > today && rec.stage >= 1 && rec.stage < 5 && !reviewMode);
+  var masked = box.getAttribute('data-masked') === '1';
+
+  var badge;
+  if(!rec) badge = t('새 문장','New');
+  else if(rec.stage >= 5) badge = '🏆 ' + t('마스터','Mastered');
+  else if(due) badge = '🕳️ ' + t('오늘 복습','Due today');
+  else badge = fmtDate(rec.next) + ' ' + t('복습 예정','next');
+
+  var html = '<div class="sbar wrap">'
+    + '<button class="sback" type="button" data-act="close">← ' + t('뒤로','Back') + '</button>'
+    + '<span class="sprog">' + escapeHTML(pr.txt) + '</span>'
+    + '</div>'
+    + (session && session.mode !== 'single' ? '<div class="pbar"><i style="width:' + pr.pct + '%"></i></div>' : '')
+    + '<div class="sbody"><div class="scard">'
+    + '<div class="srow1"><span class="pcat">' + cat.ic + ' ' + t(cat.fullKo || cat.ko, cat.fullEn || cat.en) + '</span>'
+    + '<span class="pstage ' + (due ? 'today' : (rec && rec.stage >= 5 ? 'master' : '')) + '">' + escapeHTML(badge) + '</span>'
+    + '<button class="smask" type="button" data-mask="1">' + (masked ? '👀 ' + t('뜻 보기','Show') : '🙈 ' + t('뜻 가리기','Hide')) + '</button></div>'
+    + '<p class="sen2">' + escapeHTML(c.e) + '</p>'
+    + '<div class="sbtnrow">'
+    +   '<button class="sbtn' + (Number(DB.rate) === 1 ? ' on' : '') + '" type="button" data-rate="1">🔊 ' + t('보통 1.0x','Normal 1.0x') + '</button>'
+    +   '<button class="sbtn' + (Number(DB.rate) === 0.75 ? ' on' : '') + '" type="button" data-rate="0.75">🐢 ' + t('느리게 0.75x','Slow 0.75x') + '</button>'
+    + '</div>'
+    + (c.r ? '<div class="srom' + (masked ? ' masked' : '') + '">🗣️ ' + escapeHTML(c.r) + '</div>' : '')
+    + (c.k ? '<div class="sko' + (masked ? ' masked' : '') + '">' + escapeHTML(c.k) + '</div>' : '')
+    + (c.t ? '<div class="stip">💡 ' + escapeHTML(c.t) + '</div>' : '')
+    + '</div>'
+    + '<p class="shint">🎤 ' + t('소리 내어 한 번 따라 말해 보세요','Say it out loud once') + '</p>'
+    + '</div>';
+
+  var foot = '';
+  if(justDone){
+    foot = '<div class="sinfo big">✅ ' + t('다음 복습은 ','Next review: ') + fmtDate(rec.next) + t('이에요.','') + '</div>'
+         + '<button class="bpass" type="button" data-act="more">✈️ ' + t('문장 더 보기','More sentences') + '</button>'
+         + '<button class="slink" type="button" data-act="home">🏠 ' + t('블랙홀 홈','Black hole home') + '</button>';
+  }else if(reviewMode && rec && rec.stage >= 1 && rec.stage <= 4){
+    foot = '<button class="bpass" type="button" data-ans="1">✅ ' + t('기억남! 통과','Got it! Pass') + '</button>'
+         + '<button class="bfuzzy" type="button" data-ans="0">🤔 ' + t('아직 헷갈려요','Still fuzzy') + '</button>';
+  }else if(rec && rec.stage >= 5){
+    foot = '<div class="sinfo">🏆 ' + t('마스터한 문장이에요. 완전히 내 것이 됐어요!','Mastered — this one is fully yours now!') + '</div>'
+         + '<button class="bpass" type="button" data-act="close">' + t('홈으로','Back home') + '</button>';
+  }else if(!rec || rec.stage === 0){
+    foot = '<button class="bpass" type="button" data-ans="1">✅ ' + t('오늘 학습 완료 → 3일 뒤 복습','Learned today → review in 3 days') + '</button>'
+         + '<button class="bfuzzy" type="button" data-ans="0">🌙 ' + t('내일 한 번 더 볼게요','Show me again tomorrow') + '</button>';
+  }else{
+    foot = '<div class="sinfo">' + t('다음 복습은 ','Next review: ') + fmtDate(rec.next) + t('이에요.','') + '</div>'
+         + '<button class="bpass" type="button" data-force="1">🕳️ ' + t('지금 미리 복습할게요','Review now anyway') + '</button>';
+  }
+  if(c.custom){
+    foot += '<button class="slink" type="button" data-del="' + c.id + '">🗑 ' + t('내 문장 삭제','Delete my sentence') + '</button>';
+  }else if(rec && rec.stage >= 5){
+    foot += '<button class="slink" type="button" data-reset="' + c.id + '">🔄 ' + t('처음부터 다시 배우기','Start this one again') + '</button>';
+  }
+
+  box.innerHTML = html + '<div class="sfoot">' + foot + '</div>';
+}
+function summaryHTML(){
+  var s = session || { pass:0, again:0 };
+  var isNew = !!(session && session.mode === 'new');
+  var next = nextUpcoming();
+  return '<div class="sbar wrap"><button class="sback" type="button" data-act="close">← ' + t('뒤로','Back') + '</button>'
+    + '<span class="sprog">' + t('오늘의 복습 완료','Review complete') + '</span></div>'
+    + '<div class="sbody"><div class="sum">'
+    + '<div class="sumic">🎉</div>'
+    + '<div class="sumt">' + (isNew ? t('오늘 블랙홀 학습 끝!','Today\'s black hole lesson done!') : t('오늘 블랙홀 복습 끝!','Today\'s black hole review done!')) + '</div>'
+    + '<p class="sums">' + (isNew ? t('오늘 담은 문장은 3일 뒤에 첫 복습으로 다시 만나요.','Your new sentences come back in 3 days for the first review.') : t('까먹기 시작할 때 딱 다시 만났어요. 이게 진짜 실력이 되는 방법이에요.','You met each sentence right before forgetting. That\'s how it sticks.')) + '</p>'
+    + '<div class="sumrow">'
+    +   '<div class="sumbox"><b>' + s.pass + '</b><span> ✅ ' + (isNew ? t('학습 완료','learned') : t('통과','passed')) + '</span></div>'
+    +   '<div class="sumbox"><b>' + s.again + '</b><span> 🤔 ' + t('내일 다시','tomorrow') + '</span></div>'
+    + '</div>'
+    + (next ? '<div class="sumnext">🗓️ ' + t('다음 복습은 ','Next review: ') + fmtDate(next) + t('이에요.','') + '</div>' : '')
+    + '</div></div>'
+    + '<div class="sfoot"><button class="bpass" type="button" data-act="home">🕳️ ' + t('블랙홀 홈으로','Back to black hole') + '</button></div>';
+}
+
+/* ── 답하기 ── */
+function bumpStreak(){
+  var t0 = todayISO();
+  if(DB.lastStudy === t0) return;
+  if(DB.lastStudy === addDays(t0, -1)) DB.streak = (Number(DB.streak) || 0) + 1;
+  else DB.streak = 1;
+  DB.lastStudy = t0;
+}
+function answer(ok){
+  var id = st.studyId;
+  var rec = DB.cards[id];
+  if(!rec){
+    var p = phraseById(id);
+    if(!p) return;
+    rec = DB.cards[id] = { id:id, cat:p.c, en:p.e, ko:p.k, rom:p.r, custom:false,
+      stage:0, next:todayISO(), added:todayISO(), reviews:0, passes:0 };
+  }
+  var today = todayISO();
+  var msg = '';
+  if(rec.stage === 0){
+    if(ok){
+      rec.stage = 1; rec.next = addDays(today, 3);
+      rec.passes = (rec.passes||0) + 1;
+      msg = t('3일 뒤에 다시 만나요! 🕳️','See you in 3 days! 🕳️');
+    }else{
+      rec.next = addDays(today, 1);
+      msg = t('내일 한 번 더 보여 드릴게요 🌙','I\'ll show it again tomorrow 🌙');
+    }
+  }else if(rec.stage >= 1 && rec.stage <= 4){
+    rec.reviews = (rec.reviews||0) + 1;
+    if(ok){
+      rec.stage = rec.stage + 1;
+      if(rec.stage >= 5){ rec.stage = 5; rec.next = null; rec.passes = (rec.passes||0)+1;
+        msg = t('🏆 마스터! 이 문장은 이제 내 거예요','🏆 Mastered! This sentence is yours now');
+      }else{
+        rec.next = addDays(today, INTERVAL[rec.stage]); rec.passes = (rec.passes||0)+1;
+        msg = t(INTERVAL[rec.stage] + '일 뒤에 다시 만나요! 🕳️', 'See you in ' + INTERVAL[rec.stage] + ' days! 🕳️');
+      }
+    }else{
+      rec.next = addDays(today, 1);
+      msg = t('괜찮아요, 내일 다시 보여 드릴게요 🌙','That\'s fine — again tomorrow 🌙');
+    }
+  }
+  rec.last = today;
+  bumpStreak();
+  saveDB();
+  if(ok && rec.stage < 5) msg = t(INTERVAL[rec.stage] + '일 뒤에 다시 만나요! 🕳️', 'See you in ' + INTERVAL[rec.stage] + ' days! 🕳️');
+  if(session){ if(ok) session.pass++; else session.again++; }
+  if(!(session && session.mode === 'single')) toast(msg);
+  advance();
+}
+function advance(){
+  if(session){
+    session.i = session.i + 1;
+    if(session.i < session.ids.length){
+      st.studyId = session.ids[session.i];
+      forceReview = false;
+      $('#study').setAttribute('data-masked','0');
+      renderStudy();
+      replaceState();
+      return;
+    }
+    st.studyId = session.ids[0] || st.studyId;
+    renderStudy();
+    replaceState();
+    return;
+  }
+  closeStudy();
+}
+
+/* ══════════ 추가 ══════════ */
+function renderCatPick(){
+  var pick = '';
+  for(var i=2; i<CATS.length; i++){
+    var c = CATS[i];
+    pick += '<button class="cat" type="button" data-newcat="' + c.k + '">' + c.ic + ' ' + t(c.ko, c.en) + '</button>';
+  }
+  $('#catPick').innerHTML = pick;
+  if(!$('#catPick').getAttribute('data-sel')) $('#catPick').setAttribute('data-sel','apt');
+  var sel = $('#catPick').getAttribute('data-sel');
+  $$('#catPick [data-newcat]').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-newcat') === sel); });
+}
+function saveNewSentence(){
+  var en = ($('#fEn').value || '').trim();
+  var ko = ($('#fKo').value || '').trim();
+  var rom = ($('#fRom').value || '').trim();
+  var cat = $('#catPick').getAttribute('data-sel') || 'apt';
+  if(!en){ toast(t('영어 문장을 먼저 적어 주세요','Please type the English sentence first')); $('#fEn').focus(); return; }
+  var id = 'c' + Date.now().toString(36);
+  DB.cards[id] = { id:id, cat:cat, en:en, ko:ko, rom:rom, custom:true, stage:0, next:todayISO(), added:todayISO(), reviews:0, passes:0 };
+  DB.made = (Number(DB.made)||0) + 1;
+  saveDB();
+  $('#fEn').value = ''; $('#fKo').value = ''; $('#fRom').value = '';
+  toast(t('블랙홀에 담았어요! 오늘 학습 완료를 눌러 주세요','Saved! Tap "Learned today" below'));
+  st.tab = 'add';
+  renderAll();
+  openStudy(id);
+}
+
+/* ══════════ 렌더 ══════════ */
+function renderAll(){
+  applyI18n();
+  $('#view-home').hidden = st.tab !== 'home';
+  $('#view-list').hidden = st.tab !== 'list';
+  $('#view-add').hidden = st.tab !== 'add';
+  $$('.tab').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-tab') === st.tab); });
+
+  if(st.tab === 'home') renderHome();
+  if(st.tab === 'list') renderList();
+  if(st.tab === 'add') renderCatPick();
+
+  if(st.studyId){
+    setStudyOpen(true);
+    $('#study').hidden = false;
+    renderStudy();
+  }else{
+    setStudyOpen(false);
+    $('#study').hidden = true;
+    document.body.style.overflow = '';
+  }
+}
+
+/* ══════════ 클릭 처리 ══════════ */
+document.addEventListener('click', function(ev){
+  var el = ev.target;
+  function up(sel){ var n = el; while(n && n !== document.body){ if(n.matches && n.matches(sel)) return n; n = n.parentNode; } return null; }
+
+  var heroBtn = up('#heroBtn');
+  if(heroBtn){
+    var hk = heroBtn.getAttribute('data-hero');
+    if(hk === 'review') startReview();
+    else if(hk === 'new') startNew();
+    else nav({ tab:'list', cat:'all', stage:'all' });
+    return;
+  }
+  var filterBtn = up('[data-stage-filter]');
+  if(filterBtn){
+    var si = Number(filterBtn.getAttribute('data-stage-filter'));
+    nav({ tab:'list', cat:'all', stage: si });
+    toast(t('단계판에서 골랐어요','Filtered by stage'));
+    return;
+  }
+  var clearStage = up('[data-clear-stage]');
+  if(clearStage){ nav({ tab:'list', stage:'all' }, { replace:true, noScroll:false }); return; }
+
+  var tabBtn = up('[data-tab]');
+  if(tabBtn){
+    var tv = tabBtn.getAttribute('data-tab');
+    if(st.tab === tv) { window.scrollTo(0,0); return; }
+    nav({ tab:tv, stage:'all' });
+    return;
+  }
+  var catBtn = up('[data-cat]');
+  if(catBtn){ nav({ cat: catBtn.getAttribute('data-cat') }, { replace:true }); window.scrollTo(0, 0); return; }
+
+  var say = up('[data-say]');
+  if(say){
+    ev.preventDefault(); ev.stopPropagation();
+    var sc = getCard(say.getAttribute('data-say'));
+    if(sc) speak(sc.e);
+    return;
+  }
+  var openBtn = up('[data-open]');
+  if(openBtn){
+    ev.preventDefault(); ev.stopPropagation();
+    openStudy(openBtn.getAttribute('data-open'));
+    return;
+  }
+  var card = up('.pc[data-id]');
+  if(card){ openStudy(card.getAttribute('data-id')); return; }
+
+  var ans = up('[data-ans]');
+  if(ans){ answer(ans.getAttribute('data-ans') === '1'); return; }
+
+  var force = up('[data-force]');
+  if(force){ forceReview = true; renderStudy(); return; }
+
+  var rate = up('[data-rate]');
+  if(rate){
+    DB.rate = Number(rate.getAttribute('data-rate')) === 0.75 ? 0.75 : 1;
+    saveDB();
+    var cc = getCard(st.studyId);
+    if(cc) speak(cc.e, DB.rate);
+    if(session && session.mode === 'review'){
+      /* 복습 중에는 버튼만 다시 그려 진행 상태를 유지 */
+      var prog = $('.sprog'); var keep = prog ? prog.textContent : '';
+      renderStudy();
+      if($('.sprog') && keep) $('.sprog').textContent = keep;
+    }else{
+      renderStudy();
+    }
+    return;
+  }
+  var mask = up('[data-mask]');
+  if(mask){
+    var box = $('#study');
+    var on = box.getAttribute('data-masked') === '1';
+    box.setAttribute('data-masked', on ? '0' : '1');
+    renderStudy();
+    return;
+  }
+  var del = up('[data-del]');
+  if(del){
+    var did = del.getAttribute('data-del');
+    var rec = DB.cards[did];
+    if(!rec) return;
+    delete DB.cards[did];
+    saveDB();
+    closeStudy();
+    nav({ tab:'list', cat:'mine', stage:'all' });
+    toast(t('내 문장을 지웠어요','Deleted'), t('되돌리기','Undo'), function(){
+      DB.cards[did] = rec; saveDB(); renderAll();
+      toast(t('되살렸어요','Restored'));
+    });
+    return;
+  }
+  var reset = up('[data-reset]');
+  if(reset){
+    var rid = reset.getAttribute('data-reset');
+    if(DB.cards[rid]){ DB.cards[rid].stage = 0; DB.cards[rid].next = todayISO(); saveDB(); forceReview = false; renderStudy(); toast(t('처음부터 다시 시작해요','Starting over')); }
+    return;
+  }
+  var act = up('[data-act]');
+  if(act){
+    var a = act.getAttribute('data-act');
+    if(a === 'close'){ closeStudy(); goBack(); }
+    else if(a === 'home'){ closeStudy(); st.tab = 'home'; st.cat='all'; st.stage='all'; renderAll(); replaceState(); window.scrollTo(0,0); }
+    else if(a === 'more'){ closeStudy(); st.tab = 'list'; st.cat='all'; st.stage='all'; renderAll(); replaceState(); window.scrollTo(0,0); }
+    return;
+  }
+  var newcat = up('[data-newcat]');
+  if(newcat){
+    $('#catPick').setAttribute('data-sel', newcat.getAttribute('data-newcat'));
+    $$('#catPick [data-newcat]').forEach(function(b){ b.classList.toggle('on', b === newcat); });
+    return;
+  }
+  var m = up('.modal');
+  if(m && m.id === 'installModal'){ closeInstall(); return; }
+});
+
+document.addEventListener('keydown', function(ev){
+  if(ev.key === 'Escape'){
+    if(!$('#study').hidden){ closeStudy(); }
+    else if(!$('#installModal').hidden){ closeInstall(); }
+  }
+  if(ev.key === 'Enter' && ev.target && ev.target.id === 'fEn'){ $('#fKo').focus(); }
+});
+
+/* ══════════ 언어 · 설치 · 공유 ══════════ */
+$('#langBtn').addEventListener('click', function(){
+  lang = (lang === 'en') ? 'ko' : 'en';
+  DB.lang = lang; saveDB();
+  renderAll();
+  replaceState();
+});
+
+function isStandalone(){
+  try{ return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; }catch(e){ return false; }
+}
+var deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', function(e){ if(e && e.preventDefault) e.preventDefault(); deferredPrompt = e; });
+function showInstall(){ $('#installModal').hidden = false; }
+function closeInstall(){ $('#installModal').hidden = true; }
+$('#inClose').addEventListener('click', closeInstall);
+$('#installBtn').addEventListener('click', function(){
+  if(isStandalone()){ toast(t('이미 홈 화면에 설치되어 있어요','Already installed')); return; }
+  if(deferredPrompt){
+    var d = deferredPrompt; deferredPrompt = null;
+    try{
+      d.prompt();
+      if(d.userChoice && d.userChoice.then) d.userChoice.then(function(r){
+        if(r && r.outcome === 'accepted') toast(t('설치하고 있어요','Installing'));
+      }, function(){});
+      return;
+    }catch(e){}
+  }
+  showInstall();
+});
+window.addEventListener('appinstalled', function(){ deferredPrompt = null; toast(t('설치 완료! 홈 화면에서 열어 보세요','Installed! Open it from your home screen')); });
+
+var SHARE_URL = 'https://starpicklife-design.github.io/english-hole/';
+function legacyCopy(text, done, fail){
+  try{
+    var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly','');
+    ta.style.cssText = 'position:fixed;left:-9999px;top:0'; document.body.appendChild(ta); ta.select();
+    var ok = document.execCommand('copy'); document.body.removeChild(ta); (ok ? done : fail)();
+  }catch(e){ fail(); }
+}
+function shareApp(){
+  var payload = {
+    title: t('와글링 영어블랙홀','Wagling English Black Hole'),
+    text: t('여행영어, 오늘 외우면 3·7·14·30일 뒤에 다시 보여 주는 블랙홀 앱이에요.','Travel English that comes back in 3·7·14·30 days.'),
+    url: SHARE_URL
+  };
+  var usable = true;
+  try{ if(navigator.canShare && !navigator.canShare(payload)) usable = false; }catch(e){}
+  if(navigator.share && usable){
+    try{ navigator.share(payload).then(function(){}, function(err){ if(err && err.name === 'AbortError') return; copyShare(payload); }); return; }catch(e){}
+  }
+  copyShare(payload);
+}
+function copyShare(p){
+  var full = p.text + '\n\n' + p.url;
+  var done = function(){ toast(t('공유 문구를 복사했어요','Copied the share text')); },
+      fail = function(){ toast(t('공유를 열지 못했어요','Could not share')); };
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(full).then(done, function(){ legacyCopy(full, done, fail); }); }
+  else legacyCopy(full, done, fail);
+}
+$('#shareBtn').addEventListener('click', shareApp);
+$('#fSave').addEventListener('click', saveNewSentence);
+$('#fEn').addEventListener('keydown', function(e){ if(e.key === 'Enter') saveNewSentence(); });
+
+/* ══════════ 뒤로가기 ══════════ */
+window.addEventListener('popstate', function(ev){
+  var raw = ev.state && ev.state.st;
+  var prevTab = st.tab;
+  if(raw){ try{ st = JSON.parse(raw); }catch(e){ st = { tab:'home', cat:'all', stage:'all', studyId:null }; } }
+  else { st = { tab:'home', cat:'all', stage:'all', studyId:null }; }
+  session = null; forceReview = false;
+  $('#study').hidden = true;
+  document.body.style.overflow = '';
+  setStudyOpen(false);
+  renderAll();
+  if(st.studyId){ setStudyOpen(true); $('#study').hidden = false; renderStudy(); }
+  window.scrollTo(0, st.tab === prevTab ? (scrollByTab[st.tab] || 0) : 0);
+});
+
+/* ══════════ 시작 ══════════ */
+loadDB();
+lang = DB.lang === 'en' ? 'en' : 'ko';
+if(!history.state || !history.state.st){ replaceState(); }
+renderAll();
+if('serviceWorker' in navigator){
+  window.addEventListener('load', function(){ navigator.serviceWorker.register('./sw.js').catch(function(){}); });
+}
+</script>
+</body>
+</html>

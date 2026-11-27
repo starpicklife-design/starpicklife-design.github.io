@@ -1,0 +1,1957 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#EAF6FF" />
+<!-- build: 2026-11-27 wagling-science v1 · 태양계·온도실험·빛과자석·생활과학퀴즈 · 기록은 기기에만 -->
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="192x192" href="./icon-192.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="와글링 과학" />
+<meta name="description" content="와글링 과학 — 태양계 행성 여행, 온도 실험(얼음·물·수증기), 빛의 삼원색과 자석 놀이, 생활 속 과학 퀴즈. 아이·학생 눈높이 큰 글씨, 광고 없음, 인터넷 없이도 열려요." />
+<title>와글링 과학 · 눌러서 배우는 과학 놀이</title>
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
+<style>
+:root{
+  --cream:#FFFBF4; --card:#FFFFFF;
+  --ink:#152030; --ink2:#39485C; --ink3:#63768D;
+  --line:#EBE0D3; --line2:#F5EDE3;
+  --solar:#4B5BD6; --solar-d:#3541A8; --solar-bg:#EEF0FF; --solar-line:#D3D8FF;
+  --temp:#0E8FA8; --temp-d:#0A6E82; --temp-bg:#E6F8FC; --temp-line:#B7E9F3;
+  --light:#C4378F; --light-d:#9C266E; --light-bg:#FDEBF6; --light-line:#F6CBE3;
+  --quiz:#DE6B08; --quiz-d:#B35604; --quiz-bg:#FFF3E4; --quiz-line:#FFD9AE;
+  --shadow:0 4px 16px rgba(160,130,100,.10);
+  --shadow2:0 10px 28px rgba(120,90,60,.16);
+  --tabh:4.5rem;
+  --accent:var(--solar); --accent-d:var(--solar-d); --accent-bg:var(--solar-bg); --accent-line:var(--solar-line);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none !important}
+html{font-size:17.5px;-webkit-text-size-adjust:100%}
+html,body{margin:0;padding:0}
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(88% 44% at 0% 0%, #FFF1D9 0%, rgba(255,241,217,0) 62%),
+    radial-gradient(84% 42% at 100% 4%, #DFF1FF 0%, rgba(223,241,255,0) 64%),
+    linear-gradient(180deg,#FFFCF6 0%,#FFFDFA 44%,#F0F9FF 100%);
+  background-attachment:fixed;
+  color:var(--ink);
+  font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",system-ui,-apple-system,sans-serif;
+  line-height:1.55;word-break:keep-all;overflow-wrap:break-word;overflow-x:hidden;
+  padding-bottom:calc(var(--tabh) + env(safe-area-inset-bottom) + .4rem);
+}
+button{font-family:inherit;color:inherit;cursor:pointer;border:0;background:none}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #4F86F7;outline-offset:2px}
+b,strong{font-weight:900}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ── 머리말 ─────────────────────────────── */
+.top{
+  position:sticky;top:0;z-index:40;
+  background:linear-gradient(135deg,#FFE2BF 0%,#FFF0DA 38%,#DCF1FF 100%);
+  border-bottom:1.5px solid rgba(176,132,88,.24);
+  padding:calc(.42rem + env(safe-area-inset-top)) .5rem .46rem;
+  box-shadow:0 4px 16px rgba(176,140,96,.16);
+}
+.topin{display:flex;align-items:center;gap:.38rem;max-width:34rem;margin:0 auto}
+.brand{display:flex;align-items:center;gap:.42rem;flex:1 1 auto;min-width:0}
+.logo{
+  flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  width:2.2rem;height:2.2rem;border-radius:.72rem;background:#fff;
+  border:1.5px solid rgba(120,160,200,.35);box-shadow:0 2px 8px rgba(120,150,190,.24);
+  font-size:1.18rem;line-height:1;
+}
+.btxt{min-width:0}
+.brand h1{margin:0;font-size:1.06rem;line-height:1.15;letter-spacing:-.045em;font-weight:900;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand .sub{margin:.05rem 0 0;font-size:.63rem;line-height:1.2;font-weight:800;color:#7A4A22;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html[lang="en"] .brand h1{font-size:.96rem;letter-spacing:-.03em}
+html[lang="en"] .brand .sub{font-size:.6rem}
+html[lang="en"] .tbtn{padding:.3rem .35rem}
+.topbtns{display:flex;gap:.22rem;flex:0 0 auto}
+.tbtn{
+  border:1.5px solid rgba(140,170,200,.5);background:#fff;color:#2C4766;
+  border-radius:.66rem;padding:.3rem .42rem;font-size:.68rem;font-weight:900;line-height:1.1;
+  min-height:2.16rem;white-space:nowrap;display:inline-flex;align-items:center;gap:.1rem;
+  box-shadow:0 1px 4px rgba(120,150,190,.16);
+}
+.tbtn:active{transform:translateY(1px)}
+@media (max-width:374px){
+  .logo{display:none}
+  .brand h1{font-size:.97rem}
+  .brand .sub{display:none}
+  .tbtn{font-size:.62rem;padding:.28rem .3rem;min-height:2rem;gap:.04rem}
+  .topin{gap:.28rem}
+}
+@media (max-width:334px){
+  .tbtn{font-size:.57rem;padding:.26rem .24rem}
+  .brand h1{font-size:.9rem}
+}
+
+/* ── 공통 ───────────────────────────────── */
+main{max-width:34rem;margin:0 auto}
+.page{padding:.1rem 0 .8rem;animation:fade .18s ease}
+@keyframes fade{from{opacity:.5;transform:translateY(3px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.page{animation:none}}
+.phead{margin:.7rem .7rem .1rem}
+.phead h2{margin:0;font-size:1.2rem;line-height:1.28;letter-spacing:-.04em;font-weight:900;color:var(--ink)}
+.phead p{margin:.16rem 0 0;font-size:.85rem;line-height:1.45;color:var(--ink2);font-weight:800}
+.card{
+  background:var(--card);border:1.5px solid var(--line);border-radius:1.05rem;
+  margin:.55rem .5rem;padding:.8rem .8rem;box-shadow:var(--shadow);min-width:0;
+}
+.card h3{margin:0 0 .5rem;font-size:1.02rem;font-weight:900;letter-spacing:-.03em;line-height:1.3;color:var(--ink)}
+.tiny{margin:.4rem 0 0;font-size:.73rem;line-height:1.5;color:var(--ink3);font-weight:800;text-align:center}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.3rem;
+  min-height:2.9rem;padding:.5rem .8rem;border-radius:.85rem;
+  background:#F7F2E9;color:var(--ink);font-size:.95rem;font-weight:900;letter-spacing:-.02em;
+  border:1.5px solid #EADFCB;white-space:nowrap;
+}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--accent-d);color:#fff;border-color:var(--accent-d);box-shadow:0 4px 12px rgba(80,60,40,.2)}
+.btn.soft{background:var(--accent-bg);color:var(--accent-d);border-color:var(--accent-line)}
+.btn.wide{width:100%}
+.btn:disabled{opacity:.45;cursor:default}
+
+/* ── 홈 ─────────────────────────────────── */
+.hero{
+  background:
+    radial-gradient(120% 92% at 100% 0%, rgba(255,200,120,.30), transparent 62%),
+    linear-gradient(165deg,#FFFDF9 0%,#FFF6E9 52%,#EFF8FF 100%);
+  border:2px solid #FFE2C4;
+  margin:.6rem .5rem .1rem;
+}
+.hero h2{margin:0;font-size:1.34rem;line-height:1.3;letter-spacing:-.045em;font-weight:900}
+.hero p{margin:.32rem 0 0;font-size:.92rem;line-height:1.5;color:var(--ink2);font-weight:800}
+.heroline{display:flex;align-items:flex-start;gap:.5rem;justify-content:space-between}
+.heroline .badge{font-size:2rem;line-height:1;flex:0 0 auto}
+.eyebrow{margin:0 0 .12rem;font-size:.7rem;font-weight:900;letter-spacing:.08em;color:#B35604;text-transform:uppercase}
+.chipsmini{display:flex;flex-wrap:wrap;gap:.3rem;margin:.6rem 0 0}
+.chipsmini span{font-size:.74rem;font-weight:900;color:#3541A8;background:#fff;border:1.5px solid #D9DEFB;border-radius:99px;padding:.2rem .55rem}
+
+.menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;margin:.5rem .5rem .2rem}
+.mcard{
+  display:flex;flex-direction:column;align-items:flex-start;gap:.1rem;
+  border:2px solid var(--line);border-radius:1.05rem;
+  padding:.7rem .68rem .66rem;text-align:left;min-width:0;min-height:7.9rem;
+  box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.mcard:active{transform:translateY(1px)}
+.mcard::after{content:"›";position:absolute;right:.55rem;top:.3rem;font-size:1.35rem;line-height:1;font-weight:900;opacity:.55}
+.m-solar{background:linear-gradient(160deg,#F3F4FF,#E7EAFF);border-color:var(--solar-line)}
+.m-solar::after{color:var(--solar)}
+.m-temp{background:linear-gradient(160deg,#EEFBFF,#DFF6FC);border-color:var(--temp-line)}
+.m-temp::after{color:var(--temp)}
+.m-lab{background:linear-gradient(160deg,#FFF1F9,#FCE4F3);border-color:var(--light-line)}
+.m-lab::after{color:var(--light)}
+.m-quiz{background:linear-gradient(160deg,#FFF8EC,#FFEEDB);border-color:var(--quiz-line)}
+.m-quiz::after{color:var(--quiz)}
+.mico{display:flex;align-items:center;justify-content:center;width:2.45rem;height:2.45rem;border-radius:.78rem;font-size:1.32rem;line-height:1;margin-bottom:.16rem;background:rgba(255,255,255,.8);border:1.5px solid rgba(255,255,255,.9);box-shadow:0 2px 6px rgba(150,130,100,.12)}
+.mt{display:block;font-size:1rem;font-weight:900;letter-spacing:-.035em;line-height:1.25;padding-right:.8rem;color:var(--ink)}
+.md{display:block;font-size:.76rem;line-height:1.4;color:var(--ink2);font-weight:800;margin-top:.08rem}
+.factcard{background:linear-gradient(180deg,#FFFDF7,#FFF8E9);border-color:#FFE4B8}
+.facthead{display:flex;align-items:center;justify-content:space-between;gap:.4rem;margin-bottom:.3rem}
+.facthead h3{margin:0;font-size:.9rem;color:#8A5A00}
+.facttxt{margin:0;font-size:1rem;line-height:1.6;font-weight:900;color:#4A3410}
+.rbtn{border:1.5px solid #FFD79A;background:#fff;color:#8A5A00;border-radius:.7rem;padding:.34rem .55rem;font-size:.78rem;font-weight:900;min-height:2.3rem;white-space:nowrap}
+.foot{margin:.6rem .8rem 0;text-align:center;font-size:.73rem;line-height:1.55;color:var(--ink3);font-weight:800}
+
+/* ── 태양계 ─────────────────────────────── */
+#pgSolar{--accent:var(--solar);--accent-d:var(--solar-d);--accent-bg:var(--solar-bg);--accent-line:var(--solar-line)}
+.solarcard{padding:.5rem .5rem .6rem;background:linear-gradient(180deg,#F7FAFF,#FFFFFF)}
+.solarwrap{position:relative;border-radius:.9rem;overflow:hidden;background:linear-gradient(180deg,#EAF6FF 0%,#F7FCFF 62%,#FFF7EA 100%);border:1.5px solid #DCE9F7}
+#solarCanvas{display:block;width:100%;height:auto;touch-action:manipulation}
+.solarbar{display:flex;gap:.4rem;margin-top:.55rem}
+.solarbar .btn{flex:1 1 0;min-width:0;min-height:2.7rem;font-size:.88rem}
+.hint{margin:.5rem .1rem 0;font-size:.86rem;font-weight:900;color:#3541A8;text-align:center}
+.bodies{display:flex;flex-wrap:wrap;gap:.32rem;margin:.55rem .45rem .1rem}
+.bodychip{
+  display:inline-flex;align-items:center;gap:.26rem;min-height:2.35rem;padding:.24rem .5rem;
+  border-radius:99px;background:#fff;border:2px solid #E4E7F5;color:#2C3557;
+  font-size:.8rem;font-weight:900;letter-spacing:-.02em;line-height:1.1;
+}
+.bodychip .dot{width:.62rem;height:.62rem;border-radius:50%;display:inline-block;flex:0 0 auto;border:1px solid rgba(0,0,0,.12)}
+.bodychip.on{border-color:var(--solar-d);background:#EEF0FF;box-shadow:0 3px 10px rgba(75,91,214,.2)}
+.planetInfo{padding:.8rem .82rem}
+.pihead{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
+.piico{width:2.7rem;height:2.7rem;border-radius:.85rem;display:flex;align-items:center;justify-content:center;font-size:1.4rem;background:#F2F5FF;border:1.5px solid #DDE3FA;flex:0 0 auto}
+.piname{margin:0;font-size:1.22rem;font-weight:900;letter-spacing:-.04em;line-height:1.2}
+.pisub{margin:.1rem 0 0;font-size:.78rem;font-weight:800;color:var(--ink3)}
+.pistats{margin:.1rem 0 .5rem;border-top:1.5px dashed var(--line);border-bottom:1.5px dashed var(--line)}
+.pistat{display:flex;align-items:baseline;justify-content:space-between;gap:.5rem;padding:.42rem .1rem;border-bottom:1px solid #F3F5FA}
+.pistat:last-child{border-bottom:0}
+.pistat .k{font-size:.82rem;font-weight:900;color:var(--ink3);white-space:nowrap;flex:0 0 auto}
+.pistat .v{font-size:.98rem;font-weight:900;color:var(--ink);text-align:right;min-width:0;overflow-wrap:anywhere}
+.pifeat{margin:.1rem 0 0;font-size:.98rem;line-height:1.62;font-weight:800;color:var(--ink2)}
+.pifun{margin:.6rem 0 0;padding:.55rem .65rem;border-radius:.8rem;background:linear-gradient(100deg,#FFF8DB,#FFF1E0);border:1.5px solid #FFE3A3;color:#7A4A00;font-size:.9rem;font-weight:900;line-height:1.5}
+
+/* ── 온도 실험 ───────────────────────────── */
+#pgTemp{--accent:var(--temp);--accent-d:var(--temp-d);--accent-bg:var(--temp-bg);--accent-line:var(--temp-line)}
+.tempcard{padding:.7rem .7rem .8rem}
+.statebadge{display:flex;align-items:center;justify-content:center;gap:.42rem;border-radius:.85rem;padding:.5rem .6rem;font-size:1.08rem;font-weight:900;letter-spacing:-.03em;text-align:center;line-height:1.25}
+.sb-solid{background:#E8F4FF;border:2px solid #BFDFFF;color:#1D5FA8}
+.sb-liquid{background:#E4F9FC;border:2px solid #AEE6F1;color:#0A6E82}
+.sb-gas{background:#F1ECFF;border:2px solid #D8CCFF;color:#5B3FB0}
+.beakerwrap{margin:.45rem 0 .2rem;border-radius:.9rem;overflow:hidden;background:linear-gradient(180deg,#F8FCFF,#EFF8FF);border:1.5px solid #DDEBF7}
+#beakerCanvas{display:block;width:100%;height:auto}
+.stateshort{margin:.32rem 0 0;text-align:center;font-size:.86rem;font-weight:900;color:var(--temp-d);line-height:1.4}
+.temprow{display:flex;align-items:center;justify-content:center;gap:.35rem;margin:.5rem 0 .1rem}
+#tempVal{font-size:2.5rem;font-weight:900;line-height:1;letter-spacing:-.05em;font-variant-numeric:tabular-nums;color:var(--temp-d)}
+.deg{font-size:1.35rem;font-weight:900;color:var(--ink3);align-self:flex-start;margin-top:.2rem}
+.tempnote{font-size:.76rem;font-weight:800;color:var(--ink3);text-align:center;margin:.12rem 0 0}
+.sliderwrap{padding:.28rem .1rem 0}
+input[type=range]{
+  -webkit-appearance:none;appearance:none;width:100%;height:2.2rem;background:transparent;margin:0;
+}
+input[type=range]::-webkit-slider-runnable-track{
+  height:.85rem;border-radius:99px;
+  background:linear-gradient(90deg,#7EC8F5 0%,#BFE9FF 26%,#7FE3E8 30%,#FFD98A 82%,#FF9C6E 100%);
+  border:1.5px solid #CFE6F2;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;width:2.1rem;height:2.1rem;border-radius:50%;
+  background:#fff;border:4px solid var(--temp);box-shadow:0 3px 10px rgba(14,143,168,.35);margin-top:-.75rem;
+}
+input[type=range]::-moz-range-track{height:.85rem;border-radius:99px;background:linear-gradient(90deg,#7EC8F5,#BFE9FF 26%,#7FE3E8 30%,#FFD98A 82%,#FF9C6E)}
+input[type=range]::-moz-range-thumb{width:2.1rem;height:2.1rem;border-radius:50%;background:#fff;border:4px solid var(--temp);box-shadow:0 3px 10px rgba(14,143,168,.35)}
+.scale{position:relative;height:2.35rem;margin:.1rem 1.05rem 0;font-size:.72rem;font-weight:900;color:var(--ink3)}
+.scale > span{position:absolute;white-space:nowrap;line-height:1.2}
+.scale .s-end{top:0}
+.scale .s-end:first-of-type{transform:none}
+.scale .s-key{top:1.15rem;transform:translateX(-50%);font-size:.66rem;color:#0A6E82;background:#E6F8FC;border:1.5px solid #B7E9F3;border-radius:99px;padding:.04rem .34rem}
+.tempbtns{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin:.55rem 0 0}
+.tempbtns .btn{min-height:3.1rem;font-size:1rem}
+.presets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.4rem;margin:.45rem 0 0}
+.presets .btn{min-height:2.8rem;font-size:.8rem;padding:.4rem .2rem;flex-direction:column;gap:.05rem}
+.presets .btn em{font-style:normal;font-size:1.05rem;line-height:1}
+.stateinfo{font-size:1rem;line-height:1.65;font-weight:800;color:var(--ink2);margin:0}
+.stateinfo b{color:var(--temp-d)}
+.factbox{margin:.55rem 0 0;padding:.55rem .68rem;border-radius:.8rem;background:linear-gradient(100deg,#EAF9FD,#F4FBFF);border:1.5px solid var(--temp-line);font-size:.85rem;font-weight:900;color:#0A5A6B;line-height:1.5}
+
+/* ── 빛·자석 ─────────────────────────────── */
+#pgLab{--accent:var(--light);--accent-d:var(--light-d);--accent-bg:var(--light-bg);--accent-line:var(--light-line)}
+.seg{display:flex;gap:.4rem;margin:.55rem .5rem .1rem}
+.segbtn{
+  flex:1 1 0;min-width:0;min-height:2.9rem;border-radius:.85rem;background:#fff;
+  border:2px solid var(--line);font-size:.86rem;font-weight:900;letter-spacing:-.02em;
+  display:inline-flex;align-items:center;justify-content:center;gap:.25rem;line-height:1.15;
+}
+.segbtn.on{background:var(--light-d);border-color:var(--light-d);color:#fff;box-shadow:0 4px 12px rgba(196,55,143,.25)}
+.lightstage{
+  position:relative;width:100%;aspect-ratio:1/1;max-height:19rem;margin:0 auto;
+  border-radius:.9rem;overflow:hidden;background:radial-gradient(circle at 50% 45%,#1A2A46 0%,#0D1626 72%);
+  border:1.5px solid #2A3D5C;
+}
+.lglow{position:absolute;width:56%;height:56%;border-radius:50%;opacity:0;transition:opacity .22s ease;mix-blend-mode:screen;pointer-events:none}
+.lglow.on{opacity:1}
+.lgR{left:22%;top:2%;background:radial-gradient(circle,#FF3B30 46%,rgba(255,59,48,.82) 58%,rgba(255,59,48,0) 72%)}
+.lgG{left:2%;top:40%;background:radial-gradient(circle,#33D64F 46%,rgba(51,214,79,.82) 58%,rgba(51,214,79,0) 72%)}
+.lgB{right:2%;top:40%;background:radial-gradient(circle,#2E7BFF 46%,rgba(46,123,255,.82) 58%,rgba(46,123,255,0) 72%)}
+.lglabel{position:absolute;font-size:.72rem;font-weight:900;color:rgba(255,255,255,.72);letter-spacing:.1em}
+.lglabel.lr{left:50%;top:20%;transform:translateX(-50%)}
+.lglabel.lg{left:23%;top:63%}
+.lglabel.lb{right:23%;top:63%}
+.lbuttons{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.45rem;margin:.6rem 0 0}
+.lbtn{
+  min-height:3.3rem;border-radius:.85rem;border:2.5px solid transparent;background:#fff;
+  font-size:1rem;font-weight:900;color:#fff;line-height:1.15;
+  display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:.05rem;
+  box-shadow:var(--shadow);
+}
+.lbtn em{font-style:normal;font-size:.72rem;font-weight:900;opacity:.95}
+.lbtn[data-c="r"]{background:#F0483E;border-color:#F0483E}
+.lbtn[data-c="g"]{background:#2FB44E;border-color:#2FB44E}
+.lbtn[data-c="b"]{background:#2E7BFF;border-color:#2E7BFF}
+.lbtn[aria-pressed="false"]{background:#fff;color:#8A94A6;border-color:#DFE4EC;box-shadow:none}
+.mixres{display:flex;align-items:center;gap:.6rem;margin:.65rem 0 0;padding:.6rem .7rem;border-radius:.85rem;background:#FBF7FF;border:2px solid #EADFF8}
+.swatch{width:2.5rem;height:2.5rem;border-radius:.7rem;flex:0 0 auto;border:2px solid rgba(0,0,0,.12);background:#CED5DF;transition:background .2s}
+.mixname{margin:0;font-size:1.08rem;font-weight:900;letter-spacing:-.03em;line-height:1.25}
+.mixsub{margin:.08rem 0 0;font-size:.78rem;font-weight:800;color:var(--ink3);line-height:1.4}
+.why{margin:.55rem 0 0;font-size:.85rem;line-height:1.55;font-weight:800;color:var(--ink2)}
+.magstage{
+  position:relative;height:7rem;margin:.2rem 0 0;border-radius:.9rem;
+  background:linear-gradient(180deg,#F7FBFF,#EFF6FF);border:1.5px solid #DCE7F4;overflow:hidden;
+}
+.mag{position:absolute;top:2.35rem;width:40%;height:3.2rem;border-radius:.55rem;overflow:hidden;display:flex;box-shadow:0 5px 14px rgba(70,90,120,.2);transition:left .5s cubic-bezier(.34,1.36,.5,1),right .5s cubic-bezier(.34,1.36,.5,1)}
+.magL{left:2%}
+.magR{right:2%}
+.magR.flip{flex-direction:row-reverse}
+.pole{flex:1 1 0;display:flex;align-items:center;justify-content:center;font-size:1.25rem;font-weight:900;color:#fff;letter-spacing:.02em}
+.pN{background:linear-gradient(180deg,#F0564F,#D8342F)}
+.pS{background:linear-gradient(180deg,#4C86F5,#2A5FD6)}
+.magstage.close .magL{left:9.6%}
+.magstage.close .magR{right:9.6%}
+.magL{z-index:2}
+.magR{z-index:2}
+.magstage.wig .magL{animation:wigL .55s ease-in-out 2}
+.magstage.wig .magR{animation:wigR .55s ease-in-out 2}
+@keyframes wigL{0%,100%{transform:translateX(0)}30%{transform:translateX(-9px)}70%{transform:translateX(-2px)}}
+@keyframes wigR{0%,100%{transform:translateX(0)}30%{transform:translateX(9px)}70%{transform:translateX(2px)}}
+.marr{position:absolute;top:.5rem;font-size:1.15rem;font-weight:900;color:#3541A8;opacity:0;transition:opacity .2s}
+#magArrL{left:34%}
+#magArrR{right:34%}
+.magstage.close .marr{opacity:1;color:#C4342F}
+.magstage.wig .marr{opacity:1;color:#2A5FD6}
+.magspark{position:absolute;left:50%;top:.5rem;transform:translateX(-50%);font-size:1.35rem;opacity:0;transition:opacity .2s;z-index:3}
+.magstage.close .magspark{opacity:1}
+.magmsg{margin:.5rem 0 0;font-size:1rem;font-weight:900;line-height:1.45;text-align:center;color:var(--ink)}
+.magfacing{margin:.15rem 0 0;font-size:.78rem;font-weight:900;color:var(--ink3);text-align:center}
+.magbtns{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin:.55rem 0 0}
+.magbtns .btn{min-height:2.95rem;font-size:.88rem;padding:.4rem .45rem;white-space:normal;line-height:1.25}
+.magbtns .btn.primary{grid-column:1/-1}
+
+/* ── 퀴즈 ───────────────────────────────── */
+#pgQuiz{--accent:var(--quiz);--accent-d:var(--quiz-d);--accent-bg:var(--quiz-bg);--accent-line:var(--quiz-line)}
+.qtop{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin:.65rem .65rem 0}
+.qtop .qno{font-size:.86rem;font-weight:900;color:var(--quiz-d);background:var(--quiz-bg);border:1.5px solid var(--quiz-line);border-radius:99px;padding:.22rem .62rem;white-space:nowrap}
+.qtop .qscore{font-size:.82rem;font-weight:900;color:var(--ink2);white-space:nowrap}
+.qbar{height:.62rem;border-radius:99px;background:#F2E8DA;margin:.45rem .65rem 0;overflow:hidden}
+.qbar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#FFB347,#DE6B08);transition:width .3s ease}
+.qcard{padding:.85rem .8rem}
+.qtext{margin:0 0 .1rem;font-size:1.14rem;line-height:1.5;font-weight:900;letter-spacing:-.035em;color:var(--ink)}
+.qemoji{font-size:1.5rem;line-height:1;margin:0 0 .3rem}
+.opts{display:grid;gap:.48rem;margin:.7rem 0 0}
+.opt{
+  display:flex;align-items:center;gap:.5rem;width:100%;text-align:left;
+  min-height:3.3rem;padding:.55rem .68rem;border-radius:.85rem;background:#fff;
+  border:2px solid #E7E0D4;font-size:1rem;font-weight:900;line-height:1.4;
+  letter-spacing:-.02em;color:var(--ink);box-shadow:0 2px 8px rgba(160,130,90,.08);
+}
+.opt:active{transform:translateY(1px)}
+.opt .num{flex:0 0 auto;width:1.9rem;height:1.9rem;border-radius:.6rem;background:#FBF3E6;border:1.5px solid #EFE1CC;display:flex;align-items:center;justify-content:center;font-size:.86rem;font-weight:900;color:#8A6A3A}
+.opt .otxt{min-width:0;flex:1 1 auto}
+.opt.ok{background:#E9FBF0;border-color:#8FE0AE;box-shadow:0 3px 12px rgba(30,150,80,.16)}
+.opt.ok .num{background:#1E9B57;border-color:#1E9B57;color:#fff}
+.opt.bad{background:#FFF0EE;border-color:#FFC4BB}
+.opt.bad .num{background:#E0503C;border-color:#E0503C;color:#fff}
+.opt.dim{opacity:.55}
+.opt[disabled]{cursor:default}
+.fb{margin:.7rem 0 0;padding:.68rem .72rem;border-radius:.9rem;line-height:1.6;font-size:.95rem;font-weight:800;border:2px solid transparent}
+.fb.good{background:#EAFBF1;border-color:#B9EDCE;color:#136B3E}
+.fb.warm{background:#FFF7E6;border-color:#FFE0A8;color:#8A5A00}
+.fb .fbt{display:block;font-size:1.02rem;font-weight:900;margin-bottom:.2rem;letter-spacing:-.03em}
+.fb .fbe{margin:.25rem 0 0}
+.qnext{margin-top:.6rem}
+.qnext .btn{width:100%;min-height:3.2rem;font-size:1.02rem}
+.qend{padding:.4rem .2rem .2rem;text-align:center}
+.qendico{font-size:3.2rem;line-height:1}
+.qendtitle{margin:.3rem 0 .1rem;font-size:1.3rem;font-weight:900;letter-spacing:-.04em}
+.qendscore{margin:.15rem 0 .1rem;font-size:2.7rem;font-weight:900;line-height:1;letter-spacing:-.05em;color:var(--quiz-d)}
+.qendmsg{margin:.35rem .1rem .1rem;font-size:1rem;font-weight:800;line-height:1.6;color:var(--ink2)}
+.qendbtns{display:grid;gap:.45rem;margin-top:.8rem}
+.qendbtns .btn{min-height:3.1rem;font-size:.98rem}
+.qbest{margin:.5rem 0 0;font-size:.8rem;font-weight:900;color:var(--ink3)}
+
+/* ── 하단 탭 · 토스트 · 설치 ─────────────── */
+.tabbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:45;display:flex;
+  background:rgba(255,255,255,.97);border-top:1.5px solid #EDE3D6;
+  box-shadow:0 -4px 18px rgba(140,110,80,.12);
+  padding-bottom:env(safe-area-inset-bottom);
+  backdrop-filter:blur(8px);
+}
+.tab{
+  flex:1 1 0;min-width:0;height:var(--tabh);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:.06rem;
+  font-size:.64rem;font-weight:900;color:#7A8798;letter-spacing:-.02em;
+  border-top:3px solid transparent;line-height:1.1;
+}
+.tab .ti{font-size:1.22rem;line-height:1}
+.tab.on{color:var(--solar-d);border-top-color:var(--solar);background:#F6F8FF}
+.tab.on:nth-child(2){color:var(--solar-d);border-top-color:var(--solar)}
+.tab.on:nth-child(3){color:var(--temp-d);border-top-color:var(--temp);background:#F2FCFF}
+.tab.on:nth-child(4){color:var(--light-d);border-top-color:var(--light);background:#FFF6FB}
+.tab.on:nth-child(5){color:var(--quiz-d);border-top-color:var(--quiz);background:#FFFAF2}
+#toast{
+  position:fixed;left:50%;bottom:calc(var(--tabh) + env(safe-area-inset-bottom) + 1rem);
+  transform:translate(-50%,1rem);z-index:70;max-width:calc(100% - 2rem);
+  background:rgba(28,38,54,.95);color:#fff;font-size:.86rem;font-weight:900;
+  padding:.62rem 1rem;border-radius:99px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;
+  text-align:center;line-height:1.4;
+}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+.modal{position:fixed;inset:0;z-index:80;background:rgba(20,28,40,.5);display:flex;align-items:flex-end;justify-content:center;padding:0}
+.modalbox{
+  width:100%;max-width:32rem;background:#fff;border-radius:1.2rem 1.2rem 0 0;
+  padding:1rem 1rem calc(1rem + env(safe-area-inset-bottom));
+  box-shadow:0 -10px 30px rgba(0,0,0,.24);max-height:88vh;overflow:auto;
+}
+.modalbox h4{margin:0 0 .3rem;font-size:1.1rem;font-weight:900;letter-spacing:-.03em}
+.modalbox p{margin:0 0 .55rem;font-size:.9rem;line-height:1.55;font-weight:800;color:var(--ink2)}
+.modalbox ol{margin:.1rem 0 .7rem;padding-left:1.15rem;font-size:.9rem;line-height:1.7;font-weight:800;color:var(--ink2)}
+.modalbox li{margin:.15rem 0}
+.modalbox .mini{font-size:.76rem;color:var(--ink3);text-align:center;margin:.55rem 0 0}
+.modalbox .btn{width:100%}
+a.chromebtn{display:flex;align-items:center;justify-content:center;min-height:3rem;border-radius:.85rem;background:#1A73E8;color:#fff;font-weight:900;font-size:.95rem;text-decoration:none;margin:0 0 .55rem}
+@media (max-width:359px){
+  html{font-size:16.3px}
+  .mcard{min-height:7.4rem}
+  .presets .btn{font-size:.72rem}
+  .tab{font-size:.58rem}
+  .tab .ti{font-size:1.1rem}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="topin">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">🔬</span>
+      <div class="btxt">
+        <h1 data-i18n="appName">와글링 과학</h1>
+        <p class="sub" data-i18n="tagline">눌러서 배우는 과학 놀이</p>
+      </div>
+    </div>
+    <div class="topbtns">
+      <button id="btnLang" class="tbtn" type="button" aria-pressed="false" aria-label="한국어 / English">🌐 <span>한/EN</span></button>
+      <button id="installBtn" class="tbtn" type="button">📲 <span data-i18n="install">설치</span></button>
+      <button id="shareBtn" class="tbtn" type="button">📤 <span data-i18n="share">공유</span></button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ══ 홈 ══ -->
+<section id="pgHome" class="page">
+  <div class="hero card">
+    <div class="heroline">
+      <div>
+        <p class="eyebrow" data-i18n="homeEyebrow">와글링 과학</p>
+        <h2 data-i18n="homeTitle">오늘은 어떤 과학을 만져 볼까요?</h2>
+        <p data-i18n="homeSub">손가락으로 눌러 보고, 움직여 보면 과학이 저절로 이해돼요.</p>
+      </div>
+      <span class="badge" aria-hidden="true">🔬</span>
+    </div>
+    <div class="chipsmini">
+      <span>🪐 <b data-i18n="chipSolar">태양계</b></span>
+      <span>🧊 <b data-i18n="chipTemp">온도 실험</b></span>
+      <span>🌈 <b data-i18n="chipLab">빛·자석</b></span>
+      <span>❓ <b data-i18n="chipQuiz">과학 퀴즈</b></span>
+    </div>
+  </div>
+
+  <div class="menu">
+    <button class="mcard m-solar" type="button" data-go="solar">
+      <span class="mico" aria-hidden="true">🪐</span>
+      <span class="mt" data-i18n="menuSolar">태양계 행성 여행</span>
+      <span class="md" data-i18n="menuSolarD">행성이 도는 모습을 보고 눌러서 알아봐요</span>
+    </button>
+    <button class="mcard m-temp" type="button" data-go="temp">
+      <span class="mico" aria-hidden="true">🧊</span>
+      <span class="mt" data-i18n="menuTemp">온도 변화 실험</span>
+      <span class="md" data-i18n="menuTempD">얼음·물·수증기로 변하는 물 분자</span>
+    </button>
+    <button class="mcard m-lab" type="button" data-go="lab">
+      <span class="mico" aria-hidden="true">🌈</span>
+      <span class="mt" data-i18n="menuLab">빛의 삼원색 &amp; 자석</span>
+      <span class="md" data-i18n="menuLabD">빛을 섞고, 자석을 가까이 대 봐요</span>
+    </button>
+    <button class="mcard m-quiz" type="button" data-go="quiz">
+      <span class="mico" aria-hidden="true">❓</span>
+      <span class="mt" data-i18n="menuQuiz">생활 속 과학 퀴즈</span>
+      <span class="md" data-i18n="menuQuizD">18문제 · 맞히면 칭찬, 틀려도 괜찮아요</span>
+    </button>
+  </div>
+
+  <div class="card factcard">
+    <div class="facthead">
+      <h3>💡 <span data-i18n="factTitle">오늘의 과학 상식</span></h3>
+      <button id="btnFact" class="rbtn" type="button">🎲 <span data-i18n="factBtn">다른 상식</span></button>
+    </div>
+    <p class="facttxt" id="homeFact" aria-live="polite">—</p>
+  </div>
+
+  <p class="foot" data-i18n="footNote">인터넷이 없어도 열려요 · 광고 없음 · 기록은 이 기기에만 저장돼요</p>
+</section>
+
+<!-- ══ 태양계 ══ -->
+<section id="pgSolar" class="page" hidden>
+  <div class="phead">
+    <h2 data-i18n="solarTitle">🪐 태양계 행성 여행</h2>
+    <p data-i18n="solarSub">행성을 누르면 크기·온도·특징을 알려 줘요</p>
+  </div>
+
+  <div class="card solarcard">
+    <div class="solarwrap">
+      <canvas id="solarCanvas" role="img" aria-label="태양계 행성 공전 애니메이션"></canvas>
+    </div>
+    <div class="solarbar">
+      <button id="solarToggle" class="btn soft" type="button">⏸ <span data-i18n="solarPause">멈추기</span></button>
+      <button id="solarReset" class="btn soft" type="button">↺ <span data-i18n="solarReset">처음으로</span></button>
+    </div>
+    <p class="hint" data-i18n="solarHint">행성 그림이나 아래 이름을 눌러 보세요!</p>
+  </div>
+
+  <div class="bodies" id="bodyChips"></div>
+
+  <div class="card planetInfo" id="planetInfo" aria-live="polite"></div>
+</section>
+
+<!-- ══ 온도 실험 ══ -->
+<section id="pgTemp" class="page" hidden>
+  <div class="phead">
+    <h2 data-i18n="tempTitle">🧊 온도 변화 실험</h2>
+    <p data-i18n="tempSub">온도를 올리고 내리면 물이 변해요</p>
+  </div>
+
+  <div class="card tempcard">
+    <div class="statebadge sb-solid" id="tempBadge">🧊 <span data-i18n="tempSolid">고체 · 얼음</span></div>
+    <p class="stateshort" id="tempShort">—</p>
+    <div class="beakerwrap">
+      <canvas id="beakerCanvas" role="img" aria-label="비커 안의 물 분자 움직임"></canvas>
+    </div>
+    <div class="temprow"><span id="tempVal">20</span><span class="deg">℃</span></div>
+    <p class="tempnote" data-i18n="tempNote">슬라이더를 움직이거나 아래 버튼을 눌러요</p>
+    <div class="sliderwrap">
+      <input type="range" id="tempRange" min="-20" max="120" step="1" value="20" aria-label="온도" />
+      <div class="scale">
+        <span class="s-end" style="left:0">−20℃</span>
+        <span class="s-end" style="left:100%;transform:translateX(-100%)">120℃</span>
+        <span class="s-key" style="left:14.29%">0℃ <span data-i18n="scaleIce">얼음</span></span>
+        <span class="s-key" style="left:85.71%">100℃ <span data-i18n="scaleSteam">수증기</span></span>
+      </div>
+    </div>
+    <div class="tempbtns">
+      <button class="btn soft" type="button" id="tempMinus">🔽 <span data-i18n="tempColder">5℃ 내리기</span></button>
+      <button class="btn primary" type="button" id="tempPlus">🔼 <span data-i18n="tempHotter">5℃ 올리기</span></button>
+    </div>
+    <div class="presets">
+      <button class="btn" type="button" data-temp="-10"><em>❄️</em><span data-i18n="presetIce">영하 10℃</span></button>
+      <button class="btn" type="button" data-temp="25"><em>💧</em><span data-i18n="presetWater">25℃</span></button>
+      <button class="btn" type="button" data-temp="105"><em>☁️</em><span data-i18n="presetSteam">105℃</span></button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 id="tempStateName">💧 <span data-i18n="tempLiquid">액체 · 물</span></h3>
+    <p class="stateinfo" id="tempStateText" aria-live="polite"></p>
+    <p class="factbox" data-i18n="tempFact">물은 1기압에서 0℃에 얼고 100℃에 끓어요. 산 위처럼 기압이 낮으면 더 낮은 온도에서 끓어요.</p>
+  </div>
+</section>
+
+<!-- ══ 빛 · 자석 ══ -->
+<section id="pgLab" class="page" hidden>
+  <div class="phead">
+    <h2 data-i18n="labTitle">🌈 빛과 자석 놀이</h2>
+    <p data-i18n="labSub">빛을 섞어 보고, 자석의 힘을 느껴 봐요</p>
+  </div>
+
+  <div class="seg" role="tablist">
+    <button class="segbtn on" type="button" id="segLight" role="tab" aria-selected="true">🌈 <span data-i18n="segLight">빛의 삼원색</span></button>
+    <button class="segbtn" type="button" id="segMag" role="tab" aria-selected="false">🧲 <span data-i18n="segMag">자석 놀이</span></button>
+  </div>
+
+  <!-- 빛 -->
+  <div id="lightPanel">
+    <div class="card">
+      <h3 data-i18n="lightTitle">빛을 켜서 섞어 보세요</h3>
+      <div class="lightstage" id="lightStage">
+        <span class="lglabel lr">R</span><span class="lglabel lg">G</span><span class="lglabel lb">B</span>
+        <span class="lglow lgR" data-c="r"></span>
+        <span class="lglow lgG" data-c="g"></span>
+        <span class="lglow lgB" data-c="b"></span>
+      </div>
+      <div class="lbuttons">
+        <button class="lbtn" type="button" data-c="r" aria-pressed="false"><span data-i18n="lightR">빨강</span><em>R</em></button>
+        <button class="lbtn" type="button" data-c="g" aria-pressed="false"><span data-i18n="lightG">초록</span><em>G</em></button>
+        <button class="lbtn" type="button" data-c="b" aria-pressed="false"><span data-i18n="lightB">파랑</span><em>B</em></button>
+      </div>
+      <div class="mixres">
+        <span class="swatch" id="mixSw" aria-hidden="true"></span>
+        <div>
+          <p class="mixname" id="mixName" aria-live="polite">—</p>
+          <p class="mixsub" id="mixSub">—</p>
+        </div>
+      </div>
+      <p class="why" data-i18n="lightWhy">빛은 섞을수록 밝아져요(가산혼합). 빨강·초록·파랑을 모두 섞으면 흰색이 돼요. 물감은 반대로 섞을수록 어두워져요.</p>
+    </div>
+  </div>
+
+  <!-- 자석 -->
+  <div id="magPanel" hidden>
+    <div class="card">
+      <h3 data-i18n="magTitle">자석을 가까이 대 보세요</h3>
+      <div class="magstage" id="magStage">
+        <div class="mag magL" id="magL"><span class="pole pS">S</span><span class="pole pN">N</span></div>
+        <div class="mag magR" id="magR"><span class="pole pS">S</span><span class="pole pN">N</span></div>
+        <span class="marr" id="magArrL">→</span>
+        <span class="marr" id="magArrR">←</span>
+        <span class="magspark" aria-hidden="true">✨</span>
+      </div>
+      <p class="magmsg" id="magMsg" aria-live="polite"></p>
+      <p class="magfacing" id="magFacing"></p>
+      <div class="magbtns">
+        <button class="btn primary" type="button" id="magRun">🧲 <span data-i18n="magRun">가까이 대 보기</span></button>
+        <button class="btn soft" type="button" id="magFlip">🔄 <span data-i18n="magFlip">오른쪽 자석 뒤집기</span></button>
+        <button class="btn soft" type="button" id="magReset">↺ <span data-i18n="magReset">처음으로</span></button>
+      </div>
+      <p class="why" id="magWhy"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 퀴즈 ══ -->
+<section id="pgQuiz" class="page" hidden>
+  <div class="phead">
+    <h2 data-i18n="quizTitle">❓ 생활 속 과학 퀴즈</h2>
+    <p data-i18n="quizSub">맞히면 칭찬, 틀려도 하나 배우는 거예요</p>
+  </div>
+  <div class="qtop">
+    <span class="qno" id="quizNo">1 / 18</span>
+    <span class="qscore" id="quizScore">—</span>
+  </div>
+  <div class="qbar"><i id="quizBar"></i></div>
+  <div class="card qcard" id="quizCard" aria-live="polite"></div>
+  <p class="foot" data-i18n="quizFoot">💡 모르면 찍어도 괜찮아요. 설명을 읽으면 바로 알게 돼요!</p>
+</section>
+
+</main>
+
+<nav class="tabbar" aria-label="화면 이동">
+  <button class="tab on" type="button" data-page="home"><span class="ti" aria-hidden="true">🏠</span><span data-i18n="tabHome">홈</span></button>
+  <button class="tab" type="button" data-page="solar"><span class="ti" aria-hidden="true">🪐</span><span data-i18n="tabSolar">태양계</span></button>
+  <button class="tab" type="button" data-page="temp"><span class="ti" aria-hidden="true">🧊</span><span data-i18n="tabTemp">온도</span></button>
+  <button class="tab" type="button" data-page="lab"><span class="ti" aria-hidden="true">🌈</span><span data-i18n="tabLab">빛·자석</span></button>
+  <button class="tab" type="button" data-page="quiz"><span class="ti" aria-hidden="true">❓</span><span data-i18n="tabQuiz">퀴즈</span></button>
+</nav>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<div class="modal" id="instModal" hidden>
+  <div class="modalbox">
+    <h4 id="instTitle">홈 화면에 추가</h4>
+    <p id="instLead"></p>
+    <a class="chromebtn" id="instChrome" href="#" hidden></a>
+    <ol id="instSteps"></ol>
+    <button class="btn primary" type="button" id="instClose">확인</button>
+    <p class="mini" id="instMini"></p>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+var $ = function(s,r){ return (r||document).querySelector(s); };
+var $$ = function(s,r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); };
+
+/* ══════════ 1. 언어 ══════════ */
+var S = { lang: 'ko' };
+try { var sl = localStorage.getItem('wagleSciLang'); if (sl === 'en' || sl === 'ko') S.lang = sl; } catch(e){}
+
+var STR = {
+  ko:{
+    appName:'와글링 과학', tagline:'눌러서 배우는 과학 놀이',
+    install:'설치', share:'공유',
+    instTitle:'홈 화면에 추가', instLead:'이 앱을 휴대폰에 설치하면 앱처럼 열리고, 인터넷이 없어도 열려요.',
+    instS1:'이 화면을 크롬(아이폰은 사파리)에서 열어요.',
+    instS2:'오른쪽 위 ⋮ 메뉴(아이폰은 공유 버튼)를 눌러요.',
+    instS3:'‘홈 화면에 추가’ 또는 ‘앱 설치’를 골라요.',
+    instS4:'추가를 누르면 홈 화면에 🔬 아이콘이 생겨요.',
+    instMini:'설치해도 개인정보는 아무것도 보내지 않아요. 기록은 이 기기에만 남아요.',
+    instOk:'확인', instAlready:'이미 설치되어 있어요.', installedMsg:'설치되었어요!',
+    instChromeBtn:'🌐 크롬으로 바로 열기',
+    shareText:'와글링 과학 — 태양계 여행, 온도 실험, 빛과 자석, 과학 퀴즈를 손으로 만지며 배워요!',
+    shareCopied:'주소를 복사했어요. 붙여넣기 해 보세요!', shareCopyFail:'주소를 복사하지 못했어요.',
+    homeEyebrow:'와글링 과학', homeTitle:'오늘은 어떤 과학을 만져 볼까요?',
+    homeSub:'손가락으로 눌러 보고, 움직여 보면 과학이 저절로 이해돼요.',
+    chipSolar:'태양계', chipTemp:'온도 실험', chipLab:'빛·자석', chipQuiz:'과학 퀴즈',
+    menuSolar:'태양계 행성 여행', menuSolarD:'행성이 도는 모습을 보고 눌러서 알아봐요',
+    menuTemp:'온도 변화 실험', menuTempD:'얼음·물·수증기로 변하는 물 분자',
+    menuLab:'빛의 삼원색 & 자석', menuLabD:'빛을 섞고, 자석을 가까이 대 봐요',
+    menuQuiz:'생활 속 과학 퀴즈', menuQuizD:'18문제 · 맞히면 칭찬, 틀려도 괜찮아요',
+    factTitle:'오늘의 과학 상식', factBtn:'다른 상식',
+    footNote:'인터넷이 없어도 열려요 · 광고 없음 · 기록은 이 기기에만 저장돼요',
+    solarTitle:'🪐 태양계 행성 여행', solarSub:'행성을 누르면 크기·온도·특징을 알려 줘요',
+    solarPause:'멈추기', solarPlay:'움직이기', solarReset:'처음으로', solarHint:'행성 그림이나 아래 이름을 눌러 보세요!',
+    statSize:'지름', statDist:'태양까지 거리', statTemp:'평균 온도', statDay:'하루 (자전)', statYear:'1년 (공전)',
+    sunName:'태양', planetOf:'태양계 행성',
+    tempTitle:'🧊 온도 변화 실험', tempSub:'온도를 올리고 내리면 물이 변해요',
+    tempSolid:'고체 · 얼음', tempLiquid:'액체 · 물', tempGas:'기체 · 수증기',
+    tempNote:'슬라이더를 움직이거나 아래 버튼을 눌러요',
+    shortSolid:'분자가 제자리에 모여 있어 딱딱해요', shortLiquid:'분자가 자유롭게 움직여 흘러요', shortGas:'분자가 아주 빠르게 날아다녀요',
+    tempColder:'5℃ 내리기', tempHotter:'5℃ 올리기',
+    presetIce:'영하 10℃', presetWater:'25℃', presetSteam:'105℃', scaleIce:'얼음', scaleSteam:'수증기',
+    tempFact:'물은 1기압에서 0℃에 얼고 100℃에 끓어요. 산 위처럼 기압이 낮으면 더 낮은 온도에서 끓어요.',
+    txSolid:'물 분자들이 제자리에 모여 빈틈없이 붙어 있어요. 그래서 모양이 변하지 않고 딱딱해요. 얼음은 물보다 가벼워서 물 위에 떠요.',
+    txLiquid:'물 분자들이 서로 붙잡고 있지만 자유롭게 움직여요. 그래서 컵에 따라도 모양이 바뀌고 흐르는 거예요.',
+    txGas:'물 분자들이 아주 빠르게 날아다녀요. 눈에 보이지 않고 비커 밖으로도 퍼져 나가요. 주전자에서 올라오는 김이 수증기예요.',
+    txMelt:'지금은 얼음이 물로 변하는 중이에요! 0℃에서 얼음이 녹아 물이 돼요.',
+    txBoil:'지금은 물이 끓고 있어요! 100℃에서 물이 수증기로 변해요. 끓는 동안 온도는 100℃에서 멈춰요.',
+    labTitle:'🌈 빛과 자석 놀이', labSub:'빛을 섞어 보고, 자석의 힘을 느껴 봐요',
+    segLight:'빛의 삼원색', segMag:'자석 놀이',
+    lightTitle:'빛을 켜서 섞어 보세요', lightR:'빨강', lightG:'초록', lightB:'파랑',
+    lightWhy:'빛은 섞을수록 밝아져요(가산혼합). 빨강·초록·파랑을 모두 섞으면 흰색이 돼요. 물감은 반대로 섞을수록 어두워져요.',
+    mixNone:'빛이 모두 꺼져 있어요', mixNoneSub:'세 가지 빛을 켜면 어떻게 될까요?',
+    mixR:'빨강', mixG:'초록', mixB:'파랑', mixRG:'노랑', mixRB:'자홍색', mixGB:'청록색', mixRGB:'흰색',
+    mixRSub:'빨강 빛 하나만 켜져 있어요. 다른 빛도 켜서 섞어 보세요.',
+    mixGSub:'초록 빛 하나만 켜져 있어요. 다른 빛도 켜서 섞어 보세요.',
+    mixBSub:'파랑 빛 하나만 켜져 있어요. 다른 빛도 켜서 섞어 보세요.',
+    mixRGSub:'빨강 + 초록 = 노랑! 두 빛이 겹치면 더 밝아져요.',
+    mixRBSub:'빨강 + 파랑 = 자홍색! 보랏빛 분홍이 보여요.',
+    mixGBSub:'초록 + 파랑 = 청록색! 바다 같은 색이에요.',
+    mixRGBSub:'빛 세 가지를 다 켜면 흰색! 빛을 섞을수록 밝아져요.',
+    magTitle:'자석을 가까이 대 보세요',
+    magRun:'가까이 대 보기', magFlip:'오른쪽 자석 뒤집기', magReset:'처음으로',
+    magIntro:'자석에는 N극(빨강)과 S극(파랑)이 있어요. 가까이 대면 어떨까요?',
+    magAttract:'딱! N극과 S극이 서로 당겼어요.', magRepel:'휙! 같은 극끼리 서로 밀어냈어요.',
+    magAttractWhy:'다른 극끼리는 자석의 힘이 서로 당겨요. 그래서 자석이 달라붙어요.',
+    magRepelWhy:'같은 극끼리는 서로 밀어내요. 그래서 가까이 대도 붙지 않아요.',
+    magFacing:'마주 보는 극', magHint:'오른쪽 자석을 뒤집어 극을 바꿔 보세요.',
+    quizTitle:'❓ 생활 속 과학 퀴즈', quizSub:'맞히면 칭찬, 틀려도 하나 배우는 거예요',
+    quizScore:'맞힌 문제', quizNext:'다음 문제', quizResult:'결과 보기',
+    quizRight:'정답이에요! 🎉', quizWrong:'괜찮아요! 하나 배웠어요 😊',
+    quizAnswerIs:'정답은', quizBest:'내 최고 기록', quizRestart:'처음부터 다시 풀기',
+    quizRetryWrong:'틀린 문제만 다시 풀기', quizEnd:'퀴즈를 다 풀었어요!',
+    quizFoot:'💡 모르면 찍어도 괜찮아요. 설명을 읽으면 바로 알게 돼요!',
+    praises:['정말 잘했어요! 🌟','과학자 같아요! 🔬','최고예요! 👏','눈썰미가 좋네요! ✨','딩동댕! 🎯'],
+    cheers:['괜찮아요, 다시 보면 알 수 있어요.','하나 더 똑똑해졌어요!','틀려도 괜찮아요. 그게 공부예요.','다음엔 맞힐 수 있어요!'],
+    tabs:['홈','태양계','온도','빛·자석','퀴즈'],
+    tabHome:'홈', tabSolar:'태양계', tabTemp:'온도', tabLab:'빛·자석', tabQuiz:'퀴즈',
+    endHigh:'대단해요! 과학 박사 같아요!',
+    endMid:'잘했어요! 조금만 더 하면 만점이에요.',
+    endLow:'끝까지 푼 것만으로도 멋져요. 한 번 더 해 봐요!'
+  },
+  en:{
+    appName:'Wagling Science', tagline:'Learn by touching',
+    install:'Install', share:'Share',
+    instTitle:'Add to home screen', instLead:'Install this app on your phone and it opens like an app, even without internet.',
+    instS1:'Open this page in Chrome (Safari on iPhone).',
+    instS2:'Tap the ⋮ menu at the top right (share button on iPhone).',
+    instS3:'Choose “Add to Home screen” or “Install app”.',
+    instS4:'Tap Add and a 🔬 icon appears on your home screen.',
+    instMini:'No personal data is sent. Your records stay on this device only.',
+    instOk:'OK', instAlready:'It is already installed.', installedMsg:'Installed!',
+    instChromeBtn:'🌐 Open in Chrome',
+    shareText:'Wagling Science — explore the solar system, change temperature, mix light, play with magnets and take a science quiz!',
+    shareCopied:'Link copied. Paste it anywhere!', shareCopyFail:'Could not copy the link.',
+    homeEyebrow:'WAGLING SCIENCE', homeTitle:'Which science shall we touch today?',
+    homeSub:'Press, slide and watch — science makes sense when you touch it.',
+    chipSolar:'Solar', chipTemp:'Temperature', chipLab:'Light·Magnet', chipQuiz:'Quiz',
+    menuSolar:'Solar system trip', menuSolarD:'Watch planets orbit, tap one to learn',
+    menuTemp:'Temperature lab', menuTempD:'Ice, water and steam — moving molecules',
+    menuLab:'Light & magnets', menuLabD:'Mix colored light and feel magnet force',
+    menuQuiz:'Science quiz', menuQuizD:'18 questions · praise for right, kindness for wrong',
+    factTitle:'Science fact of the day', factBtn:'Another fact',
+    footNote:'Works offline · no ads · records stay on this device',
+    solarTitle:'🪐 Solar system trip', solarSub:'Tap a planet to see size, temperature and facts',
+    solarPause:'Pause', solarPlay:'Play', solarReset:'Reset', solarHint:'Tap a planet or its name below!',
+    statSize:'Diameter', statDist:'Distance from Sun', statTemp:'Average temperature', statDay:'One day (spin)', statYear:'One year (orbit)',
+    sunName:'Sun', planetOf:'planet',
+    tempTitle:'🧊 Temperature lab', tempSub:'Raise or lower the temperature and water changes',
+    tempSolid:'Solid · Ice', tempLiquid:'Liquid · Water', tempGas:'Gas · Steam',
+    tempNote:'Move the slider or press the buttons below',
+    shortSolid:'Molecules are locked in place, so ice is hard', shortLiquid:'Molecules move freely, so water flows', shortGas:'Molecules fly around very fast',
+    tempColder:'−5℃', tempHotter:'+5℃',
+    presetIce:'−10℃', presetWater:'25℃', presetSteam:'105℃', scaleIce:'ice', scaleSteam:'steam',
+    tempFact:'At normal pressure water freezes at 0℃ and boils at 100℃. On a high mountain, lower pressure makes it boil sooner.',
+    txSolid:'The water molecules are packed tightly in place, so ice keeps its shape and feels hard. Ice is lighter than water, so it floats.',
+    txLiquid:'The molecules still hold on to each other but move freely, so water takes the shape of its cup and flows.',
+    txGas:'The molecules fly around very fast. You cannot see them, and they spread out of the beaker. The steam from a kettle is water vapor.',
+    txMelt:'The ice is melting right now! At 0℃ ice turns into water.',
+    txBoil:'The water is boiling! At 100℃ water turns into steam, and the temperature stays at 100℃ while it boils.',
+    labTitle:'🌈 Light & magnet lab', labSub:'Mix light and feel the force of magnets',
+    segLight:'Light colors', segMag:'Magnets',
+    lightTitle:'Turn on the lights and mix them', lightR:'Red', lightG:'Green', lightB:'Blue',
+    lightWhy:'Light gets brighter when mixed (additive mixing). Red, green and blue together make white. Paints work the opposite way — mixing makes them darker.',
+    mixNone:'All lights are off', mixNoneSub:'What happens if you turn on all three?',
+    mixR:'Red', mixG:'Green', mixB:'Blue', mixRG:'Yellow', mixRB:'Magenta', mixGB:'Cyan', mixRGB:'White',
+    mixRSub:'Only red is on. Try turning on another light.',
+    mixGSub:'Only green is on. Try turning on another light.',
+    mixBSub:'Only blue is on. Try turning on another light.',
+    mixRGSub:'Red + green = yellow! Overlapping light gets brighter.',
+    mixRBSub:'Red + blue = magenta! A purplish pink appears.',
+    mixGBSub:'Green + blue = cyan! A sea-blue color.',
+    mixRGBSub:'All three lights make white! Mixing light makes it brighter.',
+    magTitle:'Bring the magnets close',
+    magRun:'Bring them close', magFlip:'Flip the right magnet', magReset:'Reset',
+    magIntro:'A magnet has a north pole (red) and a south pole (blue). What happens when they come close?',
+    magAttract:'Snap! The N and S poles pulled together.', magRepel:'Whoosh! The same poles pushed apart.',
+    magAttractWhy:'Different poles pull toward each other, so the magnets stick together.',
+    magRepelWhy:'The same poles push away from each other, so they will not stick.',
+    magFacing:'Facing poles', magHint:'Flip the right magnet to change its poles.',
+    quizTitle:'❓ Science quiz', quizSub:'Praise for right answers, kindness for wrong ones',
+    quizScore:'Correct', quizNext:'Next question', quizResult:'See result',
+    quizRight:'That is right! 🎉', quizWrong:'It is okay! You learned something 😊',
+    quizAnswerIs:'The answer is', quizBest:'Your best', quizRestart:'Start over',
+    quizRetryWrong:'Retry wrong ones', quizEnd:'You finished the quiz!',
+    quizFoot:'💡 Guessing is fine — reading the explanation teaches you right away!',
+    praises:['Great job! 🌟','Like a scientist! 🔬','Awesome! 👏','Sharp eyes! ✨','Ding dong! 🎯'],
+    cheers:['That is okay, you will get it next time.','You got a little smarter!','Wrong is fine. That is how we learn.','You can get it next time!'],
+    tabs:['Home','Solar','Temp','Light','Quiz'],
+    tabHome:'Home', tabSolar:'Solar', tabTemp:'Temp', tabLab:'Light', tabQuiz:'Quiz',
+    endHigh:'Amazing! You are a science star!',
+    endMid:'Well done! A little more and it is perfect.',
+    endLow:'Finishing it all is already great. Try once more!'
+  }
+};
+function T(k){ var d = STR[S.lang] || STR.ko; return (d[k] !== undefined) ? d[k] : STR.ko[k]; }
+
+/* ══════════ 2. 행성 자료 ══════════ */
+var BODIES = [
+  { k:'sun', emoji:'☀️', color:'#FFC41A', orbit:0, r:13,
+    ko:{ n:'태양', size:'약 139만 km', dist:'0 km · 태양계의 중심', temp:'표면 5,500℃ · 중심 1,500만℃', day:'약 25일', year:'—',
+      feat:'태양은 스스로 빛을 내는 커다란 별이에요. 지구에 빛과 따뜻함을 보내 줘서 우리가 살 수 있어요.',
+      fun:'태양 속에는 지구가 130만 개나 들어갈 수 있어요!' },
+    en:{ n:'Sun', size:'About 1.39 million km', dist:'0 km · the center', temp:'5,500℃ surface · 15 million℃ core', day:'About 25 days', year:'—',
+      feat:'The Sun is a giant star that makes its own light. It sends light and warmth to Earth so we can live here.',
+      fun:'You could fit 1.3 million Earths inside the Sun!' } },
+  { k:'mercury', emoji:'🌑', color:'#B9B2A6', orbit:0.24, r:3.8,
+    ko:{ n:'수성', size:'4,879 km', dist:'5,790만 km', temp:'낮 430℃ · 밤 −180℃', day:'지구의 59일', year:'88일',
+      feat:'태양과 가장 가까운 작은 행성이에요. 공기가 거의 없어서 낮과 밤의 온도 차가 아주 커요.',
+      fun:'수성에서는 하루가 1년보다 길어요!' },
+    en:{ n:'Mercury', size:'4,879 km', dist:'57.9 million km', temp:'430℃ day · −180℃ night', day:'59 Earth days', year:'88 days',
+      feat:'The smallest planet, closest to the Sun. It has almost no air, so day and night are very different.',
+      fun:'A day on Mercury lasts longer than its year!' } },
+  { k:'venus', emoji:'🌕', color:'#E8B65A', orbit:0.32, r:5,
+    ko:{ n:'금성', size:'12,104 km', dist:'1억 820만 km', temp:'464℃', day:'지구의 243일', year:'225일',
+      feat:'두꺼운 구름이 열을 가둬서 태양계에서 가장 뜨거운 행성이에요. 저녁 하늘에서는 샛별로 반짝여요.',
+      fun:'금성은 하루가 1년보다 길어요!' },
+    en:{ n:'Venus', size:'12,104 km', dist:'108.2 million km', temp:'464℃', day:'243 Earth days', year:'225 days',
+      feat:'Thick clouds trap heat, making Venus the hottest planet. It shines as the evening star.',
+      fun:'Venus spins so slowly that its day is longer than its year!' } },
+  { k:'earth', emoji:'🌍', color:'#3B82E8', orbit:0.40, r:5.4,
+    ko:{ n:'지구', size:'12,742 km', dist:'1억 4,960만 km', temp:'15℃', day:'24시간', year:'365일',
+      feat:'우리가 사는 행성이에요. 물과 공기가 있고, 사람·동물·식물이 함께 살아요.',
+      fun:'지구는 우주에서 파란 구슬처럼 보여요.' },
+    en:{ n:'Earth', size:'12,742 km', dist:'149.6 million km', temp:'15℃', day:'24 hours', year:'365 days',
+      feat:'Our home planet. It has water and air, and people, animals and plants live here.',
+      fun:'Earth looks like a blue marble from space.' } },
+  { k:'mars', emoji:'🔴', color:'#D9603B', orbit:0.48, r:4.2,
+    ko:{ n:'화성', size:'6,779 km', dist:'2억 2,790만 km', temp:'−63℃', day:'24시간 37분', year:'687일',
+      feat:'붉은 흙 때문에 빨간 행성이라고 불러요. 로봇 탐사차가 지금도 화성을 탐사하고 있어요.',
+      fun:'화성의 하루는 지구와 거의 비슷해요!' },
+    en:{ n:'Mars', size:'6,779 km', dist:'227.9 million km', temp:'−63℃', day:'24 h 37 min', year:'687 days',
+      feat:'Its red dust gives Mars the name “the Red Planet”. Robots are exploring it right now.',
+      fun:'A day on Mars is almost as long as a day on Earth!' } },
+  { k:'jupiter', emoji:'🟠', color:'#D8A066', orbit:0.60, r:9,
+    ko:{ n:'목성', size:'139,820 km', dist:'7억 7,850만 km', temp:'−110℃', day:'9시간 56분', year:'11.9년',
+      feat:'태양계에서 가장 큰 행성이에요. 대적점이라는 거대한 폭풍이 계속 불고 있어요.',
+      fun:'목성은 지구가 1,300개나 들어갈 만큼 커요!' },
+    en:{ n:'Jupiter', size:'139,820 km', dist:'778.5 million km', temp:'−110℃', day:'9 h 56 min', year:'11.9 years',
+      feat:'The largest planet, with a giant storm called the Great Red Spot.',
+      fun:'Jupiter is so big that about 1,300 Earths could fit inside!' } },
+  { k:'saturn', emoji:'🪐', color:'#E6C978', orbit:0.71, r:8, ring:true,
+    ko:{ n:'토성', size:'116,460 km', dist:'14억 3,400만 km', temp:'−140℃', day:'10시간 42분', year:'29.5년',
+      feat:'고리가 아름다운 행성이에요. 고리는 작은 얼음과 돌이 모여 만들어졌어요.',
+      fun:'토성은 물에 뜰 만큼 가벼워요!' },
+    en:{ n:'Saturn', size:'116,460 km', dist:'1.43 billion km', temp:'−140℃', day:'10 h 42 min', year:'29.5 years',
+      feat:'Famous for its beautiful rings, made of ice and rock.',
+      fun:'Saturn is light enough to float on water!' } },
+  { k:'uranus', emoji:'🔵', color:'#7FD6DB', orbit:0.84, r:6.4,
+    ko:{ n:'천왕성', size:'50,724 km', dist:'28억 7,100만 km', temp:'−195℃', day:'17시간 14분', year:'84년',
+      feat:'옆으로 누워서 도는 행성이에요. 하늘색은 메탄 기체 때문이에요.',
+      fun:'천왕성은 누운 채로 태양을 돌아요!' },
+    en:{ n:'Uranus', size:'50,724 km', dist:'2.87 billion km', temp:'−195℃', day:'17 h 14 min', year:'84 years',
+      feat:'It rolls on its side as it orbits the Sun. Methane gas gives it a blue-green color.',
+      fun:'Uranus spins lying on its side!' } },
+  { k:'neptune', emoji:'🔷', color:'#3E6BE0', orbit:0.97, r:6.2,
+    ko:{ n:'해왕성', size:'49,244 km', dist:'44억 9,500만 km', temp:'−200℃', day:'16시간 6분', year:'165년',
+      feat:'태양에서 가장 먼 행성이에요. 아주 강한 바람이 불어요.',
+      fun:'해왕성의 1년은 지구의 165년이에요!' },
+    en:{ n:'Neptune', size:'49,244 km', dist:'4.50 billion km', temp:'−200℃', day:'16 h 6 min', year:'165 years',
+      feat:'The farthest planet from the Sun, with very strong winds.',
+      fun:'One year on Neptune is 165 Earth years!' } }
+];
+
+/* ══════════ 3. 홈 상식 ══════════ */
+var FACTS = {
+  ko:[
+    '무지개는 빗방울이 햇빛을 여러 색으로 나눠서 보여요. 비 온 뒤 해가 나면 하늘을 올려다보세요!',
+    '얼음은 물보다 가벼워서 물 위에 떠요. 그래서 겨울에도 연못 아래쪽은 물이라 물고기가 살 수 있어요.',
+    '번개가 먼저 보이고 천둥이 늦게 들리는 건 빛이 소리보다 훨씬 빠르기 때문이에요.',
+    '우리 몸의 약 60%는 물이에요. 물은 0℃에 얼고 100℃에 끓어요.',
+    '달에서는 몸무게가 지구의 6분의 1이 돼요. 폴짝 뛰면 아주 높이 떠요!',
+    '별이 반짝이는 건 별빛이 지구의 공기를 지나오면서 조금씩 흔들리기 때문이에요.',
+    '식물은 햇빛·물·공기로 스스로 양분을 만들어요. 이걸 광합성이라고 해요.',
+    '흰 옷은 햇빛을 잘 반사해서 여름에 시원해요. 검은 옷은 빛을 많이 먹어서 더 뜨거워요.'
+  ],
+  en:[
+    'A rainbow appears when raindrops split sunlight into many colors. Look up after the rain!',
+    'Ice is lighter than water, so it floats. That is why fish can live under a frozen pond in winter.',
+    'You see lightning before you hear thunder because light travels much faster than sound.',
+    'About 60% of your body is water. Water freezes at 0℃ and boils at 100℃.',
+    'On the Moon you weigh one sixth of your weight on Earth. One hop takes you very high!',
+    'Stars twinkle because their light wobbles as it passes through Earth’s air.',
+    'Plants make their own food from sunlight, water and air. This is called photosynthesis.',
+    'White clothes reflect sunlight and keep you cool in summer. Black clothes absorb light and get hotter.'
+  ]
+};
+
+/* ══════════ 4. 퀴즈 자료 ══════════ */
+var QUIZ = [
+  { e:'🌤️', ans:1, perm:[3,2,0,1],
+    ko:{ q:'하늘은 왜 파랗게 보일까요?',
+      o:['파란 물감이 하늘에 칠해져 있어서','햇빛 중 파란빛이 공기 알갱이에 부딪혀 사방으로 퍼져서','바다가 파란색을 비춰서','우주가 원래 파란색이라서'],
+      x:'햇빛에는 여러 색이 섞여 있어요. 그중 파란빛은 공기 알갱이에 부딪히면 사방으로 잘 퍼져요. 그래서 하늘 전체가 파랗게 보여요.' },
+    en:{ q:'Why does the sky look blue?',
+      o:['Blue paint is spread over the sky','Blue light from the Sun scatters in all directions off air molecules','The sea reflects blue light','Space is blue by nature'],
+      x:'Sunlight is a mix of colors. Blue light scatters strongly in all directions when it hits air molecules, so the whole sky looks blue.' } },
+  { e:'🌈', ans:1, perm:[2,1,3,0],
+    ko:{ q:'무지개는 왜 생길까요?',
+      o:['비가 와서 하늘이 젖어서','빗방울이 햇빛을 꺾어 여러 색으로 나눠서','구름이 색을 칠해서','바람이 색을 실어 와서'],
+      x:'빗방울이 작은 프리즘처럼 햇빛을 꺾고 나눠요. 그래서 빨주노초파남보 일곱 빛이 활처럼 보여요.' },
+    en:{ q:'Why does a rainbow appear?',
+      o:['Because the sky is wet after rain','Raindrops bend sunlight and split it into colors','Clouds paint themselves','Wind carries colors'],
+      x:'Each raindrop acts like a tiny prism and splits sunlight into colors, so you see an arc of red, orange, yellow, green, blue and violet.' } },
+  { e:'🧊', ans:0, perm:[1,3,2,0],
+    ko:{ q:'얼음이 물 위에 뜨는 까닭은 무엇일까요?',
+      o:['얼음이 물보다 가벼워서','얼음이 물보다 무거워서','물이 얼음을 밀어 올려서','얼음 속에 공기가 없어서'],
+      x:'얼음은 물보다 밀도가 작아서(가벼워서) 물 위에 떠요. 그래서 겨울에도 연못 아래쪽은 물이라 물고기가 살 수 있어요.' },
+    en:{ q:'Why does ice float on water?',
+      o:['Ice is lighter than water','Ice is heavier than water','Water pushes the ice up','Ice has no air inside'],
+      x:'Ice is less dense than water, so it floats. That is why the water under a frozen pond stays liquid for fish.' } },
+  { e:'⚡', ans:1, perm:[1,3,0,2],
+    ko:{ q:'번개가 먼저 보이고 천둥이 늦게 들리는 까닭은?',
+      o:['소리가 빛보다 빨라서','빛이 소리보다 빨라서','번개가 더 가까워서','구름이 소리를 막아서'],
+      x:'빛은 1초에 30만 km를 가고, 소리는 1초에 약 340m를 가요. 그래서 번개가 먼저 보이고 천둥이 늦게 들려요.' },
+    en:{ q:'Why do we see lightning before we hear thunder?',
+      o:['Sound is faster than light','Light is faster than sound','Lightning is closer','Clouds block the sound'],
+      x:'Light travels 300,000 km per second; sound travels only about 340 m per second. So you see the flash first.' } },
+  { e:'🌱', ans:1, perm:[3,2,1,0],
+    ko:{ q:'나무는 무엇으로 양분을 만들까요?',
+      o:['흙만 먹어서','햇빛·물·공기로 스스로 만들어서','사람이 준 비료로만 자라서','바람만으로 자라서'],
+      x:'나무는 잎에서 햇빛과 물, 공기(이산화탄소)로 양분을 만들어요. 이것을 광합성이라고 해요.' },
+    en:{ q:'How do trees make their food?',
+      o:['They only eat soil','They make it from sunlight, water and air','They only grow from fertilizer','They grow from wind alone'],
+      x:'Leaves use sunlight, water and carbon dioxide to make food. This is photosynthesis.' } },
+  { e:'🌙', ans:1, perm:[0,2,3,1],
+    ko:{ q:'달에서 폴짝 뛰면 왜 아주 높이 뜰까요?',
+      o:['달이 작아서','달의 중력이 지구보다 약해서','공기가 없어서','달이 가벼워서'],
+      x:'달의 중력은 지구의 약 6분의 1이에요. 그래서 같은 힘으로 뛰어도 6배쯤 높이 떠요.' },
+    en:{ q:'Why do you jump much higher on the Moon?',
+      o:['The Moon is small','The Moon’s gravity is weaker than Earth’s','There is no air','The Moon is light'],
+      x:'The Moon’s gravity is about one sixth of Earth’s, so the same jump takes you about six times higher.' } },
+  { e:'🌗', ans:1, perm:[0,3,1,2],
+    ko:{ q:'그림자는 왜 생길까요?',
+      o:['빛이 구부러져서','빛이 물체에 가려서','물체가 빛을 내서','그림자가 따라다녀서'],
+      x:'빛은 곧게 나아가다가 물체를 만나면 지나가지 못해요. 물체 뒤에 빛이 닿지 않는 곳이 생기고, 그곳이 그림자예요.' },
+    en:{ q:'Why do shadows form?',
+      o:['Light bends','An object blocks the light','Objects make light','Shadows follow you'],
+      x:'Light travels in straight lines, so an object blocks it and leaves a dark area behind — a shadow.' } },
+  { e:'☁️', ans:1, perm:[3,0,1,2],
+    ko:{ q:'겨울에 입김에 하얀 김이 서리는 까닭은?',
+      o:['입에서 연기가 나서','따뜻한 수증기가 찬 공기를 만나 작은 물방울로 뭉쳐서','입 속 공기가 얼어서','숨이 눈이 되어서'],
+      x:'입에서 나온 따뜻한 수증기가 차가운 공기를 만나 아주 작은 물방울로 뭉쳐서 하얗게 보여요.' },
+    en:{ q:'Why does your breath look white in winter?',
+      o:['Smoke comes from your mouth','Warm vapor meets cold air and forms tiny water drops','The air in your mouth freezes','Your breath turns into snow'],
+      x:'Warm water vapor from your breath meets cold air, condenses into tiny droplets, and looks white.' } },
+  { e:'🫖', ans:0, perm:[0,3,1,2],
+    ko:{ q:'끓는 물은 왜 위로 올라갈까요?',
+      o:['데워진 물은 가벼워져 위로 올라가서','물이 무거워져 가라앉아서','불이 물을 밀어 올려서','공기가 물을 데워서'],
+      x:'데워진 물은 가벼워져 위로 올라가고 찬 물은 아래로 내려와요. 이렇게 돌고 도는 것을 대류라고 해요.' },
+    en:{ q:'Why does hot water rise?',
+      o:['Warmed water becomes lighter and rises','Water gets heavier and sinks','Fire pushes the water up','Air heats the water'],
+      x:'Warm water is lighter and rises while cooler water sinks. This circling motion is called convection.' } },
+  { e:'🚗', ans:1, perm:[0,3,2,1],
+    ko:{ q:'자동차 바퀴에 홈(무늬)이 있는 까닭은?',
+      o:['멋있어 보이려고','물을 밀어내 미끄러지지 않게 하려고','소리를 줄이려고','무게를 줄이려고'],
+      x:'홈이 물을 밀어내서 타이어와 길이 잘 맞닿아요. 그래서 비 오는 날에도 미끄러지지 않아요.' },
+    en:{ q:'Why do car tires have grooves?',
+      o:['To look cool','To push water away so the tire does not slip','To make less noise','To save weight'],
+      x:'The grooves push water out so the tire grips the road, even in rain.' } },
+  { e:'🔊', ans:1, perm:[0,1,3,2],
+    ko:{ q:'소리는 어디에서 더 빨리 퍼질까요?',
+      o:['공기 중에서','물속에서','우주에서','구름 위에서'],
+      x:'소리는 물이나 단단한 물체 속에서 공기보다 더 빨리 퍼져요. 우주에는 공기가 없어서 소리가 전해지지 않아요.' },
+    en:{ q:'Where does sound travel fastest?',
+      o:['In air','In water','In space','Above clouds'],
+      x:'Sound travels faster in water and solids than in air. Space has no air, so there is no sound.' } },
+  { e:'🌍', ans:2, perm:[0,2,1,3],
+    ko:{ q:'지구가 태양 둘레를 한 바퀴 도는 데 걸리는 시간은?',
+      o:['하루','한 달','약 365일','10년'],
+      x:'지구는 태양 둘레를 약 365일에 한 바퀴 돌아요. 그래서 1년이 365일이에요.' },
+    en:{ q:'How long does Earth take to go once around the Sun?',
+      o:['One day','One month','About 365 days','Ten years'],
+      x:'Earth orbits the Sun in about 365 days. That is why a year has 365 days.' } },
+  { e:'✨', ans:1, perm:[0,1,3,2],
+    ko:{ q:'밤하늘의 별이 반짝이는 까닭은?',
+      o:['별이 깜빡이는 불이라서','별빛이 지구의 공기를 지나며 흔들려서','별이 움직여서','구름이 가려서'],
+      x:'별빛이 지구의 공기층을 지나오면서 조금씩 흔들려요. 그래서 별이 반짝반짝 깜빡이는 것처럼 보여요.' },
+    en:{ q:'Why do stars twinkle?',
+      o:['They are blinking lights','Their light wobbles as it passes through Earth’s air','They move around','Clouds cover them'],
+      x:'Starlight bends slightly as it passes through moving air, so stars seem to twinkle.' } },
+  { e:'🪞', ans:1, perm:[1,0,2,3],
+    ko:{ q:'거울에 내 모습이 보이는 까닭은?',
+      o:['빛이 거울 속으로 들어가서','빛이 튕겨 나와서','거울이 빛을 만들어서','빛이 멈춰서'],
+      x:'빛이 거울에 부딪히면 튕겨 나와요. 이것을 반사라고 해요. 그래서 거울에 내 모습이 보여요.' },
+    en:{ q:'Why do you see yourself in a mirror?',
+      o:['Light goes into the mirror','Light bounces back off the mirror','The mirror makes light','Light stops there'],
+      x:'Light bounces off the mirror. This is called reflection, and it lets you see yourself.' } },
+  { e:'💧', ans:1, perm:[0,3,1,2],
+    ko:{ q:'물이 100℃에서 끓는 것은 언제일까요?',
+      o:['어디서나 항상 100℃','1기압일 때','항상 50℃','겨울에만'],
+      x:'보통 1기압에서 물은 0℃에 얼고 100℃에 끓어요. 높은 산에서는 기압이 낮아 더 낮은 온도에서 끓어요.' },
+    en:{ q:'When does water boil at 100℃?',
+      o:['Always, everywhere','At normal air pressure (1 atm)','Always at 50℃','Only in winter'],
+      x:'At normal pressure water freezes at 0℃ and boils at 100℃. On high mountains the lower pressure makes it boil sooner.' } },
+  { e:'🪴', ans:1, perm:[0,3,2,1],
+    ko:{ q:'식물의 뿌리는 무슨 일을 할까요?',
+      o:['잎을 받쳐 주려고','물과 양분을 빨아들이려고','꽃을 피우려고','소리를 내려고'],
+      x:'뿌리는 흙 속의 물과 양분을 빨아들여 온몸으로 보내요. 또 식물이 쓰러지지 않게 붙잡아 줘요.' },
+    en:{ q:'What do plant roots do?',
+      o:['They hold up the leaves','They absorb water and nutrients','They make flowers','They make sounds'],
+      x:'Roots absorb water and nutrients from the soil and also keep the plant steady.' } },
+  { e:'👕', ans:0, perm:[0,1,2,3],
+    ko:{ q:'여름에 흰 옷이 시원한 까닭은?',
+      o:['흰색은 빛을 잘 반사해서','흰색은 빛을 다 먹어서','흰색은 소리를 막아서','흰색은 물을 잘 빨아서'],
+      x:'흰색은 햇빛을 잘 반사해요. 빛을 덜 받아들이니 덜 더워요. 검은색은 빛을 많이 먹어서 더 뜨거워요.' },
+    en:{ q:'Why is white clothing cooler in summer?',
+      o:['White reflects sunlight well','White absorbs all the light','White blocks sound','White soaks up water'],
+      x:'White reflects most sunlight, so it absorbs less heat. Black absorbs light and gets hotter.' } },
+  { e:'🚢', ans:1, perm:[0,3,1,2],
+    ko:{ q:'무거운 배가 물에 뜨는 까닭은?',
+      o:['배가 나무로 만들어져서','배 속의 공기 때문에 배 전체가 물보다 가벼워서','파도가 받쳐 줘서','물이 배를 밀어서'],
+      x:'배 속에는 공기가 가득해요. 그래서 배 전체의 밀도가 물보다 작아져 물 위에 뜰 수 있어요.' },
+    en:{ q:'Why does a heavy ship float?',
+      o:['It is made of wood','The air inside makes the whole ship lighter than water','Waves hold it up','Water pushes the ship'],
+      x:'A ship is full of air, so its overall density is lower than water and it floats.' } }
+];
+
+/* ══════════ 5. 공통 유틸 ══════════ */
+function toast(msg){
+  var el = $('#toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(function(){ el.classList.remove('show'); }, 2300);
+}
+function fmtNum(n){ return String(n); }
+
+/* ══════════ 6. 화면 전환 · 뒤로가기 ══════════ */
+var PAGE_ID = { home:'pgHome', solar:'pgSolar', temp:'pgTemp', lab:'pgLab', quiz:'pgQuiz' };
+var page = 'home';
+var NAV = [{ p:'home' }];
+function showPage(p){
+  page = p;
+  Object.keys(PAGE_ID).forEach(function(k){ var el = $('#' + PAGE_ID[k]); if (el) el.hidden = (k !== p); });
+  $$('.tab').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-page') === p); });
+  window.scrollTo(0, 0);
+  if (p === 'home') renderHomeFact();
+  if (p === 'solar') requestAnimationFrame(sizeSolar);
+  if (p === 'temp') requestAnimationFrame(sizeBeaker);
+  if (p === 'lab') renderLab();
+  if (p === 'quiz') renderQuiz();
+}
+function go(p){
+  if (!PAGE_ID[p] || p === page) return;
+  try { history.pushState({ wp: NAV.length + 1 }, ''); } catch(e){}
+  NAV.push({ p:p });
+  showPage(p);
+}
+window.addEventListener('popstate', function(){
+  if (!$('#instModal').hidden) $('#instModal').hidden = true;
+  if (NAV.length > 1) NAV.pop();
+  showPage(NAV[NAV.length - 1].p);
+});
+$$('.tab').forEach(function(b){ b.addEventListener('click', function(){ go(b.getAttribute('data-page')); }); });
+$$('[data-go]').forEach(function(b){ b.addEventListener('click', function(){ go(b.getAttribute('data-go')); }); });
+
+/* ══════════ 7. 홈 상식 ══════════ */
+var factIdx = -1;
+function renderHomeFact(){
+  var arr = FACTS[S.lang] || FACTS.ko;
+  if (factIdx < 0 || factIdx >= arr.length) factIdx = Math.floor(Math.random() * arr.length);
+  $('#homeFact').textContent = arr[factIdx];
+}
+$('#btnFact').addEventListener('click', function(){
+  var arr = FACTS[S.lang] || FACTS.ko;
+  if (arr.length > 1) { var n = factIdx; while (n === factIdx) n = Math.floor(Math.random() * arr.length); factIdx = n; }
+  renderHomeFact();
+});
+
+/* ══════════ 8. 태양계 ══════════ */
+var solar = { t:0, playing:true, sel:'earth', W:0, H:0, dpr:1, cx:0, cy:0, R:0, stars:[], pos:{} };
+var solarLast = 0;
+
+function sizeSolar(){
+  var c = $('#solarCanvas');
+  if (!c) return;
+  var w = Math.round(c.parentElement.clientWidth);
+  if (w < 40) return;
+  var h = Math.max(250, Math.min(430, Math.round(w * 0.96)));
+  var dpr = Math.min(2, window.devicePixelRatio || 1);
+  c.style.height = h + 'px';
+  c.width = Math.round(w * dpr);
+  c.height = Math.round(h * dpr);
+  solar.W = w; solar.H = h; solar.dpr = dpr;
+  solar.cx = w / 2; solar.cy = h / 2;
+  solar.R = Math.min(w, h) / 2 - 15;
+  // 별 자리(한 번만)
+  if (!solar.stars.length) {
+    var seed = 7;
+    function rnd(){ seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+    for (var i = 0; i < 46; i++) {
+      solar.stars.push({ x: rnd(), y: rnd(), r: 0.7 + rnd() * 1.3, a: 0.25 + rnd() * 0.45 });
+    }
+  }
+  drawSolar();
+}
+
+function bodyPos(){
+  var t = solar.t;
+  var out = [];
+  for (var i = 0; i < BODIES.length; i++) {
+    var b = BODIES[i];
+    if (b.orbit === 0) { out.push({ b:b, x:solar.cx, y:solar.cy, r:b.r }); continue; }
+    var speed = 0.5 * Math.pow(0.82, i - 1);
+    var ang = t * speed + i * 0.95;
+    var rad = solar.R * b.orbit;
+    out.push({ b:b, x: solar.cx + Math.cos(ang) * rad, y: solar.cy + Math.sin(ang) * rad * 0.92, r: b.r, ang: ang });
+  }
+  return out;
+}
+
+function drawSolar(){
+  var c = $('#solarCanvas');
+  if (!c || !solar.W) return;
+  var g = c.getContext('2d');
+  g.setTransform(solar.dpr, 0, 0, solar.dpr, 0, 0);
+  g.clearRect(0, 0, solar.W, solar.H);
+
+  // 별
+  var st = solar.stars;
+  for (var i = 0; i < st.length; i++) {
+    g.beginPath();
+    g.arc(st[i].x * solar.W, st[i].y * solar.H, st[i].r, 0, Math.PI * 2);
+    g.fillStyle = 'rgba(120,160,205,' + st[i].a + ')';
+    g.fill();
+  }
+
+  var pos = bodyPos();
+  solar.pos = {};
+  // 궤도
+  for (var j = 0; j < BODIES.length; j++) {
+    var b = BODIES[j];
+    if (!b.orbit) continue;
+    g.beginPath();
+    g.ellipse(solar.cx, solar.cy, solar.R * b.orbit, solar.R * b.orbit * 0.92, 0, 0, Math.PI * 2);
+    g.strokeStyle = 'rgba(120,155,200,.40)';
+    g.lineWidth = 1.4;
+    g.stroke();
+  }
+
+  // 태양
+  var sun = pos[0];
+  var glow = g.createRadialGradient(solar.cx, solar.cy, sun.r * 0.4, solar.cx, solar.cy, sun.r * 2.6);
+  glow.addColorStop(0, 'rgba(255,205,70,.55)');
+  glow.addColorStop(.5, 'rgba(255,214,110,.20)');
+  glow.addColorStop(1, 'rgba(255,220,140,0)');
+  g.fillStyle = glow;
+  g.beginPath(); g.arc(solar.cx, solar.cy, sun.r * 2.6, 0, Math.PI * 2); g.fill();
+  g.beginPath(); g.arc(solar.cx, solar.cy, sun.r, 0, Math.PI * 2);
+  g.fillStyle = '#FFC31A'; g.fill();
+  g.lineWidth = 2; g.strokeStyle = '#F09A12'; g.stroke();
+
+  // 행성
+  for (var k = 1; k < pos.length; k++) {
+    var p = pos[k];
+    var key = p.b.k;
+    solar.pos[key] = { x: p.x, y: p.y, r: p.r };
+    var sel = (solar.sel === key);
+
+    if (p.b.ring) {
+      g.save();
+      g.translate(p.x, p.y);
+      g.rotate(-0.42);
+      g.beginPath();
+      g.ellipse(0, 0, p.r * 2.05, p.r * 0.78, 0, 0, Math.PI * 2);
+      g.strokeStyle = 'rgba(214,180,110,.95)';
+      g.lineWidth = Math.max(2, p.r * 0.42);
+      g.stroke();
+      g.restore();
+    }
+
+    if (sel) {
+      g.beginPath(); g.arc(p.x, p.y, p.r + 7, 0, Math.PI * 2);
+      g.fillStyle = 'rgba(255,255,255,.85)'; g.fill();
+      g.lineWidth = 2.5; g.strokeStyle = '#3541A8'; g.stroke();
+    }
+
+    g.beginPath(); g.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    g.fillStyle = p.b.color; g.fill();
+    g.lineWidth = 1.2; g.strokeStyle = 'rgba(40,60,90,.35)'; g.stroke();
+    // 작은 하이라이트
+    g.beginPath(); g.arc(p.x - p.r * 0.32, p.y - p.r * 0.32, Math.max(1, p.r * 0.26), 0, Math.PI * 2);
+    g.fillStyle = 'rgba(255,255,255,.55)'; g.fill();
+  }
+
+  // 태양 위치도 등록
+  solar.pos.sun = { x: solar.cx, y: solar.cy, r: pos[0].r };
+
+  // 선택한 행성 이름표
+  var sp = solar.pos[solar.sel];
+  if (sp) {
+    var name = BODIES.filter(function(b){ return b.k === solar.sel; })[0];
+    var label = name ? name[S.lang].n : '';
+    g.font = '900 13px "Pretendard","Apple SD Gothic Neo","Noto Sans KR",sans-serif';
+    var tw = g.measureText(label).width + 14;
+    var lx = Math.max(4, Math.min(solar.W - tw - 4, sp.x - tw / 2));
+    var ly = sp.y - sp.r - 26;
+    if (ly < 2) ly = sp.y + sp.r + 8;
+    g.fillStyle = 'rgba(255,255,255,.95)';
+    g.strokeStyle = '#3541A8'; g.lineWidth = 1.6;
+    var rr = 7, bx = lx, by = ly, bw = tw, bh = 22;
+    g.beginPath();
+    g.moveTo(bx + rr, by);
+    g.lineTo(bx + bw - rr, by); g.quadraticCurveTo(bx + bw, by, bx + bw, by + rr);
+    g.lineTo(bx + bw, by + bh - rr); g.quadraticCurveTo(bx + bw, by + bh, bx + bw - rr, by + bh);
+    g.lineTo(bx + rr, by + bh); g.quadraticCurveTo(bx, by + bh, bx, by + bh - rr);
+    g.lineTo(bx, by + rr); g.quadraticCurveTo(bx, by, bx + rr, by);
+    g.closePath(); g.fill(); g.stroke();
+    g.fillStyle = '#222C4A';
+    g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.fillText(label, bx + bw / 2, by + bh / 2 + 0.5);
+  }
+}
+
+function selectBody(key){
+  solar.sel = key;
+  $$('.bodychip').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-body') === key); });
+  renderPlanetInfo();
+  drawSolar();
+}
+
+function renderPlanetInfo(){
+  var b = BODIES.filter(function(x){ return x.k === solar.sel; })[0] || BODIES[3];
+  var d = b[S.lang];
+  var rows = [
+    [T('statSize'), d.size],
+    [T('statDist'), d.dist],
+    [T('statTemp'), d.temp],
+    [T('statDay'), d.day],
+    [T('statYear'), d.year]
+  ];
+  var html = '<div class="pihead">' +
+    '<div class="piico" aria-hidden="true">' + b.emoji + '</div>' +
+    '<div><h3 class="piname">' + d.n + '</h3><p class="pisub">' + (b.k === 'sun' ? T('sunName') : T('planetOf')) + '</p></div>' +
+    '</div><div class="pistats">';
+  rows.forEach(function(r){
+    html += '<div class="pistat"><span class="k">' + r[0] + '</span><span class="v">' + r[1] + '</span></div>';
+  });
+  html += '</div><p class="pifeat">' + d.feat + '</p>' +
+    '<p class="pifun">💡 ' + d.fun + '</p>';
+  $('#planetInfo').innerHTML = html;
+}
+
+function renderBodyChips(){
+  var html = '';
+  BODIES.forEach(function(b){
+    html += '<button class="bodychip' + (b.k === solar.sel ? ' on' : '') + '" type="button" data-body="' + b.k + '">' +
+      '<span class="dot" style="background:' + b.color + '"></span><span>' + b[S.lang].n + '</span></button>';
+  });
+  $('#bodyChips').innerHTML = html;
+  $$('.bodychip').forEach(function(el){
+    el.addEventListener('click', function(){ selectBody(el.getAttribute('data-body')); });
+  });
+}
+
+function hitBody(clientX, clientY){
+  var c = $('#solarCanvas');
+  var r = c.getBoundingClientRect();
+  var x = clientX - r.left, y = clientY - r.top;
+  var best = null, bd = 1e9;
+  Object.keys(solar.pos).forEach(function(k){
+    var p = solar.pos[k];
+    var d = Math.hypot(p.x - x, p.y - y);
+    var tol = Math.max(p.r + 12, 20);
+    if (d <= tol && d < bd) { bd = d; best = k; }
+  });
+  return best;
+}
+
+(function bindSolar(){
+  var c = $('#solarCanvas');
+  c.addEventListener('pointerdown', function(ev){
+    var k = hitBody(ev.clientX, ev.clientY);
+    if (k) selectBody(k);
+  });
+  $('#solarToggle').addEventListener('click', function(){
+    solar.playing = !solar.playing;
+    var sp = $('#solarToggle span');
+    sp.textContent = solar.playing ? T('solarPause') : T('solarPlay');
+    if (solar.playing) solarLast = 0;
+  });
+  $('#solarReset').addEventListener('click', function(){
+    solar.t = 0;
+    selectBody('earth');
+    drawSolar();
+  });
+})();
+
+/* ══════════ 9. 온도 실험 ══════════ */
+var temp = { T:20, mols:[], W:0, H:0, dpr:1, t:0, last:0, ready:false };
+
+function tempState(){
+  if (temp.T <= 0) return 'solid';
+  if (temp.T >= 100) return 'gas';
+  return 'liquid';
+}
+
+function sizeBeaker(){
+  var c = $('#beakerCanvas');
+  if (!c) return;
+  var w = Math.round(c.parentElement.clientWidth);
+  if (w < 40) return;
+  var h = Math.max(230, Math.min(330, Math.round(w * 0.82)));
+  var dpr = Math.min(2, window.devicePixelRatio || 1);
+  c.style.height = h + 'px';
+  c.width = Math.round(w * dpr);
+  c.height = Math.round(h * dpr);
+  temp.W = w; temp.H = h; temp.dpr = dpr;
+  if (!temp.ready) { initMols(); temp.ready = true; }
+  layoutMols();
+  drawBeaker();
+}
+
+function beakerGeom(){
+  var W = temp.W, H = temp.H;
+  var bw = Math.min(W * 0.56, 215);
+  var x0 = (W - bw) / 2, x1 = x0 + bw;
+  var top = H * 0.2, bot = H * 0.86;
+  return { x0:x0, x1:x1, top:top, bot:bot, w:bw, h:bot - top };
+}
+function liquidTop(g){ return g.bot - g.h * 0.62; }
+
+function initMols(){
+  temp.mols = [];
+  var g = beakerGeom();
+  for (var i = 0; i < 30; i++) {
+    var a = Math.random() * Math.PI * 2;
+    temp.mols.push({
+      x: g.x0 + 18 + Math.random() * (g.w - 36),
+      y: liquidTop(g) + 14 + Math.random() * (g.bot - liquidTop(g) - 26),
+      vx: Math.cos(a) * 12, vy: Math.sin(a) * 12,
+      ph: Math.random() * 6.28, tx: 0, ty: 0
+    });
+  }
+}
+
+function layoutMols(){
+  if (!temp.mols.length) return;
+  var g = beakerGeom();
+  var st = tempState();
+  if (st === 'solid') {
+    var iw = g.w * 0.70, ih = g.h * 0.48;
+    var ix = g.x0 + (g.w - iw) / 2, iy = g.bot - ih - 8;
+    var cols = 6, rows = 5;
+    temp.mols.forEach(function(m, i){
+      var cix = i % cols, riy = Math.floor(i / cols) % rows;
+      m.tx = ix + (cix + 0.5) * (iw / cols);
+      m.ty = iy + (riy + 0.5) * (ih / rows);
+    });
+  }
+}
+
+function stepTemp(dt){
+  var st = tempState();
+  var g = beakerGeom();
+  var lt = liquidTop(g);
+  temp.mols.forEach(function(m){
+    if (st === 'solid') {
+      var amp = 0.4 + Math.max(0, (temp.T + 20) / 20) * 1.9;
+      m.ph += dt * (5 + Math.max(0, temp.T + 20) * 0.25);
+      m.x = m.tx + Math.sin(m.ph) * amp;
+      m.y = m.ty + Math.cos(m.ph * 1.37) * amp;
+      return;
+    }
+    var spd = (st === 'liquid') ? (9 + Math.max(0, temp.T) / 100 * 30) : (78 + Math.min(70, temp.T - 100) * 1.1);
+    m.vx += (Math.random() - 0.5) * spd * dt * 7;
+    m.vy += (Math.random() - 0.5) * spd * dt * 7;
+    var v = Math.sqrt(m.vx * m.vx + m.vy * m.vy) || 1;
+    m.vx = m.vx / v * spd;
+    m.vy = m.vy / v * spd;
+    m.x += m.vx * dt;
+    m.y += m.vy * dt;
+    var bx0 = g.x0 + 15, bx1 = g.x1 - 15;
+    var by0 = (st === 'liquid') ? lt + 10 : g.top + 13;
+    var by1 = g.bot - 14;
+    if (m.x < bx0) { m.x = bx0; m.vx = Math.abs(m.vx); }
+    if (m.x > bx1) { m.x = bx1; m.vx = -Math.abs(m.vx); }
+    if (m.y < by0) { m.y = by0; m.vy = Math.abs(m.vy); }
+    if (m.y > by1) { m.y = by1; m.vy = -Math.abs(m.vy); }
+  });
+}
+
+function drawMolecule(g, x, y, s){
+  // 산소
+  g.beginPath(); g.arc(x, y, 5.0 * s, 0, Math.PI * 2);
+  g.fillStyle = '#E8503A'; g.fill();
+  g.lineWidth = 1; g.strokeStyle = 'rgba(160,40,25,.55)'; g.stroke();
+  // 수소 둘
+  var d = 7.4 * s, r2 = 3.0 * s;
+  g.beginPath(); g.arc(x - d * 0.82, y + d * 0.42, r2, 0, Math.PI * 2);
+  g.fillStyle = '#FDFEFF'; g.fill(); g.strokeStyle = 'rgba(120,150,180,.7)'; g.stroke();
+  g.beginPath(); g.arc(x + d * 0.82, y + d * 0.42, r2, 0, Math.PI * 2);
+  g.fillStyle = '#FDFEFF'; g.fill(); g.stroke();
+}
+
+function drawBeaker(){
+  var c = $('#beakerCanvas');
+  if (!c || !temp.W) return;
+  var g = c.getContext('2d');
+  var W = temp.W, H = temp.H;
+  g.setTransform(temp.dpr, 0, 0, temp.dpr, 0, 0);
+  g.clearRect(0, 0, W, H);
+  var geo = beakerGeom();
+  var st = tempState();
+  var lt = liquidTop(geo);
+  var t = temp.t;
+
+  // ── 유리 몸통(배경)
+  g.beginPath();
+  g.moveTo(geo.x0 - 7, geo.top - 8);
+  g.lineTo(geo.x0, geo.top);
+  g.lineTo(geo.x0, geo.bot - 16);
+  g.quadraticCurveTo(geo.x0, geo.bot, geo.x0 + 16, geo.bot);
+  g.lineTo(geo.x1 - 16, geo.bot);
+  g.quadraticCurveTo(geo.x1, geo.bot, geo.x1, geo.bot - 16);
+  g.lineTo(geo.x1, geo.top);
+  g.lineTo(geo.x1 + 7, geo.top - 8);
+  g.strokeStyle = 'rgba(126,160,190,.55)';
+  g.lineWidth = 2;
+  g.stroke();
+
+  // ── 내용물
+  if (st === 'solid') {
+    var iw = geo.w * 0.70, ih = geo.h * 0.48;
+    var ix = geo.x0 + (geo.w - iw) / 2, iy = geo.bot - ih - 8;
+    var ig = g.createLinearGradient(0, iy, 0, iy + ih);
+    ig.addColorStop(0, '#E9F7FF');
+    ig.addColorStop(.55, '#CBEBFF');
+    ig.addColorStop(1, '#A9DCFA');
+    g.beginPath();
+    var rr = 10;
+    g.moveTo(ix + rr, iy);
+    g.lineTo(ix + iw - rr, iy); g.quadraticCurveTo(ix + iw, iy, ix + iw, iy + rr);
+    g.lineTo(ix + iw, iy + ih - rr); g.quadraticCurveTo(ix + iw, iy + ih, ix + iw - rr, iy + ih);
+    g.lineTo(ix + rr, iy + ih); g.quadraticCurveTo(ix, iy + ih, ix, iy + ih - rr);
+    g.lineTo(ix, iy + rr); g.quadraticCurveTo(ix, iy, ix + rr, iy);
+    g.closePath();
+    g.fillStyle = ig; g.fill();
+    g.strokeStyle = '#8FCDF0'; g.lineWidth = 2; g.stroke();
+    g.strokeStyle = 'rgba(255,255,255,.9)'; g.lineWidth = 2;
+    g.beginPath(); g.moveTo(ix + 12, iy + 12); g.lineTo(ix + iw * 0.42, iy + ih * 0.36); g.stroke();
+    g.beginPath(); g.moveTo(ix + iw * 0.58, iy + ih * 0.55); g.lineTo(ix + iw - 14, iy + ih - 14); g.stroke();
+    // 얼음 속 기포
+    g.fillStyle = 'rgba(255,255,255,.8)';
+    g.beginPath(); g.arc(ix + iw * 0.3, iy + ih * 0.62, 3, 0, 6.28); g.fill();
+    g.beginPath(); g.arc(ix + iw * 0.68, iy + ih * 0.22, 2.4, 0, 6.28); g.fill();
+  } else if (st === 'liquid') {
+    var lg = g.createLinearGradient(0, lt, 0, geo.bot);
+    lg.addColorStop(0, 'rgba(126,214,250,.72)');
+    lg.addColorStop(1, 'rgba(46,166,226,.82)');
+    g.beginPath();
+    g.moveTo(geo.x0 + 2, lt);
+    for (var x = geo.x0 + 2; x <= geo.x1 - 2; x += 6) {
+      var y = lt + Math.sin((x / 22) + t * 2.1) * 2.2;
+      g.lineTo(x, y);
+    }
+    g.lineTo(geo.x1 - 2, geo.bot - 2);
+    g.lineTo(geo.x0 + 2, geo.bot - 2);
+    g.closePath();
+    g.fillStyle = lg; g.fill();
+    // 기포(끓기 시작)
+    if (temp.T > 80) {
+      for (var bi = 0; bi < 7; bi++) {
+        var by = geo.bot - ((t * 34 + bi * 26) % (geo.bot - lt));
+        var bx = geo.x0 + 18 + ((bi * 37) % (geo.w - 36));
+        g.beginPath(); g.arc(bx, by, 2 + (bi % 3), 0, 6.28);
+        g.fillStyle = 'rgba(255,255,255,.65)'; g.fill();
+      }
+    }
+  } else {
+    // 기체: 비커 안쪽은 거의 비어 있고 분자가 빠르게 날아다님 (김은 위로)
+  }
+
+  // ── 분자
+  var s = Math.max(0.78, Math.min(1.1, geo.w / 175));
+  temp.mols.forEach(function(m){ drawMolecule(g, m.x, m.y, s); });
+
+  // ── 수증기 김(기체일 때 위로)
+  if (st === 'gas') {
+    g.strokeStyle = 'rgba(150,180,210,.55)';
+    g.lineWidth = 3.2;
+    g.lineCap = 'round';
+    for (var w2 = 0; w2 < 3; w2++) {
+      var wx = geo.x0 + geo.w * (0.3 + w2 * 0.2);
+      g.beginPath();
+      for (var y2 = 0; y2 < 6; y2++) {
+        var yy = geo.top - 6 - y2 * 9 - ((t * 18 + w2 * 12) % 12);
+        var xx = wx + Math.sin((t * 2.2) + y2 * 0.9 + w2) * 6;
+        if (y2 === 0) g.moveTo(xx, yy); else g.lineTo(xx, yy);
+      }
+      g.globalAlpha = 0.5;
+      g.stroke();
+      g.globalAlpha = 1;
+    }
+  }
+
+  // ── 유리 테두리·눈금
+  g.beginPath();
+  g.moveTo(geo.x0 - 8, geo.top - 9);
+  g.lineTo(geo.x0 + 6, geo.top - 9);
+  g.moveTo(geo.x1 - 6, geo.top - 9);
+  g.lineTo(geo.x1 + 8, geo.top - 9);
+  g.strokeStyle = 'rgba(96,136,170,.8)';
+  g.lineWidth = 3; g.lineCap = 'round';
+  g.stroke();
+
+  g.beginPath();
+  g.moveTo(geo.x0, geo.top);
+  g.lineTo(geo.x0, geo.bot - 16);
+  g.quadraticCurveTo(geo.x0, geo.bot, geo.x0 + 16, geo.bot);
+  g.lineTo(geo.x1 - 16, geo.bot);
+  g.quadraticCurveTo(geo.x1, geo.bot, geo.x1, geo.bot - 16);
+  g.lineTo(geo.x1, geo.top);
+  g.strokeStyle = 'rgba(96,136,170,.9)';
+  g.lineWidth = 2.6; g.stroke();
+
+  // 눈금
+  g.strokeStyle = 'rgba(120,160,195,.55)'; g.lineWidth = 1.4;
+  for (var k = 1; k <= 4; k++) {
+    var gy = geo.top + (geo.h * k / 5);
+    g.beginPath(); g.moveTo(geo.x0 + 2, gy); g.lineTo(geo.x0 + (k % 2 ? 10 : 15), gy); g.stroke();
+  }
+  // 하이라이트
+  g.strokeStyle = 'rgba(255,255,255,.75)'; g.lineWidth = 3;
+  g.beginPath(); g.moveTo(geo.x0 + 7, geo.top + 10); g.lineTo(geo.x0 + 7, geo.bot - 24); g.stroke();
+
+  // 바닥 그림자
+  var sg = g.createRadialGradient(W / 2, geo.bot + 6, 4, W / 2, geo.bot + 6, geo.w * 0.6);
+  sg.addColorStop(0, 'rgba(110,150,190,.20)');
+  sg.addColorStop(1, 'rgba(110,150,190,0)');
+  g.fillStyle = sg;
+  g.beginPath(); g.ellipse(W / 2, geo.bot + 6, geo.w * 0.6, 10, 0, 0, 6.28); g.fill();
+}
+
+function renderTemp(){
+  var st = tempState();
+  var badge = $('#tempBadge');
+  badge.className = 'statebadge ' + (st === 'solid' ? 'sb-solid' : st === 'liquid' ? 'sb-liquid' : 'sb-gas');
+  var em = st === 'solid' ? '🧊' : st === 'liquid' ? '💧' : '☁️';
+  badge.innerHTML = em + ' <span>' + T(st === 'solid' ? 'tempSolid' : st === 'liquid' ? 'tempLiquid' : 'tempGas') + '</span>';
+
+  $('#tempVal').textContent = String(temp.T);
+  $('#tempVal').style.color = st === 'solid' ? '#1D5FA8' : st === 'liquid' ? '#0A6E82' : '#5B3FB0';
+  var shortEl = $('#tempShort');
+  if (shortEl) shortEl.textContent = T(st === 'solid' ? 'shortSolid' : st === 'liquid' ? 'shortLiquid' : 'shortGas');
+
+  var name = $('#tempStateName');
+  name.innerHTML = em + ' <span>' + T(st === 'solid' ? 'tempSolid' : st === 'liquid' ? 'tempLiquid' : 'tempGas') + '</span>';
+
+  var txt = '';
+  if (st === 'solid') txt = T('txSolid');
+  else if (st === 'gas') txt = T('txGas');
+  else if (temp.T <= 3) txt = T('txMelt');
+  else if (temp.T >= 97) txt = T('txBoil');
+  else txt = T('txLiquid');
+  $('#tempStateText').textContent = txt;
+
+  var rng = $('#tempRange');
+  if (rng.value !== String(temp.T)) rng.value = String(temp.T);
+  rng.setAttribute('aria-valuetext', temp.T + '℃ · ' + T(st === 'solid' ? 'tempSolid' : st === 'liquid' ? 'tempLiquid' : 'tempGas'));
+}
+
+function setTemp(v, fromSlider){
+  var old = tempState();
+  temp.T = Math.max(-20, Math.min(120, Math.round(v)));
+  var now = tempState();
+  if (now === 'solid' && old !== 'solid') layoutMols();
+  if (now !== 'solid' && old === 'solid') {
+    // 얼음에서 나온 분자들이 퍼지도록 위치 유지
+  }
+  renderTemp();
+  drawBeaker();
+}
+
+$('#tempRange').addEventListener('input', function(e){ setTemp(parseFloat(e.target.value), true); });
+$('#tempMinus').addEventListener('click', function(){ setTemp(temp.T - 5); });
+$('#tempPlus').addEventListener('click', function(){ setTemp(temp.T + 5); });
+$$('[data-temp]').forEach(function(b){
+  b.addEventListener('click', function(){ setTemp(parseFloat(b.getAttribute('data-temp'))); });
+});
+
+/* ══════════ 10. 빛·자석 ══════════ */
+var lab = { seg:'light' };
+var light = { r:false, g:false, b:false };
+var mag = { flip:false, res:null };
+
+var MIX = {
+  none:{ n:'mixNone', s:'mixNoneSub', c:'#CED5DF' },
+  r:{ n:'mixR', s:'mixRSub', c:'#FF3B30' },
+  g:{ n:'mixG', s:'mixGSub', c:'#33D64F' },
+  b:{ n:'mixB', s:'mixBSub', c:'#2E7BFF' },
+  rg:{ n:'mixRG', s:'mixRGSub', c:'#FFD60A' },
+  rb:{ n:'mixRB', s:'mixRBSub', c:'#FF3BA0' },
+  gb:{ n:'mixGB', s:'mixGBSub', c:'#32D4E0' },
+  rgb:{ n:'mixRGB', s:'mixRGBSub', c:'#FFFFFF' }
+};
+
+function renderLight(){
+  ['r','g','b'].forEach(function(c){
+    var on = light[c];
+    $$('.lglow[data-c="' + c + '"]').forEach(function(el){ el.classList.toggle('on', on); });
+    var btn = $('.lbtn[data-c="' + c + '"]');
+    if (btn) btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+  var key = (light.r ? 'r' : '') + (light.g ? 'g' : '') + (light.b ? 'b' : '');
+  if (!key) key = 'none';
+  var m = MIX[key] || MIX.none;
+  $('#mixSw').style.background = m.c;
+  $('#mixName').textContent = T(m.n);
+  $('#mixSub').textContent = T(m.s);
+}
+
+function renderMagnet(){
+  var left = $('#magL'), right = $('#magR');
+  right.classList.toggle('flip', mag.flip);
+  var stage = $('#magStage');
+  stage.classList.remove('close', 'wig');
+  if (mag.res === 'attract') stage.classList.add('close');
+  if (mag.res === 'repel') stage.classList.add('wig');
+
+  var rp = mag.flip ? 'N' : 'S';
+  $('#magFacing').textContent = T('magFacing') + ': N ↔ ' + rp;
+  var msg = $('#magMsg'), why = $('#magWhy');
+  if (mag.res === 'attract') { msg.textContent = T('magAttract'); why.textContent = T('magAttractWhy'); }
+  else if (mag.res === 'repel') { msg.textContent = T('magRepel'); why.textContent = T('magRepelWhy'); }
+  else { msg.textContent = T('magIntro'); why.textContent = T('magHint'); }
+
+  $('#magArrL').textContent = (mag.res === 'attract') ? '→' : '←';
+  $('#magArrR').textContent = (mag.res === 'attract') ? '←' : '→';
+}
+
+function renderLab(){
+  $('#lightPanel').hidden = (lab.seg !== 'light');
+  $('#magPanel').hidden = (lab.seg !== 'mag');
+  $('#segLight').classList.toggle('on', lab.seg === 'light');
+  $('#segMag').classList.toggle('on', lab.seg === 'mag');
+  $('#segLight').setAttribute('aria-selected', lab.seg === 'light' ? 'true' : 'false');
+  $('#segMag').setAttribute('aria-selected', lab.seg === 'mag' ? 'true' : 'false');
+  renderLight();
+  renderMagnet();
+}
+
+$('#segLight').addEventListener('click', function(){ lab.seg = 'light'; renderLab(); });
+$('#segMag').addEventListener('click', function(){ lab.seg = 'mag'; renderLab(); });
+$$('.lbtn').forEach(function(b){
+  b.addEventListener('click', function(){
+    var c = b.getAttribute('data-c');
+    light[c] = !light[c];
+    renderLight();
+  });
+});
+
+function magRun(){
+  var facing = mag.flip ? 'N' : 'S';
+  mag.res = (facing === 'S') ? 'attract' : 'repel';
+  renderMagnet();
+  if (mag.res === 'repel') {
+    var stage = $('#magStage');
+    stage.classList.remove('wig');
+    void stage.offsetWidth;
+    stage.classList.add('wig');
+  }
+}
+$('#magRun').addEventListener('click', magRun);
+$('#magFlip').addEventListener('click', function(){
+  mag.flip = !mag.flip;
+  mag.res = null;
+  renderMagnet();
+});
+$('#magReset').addEventListener('click', function(){
+  mag.flip = false; mag.res = null;
+  renderMagnet();
+});
+
+/* ══════════ 11. 퀴즈 ══════════ */
+var quiz = { order:[], answers:{}, qi:0, done:false, best:0 };
+try { var bs = parseInt(localStorage.getItem('wagleSciQuizBest') || '0', 10); if (bs > 0) quiz.best = bs; } catch(e){}
+
+function quizReset(wrongOnly){
+  if (wrongOnly) {
+    var wrong = quiz.order.filter(function(i){ return quiz.answers[i] !== correctIdx(i); });
+    quiz.order = wrong.length ? wrong : QUIZ.map(function(_, i){ return i; });
+  } else {
+    quiz.order = QUIZ.map(function(_, i){ return i; });
+  }
+  quiz.order.forEach(function(i){ delete quiz.answers[i]; });
+  quiz.qi = 0;
+  quiz.done = false;
+  renderQuiz();
+}
+
+function correctIdx(qi){
+  var q = QUIZ[qi];
+  return q.perm ? q.perm.indexOf(q.ans) : q.ans;
+}
+function quizCorrectCount(){
+  return quiz.order.filter(function(i){ return quiz.answers[i] === correctIdx(i); }).length;
+}
+
+function renderQuiz(){
+  if (!quiz.order.length) { quiz.order = QUIZ.map(function(_, i){ return i; }); }
+  if (quiz.qi >= quiz.order.length && !quiz.done) { quiz.qi = 0; }
+  var total = quiz.order.length;
+  var answeredCount = quiz.order.filter(function(i){ return quiz.answers[i] !== undefined; }).length;
+  var card = $('#quizCard');
+
+  $('#quizNo').textContent = quiz.done ? (total + ' / ' + total) : (Math.min(quiz.qi + 1, total) + ' / ' + total);
+  $('#quizScore').textContent = T('quizScore') + ' ' + quizCorrectCount() + (quiz.best ? ' · ' + T('quizBest') + ' ' + quiz.best : '');
+  $('#quizBar').style.width = Math.round(answeredCount / total * 100) + '%';
+
+  if (quiz.done) {
+    var score = quizCorrectCount();
+    var ratio = score / total;
+    var ico = ratio >= 0.9 ? '🏆' : ratio >= 0.6 ? '🎉' : '🌱';
+    var msg = ratio >= 0.9 ? T('endHigh') : ratio >= 0.6 ? T('endMid') : T('endLow');
+    if (score > quiz.best) {
+      quiz.best = score;
+      try { localStorage.setItem('wagleSciQuizBest', String(score)); } catch(e){}
+    }
+    var html = '<div class="qend">' +
+      '<div class="qendico" aria-hidden="true">' + ico + '</div>' +
+      '<p class="qendtitle">' + T('quizEnd') + '</p>' +
+      '<p class="qendscore">' + score + ' / ' + total + '</p>' +
+      '<p class="qendmsg">' + msg + '</p>' +
+      '<p class="qbest">' + T('quizBest') + ': ' + quiz.best + ' / ' + QUIZ.length + '</p>' +
+      '<div class="qendbtns">' +
+      (score < total ? '<button class="btn primary" type="button" id="qRetryWrong">🔁 ' + T('quizRetryWrong') + '</button>' : '') +
+      '<button class="btn soft" type="button" id="qRestart">↺ ' + T('quizRestart') + '</button>' +
+      '</div></div>';
+    card.innerHTML = html;
+    var rw = $('#qRetryWrong');
+    if (rw) rw.addEventListener('click', function(){ quizReset(true); });
+    $('#qRestart').addEventListener('click', function(){ quizReset(false); });
+    return;
+  }
+
+  var qi = quiz.order[quiz.qi];
+  var q = QUIZ[qi][S.lang] || QUIZ[qi].ko;
+  var chosen = quiz.answers[qi];
+  var answered = (chosen !== undefined);
+  var perm = QUIZ[qi].perm || [0,1,2,3];
+  var cIdx = correctIdx(qi);
+
+  var h = '<p class="qemoji" aria-hidden="true">' + QUIZ[qi].e + '</p>' +
+    '<p class="qtext">' + q.q + '</p><div class="opts">';
+  perm.forEach(function(orig, i){
+    var op = q.o[orig];
+    var cls = 'opt';
+    if (answered) {
+      if (i === cIdx) cls += ' ok';
+      else if (i === chosen) cls += ' bad';
+      else cls += ' dim';
+    }
+    h += '<button class="' + cls + '" type="button" data-opt="' + i + '"' + (answered ? ' disabled' : '') + '>' +
+      '<span class="num">' + (i + 1) + '</span><span class="otxt">' + op + '</span></button>';
+  });
+  h += '</div>';
+
+  if (answered) {
+    var ok = (chosen === cIdx);
+    var praise = ok ? (STR[S.lang] || STR.ko).praises[qi % (STR[S.lang] || STR.ko).praises.length] : '';
+    if (ok) {
+      h += '<div class="fb good"><span class="fbt">' + praise + '</span>' +
+        '<span class="fbe">' + q.x + '</span></div>';
+    } else {
+      var cheers = (STR[S.lang] || STR.ko).cheers;
+      h += '<div class="fb warm"><span class="fbt">' + T('quizWrong') + '</span>' +
+        '<span>' + cheers[qi % cheers.length] + '</span>' +
+        '<span class="fbe"><b>' + T('quizAnswerIs') + ': ' + q.o[QUIZ[qi].ans] + '</b><br>' + q.x + '</span></div>';
+    }
+    h += '<div class="qnext"><button class="btn primary" type="button" id="qNext">' +
+      (quiz.qi + 1 >= total ? T('quizResult') : T('quizNext')) + ' →</button></div>';
+  }
+
+  card.innerHTML = h;
+
+  $$('.opt', card).forEach(function(b){
+    b.addEventListener('click', function(){
+      if (quiz.answers[qi] !== undefined) return;
+      quiz.answers[qi] = parseInt(b.getAttribute('data-opt'), 10);
+      renderQuiz();
+      setTimeout(function(){
+        var nb0 = document.querySelector('#quizCard .qnext');
+        if (nb0) nb0.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      }, 60);
+    });
+  });
+  var nb = $('#qNext');
+  if (nb) nb.addEventListener('click', function(){
+    if (quiz.qi + 1 >= total) { quiz.done = true; renderQuiz(); }
+    else { quiz.qi++; renderQuiz(); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  });
+}
+
+/* ══════════ 12. 언어 적용 ══════════ */
+function applyLang(){
+  document.documentElement.lang = S.lang;
+  document.title = (S.lang === 'en' ? 'Wagling Science · Learn science by touching' : '와글링 과학 · 눌러서 배우는 과학 놀이');
+  $$('[data-i18n]').forEach(function(el){
+    var k = el.getAttribute('data-i18n');
+    var v = T(k);
+    if (typeof v === 'string') el.textContent = v;
+  });
+  $('#btnLang').setAttribute('aria-pressed', S.lang === 'en' ? 'true' : 'false');
+  $('#solarToggle span').textContent = solar.playing ? T('solarPause') : T('solarPlay');
+  renderHomeFact();
+  renderBodyChips();
+  renderPlanetInfo();
+  renderTemp();
+  renderLab();
+  renderQuiz();
+  drawSolar();
+  drawBeaker();
+}
+
+$('#btnLang').addEventListener('click', function(){
+  S.lang = (S.lang === 'ko') ? 'en' : 'ko';
+  try { localStorage.setItem('wagleSciLang', S.lang); } catch(e){}
+  applyLang();
+});
+
+/* ══════════ 13. 설치·공유 ══════════ */
+var instPrompt = null, instDone = false;
+function isStandalone(){
+  try {
+    if (window.matchMedia && (window.matchMedia('(display-mode: standalone)').matches || window.matchMedia('(display-mode: minimal-ui)').matches)) return true;
+  } catch(e){}
+  return navigator.standalone === true;
+}
+function isAndroid(){ return /Android/i.test(navigator.userAgent || ''); }
+function inAppBrowser(){ return /KAKAOTALK|Instagram|NAVER|FBAN|FBAV|Line\//i.test(navigator.userAgent || ''); }
+function chromeIntent(){
+  var host = location.host || 'starpicklife-design.github.io';
+  var path = (location.pathname || '/science/') + (location.search || '');
+  return 'intent://' + host + path + '#Intent;scheme=https;package=com.android.chrome;end';
+}
+function syncInstall(){ var b = $('#installBtn'); if (b) b.hidden = instDone || isStandalone(); }
+function openInstall(){
+  $('#instTitle').textContent = T('instTitle');
+  $('#instLead').textContent = T('instLead');
+  $('#instSteps').innerHTML = ['instS1','instS2','instS3','instS4'].map(function(k){ return '<li>' + T(k) + '</li>'; }).join('');
+  $('#instMini').textContent = T('instMini');
+  $('#instClose').textContent = T('instOk');
+  var ch = $('#instChrome'), show = isAndroid() && inAppBrowser();
+  ch.hidden = !show;
+  if (show) { ch.textContent = T('instChromeBtn'); ch.setAttribute('href', chromeIntent()); }
+  $('#instModal').hidden = false;
+}
+$('#instClose').addEventListener('click', function(){ $('#instModal').hidden = true; });
+$('#instModal').addEventListener('click', function(e){ if (e.target === $('#instModal')) $('#instModal').hidden = true; });
+function installTap(){
+  if (instDone || isStandalone()) { toast(T('instAlready')); return; }
+  if (instPrompt) {
+    var dp = instPrompt; instPrompt = null;
+    try {
+      dp.prompt();
+      if (dp.userChoice && dp.userChoice.then) dp.userChoice.then(function(r){
+        if (r && r.outcome === 'accepted') { instDone = true; toast(T('installedMsg')); }
+        syncInstall();
+      }, function(){});
+      return;
+    } catch(e){}
+  }
+  openInstall();
+}
+$('#installBtn').addEventListener('click', installTap);
+window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); instPrompt = e; });
+window.addEventListener('appinstalled', function(){ instDone = true; syncInstall(); toast(T('installedMsg')); });
+
+function legacyCopy(text, ok, fail){
+  try {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed'; ta.style.top = '-9999px';
+    document.body.appendChild(ta); ta.select();
+    var done = document.execCommand && document.execCommand('copy');
+    document.body.removeChild(ta);
+    if (done) ok(); else fail();
+  } catch(e){ fail(); }
+}
+function copyText(text, ok, fail){
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, function(){ legacyCopy(text, ok, fail); });
+  else legacyCopy(text, ok, fail);
+}
+function shareApp(){
+  var p = { title: S.lang === 'en' ? 'Wagling Science' : '와글링 과학', text: T('shareText'), url: 'https://starpicklife-design.github.io/science/' };
+  var usable = true;
+  try { if (navigator.canShare && !navigator.canShare(p)) usable = false; } catch(e){}
+  var ok = function(){ toast(T('shareCopied')); };
+  var fail = function(){ toast(T('shareCopyFail')); };
+  if (navigator.share && usable) {
+    try {
+      var r = navigator.share(p);
+      if (r && r.then) r.then(function(){}, function(err){ if (err && err.name === 'AbortError') return; copyText(p.text + '\n\n' + p.url, ok, fail); });
+      return;
+    } catch(e){}
+  }
+  copyText(p.text + '\n\n' + p.url, ok, fail);
+}
+$('#shareBtn').addEventListener('click', shareApp);
+
+/* ══════════ 14. 애니메이션 루프 · 초기화 ══════════ */
+var reduceMotion = false;
+try { reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
+
+function loop(ts){
+  if (!temp.last) temp.last = ts;
+  if (!solarLast) solarLast = ts;
+  var dtT = Math.min(0.05, (ts - temp.last) / 1000); temp.last = ts;
+  var dtS = Math.min(0.05, (ts - solarLast) / 1000); solarLast = ts;
+  if (page === 'solar' && solar.playing && !reduceMotion) { solar.t += dtS; drawSolar(); }
+  if (page === 'temp') { temp.t += dtT; if (!reduceMotion) stepTemp(dtT); drawBeaker(); }
+  requestAnimationFrame(loop);
+}
+
+var rz;
+window.addEventListener('resize', function(){
+  clearTimeout(rz);
+  rz = setTimeout(function(){
+    if (page === 'solar') sizeSolar();
+    if (page === 'temp') sizeBeaker();
+  }, 140);
+});
+
+function init(){
+  try { history.pushState({ wp: 1 }, ''); } catch(e){}
+  renderHomeFact();
+  renderBodyChips();
+  renderPlanetInfo();
+  renderTemp();
+  renderLab();
+  renderQuiz();
+  $('#solarToggle span').textContent = T('solarPause');
+  syncInstall();
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function(){ navigator.serviceWorker.register('./sw.js').catch(function(){}); });
+  }
+  requestAnimationFrame(loop);
+  setTimeout(function(){
+    if (page === 'solar') sizeSolar();
+    if (page === 'temp') sizeBeaker();
+  }, 60);
+}
+init();
+
+/* 테스트·확인용 (앱 동작에는 영향 없음) */
+window.__science = {
+  get page(){ return page; },
+  go: go, selectBody: selectBody, setTemp: setTemp, tempState: tempState,
+  light: light, renderLight: renderLight, mag: mag, magRun: magRun,
+  quiz: quiz, quizReset: quizReset, renderQuiz: renderQuiz, QUIZ: QUIZ, correctIdx: correctIdx,
+  lang: function(){ return S.lang; }, setLang: function(l){ S.lang = l; applyLang(); },
+  solarPos: function(){ return solar.pos; }
+};
+})();
+</script>
+</body>
+</html>

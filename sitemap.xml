@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://starpicklife-design.github.io/</loc>
-    <lastmod>2026-11-27T14:56:00+09:00</lastmod>
+    <lastmod>2026-11-27T15:52:00+09:00</lastmod>
   </url>
   <url>
     <loc>https://starpicklife-design.github.io/menu/</loc>
@@ -83,5 +83,13 @@
   <url>
     <loc>https://starpicklife-design.github.io/brain/</loc>
     <lastmod>2026-11-27T14:56:00+09:00</lastmod>
+  </url>
+  <url>
+    <loc>https://starpicklife-design.github.io/english-hole/</loc>
+    <lastmod>2026-11-27T15:52:00+09:00</lastmod>
+  </url>
+  <url>
+    <loc>https://starpicklife-design.github.io/science/</loc>
+    <lastmod>2026-11-27T15:52:00+09:00</lastmod>
   </url>
 </urlset>

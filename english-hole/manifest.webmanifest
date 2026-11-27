@@ -1,0 +1,43 @@
+{
+  "name": "와글링 영어블랙홀",
+  "short_name": "영어블랙홀",
+  "description": "왕초보 여행영어 49문장 · 오늘 배우면 3·7·14·30일 뒤 블랙홀이 다시 꺼내 주는 망각곡선 복습 (Wagling English Black Hole — beginner travel English with 3·7·14·30-day spaced review)",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "id": "./",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "portrait",
+  "background_color": "#F6F1FF",
+  "theme_color": "#5B3FA8",
+  "categories": [
+    "education",
+    "travel",
+    "utilities"
+  ],
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
