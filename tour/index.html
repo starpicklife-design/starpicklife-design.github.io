@@ -2570,7 +2570,10 @@ function copyShare(p){
 $('#shareBtn').addEventListener('click', shareApp);
 $('#printTop').addEventListener('click', openPrintAsk);
 $('#printBtn').addEventListener('click', openPrintAsk);
-window.addEventListener('beforeprint', function(){ if(lastPrint) buildPrintBook(lastPrint.list, lastPrint.info); else buildPrintBook(null, null); });
+window.addEventListener('beforeprint', function(){
+  if(lastPrint) buildPrintBook(lastPrint.list, lastPrint.info);
+  else buildPrintBook(myBookSpots().length ? myBookSpots() : allSpots(), bookInfo(books[0]));
+});
 $('#bcClose').addEventListener('click', closeBig);
 $('#bcSpeak').addEventListener('click', function(){
   if(bigIdx >= 0) speak(PHRASES[bigIdx].ko);
