@@ -1542,7 +1542,7 @@ function drawGraph() {
   }
   for (var t = -6; t <= 6; t++) {
     if (!t || t % 2) continue;
-    var px = cx + t * unit, py = cy + t * unit;
+    var px = cx + t * unit, py = cy - t * unit;
     if (px > 12 && px < w - 12) tick(String(t).replace('-', MINUS), px, Math.min(Math.max(cy + 4, 5), h - 17), 'center');
     if (py > 14 && py < h - 14) tick(String(t).replace('-', MINUS), Math.max(cx - 7, 16), py - 7, 'right');
   }
