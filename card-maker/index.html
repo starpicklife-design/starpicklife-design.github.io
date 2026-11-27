@@ -1203,8 +1203,8 @@
     var gloss = state.mode === '3d';
     var cats = STK.cats;
     var h = '<div class="seg" id="stStyle" style="margin-bottom:8px">' +
-      '<button data-g="0" class="' + (!gloss ? 'on' : '') + '">' + t('st2d') + '</button>' +
-      '<button data-g="1" class="' + (gloss ? 'on' : '') + '">' + t('st3d') + '</button>' +
+      '<button data-g="0" class="' + (stkStyleMode === '0' ? 'on' : '') + '">' + t('st2d') + '</button>' +
+      '<button data-g="1" class="' + (stkStyleMode === '1' ? 'on' : '') + '">' + t('st3d') + '</button>' +
       '<button data-g="mix" class="' + (stkStyleMode === 'mix' ? 'on' : '') + '">' + t('stMix') + '</button></div>';
     h += '<div class="stTabs">' + cats.map(function (c) {
       var nm = LANG === 'en' ? (c.k === 'all' ? CAT_EN.all : CAT_EN[c.k] || c.n) : c.n;
