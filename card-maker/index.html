@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content" />
+<meta name="theme-color" content="#B32433" />
+<meta name="description" content="2027 정미년 새해·설날, 크리스마스, 생일·감사·응원 카드를 스스로 꾸며서 카톡·문자로 바로 보내는 무료 카드 만들기 앱. 한국 전통 문양과 크리스마스, 십이지신 스티커 89종." />
+<title>💌 와글링 카드 · 스스로 꾸미는 카드 만들기</title>
+<!-- build: 2026-11-27 와글링 카드 (card-maker) v2
+     · 2D 일러스트 / 3D 입체 / 내 사진 3가지 모드 유지
+     · 테마 13종: 정미년 한지·신년 해돋이·설날 창호지·새해 새벽별·크리스마스 3종·생일·축하·감사·효도·응원·위로
+     · 중국식 홍등·금색 구름문양 제거 → 청사초롱·까치·소나무·매화·한옥 처마·창호지·색동·한지·해돋이·복주머니
+     · 스티커 89종(2D/3D 두 벌): 한국 새해 18 · 십이지신 12 · 크리스마스 15 · 꽃·자연 10 · 별 5 · 마음 7 · 리본 6 · 파티 8 · 동물 5 · 말풍선 3
+     · 글씨 탭 개선 + 카드 글씨 눌러 바로 편집, 테마별 추천 문구 한국어/English 78+78
+     · 한 / EN UI 전환, 큰 글씨, Canvas 1080×1440 PNG 저장·공유 -->
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="와글링 카드" />
+<link rel="manifest" href="./manifest.webmanifest" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<link rel="icon" href="./icon-192.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&family=Nanum+Pen+Script&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#1F2433; --ink2:#3B4152; --muted:#565C6E;
+    --red:#B32433; --red-d:#8E1626; --gold:#C99A2C; --paper:#FFF7EF;
+    --line:#EADACB; --card:#FFFFFF;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0;height:100%;overflow-x:hidden}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:"Gowun Dodum",-apple-system,"Malgun Gothic",system-ui,sans-serif;
+    font-size:19px; line-height:1.52;
+    word-break:keep-all;
+    -webkit-text-size-adjust:100%;
+  }
+  button{font-family:inherit;color:inherit;cursor:pointer}
+  [hidden]{display:none !important}
+  .view{display:flex;flex-direction:column;height:100dvh;height:100vh}
+  @supports(height:100dvh){.view{height:100dvh}}
+
+  /* ── 상단 바 ── */
+  .topbar{
+    display:flex;align-items:center;gap:8px;padding:8px 11px;
+    padding-top:calc(8px + env(safe-area-inset-top));
+    background:#FFFDF9;border-bottom:1.5px solid var(--line);
+    position:relative;z-index:5;flex:0 0 auto;min-height:62px;
+  }
+  .brand{display:flex;align-items:center;gap:7px;min-width:0;flex:1}
+  .brand .logo{font-size:28px;line-height:1}
+  .brand > div{min-width:0}
+  .brand b{display:block;font-family:"Jua",sans-serif;font-size:22px;color:var(--ink);line-height:1.12;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .brand small{display:block;font-size:13.5px;color:var(--muted);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .acts{display:flex;gap:5px;flex:0 0 auto}
+  .acts button{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
+    min-width:50px;height:50px;padding:0 5px;border-radius:14px;
+    border:1.5px solid #E6D3BF;background:#FFF9F0;font-size:19px;line-height:1;
+  }
+  .acts button span{font-size:10.5px;font-weight:700;color:var(--ink2);letter-spacing:-.02em;white-space:nowrap;overflow:hidden;max-width:100%}
+  .acts button:active{background:#F7EADA}
+  .acts .lang{font-family:"Jua",sans-serif;font-size:15px;font-weight:700;color:#8E1626;background:#FFF1E6;border-color:#E8CDB4}
+  #viewEdit .brand b{font-size:18.5px;white-space:normal;overflow:visible;text-overflow:clip;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.16}
+  #viewEdit .brand small{display:none}
+  .iconbtn{
+    width:46px;height:46px;border-radius:14px;border:1.5px solid #E6D3BF;background:#FFF9F0;
+    font-size:23px;line-height:1;display:flex;align-items:center;justify-content:center;flex:0 0 auto;
+  }
+
+  /* ── 홈 ── */
+  .scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:13px 14px calc(24px + env(safe-area-inset-bottom))}
+  .hero{
+    position:relative;overflow:hidden;border-radius:24px;padding:20px 18px 18px;
+    background:radial-gradient(120% 120% at 20% 0%,#C93A46 0%,#A81C2C 45%,#7A0F1C 100%);
+    color:#FFF3D6;box-shadow:0 10px 24px rgba(122,15,28,.22);
+  }
+  .hero .tag{display:inline-block;background:rgba(255,240,190,.18);border:1px solid rgba(246,214,143,.55);
+    color:#FFE9B8;font-size:13.5px;font-weight:700;padding:5px 11px;border-radius:999px;letter-spacing:.01em}
+  .hero h1{font-family:"Jua",sans-serif;font-size:28px;line-height:1.26;margin:11px 0 8px;color:#FFF6DE;letter-spacing:-.01em}
+  .hero p{margin:0;font-size:15.5px;color:#FBE7C2;line-height:1.55;max-width:74%}
+  .hero p b{color:#FFF3D6}
+  .hero .sheep{position:absolute;right:0;bottom:12px;width:94px;height:94px;opacity:.99;filter:drop-shadow(0 8px 14px rgba(60,0,0,.28))}
+  .hero .glow{position:absolute;right:-40px;top:-40px;width:210px;height:210px;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,226,150,.35),rgba(255,226,150,0) 70%)}
+  .ddays{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}
+  .ddays .dd{display:inline-flex;align-items:center;gap:6px;background:#FFF3D6;color:#8E1626;
+    font-weight:700;font-size:14.5px;padding:8px 12px;border-radius:12px}
+  .ddays .dd.x{background:#FFE9C4}
+  .hero .cta{
+    margin-top:14px;width:calc(100% - 104px);min-height:56px;border:0;border-radius:15px;background:#FFE7A8;color:#6E0F1B;
+    font-family:"Jua",sans-serif;font-size:21px;display:flex;align-items:center;justify-content:center;gap:8px;
+    box-shadow:0 4px 0 #C08B30;
+  }
+  .hero .cta:active{transform:translateY(1px);box-shadow:0 2px 0 #C08B30}
+
+  .modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:15px 0 6px}
+  .modes button{
+    min-height:66px;border-radius:17px;border:2px solid var(--line);background:#FFFDF9;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+    font-size:17.5px;font-weight:700;color:var(--ink2);padding:4px;
+  }
+  .modes button small{font-size:11.5px;color:var(--muted);font-weight:400;line-height:1.15;text-align:center}
+  .modes button.on{border-color:var(--red);background:#FFF1F1;color:var(--red-d);box-shadow:0 0 0 3px rgba(179,36,51,.08)}
+  .modes button.on small{color:#9C3A42}
+
+  .filters{display:flex;gap:7px;overflow-x:auto;padding:8px 0 2px;scrollbar-width:none;margin:0 -14px;padding-left:14px;padding-right:14px}
+  .filters::-webkit-scrollbar{display:none}
+  .filters button{flex:0 0 auto;min-height:44px;padding:0 14px;border-radius:999px;border:1.6px solid #EAD9C6;
+    background:#FFFDF9;font-size:15.5px;font-weight:700;color:#5A4632}
+  .filters button.on{background:#B32433;border-color:#B32433;color:#FFF3D6}
+
+  .sect{display:flex;align-items:baseline;gap:8px;margin:14px 2px 9px}
+  .sect h2{font-family:"Jua",sans-serif;font-size:23px;margin:0;color:var(--ink)}
+  .sect span{font-size:14px;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .tpl{
+    position:relative;border:2px solid #EFE1D2;border-radius:19px;background:#fff;padding:0;overflow:hidden;
+    display:flex;flex-direction:column;text-align:left;box-shadow:0 3px 10px rgba(90,60,30,.06);min-width:0;
+  }
+  .tpl:active{transform:scale(.985)}
+  .tpl .pic{position:relative;width:100%;aspect-ratio:3/4;overflow:hidden;background:#F6EADA;display:block}
+  .tpl .pic img{width:100%;height:100%;object-fit:cover;display:block}
+  .tpl .pic .fr{position:absolute;inset:0;width:100%;height:100%}
+  .tpl .cap{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:10px 11px 11px;background:#FFFDF9;min-width:0}
+  .tpl .cap b{font-size:16.5px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+  .tpl .cap i{font-style:normal;font-size:12.5px;font-weight:700;color:#8A3E2A;background:#FFF1E3;border-radius:999px;padding:4px 8px;flex:0 0 auto}
+  .tpl .new{position:absolute;top:8px;left:8px;background:#B32433;color:#FFF3D6;font-size:12px;font-weight:700;padding:5px 9px;border-radius:999px;box-shadow:0 2px 6px rgba(120,10,20,.3)}
+  .tpl .new.x{background:#1F5A8A}
+
+  .draft{margin-top:15px;display:flex;align-items:center;gap:10px;background:#FFF4E4;border:2px solid #F2DDBF;
+    border-radius:17px;padding:13px 14px}
+  .draft .txt{flex:1;min-width:0}
+  .draft b{display:block;font-size:16.5px;color:#6E4412}
+  .draft small{display:block;font-size:13.5px;color:#8A6A3E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .draft button{min-height:48px;padding:0 15px;border-radius:13px;border:0;background:var(--red);color:#fff;font-weight:700;font-size:16.5px;flex:0 0 auto}
+
+  .note{margin:18px 2px 0;font-size:14.5px;color:var(--muted);line-height:1.65}
+  .foot{margin-top:18px;text-align:center;font-size:14px;color:#7A6A5A}
+
+  /* ── 꾸미기 ── */
+  .editMain{flex:1;display:flex;flex-direction:column;min-height:0;padding:9px 11px 0}
+  .stageWrap{flex:1;min-height:200px;display:flex;align-items:center;justify-content:center;padding:4px 0 4px}
+  .stageBox{position:relative;border-radius:14px;overflow:visible;filter:drop-shadow(0 10px 22px rgba(90,50,30,.22))}
+  .stageBox canvas{display:block;border-radius:12px;touch-action:none}
+  .overlay{position:absolute;inset:0;pointer-events:none}
+  .selbox{position:absolute;border:2.5px dashed #FF5A78;border-radius:8px;box-shadow:0 0 0 2px rgba(255,255,255,.7) inset;pointer-events:none}
+  .delbtn,.rsbtn{position:absolute;width:38px;height:38px;border-radius:50%;border:2px solid #fff;
+    display:flex;align-items:center;justify-content:center;pointer-events:auto;font-size:17px;font-weight:700;
+    box-shadow:0 3px 8px rgba(60,10,20,.3);z-index:3;touch-action:none}
+  .delbtn{background:#E23B4E;color:#fff}
+  .rsbtn{background:#2E7BF0;color:#fff;font-size:19px;border-radius:12px;cursor:nwse-resize}
+  .photoPrompt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    background:rgba(255,250,244,.88);border-radius:12px;text-align:center;padding:14px}
+  .photoPrompt p{margin:0;font-size:15.5px;color:var(--ink2);line-height:1.5}
+  .photoPrompt button{min-height:52px;padding:0 18px;border:0;border-radius:14px;background:var(--red);color:#fff;
+    font-size:18px;font-weight:700;box-shadow:0 3px 0 #7A0F1C}
+
+  .quickRow{display:flex;gap:8px;overflow-x:auto;padding:3px 0 7px;scrollbar-width:none;flex:0 0 auto}
+  .quickRow::-webkit-scrollbar{display:none}
+  .q{
+    flex:0 0 auto;width:56px;height:56px;padding:5px;border-radius:15px;border:1.5px solid #EAD9C6;background:#FFFDF9;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .q img{width:100%;height:100%;object-fit:contain}
+  .q.more{font-size:13.5px;font-weight:700;color:#7A4A22;flex-direction:column;gap:1px;width:60px;background:#FFF3E2}
+  .q.more span{font-size:20px;line-height:1}
+  .q.txt{flex-direction:column;gap:0;width:62px;background:#FFF0F3;border-color:#F3BFCB;font-size:12.5px;font-weight:700;color:#A8324A;line-height:1.1}
+  .q.txt span{font-size:21px;line-height:1.15}
+  .textHint{flex:0 0 auto;font-size:13px;color:#8A6A3E;padding:0 2px 3px;text-align:center}
+
+  .editBar{
+    flex:0 0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 1.3fr;gap:7px;
+    padding:8px 10px calc(9px + env(safe-area-inset-bottom));background:#FFFDF9;border-top:1.5px solid var(--line);
+  }
+  .editBar button{min-height:58px;border-radius:15px;border:1.5px solid #EAD9C6;background:#FFF9F1;
+    font-size:15.5px;font-weight:700;color:var(--ink2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;line-height:1.12;padding:2px}
+  .editBar button em{font-style:normal;font-size:21px;line-height:1}
+  .editBar .txBtn{background:#FFF0F3;border-color:#F3BFCB;color:#A8324A}
+  .editBar .txBtn em{font-size:22px}
+  .editBar .cta{background:linear-gradient(#C8343F,#A81C2C);color:#FFF3D6;border-color:#8E1626;
+    font-family:"Jua",sans-serif;font-size:18px;box-shadow:0 3px 0 #7A0F1C;gap:0}
+  .editBar .cta em{font-size:21px}
+
+  /* ── 완성 ── */
+  .doneScroll{flex:1;overflow-y:auto;padding:14px 16px calc(24px + env(safe-area-inset-bottom));text-align:center}
+  .doneHead{font-family:"Jua",sans-serif;font-size:27px;color:var(--red-d);margin:4px 0 2px}
+  .doneSub{font-size:15px;color:var(--muted);margin:0 0 12px}
+  .doneCard{display:flex;justify-content:center;margin:6px 0 14px}
+  .doneCard canvas{width:min(78vw,320px);height:auto;border-radius:12px;box-shadow:0 14px 30px rgba(90,50,30,.28);background:#fff}
+  .big{width:100%;max-width:430px;min-height:60px;border-radius:17px;border:0;font-size:19px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;gap:8px;margin:0 auto 10px}
+  .big.save{background:#FFF3D6;color:#7A3A12;border:2px solid #E6C583;box-shadow:0 3px 0 #D9B26A}
+  .big.kakao{background:#FEE500;color:#231F20;box-shadow:0 3px 0 #D9C400}
+  .big:active{transform:translateY(1px)}
+  .doneTip{font-size:14.8px;color:var(--ink2);line-height:1.62;margin:6px 2px 16px;background:#FFF4E6;
+    border:1.5px solid #F0DCC0;border-radius:15px;padding:12px 13px;text-align:left}
+  .doneLinks{display:flex;gap:10px;justify-content:center;margin-top:6px;flex-wrap:wrap}
+  .doneLinks button{min-height:50px;padding:0 16px;border-radius:13px;border:1.5px solid #E6D3BF;background:#FFFDF9;
+    font-size:15.5px;font-weight:700;color:#6B4A32}
+
+  /* ── 시트 ── */
+  .sheetWrap{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;justify-content:flex-end}
+  .sheetBack{position:absolute;inset:0;background:rgba(35,15,25,.34)}
+  .sheet{position:relative;background:#FFFDF9;border-radius:24px 24px 0 0;max-height:78vh;display:flex;flex-direction:column;
+    box-shadow:0 -12px 30px rgba(60,20,20,.2);animation:up .22s ease-out;padding-bottom:env(safe-area-inset-bottom)}
+  @keyframes up{from{transform:translateY(40px);opacity:.6}to{transform:none;opacity:1}}
+  .sheetHead{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 8px;flex:0 0 auto;
+    border-bottom:1.5px solid #F2E5D7}
+  .sheetHead b{font-family:"Jua",sans-serif;font-size:22px;color:var(--ink)}
+  .sheetHead button{width:42px;height:42px;border-radius:50%;border:0;background:#F4E9DC;font-size:18px;color:#5A4632}
+  .sheetBody{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px 15px 22px}
+  .lbl{font-size:15px;font-weight:700;color:#7A5A3E;margin:15px 2px 8px;letter-spacing:.01em}
+  .lbl:first-child{margin-top:2px}
+  .seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+  .seg.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .seg button{min-height:50px;border-radius:13px;border:1.8px solid #EAD9C6;background:#FFF9F1;font-size:16px;font-weight:700;color:#5A4632}
+  .seg button.on{border-color:var(--red);background:#FFF0F0;color:var(--red-d)}
+  .chipRow{display:flex;flex-wrap:wrap;gap:7px}
+  .chipRow.hscroll{flex-wrap:nowrap;overflow-x:auto;padding:2px 0 6px;scrollbar-width:none;margin:0 -15px;padding-left:15px;padding-right:15px}
+  .chipRow.hscroll::-webkit-scrollbar{display:none}
+  .chip{min-height:46px;padding:7px 13px;border-radius:13px;border:1.6px solid #EAD9C6;background:#FFFDF9;
+    font-size:16px;color:#3B3546;line-height:1.28;text-align:left}
+  .chip:active{background:#FFF1E4}
+  .chip.on{border-color:var(--red);background:#FFF0F0;color:var(--red-d);font-weight:700}
+  .tplRow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .tplRow button{border:2px solid #EFE1D2;border-radius:13px;padding:0;overflow:hidden;background:#FFFDF9;text-align:center;min-width:0}
+  .tplRow button.on{border-color:var(--red);box-shadow:0 0 0 3px rgba(179,36,51,.1)}
+  .tplRow .ph{position:relative;display:block;width:100%;aspect-ratio:3/4;background:linear-gradient(160deg,#FFD9A0,#F7A8B8 45%,#8FB8F2);overflow:hidden}
+  .tplRow .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .tplRow .nm{display:block;font-size:13px;font-weight:700;padding:6px 3px;color:#4A3A32;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .field{width:100%;font-family:inherit;font-size:18px;color:var(--ink);padding:13px 13px;border-radius:14px;
+    border:1.8px solid #E4D3C0;background:#fff}
+  textarea.field{min-height:110px;resize:vertical;line-height:1.5}
+  .field:focus{outline:none;border-color:#C8324F;border-width:2.4px;box-shadow:0 0 0 3px rgba(179,36,51,.1)}
+  .cnt{text-align:right;font-size:13px;color:var(--muted);margin:4px 2px 0}
+  .fontRow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+  .fontRow button{min-height:60px;border-radius:13px;border:1.8px solid #EAD9C6;background:#FFFDF9;font-size:19px;color:#2E2A3A;padding:2px}
+  .fontRow button.on{border-color:var(--red);background:#FFF0F0}
+  .swRow{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+  .sw{width:42px;height:42px;border-radius:50%;border:2.5px solid #fff;box-shadow:0 0 0 1.5px #DCCBB8;padding:0}
+  .sw.on{box-shadow:0 0 0 3px var(--red)}
+  .swCustom{width:48px;height:42px;border-radius:11px;border:1.5px solid #DCCBB8;background:#fff;padding:2px}
+  .sizeRow{display:flex;align-items:center;gap:10px}
+  .sizeRow button{width:52px;height:52px;border-radius:14px;border:1.8px solid #EAD9C6;background:#FFFDF9;font-size:26px;font-weight:700;color:#5A4632}
+  .sizeRow .val{flex:1;text-align:center;font-size:16.5px;font-weight:700;color:#4A3A32}
+  .sizeRow input[type=range]{flex:1;height:34px;accent-color:#B32433}
+  .posRow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+  .posRow button{min-height:48px;border-radius:13px;border:1.8px solid #EAD9C6;background:#FFF9F1;font-size:15.5px;font-weight:700;color:#5A4632}
+  .posRow button.on{border-color:var(--red);background:#FFF0F0;color:var(--red-d)}
+  .stTabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}
+  .stTabs::-webkit-scrollbar{display:none}
+  .stTabs button{flex:0 0 auto;min-height:44px;padding:0 13px;border-radius:999px;border:1.6px solid #EAD9C6;
+    background:#FFFDF9;font-size:15px;font-weight:700;color:#5A4632}
+  .stTabs button.on{background:#B32433;border-color:#B32433;color:#FFF3D6}
+  .stGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(74px,1fr));gap:8px}
+  .stGrid button{aspect-ratio:1;border-radius:15px;border:1.6px solid #EFE1D2;background:#FFFDF9;padding:8px;
+    display:flex;align-items:center;justify-content:center}
+  .stGrid button:active{background:#FFF1E4}
+  .stGrid img{width:100%;height:100%;object-fit:contain}
+  .photoBtns{display:grid;grid-template-columns:1fr auto;gap:8px;margin:2px 0 6px}
+  .photoBtns button{min-height:54px;border-radius:14px;border:0;font-size:17px;font-weight:700;padding:0 14px}
+  .photoBtns .pick{background:var(--red);color:#fff}
+  .photoBtns .del{background:#F4E9DC;color:#8A3E2A;border:1.5px solid #E6D3BF}
+  .check{display:flex;align-items:center;gap:10px;margin:12px 2px;font-size:16px;color:#3B3546}
+  .check input{width:24px;height:24px;accent-color:#B32433}
+  .steps{margin:0;padding:0;list-style:none}
+  .steps li{display:flex;gap:10px;align-items:flex-start;padding:11px 0;border-bottom:1px dashed #EEDFCF;font-size:16px;line-height:1.5}
+  .steps li:last-child{border-bottom:0}
+  .steps .num{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:#B32433;color:#fff;font-size:14px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .sheet .hint{font-size:14px;color:var(--muted);line-height:1.6;margin:10px 2px 0}
+  .memo{background:#FFF4E6;border:1.5px solid #F0DCC0;border-radius:13px;padding:11px 13px;font-size:15px;color:#6B4A32;line-height:1.55;margin:8px 0}
+  .big.mini{min-height:52px;font-size:17px;margin-top:10px}
+
+  #toast{position:fixed;left:50%;bottom:calc(100px + env(safe-area-inset-bottom));transform:translate(-50%,14px);
+    background:rgba(31,36,51,.95);color:#fff;font-size:15px;padding:11px 16px;border-radius:13px;max-width:90vw;
+    text-align:center;opacity:0;pointer-events:none;transition:.22s;z-index:80;line-height:1.4}
+  #toast.on{opacity:1;transform:translate(-50%,0)}
+
+  @media(max-width:380px){
+    body{font-size:18px}
+    .brand small{display:none}
+    .hero h1{font-size:25px}
+    .hero p{max-width:70%;font-size:14.5px}
+    .hero .sheep{width:84px;bottom:14px}
+    .hero .cta{width:calc(100% - 94px)}
+    .brand b{font-size:20px}
+    .modes button{font-size:16.5px}
+    .modes button small{font-size:11px}
+    .editBar button{font-size:14.5px}
+    .editBar .cta{font-size:16.5px}
+    .tpl .cap b{font-size:15.5px}
+    .tpl .cap i{font-size:11.5px}
+  }
+  @media(max-width:340px){
+    .hero{padding:16px 14px 15px}
+    .hero h1{font-size:23px;margin:9px 0 6px}
+    .hero p{font-size:13.8px;max-width:72%}
+    .ddays .dd{font-size:13.5px;padding:7px 10px}
+    .hero .cta{font-size:19px;min-height:52px}
+    .acts button{min-width:46px;height:48px}
+    .brand b{font-size:18.5px}
+    .filters button{font-size:15px;padding:0 12px}
+    .sect h2{font-size:21px}
+  }
+  @media(min-width:520px){
+    .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .hero h1{font-size:31px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ 홈 ═══════════ -->
+<section id="viewHome" class="view">
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">💌</span>
+      <div>
+        <b data-i18n="brand">와글링 카드</b>
+        <small data-i18n="brandSub">스스로 꾸며서 카톡으로 보내요</small>
+      </div>
+    </div>
+    <div class="acts">
+      <button class="lang" id="langBtn" aria-label="한국어 / English">🌐 EN</button>
+      <button class="js-inst" data-i18n-aria="inst" aria-label="앱 설치">📲<span data-i18n="inst">설치</span></button>
+      <button class="js-share" data-i18n-aria="share" aria-label="앱 공유">📤<span data-i18n="share">공유</span></button>
+    </div>
+  </header>
+  <div class="scroll">
+    <div class="hero">
+      <div class="glow"></div>
+      <img class="sheep" id="heroSheep" alt="" />
+      <span class="tag" data-i18n="heroTag">2027 정미년 · 한국 새해 · 크리스마스</span>
+      <h1 id="heroH1"></h1>
+      <p id="heroP"></p>
+      <div class="ddays">
+        <div class="dd" id="ddaySeollal"></div>
+        <div class="dd x" id="ddayXmas"></div>
+      </div>
+      <button class="cta" id="heroNew" data-i18n="cta">💌 카드 만들기</button>
+    </div>
+
+    <div class="modes" role="tablist" aria-label="card mode">
+      <button data-mode="2d" class="on" role="tab" aria-selected="true">🎨 2D<small data-i18n="m2dSub">손그림 일러스트</small></button>
+      <button data-mode="3d" role="tab" aria-selected="false">🧊 3D<small data-i18n="m3dSub">입체 광택</small></button>
+      <button data-mode="photo" role="tab" aria-selected="false">📷 <span data-i18n="mPhoto">내 사진</span><small data-i18n="mPhotoSub">액자에 담기</small></button>
+    </div>
+
+    <div class="filters" id="filters"></div>
+
+    <div class="sect">
+      <h2 id="tplTitle">테마 고르기</h2>
+      <span id="tplCount"></span>
+    </div>
+    <div class="grid" id="tplGrid"></div>
+
+    <div class="draft" id="draftBox" hidden>
+      <div class="txt"><b data-i18n="draftTitle">만들던 카드가 있어요</b><small id="draftInfo">이어서 꾸며 볼까요?</small></div>
+      <button id="draftGo" data-i18n="draftGo">이어서</button>
+    </div>
+
+    <p class="note" data-i18n="note"></p>
+    <div class="foot" data-i18n="foot">와글링 가족 · 무료 · 광고 없음</div>
+  </div>
+</section>
+
+<!-- ═══════════ 꾸미기 ═══════════ -->
+<section id="viewEdit" class="view" hidden>
+  <header class="topbar">
+    <button class="iconbtn" id="backBtn" data-i18n-aria="back" aria-label="뒤로">←</button>
+    <div class="brand">
+      <div>
+        <b id="edTitle">정미년 한지</b>
+        <small id="edSub">끌어서 옮기고 꾸며 보세요</small>
+      </div>
+    </div>
+    <div class="acts">
+      <button class="lang" id="langBtn2" aria-label="한국어 / English">🌐 EN</button>
+      <button class="js-inst" data-i18n-aria="inst" aria-label="앱 설치">📲<span data-i18n="inst">설치</span></button>
+      <button class="js-share" data-i18n-aria="share" aria-label="앱 공유">📤<span data-i18n="share">공유</span></button>
+    </div>
+  </header>
+  <div class="editMain">
+    <div class="stageWrap" id="stageWrap">
+      <div class="stageBox" id="stageBox">
+        <canvas id="stage" aria-label="card preview"></canvas>
+        <div class="overlay" id="overlay"></div>
+        <div class="photoPrompt" id="photoPrompt" hidden>
+          <div style="font-size:36px">🖼️</div>
+          <p id="photoPromptP"></p>
+          <button id="promptPick" data-i18n="photoAdd">📷 내 사진 넣기</button>
+        </div>
+      </div>
+    </div>
+    <div class="quickRow" id="quickRow"></div>
+    <div class="textHint" id="textHint" data-i18n="textHint">✍️ 카드의 글씨를 눌러도 바로 고칠 수 있어요</div>
+  </div>
+  <div class="editBar">
+    <button data-sheet="bg"><em>🎨</em><span data-i18n="tabBg">배경</span></button>
+    <button data-sheet="st"><em>🧸</em><span data-i18n="tabSt">스티커</span></button>
+    <button class="txBtn" data-sheet="tx"><em>✍️</em><span data-i18n="tabTx">글씨</span></button>
+    <button class="cta" id="doneBtn"><em>💌</em><span data-i18n="tabDone">카드 완성</span></button>
+  </div>
+</section>
+
+<!-- ═══════════ 완성 ═══════════ -->
+<section id="viewDone" class="view" hidden>
+  <header class="topbar">
+    <button class="iconbtn" id="doneBack" data-i18n-aria="back" aria-label="뒤로">←</button>
+    <div class="brand">
+      <div><b data-i18n="doneHeadShort">카드 완성</b><small data-i18n="doneHeadSub">이미지로 저장해 카톡·문자로 보내요</small></div>
+    </div>
+    <div class="acts">
+      <button class="lang" id="langBtn3" aria-label="한국어 / English">🌐 EN</button>
+      <button class="js-inst" data-i18n-aria="inst" aria-label="앱 설치">📲<span data-i18n="inst">설치</span></button>
+      <button class="js-share" data-i18n-aria="share" aria-label="앱 공유">📤<span data-i18n="share">공유</span></button>
+    </div>
+  </header>
+  <div class="doneScroll">
+    <div class="doneHead" data-i18n="doneHead">🎉 카드가 완성됐어요!</div>
+    <p class="doneSub" id="doneSub"></p>
+    <div class="doneCard"><canvas id="doneCanvas"></canvas></div>
+    <button class="big save" id="saveBtn" data-i18n="save">🖼️ 이미지 저장</button>
+    <button class="big kakao" id="kakaoBtn" data-i18n="kakao">💬 카톡·문자 보내기</button>
+    <div class="doneTip" id="doneTip"></div>
+    <div class="doneLinks">
+      <button id="againBtn" data-i18n="again">← 더 꾸미기</button>
+      <button id="newBtn" data-i18n="newCard">새 카드 만들기</button>
+    </div>
+  </div>
+</section>
+
+<div class="sheetWrap" id="sheetWrap" hidden>
+  <div class="sheetBack" id="sheetBack"></div>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="sheetHead"><b id="sheetTitle">배경</b><button id="sheetClose" data-i18n-aria="close" aria-label="닫기">✕</button></div>
+    <div class="sheetBody" id="sheetBody"></div>
+  </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<input type="file" id="photoInput" accept="image/*" hidden />
+
+<script src="./sticks.js"></script>
+<script src="./art.js"></script>
+<script>
+(function(){
+  'use strict';
+  var ART = window.WC_ART, STK = window.WC_STICKERS;
+  var CW = 1080, CH = 1440;
+  var SITE = 'https://starpicklife-design.github.io/card-maker/';
+  var KEY = 'wagleCard.v2';
+  var FONT_STACK = {
+    jua: '"Jua", "Gowun Dodum", "Malgun Gothic", sans-serif',
+    gowun: '"Gowun Dodum", "Jua", "Malgun Gothic", sans-serif',
+    pen: '"Nanum Pen Script", "Jua", cursive'
+  };
+  var FONT_LABEL = { jua: 'fontJua', gowun: 'fontGowun', pen: 'fontPen' };
+  var INK_LIST = ['#FFFFFF', '#1F2433', '#8E1626', '#C8302F', '#C8541A', '#8A5A00', '#2E6B4F', '#1E4E79', '#6B3FA0', '#C2185B'];
+  var CAT_EN = { all: 'All', newyear: 'New Year', zodiac: 'Zodiac', xmas: 'Christmas', flower: 'Flowers', star: 'Stars', heart: 'Heart', ribbon: 'Ribbons', party: 'Party', animal: 'Animals', bubble: 'Bubbles' };
+
+  /* ── 문구 사전 ── */
+  var I18N = {
+    ko: {
+      appTitle: '💌 와글링 카드 · 스스로 꾸미는 카드 만들기',
+      brand: '와글링 카드', brandSub: '카톡으로 바로 보내요',
+      inst: '설치', share: '공유', back: '뒤로', close: '닫기',
+      heroTag: '2027 정미년 · 한국 새해 · 크리스마스',
+      heroH1: '새해도 크리스마스도,<br>내 손으로 꾸며 보내요',
+      heroP: '정미년 설날은 <b>2027년 2월 7일(일)</b>. 테마를 고르고 스티커와 글씨로 꾸며 카톡·문자로 바로 보내세요.',
+      cta: '💌 카드 만들기',
+      dSeollal: '설날까지 D-{n}', dSeollalToday: '오늘이 설날! 🐑', dSeollalPast: '2027 정미년 새해 인사',
+      dXmas: '크리스마스까지 D-{n}', dXmasToday: '오늘이 크리스마스! 🎄', dXmasPast: '메리 크리스마스',
+      m2dSub: '손그림 일러스트', m3dSub: '입체 광택', mPhoto: '내 사진', mPhotoSub: '액자에 담기',
+      themeTitle: '테마 고르기', frameTitle: '사진 액자 고르기', countThemes: '{n}가지', countStickers: '{n}종',
+      fAll: '전체',
+      note: '💡 스티커는 <b>끌어서 옮기고</b>, 고르면 나오는 <b>⤢ 손잡이</b>로 크기를 조절해요. <b>카드의 글씨를 누르면</b> 바로 고칠 수 있어요. 사진은 이 휴대폰 안에만 저장돼요.',
+      foot: '와글링 가족 · 무료 · 광고 없음',
+      draftTitle: '만들던 카드가 있어요', draftGo: '이어서',
+      editHint: '끌어서 옮기고 꾸며 보세요',
+      tabBg: '배경', tabSt: '스티커', tabTx: '글씨', tabDone: '카드 완성',
+      textHint: '✍️ 카드의 글씨를 눌러도 바로 고칠 수 있어요', quickAll: '전체', quickText: '글씨',
+      doneHeadShort: '카드 완성', doneHeadSub: '이미지로 저장해 카톡·문자로 보내요',
+      doneHead: '🎉 카드가 완성됐어요!', doneSuffix: '마음을 담아 보내 보세요',
+      save: '🖼️ 이미지 저장', kakao: '💬 카톡·문자 보내기',
+      doneTip: '카톡·문자는 <b>이미지 저장</b> 후 대화방에서 <b>＋ → 앨범</b>으로 방금 저장한 카드를 고르면 돼요. (문자도 같은 방법이에요)',
+      again: '← 더 꾸미기', newCard: '새 카드 만들기',
+      sheetBg: '배경 · 테마', sheetSt: '스티커 꾸미기', sheetTx: '✍️ 글씨 쓰기', sheetInstall: '📲 홈 화면에 담기', sheetHowto: '💬 카톡·문자로 보내기',
+      lblMode: '모드', lblTheme: '테마', lblFrame: '액자 고르기',
+      photoChange: '🖼️ 사진 바꾸기', photoAdd: '🖼️ 내 사진 넣기', photoDel: '빼기',
+      scrim: '사진 위 글씨가 잘 보이게 (살짝 어둡게)',
+      photoPrivacy: '사진은 밖으로 전송되지 않고 이 휴대폰 안에만 저장돼요.',
+      bgHint: '배경을 바꿔도 붙여 둔 스티커와 글씨는 그대로 남아요.',
+      st2d: '🎨 2D 스티커', st3d: '🧊 3D 스티커', stMix: '섞어서',
+      stHint: '붙인 뒤 카드에서 <b>끌어서 옮기고</b>, <b>⤢</b>를 끌면 크기가 바뀌어요. <b>✕</b>는 빼기.',
+      txTo: '받는 사람 (작게 위에 써져요)', txToPh: '예: 사랑하는 어머니께',
+      txMsg: '인사말 (카드에 크게 써져요)', txMsgPh: '마음을 적어 보세요 · Write your message',
+      txReco: '추천 문구 (눌러서 넣기)', txRecoLang: '문구 언어', txRecoTheme: '문구 테마',
+      txFrom: '보내는 사람', txFromPh: '예: 가족 드림',
+      txFont: '글씨체', txColor: '글씨 색', txSize: '글씨 크기', txPos: '글씨 위치',
+      fontJua: '동글동글', fontGowun: '차분한 글씨', fontPen: '손글씨',
+      posTop: '위쪽', posMid: '가운데', posLow: '아래쪽',
+      txHint: '글씨가 배경에 묻히면 흰색·먹색으로 바꿔 보세요. 카드 위 글씨를 눌러도 이 창이 열려요.',
+      photoPromptP: '<b>갤러리 사진을 골라 주세요</b><br>사진 위에 스티커와 글씨를 올려 카드로 만들어요.',
+      howtoMemo: '카드를 <b>이미지로 저장</b>했어요. 이제 카톡·문자에 사진으로 보내면 됩니다.',
+      howto1: '카톡 대화방을 열고 <b>＋</b>(또는 📎)를 눌러요.', howto2: '<b>앨범</b>(또는 파일)에서 <b>다운로드</b> 폴더의 방금 저장한 카드를 골라요.', howto3: '보내기 전에 <b>사진 크기 원본</b>으로 보내면 글씨가 또렷해요.',
+      howtoHint: '이 휴대폰이 공유 기능을 지원하면 위 버튼 한 번으로 카톡·문자 앱을 바로 열 수 있어요. 공유 창이 뜨면 <b>카카오톡</b>을 골라 주세요.',
+      retrySave: '🖼️ 이미지 다시 저장',
+      instMemo: '홈 화면에 담으면 앱처럼 한 번에 열려요. 주소를 외우지 않아도 됩니다.',
+      instIos1: '화면 아래(또는 위)의 <b>공유 버튼 ⤴</b>을 눌러요', instIos2: '목록을 내려 <b>홈 화면에 추가</b>를 눌러요', instIos3: '오른쪽 위 <b>추가</b>를 누르면 끝!',
+      instSam1: '화면 아래 <b>≡</b>을 눌러요', instSam2: '<b>현재 페이지 추가</b> → <b>홈 화면</b>을 눌러요', instSam3: '<b>추가</b>를 누르면 끝!',
+      instChr1: '오른쪽 위 <b>⋮</b> 점 3개를 눌러요', instChr2: '<b>앱 설치</b> 또는 <b>홈 화면에 추가</b>를 눌러요', instChr3: '<b>설치</b>를 누르면 끝!',
+      instInApp: '카톡·인스타 안에서는 설치가 막혀요. 크롬으로 열어 주세요.', openChrome: '🌐 크롬으로 바로 열기',
+      instHint: '이미 홈 화면에 담아 두었다면 위쪽 📲 버튼은 자동으로 사라져요.',
+      toastAdd: '🧸 붙였어요 · 끌어서 옮기고 ⤢로 크기 조절', toastDel: '스티커를 뺐어요', toastChip: '문구를 넣었어요',
+      toastSaved: '🖼️ 이미지를 저장했어요 · 다운로드/사진첩에서 확인', toastSaveFail: '이미지를 만들지 못했어요. 잠시 뒤 다시 해 주세요.',
+      toastShareFail: '보내기를 준비하지 못했어요: ', toastNoDraft: '만들던 카드가 없어요', toastNew: '새 카드를 골라 보세요',
+      toastPhotoAdded: '🖼️ 사진을 넣었어요 · 액자를 골라 보세요', toastPhotoRemoved: '사진을 뺐어요', toastPhotoPick: '사진 파일을 골라 주세요',
+      toastPhotoFail: '사진을 읽지 못했어요. 다른 사진으로 해 주세요.', toastInstalled: '홈 화면에 담았어요!',
+      toastLinkCopy: '🔗 주소를 복사했어요 · 카톡에 붙여 넣어 보세요', toastLinkFail: '주소를 복사하지 못했어요. 주소창 주소를 길게 눌러 복사해 주세요.',
+      toastLang: 'English로 바꿨어요', toastLangKo: '한국어로 바꿨어요',
+      shareAppText: '2027 정미년 새해·설날, 크리스마스, 생일·감사·응원 카드를 내 손으로 꾸며 카톡으로 바로 보내요. 무료·광고 없음, 설치 없이 폰에서 바로!',
+      shareTitle: '💌 와글링 카드 · 스스로 꾸미는 카드 만들기'
+    },
+    en: {
+      appTitle: '💌 Wagling Card · Make your own card',
+      brand: 'Wagling Card', brandSub: 'Decorate it yourself, send on KakaoTalk',
+      inst: 'Install', share: 'Share', back: 'Back', close: 'Close',
+      heroTag: '2027 · Korean New Year · Christmas',
+      heroH1: 'New Year or Christmas,<br>make it with your own hands',
+      heroP: 'Seollal is <b>February 7, 2027</b>. Pick a theme, add stickers and words, then send it on KakaoTalk or SMS.',
+      cta: '💌 Make a card',
+      dSeollal: 'Seollal in {n} days', dSeollalToday: 'Seollal is today! 🐑', dSeollalPast: 'New Year greetings 2027',
+      dXmas: 'Christmas in {n} days', dXmasToday: 'It is Christmas today! 🎄', dXmasPast: 'Merry Christmas',
+      m2dSub: 'Hand-drawn', m3dSub: 'Glossy 3D', mPhoto: 'My photo', mPhotoSub: 'In a frame',
+      themeTitle: 'Pick a theme', frameTitle: 'Pick a photo frame', countThemes: '{n} themes', countStickers: '{n} stickers',
+      fAll: 'All',
+      note: '💡 Drag stickers to move them and use the ⤢ handle to resize. <b>Tap the words on the card</b> to edit them right away. Photos stay on this phone.',
+      foot: 'Wagling Family · Free · No ads',
+      draftTitle: 'You have a card in progress', draftGo: 'Continue',
+      editHint: 'Drag to arrange your card',
+      tabBg: 'Theme', tabSt: 'Stickers', tabTx: 'Text', tabDone: 'Finish',
+      textHint: '✍️ Tap the words on the card to edit them', quickAll: 'All', quickText: 'Text',
+      doneHeadShort: 'Card ready', doneHeadSub: 'Save it and send on KakaoTalk or SMS',
+      doneHead: '🎉 Your card is ready!', doneSuffix: 'send it with love',
+      save: '🖼️ Save image', kakao: '💬 Send on KakaoTalk / SMS',
+      doneTip: 'Save the image first, then in the chat tap <b>+ → Album</b> and choose the card you just saved. (SMS works the same way.)',
+      again: '← Keep decorating', newCard: 'New card',
+      sheetBg: 'Theme', sheetSt: 'Stickers', sheetTx: '✍️ Write your words', sheetInstall: '📲 Add to home screen', sheetHowto: '💬 Send on KakaoTalk / SMS',
+      lblMode: 'Mode', lblTheme: 'Theme', lblFrame: 'Frame',
+      photoChange: '🖼️ Change photo', photoAdd: '🖼️ Add my photo', photoDel: 'Remove',
+      scrim: 'Keep the text readable (dim the photo a little)',
+      photoPrivacy: 'Your photo is never sent anywhere; it stays on this phone.',
+      bgHint: 'Stickers and words stay when you change the theme.',
+      st2d: '🎨 2D stickers', st3d: '🧊 3D stickers', stMix: 'Mix',
+      stHint: 'Drag on the card to move a sticker, drag <b>⤢</b> to resize, tap <b>✕</b> to remove.',
+      txTo: 'To (small, at the top)', txToPh: 'e.g. To my dear mother',
+      txMsg: 'Message (written large on the card)', txMsgPh: 'Write your message',
+      txReco: 'Suggested words (tap to use)', txRecoLang: 'Phrase language', txRecoTheme: 'Phrase theme',
+      txFrom: 'From', txFromPh: 'e.g. From your family',
+      txFont: 'Font', txColor: 'Text color', txSize: 'Text size', txPos: 'Text position',
+      fontJua: 'Round', fontGowun: 'Calm', fontPen: 'Handwriting',
+      posTop: 'Top', posMid: 'Middle', posLow: 'Bottom',
+      txHint: 'If the text blends into the background, try white or dark ink. Tapping the words on the card opens this panel too.',
+      photoPromptP: '<b>Choose a photo from your gallery</b><br>Then add stickers and words on top.',
+      howtoMemo: 'Your card is <b>saved as an image</b>. Now send it to KakaoTalk or SMS as a photo.',
+      howto1: 'Open a KakaoTalk chat and tap <b>+</b> (or 📎).', howto2: 'Choose <b>Album</b> (or File) and pick the card you just saved in Downloads.', howto3: 'Send it as <b>original size</b> so the words stay crisp.',
+      howtoHint: 'If your phone supports sharing, the button above opens KakaoTalk or SMS directly. Choose <b>KakaoTalk</b> in the share sheet.',
+      retrySave: '🖼️ Save the image again',
+      instMemo: 'Add it to your home screen to open it like an app, without remembering the address.',
+      instIos1: 'Tap the <b>Share ⤴</b> button at the bottom (or top)', instIos2: 'Scroll and tap <b>Add to Home Screen</b>', instIos3: 'Tap <b>Add</b> at the top right',
+      instSam1: 'Tap <b>≡</b> at the bottom', instSam2: 'Tap <b>Add current page</b> → <b>Home screen</b>', instSam3: 'Tap <b>Add</b>',
+      instChr1: 'Tap the <b>⋮</b> menu at the top right', instChr2: 'Tap <b>Install app</b> or <b>Add to Home screen</b>', instChr3: 'Tap <b>Install</b>',
+      instInApp: 'Installing is blocked inside KakaoTalk or Instagram. Please open it in Chrome.', openChrome: '🌐 Open in Chrome',
+      instHint: 'If it is already on your home screen, the 📲 button hides itself.',
+      toastAdd: '🧸 Added · drag to move, ⤢ to resize', toastDel: 'Sticker removed', toastChip: 'Words added',
+      toastSaved: '🖼️ Image saved · check Downloads or Photos', toastSaveFail: 'Could not make the image. Please try again.',
+      toastShareFail: 'Could not prepare sharing: ', toastNoDraft: 'No card in progress', toastNew: 'Pick a new card theme',
+      toastPhotoAdded: '🖼️ Photo added · now pick a frame', toastPhotoRemoved: 'Photo removed', toastPhotoPick: 'Please choose an image file',
+      toastPhotoFail: 'Could not read the photo. Please try another one.', toastInstalled: 'Added to your home screen!',
+      toastLinkCopy: '🔗 Link copied · paste it in KakaoTalk', toastLinkFail: 'Could not copy. Long-press the address bar to copy it.',
+      toastLang: 'Switched to English', toastLangKo: 'Switched to Korean',
+      shareAppText: 'Make your own New Year, Christmas, birthday and thank-you cards and send them on KakaoTalk. Free, no ads, no install.',
+      shareTitle: '💌 Wagling Card · Make your own card'
+    }
+  };
+  var LANG = 'ko';
+  try { var sv = localStorage.getItem('wagleCard.lang'); if (sv === 'en') LANG = 'en'; } catch (e) {}
+  function t(k, vars) {
+    var s = (I18N[LANG] && I18N[LANG][k]) || I18N.ko[k] || k;
+    if (vars) s = s.replace(/\{(\w+)\}/g, function (m, x) { return vars[x] != null ? vars[x] : ''; });
+    return s;
+  }
+
+  var state = {
+    mode: '2d', theme: 'jeongmi', frame: 'hanji', photo: null, scrim: true,
+    stickers: [], text: { to: '', msg: '새해 복 많이 받으세요', from: '', font: 'jua', color: '#FFF3D6', size: 0.072, pos: 'mid' }
+  };
+  var homeMode = '2d', homeFilter = 'all';
+  var view = 'home';
+  var selId = null, seq = 0;
+  var boxW = 0, boxH = 0;
+  var TEXT_HIT = null;
+  var stkCat = 'all', stkStyleMode = 'mix';
+  var phraseTheme = null, phraseLang = null;
+
+  var $ = function (s) { return document.querySelector(s); };
+  var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+  var stageBox = $('#stageBox'), stage = $('#stage'), overlay = $('#overlay');
+  var sheetWrap = $('#sheetWrap'), sheetBody = $('#sheetBody'), sheetTitle = $('#sheetTitle');
+  var viewHome = $('#viewHome'), viewEdit = $('#viewEdit'), viewDone = $('#viewDone');
+
+  /* ── 이미지 캐시 ── */
+  var IMG = new Map(), BROKEN = new Set(), raf = 0;
+  function svgUrl(svg) { return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg); }
+  function loadImg(src) {
+    if (!src) return Promise.resolve(null);
+    var hit = IMG.get(src);
+    if (hit) return Promise.resolve(hit);
+    if (BROKEN.has(src)) return Promise.resolve(null);
+    return new Promise(function (res) {
+      var im = new Image();
+      im.onload = function () { if (im.naturalWidth) { IMG.set(src, im); res(im); } else { BROKEN.add(src); res(null); } };
+      im.onerror = function () { BROKEN.add(src); res(null); };
+      im.src = src;
+    });
+  }
+  function imgSync(src) {
+    var im = IMG.get(src);
+    if (im) return im;
+    if (src && !BROKEN.has(src)) loadImg(src).then(scheduleRender);
+    return null;
+  }
+  function scheduleRender() {
+    if (raf) return;
+    raf = requestAnimationFrame(function () { raf = 0; render(); });
+  }
+
+  /* ── 그리기 ── */
+  function drawCover(ctx, im, x, y, w, h) {
+    var iw = im.width, ih = im.height;
+    if (!iw || !ih) return;
+    var s = Math.max(w / iw, h / ih), sw = w / s, sh = h / s;
+    ctx.drawImage(im, (iw - sw) / 2, (ih - sh) / 2, sw, sh, x, y, w, h);
+  }
+  function drawCard(ctx, W, H, st, opts) {
+    opts = opts || {};
+    ctx.save();
+    ctx.clearRect(0, 0, W, H);
+    if (st.mode === 'photo') {
+      ctx.fillStyle = '#F2E6D6'; ctx.fillRect(0, 0, W, H);
+      var ph = st.photo ? imgSync(st.photo) : null;
+      if (ph) drawCover(ctx, ph, 0, 0, W, H);
+      else {
+        var g0 = ctx.createLinearGradient(0, 0, W, H);
+        g0.addColorStop(0, '#FFD9A0'); g0.addColorStop(.5, '#F7A8B8'); g0.addColorStop(1, '#8FB8F2');
+        ctx.fillStyle = g0; ctx.fillRect(0, 0, W, H);
+      }
+      if (st.scrim) {
+        var g1 = ctx.createLinearGradient(0, H * .26, 0, H * .98);
+        g1.addColorStop(0, 'rgba(24,10,20,0)'); g1.addColorStop(.22, 'rgba(24,10,20,.07)');
+        g1.addColorStop(.55, 'rgba(24,10,20,.24)'); g1.addColorStop(1, 'rgba(24,10,20,.38)');
+        ctx.fillStyle = g1; ctx.fillRect(0, 0, W, H);
+      }
+      var fr = ART.frame(st.frame);
+      if (fr) { var fi = imgSync(svgUrl(fr)); if (fi) ctx.drawImage(fi, 0, 0, W, H); }
+    } else {
+      var src = svgUrl(ART.bg(st.theme, st.mode === '3d'));
+      var bi = imgSync(src);
+      if (bi) ctx.drawImage(bi, 0, 0, W, H);
+      else { ctx.fillStyle = '#EADFD0'; ctx.fillRect(0, 0, W, H); }
+    }
+    st.stickers.forEach(function (s) {
+      var im = imgSync(svgUrl(STK.svg(s.key, s.gloss)));
+      if (!im) return;
+      var size = s.s * W;
+      ctx.drawImage(im, s.x * W - size / 2, s.y * H - size / 2, size, size);
+    });
+    drawTextBlock(ctx, W, H, st, opts);
+    ctx.restore();
+  }
+  function lum(hex) {
+    var h = (hex || '#000').replace('#', '');
+    if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+    var r = parseInt(h.slice(0, 2), 16) / 255, g = parseInt(h.slice(2, 4), 16) / 255, b = parseInt(h.slice(4, 6), 16) / 255;
+    return .2126 * r + .7152 * g + .0722 * b;
+  }
+  function wrapLines(ctx, text, maxW) {
+    var out = [];
+    text.split('\n').forEach(function (par) {
+      if (!par) { out.push(''); return; }
+      var words = par.split(' '), line = '';
+      words.forEach(function (w) {
+        if (!w) return;
+        var cand = line ? line + ' ' + w : w;
+        if (ctx.measureText(cand).width <= maxW) { line = cand; return; }
+        if (line) { out.push(line); line = ''; }
+        var cur = '';
+        Array.from(w).forEach(function (ch) {
+          var t2 = cur + ch;
+          if (ctx.measureText(t2).width > maxW && cur) { out.push(cur); cur = ch; }
+          else cur = t2;
+        });
+        line = cur;
+      });
+      if (line) out.push(line);
+    });
+    return out;
+  }
+  function drawTextBlock(ctx, W, H, st, opts) {
+    var t2 = st.text || {};
+    var th = ART.theme(st.theme);
+    var color = t2.color || (st.mode === 'photo' ? '#FFFFFF' : th.ink);
+    var fam = FONT_STACK[t2.font] || FONT_STACK.jua;
+    var maxW = W * .80;
+    var light = lum(color) > .62;
+    var msg = (t2.msg || '').trim();
+    var showPh = !msg && opts.placeholder;
+    var baseFs = Math.max(18, (t2.size || .072) * W);
+    var M;
+    function metrics(fs) {
+      var toFs = Math.max(W * .022, fs * .40), fromFs = Math.max(W * .023, fs * .44), lineH = fs * 1.36;
+      ctx.font = '400 ' + fs + 'px ' + fam;
+      var lines = msg ? wrapLines(ctx, msg, maxW) : [];
+      ctx.font = '400 ' + toFs + 'px ' + fam;
+      var toLines = t2.to ? wrapLines(ctx, t2.to, maxW) : [];
+      ctx.font = '400 ' + fromFs + 'px ' + fam;
+      var fromLines = t2.from ? wrapLines(ctx, '— ' + t2.from, maxW) : [];
+      var toH = toLines.length * toFs * 1.5, fromH = fromLines.length * fromFs * 1.6;
+      var msgH = msg ? lines.length * lineH : (showPh ? fs * 1.1 : 0);
+      var gap1 = toLines.length && (msg || showPh) ? fs * .42 : 0;
+      var gap2 = (msg || showPh) && fromLines.length ? fs * .46 : 0;
+      return { fs: fs, toFs: toFs, fromFs: fromFs, lineH: lineH, lines: lines, toLines: toLines, fromLines: fromLines,
+        toH: toH, msgH: msgH, fromH: fromH, gap1: gap1, gap2: gap2, total: toH + gap1 + msgH + gap2 + fromH };
+    }
+    M = metrics(baseFs);
+    var guard = 0;
+    while (M.total > H * .55 && M.fs > W * .045 && guard++ < 10) { baseFs *= .93; M = metrics(baseFs); }
+    var anchor = { top: .34, mid: .50, low: .625 }[t2.pos || 'mid'] || .5;
+    var y = Math.max(H * .265, Math.min(H * anchor - M.total / 2, H * .80 - M.total));
+    var yStart = y;
+    TEXT_HIT = { x0: W / 2 - maxW / 2 - 8, x1: W / 2 + maxW / 2 + 8, y0: yStart - 10, y1: yStart + Math.max(M.total, M.fs * 1.1) + 10 };
+    ctx.save();
+    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    ctx.fillStyle = color;
+    ctx.shadowColor = light ? 'rgba(24,8,20,.55)' : 'rgba(255,255,255,.5)';
+    ctx.shadowBlur = light ? W * .013 : W * .005;
+    ctx.shadowOffsetY = light ? W * .004 : 0;
+    if (M.toLines.length) {
+      ctx.globalAlpha = .92; ctx.font = '400 ' + M.toFs + 'px ' + fam;
+      M.toLines.forEach(function (ln) { ctx.fillText(ln, W / 2, y); y += M.toFs * 1.5; });
+      y += M.gap1;
+    }
+    ctx.globalAlpha = 1;
+    if (msg) {
+      ctx.font = '400 ' + M.fs + 'px ' + fam;
+      M.lines.forEach(function (ln) { ctx.fillText(ln, W / 2, y); y += M.lineH; });
+      y += M.gap2;
+    } else if (showPh) {
+      ctx.globalAlpha = .42; ctx.font = '400 ' + (M.fs * .58) + 'px ' + FONT_STACK.gowun;
+      ctx.fillText(LANG === 'en' ? 'Tap here to write your words' : '여기에 인사말을 적어 보세요', W / 2, y + M.fs * .1);
+      ctx.globalAlpha = 1; y += M.msgH + M.gap2;
+    }
+    if (M.fromLines.length) {
+      ctx.globalAlpha = .88; ctx.font = '400 ' + M.fromFs + 'px ' + fam;
+      M.fromLines.forEach(function (ln) { ctx.fillText(ln, W / 2, y); y += M.fromFs * 1.6; });
+    }
+    ctx.restore();
+  }
+
+  /* ── 미리보기 크기 ── */
+  function layoutStage() {
+    if (!viewEdit || viewEdit.hidden) return;
+    var wrap = $('#stageWrap');
+    var availW = wrap.clientWidth - 8, availH = wrap.clientHeight - 6;
+    if (availW <= 0 || availH <= 0) return;
+    var w = Math.min(availW, availH * CW / CH);
+    w = Math.max(150, Math.floor(w));
+    boxW = w; boxH = Math.round(w * CH / CW);
+    stageBox.style.width = boxW + 'px';
+    stageBox.style.height = boxH + 'px';
+    var dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    stage.style.width = boxW + 'px';
+    stage.style.height = boxH + 'px';
+    stage.width = Math.round(boxW * dpr);
+    stage.height = Math.round(boxH * dpr);
+    render();
+  }
+  function render() {
+    if (!boxW || !stage) return;
+    var dpr = stage.width / boxW;
+    var ctx = stage.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    drawCard(ctx, boxW, boxH, state, { preview: true, placeholder: true });
+    drawOverlay();
+  }
+  function drawOverlay() {
+    if (view !== 'edit' || !selId) { overlay.innerHTML = ''; return; }
+    var s = state.stickers.filter(function (x) { return x.id === selId; })[0];
+    if (!s) { overlay.innerHTML = ''; return; }
+    var size = s.s * boxW;
+    var left = s.x * boxW - size / 2, top = s.y * boxH - size / 2;
+    overlay.innerHTML =
+      '<div class="selbox" style="left:' + left + 'px;top:' + top + 'px;width:' + size + 'px;height:' + size + 'px"></div>' +
+      '<button class="delbtn" style="left:' + (left - 11) + 'px;top:' + (top - 11) + 'px" aria-label="remove sticker">✕</button>' +
+      '<button class="rsbtn" style="left:' + (left + size - 25) + 'px;top:' + (top + size - 25) + 'px" aria-label="resize sticker">⤢</button>';
+  }
+
+  /* ── 스티커 조작 ── */
+  function hitTest(px, py) {
+    for (var i = state.stickers.length - 1; i >= 0; i--) {
+      var s = state.stickers[i], size = s.s * boxW;
+      var x = s.x * boxW, y = s.y * boxH;
+      if (Math.abs(px - x) <= size / 2 && Math.abs(py - y) <= size / 2) return s;
+    }
+    return null;
+  }
+  var drag = null;
+  stage.addEventListener('pointerdown', function (e) {
+    if (view !== 'edit' || !boxW) return;
+    var r = stageBox.getBoundingClientRect();
+    var px = e.clientX - r.left, py = e.clientY - r.top;
+    var hit = hitTest(px, py);
+    if (!hit) {
+      selId = null; drawOverlay();
+      if (TEXT_HIT && px >= TEXT_HIT.x0 && px <= TEXT_HIT.x1 && py >= TEXT_HIT.y0 && py <= TEXT_HIT.y1) {
+        openSheet('tx', true, true);
+      }
+      return;
+    }
+    selId = hit.id; drawOverlay();
+    drag = { id: hit.id, dx: px - hit.x * boxW, dy: py - hit.y * boxH, moved: false };
+    try { stage.setPointerCapture(e.pointerId); } catch (err) {}
+    e.preventDefault();
+  });
+  stage.addEventListener('pointermove', function (e) {
+    if (!drag || !boxW) return;
+    var r = stageBox.getBoundingClientRect();
+    var px = e.clientX - r.left, py = e.clientY - r.top;
+    var s = state.stickers.filter(function (x) { return x.id === drag.id; })[0];
+    if (!s) return;
+    var nx = (px - drag.dx) / boxW, ny = (py - drag.dy) / boxH;
+    s.x = Math.max(.02, Math.min(.98, nx));
+    s.y = Math.max(.02, Math.min(.98, ny));
+    drag.moved = true;
+    drawOverlay(); scheduleRender();
+  });
+  stage.addEventListener('pointerup', function () {
+    if (drag && drag.moved) persist();
+    drag = null;
+  });
+  stage.addEventListener('pointercancel', function () { drag = null; });
+
+  var resize = null;
+  overlay.addEventListener('pointerdown', function (e) {
+    var del = e.target.closest('.delbtn'), rs = e.target.closest('.rsbtn');
+    if (del) {
+      e.preventDefault(); e.stopPropagation();
+      state.stickers = state.stickers.filter(function (x) { return x.id !== selId; });
+      selId = null; render(); persist(); toast(t('toastDel'));
+      return;
+    }
+    if (rs) {
+      e.preventDefault(); e.stopPropagation();
+      var s = state.stickers.filter(function (x) { return x.id === selId; })[0];
+      if (!s) return;
+      var r = stageBox.getBoundingClientRect();
+      var cx = s.x * boxW, cy = s.y * boxH;
+      var px = e.clientX - r.left, py = e.clientY - r.top;
+      var d = Math.hypot(px - cx, py - cy) || 1;
+      resize = { id: s.id, startS: s.s, startD: d, pointerId: e.pointerId };
+      try { rs.setPointerCapture(e.pointerId); } catch (err) {}
+    }
+  });
+  window.addEventListener('pointermove', function (e) { if (resize) onResizeMove(e); });
+  window.addEventListener('pointerup', function () { if (resize) onResizeEnd(); });
+  window.addEventListener('pointercancel', function () { if (resize) onResizeEnd(); });
+  function onResizeMove(e) {
+    if (!resize) return;
+    var s = state.stickers.filter(function (x) { return x.id === resize.id; })[0];
+    if (!s) return;
+    var r = stageBox.getBoundingClientRect();
+    var cx = s.x * boxW, cy = s.y * boxH;
+    var d = Math.hypot(e.clientX - r.left - cx, e.clientY - r.top - cy) || 1;
+    s.s = Math.max(.06, Math.min(1.15, resize.startS * d / resize.startD));
+    drawOverlay(); scheduleRender();
+    e.preventDefault();
+  }
+  function onResizeEnd() {
+    if (resize) persist();
+    resize = null;
+  }
+
+  function addSticker(key, gloss) {
+    var meta = STK.map[key] || { s: .22 };
+    var n = state.stickers.length;
+    var slots = [[.27, .205], [.73, .205], [.27, .795], [.73, .795], [.5, .15], [.5, .85]];
+    var slot = slots[n % slots.length];
+    var s = {
+      id: 's' + (++seq), key: key, gloss: !!gloss,
+      x: slot[0], y: slot[1],
+      s: (meta.s || .22) * .84
+    };
+    state.stickers.push(s);
+    selId = s.id;
+    render(); persist();
+    toast(t('toastAdd'));
+  }
+  function themeOf() { return ART.theme(state.theme); }
+
+  /* ── 저장/불러오기 ── */
+  var saveT = 0;
+  function persist() {
+    clearTimeout(saveT);
+    saveT = setTimeout(function () {
+      try {
+        localStorage.setItem(KEY, JSON.stringify({
+          mode: state.mode, theme: state.theme, frame: state.frame, photo: state.photo || null,
+          scrim: state.scrim, stickers: state.stickers, text: state.text, at: Date.now()
+        }));
+      } catch (e) {}
+    }, 220);
+  }
+  function readDraft() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (!raw) return null;
+      var d = JSON.parse(raw);
+      if (!d || !Array.isArray(d.stickers)) return null;
+      if (!d.stickers.length && !(d.text && (d.text.msg || d.text.to || d.text.from))) return null;
+      return d;
+    } catch (e) { return null; }
+  }
+
+  /* ── 화면 전환 ── */
+  function setView(v) {
+    view = v;
+    var tt = document.getElementById('toast'); if (tt) tt.classList.remove('on');
+    viewHome.hidden = v !== 'home';
+    viewEdit.hidden = v !== 'edit';
+    viewDone.hidden = v !== 'done';
+  }
+  function titleOf() { var th = themeOf(); return LANG === 'en' ? th.nameEn : th.name; }
+  function openEditor(push) {
+    setView('edit');
+    document.title = '💌 ' + (state.mode === 'photo' ? frameName() : titleOf()) + ' · ' + t('brand');
+    $('#edTitle').textContent = state.mode === 'photo' ? frameName() : titleOf();
+    $('#edSub').textContent = state.mode === 'photo'
+      ? (state.photo ? (LANG === 'en' ? 'Decorate your photo' : '사진 위에 꾸며 보세요') : (LANG === 'en' ? 'Add a photo first' : '사진을 넣어 주세요'))
+      : (LANG === 'en' ? themeOf().subEn : themeOf().sub);
+    selId = null;
+    buildQuick();
+    requestAnimationFrame(function () { layoutStage(); syncPhotoPrompt(); });
+    if (push) navPush({ v: 'edit' });
+  }
+  function openDone(push) {
+    setView('done');
+    $('#doneSub').textContent = (state.mode === 'photo' ? frameName() : titleOf()) + ' · ' + t('doneSuffix');
+    selId = null; drawDone();
+    if (push) navPush({ v: 'done' });
+  }
+  function drawDone() {
+    var c = $('#doneCanvas');
+    var w = Math.min(window.innerWidth * .78, 320);
+    var dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+    c.style.width = w + 'px'; c.style.height = (w * CH / CW) + 'px';
+    c.width = Math.round(w * dpr); c.height = Math.round((w * CH / CW) * dpr);
+    var ctx = c.getContext('2d');
+    ctx.setTransform(c.width / CW, 0, 0, c.width / CW, 0, 0);
+    drawCard(ctx, CW, CH, state, {});
+  }
+  var navDepth = 0;
+  function navPush(st) {
+    navDepth = st.v === 'home' ? 0 : (st.v === 'edit' ? 1 : (st.v === 'done' ? 2 : (view === 'done' ? 3 : 2)));
+    try { history.pushState(st, '', location.pathname + location.search); } catch (e) {}
+  }
+
+  function showHome() {
+    setView('home'); selId = null;
+    document.title = t('appTitle');
+    buildHome();
+  }
+
+  /* ── 홈 그리기 ── */
+  var ORDER = ['jeongmi', 'snowtree', 'xmasnight', 'haedon', 'seollal', 'xmasmorning', 'byeolbam',
+    'birthday', 'congrats', 'thanks', 'hyodo', 'cheer', 'console'];
+  var TAGS = ['새해', '설날', '크리스마스', '생일', '축하', '감사', '효도', '응원', '위로'];
+  var TAG_EN = { '새해': 'New Year', '설날': 'Seollal', '크리스마스': 'Christmas', '생일': 'Birthday', '축하': 'Congrats', '감사': 'Thanks', '효도': 'Parents', '응원': 'Cheer', '위로': 'Comfort' };
+  function sortedThemes() {
+    return ART.themes.slice().sort(function (a, b) { return ORDER.indexOf(a.id) - ORDER.indexOf(b.id); });
+  }
+  function tagName(th) { return LANG === 'en' ? (th.tagEn || TAG_EN[th.tag] || th.tag) : th.tag; }
+  function buildFilters() {
+    var box = $('#filters');
+    if (homeMode === 'photo') { box.hidden = true; box.innerHTML = ''; return; }
+    box.hidden = false;
+    var counts = {};
+    ART.themes.forEach(function (th) { counts[th.tag] = (counts[th.tag] || 0) + 1; });
+    box.innerHTML = '<button data-tag="all" class="' + (homeFilter === 'all' ? 'on' : '') + '">' + t('fAll') + '</button>' +
+      TAGS.filter(function (tg) { return counts[tg]; }).map(function (tg) {
+        return '<button data-tag="' + tg + '" class="' + (homeFilter === tg ? 'on' : '') + '">' + (LANG === 'en' ? TAG_EN[tg] : tg) + '</button>';
+      }).join('');
+    $$('#filters button').forEach(function (b) {
+      b.addEventListener('click', function () { homeFilter = b.dataset.tag; buildHome(); });
+    });
+  }
+  function buildHome() {
+    var items = homeMode === 'photo' ? ART.frames : sortedThemes();
+    if (homeMode !== 'photo' && homeFilter !== 'all') items = items.filter(function (th) { return th.tag === homeFilter; });
+    var grid = $('#tplGrid');
+    $('#tplTitle').textContent = homeMode === 'photo' ? t('frameTitle') : t('themeTitle');
+    $('#tplCount').textContent = t('countThemes', { n: items.length });
+    grid.innerHTML = '';
+    items.forEach(function (it) {
+      var b = document.createElement('button');
+      b.className = 'tpl';
+      if (homeMode === 'photo') {
+        b.dataset.frame = it.id;
+        b.innerHTML = '<span class="pic" style="background:linear-gradient(160deg,#FFD9A0,#F7A8B8 45%,#8FB8F2)">' +
+          (it.id === 'none' ? '' : '<img class="fr" alt="" src="' + svgUrl(ART.frame(it.id)) + '">') + '</span>' +
+          '<span class="cap"><b>' + (LANG === 'en' ? it.nameEn : it.name) + '</b><i>' + (LANG === 'en' ? it.tagEn : it.tag) + '</i></span>';
+      } else {
+        b.dataset.theme = it.id;
+        var badge = '';
+        if (it.tag === '새해' || it.tag === '설날') badge = '<span class="new">' + (LANG === 'en' ? '2027' : '정미년') + '</span>';
+        else if (it.tag === '크리스마스') badge = '<span class="new x">' + (LANG === 'en' ? 'XMAS' : '크리스마스') + '</span>';
+        b.innerHTML = badge + '<span class="pic"><img loading="lazy" alt="" src="' + svgUrl(ART.bg(it.id, homeMode === '3d')) + '"></span>' +
+          '<span class="cap"><b>' + (LANG === 'en' ? it.nameEn : it.name) + '</b><i>' + tagName(it) + '</i></span>';
+      }
+      b.addEventListener('click', function () {
+        if (b.dataset.frame) startPhoto(b.dataset.frame);
+        else startTheme(b.dataset.theme);
+      });
+      grid.appendChild(b);
+    });
+    buildFilters();
+    var d = readDraft();
+    var box = $('#draftBox');
+    if (d) {
+      box.hidden = false;
+      var nm = d.mode === 'photo' ? (LANG === 'en' ? 'My photo card' : '내 사진 카드') : (LANG === 'en' ? ART.theme(d.theme).nameEn : ART.theme(d.theme).name);
+      $('#draftInfo').textContent = nm + ' · ' + (LANG === 'en' ? d.stickers.length + ' stickers' : '스티커 ' + d.stickers.length + '개');
+    } else box.hidden = true;
+  }
+  function greetingOf(th) { return LANG === 'en' ? th.greetingEn : th.greeting; }
+  function startTheme(id) {
+    var th = ART.theme(id);
+    state = {
+      mode: homeMode === '3d' ? '3d' : '2d', theme: id, frame: 'hanji', photo: state.photo || null, scrim: true,
+      stickers: [], text: { to: '', msg: greetingOf(th), from: '', font: th.font, color: th.ink, size: .072, pos: 'mid' }
+    };
+    seq = 0; persist(); openEditor(true);
+  }
+  function startPhoto(frameId) {
+    state = {
+      mode: 'photo', theme: 'thanks', frame: frameId, photo: state.photo || null, scrim: true,
+      stickers: [], text: { to: '', msg: '', from: '', font: 'gowun', color: '#FFFFFF', size: .072, pos: 'low' }
+    };
+    seq = 0; persist(); openEditor(true);
+  }
+  function frameName() {
+    var f = ART.frames.filter(function (x) { return x.id === state.frame; })[0];
+    if (!f) return LANG === 'en' ? 'My photo' : '내 사진';
+    return LANG === 'en' ? f.nameEn : f.name;
+  }
+  function syncPhotoPrompt() {
+    var p = $('#photoPrompt');
+    p.hidden = !(state.mode === 'photo' && !state.photo);
+  }
+
+  /* ── 빠른 스티커 ── */
+  var QUICK = {
+    '새해': ['sheepHanbok', 'cheongsachorong', 'magpie', 'pouchSaekdong', 'sunrise', 'plum'],
+    '설날': ['tteokguk', 'norigae', 'pouchGold', 'window', 'hanok', 'coin'],
+    '크리스마스': ['xmasTree', 'snowman', 'santaHat', 'giftBox', 'wreath', 'snowflake'],
+    '생일': ['cake', 'balloon', 'gift', 'hat', 'heart', 'sparkle'],
+    '축하': ['fireworks', 'badge', 'crown', 'ribbon', 'star', 'sparkle'],
+    '감사': ['camellia', 'envelope', 'letter', 'heart', 'leaf', 'carnation'],
+    '효도': ['bouquet', 'carnation', 'heart', 'leaf', 'hydrangea', 'letter'],
+    '응원': ['sunflower', 'clover', 'rainbow', 'chick', 'heart', 'leaf'],
+    '위로': ['moon', 'cloud', 'coffee', 'heart', 'star', 'clover']
+  };
+  function buildQuick() {
+    var keys = state.mode === 'photo'
+      ? ['heart', 'sparkle', 'ribbon', 'star', 'cherry', 'cloud']
+      : (QUICK[themeOf().tag] || QUICK['새해']);
+    var gloss = state.mode === '3d';
+    $('#quickRow').innerHTML = '<button class="q txt" id="qText"><span>✍️</span>' + t('quickText') + '</button>' +
+      keys.map(function (k) {
+        return '<button class="q" data-k="' + k + '" aria-label="' + (STK.map[k] ? STK.map[k].n : k) + '"><img alt="" src="' + svgUrl(STK.svg(k, gloss)) + '"></button>';
+      }).join('') + '<button class="q more" id="qMore"><span>➕</span>' + t('quickAll') + '</button>';
+    $$('#quickRow .q[data-k]').forEach(function (b) {
+      b.addEventListener('click', function () { addSticker(b.dataset.k, gloss); });
+    });
+    $('#qMore').addEventListener('click', function () { openSheet('st'); });
+    $('#qText').addEventListener('click', function () { openSheet('tx', true, true); });
+  }
+
+  /* ── 시트 ── */
+  var sheetKind = null;
+  function openSheet(kind, push, focus) {
+    var tt = $('#toast'); if (tt) tt.classList.remove('on');
+    sheetKind = kind;
+    buildSheet(kind);
+    sheetWrap.hidden = false;
+    if (push !== false) navPush({ v: 'sheet', k: kind });
+    if (focus) setTimeout(function () {
+      var el = $('#inMsg'); if (el) { try { el.focus(); var l = el.value.length; el.setSelectionRange(l, l); } catch (e) {} }
+    }, 320);
+  }
+  function hideSheet() { sheetWrap.hidden = true; sheetKind = null; }
+  function closeSheet() {
+    if (history.state && history.state.v === 'sheet') { try { history.back(); return; } catch (e) {} }
+    hideSheet();
+  }
+  function buildSheet(kind) {
+    if (kind === 'bg') { sheetTitle.textContent = t('sheetBg'); sheetBody.innerHTML = bgHTML(); wireBg(); }
+    else if (kind === 'st') { sheetTitle.textContent = t('sheetSt'); sheetBody.innerHTML = stHTML(); wireSt(); }
+    else if (kind === 'tx') { sheetTitle.textContent = t('sheetTx'); sheetBody.innerHTML = txHTML(); wireTx(); }
+    else if (kind === 'install') { sheetTitle.textContent = t('sheetInstall'); sheetBody.innerHTML = installHTML(); wireInstall(); }
+    else if (kind === 'howto') { sheetTitle.textContent = t('sheetHowto'); sheetBody.innerHTML = howtoHTML(); wireHowto(); }
+  }
+
+  function bgHTML() {
+    var mode = state.mode;
+    var h = '<div class="lbl">' + t('lblMode') + '</div><div class="seg" id="modeSeg">' +
+      '<button data-m="2d" class="' + (mode === '2d' ? 'on' : '') + '">🎨 2D</button>' +
+      '<button data-m="3d" class="' + (mode === '3d' ? 'on' : '') + '">🧊 3D</button>' +
+      '<button data-m="photo" class="' + (mode === 'photo' ? 'on' : '') + '">📷 ' + t('mPhoto') + '</button></div>';
+    if (mode === 'photo') {
+      h += '<div class="photoBtns"><button class="pick" id="pickBtn">' + (state.photo ? t('photoChange') : t('photoAdd')) + '</button>' +
+        (state.photo ? '<button class="del" id="delPhoto">' + t('photoDel') + '</button>' : '') + '</div>';
+      h += '<div class="lbl">' + t('lblFrame') + '</div><div class="tplRow photo">' + ART.frames.map(function (f) {
+        return '<button data-fr="' + f.id + '" class="' + (state.frame === f.id ? 'on' : '') + '"><span class="ph" style="background:linear-gradient(160deg,#FFD9A0,#F7A8B8 45%,#8FB8F2)">' +
+          (f.id === 'none' ? '' : '<img alt="" src="' + svgUrl(ART.frame(f.id)) + '">') + '</span><span class="nm">' + (LANG === 'en' ? f.nameEn : f.name) + '</span></button>';
+      }).join('') + '</div>';
+      h += '<label class="check"><input type="checkbox" id="scrimChk" ' + (state.scrim ? 'checked' : '') + '> ' + t('scrim') + '</label>';
+      h += '<p class="hint">' + t('photoPrivacy') + '</p>';
+    } else {
+      h += '<div class="lbl">' + t('lblTheme') + '</div><div class="tplRow">' + sortedThemes().map(function (th) {
+        return '<button data-th="' + th.id + '" class="' + (state.theme === th.id ? 'on' : '') + '"><span class="ph"><img alt="" loading="lazy" src="' + svgUrl(ART.bg(th.id, mode === '3d')) + '"></span><span class="nm">' + (LANG === 'en' ? th.nameEn : th.name) + '</span></button>';
+      }).join('') + '</div>';
+      h += '<p class="hint">' + t('bgHint') + '</p>';
+    }
+    return h;
+  }
+  function wireBg() {
+    function setMode(m) {
+      if (m === state.mode) return;
+      var oldInk = themeOf().ink;
+      state.mode = m;
+      if (m === 'photo') {
+        if (state.text.color === oldInk || INK_LIST.indexOf(state.text.color) < 0) state.text.color = '#FFFFFF';
+        if (state.text.pos === 'mid') state.text.pos = 'low';
+      } else if (state.text.color === '#FFFFFF') {
+        state.text.color = themeOf().ink;
+      }
+      persist(); buildSheet('bg'); render(); syncPhotoPrompt();
+      $('#edTitle').textContent = state.mode === 'photo' ? frameName() : titleOf();
+      $('#edSub').textContent = state.mode === 'photo' ? (LANG === 'en' ? 'Decorate your photo' : '사진 위에 꾸며 보세요') : (LANG === 'en' ? themeOf().subEn : themeOf().sub);
+      buildQuick();
+    }
+    $$('#modeSeg button').forEach(function (b) {
+      b.addEventListener('click', function () { setMode(b.dataset.m); });
+    });
+    if (state.mode === 'photo') {
+      $('#pickBtn').addEventListener('click', pickPhoto);
+      var dp = $('#delPhoto');
+      if (dp) dp.addEventListener('click', function () {
+        state.photo = null; persist(); render(); buildSheet('bg'); syncPhotoPrompt(); toast(t('toastPhotoRemoved'));
+      });
+      $$('#sheetBody [data-fr]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          state.frame = b.dataset.fr; persist(); buildSheet('bg'); render();
+          $('#edTitle').textContent = frameName();
+        });
+      });
+      $('#scrimChk').addEventListener('change', function (e) { state.scrim = e.target.checked; persist(); render(); });
+    } else {
+      $$('#sheetBody [data-th]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var old = themeOf();
+          state.theme = b.dataset.th;
+          var th = themeOf();
+          if (state.text.color === old.ink) state.text.color = th.ink;
+          if (!state.text.msg || ART.themes.some(function (x) { return x.greeting === state.text.msg || x.greetingEn === state.text.msg; })) state.text.msg = greetingOf(th);
+          if (!state.text.font || ['jua', 'gowun', 'pen'].indexOf(state.text.font) < 0) state.text.font = th.font;
+          phraseTheme = th.id;
+          persist(); buildSheet('bg'); render(); buildQuick();
+          $('#edTitle').textContent = titleOf(); $('#edSub').textContent = LANG === 'en' ? th.subEn : th.sub;
+        });
+      });
+    }
+  }
+
+  function stHTML() {
+    var gloss = state.mode === '3d';
+    var cats = STK.cats;
+    var h = '<div class="seg" id="stStyle" style="margin-bottom:8px">' +
+      '<button data-g="0" class="' + (!gloss ? 'on' : '') + '">' + t('st2d') + '</button>' +
+      '<button data-g="1" class="' + (gloss ? 'on' : '') + '">' + t('st3d') + '</button>' +
+      '<button data-g="mix" class="' + (stkStyleMode === 'mix' ? 'on' : '') + '">' + t('stMix') + '</button></div>';
+    h += '<div class="stTabs">' + cats.map(function (c) {
+      var nm = LANG === 'en' ? (c.k === 'all' ? CAT_EN.all : CAT_EN[c.k] || c.n) : c.n;
+      var cnt = c.k === 'all' ? STK.meta.length : STK.meta.filter(function (m) { return m.c === c.k; }).length;
+      return '<button data-cat="' + c.k + '" class="' + (c.k === stkCat ? 'on' : '') + '">' + nm + ' ' + cnt + '</button>';
+    }).join('') + '</div>';
+    var list = STK.meta.filter(function (m) { return stkCat === 'all' || m.c === stkCat; });
+    h += '<div class="stGrid">' + list.map(function (m) {
+      return '<button data-st="' + m.k + '" aria-label="' + m.n + '"><img alt="" loading="lazy" src="' + svgUrl(STK.svg(m.k, gloss)) + '"></button>';
+    }).join('') + '</div>';
+    h += '<p class="hint">' + t('stHint') + '</p>';
+    return h;
+  }
+  function wireSt() {
+    $$('#sheetBody #stStyle button').forEach(function (b) {
+      b.addEventListener('click', function () { stkStyleMode = b.dataset.g; buildSheet('st'); });
+    });
+    $$('#sheetBody [data-cat]').forEach(function (b) {
+      b.addEventListener('click', function () { stkCat = b.dataset.cat; buildSheet('st'); });
+    });
+    $$('#sheetBody [data-st]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var gloss = stkStyleMode === 'mix' ? state.mode === '3d' : stkStyleMode === '1';
+        addSticker(b.dataset.st, gloss);
+        closeSheet();
+        setTimeout(function () { if (view === 'edit' && state.stickers.length) { selId = state.stickers[state.stickers.length - 1].id; render(); } }, 260);
+      });
+    });
+  }
+
+  function txHTML() {
+    var tx = state.text, th = themeOf();
+    var pth = ART.theme(phraseTheme || state.theme);
+    var plang = phraseLang || LANG;
+    var chips = plang === 'en' ? pth.chipsEn : pth.chips;
+    var pct = Math.round(tx.size / .072 * 100);
+    var h = '<div class="lbl">' + t('txMsg') + '</div>' +
+      '<textarea class="field" id="inMsg" maxlength="120" placeholder="' + t('txMsgPh') + '">' + esc(tx.msg) + '</textarea>' +
+      '<div class="cnt"><span id="cntNum">' + Array.from(tx.msg || '').length + '</span>/120</div>' +
+      '<div class="lbl">' + t('txReco') + '</div>';
+    h += '<div class="seg two" id="phraseLangSeg" style="margin-bottom:7px">' +
+      '<button data-plang="ko" class="' + (plang === 'ko' ? 'on' : '') + '">한국어</button>' +
+      '<button data-plang="en" class="' + (plang === 'en' ? 'on' : '') + '">English</button></div>';
+    h += '<div class="chipRow" style="margin-bottom:8px">' + chips.map(function (c) {
+      return '<button class="chip" data-chip="' + esc(c) + '">' + c + '</button>';
+    }).join('') + '</div>';
+    h += '<div class="lbl" style="margin-top:6px">' + t('txRecoTheme') + '</div>';
+    h += '<div class="chipRow hscroll">' + sortedThemes().map(function (x) {
+      return '<button class="chip ' + (x.id === pth.id ? 'on' : '') + '" data-pth="' + x.id + '" style="min-height:40px;padding:5px 12px;font-size:14.5px">' + (LANG === 'en' ? x.nameEn : x.name) + '</button>';
+    }).join('') + '</div>';
+    h += '<div class="lbl">' + t('txTo') + '</div>' +
+      '<input class="field" id="inTo" maxlength="24" placeholder="' + t('txToPh') + '" value="' + esc(tx.to) + '">' +
+      '<div class="lbl">' + t('txFrom') + '</div>' +
+      '<input class="field" id="inFrom" maxlength="24" placeholder="' + t('txFromPh') + '" value="' + esc(tx.from) + '">' +
+      '<div class="lbl">' + t('txFont') + '</div><div class="fontRow">' + Object.keys(FONT_LABEL).map(function (k) {
+        return '<button data-font="' + k + '" style="font-family:' + FONT_STACK[k] + '" class="' + (tx.font === k ? 'on' : '') + '">' + t(FONT_LABEL[k]) + '</button>';
+      }).join('') + '</div>' +
+      '<div class="lbl">' + t('txColor') + '</div><div class="swRow" id="swRow">' + INK_LIST.map(function (c) {
+        return '<button class="sw ' + (tx.color.toLowerCase() === c.toLowerCase() ? 'on' : '') + '" data-color="' + c + '" style="background:' + c + '" aria-label="color ' + c + '"></button>';
+      }).join('') + '<input type="color" class="swCustom" id="swCustom" value="' + (tx.color.length === 7 ? tx.color : '#ffffff') + '" aria-label="custom color"></div>' +
+      '<div class="lbl">' + t('txSize') + '</div><div class="sizeRow">' +
+      '<button id="szDown" aria-label="smaller">－</button>' +
+      '<input type="range" id="szRange" min="46" max="120" step="2" value="' + pct + '" aria-label="text size">' +
+      '<div class="val" id="szVal">' + pct + '%</div>' +
+      '<button id="szUp" aria-label="bigger">＋</button></div>' +
+      '<div class="lbl">' + t('txPos') + '</div><div class="posRow">' +
+      '<button data-pos="top" class="' + (tx.pos === 'top' ? 'on' : '') + '">' + t('posTop') + '</button>' +
+      '<button data-pos="mid" class="' + (tx.pos === 'mid' ? 'on' : '') + '">' + t('posMid') + '</button>' +
+      '<button data-pos="low" class="' + (tx.pos === 'low' ? 'on' : '') + '">' + t('posLow') + '</button></div>' +
+      '<p class="hint">' + t('txHint') + '</p>';
+    return h;
+  }
+  function wireTx() {
+    var tx = state.text;
+    var msg = $('#inMsg'), cnt = $('#cntNum');
+    $('#inTo').addEventListener('input', function (e) { tx.to = e.target.value; render(); persist(); });
+    msg.addEventListener('input', function (e) {
+      tx.msg = e.target.value; cnt.textContent = Array.from(tx.msg).length; render(); persist();
+    });
+    $('#inFrom').addEventListener('input', function (e) { tx.from = e.target.value; render(); persist(); });
+    $$('#sheetBody [data-chip]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        tx.msg = b.dataset.chip; msg.value = tx.msg; cnt.textContent = Array.from(tx.msg).length;
+        render(); persist(); toast(t('toastChip'));
+      });
+    });
+    $$('#sheetBody [data-plang]').forEach(function (b) {
+      b.addEventListener('click', function () { phraseLang = b.dataset.plang; buildSheet('tx'); });
+    });
+    $$('#sheetBody [data-pth]').forEach(function (b) {
+      b.addEventListener('click', function () { phraseTheme = b.dataset.pth; buildSheet('tx'); });
+    });
+    $$('#sheetBody [data-font]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        tx.font = b.dataset.font;
+        $$('#sheetBody [data-font]').forEach(function (x) { x.classList.toggle('on', x === b); });
+        render(); persist();
+      });
+    });
+    $$('#sheetBody [data-color]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        tx.color = b.dataset.color;
+        $$('#sheetBody .sw').forEach(function (x) { x.classList.toggle('on', x === b); });
+        render(); persist();
+      });
+    });
+    $('#swCustom').addEventListener('input', function (e) {
+      tx.color = e.target.value;
+      $$('#sheetBody .sw').forEach(function (x) { x.classList.remove('on'); });
+      render(); persist();
+    });
+    function setSize(v) {
+      tx.size = Math.max(.046, Math.min(.12, v));
+      var p = Math.round(tx.size / .072 * 100);
+      $('#szVal').textContent = p + '%';
+      var rg = $('#szRange'); if (rg) rg.value = p;
+      render(); persist();
+    }
+    $('#szDown').addEventListener('click', function () { setSize(tx.size - .007); });
+    $('#szUp').addEventListener('click', function () { setSize(tx.size + .007); });
+    $('#szRange').addEventListener('input', function (e) { setSize(Number(e.target.value) / 100 * .072); });
+    $$('#sheetBody [data-pos]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        tx.pos = b.dataset.pos;
+        $$('#sheetBody [data-pos]').forEach(function (x) { x.classList.toggle('on', x === b); });
+        render(); persist();
+      });
+    });
+  }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  /* ── 완성 이미지 ── */
+  function sourcesFor(st) {
+    var arr = [];
+    if (st.mode === 'photo') {
+      if (st.photo) arr.push(st.photo);
+      var f = ART.frame(st.frame); if (f) arr.push(svgUrl(f));
+    } else arr.push(svgUrl(ART.bg(st.theme, st.mode === '3d')));
+    st.stickers.forEach(function (s) { arr.push(svgUrl(STK.svg(s.key, s.gloss))); });
+    return arr;
+  }
+  async function preloadAll() {
+    await Promise.all(sourcesFor(state).map(loadImg));
+    try { await document.fonts.ready; } catch (e) {}
+    await Promise.all(Object.keys(FONT_STACK).map(function (k) {
+      try { return document.fonts.load('60px ' + FONT_STACK[k].split(',')[0]); } catch (e) { return null; }
+    }));
+  }
+  async function buildPNG() {
+    await preloadAll();
+    var c = document.createElement('canvas');
+    c.width = CW; c.height = CH;
+    var ctx = c.getContext('2d');
+    drawCard(ctx, CW, CH, state, {});
+    return await new Promise(function (res) { c.toBlob(function (b) { res(b); }, 'image/png'); });
+  }
+  function fileName() {
+    var d = new Date();
+    function p(n) { return (n < 10 ? '0' : '') + n; }
+    var base = state.mode === 'photo' ? frameName() : titleOf();
+    return (LANG === 'en' ? 'WaglingCard_' : '와글링카드_') + base + '_' + d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate()) + '.png';
+  }
+  function downloadBlob(blob) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = fileName();
+    document.body.appendChild(a); a.click();
+    setTimeout(function () { URL.revokeObjectURL(url); a.remove(); }, 1500);
+  }
+  async function saveImage() {
+    try {
+      var blob = await buildPNG();
+      if (!blob) { toast(t('toastSaveFail')); return; }
+      downloadBlob(blob);
+      toast(t('toastSaved'));
+      return blob;
+    } catch (e) { toast(t('toastSaveFail')); return null; }
+  }
+  async function shareCard() {
+    try {
+      var blob = await buildPNG();
+      if (!blob) { toast(t('toastSaveFail')); return; }
+      var file;
+      try { file = new File([blob], fileName(), { type: 'image/png' }); } catch (e) { file = null; }
+      if (file && navigator.canShare && navigator.canShare({ files: [file] }) && navigator.share) {
+        try {
+          await navigator.share({
+            files: [file],
+            title: t('brand'),
+            text: (state.text.msg || t('brand')) + ' 💌'
+          });
+          return;
+        } catch (err) {
+          if (err && err.name === 'AbortError') return;
+        }
+      }
+      downloadBlob(blob);
+      openSheet('howto');
+    } catch (e) { toast(t('toastShareFail') + (e && e.message ? e.message : '')); }
+  }
+  function howtoHTML() {
+    return '<div class="memo">' + t('howtoMemo') + '</div>' +
+      '<ol class="steps">' +
+      '<li><span class="num">1</span><div>' + t('howto1') + '</div></li>' +
+      '<li><span class="num">2</span><div>' + t('howto2') + '</div></li>' +
+      '<li><span class="num">3</span><div>' + t('howto3') + '</div></li>' +
+      '</ol>' +
+      '<p class="hint">' + t('howtoHint') + '</p>' +
+      '<button class="big save mini" id="retrySave">' + t('retrySave') + '</button>';
+  }
+  function wireHowto() {
+    var b = $('#retrySave'); if (b) b.addEventListener('click', saveImage);
+  }
+
+  /* ── 앱 공유·설치 ── */
+  function appUrl() {
+    var h = location.hostname || '';
+    if (location.protocol === 'file:' || h === 'localhost' || h === '127.0.0.1' || !h) return SITE;
+    return location.href.split('#')[0];
+  }
+  function copyText(txt, ok, fail) {
+    function legacy() {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = txt; ta.setAttribute('readonly', '');
+        ta.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0';
+        document.body.appendChild(ta); ta.select();
+        try { ta.setSelectionRange(0, txt.length); } catch (e) {}
+        var done = document.execCommand && document.execCommand('copy');
+        document.body.removeChild(ta);
+        done ? ok() : fail();
+      } catch (e) { fail(); }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText && location.protocol !== 'file:') {
+      navigator.clipboard.writeText(txt).then(ok, legacy); return;
+    }
+    legacy();
+  }
+  function shareApp() {
+    var url = appUrl();
+    var payload = { title: t('shareTitle'), text: t('shareAppText'), url: url };
+    function fallback() {
+      copyText(payload.text + '\n' + url, function () { toast(t('toastLinkCopy')); }, function () { toast(t('toastLinkFail')); });
+    }
+    var usable = true;
+    try { if (navigator.canShare && !navigator.canShare(payload)) usable = false; } catch (e) {}
+    if (navigator.share && usable) {
+      try {
+        var r = navigator.share(payload);
+        if (r && r.then) r.then(function () {}, function (err) { if (!err || err.name !== 'AbortError') fallback(); });
+        return;
+      } catch (e) {}
+    }
+    fallback();
+  }
+  var instPrompt = null, instDone = false;
+  function isStandalone() {
+    try {
+      if (window.matchMedia('(display-mode: standalone)').matches || window.matchMedia('(display-mode: minimal-ui)').matches) return true;
+    } catch (e) {}
+    if (navigator.standalone === true) return true;
+    return false;
+  }
+  function uaIsIOS() { return /iPhone|iPad|iPod/i.test(navigator.userAgent || '') || (navigator.platform === 'MacIntel' && (navigator.maxTouchPoints || 0) > 1); }
+  function uaIsSamsung() { return /SamsungBrowser/i.test(navigator.userAgent || ''); }
+  function inAppBrowser() { return /KAKAOTALK|Instagram|NAVER|FBAN|FBAV|Line\//i.test(navigator.userAgent || ''); }
+  function chromeIntent() {
+    var host = location.host || 'starpicklife-design.github.io';
+    var path = (location.pathname || '/card-maker/') + (location.search || '');
+    return 'intent://' + host + path + '#Intent;scheme=https;package=com.android.chrome;end';
+  }
+  function syncInstallBtn() {
+    $$('.js-inst').forEach(function (b) { b.hidden = instDone || isStandalone(); });
+  }
+  function installHTML() {
+    var steps;
+    if (uaIsIOS()) steps = [t('instIos1'), t('instIos2'), t('instIos3')];
+    else if (uaIsSamsung()) steps = [t('instSam1'), t('instSam2'), t('instSam3')];
+    else steps = [t('instChr1'), t('instChr2'), t('instChr3')];
+    var h = '<div class="memo">' + t('instMemo') + '</div><ol class="steps">' +
+      steps.map(function (s, i) { return '<li><span class="num">' + (i + 1) + '</span><div>' + s + '</div></li>'; }).join('') + '</ol>';
+    if (inAppBrowser()) {
+      h += '<div class="memo">' + t('instInApp') + '</div>' +
+        '<a href="' + chromeIntent() + '" style="display:block;text-align:center;min-height:54px;line-height:54px;border-radius:14px;background:#2E7BF0;color:#fff;font-weight:700;text-decoration:none">' + t('openChrome') + '</a>';
+    }
+    h += '<p class="hint">' + t('instHint') + '</p>';
+    return h;
+  }
+  function wireInstall() {}
+  function installTap() {
+    if (instPrompt) {
+      try {
+        instPrompt.prompt();
+        var p = instPrompt; instPrompt = null;
+        if (p.userChoice && p.userChoice.then) p.userChoice.then(function (c) {
+          if (c && c.outcome === 'accepted') { instDone = true; syncInstallBtn(); }
+        });
+        return;
+      } catch (e) {}
+    }
+    openSheet('install');
+  }
+  window.addEventListener('beforeinstallprompt', function (e) { try { e.preventDefault(); } catch (err) {} instPrompt = e; });
+  window.addEventListener('appinstalled', function () { instDone = true; instPrompt = null; syncInstallBtn(); toast(t('toastInstalled')); });
+
+  /* ── 사진 ── */
+  function pickPhoto() {
+    var inp = $('#photoInput'); if (!inp) return;
+    inp.value = '';
+    inp.click();
+  }
+  function usePhotoFile(file) {
+    if (!file || !/^image\//.test(file.type)) { toast(t('toastPhotoPick')); return; }
+    var reader = new FileReader();
+    reader.onload = function () {
+      var im = new Image();
+      im.onload = function () {
+        var max = 1400;
+        var s = Math.min(1, max / Math.max(im.width, im.height));
+        var c = document.createElement('canvas');
+        c.width = Math.round(im.width * s); c.height = Math.round(im.height * s);
+        c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+        var url;
+        try { url = c.toDataURL('image/jpeg', .86); } catch (e) { url = reader.result; }
+        state.photo = url; state.mode = 'photo';
+        selId = null;
+        if (!state.text.msg) state.text.msg = LANG === 'en' ? 'Wishing you health and happiness' : '늘 건강하고 행복하세요';
+        persist(); render(); syncPhotoPrompt();
+        $('#edTitle').textContent = frameName();
+        $('#edSub').textContent = LANG === 'en' ? 'Decorate your photo' : '사진 위에 꾸며 보세요';
+        if (view === 'edit' && sheetKind === 'bg' && !sheetWrap.hidden) buildSheet('bg');
+        toast(t('toastPhotoAdded'));
+      };
+      im.onerror = function () { toast(t('toastPhotoFail')); };
+      im.src = reader.result;
+    };
+    reader.onerror = function () { toast(t('toastPhotoFail')); };
+    reader.readAsDataURL(file);
+  }
+  $('#photoInput').addEventListener('change', function (e) {
+    var f = e.target.files && e.target.files[0];
+    if (f) usePhotoFile(f);
+  });
+  $('#promptPick').addEventListener('click', pickPhoto);
+
+  /* ── 이벤트 연결 ── */
+  $('#backBtn').addEventListener('click', function () { if (history.state && history.state.v === 'edit') history.back(); else showHome(); });
+  $('#doneBack').addEventListener('click', function () { if (history.state && history.state.v === 'done') history.back(); else openEditor(false); });
+  $('#sheetClose').addEventListener('click', closeSheet);
+  $('#sheetBack').addEventListener('click', closeSheet);
+  $('#doneBtn').addEventListener('click', function () { openDone(true); });
+  $('#saveBtn').addEventListener('click', saveImage);
+  $('#kakaoBtn').addEventListener('click', shareCard);
+  $('#againBtn').addEventListener('click', function () { if (history.state && history.state.v === 'done') history.back(); else openEditor(false); });
+  $('#newBtn').addEventListener('click', function () {
+    localStorage.removeItem(KEY);
+    state.stickers = []; selId = null;
+    if (navDepth > 0) { try { history.go(-navDepth); } catch (e) {} }
+    else { try { history.replaceState({ v: 'home' }, '', location.pathname + location.search); } catch (e) {} showHome(); }
+    navDepth = 0;
+    toast(t('toastNew'));
+  });
+  $('#heroNew').addEventListener('click', function () {
+    if (homeMode === 'photo') startPhoto('hanji'); else startTheme('jeongmi');
+  });
+  $$('.modes button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      homeMode = b.dataset.mode;
+      $$('.modes button').forEach(function (x) {
+        var on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      if (homeMode !== 'photo') homeFilter = 'all';
+      buildHome();
+    });
+  });
+  $('#draftGo').addEventListener('click', function () {
+    var d = readDraft();
+    if (!d) { toast(t('toastNoDraft')); return; }
+    state = {
+      mode: d.mode || '2d', theme: d.theme || 'jeongmi', frame: d.frame || 'hanji', photo: d.photo || null,
+      scrim: d.scrim !== false,
+      stickers: (d.stickers || []).map(function (s) { s.id = 's' + (++seq); return s; }),
+      text: Object.assign({ to: '', msg: '', from: '', font: 'jua', color: '#FFF3D6', size: .072, pos: 'mid' }, d.text || {})
+    };
+    openEditor(true);
+  });
+  $$('[data-sheet]').forEach(function (b) {
+    b.addEventListener('click', function () { openSheet(b.dataset.sheet); });
+  });
+  $$('.js-inst').forEach(function (b) { b.addEventListener('click', installTap); });
+  $$('.js-share').forEach(function (b) { b.addEventListener('click', shareApp); });
+  $$('#langBtn, #langBtn2, #langBtn3').forEach(function (b) {
+    b.addEventListener('click', function () {
+      LANG = LANG === 'ko' ? 'en' : 'ko';
+      try { localStorage.setItem('wagleCard.lang', LANG); } catch (e) {}
+      applyLang();
+      toast(LANG === 'en' ? t('toastLang') : t('toastLangKo'));
+    });
+  });
+
+  window.addEventListener('popstate', function (e) {
+    var s = e.state;
+    navDepth = !s || s.v === 'home' ? 0 : (s.v === 'edit' ? 1 : (s.v === 'done' ? 2 : 3));
+    if (!s || s.v === 'home') { hideSheet(); setView('home'); showHome(); }
+    else if (s.v === 'edit') { hideSheet(); setView('edit'); selId = null; buildQuick(); requestAnimationFrame(layoutStage); }
+    else if (s.v === 'done') { hideSheet(); setView('done'); drawDone(); }
+    else if (s.v === 'sheet') { buildSheet(s.k); sheetWrap.hidden = false; }
+  });
+  window.addEventListener('resize', function () { layoutStage(); if (view === 'done') drawDone(); });
+  window.addEventListener('orientationchange', function () { setTimeout(layoutStage, 220); });
+
+  function toast(msg) {
+    var el = $('#toast');
+    el.textContent = msg; el.classList.add('on');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function () { el.classList.remove('on'); }, 2600);
+  }
+
+  /* ── 언어 적용 ── */
+  function applyLang() {
+    document.documentElement.lang = LANG === 'en' ? 'en' : 'ko';
+    document.title = view === 'home' ? t('appTitle') : ('💌 ' + (state.mode === 'photo' ? frameName() : titleOf()));
+    $$('[data-i18n]').forEach(function (el) { el.textContent = t(el.dataset.i18n); });
+    $$('[data-i18n-aria]').forEach(function (el) { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
+    $$('.lang').forEach(function (b) { b.textContent = LANG === 'ko' ? '🌐 EN' : '🌐 한'; });
+    $('#heroH1').innerHTML = t('heroH1');
+    $('#heroP').innerHTML = t('heroP');
+    $('#photoPromptP').innerHTML = t('photoPromptP');
+    $('#doneTip').innerHTML = t('doneTip');
+    $('#textHint').textContent = t('textHint');
+    syncDDay();
+    if (view === 'home') buildHome();
+    else if (view === 'edit') {
+      $('#edTitle').textContent = state.mode === 'photo' ? frameName() : titleOf();
+      $('#edSub').textContent = state.mode === 'photo' ? (LANG === 'en' ? 'Decorate your photo' : '사진 위에 꾸며 보세요') : (LANG === 'en' ? themeOf().subEn : themeOf().sub);
+      buildQuick();
+    } else if (view === 'done') {
+      $('#doneSub').textContent = (state.mode === 'photo' ? frameName() : titleOf()) + ' · ' + t('doneSuffix');
+    }
+    if (sheetKind && !sheetWrap.hidden) buildSheet(sheetKind);
+  }
+  function syncDDay() {
+    var now = new Date().setHours(0, 0, 0, 0);
+    var seol = Math.ceil((new Date(2027, 1, 7) - now) / 86400000);
+    var xmas = Math.ceil((new Date(2026, 11, 25) - now) / 86400000);
+    $('#ddaySeollal').textContent = seol > 0 ? t('dSeollal', { n: seol }) : (seol === 0 ? t('dSeollalToday') : t('dSeollalPast'));
+    $('#ddayXmas').textContent = xmas > 0 ? t('dXmas', { n: xmas }) : (xmas === 0 ? t('dXmasToday') : t('dXmasPast'));
+  }
+
+  /* ── 시작 ── */
+  function init() {
+    try { history.replaceState({ v: 'home' }, '', location.pathname + location.search); } catch (e) {}
+    $('#heroSheep').src = svgUrl(STK.svg('sheepHanbok', false));
+    applyLang();
+    buildQuick();
+    syncInstallBtn();
+    document.fonts.ready.then(function () { if (view === 'edit') render(); if (view === 'done') drawDone(); });
+    if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+      window.addEventListener('load', function () { try { navigator.serviceWorker.register('./sw.js').catch(function () {}); } catch (e) {} });
+    }
+    /* 테스트·확인용 */
+    window.__card = {
+      state: function () {
+        return JSON.parse(JSON.stringify({
+          mode: state.mode, theme: state.theme, frame: state.frame, hasPhoto: !!state.photo,
+          scrim: state.scrim, stickers: state.stickers, text: state.text, view: view,
+          boxW: boxW, boxH: boxH, selId: selId, lang: LANG
+        }));
+      },
+      themes: function () { return ART.themes.map(function (x) { return x.id; }); },
+      stickers: function () { return STK.meta.length; },
+      theme: function (id) { startTheme(id); },
+      frame: function (id) { startPhoto(id); },
+      add: addSticker,
+      render: render,
+      openTx: function () { openSheet('tx', true, true); },
+      setLang: function (l) { LANG = l; applyLang(); },
+      textHit: function () { return TEXT_HIT; },
+      png: async function () { var b = await buildPNG(); return b ? { type: b.type, bytes: b.size } : null; },
+      overflow: function () { return document.documentElement.scrollWidth - document.documentElement.clientWidth; }
+    };
+  }
+  init();
+})();
+</script>
+</body>
+</html>
