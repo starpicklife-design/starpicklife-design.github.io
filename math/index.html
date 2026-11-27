@@ -1220,7 +1220,7 @@ function paintFb(fb, ok, opt) {
   fb.className = 'fb';
   void fb.offsetWidth; /* 애니메이션을 매번 새로 */
   fb.className = 'fb pop ' + (ok ? 'ok' : 'hug');
-  var face = pick(pickLang(FACES));
+  var face = pick(FACES[ok ? 'ok' : 'hug']);
   var msg = ok ? pickLang(PRAISE) : (opt.hint || T('wrongMsg'));
   var sub = ok ? T('correctSub') : T('wrongSub');
   if (!ok && opt.attempts > 1) sub = T('attempts', { n: opt.attempts }) + ' · ' + sub;
