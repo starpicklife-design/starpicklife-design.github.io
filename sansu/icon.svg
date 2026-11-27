@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="와글링 산수">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#6FBBFF"/>
+      <stop offset="1" stop-color="#4E6EE2"/>
+    </linearGradient>
+    <radialGradient id="warm" cx="20%" cy="8%" r="60%">
+      <stop offset="0" stop-color="#FFE8A0" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#FFE8A0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#sky)"/>
+  <rect width="512" height="512" rx="112" fill="url(#warm)"/>
+  <rect x="88" y="102" width="336" height="336" rx="80" fill="#FFFDF6"/>
+  <text x="256" y="322" text-anchor="middle" font-size="122" font-weight="700" fill="#264884"
+        font-family="'Liberation Sans','Arial',sans-serif">1+2</text>
+  <path d="M396 92l15.5 31.5 34.7 5-25.1 24.5 5.9 34.6L396 170.7 364.9 187.6l5.9-34.6L345.7 128.5l34.7-5z"
+        fill="#FFD048" stroke="#E8A000" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M112 404l7.7 15.7 17.3 2.5-12.5 12.2 3 17.3-15.5-8.4-15.5 8.4 3-17.3-12.5-12.2 17.3-2.5z"
+        fill="#FFF4C8" stroke="#F0BE3C" stroke-width="4" stroke-linejoin="round"/>
+</svg>

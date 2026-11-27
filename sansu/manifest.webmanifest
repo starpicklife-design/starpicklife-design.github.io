@@ -1,0 +1,22 @@
+{
+  "name": "와글링 산수 · Wagling Math",
+  "short_name": "와글링 산수",
+  "description": "덧셈·뺄셈, 구구단 노래, 시계 보기, 동전 세기까지 — 어린이가 큰 글씨와 큰 버튼으로 즐기는 무료 산수 놀이. 별 스티커는 이 기기에만 저장되고 광고·회원가입이 없어요.",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "id": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#EAF6FF",
+  "theme_color": "#2F7DE1",
+  "categories": ["education", "kids", "entertainment"],
+  "icons": [
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
