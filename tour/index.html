@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#0F4C42" />
 <meta name="google" content="notranslate" />
-<!-- build: 2026-11-27 와글링 한국여행 (Wagling Korea Travel) v3 · 내 사진 여행 도감 · 앨범 인쇄(책자) · 글씨 잘림 0 · v3.1(2026-11-28) 좁은 폰 글씨 잘림 보정 -->
+<!-- build: 2026-11-28 와글링 한국여행 (Wagling Korea Travel) v4 · 전국 16개 지역 53곳 · ➕ 내 여행지 추가/수정 · 여러 권 책장(📖 폰 앨범) · 표지 꾸미기 · A4 3공(108mm) 앨범 인쇄 -->
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
@@ -13,7 +13,7 @@
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <meta name="apple-mobile-web-app-title" content="와글링 한국여행" />
-<meta name="description" content="외국인·내국인을 위한 한국 관광 가이드 — 서울·부산·경주·제주·전주·김해·안동·강릉 명소 30곳, 가는 법·입장료·먹거리·큰 글씨 한국어 카드. 내가 찍은 사진으로 채우는 여행 도감과 인쇄용 여행 앨범. 설치 없이 무료, 오프라인에서도 열립니다." />
+<meta name="description" content="외국인·내국인을 위한 한국 관광 가이드 — 서울·부산·경주·제주·인천·수원·춘천·여수·통영·대구·부여 등 16개 지역 명소 53곳, 가는 법·입장료·먹거리·큰 글씨 한국어 카드. 내 여행지를 직접 추가해 사진·메모로 채우고, 책장에 여러 권의 여행 책을 만들어 폰 앨범으로 넘겨 보거나 A4 3공 앨범으로 인쇄하세요. 설치 없이 무료, 오프라인에서도 열립니다." />
 <title>와글링 한국여행 · Wagling Korea Travel</title>
 <style>
 :root{
@@ -263,9 +263,9 @@ body[data-lang="en"] .chip .cn{font-size:.86rem;letter-spacing:-.01em}
   font-weight:900;border-radius:1rem;padding:.04rem .3rem;line-height:1.4}
 
 /* ── 설치 모달 · 토스트 ── */
-.modal{position:fixed;inset:0;z-index:70;background:rgba(30,20,10,.45);display:flex;align-items:flex-end;justify-content:center}
+.modal{position:fixed;inset:0;z-index:78;background:rgba(30,20,10,.45);display:flex;align-items:flex-end;justify-content:center}
 .modal .box{background:#fff;border-radius:1.2rem 1.2rem 0 0;padding:1rem .9rem calc(1.1rem + env(safe-area-inset-bottom));
-  width:100%;max-width:620px}
+  width:100%;max-width:620px;max-height:calc(100% - .6rem);overflow-y:auto;-webkit-overflow-scrolling:touch}
 .modal h2{font-size:1.1rem;font-weight:900}
 .modal p{font-size:.93rem;line-height:1.55;margin-top:.4rem;color:#3A2C1F}
 .modal .close{width:100%;margin-top:.8rem;background:var(--brand);color:#fff;border-radius:.9rem;padding:.8rem;
@@ -277,6 +277,138 @@ body[data-lang="en"] .chip .cn{font-size:.86rem;letter-spacing:-.01em}
 .printhint{font-size:.76rem;line-height:1.45;color:#7A6349;margin-top:.34rem;word-break:keep-all}
 .printbar .bigbtn{width:100%;flex:1 1 auto}
 @media (min-width:430px){ html{font-size:20.5px} }
+
+/* ── 오늘 날짜 · 요일 · 날씨 ── */
+.datebar{display:flex;align-items:center;gap:.28rem .45rem;width:100%;margin:0 0 .4rem;padding:.22rem .55rem;
+  border-radius:.7rem;background:#FFFDF7;border:1.5px solid #E7D6B8;color:#3E2E1E;min-height:2rem;text-align:left}
+.datebar .db-date{font-size:.8rem;font-weight:900;white-space:nowrap;letter-spacing:-.02em}
+.datebar .db-wx{font-size:.8rem;font-weight:900;color:#8A4A12;white-space:nowrap}
+.datebar .db-wx.loading{color:#6B5847;font-weight:800}
+.datebar .db-place{margin-left:auto;font-size:.68rem;font-weight:900;color:#10493B;background:#EAF3EE;
+  border:1px solid #C6DED3;border-radius:1rem;padding:.06rem .38rem;white-space:nowrap}
+@media (max-width:359px){.datebar .db-date,.datebar .db-wx{font-size:.73rem}.datebar .db-place{display:none}}
+
+/* ── 지역 칩 접기·펼치기 ── */
+.chipmore{display:block;width:calc(100% - 1.4rem);margin:.42rem .7rem 0;background:#FFFDF7;border:2px dashed #DCC9A8;
+  border-radius:.8rem;min-height:2.5rem;font-size:.86rem;font-weight:900;color:#5C4526}
+.chipmore b{color:#0F4C42}
+.chip .mine{font-size:.68rem;font-weight:900;color:#8A5A12;background:#FFF0CF;border-radius:.5rem;padding:0 .3rem;margin-left:.16rem}
+
+/* ── 내 여행지 추가 버튼 ── */
+.addbtn{display:flex;align-items:center;justify-content:center;gap:.35rem;width:calc(100% - 1.4rem);margin:.55rem .7rem 0;
+  background:linear-gradient(180deg,#FFF6E2,#FFEFCF);border:2px solid #E0B96E;border-radius:.9rem;
+  min-height:3.05rem;font-size:1rem;font-weight:900;color:#6B3D06;box-shadow:0 2px 6px rgba(120,80,20,.10)}
+.addbtn:active{transform:translateY(1px)}
+
+/* ── 하트: 흰 원 위에서도 또렷한 선 하트 ── */
+.heart{background:#FFFDF7;border:2px solid #C9A878;color:#8C2F1A;font-weight:900;font-size:1.5rem}
+.heart.on{background:#FFE9EC;border-color:#D9838C;color:#C0233A}
+
+/* ── 내 책 표지 설정 ── */
+.bookcard{margin:.5rem .7rem 0;background:#fff;border:2px solid #EFDFC2;border-radius:.95rem;padding:.6rem .7rem .68rem;box-shadow:var(--shadow)}
+.bookcard .bk-lb{font-size:.95rem;font-weight:900;color:#10493B}
+.bookcard .fld{margin-top:.42rem}
+.bookcard .fld span{font-size:.78rem;font-weight:900;color:#6B5847}
+.bookcard input{width:100%;margin-top:.16rem;min-height:2.6rem;border:2px solid #EADBC4;border-radius:.7rem;
+  padding:.4rem .55rem;font-family:inherit;font-size:.95rem;color:#2A1E14;background:#FFFDF8}
+.bookcard .bk-hint{font-size:.72rem;line-height:1.45;color:#7A6349;margin-top:.36rem;word-break:keep-all}
+
+/* ── 추가·수정 모달 ── */
+.modal .box .fld{display:block;margin-top:.55rem}
+.modal .box .fld span{display:block;font-size:.82rem;font-weight:900;color:#5C4526;margin-bottom:.18rem}
+.modal .box input,.modal .box select,.modal .box textarea{width:100%;min-height:2.8rem;border:2px solid #EADBC4;border-radius:.75rem;
+  padding:.5rem .6rem;font-family:inherit;font-size:.98rem;color:#2A1E14;background:#FFFDF8}
+.modal .box textarea{min-height:4.4rem;resize:vertical;line-height:1.5}
+.modal .box .fhint{font-size:.76rem;color:#7A6349;margin-top:.5rem;line-height:1.45}
+.modal .box .fbtns{display:flex;gap:.45rem;margin-top:.7rem}
+.modal .box .fbtns button{flex:1 1 0;border-radius:.85rem;min-height:3.1rem;font-size:1rem;font-weight:900}
+.modal .box .save{background:var(--brand);color:#fff}
+.modal .box .cancel{background:#F4EDDF;color:#4A3A2A;border:2px solid #E0CDB0}
+.modal .box .mdel{width:100%;margin-top:.5rem;background:#FFF6F2;border:2px solid #EDCFC0;color:#8A3B24;
+  border-radius:.85rem;min-height:2.9rem;font-size:.95rem;font-weight:900}
+.modal .box .mph{display:block;margin-top:.35rem;font-size:.78rem;font-weight:800;color:#2F5449}
+.modal .box .mph img{width:100%;max-height:8rem;object-fit:cover;border-radius:.6rem;border:1px solid #E7D6BA}
+.modal .box .pchoose{display:flex;align-items:center;gap:.4rem;width:100%;margin-top:.5rem;background:#FFFDF8;border:2px solid #DCC9A8;
+  border-radius:.85rem;padding:.6rem .7rem;font-size:.98rem;font-weight:900;color:#3B2A1E;text-align:left;min-height:3.2rem}
+.modal .box .pchoose b{margin-left:auto;font-size:.8rem;font-weight:900;color:#7A5C33;background:#F6EAD3;border-radius:.6rem;padding:.1rem .4rem;white-space:nowrap}
+.modal .box .pchoose.rec{border-color:#B58A3C;background:#FFF6E2}
+
+/* ══════════ 책장 (여러 권의 책) ══════════ */
+.shelf{position:fixed;inset:0;z-index:74;background:linear-gradient(180deg,#3E3023,#22190F);display:flex;flex-direction:column;
+  padding:calc(.5rem + env(safe-area-inset-top)) .7rem calc(.6rem + env(safe-area-inset-bottom))}
+.shelf .stop{display:flex;align-items:center;gap:.5rem;color:#FFF3DC;padding:.1rem .1rem .5rem}
+.shelf .stop .st{flex:1 1 auto;min-width:0;font-size:1rem;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shelf .stop button{background:#5A4632;color:#FFF3DC;border:1px solid #7A6148;border-radius:2rem;padding:.3rem .75rem;font-size:.86rem;font-weight:900;min-height:2.4rem}
+.shelfbody{flex:1 1 auto;overflow:auto;display:grid;grid-template-columns:1fr 1fr;gap:.65rem;padding:.2rem .1rem 1rem;align-content:start}
+.bkwrap{display:flex;flex-direction:column;gap:.3rem;min-width:0}
+.bkcover{position:relative;display:block;width:100%;aspect-ratio:3/4;border-radius:.25rem .55rem .55rem .25rem;overflow:hidden;
+  background:linear-gradient(160deg,#FFF8E8,#EAD9B8);border-left:.5rem solid #7A5A32;box-shadow:0 6px 14px rgba(0,0,0,.45);
+  text-align:left;color:#3B2A1E}
+.bkcover:active{transform:translateY(1px)}
+.bkcover .bkimg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.4}
+.bkcover .bkshade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,250,238,.12),rgba(255,250,238,.93) 60%)}
+.bkcover .bktx{position:absolute;left:.45rem;right:.4rem;bottom:.5rem;display:flex;flex-direction:column;gap:.1rem}
+.bkcover .bkk{font-size:.48rem;letter-spacing:.12em;font-weight:900;color:#8A6A3F}
+.bkcover .bkt{font-size:.9rem;font-weight:900;line-height:1.24;word-break:keep-all;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.bkcover .bka{font-size:.64rem;font-weight:900;color:#6B4A1E;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bkcover .bkn{font-size:.6rem;font-weight:800;color:#7A6349}
+.bkrow{display:flex;gap:.25rem}
+.bkrow button{flex:1 1 0;min-width:0;background:#5A4632;color:#FFF3DC;border:1px solid #7A6148;border-radius:.55rem;
+  padding:.3rem .1rem;font-size:.64rem;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:2.1rem}
+.bknew{grid-column:1 / -1;display:flex;align-items:center;justify-content:center;gap:.4rem;min-height:3.4rem;border-radius:.8rem;
+  background:rgba(255,246,226,.10);border:2px dashed #8A7150;color:#FFE9C2;font-size:.95rem;font-weight:900}
+.shint{font-size:.72rem;line-height:1.5;color:#D9C6A6;text-align:center;margin-top:.3rem}
+.seg{display:flex;gap:.3rem;margin-top:.1rem}
+.seg button{flex:1 1 0;border:2px solid #E0CDB0;background:#FFFDF8;border-radius:.7rem;min-height:2.6rem;font-size:.84rem;font-weight:900;color:#5C4526;padding:.2rem}
+.seg button.on{background:#0F4C42;border-color:#0A3A32;color:#fff}
+.rgs{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.1rem}
+.rgs button{border:2px solid #E0CDB0;background:#FFFDF8;border-radius:2rem;padding:.22rem .6rem;font-size:.78rem;font-weight:900;color:#5C4526;min-height:2.2rem}
+.rgs button.on{background:#0F4C42;border-color:#0A3A32;color:#fff}
+
+/* ══════════ 폰 포토앨범(책장 넘기기) ══════════ */
+.album{position:fixed;inset:0;z-index:75;background:#241C15;display:flex;flex-direction:column;
+  padding:calc(.45rem + env(safe-area-inset-top)) .45rem calc(.5rem + env(safe-area-inset-bottom))}
+.album .atop{display:flex;align-items:center;gap:.4rem;padding:0 .15rem .4rem;color:#FFF6E4}
+.album .atop .at{flex:1 1 auto;min-width:0;font-size:.9rem;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.album .atop button{flex:0 0 auto;background:#4C3B2B;color:#FFF6E4;border:1px solid #6A553F;border-radius:2rem;
+  padding:.28rem .7rem;font-size:.86rem;font-weight:900;min-height:2.4rem}
+.album .stage{flex:1 1 auto;min-height:0;position:relative;touch-action:pan-y}
+.album .page{position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:440px;background:#FFFDF8;border-radius:.55rem;overflow:hidden;
+  box-shadow:0 12px 34px rgba(0,0,0,.5);display:flex;flex-direction:column;
+  animation:pgIn .24s ease-out both}
+@keyframes pgIn{from{opacity:.4}to{opacity:1}}
+.album .page .apic{flex:1 1 auto;min-height:0;background:#F3E7CF;display:grid;place-items:center;position:relative;overflow:hidden}
+.album .page .apic img{width:100%;height:100%;object-fit:cover;display:block}
+.album .page .apic .empty{position:absolute;inset:.55rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;
+  color:#A98B5C;font-size:.92rem;font-weight:900;text-align:center;padding:1rem;border:2.5px dashed #D9C39C;border-radius:.45rem;
+  background:linear-gradient(180deg,#FFFDF6,#F9EEDA)}
+.album .page .apic .empty .big{font-size:2.4rem}
+.album .page .atx{flex:0 1 auto;max-height:56%;overflow:auto;padding:.65rem .8rem .8rem;background:#FFFDF8;border-top:1px solid #EFE2CB}
+.album .page .arg{display:inline-block;font-size:.72rem;font-weight:900;color:#10493B;background:#E6F1EC;
+  border:1px solid #C3DDD2;border-radius:1rem;padding:.06rem .45rem}
+.album .page .anm{font-size:1.3rem;font-weight:900;line-height:1.24;margin-top:.3rem;letter-spacing:-.01em;word-break:keep-all}
+.album .page .aen{font-size:.82rem;font-weight:700;color:#6B5847;margin-top:.12rem}
+.album .page .ach{font-size:.95rem;line-height:1.55;color:#332519;margin-top:.4rem;word-break:keep-all}
+.album .page .amemo{margin-top:.5rem;background:#FFFBF1;border-left:.22rem solid #C8912B;border-radius:.2rem;padding:.4rem .5rem}
+.album .page .amemo .k{font-size:.72rem;font-weight:900;color:#8A6A3F;letter-spacing:.04em}
+.album .page .amemo .v{font-size:.92rem;line-height:1.55;color:#2A1E14;margin-top:.12rem;white-space:pre-wrap;word-break:keep-all}
+.album .page .acover{flex:1 1 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:1.6rem 1.15rem;background:linear-gradient(160deg,#FFF9EC,#F6E9CF)}
+.album .page .acover .ak{font-size:.7rem;font-weight:900;letter-spacing:.24em;color:#8A6A3F}
+.album .page .acover .arule{width:3.2rem;height:.12rem;background:#C8912B;margin:.9rem 0}
+.album .page .acover .atitle{font-size:1.75rem;font-weight:900;line-height:1.24;color:#123B33;word-break:keep-all}
+.album .page .acover .asub{font-size:.92rem;line-height:1.55;color:#5E4B3A;margin-top:.7rem;word-break:keep-all}
+.album .page .acover .aauth{font-size:.86rem;font-weight:900;color:#6B4A1E;margin-top:1.1rem}
+.album .page .acover .acnt{font-size:.78rem;color:#7A6349;margin-top:.55rem}
+.album .page .acover .adate{font-size:.76rem;color:#8A6A3F;margin-top:1.2rem}
+.album .page .apnum{position:absolute;right:.5rem;top:.5rem;font-size:.68rem;color:#6B4A1E;font-weight:900;
+  background:rgba(255,253,248,.9);border:1px solid #E7D6BA;border-radius:1rem;padding:.04rem .4rem}
+.album .anav{display:flex;align-items:center;gap:.4rem;padding:.5rem .15rem 0}
+.album .anav button{flex:1 1 0;background:#4C3B2B;color:#FFF6E4;border:1px solid #6A553F;border-radius:.8rem;
+  min-height:3rem;font-size:.95rem;font-weight:900}
+.album .anav button:disabled{opacity:.35}
+.album .anav .aidx{flex:0 0 auto;font-size:.8rem;font-weight:900;color:#E8D6B8;min-width:4.2rem;text-align:center}
+.album .ahint{font-size:.7rem;color:#C9B694;text-align:center;margin-top:.3rem}
 
 /* ══════════ 인쇄: 나의 한국여행 앨범(책자) ══════════ */
 #printBook{display:none}
@@ -292,10 +424,18 @@ body[data-lang="en"] .chip .cn{font-size:.86rem;letter-spacing:-.01em}
     background:#FFFDF8; page-break-after:always; break-after:page; page-break-inside:avoid; overflow:hidden }
   #printBook .pb:last-child{ page-break-after:auto; break-after:auto }
 
-  /* 바인더 타공 여백 안내(왼쪽 12mm 선 · 3개 구멍) */
-  .pb-punch{ position:absolute; left:12mm; top:18mm; bottom:18mm; border-left:.25mm dotted #E4D9C5 }
-  .pb-hole{ position:absolute; left:9mm; width:6mm; height:6mm; border:.35mm dashed #CFC2AC; border-radius:50% }
-  .pb-hole.h1{ top:52mm } .pb-hole.h2{ top:145mm } .pb-hole.h3{ top:238mm }
+  /* 바인더 타공 안내(일정한 위치): 왼쪽 12mm 중심 · 108mm 간격 3공
+     구멍 중심 y = 94.5 / 148.5 / 202.5mm (A4 297mm 세로 중앙 정렬) */
+  .pb-punch{ position:absolute; left:12mm; top:14mm; bottom:14mm; border-left:.3mm dashed #D8C9AE }
+  .pb-hole{ position:absolute; left:9mm; top:0; width:6mm; height:6mm; box-sizing:border-box;
+    border:.5mm solid #7A6849; border-radius:50%; background:#FFFDF8; z-index:3 }
+  .pb-hole::before,.pb-hole::after{ content:''; position:absolute; background:#7A6849 }
+  .pb-hole::before{ left:50%; top:-2.2mm; width:.25mm; height:10.4mm; margin-left:-.125mm }
+  .pb-hole::after{ top:50%; left:-2.2mm; height:.25mm; width:10.4mm; margin-top:-.125mm }
+  .pb-hole.h1{ top:91.5mm } .pb-hole.h2{ top:145.5mm } .pb-hole.h3{ top:199.5mm }
+  .pb-mark{ position:absolute; left:3.6mm; width:4mm; text-align:center; font-size:5pt; font-weight:700;
+    color:#8A7A5E; letter-spacing:0; z-index:3 }
+  .pb-mark.m1{ top:89.2mm } .pb-mark.m2{ top:143.2mm } .pb-mark.m3{ top:197.2mm }
 
   /* 표지 */
   .pb-cover{ display:flex; align-items:center; justify-content:center; background:#FFF9F0; padding:40mm 32mm 40mm 42mm }
@@ -305,6 +445,8 @@ body[data-lang="en"] .chip .cn{font-size:.86rem;letter-spacing:-.01em}
   .pb-title{ font-size:29pt; font-weight:900; color:#123B33; line-height:1.24; letter-spacing:-.01em }
   .pb-subtitle{ font-size:13pt; color:#5E4B3A; margin-top:4mm; letter-spacing:.04em }
   .pb-cov-cnt{ font-size:10.5pt; color:#3A2C1F; margin-top:16mm }
+  .pb-author{ font-size:10.5pt; font-weight:900; color:#6B4A1E; margin-top:14mm }
+  .pb-cov-sub{ font-size:10pt; color:#5E4B3A; margin-top:4mm; line-height:1.6 }
   .pb-cov-note{ font-size:9pt; color:#7A6349; margin-top:3mm; line-height:1.5 }
   .pb-cov-date{ font-size:9.5pt; color:#8A6A3F; margin-top:6mm }
   .pb-cov-foot{ font-size:8pt; color:#A08B6C; margin-top:24mm; letter-spacing:.06em }
@@ -343,6 +485,11 @@ body[data-lang="en"] .chip .cn{font-size:.86rem;letter-spacing:-.01em}
 <body data-lang="ko">
 <header class="top">
   <div class="wrap">
+    <button type="button" class="datebar" id="todayCard" aria-label="오늘 날짜와 날씨">
+      <span class="db-date" id="todayDate">11월 28일 (토)</span>
+      <span class="db-wx loading" id="todayWx">날씨 확인 중</span>
+      <span class="db-place" id="wxPlace">김해</span>
+    </button>
     <div class="hrow">
       <span class="logo" aria-hidden="true">🏯</span>
       <h1 id="appName">와글링 한국여행</h1>
@@ -371,6 +518,8 @@ body[data-lang="en"] .chip .cn{font-size:.86rem;letter-spacing:-.01em}
     <div class="wrap">
       <div class="intro" id="intro"></div>
       <div class="chips" id="chips" role="tablist" aria-label="지역"></div>
+      <button type="button" class="chipmore" id="chipsMore" aria-expanded="false" hidden></button>
+      <button type="button" class="addbtn" id="addBtn">➕ <span id="addLbl">내 여행지 추가</span></button>
       <div class="secbar"><h2 id="listTitle">지역별 명소</h2><span class="cnt" id="listCnt"></span></div>
       <div class="list" id="list"></div>
     </div>
@@ -380,7 +529,15 @@ body[data-lang="en"] .chip .cn{font-size:.86rem;letter-spacing:-.01em}
   <section id="view-fav" hidden>
     <div class="wrap">
       <div class="secbar"><h2 id="favTitle">찜한 곳</h2><span class="cnt" id="favCnt"></span></div>
-      <div class="printbar"><button type="button" class="bigbtn" id="printBtn">🖨️ <span id="printLbl2">앨범 인쇄 · PDF 저장</span></button>
+      <div class="bookcard" id="bookCard">
+        <p class="bk-lb" id="bkLb">📖 내 책 표지</p>
+        <label class="fld"><span id="bkTitleLb">책 제목</span><input type="text" id="bkTitle" maxlength="40" autocomplete="off" placeholder="나의 한국여행 앨범" /></label>
+        <label class="fld"><span id="bkAuthorLb">지은이(만든 이)</span><input type="text" id="bkAuthor" maxlength="30" autocomplete="off" /></label>
+        <label class="fld"><span id="bkSubLb">한 줄 머릿말</span><input type="text" id="bkSub" maxlength="70" autocomplete="off" /></label>
+        <p class="bk-hint" id="bkHint">인쇄 표지와 폰 앨범 첫 장에 그대로 들어가요. 비워 두면 기본 제목으로 나와요.</p>
+      </div>
+      <div class="printbar"><button type="button" class="bigbtn" id="albumBtn">📖 <span id="albumLbl">내 앨범 보기</span></button>
+        <button type="button" class="bigbtn" id="printBtn" style="margin-top:.45rem">🖨️ <span id="printLbl2">앨범 인쇄 · PDF 저장</span></button>
         <p class="printhint" id="printHint">사진·메모를 채운 곳으로 여행 책자가 만들어져요. 인쇄 창에서 <b>배경 그래픽</b>을 켜면 색이 그대로 나와요.</p></div>
       <div class="list" id="favList"></div>
     </div>
@@ -433,6 +590,79 @@ body[data-lang="en"] .chip .cn{font-size:.86rem;letter-spacing:-.01em}
   </div>
 </div>
 
+<div class="modal" id="mineModal" hidden>
+  <div class="box">
+    <h2 id="mineTitle">내 여행지 추가</h2>
+    <label class="fld"><span id="mNmLb">장소 이름</span><input type="text" id="mNm" maxlength="40" autocomplete="off" /></label>
+    <label class="fld"><span id="mRgLb">지역</span><select id="mRg"></select></label>
+    <label class="fld" id="mNewRgWrap" hidden><span id="mNewRgLb">새 지역 이름</span><input type="text" id="mNewRg" maxlength="20" autocomplete="off" /></label>
+    <label class="fld"><span id="mIntroLb">한 줄 소개·메모</span><textarea id="mIntro" maxlength="200"></textarea></label>
+    <div class="fld"><span id="mPhotoLb">사진</span>
+      <button type="button" class="phbtn" id="mPhotoBtn">📷 <span id="mPhotoTx">사진 넣기</span></button>
+      <span class="mph" id="mPhotoPrev"></span></div>
+    <p class="fhint" id="mHint"></p>
+    <div class="fbtns"><button type="button" class="save" id="mSave">저장</button>
+      <button type="button" class="cancel" id="mCancel">취소</button></div>
+    <button type="button" class="mdel" id="mDel" hidden>🗑️ <span id="mDelLb">이 여행지 지우기</span></button>
+  </div>
+</div>
+
+<div class="modal" id="printModal" hidden>
+  <div class="box">
+    <h2 id="pmTitle">어떻게 엮을까요?</h2>
+    <p id="pmDesc"></p>
+    <button type="button" class="pchoose" data-scope="mine" id="pmMine"><span id="pmMineLb">📖 내 기록만 엮기</span><b id="pmMineN"></b></button>
+    <button type="button" class="pchoose" data-scope="all" id="pmAll"><span id="pmAllLb">🗂️ 전체 목록 다 엮기</span><b id="pmAllN"></b></button>
+    <button type="button" class="close" id="pmCancel">닫기</button>
+  </div>
+</div>
+
+<div class="shelf" id="shelf" hidden role="dialog" aria-modal="true" aria-label="내 책장">
+  <div class="stop">
+    <span class="st" id="shelfTitle">📖 내 책장</span>
+    <button type="button" id="shelfLang" aria-label="한국어 / English">🌐</button>
+    <button type="button" id="shelfClose">닫기</button>
+  </div>
+  <div class="shelfbody" id="shelfList"></div>
+  <p class="shint" id="shelfHint"></p>
+</div>
+
+<div class="album" id="album" hidden role="dialog" aria-modal="true" aria-label="내 여행 앨범">
+  <div class="atop">
+    <span class="at" id="albumTitle">📖 내 여행 앨범</span>
+    <button type="button" id="albumLang" aria-label="한국어 / English">🌐</button>
+    <button type="button" id="albumPrintBtn" aria-label="이 책 인쇄">🖨️</button>
+    <button type="button" id="albumEditBtn" aria-label="책 꾸미기">✏️</button>
+    <button type="button" id="albumClose" aria-label="닫기">✕</button>
+  </div>
+  <div class="stage" id="albumStage"></div>
+  <div class="anav">
+    <button type="button" id="albumPrev">← <span id="albumPrevLb">이전</span></button>
+    <span class="aidx" id="albumIdx">1 / 1</span>
+    <button type="button" id="albumNext"><span id="albumNextLb">다음</span> →</button>
+  </div>
+  <p class="ahint" id="albumHint">손가락으로 옆으로 밀어도 넘어가요.</p>
+</div>
+
+<div class="modal" id="bookModal" hidden>
+  <div class="box">
+    <h2 id="bookModalTitle">새 여행 책</h2>
+    <label class="fld"><span id="bkFTitle">책 제목</span><input type="text" id="bkFTitleIn" maxlength="40" autocomplete="off" /></label>
+    <label class="fld"><span id="bkFAuthor">지은이</span><input type="text" id="bkFAuthorIn" maxlength="30" autocomplete="off" /></label>
+    <label class="fld"><span id="bkFSub">한 줄 머릿말</span><input type="text" id="bkFSubIn" maxlength="70" autocomplete="off" /></label>
+    <div class="fld"><span id="bkFInclLb">담을 곳</span>
+      <div class="seg" id="bkMode">
+        <button type="button" data-mode="mine">내 기록만</button>
+        <button type="button" data-mode="pick">지역 골라</button>
+        <button type="button" data-mode="all">전체</button>
+      </div></div>
+    <div class="fld" id="bkRgWrap" hidden><span id="bkFRgLb">담을 지역</span><div class="rgs" id="bkRgs"></div></div>
+    <div class="fbtns"><button type="button" class="save" id="bookSave">저장</button>
+      <button type="button" class="cancel" id="bookCancel">취소</button></div>
+    <button type="button" class="mdel" id="bookDel" hidden>🗑️ 책 지우기</button>
+  </div>
+</div>
+
 <div class="toast" id="toast" hidden></div>
 
 <!-- 인쇄용 여행 앨범(책자) — 화면에서는 숨기고 인쇄할 때만 보인다 -->
@@ -453,9 +683,17 @@ var REGIONS = [
   {id:'gyeongju',ic:'🗿',ko:'경주',      en:'Gyeongju'},
   {id:'jeju',   ic:'🍊', ko:'제주',      en:'Jeju'},
   {id:'jeonju', ic:'🏮', ko:'전주',      en:'Jeonju'},
-  {id:'gimhae', ic:'🏺', ko:'김해·경남', en:'Gimhae'},
+  {id:'gimhae', ic:'🏺', ko:'김해',      en:'Gimhae'},
   {id:'andong', ic:'🎭', ko:'안동',      en:'Andong'},
-  {id:'gangneung',ic:'☕',ko:'강릉',     en:'Gangneung'}
+  {id:'gangneung',ic:'☕',ko:'강릉',     en:'Gangneung'},
+  {id:'incheon', ic:'🚢', ko:'인천',      en:'Incheon'},
+  {id:'gg',      ic:'🧱', ko:'수원 경기', en:'Suwon'},
+  {id:'cc',      ic:'🌲', ko:'춘천 속초', en:'Chuncheon'},
+  {id:'ys',      ic:'🌅', ko:'여수 순천', en:'Yeosu'},
+  {id:'ty',      ic:'🚡', ko:'통영 거제', en:'Tongyeong'},
+  {id:'dj',      ic:'🥐', ko:'대전 충청', en:'Daejeon'},
+  {id:'daegu',   ic:'🍎', ko:'대구 울산', en:'Daegu'},
+  {id:'buyeo',   ic:'🌸', ko:'부여 공주', en:'Buyeo'}
 ];
 
 /* ── 명소 30곳: [한국어, English] ── */
@@ -713,7 +951,7 @@ var SPOTS = [
  cl:['매주 월요일 휴장. 동절기 09:30~17:00.','Closed Mondays. Winter hours 09:30–17:00.'],
  eat:['레일파크 매점, 삼랑진 돼지국밥.','Rail park snack bar; pork soup in Samnangjin.']},
 
-{id:'dongpirang', rg:'gimhae', ill:'village', pal:'autumn', q:'통영 동피랑 벽화마을 통영시 동피랑1길 6-18',
+{id:'dongpirang', rg:'ty', ill:'village', pal:'autumn', q:'통영 동피랑 벽화마을 통영시 동피랑1길 6-18',
  nm:['통영 동피랑 벽화마을','Tongyeong Dongpirang Mural Village'],
  charm:['항구를 내려다보는 벼랑 언덕, 골목마다 130여 점의 벽화와 바다.','A cliffside village over the harbour — some 130 murals along the alleys.'],
  tr:['통영 시외버스터미널에서 시내버스·택시 10분 → 중앙시장 뒤편. 공영주차장에서 도보 5분.','10 min by local bus or taxi from Tongyeong bus terminal, behind Jungang Market. 5 min on foot from the public car park.'],
@@ -789,6 +1027,258 @@ var SPOTS = [
  feeS:['무료','Free'],
  cl:['해변 상시 개방, 카페별 영업시간.','The beach is always open; café hours vary.'],
  eat:['안목 커피, 강릉 장칼국수, 회센터.','Anmok coffee, Gangneung jang kalguksu, raw-fish centre.']}
+,{id:'incheon_china', rg:'incheon', ill:'village', pal:'autumn', q:'인천 차이나타운 월미도', 
+ nm:['인천 차이나타운·월미도','Incheon Chinatown & Wolmi Island'],
+ charm:['붉은 등불과 짜장면 골목, 바다로 이어지는 월미바다열차까지 한 번에 걷는 개항장 나들이.','Red lanterns and jajangmyeon alleys, then a seaside monorail along Wolmi — Incheon’s old port in one walk.'],
+ tr:['1호선·수인분당선 인천역 1번 출구에서 차이나타운 도보 5분. 월미도는 인천역에서 월미바다열차 또는 도보 20분.','Exit 1 of Incheon Stn (Line 1 / Suin–Bundang): Chinatown is 5 min on foot. Wolmi Island is 20 min on foot or by the Wolmi Sea Train.'],
+ tm:['낮부터 해질 무렵까지. 주말 저녁은 붐벼요. 3시간.','Daytime into dusk; weekend evenings are busy. About 3 hours.'],
+ tmS:['사계절','All year'],
+ fee:['거리 산책 무료. 월미바다열차·놀이기구는 따로 내요.','The streets are free; the sea train and rides are paid.'],
+ feeS:['무료','Free'],
+ cl:['거리·월미도 상시 개방, 상점별 영업시간.','Streets and the island are always open; shop hours vary.'],
+ eat:['공화춘 짜장면, 만두·월병, 월미도 조개구이.','Jajangmyeon at Gonghwachun, dumplings and mooncakes, grilled shellfish on Wolmi.']},
+
+{id:'incheon_songdo', rg:'incheon', ill:'river', pal:'day', q:'송도 센트럴파크 인천 연수구 컨벤시아대로 160',
+ nm:['송도 센트럴파크','Songdo Central Park'],
+ charm:['바닷물을 끌어와 만든 1.8km 수로, 잔디밭과 고층 빌딩이 마주 보는 산책길.','A 1.8 km seawater canal with lawns on one side and towers on the other — built for walking.'],
+ tr:['인천1호선 센트럴파크역 3번 출구에서 도보 3분.','Incheon Line 1, Central Park Stn Exit 3 — 3 min on foot.'],
+ tm:['해질 무렵 산책. 1시간 30분.','Dusk is best. About 1.5 hours.'],
+ tmS:['사계절','All year'],
+ fee:['무료. 보트·수상택시는 유료.','Free; boats and water taxis are paid.'],
+ feeS:['무료','Free'],
+ cl:['공원 상시 개방(안내소 10:00~19:00, 주말 21:00).','Park always open (info 10:00–19:00, to 21:00 weekends).'],
+ eat:['공원 안 카페·브런치, 인근 몰 먹자골목.','Cafés and brunch in the park; food halls at the nearby malls.']},
+
+{id:'incheon_ganghwa', rg:'incheon', ill:'seowon', pal:'mist', q:'강화 전등사 인천 강화군 길상면 전등사로 37-41',
+ nm:['강화도·전등사','Ganghwa Island & Jeondeungsa'],
+ charm:['1300년 절과 50톤 고인돌이 한 섬에 있는 곳, 바람 부는 논길이 이어져요.','A 1,300-year-old temple and a 50-ton dolmen on one island, linked by wind-blown rice-field roads.'],
+ tr:['당산역·신촌에서 3000번 버스로 강화터미널(약 90분), 터미널에서 32번 버스로 고인돌·전등사 방면.','Bus 3000 from Dangsan or Sinchon to Ganghwa Terminal (about 90 min), then bus 32 toward the dolmen and Jeondeungsa.'],
+ tm:['오전에 전등사, 낮에 고인돌. 4~5시간.','Temple in the morning, dolmen after lunch. Four to five hours.'],
+ tmS:['봄·가을','Spring·Fall'],
+ fee:['전등사·고인돌 유적 무료(2023년 5월부터). 강화역사박물관 어른 3,000원. 전등사 주차 3,000원.','Temple and dolmen free (since May 2023); Ganghwa History Museum 3,000 won; temple parking 3,000 won.'],
+ feeS:['무료','Free'],
+ cl:['전등사 09:00~17:30 연중무휴. 고인돌 상시, 박물관 09:00~18:00(월요일 휴관).','Jeondeungsa 09:00–17:30 daily; dolmen always open; museum 09:00–18:00, closed Mondays.'],
+ eat:['강화 순무김치·밴댕이젓, 전등사 산채비빔밥, 속노랑고구마.','Ganghwa turnip kimchi and salted sand lance, temple herb bibimbap, yellow sweet potato.']},
+
+{id:'suwon_hwaseong', rg:'gg', ill:'tower', pal:'dusk', q:'수원화성 수원시 팔달구',
+ nm:['수원 화성','Suwon Hwaseong Fortress'],
+ charm:['정조가 세운 5.7km 성곽을 따라 걷는 길, 성문과 망루마다 도시가 내려다보여요.','A 5.7 km wall built by King Jeongjo — city views from every gate and watchtower.'],
+ tr:['1호선 수원역 4번 출구에서 팔달문까지 도보 15분·버스 5분. 성곽 순성로는 어디서든 올라요.','Suwon Stn (Line 1) Exit 4 — 15 min on foot or 5 min by bus to Paldalmun Gate; the wall trail starts anywhere.'],
+ tm:['해질 무렵 성곽 산책, 밤에는 행궁 야간개장(금~일). 2~3시간.','Walk the wall at dusk; the palace opens at night Fri–Sun. Two to three hours.'],
+ tmS:['봄·가을','Spring·Fall'],
+ fee:['성곽 무료. 화성행궁 어른 2,000원(한복 착용·65세 이상 무료).','The wall is free; Hwaseong Haenggung 2,000 won (free in hanbok or over 64).'],
+ feeS:['무료','Free'],
+ cl:['성곽 연중무휴·24시간. 행궁 09:00~18:00, 야간개장 18:00~21:30.','Wall open 24 hours; palace 09:00–18:00, night opening 18:00–21:30.'],
+ eat:['수원 왕갈비, 행궁동 카페·통닭, 못골시장 순대.','Suwon galbi, Haenggung-dong cafés and fried chicken, Motgol Market sundae.']},
+
+{id:'gg_namhansanseong', rg:'gg', ill:'mountain', pal:'snow', q:'남한산성 경기 광주시 남한산성면',
+ nm:['남한산성','Namhansanseong Fortress'],
+ charm:['서울에서 30분, 12.4km 성곽길과 숲이 이어지는 유네스코 세계유산.','Thirty minutes from Seoul — a 12.4 km wall through forest, a UNESCO World Heritage site.'],
+ tr:['8호선 산성역 3번 출구에서 9-1·9-2·52번 버스로 남한산성 입구(약 10분).','Sanseong Stn (Line 8) Exit 3, then bus 9-1, 9-2 or 52 to the fortress entrance (about 10 min).'],
+ tm:['오전 산책, 가을 단풍. 3시간.','Morning walks; autumn colours. Three hours.'],
+ tmS:['봄·가을','Spring·Fall'],
+ fee:['성곽길 무료(2007년부터). 남한산성행궁 어른 2,000원, 경기도민 무료.','The wall trail is free (since 2007); the palace 2,000 won, free for Gyeonggi residents.'],
+ feeS:['무료','Free'],
+ cl:['성곽 상시. 행궁 11~3월 10:00~17:00, 매주 월요일 휴궁.','Wall always open; palace Nov–Mar 10:00–17:00, closed Mondays.'],
+ eat:['남한산성 전통찻집, 산성 송어회·파전, 광주 오리.','Traditional tea houses, trout and scallion pancakes, duck in Gwangju.']},
+
+{id:'gg_garden', rg:'gg', ill:'forest', pal:'autumn', q:'아침고요수목원 경기 가평군 상면 수목원로 432',
+ nm:['아침고요수목원','Garden of Morning Calm'],
+ charm:['가평 산자락 20개 정원, 계절마다 다른 꽃길과 소나무 숲.','Twenty themed gardens in the Gapyeong hills — a different flower road each season.'],
+ tr:['ITX-청춘 가평역에서 버스 30-1(하루 몇 회) 또는 택시 10분. 차로는 서울에서 1시간 20분.','ITX-Cheongchun to Gapyeong Stn, then bus 30-1 (a few times a day) or a 10-min taxi. About 80 min by car from Seoul.'],
+ tm:['아침 9시 개장 직후. 봄·가을·겨울 불빛축제. 2시간.','Right after 09:00; spring, autumn or the winter light festival. Two hours.'],
+ tmS:['사계절','All year'],
+ fee:['어른 11,000원(청소년 8,500원, 어린이 7,500원). 65세 이상 9,000원.','Adults 11,000 won (teens 8,500, children 7,500); over 64 9,000.'],
+ feeS:['11,000원','₩11,000'],
+ cl:['연중무휴 08:30~19:00, 입장 마감 18:00.','Open daily 08:30–19:00, last entry 18:00.'],
+ eat:['수목원 카페·베이커리, 가평 잣두부·닭갈비.','Garden café and bakery; pine-nut tofu and dakgalbi in Gapyeong.']},
+
+{id:'cc_nami', rg:'cc', ill:'river', pal:'autumn', q:'남이섬 강원 춘천시 남산면 남이섬길 1',
+ nm:['남이섬','Nami Island'],
+ charm:['메타세쿼이아 길과 자작나무 숲, 배로 5분 들어가는 섬의 느린 하루.','Metasequoia avenues and birch woods — a slow day on an island five minutes by ferry.'],
+ tr:['ITX-청춘·경춘선 가평역에서 택시·버스 10분 → 가평나루. 배는 30분 간격.','ITX-Cheongchun or Gyeongchun line to Gapyeong Stn, then 10 min by taxi or bus to Gapyeong Wharf; ferries every 30 min.'],
+ tm:['평일 오전. 봄·가을, 4시간.','Weekday mornings; spring or autumn. Four hours.'],
+ tmS:['봄·가을','Spring·Fall'],
+ fee:['어른 19,000원(왕복 배삯 포함). 70세 이상·청소년 16,000원, 초등학생 13,000원.','Adults 19,000 won including the return ferry; over 69 and teens 16,000; children 13,000.'],
+ feeS:['19,000원','₩19,000'],
+ cl:['연중무휴 365일. 첫배 08:00 전후, 막배는 계절에 따라 달라요.','Open all 365 days; first ferry around 08:00, last by season.'],
+ eat:['남이섬 닭갈비·잣숯불구이, 가평 막국수.','Dakgalbi on the island; makguksu noodles in Gapyeong.']},
+
+{id:'cc_skywalk', rg:'cc', ill:'bridge', pal:'dusk', q:'소양강스카이워크 춘천시 영서로 2663',
+ nm:['소양강스카이워크','Soyang River Skywalk'],
+ charm:['소양강 위를 걸어가는 140m 유리바닥 다리, 발밑으로 물빛이 흐르는 짧은 스릴.','A 140 m glass-floored walkway over the Soyang River — a short thrill with water underfoot.'],
+ tr:['춘천역에서 버스·택시 10분. 소양강처녀상 아래 강변.','10 min by bus or taxi from Chuncheon Stn, below the Soyang River Maiden statue.'],
+ tm:['해질 무렵. 40분.','Around sunset. Forty minutes.'],
+ tmS:['사계절','All year'],
+ fee:['어른 2,000원(춘천사랑상품권 2,000원으로 돌려받아요). 춘천시민·65세 이상 무료.','2,000 won, given back as a 2,000-won Chuncheon gift certificate; free for residents and over 64.'],
+ feeS:['2,000원','₩2,000'],
+ cl:['매주 화요일 휴무. 11~3월 10:00~17:30(시설 공지에 따라 18:30).','Closed Tuesdays; Nov–Mar 10:00–17:30 (to 18:30 per some notices).'],
+ eat:['춘천 닭갈비·막국수, 소양강 붕어빵.','Chuncheon dakgalbi and makguksu; fish-shaped pastries by the river.']},
+
+{id:'cc_seorak', rg:'cc', ill:'mountain', pal:'snow', q:'설악산 케이블카 속초시 설악산로 1085',
+ nm:['설악산·권금성','Seoraksan & Gwongeumseong'],
+ charm:['케이블카로 5분, 권금성 바위 위에서 설악 능선과 속초 바다가 한눈에.','Five minutes by cable car to Gwongeumseong — the Seorak ridge and the sea at Sokcho in one view.'],
+ tr:['속초시외버스터미널에서 7·7-1번 버스 20분 → 소공원, 케이블카까지 도보 5분.','Bus 7 or 7-1 from Sokcho bus terminal (20 min) to Sogongwon, then 5 min on foot to the cable car.'],
+ tm:['맑은 아침. 단풍철엔 9시 전 도착. 3시간.','A clear morning; in autumn arrive before 09:00. Three hours.'],
+ tmS:['가을','Autumn'],
+ fee:['설악산 입장 무료. 케이블카 왕복 어른 16,000원(현장 발권만).','Park entry free; cable car 16,000 won round trip, sold on site only.'],
+ feeS:['16,000원','₩16,000'],
+ cl:['케이블카 09:00~일몰 전후, 강풍·악천후엔 운행 중단. 신흥사 주차 6,000원.','Cable car from 09:00 to near sunset; stops in high wind. Sinheungsa parking 6,000 won.'],
+ eat:['속초 닭강정·오징어순대, 학사평 콩나물국밥.','Sokcho fried chicken and squid sundae; bean-sprout soup at Haksapyeong.']},
+
+{id:'ys_odongdo', rg:'ys', ill:'island', pal:'sea', q:'여수 오동도 여수시 오동도로 222',
+ nm:['여수 오동도','Odongdo Island, Yeosu'],
+ charm:['방파제를 걸어 들어가는 섬, 겨울 동백과 밤바다 케이블카가 이어지는 여수.','Walk the breakwater onto an island of winter camellias, then ride the night-sea cable car.'],
+ tr:['여수엑스포역에서 버스·택시 10분 → 오동도 입구. 동백열차로 섬 안까지.','10 min by bus or taxi from Yeosu Expo Stn to the entrance; a camellia train runs onto the island.'],
+ tm:['겨울 동백(12~3월), 해질 무렵. 2시간.','Winter camellias (Dec–Mar), or dusk. Two hours.'],
+ tmS:['겨울','Winter'],
+ fee:['입장 무료. 동백열차 편도 1,000원(65세 이상 500원).','Free entry; camellia train 1,000 won one way (500 for over 64).'],
+ feeS:['무료','Free'],
+ cl:['오동도 상시 개방. 동백열차 11~2월 09:30~17:00.','Island always open; train 09:30–17:00 in Nov–Feb.'],
+ eat:['여수 돌산갓김치·서대회, 게장백반, 낭만포차.','Dolsan mustard kimchi and raw cutlassfish, crab set meals, the night food stalls.']},
+
+{id:'ys_suncheonman', rg:'ys', ill:'pond', pal:'autumn', q:'순천만국가정원 순천시 국가정원1호길 47',
+ nm:['순천만국가정원','Suncheonman National Garden'],
+ charm:['갈대밭과 습지로 이어지는 1.1km 정원, 스카이큐브로 하늘에서 내려다봐요.','A garden flowing into reed beds and wetland — see it from above on the Sky Cube.'],
+ tr:['순천역에서 버스 1·2번 10분, 도보 20분. 정원 입장권으로 순천만습지까지.','Bus 1 or 2 from Suncheon Stn (10 min) or 20 min on foot; one ticket covers the wetland too.'],
+ tm:['오후~해질 무렵. 갈대는 10~11월. 4시간.','Afternoon into dusk; reeds peak Oct–Nov. Four hours.'],
+ tmS:['가을','Autumn'],
+ fee:['어른 10,000원(청소년 7,000원, 어린이 5,000원). 야간권 5,000원.','Adults 10,000 won (teens 7,000, children 5,000); evening ticket 5,000.'],
+ feeS:['10,000원','₩10,000'],
+ cl:['매표 09:00~19:00, 관람 20:00까지. 스카이큐브 왕복 8,000원.','Tickets 09:00–19:00, garden to 20:00; Sky Cube 8,000 won round trip.'],
+ eat:['순천 짱뚱어탕·민물장어, 정원 카페.','Mudskipper soup and river eel in Suncheon; garden cafés.']},
+
+{id:'ys_nagan', rg:'ys', ill:'village', pal:'day', q:'낙안읍성 전남 순천시 낙안면 충민길 30',
+ nm:['낙안읍성','Nagan Eupseong Folk Village'],
+ charm:['성벽 안에 100여 채 초가가 이어지는 조선 읍성, 아직 사람이 사는 마을.','Some hundred thatched houses inside a Joseon town wall — still a living village.'],
+ tr:['순천역·터미널에서 61번 버스 40분. 차로는 순천에서 30분.','Bus 61 from Suncheon Stn or terminal (40 min); 30 min by car.'],
+ tm:['오전~낮. 봄·가을, 2시간.','Morning to afternoon; spring or autumn. Two hours.'],
+ tmS:['봄·가을','Spring·Fall'],
+ fee:['어른 4,000원(청소년 2,500원, 어린이 1,500원). 65세 이상 무료.','Adults 4,000 won (teens 2,500, children 1,500); free over 64.'],
+ feeS:['4,000원','₩4,000'],
+ cl:['11~12월 09:00~17:30, 5~9월 08:30~18:30. 연중무휴.','Nov–Dec 09:00–17:30, May–Sep 08:30–18:30; open daily.'],
+ eat:['낙안 한정식, 초가집 국밥, 옥수수 막걸리.','Hanjeongsik in Nagan, soup rice in a thatched house, corn makgeolli.']},
+
+{id:'ty_cablecar', rg:'ty', ill:'tower', pal:'dusk', q:'통영 한려수도 조망 케이블카 통영시 발개로 205',
+ nm:['통영 한려수도 케이블카','Tongyeong Hallyeosudo Cable Car'],
+ charm:['1,975m 국내 최장 케이블카, 미륵산에서 한려수도의 섬들이 파노라마로 펼쳐져요.','Korea’s longest cable car at 1,975 m — a panorama of Hallyeosudo islands from Mt. Mireuk.'],
+ tr:['통영터미널에서 버스·택시 10분 → 케이블카 하부역.','10 min by bus or taxi from Tongyeong terminal to the lower station.'],
+ tm:['맑은 오전, 일몰 무렵. 2시간.','A clear morning or sunset. Two hours.'],
+ tmS:['사계절','All year'],
+ fee:['왕복 어른 17,000원(어린이 13,000원). 65세 이상 14,000원, 통영시민 8,000원.','17,000 won round trip (children 13,000); over 64 14,000; Tongyeong residents 8,000.'],
+ feeS:['17,000원','₩17,000'],
+ cl:['09:30~17:00(성수기 18:00). 매월 2·4주 수요일 휴장. 현장 발권만.','09:30–17:00 (to 18:00 in high season); closed 2nd and 4th Wednesdays; tickets on site only.'],
+ eat:['통영 충무김밥·꿀빵, 중앙시장 해산물, 굴구이.','Chungmu gimbap and honey balls, Jungang Market seafood, grilled oysters.']},
+
+{id:'ty_oedo', rg:'ty', ill:'island', pal:'day', q:'거제 외도 보타니아 경남 거제시 일운면 외도길 17',
+ nm:['거제 외도 보타니아','Geoje Oedo Botania'],
+ charm:['배로 들어가는 바다 위 정원, 동백과 다육식물 사이로 남해 섬들이 보여요.','A garden on the sea reached by boat — camellias, succulents and views over the southern islands.'],
+ tr:['장승포·지세포·와현항에서 유람선(15~40분). 구조라·도장포 배는 해금강 코스.','Ferries from Jangseungpo, Jisepo or Wahyeon (15–40 min); Gurae and Dojangpo boats add the Haegeumgang cliffs.'],
+ tm:['맑은 날 오전 배. 배 포함 3~4시간.','A morning boat on a clear day. Three to four hours including the crossing.'],
+ tmS:['봄·가을','Spring·Fall'],
+ fee:['외도 입장 어른 11,000원 + 유람선 별도(외도·해금강 온라인 22,000원부터).','Island entry 11,000 won plus the cruise (from about 22,000 online for island + Haegeumgang).'],
+ feeS:['11,000원','₩11,000'],
+ cl:['동절기 08:30~17:00. 풍랑특보면 결항. 신분증 지참.','08:30–17:00 in winter; boats cancelled in high-wave warnings. Bring ID.'],
+ eat:['거제 해물칼국수·물메기탕, 장승포 횟집.','Geoje seafood noodles and cod soup; sashimi houses at Jangseungpo.']},
+
+{id:'ty_baram', rg:'ty', ill:'cliff', pal:'sea', q:'거제 바람의언덕 남부면 갈곶리',
+ nm:['거제 바람의언덕','Geoje Windy Hill'],
+ charm:['도장포 언덕 위 풍차와 바다, 앉아서 한 시간을 보내게 되는 잔디밭.','A windmill on a hill above Dojangpo — a lawn where an hour disappears.'],
+ tr:['고현터미널에서 도장포 방면 버스 40분·택시 30분.','Bus from Gohyeon terminal toward Dojangpo (40 min) or 30 min by taxi.'],
+ tm:['해질 무렵. 1시간.','Dusk. One hour.'],
+ tmS:['사계절','All year'],
+ fee:['무료. 주차 무료.','Free, including parking.'],
+ feeS:['무료','Free'],
+ cl:['상시 개방.','Always open.'],
+ eat:['도장포 회·해산물, 거제 멍게비빔밥.','Sashimi and seafood at Dojangpo; sea-squirt bibimbap.']},
+
+{id:'dj_sungsimdang', rg:'dj', ill:'market', pal:'day', q:'성심당 본점 대전 중구 대종로480번길 15',
+ nm:['대전 성심당','Daejeon Sungsimdang Bakery'],
+ charm:['1956년부터 대전 사람들이 줄 서는 빵집, 튀김소보로와 부추빵.','Daejeon’s queue-worthy bakery since 1956 — fried soboro and chive bread.'],
+ tr:['대전역 동쪽 출구에서 도보 3분(본점).','Three minutes on foot from Daejeon Stn’s east exit (main store).'],
+ tm:['평일 오전 9~10시가 덜 붐벼요. 40분.','Weekday mornings 09:00–10:00 are calmer. Forty minutes.'],
+ tmS:['사계절','All year'],
+ fee:['입장 무료. 빵값만.','No entry fee — just the bread.'],
+ feeS:['무료','Free'],
+ cl:['매일 08:00~22:00, 연중무휴.','Daily 08:00–22:00, all year.'],
+ eat:['성심당 튀김소보로·부추빵, 대전 칼국수, 은행동 커피.','Sungsimdang fried soboro and chive bread, Daejeon noodles, coffee in Eunhaeng-dong.']},
+
+{id:'dj_dodam', rg:'dj', ill:'river', pal:'mist', q:'단양 도담삼봉 충북 단양군 매포읍 삼봉로 644-13',
+ nm:['단양 도담삼봉','Danyang Dodamsambong'],
+ charm:['남한강 위에 세 봉우리가 솟은 단양 팔경의 첫 장면, 유람선으로 가까이.','Three peaks rising from the Namhan River — the first of Danyang’s eight views, best from a boat.'],
+ tr:['단양역·시외버스터미널에서 버스·택시 15분. 도담삼봉 선착장에서 유람선.','15 min by bus or taxi from Danyang Stn or the bus terminal; cruises leave from Dodamsambong wharf.'],
+ tm:['오전, 물안개. 유람선 포함 1시간 30분.','Morning mist. About 1.5 hours with the cruise.'],
+ tmS:['봄·가을','Spring·Fall'],
+ fee:['도담삼봉 공원 무료. 유람선 어른 12,000원(온라인 10,000원).','The park is free; cruise 12,000 won on site (10,000 online).'],
+ feeS:['무료','Free'],
+ cl:['공원 상시. 유람선 09:00~17:00, 신분증 지참.','Park always open; cruises 09:00–17:00, bring ID.'],
+ eat:['단양 마늘떡갈비·쏘가리매운탕, 흑마늘.','Garlic tteok-galbi and spicy mandarin fish stew; black garlic.']},
+
+{id:'daegu_seomun', rg:'daegu', ill:'market', pal:'night', q:'대구 서문시장 중구 큰장로26길 45',
+ nm:['대구 서문시장','Daegu Seomun Market'],
+ charm:['밤 10시까지 이어지는 야시장, 납작만두와 막창이 대구의 밤을 만든다.','A night market running to 22:00 — flat dumplings and makchang make Daegu’s night.'],
+ tr:['1호선 중앙로역 3번 출구 도보 5분, 3호선 서문시장역 1번 출구.','Jungangno Stn (Line 1) Exit 3, 5 min on foot; or Seomun Market Stn (Line 3) Exit 1.'],
+ tm:['저녁 6시 이후 야시장. 2시간.','After 18:00 for the night stalls. Two hours.'],
+ tmS:['사계절','All year'],
+ fee:['무료.','Free.'],
+ feeS:['무료','Free'],
+ cl:['시장 09:00~19:00, 야시장은 22:00까지. 점포마다 휴무가 달라요.','Market 09:00–19:00; night stalls to 22:00. Closing days vary by shop.'],
+ eat:['납작만두, 막창구이, 칼국수, 야시장 닭꼬치.','Flat dumplings, grilled makchang, kalguksu, night-market skewers.']},
+
+{id:'daegu_donghwasa', rg:'daegu', ill:'temple', pal:'forest', q:'동화사 대구 동구 동화사1길 1',
+ nm:['팔공산 동화사','Donghwasa Temple, Palgong'],
+ charm:['30m 통일약사여래대불이 계곡을 내려다보는 천년 고찰, 팔공산 등산 입구.','A 30 m Buddha watches over the valley at this thousand-year temple — the gateway to Mt. Palgong.'],
+ tr:['동대구역에서 급행1번 버스 40분 → 동화사입구, 도보 10분.','Express bus 1 from Dongdaegu Stn (40 min) to Donghwasa entrance, then 10 min on foot.'],
+ tm:['오전, 단풍철. 2시간.','Morning; autumn colours. Two hours.'],
+ tmS:['가을','Autumn'],
+ fee:['어른 2,500원(어린이 1,000원). 주차 별도.','Adults 2,500 won (children 1,000); parking extra.'],
+ feeS:['2,500원','₩2,500'],
+ cl:['상시 개방. 팔공산케이블카는 월요일 휴무(공휴일 운행).','Always open; Palgong cable car closed Mondays (runs on holidays).'],
+ eat:['동화사 산채비빔밥, 팔공산 흑돼지, 대구 막창.','Temple herb bibimbap, Palgong black pork, Daegu makchang.']},
+
+{id:'daegu_daewangam', rg:'daegu', ill:'cliff', pal:'sea', q:'대왕암공원 울산 동구 등대로 95',
+ nm:['울산 대왕암공원','Ulsan Daewangam Park'],
+ charm:['소나무 숲을 지나 바다 위 대왕암, 303m 출렁다리가 이어지는 해안 산책.','Pine woods, the Daewangam rock in the sea and a 303 m suspension bridge along the coast.'],
+ tr:['울산역·태화강역에서 104·124번 버스 → 대왕암공원 종점, 도보 15분.','Bus 104 or 124 from Ulsan or Taehwagang Stn to Daewangam Park terminus, then 15 min on foot.'],
+ tm:['해질 무렵. 2시간.','Dusk. Two hours.'],
+ tmS:['사계절','All year'],
+ fee:['입장 무료. 주차는 유료(평일 2시간 무료).','Free entry; parking paid (first 2 hours free on weekdays).'],
+ feeS:['무료','Free'],
+ cl:['공원 24시간, 출렁다리 09:00~18:00(17:40 입장 마감), 매월 둘째 화요일 휴장.','Park 24 hours; bridge 09:00–18:00, last entry 17:40, closed 2nd Tuesday each month.'],
+ eat:['울산 언양불고기·밀면, 동구 물회.','Ulsan Eonyang bulgogi and milmyeon; cold raw-fish soup in Dong-gu.']},
+
+{id:'buyeo_gungnamji', rg:'buyeo', ill:'pond', pal:'night', q:'궁남지 충남 부여군 부여읍 궁남로 52',
+ nm:['부여 궁남지','Buyeo Gungnamji Pond'],
+ charm:['한국에서 가장 오래된 인공 연못, 여름 연꽃과 밤 조명이 물 위에 겹쳐요.','Korea’s oldest man-made pond — summer lotus and night lights layered on the water.'],
+ tr:['부여터미널에서 도보 15분·택시 5분.','15 min on foot or 5 min by taxi from Buyeo terminal.'],
+ tm:['7월 연꽃, 해진 뒤 조명. 1시간.','Lotus in July; lights after dark. One hour.'],
+ tmS:['여름','Summer'],
+ fee:['무료.','Free.'],
+ feeS:['무료','Free'],
+ cl:['상시 개방(조명은 해진 뒤~22시 무렵).','Always open (lights from dusk to about 22:00).'],
+ eat:['부여 연잎밥·백제 한정식, 구드래 매운탕.','Lotus-leaf rice and Baekje set meals; river fish stew at Gudurae.']},
+
+{id:'buyeo_busosan', rg:'buyeo', ill:'tomb', pal:'forest', q:'부소산성 충남 부여군 부여읍 부소로 31',
+ nm:['부여 부소산성·낙화암','Busosanseong & Nakhwaam'],
+ charm:['백제 왕궁을 지키던 산성, 낙화암에서 백마강이 굽어보이는 2시간 산책.','The mountain fortress that guarded Baekje’s palace — a two-hour walk above the Baengma River.'],
+ tr:['부여터미널에서 도보 10분(정문). 고란사까지 도보 40분.','10 min on foot from Buyeo terminal to the main gate; 40 min up to Goransa.'],
+ tm:['오전. 2시간.','Morning. Two hours.'],
+ tmS:['봄·가을','Spring·Fall'],
+ fee:['어른 2,000원(청소년 1,100원, 어린이 1,000원). 65세 이상 무료. 낙화암·고란사 포함.','Adults 2,000 won (teens 1,100, children 1,000); free over 64; Nakhwaam and Goransa included.'],
+ feeS:['2,000원','₩2,000'],
+ cl:['11~2월 09:00~17:00, 3~10월 09:00~18:00.','Nov–Feb 09:00–17:00; Mar–Oct 09:00–18:00.'],
+ eat:['부여 백마강 매운탕, 연잎밥, 구드래 나루터 식당.','River fish stew, lotus-leaf rice, restaurants at Gudurae wharf.']},
+
+{id:'buyeo_gongsan', rg:'buyeo', ill:'seowon', pal:'dusk', q:'공산성 충남 공주시 웅진로 280',
+ nm:['공주 공산성','Gongju Gongsanseong'],
+ charm:['금강을 따라 2.6km 성벽이 이어지는 백제 왕성, 성 위에서 공주 시내가 내려다보여요.','A Baekje royal fortress whose 2.6 km wall follows the Geum River — town below, river beyond.'],
+ tr:['공주터미널에서 도보 15분, 공주역(KTX)에서 버스 20분.','15 min on foot from Gongju terminal; 20 min by bus from Gongju KTX Stn.'],
+ tm:['해질 무렵 성벽 산책. 1시간 30분.','Walk the wall at dusk. About 1.5 hours.'],
+ tmS:['봄·가을','Spring·Fall'],
+ fee:['어른 3,000원(청소년 2,000원, 어린이 1,000원). 공주시민 50% 할인.','Adults 3,000 won (teens 2,000, children 1,000); Gongju residents half price.'],
+ feeS:['3,000원','₩3,000'],
+ cl:['11~2월 09:00~17:00, 3~10월 09:00~18:00. 설·추석 당일 휴무.','Nov–Feb 09:00–17:00; Mar–Oct 09:00–18:00; closed Lunar New Year and Chuseok days.'],
+ eat:['공주 밤막걸리·알밤, 제민천 카페, 공주 국밥.','Chestnut makgeolli in Gongju, cafés along Jemincheon, soup rice.']}
 ];
 
 /* ── 손짓 카드 12장 ── */
@@ -821,8 +1311,8 @@ var PHRASES = [
 
 /* ── 화면 글 (한/EN) ── */
 var T = {
- ko:{ app:'와글링 한국여행', tag:'관광지 30곳 · 가는 법·입장료·먹거리',
-  intro:'<b>서울·부산·경주·제주·전주·김해·안동·강릉</b> 명소 30곳. 지역을 고르고 ❤️로 담아 두세요. 가는 법·입장료·먹거리와 함께 <b>📷 내가 찍은 사진</b>으로 채우는 여행 도감이에요. 사진은 이 폰에만 저장돼요.',
+ ko:{ app:'와글링 한국여행', tag:'관광지 53곳 · 가는 법·입장료·먹거리', tagFmt:'관광지 {n}곳 · 가는 법·입장료·먹거리',
+  intro:'전국 <b>{r}개 지역·{n}곳</b> 명소. 지역을 고르고 ❤️로 담아 두세요. <b>➕ 내 여행지 추가</b>로 나만의 곳도 넣고, 사진·메모를 채우면 <b>책처럼 앨범 인쇄</b>와 <b>📖 폰 앨범</b>이 됩니다. 사진은 이 폰에만 저장돼요.',
   install:'설치', share:'공유', listTitle:'지역별 명소', tabList:'관광지', tabFav:'찜', tabCard:'손짓 카드',
   favTitle:'찜한 곳', favEmpty:'아직 찜한 곳이 없어요.<br>관광지 목록에서 ❤️를 눌러 담아 보세요.', favEmptyGo:'관광지 보러 가기',
   cardIntro:'말이 안 통할 때는 <b>큰 글씨 화면을 그대로 보여 주세요</b>. 카드를 누르면 화면 가득 크게 뜨고, 🔊로 한국어 소리도 들려줄 수 있어요.',
@@ -836,17 +1326,42 @@ var T = {
   toastCopy:'복사했어요', toastShareFail:'공유를 열지 못했어요. 주소를 복사했어요.',
   inTitle:'홈 화면에 설치', inBody:'브라우저 메뉴에서 <b>“홈 화면에 추가”</b>를 골라 주세요.<br>와이파이가 없어도 앱처럼 열립니다. (아이폰은 사파리 하단 공유 버튼 → 홈 화면에 추가)',
   already:'이미 설치되어 있어요', installing:'설치를 시작해요', installed:'설치했어요',
-  shareText:'와글링 한국여행 · 한국 관광지 30곳 가이드 (외국인·내국인)', shareOk:'공유했어요',
+  shareText:'와글링 한국여행 · 한국 관광지 53곳 가이드 (외국인·내국인)', shareOk:'공유했어요',
   bigTitle:'큰 글씨 카드', close:'닫기', sayLbl:'한국어로 읽어 주기',
   noteSaved:'메모를 저장했어요', regionAll:'전체', places:'곳', none:'이 지역은 준비 중이에요.',
-  myPhotos:'내 여행 사진', pcOf:'/ 30곳', shotEmpty:'방문 사진을 찍거나 골라서 채워 보세요', shotSlot:'사진 자리',
+  myPhotos:'내 여행 사진', pcOf:'/ 53곳', pcOfFmt:'/ {n}곳', shotEmpty:'방문 사진을 찍거나 골라서 채워 보세요', shotSlot:'사진 자리',
   shotPick:'사진 넣기', shotChange:'사진 바꾸기', shotDelete:'사진 지우기', myShot:'내 사진',
   photoSaved:'사진을 넣었어요', photoDeleted:'사진을 지웠어요', photoUndo:'되돌리기',
   photoFull:'저장 공간이 부족해요. 사진 하나를 지우고 다시 해 주세요.', photoErr:'사진을 열지 못했어요. 다른 사진으로 해 보세요.',
   printAlbum:'앨범 인쇄', printAlbum2:'앨범 인쇄 · PDF 저장', printAll:'아직 채운 사진이 없어 지금 목록을 인쇄해요.',
-  printHint:'사진·메모를 채운 곳으로 여행 책자가 만들어져요. 인쇄 창에서 <b>배경 그래픽</b>을 켜면 색이 그대로 나와요.'},
- en:{ app:'Wagling Korea Travel', tag:'30 places · how to get there',
-  intro:'<b>Seoul, Busan, Gyeongju, Jeju, Jeonju, Gimhae, Andong and Gangneung</b> — 30 places. Pick a region, tap ❤️ to save, and fill each place with <b>your own 📷 photo</b>. Photos stay on this phone only.',
+  printHint:'사진·메모를 채운 곳으로 여행 책자가 만들어져요. 인쇄 창에서 <b>배경 그래픽</b>을 켜면 색이 그대로 나와요.',
+  add:'내 여행지 추가', addTitle:'내 여행지 추가', editTitle:'내 여행지 수정',
+  fName:'장소 이름', fNamePh:'예: 성심당 본점', fRegion:'지역', fNewRegion:'새 지역 이름', fNewRegionPh:'예: 군산',
+  fNewRegionOpt:'➕ 새 지역 직접 입력', fIntro:'한 줄 소개·메모', fIntroPh:'무엇이 좋았는지, 언제 갈지…',
+  fPhoto:'사진(선택)', fPhotoPick:'사진 넣기', fPhotoChange:'사진 바꾸기',
+  fSave:'저장', fCancel:'취소', fDel:'이 여행지 지우기', fHint:'이 폰에만 저장돼요. 넣은 사진은 폰 앨범과 인쇄 책자에도 들어가요.',
+  fNameReq:'장소 이름을 적어 주세요.', fRgReq:'새 지역 이름을 적어 주세요.', mineSaved:'내 여행지에 담았어요', mineUpdated:'수정했어요', mineDeleted:'지웠어요',
+  mineTag:'내 여행지', mineIntro:'내가 직접 추가한 여행지예요.', mineEdit:'✏️ 수정', mineDel:'🗑️ 지우기',
+  chipsMore:'지역 더 보기 ({n})', chipsLess:'지역 접기',
+  bkLb:'📖 내 책 표지', bkTitle:'책 제목', bkTitlePh:'나의 한국여행 앨범', bkAuthor:'지은이(만든 이)', bkAuthorPh:'예: 김경영',
+  bkSub:'한 줄 머릿말', bkSubPh:'예: 가족과 걸은 가을',
+  bkHint:'인쇄 표지와 폰 앨범 첫 장에 그대로 들어가요. 다른 책은 아래 [내 앨범 보기]에서 꾸며요.',
+  bookDefaultTitle:'나의 한국여행 앨범', bookDefaultSub:'내가 찍은 사진과 여행 메모를 한 권에 모았어요.', authorFmt:'지은이 · {a}',
+  printAsk:'어떻게 엮을까요?', printAskDesc:'책으로 엮을 곳을 골라 주세요.', printMine:'📖 내 기록만 엮기', printAll2:'🗂️ 전체 목록 다 엮기',
+  printMineNote:'사진·메모를 채웠거나 내가 추가한 곳', printAllNote:'모든 관광지', printNoMine:'아직 채운 기록이 없어 전체 목록으로 엮어요.',
+  albumBtn:'내 앨범 보기', albumTitle:'📖 내 여행 앨범', albumPrev:'이전', albumNext:'다음', albumHint:'손가락으로 옆으로 밀어도 넘어가요.',
+  albumEmptyTitle:'아직 앨범이 비어 있어요', albumEmptyBody:'관광지 카드에서 📷 사진을 넣거나 ➕ 내 여행지를 추가하면, 여기서 책장 넘기듯 볼 수 있어요.',
+  albumKick:'WAGLING KOREA TRAVEL', albumCount:'사진 {p}곳 · 메모 {m}곳 · 함께 {n}곳', albumDate:'{y}년 {mo}월 {d}일', albumEdit:'꾸미기', albumMemo:'나의 여행 메모',
+  shelfTitle:'📖 내 책장', shelfHint:'책을 누르면 사진첩이 펼쳐져요. ✏️로 표지와 담을 곳을 고칠 수 있어요.', shelfCount:'{n}곳',
+  albumPrint:'인쇄', bookEdit:'꾸미기', newBook:'새 여행 책 만들기', bookNewTitle:'새 여행 책', bookEditTitle:'책 꾸미기',
+  fIncl:'담을 곳', modeMine:'내 기록만', modePick:'지역 골라', modeAll:'전체', fPickRgs:'담을 지역 (여러 개 선택)',
+  bookSaved:'책을 저장했어요', bookDeleted:'책을 지웠어요', bookDel:'이 책 지우기', albumEnd:'즐거운 여행 되세요',
+  bookEmptyPrint:'이 책에는 아직 담긴 곳이 없어요. 사진·메모를 채우거나 책에 담을 지역을 골라 주세요.',
+  albumEmptyPage:'아직 이 책에 담긴 기록이 없어요. 관광지 카드에서 📷 사진을 넣거나 ➕ 내 여행지를 추가해 보세요.',
+  wxLoading:'날씨 확인 중', placeGimhae:'김해', placeMe:'내 위치', wxNoNet:'인터넷이 없어 날씨를 새로 받지 못했어요.', wxFail:'날씨를 받지 못했어요. 잠시 뒤 다시 눌러 주세요.',
+  wxNow:'현위치 날씨로 새로 불러왔어요.', wxGimhae:'김해 날씨로 보여 드려요.', todayAria:'오늘 날짜와 날씨 — 누르면 현위치 날씨로 새로고침'},
+ en:{ app:'Wagling Korea Travel', tag:'53 places · how to get there', tagFmt:'{n} places · how to get there',
+  intro:'<b>{r} regions, {n} places</b> across Korea. Pick a region, tap ❤️ to save, and add your own spots with <b>➕ Add a place</b>. Fill in photos and notes, then read it as a <b>📖 phone album</b> or print it as a <b>travel book</b>. Photos stay on this phone only.',
   install:'Install', share:'Share', listTitle:'Places by region', tabList:'Places', tabFav:'Saved', tabCard:'Hand cards',
   favTitle:'Saved places', favEmpty:'Nothing saved yet.<br>Tap ❤️ on a place to keep it here.', favEmptyGo:'See places',
   cardIntro:'When words fail, <b>show the big screen</b>. Tap a card to fill the screen, and 🔊 speaks the Korean for you.',
@@ -860,19 +1375,45 @@ var T = {
   toastCopy:'Copied', toastShareFail:'Could not open sharing — link copied instead.',
   inTitle:'Add to home screen', inBody:'Open the browser menu and choose <b>“Add to Home screen”</b>.<br>The guide opens offline like an app. (iPhone: Safari share button → Add to Home Screen)',
   already:'Already installed', installing:'Starting install', installed:'Installed',
-  shareText:'Wagling Korea Travel · a guide to 30 places in Korea (fees, food, big Korean cards)', shareOk:'Shared',
+  shareText:'Wagling Korea Travel · a guide to 53 places in Korea (fees, food, big Korean cards)', shareOk:'Shared',
   bigTitle:'Big card', close:'Close', sayLbl:'Read it in Korean',
   noteSaved:'Note saved', regionAll:'All', places:'places', none:'Coming soon for this region.',
-  myPhotos:'My photos', pcOf:'/ 30', shotEmpty:'Take or pick a photo of this place', shotSlot:'Photo space',
+  myPhotos:'My photos', pcOf:'/ 53', pcOfFmt:'/ {n}', shotEmpty:'Take or pick a photo of this place', shotSlot:'Photo space',
   shotPick:'Add photo', shotChange:'Change photo', shotDelete:'Remove', myShot:'My photo',
   photoSaved:'Photo added', photoDeleted:'Photo removed', photoUndo:'Undo',
   photoFull:'Storage is full. Remove a photo and try again.', photoErr:'Could not open that image. Try another one.',
   printAlbum:'Print album', printAlbum2:'Print album · PDF', printAll:'No photos yet — printing the current list.',
-  printHint:'Your photo-and-note spots become a travel book. Turn on <b>Background graphics</b> in the print dialog to keep the colours.'}
+  printHint:'Your photo-and-note spots become a travel book. Turn on <b>Background graphics</b> in the print dialog to keep the colours.',
+  add:'Add a place', addTitle:'Add a place', editTitle:'Edit this place',
+  fName:'Place name', fNamePh:'e.g. Sungsimdang main store', fRegion:'Region', fNewRegion:'New region name', fNewRegionPh:'e.g. Gunsan',
+  fNewRegionOpt:'➕ Type a new region', fIntro:'One-line intro / note', fIntroPh:'What you liked, when to go…',
+  fPhoto:'Photo (optional)', fPhotoPick:'Add a photo', fPhotoChange:'Change photo',
+  fSave:'Save', fCancel:'Cancel', fDel:'Delete this place', fHint:'Saved on this phone only. The photo also goes into your phone album and the printed book.',
+  fNameReq:'Please enter a place name.', fRgReq:'Please enter the new region name.', mineSaved:'Added to my places', mineUpdated:'Updated', mineDeleted:'Deleted',
+  mineTag:'My place', mineIntro:'A place I added myself.', mineEdit:'✏️ Edit', mineDel:'🗑️ Delete',
+  chipsMore:'More regions ({n})', chipsLess:'Fewer regions',
+  bkLb:'📖 My book cover', bkTitle:'Book title', bkTitlePh:'My Korea Travel Album', bkAuthor:'Made by', bkAuthorPh:'e.g. Kim',
+  bkSub:'One-line opening', bkSubPh:'e.g. The autumn we walked together.',
+  bkHint:'These appear on the printed cover and the first page of the phone album. Edit other books from [Open my album] below.',
+  bookDefaultTitle:'My Korea Travel Album', bookDefaultSub:'My own photos and travel notes, gathered in one book.', authorFmt:'Made by {a}',
+  printAsk:'How shall we bind it?', printAskDesc:'Choose which places go into your book.', printMine:'📖 My records only', printAll2:'🗂️ The full list',
+  printMineNote:'places with photos, notes or my own additions', printAllNote:'every place in the guide', printNoMine:'Nothing filled in yet — the full list will be printed.',
+  albumBtn:'Open my album', albumTitle:'📖 My Travel Album', albumPrev:'Prev', albumNext:'Next', albumHint:'Swipe sideways to turn the page.',
+  albumEmptyTitle:'Your album is still empty', albumEmptyBody:'Add a 📷 photo on a place card or ➕ add your own place, and it will be here to flip through like a book.',
+  albumKick:'WAGLING KOREA TRAVEL', albumCount:'{p} with photos · {m} with notes · {n} in all', albumDate:'{mo}/{d}/{y}', albumEdit:'Edit cover', albumMemo:'My travel notes',
+  shelfTitle:'📖 My bookshelf', shelfHint:'Tap a book to open its album. Use ✏️ to change the cover and what goes in.', shelfCount:'{n} places',
+  albumPrint:'Print', bookEdit:'Edit', newBook:'Create a new travel book', bookNewTitle:'New travel book', bookEditTitle:'Edit this book',
+  fIncl:'What goes in', modeMine:'My records', modePick:'Pick regions', modeAll:'Everything', fPickRgs:'Regions to include (choose several)',
+  bookSaved:'Book saved', bookDeleted:'Book deleted', bookDel:'Delete this book', albumEnd:'Have a wonderful trip',
+  bookEmptyPrint:'This book has no places yet. Add a photo or note, or choose regions for the book.',
+  albumEmptyPage:'This book has no records yet. Add a 📷 photo on a place card, or ➕ add your own place.',
+  wxLoading:'Checking weather', placeGimhae:'Gimhae', placeMe:'My location', wxNoNet:'No internet, so the weather could not refresh.', wxFail:'Could not get the weather. Try again in a moment.',
+  wxNow:'Updated to the weather at your location.', wxGimhae:'Showing Gimhae weather.', todayAria:'Today’s date and weather — tap to refresh at my location'}
 };
 
 /* ── 저장·상태 ── */
-var LS_FAV='wagle-korea-travel:favs', LS_NOTE='wagle-korea-travel:notes', LS_LANG='wagle-korea-travel:lang', LS_PHOTO='wagle-korea-travel:photos';
+var LS_FAV='wagle-korea-travel:favs', LS_NOTE='wagle-korea-travel:notes', LS_LANG='wagle-korea-travel:lang', LS_PHOTO='wagle-korea-travel:photos',
+    LS_MINE='wagle-korea-travel:mine', LS_BOOK='wagle-korea-travel:book', LS_BOOKS='wagle-korea-travel:books', LS_WX='wagle-korea-travel:wx';
 function lsGet(k, d){ try{ var v=localStorage.getItem(k); return v? JSON.parse(v): d; }catch(e){ return d; } }
 function lsSet(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
 function detectLang(){
@@ -885,13 +1426,76 @@ var lang = detectLang(), li = lang === 'ko' ? 0 : 1;
 var favs = lsGet(LS_FAV, []); if(!Array.isArray(favs)) favs = [];
 var notes = lsGet(LS_NOTE, {}); if(!notes || typeof notes !== 'object') notes = {};
 var photos = lsGet(LS_PHOTO, {}); if(!photos || typeof photos !== 'object' || Object.prototype.toString.call(photos) === '[object Array]') photos = {};
+var mine = lsGet(LS_MINE, null);
+if(!mine || typeof mine !== 'object' || !Array.isArray(mine.regions) || !Array.isArray(mine.spots)) mine = {regions:[], spots:[]};
+var book = lsGet(LS_BOOK, null); if(!book || typeof book !== 'object') book = {};
+if(typeof book.title !== 'string') book.title = '';
+if(typeof book.author !== 'string') book.author = '';
+if(typeof book.sub !== 'string') book.sub = '';
+
+/* 내 책장: 여러 권의 여행 책 (없으면 1권 기본) */
+function normBook(b, i){
+  b = b && typeof b === 'object' ? b : {};
+  return {
+    id: typeof b.id === 'string' && b.id ? b.id : ('bk' + i + '-' + Date.now().toString(36)),
+    title: typeof b.title === 'string' ? b.title : '',
+    author: typeof b.author === 'string' ? b.author : '',
+    sub: typeof b.sub === 'string' ? b.sub : '',
+    mode: (b.mode === 'all' || b.mode === 'pick' || b.mode === 'mine') ? b.mode : 'mine',
+    rgs: Array.isArray(b.rgs) ? b.rgs.filter(function(x){ return typeof x === 'string'; }) : []
+  };
+}
+var books = lsGet(LS_BOOKS, null);
+if(!Array.isArray(books) || !books.length){
+  books = [normBook({id:'bk-main', title:book.title, author:book.author, sub:book.sub, mode:'mine'}, 0)];
+} else {
+  books = books.map(normBook);
+}
+function saveBooks(){ try{ localStorage.setItem(LS_BOOKS, JSON.stringify(books)); }catch(e){} }
+function myBookSpots(){ return allSpots().filter(function(s){ return s.mine || photos[s.id] || hasNote(s.id); }); }
+function bookSpots(bk){
+  var src = allSpots();
+  if(!bk) return myBookSpots();
+  if(bk.mode === 'all') return src;
+  if(bk.mode === 'pick'){
+    var rgs = bk.rgs || [];
+    if(!rgs.length) return src;
+    return src.filter(function(s){ return rgs.indexOf(s.rg) >= 0; });
+  }
+  return myBookSpots();
+}
+var shelfOn = false, bookDraft = null;
 var st = {tab:'list', rg:'all', id:null};
-var listScroll = 0;
+var listScroll = 0, chipsOpen = false;
+var mineDraftPhoto = null, mineEditId = null;
+var albumIdx = 0, albumOn = false, albumList = [];
 
 function t(k){ return (T[lang] && T[lang][k] !== undefined) ? T[lang][k] : (T.ko[k] || ''); }
+function tf(k, map){ var s2 = t(k); for(var kk in map){ s2 = s2.split('{'+kk+'}').join(map[kk]); } return s2; }
 function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function spotById(id){ for(var i=0;i<SPOTS.length;i++){ if(SPOTS[i].id===id) return SPOTS[i]; } return null; }
-function regionById(id){ for(var i=0;i<REGIONS.length;i++){ if(REGIONS[i].id===id) return REGIONS[i]; } return REGIONS[0]; }
+
+/* 사용자가 직접 추가한 지역·여행지 */
+function allRegions(){ return REGIONS.concat(mine.regions); }
+function mineVO(u){
+  var ko = (u.nm && u.nm[0]) || '', en = (u.nm && u.nm[1]) || ko;
+  var c0 = u.charm || '';
+  return { id:u.id, rg:u.rg, nm:[ko,en], charm:[c0,c0], mine:true, q:ko,
+    tr:['',''], tm:['',''], fee:['',''], cl:['',''], eat:['',''],
+    feeS:[t('mineTag'), t('mineTag')], tmS:[t('mineTag'), t('mineTag')] };
+}
+function allSpots(){ return mine.spots.length ? SPOTS.concat(mine.spots.map(mineVO)) : SPOTS.slice(); }
+function saveMine(){ return lsSaveMine(mine); }
+function lsSaveMine(v){ try{ localStorage.setItem(LS_MINE, JSON.stringify(v)); return true; }catch(e){ return false; } }
+function spotById(id){
+  for(var i=0;i<SPOTS.length;i++){ if(SPOTS[i].id===id) return SPOTS[i]; }
+  for(var j=0;j<mine.spots.length;j++){ if(mine.spots[j].id===id) return mineVO(mine.spots[j]); }
+  return null;
+}
+function regionById(id){
+  var rs = allRegions();
+  for(var i=0;i<rs.length;i++){ if(rs[i].id===id) return rs[i]; }
+  return REGIONS[0];
+}
 function isFav(id){ return favs.indexOf(id) >= 0; }
 function $(s){ return document.querySelector(s); }
 function toast(msg, actLabel, actFn){
@@ -1012,52 +1616,63 @@ function undoDel(){
   renderAll(); toast(t('photoSaved'));
 }
 
+/* ══════════ 인쇄 직전 다시 만들기용 ══════════ */
+var lastPrint = null;
+
 /* ══════════ 인쇄용 여행 앨범(책자) ══════════ */
-function pbHoles(){ return '<span class="pb-punch"></span><span class="pb-hole h1"></span><span class="pb-hole h2"></span><span class="pb-hole h3"></span>'; }
-function buildPrintBook(){
+function pbHoles(){
+  return '<span class="pb-punch"></span>'
+    + '<span class="pb-hole h1"></span><span class="pb-hole h2"></span><span class="pb-hole h3"></span>';
+}
+function bookInfo(bk){
+  return {
+    title: (bk && bk.title && String(bk.title).trim()) || t('bookDefaultTitle'),
+    author: (bk && bk.author && String(bk.author).trim()) || '',
+    sub: (bk && bk.sub && String(bk.sub).trim()) || t('bookDefaultSub')
+  };
+}
+function buildPrintBook(list, info){
   var box = $('#printBook'); if(!box) return;
-  var list = [], i, s;
-  for(i=0;i<SPOTS.length;i++){ s=SPOTS[i]; if(photos[s.id] || hasNote(s.id)) list.push(s); }
-  var fallback = false;
-  if(!list.length){
-    fallback = true;
-    for(i=0;i<SPOTS.length;i++){ if(st.rg === 'all' || SPOTS[i].rg === st.rg) list.push(SPOTS[i]); }
-  }
-  var np = photoN(), nn = noteN(), d = new Date();
+  list = (list && list.length) ? list : allSpots();
+  info = info || bookInfo(books[0]);
+  var np = 0, nn = 0, d = new Date();
+  list.forEach(function(sp){ if(photos[sp.id]) np++; if(hasNote(sp.id)) nn++; });
+  var total = list.length;
   var html = '<section class="pb pb-cover">' + pbHoles()
     + '<div class="pb-cover-in">'
     + '<p class="pb-kicker">WAGLING KOREA TRAVEL</p><div class="pb-ruler"></div>'
-    + '<h1 class="pb-title">나의 한국여행 앨범</h1>'
+    + '<h1 class="pb-title">' + esc(info.title) + '</h1>'
     + '<p class="pb-subtitle">My Korea Travel Book</p><div class="pb-ruler"></div>'
-    + '<p class="pb-cov-cnt">사진 ' + np + '곳 · 메모 ' + nn + '곳 · 모두 ' + SPOTS.length + '곳 중</p>'
-    + '<p class="pb-cov-note">' + (fallback
-        ? (lang === 'ko' ? '아직 채운 사진이 없어 지금 보고 있는 목록을 담았어요.' : 'No photos yet — this book holds the list you are viewing.')
-        : (lang === 'ko' ? '내가 찍은 사진과 여행 메모를 한 권에 모았어요.' : 'My own photos and travel notes, gathered in one book.')) + '</p>'
-    + '<p class="pb-cov-date">' + d.getFullYear() + '년 ' + (d.getMonth()+1) + '월 ' + d.getDate() + '일</p>'
+    + (info.author ? '<p class="pb-author">' + esc(tf('authorFmt', {a: info.author})) + '</p>' : '')
+    + '<p class="pb-cov-sub">' + esc(info.sub) + '</p>'
+    + '<p class="pb-cov-cnt">' + tf('albumCount', {p: np, m: nn, n: total}) + '</p>'
+    + '<p class="pb-cov-date">' + d.getFullYear() + '. ' + (d.getMonth()+1) + '. ' + d.getDate() + '</p>'
     + '<p class="pb-cov-foot">🏯 와글링 한국여행 · starpicklife-design.github.io/tour</p>'
     + '</div>'
-    + '<p class="pb-cov-tip">왼쪽 점선과 동그라미는 철할 때 구멍 뚫는 자리예요.</p>'
+    + '<p class="pb-cov-tip">왼쪽 동그라미 3개는 3공 바인더 구멍 자리예요 — 중심 간격 108mm, 왼쪽에서 12mm.</p>'
     + '</section>';
 
-  var total = list.length;
   list.forEach(function(sp, idx){
     var r = regionById(sp.rg), ph = photos[sp.id] || '', note = notes[sp.id] || '';
     var longNote = String(note).replace(/\s/g,'').length > 240;
     html += '<section class="pb pb-page' + (longNote ? ' compact' : '') + '">' + pbHoles()
-      + '<div class="pb-head"><span class="pb-rg">' + r.ic + ' ' + esc(r[lang]) + '</span></div>'
+      + '<div class="pb-head"><span class="pb-rg">' + r.ic + ' ' + esc(r[lang]) + (sp.mine ? ' · ' + esc(t('mineTag')) : '') + '</span></div>'
       + '<div class="pb-body">'
       + (ph ? '<div class="pb-shot"><img src="' + ph + '" alt=""></div>'
             : '<div class="pb-shot empty"><span>📷 ' + (lang === 'ko' ? '사진 자리' : 'photo space') + '</span></div>')
       + '<h2 class="pb-name">' + esc(sp.nm[0]) + '</h2>'
-      + '<p class="pb-en">' + esc(sp.nm[1]) + '</p>'
-      + '<p class="pb-charm">' + esc(sp.charm[li]) + '</p>'
-      + '<div class="pb-memo' + (hasNote(sp.id) ? '' : ' blank') + '">'
+      + (sp.nm[1] !== sp.nm[0] ? '<p class="pb-en">' + esc(sp.nm[1]) + '</p>' : '')
+      + '<p class="pb-charm">' + esc(sp.charm[li] || '') + '</p>'
+      + '<div class="pb-memo">'
         + '<p class="k">📝 ' + (lang === 'ko' ? '나의 여행 메모' : 'My travel notes') + '</p>'
         + (hasNote(sp.id) ? '<p class="v">' + esc(note) + '</p>'
                           : '<p class="lines"><span></span><span></span><span></span></p>')
       + '</div>'
       + '</div>'
-      + '<div class="pb-info"><span>🚇 ' + esc(sp.tr[li]) + '</span><span>🎫 ' + esc(sp.fee[li]) + '</span></div>'
+      + '<div class="pb-info">'
+      +   (sp.mine ? '<span>📌 ' + esc(t('mineIntro')) + '</span>'
+                   : '<span>🚇 ' + esc(sp.tr[li]) + '</span><span>🎫 ' + esc(sp.fee[li]) + '</span>')
+      + '</div>'
       + '<p class="pb-num">' + (idx+1) + ' / ' + total + '</p>'
       + '</section>';
   });
@@ -1068,8 +1683,9 @@ function buildPrintBook(){
     + '</section>';
   box.innerHTML = html;
 }
-function printAlbum(){
-  buildPrintBook();
+function printList(list, info){
+  lastPrint = {list: list, info: info};
+  buildPrintBook(list, info);
   if(photoN() === 0 && noteN() === 0) toast(t('printAll'));
   var imgs = Array.prototype.slice.call(document.querySelectorAll('#printBook img'));
   var left = imgs.length, fired = false;
@@ -1081,19 +1697,437 @@ function printAlbum(){
   });
   setTimeout(fire, 1800);
 }
+function printAlbum(scope){
+  var bk = books[0] || null;
+  if(scope === 'all') printList(allSpots(), bookInfo(bk));
+  else if(scope === 'mine') printList(myBookSpots(), bookInfo(bk));
+  else printList(myBookSpots().length ? myBookSpots() : allSpots(), bookInfo(bk));
+}
+function printOneBook(bk){
+  var list = bookSpots(bk);
+  if(!list.length){ toast(t('bookEmptyPrint')); return; }
+  printList(list, bookInfo(bk));
+}
+function openPrintAsk(){
+  var n = myBookSpots().length, all = allSpots().length;
+  if(!n){ printAlbum('all'); return; }
+  $('#pmTitle').textContent = t('printAsk');
+  $('#pmDesc').textContent = t('printAskDesc');
+  $('#pmMineLb').textContent = t('printMine');
+  $('#pmAllLb').textContent = t('printAll2');
+  $('#pmMineN').textContent = tf('shelfCount', {n: n});
+  $('#pmAllN').textContent = tf('shelfCount', {n: all});
+  $('#pmMine').classList.add('rec');
+  $('#pmCancel').textContent = t('close');
+  $('#printModal').hidden = false;
+}
+
+/* ══════════ 내 책장 (여러 권의 여행 책) ══════════ */
+function findBook(id){ for(var i=0;i<books.length;i++){ if(books[i].id===id) return books[i]; } return null; }
+function bookCoverPhoto(bk){
+  var list = bookSpots(bk);
+  for(var i=0;i<list.length;i++){ if(photos[list[i].id]) return photos[list[i].id]; }
+  return '';
+}
+function hideShelf(){ $('#shelf').hidden = true; shelfOn = false; document.body.style.overflow = ''; }
+function closeShelf(){ if($('#shelf').hidden) return; goBack(); }
+function openShelf(){
+  shelfOn = true; renderShelf();
+  $('#shelf').hidden = false; document.body.style.overflow = 'hidden';
+  pushState();
+}
+function renderShelf(){
+  if(!$('#shelfList')) return;
+  $('#shelfTitle').textContent = t('shelfTitle');
+  $('#shelfHint').textContent = t('shelfHint');
+  $('#shelfClose').textContent = t('close');
+  var html = '';
+  books.forEach(function(bk){
+    var list = bookSpots(bk), ph = bookCoverPhoto(bk), info = bookInfo(bk);
+    html += '<div class="bkwrap">'
+      + '<button type="button" class="bkcover" data-openbook="'+esc(bk.id)+'" aria-label="'+esc(info.title)+'">'
+      + '<span class="bkimg"'+(ph? ' style="background-image:url(\''+ph+'\')"':'')+'></span><span class="bkshade"></span>'
+      + '<span class="bktx"><span class="bkk">WAGLING KOREA TRAVEL</span>'
+      + '<span class="bkt">'+esc(info.title)+'</span>'
+      + '<span class="bka">'+(info.author? esc(tf('authorFmt',{a:info.author})) : '')+'</span>'
+      + '<span class="bkn">'+tf('shelfCount', {n:list.length})+'</span></span></button>'
+      + '<div class="bkrow"><button type="button" data-editbook="'+esc(bk.id)+'">✏️ '+esc(t('bookEdit'))+'</button>'
+      + '<button type="button" data-printbook="'+esc(bk.id)+'">🖨️ '+esc(t('albumPrint'))+'</button></div>'
+      + '</div>';
+  });
+  html += '<button type="button" class="bknew" id="bkNew">➕ <span>'+esc(t('newBook'))+'</span></button>';
+  $('#shelfList').innerHTML = html;
+  renderShelfLabels();
+}
+function renderShelfLabels(){}
+
+/* ══════════ 폰 포토앨범 (책 한 권) ══════════ */
+var albumBook = null;
+function albumPageCount(){ return albumList.length ? albumList.length + 2 : 2; }
+function openBook(id){
+  var bk = findBook(id); if(!bk) return;
+  albumBook = bk; albumList = bookSpots(bk); albumIdx = 0; albumOn = true;
+  $('#album').hidden = false; document.body.style.overflow = 'hidden';
+  renderAlbum(); pushState();
+}
+function hideAlbum(){ $('#album').hidden = true; albumOn = false; albumBook = null; }
+function closeAlbum(){ if($('#album').hidden) return; goBack(); }
+function albumGo(d){
+  var n = albumPageCount(), v = albumIdx + d;
+  if(v < 0) v = 0;
+  if(v > n-1) v = n-1;
+  if(v === albumIdx) return;
+  albumIdx = v; renderAlbum();
+}
+function albumCoverHTML(){
+  var info = bookInfo(albumBook), d = new Date(), pn = 0, mn = 0;
+  albumList.forEach(function(sp){ if(photos[sp.id]) pn++; if(hasNote(sp.id)) mn++; });
+  return '<div class="page"><div class="acover">'
+    + '<p class="ak">' + esc(t('albumKick')) + '</p><div class="arule"></div>'
+    + '<p class="atitle">' + esc(info.title) + '</p>'
+    + '<p class="asub">' + esc(info.sub) + '</p>'
+    + (info.author ? '<p class="aauth">' + esc(tf('authorFmt', {a: info.author})) + '</p>' : '')
+    + '<p class="acnt">' + tf('albumCount', {p: pn, m: mn, n: albumList.length}) + '</p>'
+    + '<p class="adate">' + tf('albumDate', {y: d.getFullYear(), mo: (d.getMonth()+1), d: d.getDate()}) + '</p>'
+    + '</div><span class="apnum">1 / ' + albumPageCount() + '</span></div>';
+}
+function albumSpotHTML(sp, idx){
+  var r = regionById(sp.rg), ph = photos[sp.id] || '', note = notes[sp.id] || '';
+  return '<div class="page"><div class="apic">'
+    + (ph ? '<img src="' + ph + '" alt="' + esc(sp.nm[li]) + '">'
+          : '<div class="empty"><span class="big">📷</span><span>' + esc(sp.nm[li]) + '</span><span>' + esc(t('shotEmpty')) + '</span></div>')
+    + '</div><div class="atx">'
+    + '<span class="arg">' + r.ic + ' ' + esc(r[lang]) + (sp.mine ? ' · ' + esc(t('mineTag')) : '') + '</span>'
+    + '<p class="anm">' + esc(sp.nm[li]) + '</p>'
+    + (li === 0 && sp.nm[1] !== sp.nm[0] ? '<p class="aen">' + esc(sp.nm[1]) + '</p>' : '')
+    + '<p class="ach">' + esc(sp.charm[li] || '') + '</p>'
+    + (hasNote(sp.id) ? '<div class="amemo"><p class="k">' + esc(t('albumMemo')) + '</p><p class="v">' + esc(note) + '</p></div>' : '')
+    + '</div><span class="apnum">' + (idx+1) + ' / ' + albumPageCount() + '</span></div>';
+}
+function renderAlbum(){
+  if(!$('#albumStage') || !albumBook) return;
+  var info = bookInfo(albumBook), n = albumPageCount();
+  $('#albumTitle').textContent = '📖 ' + info.title;
+  $('#albumPrevLb').textContent = t('albumPrev');
+  $('#albumNextLb').textContent = t('albumNext');
+  $('#albumHint').textContent = t('albumHint');
+  var html = '';
+  if(albumIdx === 0) html = albumCoverHTML();
+  else if(albumList.length === 0) html = '<div class="page"><div class="acover"><p class="ak">'+esc(t('albumKick'))+'</p><div class="arule"></div><p class="atitle" style="font-size:1.3rem">'+esc(t('albumEmptyTitle'))+'</p><p class="asub">'+esc(t('albumEmptyPage'))+'</p></div></div>';
+  else if(albumIdx <= albumList.length) html = albumSpotHTML(albumList[albumIdx-1], albumIdx-1);
+  else html = '<div class="page"><div class="acover"><p class="ak">'+esc(t('albumKick'))+'</p><div class="arule"></div><p class="atitle" style="font-size:1.4rem">'+esc(t('albumEnd'))+'</p><p class="asub">'+esc(t('app'))+'</p></div></div>';
+  $('#albumStage').innerHTML = html;
+  $('#albumIdx').textContent = (albumIdx+1) + ' / ' + n;
+  $('#albumPrev').disabled = albumIdx <= 0;
+  $('#albumNext').disabled = albumIdx >= n-1;
+}
+
+/* ══════════ 책 꾸미기(표지·담을 곳) ══════════ */
+function openBookEditor(id){
+  var bk = id ? findBook(id) : null;
+  bookDraft = bk
+    ? {id:bk.id, title:bk.title, author:bk.author, sub:bk.sub, mode:bk.mode, rgs:(bk.rgs||[]).slice(), isNew:false}
+    : {id:'', title:'', author:'', sub:'', mode:'mine', rgs:[], isNew:true};
+  $('#bookModalTitle').textContent = bookDraft.isNew ? t('bookNewTitle') : t('bookEditTitle');
+  $('#bkFTitle').textContent = t('bkTitle');
+  $('#bkFAuthor').textContent = t('bkAuthor');
+  $('#bkFSub').textContent = t('bkSub');
+  $('#bkFInclLb').textContent = t('fIncl');
+  $('#bkFRgLb').textContent = t('fPickRgs');
+  $('#bkFTitleIn').placeholder = t('bkTitlePh');
+  $('#bkFAuthorIn').placeholder = t('bkAuthorPh');
+  $('#bkFSubIn').placeholder = t('bkSubPh');
+  $('#bkFTitleIn').value = bookDraft.title;
+  $('#bkFAuthorIn').value = bookDraft.author;
+  $('#bkFSubIn').value = bookDraft.sub;
+  var mb = $('#bkMode').querySelectorAll('button');
+  for(var i=0;i<mb.length;i++){
+    var m = mb[i].getAttribute('data-mode');
+    mb[i].textContent = m === 'mine' ? t('modeMine') : (m === 'pick' ? t('modePick') : t('modeAll'));
+    mb[i].className = (m === bookDraft.mode) ? 'on' : '';
+  }
+  $('#bkRgWrap').hidden = bookDraft.mode !== 'pick';
+  renderBookRgs();
+  $('#bookSave').textContent = t('fSave');
+  $('#bookCancel').textContent = t('fCancel');
+  $('#bookDel').hidden = bookDraft.isNew;
+  $('#bookDel').textContent = '🗑️ ' + t('bookDel');
+  $('#bookModal').hidden = false;
+}
+function renderBookRgs(){
+  var html = '';
+  allRegions().forEach(function(r){
+    if(r.id === 'all') return;
+    html += '<button type="button" data-bkrg="'+esc(r.id)+'" class="'+(bookDraft.rgs.indexOf(r.id)>=0?'on':'')+'">'+r.ic+' '+esc(r[lang])+'</button>';
+  });
+  $('#bkRgs').innerHTML = html;
+}
+function closeBookEditor(){ $('#bookModal').hidden = true; bookDraft = null; }
+function saveBookDraft(){
+  if(!bookDraft) return;
+  var ti = $('#bkFTitleIn').value.trim(), au = $('#bkFAuthorIn').value.trim(), su = $('#bkFSubIn').value.trim();
+  if(bookDraft.isNew){
+    books.push(normBook({id:'bk'+Date.now().toString(36), title:ti, author:au, sub:su, mode:bookDraft.mode, rgs:bookDraft.rgs.slice()}, books.length));
+  } else {
+    var bk = findBook(bookDraft.id);
+    if(bk){ bk.title=ti; bk.author=au; bk.sub=su; bk.mode=bookDraft.mode; bk.rgs=bookDraft.rgs.slice(); }
+  }
+  saveBooks(); closeBookEditor();
+  renderBook();
+  if(shelfOn) renderShelf();
+  if(albumOn && albumBook){ albumBook = findBook(albumBook.id); albumList = bookSpots(albumBook); albumIdx = 0; renderAlbum(); }
+  toast(t('bookSaved'));
+}
+function deleteBookDraft(){
+  if(!bookDraft || bookDraft.isNew) return;
+  var id = bookDraft.id, idx = -1;
+  for(var i=0;i<books.length;i++){ if(books[i].id===id){ idx=i; break; } }
+  if(idx < 0) return;
+  var wasAlbum = albumOn && albumBook && albumBook.id === id;
+  books.splice(idx,1);
+  if(!books.length) books = [normBook({id:'bk-main', mode:'mine'}, 0)];
+  saveBooks(); closeBookEditor();
+  if(wasAlbum) hideAlbum();
+  if(shelfOn) renderShelf();
+  renderBook(); toast(t('bookDeleted'));
+}
+
+/* ══════════ 내 여행지 추가·수정 ══════════ */
+function mineRegionOptions(sel){
+  var html = '';
+  allRegions().forEach(function(r){
+    if(r.id === 'all') return;
+    html += '<option value="'+esc(r.id)+'"'+(r.id===sel?' selected':'')+'>'+r.ic+' '+esc(r[lang])+'</option>';
+  });
+  html += '<option value="__new">'+esc(t('fNewRegionOpt'))+'</option>';
+  return html;
+}
+function renderMineFormLabels(){
+  if(!$('#mineTitle')) return;
+  $('#mNmLb').textContent = t('fName');
+  $('#mRgLb').textContent = t('fRegion');
+  $('#mNewRgLb').textContent = t('fNewRegion');
+  $('#mIntroLb').textContent = t('fIntro');
+  $('#mPhotoLb').textContent = t('fPhoto');
+  $('#mNm').placeholder = t('fNamePh');
+  $('#mNewRg').placeholder = t('fNewRegionPh');
+  $('#mIntro').placeholder = t('fIntroPh');
+  $('#mSave').textContent = t('fSave');
+  $('#mCancel').textContent = t('fCancel');
+  $('#mDelLb').textContent = t('fDel');
+  $('#mHint').textContent = t('fHint');
+  if(mineDraftPhoto) $('#mPhotoTx').textContent = t('fPhotoChange'); else $('#mPhotoTx').textContent = t('fPhotoPick');
+}
+function openMine(id){
+  mineEditId = id || null; mineDraftPhoto = null;
+  var sp = null, i;
+  if(id){ for(i=0;i<mine.spots.length;i++){ if(mine.spots[i].id===id){ sp = mine.spots[i]; break; } } }
+  $('#mineTitle').textContent = id ? t('editTitle') : t('addTitle');
+  $('#mNm').value = sp ? sp.nm[0] : '';
+  var sel = sp ? sp.rg : (st.rg !== 'all' ? st.rg : (mine.regions[0] ? mine.regions[0].id : 'seoul'));
+  $('#mRg').innerHTML = mineRegionOptions(sel);
+  $('#mNewRgWrap').hidden = true; $('#mNewRg').value = '';
+  $('#mIntro').value = sp ? (sp.charm || '') : '';
+  mineDraftPhoto = (sp && photos[sp.id]) ? photos[sp.id] : null;
+  $('#mPhotoPrev').innerHTML = mineDraftPhoto ? '<img src="'+mineDraftPhoto+'" alt="">' : '';
+  $('#mDel').hidden = !id;
+  renderMineFormLabels();
+  $('#mineModal').hidden = false;
+  setTimeout(function(){ try{ $('#mNm').focus(); }catch(e){} }, 80);
+}
+function closeMine(){ $('#mineModal').hidden = true; mineEditId = null; mineDraftPhoto = null; }
+var minePhotoInput = null;
+function openMinePhoto(){
+  if(!minePhotoInput){
+    minePhotoInput = document.createElement('input');
+    minePhotoInput.type = 'file'; minePhotoInput.accept = 'image/*';
+    minePhotoInput.style.cssText = 'position:fixed;left:-9999px;top:0;width:1px;height:1px;opacity:0';
+    minePhotoInput.addEventListener('change', function(){
+      var f = minePhotoInput.files && minePhotoInput.files[0];
+      if(!f) return;
+      if(f.type && f.type.indexOf('image/') !== 0){ toast(t('photoErr')); return; }
+      compressPhoto(f, function(d){
+        if(!d){ toast(t('photoErr')); return; }
+        mineDraftPhoto = d;
+        $('#mPhotoPrev').innerHTML = '<img src="'+d+'" alt="">';
+        $('#mPhotoTx').textContent = t('fPhotoChange');
+      });
+    });
+    document.body.appendChild(minePhotoInput);
+  }
+  try{ minePhotoInput.value = ''; }catch(e){}
+  minePhotoInput.click();
+}
+function saveMineForm(){
+  var nm = $('#mNm').value.replace(/^\s+|\s+$/g,'');
+  if(!nm){ toast(t('fNameReq')); try{ $('#mNm').focus(); }catch(e){} return; }
+  var rgSel = $('#mRg').value, newName = '', rgId = rgSel;
+  if(rgSel === '__new'){
+    newName = $('#mNewRg').value.replace(/^\s+|\s+$/g,'');
+    if(!newName){ toast(t('fRgReq')); try{ $('#mNewRg').focus(); }catch(e){} return; }
+    rgId = 'ur' + Date.now().toString(36);
+  }
+  var intro = $('#mIntro').value.replace(/^\s+|\s+$/g,'');
+  var editing = !!mineEditId, id = mineEditId, i;
+  if(editing){
+    for(i=0;i<mine.spots.length;i++){ if(mine.spots[i].id===id){ mine.spots[i].nm=[nm,nm]; mine.spots[i].charm=intro; mine.spots[i].rg=rgId; break; } }
+  } else {
+    id = 'us' + Date.now().toString(36) + Math.random().toString(36).slice(2,5);
+    if(rgSel === '__new') mine.regions.push({id:rgId, ic:'📍', ko:newName, en:newName, mine:true});
+    mine.spots.push({id:id, rg:rgId, nm:[nm,nm], charm:intro});
+  }
+  if(!lsSaveMine(mine)){ toast(t('photoFull')); return; }
+  if(mineDraftPhoto){
+    var before = photos[id];
+    photos[id] = mineDraftPhoto;
+    if(!lsSave(LS_PHOTO, photos)){ if(before) photos[id]=before; else delete photos[id]; toast(t('photoFull')); }
+  }
+  closeMine();
+  chipsOpen = true;
+  st = {tab:'list', rg:rgId, id:null};
+  renderAll(); try{ window.scrollTo(0,0); }catch(e){}
+  toast(editing ? t('mineUpdated') : t('mineSaved'));
+}
+function deleteMineSpot(id){
+  var i, idx = -1;
+  for(i=0;i<mine.spots.length;i++){ if(mine.spots[i].id===id){ idx=i; break; } }
+  if(idx < 0) return;
+  var rg = mine.spots[idx].rg;
+  mine.spots.splice(idx,1);
+  var used = false, j;
+  for(j=0;j<mine.spots.length;j++){ if(mine.spots[j].rg===rg) used = true; }
+  if(!used){
+    for(j=0;j<mine.regions.length;j++){ if(mine.regions[j].id===rg){ mine.regions.splice(j,1); break; } }
+  }
+  lsSaveMine(mine);
+  if(photos[id]){ delete photos[id]; lsSave(LS_PHOTO, photos); }
+  if(notes[id]){ delete notes[id]; lsSet(LS_NOTE, notes); }
+  var fi = favs.indexOf(id); if(fi >= 0){ favs.splice(fi,1); lsSet(LS_FAV, favs); }
+  st = {tab:'list', rg:(st.rg===rg ? 'all' : st.rg), id:null};
+  renderAll(); toast(t('mineDeleted'));
+}
+
+/* ══════════ 오늘 날짜 · 요일 · 날씨 ══════════ */
+var KO_DOW = ['일','월','화','수','목','금','토'], EN_DOW = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+var EN_MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var WMO = {0:['☀️','맑음','Clear'],1:['🌤️','대체로 맑음','Mostly clear'],2:['⛅','조금 흐림','Partly cloudy'],3:['☁️','흐림','Cloudy'],
+  45:['🌫️','안개','Fog'],48:['🌫️','안개','Fog'],51:['🌦️','이슬비','Drizzle'],53:['🌦️','이슬비','Drizzle'],55:['🌦️','이슬비','Drizzle'],
+  56:['🌧️','어는 비','Freezing rain'],57:['🌧️','어는 비','Freezing rain'],61:['🌧️','비','Rain'],63:['🌧️','비','Rain'],65:['🌧️','비','Rain'],
+  66:['🌧️','어는 비','Freezing rain'],67:['🌧️','어는 비','Freezing rain'],71:['🌨️','눈','Snow'],73:['🌨️','눈','Snow'],75:['🌨️','눈','Snow'],77:['🌨️','눈','Snow'],
+  80:['🌦️','소나기','Showers'],81:['🌦️','소나기','Showers'],82:['🌧️','소나기','Showers'],85:['🌨️','눈 소나기','Snow showers'],86:['🌨️','눈 소나기','Snow showers'],
+  95:['⛈️','천둥번개','Thunderstorm'],96:['⛈️','천둥번개','Thunderstorm'],99:['⛈️','천둥번개','Thunderstorm']};
+var WX_DEFAULT = {lat:35.23, lon:128.89};
+var wxNow = null, wxAt = 0, wxBusy = false, wxSeq = 0, wxRank = 0, wxPlace = '';
+var WX_TTL = 20 * 60 * 1000;
+function renderToday(){
+  if(!$('#todayDate')) return;
+  var d = new Date();
+  $('#todayDate').textContent = lang === 'ko'
+    ? (d.getMonth()+1) + '월 ' + d.getDate() + '일 (' + KO_DOW[d.getDay()] + ')'
+    : EN_MON[d.getMonth()] + ' ' + d.getDate() + ' (' + EN_DOW[d.getDay()] + ')';
+  var txt, loading = false;
+  if(wxNow){ txt = wxNow.emoji + ' ' + (lang === 'ko' ? wxNow.ko : wxNow.en) + ' ' + wxNow.t + '°'; }
+  else { txt = t('wxLoading'); loading = true; }
+  var el = $('#todayWx');
+  el.textContent = txt;
+  el.className = 'db-wx' + (loading ? ' loading' : '');
+  $('#wxPlace').textContent = wxPlace || t('placeGimhae');
+  $('#todayCard').setAttribute('aria-label', t('todayAria'));
+}
+function loadWxCache(){
+  try{
+    var j = lsGet(LS_WX, null);
+    if(!j || typeof j.t !== 'number') return;
+    if(Date.now() - j.at > 12 * 60 * 60 * 1000) return;
+    var m = WMO[j.code] || ['🌡️','날씨','Weather'];
+    wxNow = {emoji:m[0], ko:m[1], en:m[2], t:Math.round(j.t)};
+    wxAt = j.at; wxPlace = j.place || '';
+  }catch(e){}
+}
+function saveWxCache(code, temp){
+  try{ localStorage.setItem(LS_WX, JSON.stringify({code:code, t:temp, at:Date.now(), place:wxPlace})); }catch(e){}
+}
+function fetchWx(lat, lon, rank){
+  if(!window.fetch || navigator.onLine === false) return Promise.resolve(false);
+  rank = rank || 1;
+  var seq = wxSeq, ctl = window.AbortController ? new AbortController() : null, to = null;
+  if(ctl) to = setTimeout(function(){ try{ ctl.abort(); }catch(e){} }, 8000);
+  return fetch('https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lon+'&current=temperature_2m,weather_code&timezone=auto',
+      ctl ? {cache:'no-store', signal:ctl.signal} : {cache:'no-store'})
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(j){
+      if(to) clearTimeout(to);
+      var c = j && j.current;
+      if(!c || typeof c.temperature_2m !== 'number') return false;
+      if(seq !== wxSeq || rank < wxRank) return false;
+      wxRank = rank;
+      var m = WMO[c.weather_code] || ['🌡️','날씨','Weather'];
+      wxNow = {emoji:m[0], ko:m[1], en:m[2], t:Math.round(c.temperature_2m)};
+      wxAt = Date.now(); saveWxCache(c.weather_code, c.temperature_2m);
+      renderToday(); return true;
+    })
+    .catch(function(){ if(to) clearTimeout(to); return false; });
+}
+function geoCoords(){
+  return new Promise(function(resolve){
+    if(!navigator.geolocation) return resolve(null);
+    try{
+      navigator.geolocation.getCurrentPosition(function(pos){
+        var c = pos && pos.coords; if(!c) return resolve(null);
+        resolve({lat: Math.round(c.latitude*100)/100, lon: Math.round(c.longitude*100)/100});
+      }, function(){ resolve(null); }, {enableHighAccuracy:false, timeout:8000, maximumAge:600000});
+    }catch(e){ resolve(null); }
+  });
+}
+function loadWeather(){
+  loadWxCache(); renderToday();
+  if(!wxAt || Date.now() - wxAt > WX_TTL){
+    if(wxBusy) return;
+    wxBusy = true; wxSeq++;
+    fetchWx(WX_DEFAULT.lat, WX_DEFAULT.lon, 1).then(function(){ wxBusy = false; renderToday(); });
+  }
+  try{
+    if(navigator.geolocation && navigator.permissions && navigator.permissions.query){
+      navigator.permissions.query({name:'geolocation'}).then(function(s){
+        if(!s || s.state !== 'granted') return;
+        geoCoords().then(function(c){ if(c){ wxPlace = t('placeMe'); fetchWx(c.lat, c.lon, 2); } });
+      }).catch(function(){});
+    }
+  }catch(e){}
+}
+function refreshWeather(){
+  if(navigator.onLine === false){ toast(t('wxNoNet')); return; }
+  function fallback(){
+    wxPlace = t('placeGimhae');
+    return fetchWx(WX_DEFAULT.lat, WX_DEFAULT.lon, 1).then(function(ok){
+      renderToday(); toast(ok ? t('wxGimhae') : t('wxFail'));
+    });
+  }
+  wxSeq++;
+  if(!navigator.geolocation){ fallback(); return; }
+  toast(t('wxLoading'));
+  geoCoords().then(function(c){
+    if(!c){ fallback(); return; }
+    fetchWx(c.lat, c.lon, 2).then(function(ok){
+      if(ok){ wxPlace = t('placeMe'); renderToday(); toast(t('wxNow')); }
+      else fallback();
+    });
+  });
+}
 
 /* ══════════ 그리기 ══════════ */
 function renderHeader(){
   document.body.setAttribute('data-lang', lang);
   document.documentElement.setAttribute('lang', lang);
+  var total = allSpots().length, rn = allRegions().length - 1;
   $('#appName').textContent = t('app');
-  $('#tagline').textContent = t('tag');
+  $('#tagline').textContent = tf('tagFmt', {n: total});
   $('#instLbl').textContent = t('install');
   $('#shareLbl').textContent = t('share');
   var lgs = document.querySelectorAll('#langBtn .lg');
   for(var i=0;i<lgs.length;i++){ lgs[i].className = 'lg' + (lgs[i].getAttribute('data-l') === lang ? ' on' : ''); }
   $('#langBtn').setAttribute('aria-label', lang === 'ko' ? '영어로 보기' : '한국어로 보기');
-  $('#intro').innerHTML = t('intro');
+  $('#intro').innerHTML = tf('intro', {n: total, r: rn});
   $('#cardIntro').innerHTML = t('cardIntro');
   $('#listTitle').textContent = t('listTitle');
   $('#favTitle').textContent = t('favTitle');
@@ -1106,40 +2140,83 @@ function renderHeader(){
   $('#bcClose').textContent = t('close');
   $('#bcSpeakLbl').textContent = t('sayLbl');
   $('#pcLbl').textContent = t('myPhotos');
-  $('#pcOf').textContent = t('pcOf');
+  $('#pcOf').textContent = tf('pcOfFmt', {n: total});
   $('#printLbl').textContent = t('printAlbum');
   $('#printLbl2').textContent = t('printAlbum2');
   $('#printHint').innerHTML = t('printHint');
+  $('#addLbl').textContent = t('add');
+  $('#albumLbl').textContent = t('albumBtn');
+  $('#albumTitle').textContent = t('albumTitle');
+  $('#albumPrevLb').textContent = t('albumPrev');
+  $('#albumNextLb').textContent = t('albumNext');
+  $('#albumHint').textContent = t('albumHint');
   var pn = photoN();
   $('#pcNum').textContent = pn;
-  $('#pcBar').style.width = Math.round(pn / SPOTS.length * 100) + '%';
-  $('#photoCount').setAttribute('aria-label', t('myPhotos') + ' ' + pn + ' / ' + SPOTS.length);
+  $('#pcBar').style.width = Math.round(pn / Math.max(1,total) * 100) + '%';
+  $('#photoCount').setAttribute('aria-label', t('myPhotos') + ' ' + pn + ' / ' + total);
   document.title = lang === 'ko' ? '와글링 한국여행 · Wagling Korea Travel' : 'Wagling Korea Travel · 와글링 한국여행';
+  renderBook();
+  renderToday();
+  renderMineFormLabels();
 }
 
+function renderBook(){
+  if(!$('#bkTitle')) return;
+  if(!books.length) books = [normBook({id:'bk-main', mode:'mine'}, 0)];
+  var b0 = books[0];
+  $('#bkLb').textContent = t('bkLb');
+  $('#bkTitleLb').textContent = t('bkTitle');
+  $('#bkAuthorLb').textContent = t('bkAuthor');
+  $('#bkSubLb').textContent = t('bkSub');
+  $('#bkHint').textContent = t('bkHint');
+  $('#bkTitle').placeholder = t('bkTitlePh');
+  $('#bkAuthor').placeholder = t('bkAuthorPh');
+  $('#bkSub').placeholder = t('bkSubPh');
+  if(document.activeElement !== $('#bkTitle')) $('#bkTitle').value = b0.title;
+  if(document.activeElement !== $('#bkAuthor')) $('#bkAuthor').value = b0.author;
+  if(document.activeElement !== $('#bkSub')) $('#bkSub').value = b0.sub;
+}
+
+/* 기본 추천 지역(접었을 때 보이는 칩) */
+var MAIN_RG = {all:1, seoul:1, busan:1, gyeongju:1, jeju:1, jeonju:1, gimhae:1, andong:1, gangneung:1};
 function renderChips(){
-  var counts = {}; SPOTS.forEach(function(s){ counts[s.rg] = (counts[s.rg]||0)+1; });
+  var rs = allRegions(), shown = [], hidden = 0;
+  rs.forEach(function(r){
+    var keep = chipsOpen || MAIN_RG[r.id] || r.mine || st.rg === r.id;
+    if(keep) shown.push(r); else hidden++;
+  });
   var html = '';
-  REGIONS.forEach(function(r){
+  shown.forEach(function(r){
     html += '<button type="button" class="chip'+(st.rg===r.id?' on':'')+'" data-rg="'+r.id+'" role="tab" aria-selected="'+(st.rg===r.id)+'">'
       + '<span class="ic" aria-hidden="true">'+r.ic+'</span><span class="cn">'+esc(r[lang])+'</span></button>';
   });
   $('#chips').innerHTML = html;
+  var more = $('#chipsMore');
+  if(hidden > 0){
+    more.hidden = false; more.innerHTML = '▾ <b>'+esc(tf('chipsMore', {n: hidden}))+'</b>';
+    more.setAttribute('aria-expanded', 'false');
+  } else if(rs.length > 9){
+    more.hidden = false; more.innerHTML = '▴ <b>'+esc(t('chipsLess'))+'</b>';
+    more.setAttribute('aria-expanded', 'true');
+  } else { more.hidden = true; }
 }
 
 function cardHTML(s){
   var r = regionById(s.rg);
   var fav = isFav(s.id);
+  var tags = s.mine
+    ? '<span class="tag2">📌 '+esc(t('mineTag'))+'</span>'
+    : '<span class="tag2">🎫 '+esc(s.feeS[li])+'</span><span class="tag2">🕘 '+esc(s.tmS[li])+'</span>';
   return '<div class="spot" role="button" tabindex="0" data-id="'+s.id+'" aria-label="'+esc(s.nm[li])+' '+esc(t('detail'))+'">'
     + '<div class="illwrap">'+frameHTML(s)
     + '<span class="rg">'+r.ic+' '+esc(r[lang])+'</span>'
-    + '<button type="button" class="heart'+(fav?' on':'')+'" data-heart="'+s.id+'" aria-pressed="'+fav+'" aria-label="❤️ '+esc(s.nm[li])+'">'+(fav?'❤️':'🤍')+'</button>'
+    + '<button type="button" class="heart'+(fav?' on':'')+'" data-heart="'+s.id+'" aria-pressed="'+fav+'" aria-label="'+esc(s.nm[li])+'">'+(fav?'♥':'♡')+'</button>'
     + '</div>'
     + '<div class="sbody">'
-    + '<h3 class="nm">'+esc(s.nm[li])+(li===1?'':'<span class="en">'+esc(s.nm[1])+'</span>')+(li===0?'':'')+'</h3>'
-    + '<p class="charm">'+esc(s.charm[li])+'</p>'
-    + '<p class="tr">'+esc(s.tr[li])+'</p>'
-    + '<div class="chips2"><span class="tag2">🎫 '+esc(s.feeS[li])+'</span><span class="tag2">🕘 '+esc(s.tmS[li])+'</span>'
+    + '<h3 class="nm">'+esc(s.nm[li])+((li===1||s.nm[1]===s.nm[0])?'':'<span class="en">'+esc(s.nm[1])+'</span>')+'</h3>'
+    + '<p class="charm">'+esc(s.charm[li] || (s.mine ? t('mineIntro') : ''))+'</p>'
+    + (s.mine ? '' : '<p class="tr">'+esc(s.tr[li])+'</p>')
+    + '<div class="chips2">'+tags
     + '<a class="tag2 map" href="'+gmap(s)+'" target="_blank" rel="noopener">'+t('mapT')+'</a>'
     + '<span class="tag2 more">'+t('detail')+' →</span></div>'
     + '</div></div>';
@@ -1149,7 +2226,7 @@ function gmap(s){ return 'https://www.google.com/maps/search/?api=1&query=' + en
 function nmap(s){ return 'https://map.naver.com/p/search/' + encodeURIComponent(s.nm[0]); }
 
 function renderList(){
-  var arr = SPOTS.filter(function(s){ return st.rg === 'all' || s.rg === st.rg; });
+  var arr = allSpots().filter(function(s){ return st.rg === 'all' || s.rg === st.rg; });
   $('#listCnt').textContent = arr.length + (lang==='ko'?'곳':' '+t('places'));
   $('#list').innerHTML = arr.length ? arr.map(cardHTML).join('') : '<div class="empty">'+t('none')+'</div>';
 }
@@ -1199,24 +2276,36 @@ function renderDetail(){
     + '<div class="dhead"><button type="button" class="dback" data-act="back">← '+t('back')+'</button>'
     + '<span class="rg2">'+r.ic+' '+esc(r[lang])+'</span></div>'
     + '<div class="dhero">'+frameHTML(s)
-    + '<button type="button" class="heart'+(fav?' on':'')+'" data-heart="'+s.id+'" aria-pressed="'+fav+'" aria-label="❤️">'+(fav?'❤️':'🤍')+'</button></div>'
+    + '<button type="button" class="heart'+(fav?' on':'')+'" data-heart="'+s.id+'" aria-pressed="'+fav+'" aria-label="'+esc(s.nm[li])+'">'+(fav?'♥':'♡')+'</button></div>'
     + photoActionsHTML(s)
-    + '<h2 class="dtitle">'+esc(s.nm[li])+(li===1?'':'<span class="en">'+esc(s.nm[1])+'</span>')+'</h2>'
-    + '<p class="dcharm">'+esc(s.charm[li])+'</p>'
+    + '<h2 class="dtitle">'+esc(s.nm[li])+((li===1||s.nm[1]===s.nm[0])?'':'<span class="en">'+esc(s.nm[1])+'</span>')+'</h2>'
+    + '<p class="dcharm">'+esc(s.charm[li] || (s.mine ? t('mineIntro') : ''))+'</p>'
     + '<div class="taxi"><p class="lb">'+t('taxiLbl')+'</p>'
     +   '<p class="big" lang="ko">'+esc(s.nm[0])+'</p>'
     +   '<p class="say" lang="ko">여기 가 주세요</p>'
     +   '<div class="trow"><button type="button" class="tbtn" data-speak="'+esc(s.nm[0])+', 여기 가 주세요">🔊 '+t('speak')+'</button></div></div>'
     + '<div class="maps"><a class="mbtn g" href="'+gmap(s)+'" target="_blank" rel="noopener">🗺️ '+t('mapG')+'</a>'
-    +   '<a class="mbtn n" href="'+nmap(s)+'" target="_blank" rel="noopener">🧭 '+t('mapN')+'</a></div>'
-    + '<div class="rows">'
-    +   row(t('howto'), s.tr[li]) + row(t('best'), s.tm[li]) + row(t('fee'), s.fee[li])
-    +   row(t('closed'), s.cl[li]) + row(t('eat'), s.eat[li])
-    + '</div>'
-    + '<div class="memo"><p class="k">'+t('memo')+'</p>'
+    +   '<a class="mbtn n" href="'+nmap(s)+'" target="_blank" rel="noopener">🧭 '+t('mapN')+'</a></div>';
+  if(s.mine){
+    html += '<div class="rows">'
+      + row(t('fRegion'), r.ic + ' ' + r[lang])
+      + (s.charm[0] ? row(t('fIntro'), s.charm[0]) : '')
+      + '</div>';
+  } else {
+    html += '<div class="rows">'
+      +   row(t('howto'), s.tr[li]) + row(t('best'), s.tm[li]) + row(t('fee'), s.fee[li])
+      +   row(t('closed'), s.cl[li]) + row(t('eat'), s.eat[li])
+      + '</div>';
+  }
+  html += '<div class="memo"><p class="k">'+t('memo')+'</p>'
     +   '<textarea id="memoBox" placeholder="'+esc(t('memoPh'))+'" aria-label="'+esc(t('memo'))+'">'+esc(note)+'</textarea>'
     +   '<p class="hint" id="memoHint">'+t('memoHint')+'</p></div>'
-    + '<div class="dfoot"><button type="button" class="bigbtn" data-tab="card">💬 '+t('bigMore')+'</button></div>';
+    + '<div class="dfoot">';
+  if(s.mine){
+    html += '<button type="button" class="bigbtn" data-editmine="'+s.id+'">'+t('mineEdit')+'</button>'
+      + '<button type="button" class="bigbtn" data-delmine="'+s.id+'" style="background:#8A3B24">'+t('mineDel')+'</button>';
+  }
+  html += '<button type="button" class="bigbtn" data-tab="card">💬 '+t('bigMore')+'</button></div>';
   $('#detail').innerHTML = html;
 }
 function row(k, v){ return '<div class="row"><p class="k">'+k+'</p><p class="v">'+esc(v)+'</p></div>'; }
@@ -1238,7 +2327,7 @@ function renderAll(){
   $('#view-spot').hidden = !isSpot;
   renderTabs();
   if(st.tab === 'list' && !isSpot) { renderChips(); renderList(); }
-  if(st.tab === 'fav') renderFav();
+  if(st.tab === 'fav'){ renderBook(); renderFav(); }
   if(st.tab === 'card') renderPhrases();
   if(isSpot) renderDetail();
 }
@@ -1257,7 +2346,9 @@ function goBack(){ try{ history.back(); }catch(e){ st.id = null; renderAll(); } 
 window.addEventListener('popstate', function(ev){
   var raw = ev.state && ev.state.st;
   var prev = st;
-  hideBig();  /* 큰 카드는 겹쳐 띄우는 화면이라 뒤로가기에서 늘 닫는다 */
+  hideBig();
+  if(albumOn){ hideAlbum(); document.body.style.overflow = 'hidden'; return; }
+  if(shelfOn){ hideShelf(); document.body.style.overflow = ''; }
   if(raw){ try{ st = JSON.parse(raw); }catch(e){ st = {tab:'list', rg:'all', id:null}; } }
   else { st = {tab:'list', rg:'all', id:null}; }
   renderAll();
@@ -1312,6 +2403,36 @@ document.addEventListener('click', function(ev){
   if(pb){ ev.preventDefault(); ev.stopPropagation(); openPhotoPicker(pb.getAttribute('data-photo')); return; }
   var dph = closest('[data-delphoto]');
   if(dph){ ev.preventDefault(); ev.stopPropagation(); delPhoto(dph.getAttribute('data-delphoto')); return; }
+  var addb = closest('#addBtn');
+  if(addb){ ev.preventDefault(); openMine(null); return; }
+  var cm = closest('#chipsMore');
+  if(cm){ chipsOpen = !chipsOpen; renderChips(); return; }
+  var alb = closest('#albumBtn');
+  if(alb){ ev.preventDefault(); openShelf(); return; }
+  var em = closest('[data-editmine]');
+  if(em){ ev.preventDefault(); openMine(em.getAttribute('data-editmine')); return; }
+  var dm = closest('[data-delmine]');
+  if(dm){ ev.preventDefault(); deleteMineSpot(dm.getAttribute('data-delmine')); return; }
+  var ob = closest('[data-openbook]');
+  if(ob){ ev.preventDefault(); openBook(ob.getAttribute('data-openbook')); return; }
+  var eb = closest('[data-editbook]');
+  if(eb){ ev.preventDefault(); openBookEditor(eb.getAttribute('data-editbook')); return; }
+  var pbf = closest('[data-printbook]');
+  if(pbf){ ev.preventDefault(); var bk0 = findBook(pbf.getAttribute('data-printbook')); if(bk0) printOneBook(bk0); return; }
+  var nb = closest('#bkNew');
+  if(nb){ ev.preventDefault(); openBookEditor(null); return; }
+  var sc = closest('[data-scope]');
+  if(sc){ ev.preventDefault(); var s2 = sc.getAttribute('data-scope'); $('#printModal').hidden = true; printAlbum(s2); return; }
+  var bkrg = closest('[data-bkrg]');
+  if(bkrg && bookDraft){ ev.preventDefault(); var rid = bkrg.getAttribute('data-bkrg'); var ix = bookDraft.rgs.indexOf(rid); if(ix >= 0) bookDraft.rgs.splice(ix,1); else bookDraft.rgs.push(rid); renderBookRgs(); return; }
+  var bkm = closest('[data-mode]');
+  if(bkm && bookDraft){
+    ev.preventDefault(); bookDraft.mode = bkm.getAttribute('data-mode');
+    var btns = $('#bkMode').querySelectorAll('button');
+    for(var bi=0;bi<btns.length;bi++){ btns[bi].className = (btns[bi].getAttribute('data-mode') === bookDraft.mode) ? 'on' : ''; }
+    $('#bkRgWrap').hidden = bookDraft.mode !== 'pick';
+    return;
+  }
   var heart = closest('[data-heart]');
   if(heart){
     ev.preventDefault(); ev.stopPropagation();
@@ -1357,8 +2478,17 @@ document.addEventListener('keydown', function(ev){
       nav({tab:'list', id: el.getAttribute('data-id')});
     }
   }
+  if(albumOn){
+    if(ev.key === 'ArrowRight'){ albumGo(1); return; }
+    if(ev.key === 'ArrowLeft'){ albumGo(-1); return; }
+  }
   if(ev.key === 'Escape'){
-    if(!$('#bigCard').hidden) closeBig();
+    if(!$('#album').hidden) closeAlbum();
+    else if(!$('#shelf').hidden) closeShelf();
+    else if(!$('#bookModal').hidden) closeBookEditor();
+    else if(!$('#mineModal').hidden) closeMine();
+    else if(!$('#printModal').hidden) $('#printModal').hidden = true;
+    else if(!$('#bigCard').hidden) closeBig();
     else if(!$('#installModal').hidden) closeInstall();
   }
 });
@@ -1379,11 +2509,17 @@ document.addEventListener('input', function(ev){
 });
 
 /* ══════════ 언어 ══════════ */
-$('#langBtn').addEventListener('click', function(){
+function toggleLang(){
   lang = (lang === 'ko') ? 'en' : 'ko'; li = lang === 'ko' ? 0 : 1;
   lsSet(LS_LANG, lang);
   renderAll(); pushState();
-});
+  if(shelfOn) renderShelf();
+  if(albumOn) renderAlbum();
+  if(bookDraft) renderBookRgs();
+}
+$('#langBtn').addEventListener('click', toggleLang);
+$('#shelfLang').addEventListener('click', toggleLang);
+$('#albumLang').addEventListener('click', toggleLang);
 
 /* ══════════ 설치 · 공유 ══════════ */
 function isStandalone(){ try{ return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; }catch(e){ return false; } }
@@ -1424,17 +2560,64 @@ function copyShare(p){
   else legacyCopy(full, done, fail);
 }
 $('#shareBtn').addEventListener('click', shareApp);
-$('#printTop').addEventListener('click', printAlbum);
-$('#printBtn').addEventListener('click', printAlbum);
-window.addEventListener('beforeprint', buildPrintBook);
+$('#printTop').addEventListener('click', openPrintAsk);
+$('#printBtn').addEventListener('click', openPrintAsk);
+window.addEventListener('beforeprint', function(){ if(lastPrint) buildPrintBook(lastPrint.list, lastPrint.info); else buildPrintBook(null, null); });
 $('#bcClose').addEventListener('click', closeBig);
 $('#bcSpeak').addEventListener('click', function(){
   if(bigIdx >= 0) speak(PHRASES[bigIdx].ko);
 });
 
+$('#pmCancel').addEventListener('click', function(){ $('#printModal').hidden = true; });
+$('#printModal').addEventListener('click', function(e){ if(e.target === $('#printModal')) $('#printModal').hidden = true; });
+
+/* 날짜·날씨 */
+$('#todayCard').addEventListener('click', refreshWeather);
+
+/* 내 여행지 추가·수정 모달 */
+$('#mSave').addEventListener('click', saveMineForm);
+$('#mCancel').addEventListener('click', closeMine);
+$('#mPhotoBtn').addEventListener('click', openMinePhoto);
+$('#mRg').addEventListener('change', function(){ $('#mNewRgWrap').hidden = $('#mRg').value !== '__new'; if($('#mRg').value === '__new'){ try{ $('#mNewRg').focus(); }catch(e){} } });
+$('#mDel').addEventListener('click', function(){ if(mineEditId) deleteMineSpot(mineEditId); });
+$('#mineModal').addEventListener('click', function(e){ if(e.target === $('#mineModal')) closeMine(); });
+
+/* 책장 · 앨범 · 책 꾸미기 */
+$('#shelfClose').addEventListener('click', closeShelf);
+$('#albumPrev').addEventListener('click', function(){ albumGo(-1); });
+$('#albumNext').addEventListener('click', function(){ albumGo(1); });
+$('#albumClose').addEventListener('click', closeAlbum);
+$('#albumPrintBtn').addEventListener('click', function(){ if(albumBook) printOneBook(albumBook); });
+$('#albumEditBtn').addEventListener('click', function(){ if(albumBook) openBookEditor(albumBook.id); });
+$('#bookSave').addEventListener('click', saveBookDraft);
+$('#bookCancel').addEventListener('click', closeBookEditor);
+$('#bookDel').addEventListener('click', deleteBookDraft);
+$('#bookModal').addEventListener('click', function(e){ if(e.target === $('#bookModal')) closeBookEditor(); });
+var alStage = $('#albumStage'), alX = 0, alY = 0;
+alStage.addEventListener('touchstart', function(e){ var t0 = e.changedTouches && e.changedTouches[0]; if(!t0) return; alX = t0.clientX; alY = t0.clientY; }, {passive:true});
+alStage.addEventListener('touchend', function(e){
+  var t0 = e.changedTouches && e.changedTouches[0]; if(!t0) return;
+  var dx = t0.clientX - alX, dy = t0.clientY - alY;
+  if(Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) albumGo(dx < 0 ? 1 : -1);
+}, {passive:true});
+
+/* 첫 번째 책(찜 탭 표지 설정) 연결 */
+function bindBookField(id, key){
+  var el = $('#' + id); if(!el) return;
+  el.addEventListener('input', function(){
+    if(!books.length) books = [normBook({id:'bk-main', mode:'mine'}, 0)];
+    books[0][key] = el.value;
+    saveBooks();
+  });
+}
+bindBookField('bkTitle','title');
+bindBookField('bkAuthor','author');
+bindBookField('bkSub','sub');
+
 /* ══════════ 시작 ══════════ */
 if(!history.state || !history.state.st){ replaceState(); }
 renderAll();
+loadWeather();
 if('serviceWorker' in navigator){
   window.addEventListener('load', function(){ navigator.serviceWorker.register('./sw.js').catch(function(){}); });
 }

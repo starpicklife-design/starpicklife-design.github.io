@@ -1,7 +1,7 @@
 {
   "name": "와글링 한국여행",
   "short_name": "한국여행",
-  "description": "외국인·내국인을 위한 한국 관광 가이드 · 명소 30곳 · 가는 법·입장료·먹거리 · 큰 글씨 한국어 카드 (A Korea travel guide with 30 places and big Korean phrase cards)",
+  "description": "외국인·내국인을 위한 한국 관광 가이드 · 16개 지역 명소 53곳 · 가는 법·입장료·먹거리 · 내 여행지 추가 · 폰 앨범 책장 · A4 3공 앨범 인쇄 · 큰 글씨 한국어 카드 (A Korea travel guide with 53 places, your own book shelf and printable album)",
   "lang": "ko",
   "dir": "ltr",
   "start_url": "./",

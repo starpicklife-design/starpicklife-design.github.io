@@ -3,9 +3,9 @@
    - 외부(다른 사이트) 요청은 절대 건드리지 않음 · 개인정보 0%
    - index.html은 항상 네트워크 우선 → 새 버전이 바로 반영됨
    - 내 사진·메모는 이 폰의 localStorage에만 있고 서버로 가지 않음
-   - v3 (2026-11-27): 명소 그림(SVG) 제거 · 내 사진 채우기·앨범 인쇄(책자) · 목록 글씨 잘림 수정 */
+   - v4 (2026-11-28): 지역 16·명소 53 · 내 여행지 추가/수정 · 여러 권 책장·폰 앨범 · 표지 꾸미기 · A4 3공(108mm) 앨범 인쇄 */
 
-const CACHE = 'wagle-korea-travel-v3';
+const CACHE = 'wagle-korea-travel-v4';
 const SHELL = [
   './',
   './index.html',
