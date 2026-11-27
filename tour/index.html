@@ -1986,10 +1986,14 @@ function saveMineForm(){
     if(!lsSave(LS_PHOTO, photos)){ if(before) photos[id]=before; else delete photos[id]; toast(t('photoFull')); }
   }
   closeMine();
-  chipsOpen = true;
+  chipsOpen = (rgSel === '__new');
   st = {tab:'list', rg:rgId, id:null};
   renderAll();
-  try{ var lh = document.getElementById('listTitle'); if(lh && lh.scrollIntoView) lh.scrollIntoView({block:'start'}); else window.scrollTo(0,0); }catch(e){}
+  try{
+    var card = document.querySelector('#list .spot[data-id="'+id+'"]');
+    if(card && card.scrollIntoView) card.scrollIntoView({block:'center'});
+    else window.scrollTo(0,0);
+  }catch(e){}
   toast(editing ? t('mineUpdated') : t('mineSaved'));
 }
 function deleteMineSpot(id){
