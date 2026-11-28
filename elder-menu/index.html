@@ -407,7 +407,7 @@ html.big .card .pic .emo{font-size:52px}
 
 <div class="bar" id="bar">
   <div class="brow">
-    <span class="btot">총 <b id="totNum">0</b>잔</span>
+    <span class="btot">총 <b id="totNum">0</b><span id="totUnit">잔</span></span>
     <p class="blist empty" id="totList">아직 담은 음료가 없어요</p>
   </div>
   <button type="button" class="bsheet" id="openSheet">📢 주문서 크게 보기</button>
@@ -1063,10 +1063,10 @@ function orderItems(){
   var out = [];
   RENDER.forEach(function(it){
     var q = qtyOf(it.id);
-    if(q > 0) out.push({ label: labelFor(it), qty: q, price: it.price || 0 });
+    if(q > 0) out.push({ label: labelFor(it), qty: q, price: it.price || 0, unit: it.cat === 2 ? '개' : '잔' });
   });
   var t = state.direct.text.trim();
-  if(t && state.direct.qty > 0) out.push({ label: t, qty: state.direct.qty, direct: true, price: 0 });
+  if(t && state.direct.qty > 0) out.push({ label: t, qty: state.direct.qty, direct: true, price: 0, unit: '개' });
   return out;
 }
 function totalPrice(items){
@@ -1075,9 +1075,14 @@ function totalPrice(items){
 function totalCups(items){
   return items.reduce(function(a, b){ return a + b.qty; }, 0);
 }
+/* 음료는 '잔', 🍽️ 다른 메뉴(라면·김밥 같은 것)는 '개' */
+function totalUnit(items){
+  for(var i = 0; i < items.length; i++){ if(items[i].unit === '개') return '개'; }
+  return '잔';
+}
 function orderSentence(items){
   if(!items.length) return '아직 담은 음료가 없어요';
-  return items.map(function(i){ return i.label + ' ' + i.qty + '잔'; }).join(', ') + ' 주세요';
+  return items.map(function(i){ return i.label + ' ' + i.qty + (i.unit || '잔'); }).join(', ') + ' 주세요';
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -1104,8 +1109,10 @@ function syncDirect(force){
   row.classList.toggle('on', q > 0);
 }
 function updateBar(){
-  var items = orderItems(), total = totalCups(items);
+  var items = orderItems(), total = totalCups(items), unit = totalUnit(items);
   $('#totNum').textContent = total;
+  var uEl = $('#totUnit');
+  if(uEl) uEl.textContent = unit;
   var list = $('#totList');
   if(items.length){
     list.textContent = items.map(function(i){ return i.label + ' ' + i.qty; }).join(' · ');
@@ -1115,7 +1122,7 @@ function updateBar(){
     list.classList.add('empty');
   }
   var live = $('#srStatus');
-  if(live) live.textContent = total ? ('총 ' + total + '잔 담김') : '담은 음료 없음';
+  if(live) live.textContent = total ? ('총 ' + total + unit + ' 담김') : '담은 음료 없음';
   if(!$('#sheet').hidden) renderSheet();
 }
 function afterChange(){
@@ -1188,10 +1195,10 @@ function renderSheet(){
   }else{
     txt.classList.remove('empty');
     txt.innerHTML = items.map(function(i){
-      return esc(i.label) + ' <b class="q">' + i.qty + '잔</b>';
+      return esc(i.label) + ' <b class="q">' + i.qty + (i.unit || '잔') + '</b>';
     }).join(', ') + ' <span class="ask">주세요</span>';
     tot.hidden = false;
-    tot.textContent = '모두 ' + total + '잔' + (totalPrice(items) > 0 ? ' · ' + totalPrice(items).toLocaleString('ko-KR') + '원' : '');
+    tot.textContent = '모두 ' + total + totalUnit(items) + (totalPrice(items) > 0 ? ' · ' + totalPrice(items).toLocaleString('ko-KR') + '원' : '');
     hint.textContent = '이 화면을 직원에게 보여 주세요';
     sp.disabled = false;
     sp.style.opacity = '';
