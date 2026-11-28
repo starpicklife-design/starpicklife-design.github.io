@@ -2,11 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://starpicklife-design.github.io/</loc>
-    <lastmod>2026-11-27T16:25:00+09:00</lastmod>
+    <lastmod>2026-11-28T12:42:00+09:00</lastmod>
   </url>
   <url>
     <loc>https://starpicklife-design.github.io/menu/</loc>
     <lastmod>2026-11-24T20:13:36+09:00</lastmod>
+  </url>
+  <url>
+    <loc>https://starpicklife-design.github.io/menu-customer/</loc>
+    <lastmod>2026-11-28T12:42:00+09:00</lastmod>
+  </url>
+  <url>
+    <loc>https://starpicklife-design.github.io/menu-owner/</loc>
+    <lastmod>2026-11-28T12:42:00+09:00</lastmod>
   </url>
   <url>
     <loc>https://starpicklife-design.github.io/elder-menu/</loc>
