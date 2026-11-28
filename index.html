@@ -136,6 +136,7 @@
     box-shadow:0 .3rem .9rem rgba(58,40,25,.10);
   }
   .qrBig svg{display:block;width:100%;height:auto}
+  .qrDesc{margin:-.1rem 0 .55rem;text-align:center;font-size:.8rem;font-weight:800;line-height:1.4;color:#8B7A63}
   .qrUrl{margin:0 0 .75rem;text-align:center;font-size:.72rem;font-weight:800;line-height:1.5;color:#8B7A63;word-break:break-all}
   .tagline{
     margin:.22rem auto 0;max-width:24rem;color:var(--ink2);
@@ -261,6 +262,21 @@
   .app:hover,.app:focus-visible{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--orange-deep)}
   .app:focus-visible{outline:3px solid rgba(217,162,39,.55);outline-offset:2px}
   .app:active{transform:translateY(0) scale(.995)}
+  /* 카드 전체를 누르면 열리는 링크(카드 위에 겹쳐 놓기) + 오른쪽 아래 작은 QR 단추 */
+  .app{position:relative}
+  .app-link{position:absolute;inset:0;z-index:1;border-radius:inherit;text-decoration:none}
+  .app:focus-within{outline:3px solid rgba(217,162,39,.55);outline-offset:2px}
+  .footrow{display:flex;align-items:center;justify-content:space-between;gap:.3rem;margin-top:auto}
+  .qchip{
+    position:relative;z-index:2;flex:0 0 auto;
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:1.5rem;height:1.06rem;padding:0 .26rem;margin:0;
+    font-family:inherit;font-size:.53rem;font-weight:900;letter-spacing:.04em;line-height:1;
+    color:#8A6A20;background:#FFF8E9;border:1.5px solid #E8D3A8;border-radius:.4rem;
+    cursor:pointer;-webkit-tap-highlight-color:transparent;
+  }
+  .qchip:active{transform:scale(.94)}
+  .qchip:focus-visible{outline:2.5px solid rgba(217,162,39,.55);outline-offset:2px}
   .app-main{
     display:grid;grid-template-columns:auto minmax(0,1fr);
     grid-template-areas:"ico title" "sub sub";
@@ -285,7 +301,7 @@
   }
   /* 작고 아담한 ‘바로 열기 →’ 알약 배지 (카드 전체 너비 님지 않게) */
   .open{
-    align-self:flex-end;margin-top:auto;
+    align-self:center;margin-top:0;
     display:inline-flex;align-items:center;justify-content:center;gap:.16rem;
     background:linear-gradient(180deg,var(--gold-lite),var(--gold));
     color:#33260D;font-weight:900;font-size:.6rem;letter-spacing:-.01em;
@@ -305,8 +321,10 @@
   html.big .ico{width:2.95rem;height:2.95rem;font-size:1.7rem;border-radius:.8rem}
   html.big .app h2{font-size:1.02rem;line-height:1.3}
   html.big .app p{font-size:.82rem;line-height:1.42;-webkit-line-clamp:3}
+  html.big .footrow{margin-top:.16rem;gap:.4rem}
+  html.big .qchip{min-width:2.3rem;height:2.2rem;font-size:.82rem;border-radius:.62rem}
   html.big .open{
-    align-self:stretch;margin-top:.16rem;
+    flex:1;align-self:stretch;margin-top:0;
     font-size:.88rem;padding:.3rem .7rem;min-height:2.2rem;border-radius:.7rem;
   }
 
@@ -352,7 +370,9 @@
     .ico{width:2.4rem;height:2.4rem;font-size:1.32rem}
     .app h2{font-size:.84rem}
     .app p{font-size:.68rem}
+    .footrow{flex:0 0 auto;margin-top:0;gap:.22rem}
     .open{flex:0 0 auto;align-self:center;margin-top:0;font-size:.64rem;padding:.08rem .5rem}
+    .qchip{min-width:1.5rem;height:1.15rem;font-size:.52rem;padding:0 .26rem}
     /* 초소형 + 글씨 크게: 다시 1열 큰 카드 */
     html.big .app{flex-direction:column;gap:.24rem;padding:.7rem .78rem .62rem}
     html.big .app-main{grid-template-areas:"ico title" "sub sub"}
@@ -428,221 +448,317 @@
 
   <main>
 
-    <a class="app" href="./menu/" data-app="table">
+    <div class="app" data-app="table">
+      <a class="app-link" href="./menu/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">☕</span>
         <h2 data-ko="와글링 테이블" data-en="Wagling Table">와글링 테이블</h2>
         <p data-ko="큰 글씨 메뉴판 · 계산" data-en="Big menu · split the bill">큰 글씨 메뉴판 · 계산</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./elder-menu/" data-app="elder">
+    <div class="app" data-app="elder">
+      <a class="app-link" href="./elder-menu/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">👴</span>
         <h2 data-ko="어르신용 와글링 테이블" data-en="Wagling Elder Table">어르신용 와글링 테이블</h2>
         <p data-ko="그림 + 큰 글씨 주문" data-en="Big pictures · order alone">그림 + 큰 글씨 주문</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./fridge/" data-app="cart">
+    <div class="app" data-app="cart">
+      <a class="app-link" href="./fridge/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🛒</span>
         <h2 data-ko="와글링 장바구니" data-en="Wagling Cart">와글링 장바구니</h2>
         <p data-ko="냉장고 · 장보기 체크" data-en="Fridge · shopping list">냉장고 · 장보기 체크</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./care/" data-app="pill">
+    <div class="app" data-app="pill">
+      <a class="app-link" href="./care/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">💊</span>
         <h2 data-ko="와글링 효도 약통" data-en="Wagling Pill Box">와글링 효도 약통</h2>
         <p data-ko="복약 알림 · 건강 체크" data-en="Pills · health check">복약 알림 · 건강 체크</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./phonebook/" data-app="phone">
+    <div class="app" data-app="phone">
+      <a class="app-link" href="./phonebook/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">📞</span>
         <h2 data-ko="와글링 전화부" data-en="Wagling Phonebook">와글링 전화부</h2>
         <p data-ko="119·112 · 가족 전화" data-en="119 · 112 · family calls">119·112 · 가족 전화</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./namecard/" data-app="namecard">
+    <div class="app" data-app="namecard">
+      <a class="app-link" href="./namecard/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">📇</span>
         <h2 data-ko="와글링 명함집" data-en="Wagling Namecards">와글링 명함집</h2>
         <p data-ko="내 명함 만들기 · QR 공유 · 보관함" data-en="Make my card · QR · card holder">내 명함 만들기 · QR 공유 · 보관함</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./dining/" data-app="trip">
+    <div class="app" data-app="trip">
+      <a class="app-link" href="./dining/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🍽️</span>
         <h2 data-ko="와글링 한국식당" data-en="Wagling Korean Dining">와글링 한국식당</h2>
         <p data-ko="5개 언어 주문 카드 · 그림 메뉴" data-en="Ordering cards in 5 languages">5개 언어 주문 카드 · 그림 메뉴</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./party/" data-app="party">
+    <div class="app" data-app="party">
+      <a class="app-link" href="./party/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🎄</span>
         <h2 data-ko="와글링 홀리데이 파티" data-en="Wagling Holiday Party">와글링 홀리데이 파티</h2>
         <p data-ko="번호뽑기 · 사다리 게임" data-en="Draw · ladder games">번호뽑기 · 사다리 게임</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./lyrics/" data-app="lyrics">
+    <div class="app" data-app="lyrics">
+      <a class="app-link" href="./lyrics/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🎤</span>
         <h2 data-ko="와글링 노래방" data-en="Wagling Karaoke">와글링 노래방</h2>
         <p data-ko="유튜브·내 음악 + 왕큰 가사" data-en="YouTube · my music · big lyrics">유튜브·내 음악 + 왕큰 가사</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./piano/" data-app="piano">
+    <div class="app" data-app="piano">
+      <a class="app-link" href="./piano/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🎹</span>
         <h2 data-ko="와글링 피아노" data-en="Wagling Piano">와글링 피아노</h2>
         <p data-ko="소리 나는 큰 건반 · 불빛 따라 치기" data-en="Big keys · follow the lights">소리 나는 큰 건반 · 불빛 따라 치기</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./pronounce/" data-app="lang">
+    <div class="app" data-app="lang">
+      <a class="app-link" href="./pronounce/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🔤</span>
         <h2 data-ko="와글링 외국어" data-en="Wagling Language">와글링 외국어</h2>
         <p data-ko="영·일·중 한글 발음" data-en="EN · JP · CN in Korean">영·일·중 한글 발음</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./fit/" data-app="fit">
+    <div class="app" data-app="fit">
+      <a class="app-link" href="./fit/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🏃</span>
         <h2 data-ko="와글링 운동" data-en="Wagling Fit">와글링 운동</h2>
         <p data-ko="걷기 · 도장 달력" data-en="Walks · stamps">걷기 · 도장 달력</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./fortune/" data-app="fortune">
+    <div class="app" data-app="fortune">
+      <a class="app-link" href="./fortune/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🔮</span>
         <h2 data-ko="와글링 운세" data-en="Wagling Fortune">와글링 운세</h2>
         <p data-ko="오늘 운세 · 동전 · 타로" data-en="Daily fortune · coin · tarot">오늘 운세 · 동전 · 타로</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./card/" data-app="card">
+    <div class="app" data-app="card">
+      <a class="app-link" href="./card/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">💳</span>
         <h2 data-ko="와글링 신용카드" data-en="Wagling Credit Card">와글링 신용카드</h2>
         <p data-ko="분류 입력 · 문자 집계 · 경조사" data-en="Categories · SMS · gifts">분류 입력 · 문자 집계 · 경조사</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./autopay/" data-app="autopay">
+    <div class="app" data-app="autopay">
+      <a class="app-link" href="./autopay/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">📅</span>
         <h2 data-ko="와글링 자동이체" data-en="Wagling Auto-pay">와글링 자동이체</h2>
         <p data-ko="매달 나갈 돈 D-day · 통장별 합계" data-en="Due dates · totals by account">매달 나갈 돈 D-day · 통장별 합계</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./card-maker/" data-app="cardmaker">
+    <div class="app" data-app="cardmaker">
+      <a class="app-link" href="./card-maker/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">💌</span>
         <h2 data-ko="와글링 카드꾸미기" data-en="Wagling Card Maker">와글링 카드꾸미기</h2>
         <p data-ko="새해·크리스마스 카드 꾸미기" data-en="New Year &amp; Christmas cards">새해·크리스마스 카드 꾸미기</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./diary/" data-app="diary">
+    <div class="app" data-app="diary">
+      <a class="app-link" href="./diary/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">💎</span>
         <h2 data-ko="다이아몬드 성 탈출 다꾸" data-en="Diamond Castle Diary">다이아몬드 성 탈출 다꾸</h2>
         <p data-ko="미미와 테오 방탈출 다이어리 꾸미기" data-en="Mimi &amp; Theo escape-room diary">미미와 테오 방탈출 다이어리 꾸미기</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./sansu/" data-app="sansu">
+    <div class="app" data-app="sansu">
+      <a class="app-link" href="./sansu/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🧮</span>
         <h2 data-ko="와글링 산수" data-en="Wagling Numbers">와글링 산수</h2>
         <p data-ko="덧셈·뺄셈 · 구구단 · 시계 · 동전 세기" data-en="Add · times tables · clock · coins">덧셈·뺄셈 · 구구단 · 시계 · 동전 세기</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./math/" data-app="math">
+    <div class="app" data-app="math">
+      <a class="app-link" href="./math/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">📘</span>
         <h2 data-ko="와글링 수학" data-en="Wagling Math">와글링 수학</h2>
         <p data-ko="중·고등 수학 노트 · 방정식·그래프·도형·공식" data-en="Equations · graphs · shapes · formulas">중·고등 수학 노트 · 방정식·그래프·도형·공식</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./brain/" data-app="brain">
+    <div class="app" data-app="brain">
+      <a class="app-link" href="./brain/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🧩</span>
         <h2 data-ko="와글링 두뇌놀이" data-en="Wagling Brain Play">와글링 두뇌놀이</h2>
         <p style="-webkit-line-clamp:3" data-ko="어르신 두뇌 체조 · 짝맞추기·속담·장보기·서예·색칠·숨은그림" data-en="Matching · proverbs · shopping · brush art · colouring · hidden pictures">어르신 두뇌 체조 · 짝맞추기·속담·장보기·서예·색칠·숨은그림</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./english-hole/" data-app="english-hole">
+    <div class="app" data-app="english-hole">
+      <a class="app-link" href="./english-hole/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🕳️</span>
         <h2 data-ko="와글링 영어블랙홀" data-en="Wagling English Black Hole">와글링 영어블랙홀</h2>
         <p style="-webkit-line-clamp:3" data-ko="3·7·14·30일 망각곡선 복습 · 여행영어 49문장" data-en="3·7·14·30-day review · 49 travel phrases">3·7·14·30일 망각곡선 복습 · 여행영어 49문장</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./science/" data-app="science">
+    <div class="app" data-app="science">
+      <a class="app-link" href="./science/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🔬</span>
         <h2 data-ko="와글링 과학" data-en="Wagling Science">와글링 과학</h2>
         <p style="-webkit-line-clamp:3" data-ko="태양계 여행 · 온도 실험 · 빛과 자석 · 과학 퀴즈" data-en="Solar system · temperature · light &amp; magnets · quiz">태양계 여행 · 온도 실험 · 빛과 자석 · 과학 퀴즈</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./garden/" data-app="garden">
+    <div class="app" data-app="garden">
+      <a class="app-link" href="./garden/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🌱</span>
         <h2 data-ko="와글링 텃밭" data-en="Wagling Garden">와글링 텃밭</h2>
         <p style="-webkit-line-clamp:3" data-ko="1~12월 파종 달력 · 식물 키우기 · 수확 축하 카드" data-en="Sowing calendar · grow plants · harvest cards">1~12월 파종 달력 · 식물 키우기 · 수확 축하 카드</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
-    <a class="app" href="./tour/" data-app="tour">
+    <div class="app" data-app="tour">
+      <a class="app-link" href="./tour/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🏯</span>
         <h2 data-ko="와글링 한국여행" data-en="Wagling Korea Travel">와글링 한국여행</h2>
         <p style="-webkit-line-clamp:3" data-ko="관광지 30곳 · 가는 법 · 입장료 · 큰 글씨 손짓 카드" data-en="30 sights · how to get there · tickets · big gesture cards">관광지 30곳 · 가는 법 · 입장료 · 큰 글씨 손짓 카드</p>
       </div>
-      <span class="open"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
-    </a>
+      <div class="footrow">
+        <button type="button" class="qchip" aria-haspopup="dialog" aria-label="QR 코드 보기">QR</button>
+        <span class="open" aria-hidden="true"><span data-ko="바로 열기" data-en="Open now">바로 열기</span> <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
+    </div>
 
   </main>
 
@@ -665,6 +781,18 @@
     <div class="qrBig" id="qrBig"></div>
     <p class="qrUrl" id="qrUrl">https://starpicklife-design.github.io/</p>
     <button type="button" class="close" id="qrClose" data-ko="닫기" data-en="Close">닫기</button>
+  </div>
+</div>
+
+<!-- 📷 앱마다 QR 코드 (그 앱 주소) -->
+<div class="modal qrBoxModal" id="appQrModal" role="dialog" aria-modal="true" aria-labelledby="appQrTitle" hidden>
+  <div class="modalCard">
+    <h3 id="appQrTitle">QR</h3>
+    <p class="qrDesc" id="appQrDesc"></p>
+    <p class="lead" id="appQrHint" data-ko="다른 폰 카메라로 이 QR을 찍으면 이 앱이 바로 열려요." data-en="Point another phone's camera at the QR code and this app opens.">다른 폰 카메라로 이 QR을 찍으면 이 앱이 바로 열려요.</p>
+    <div class="qrBig" id="appQrBig"></div>
+    <p class="qrUrl" id="appQrUrl"></p>
+    <button type="button" class="close" id="appQrClose" data-ko="닫기" data-en="Close">닫기</button>
   </div>
 </div>
 
@@ -708,6 +836,7 @@
     renderToday();
     renderMood();
     renderQr();
+    syncCardAria();
   }
 
   function applyBig(on){
@@ -1210,6 +1339,81 @@
   document.addEventListener('keydown', function(e){
     if((e.key === 'Escape' || e.key === 'Esc') && qrModal && !qrModal.hidden) closeQr();
   });
+
+  /* ═════════ 📷 앱마다 작은 QR 단추 → 그 앱 주소 QR 크게 보기 ═════════ */
+  var appQrModal = document.getElementById('appQrModal');
+  var appQrTitle = document.getElementById('appQrTitle');
+  var appQrDesc  = document.getElementById('appQrDesc');
+  var appQrBig   = document.getElementById('appQrBig');
+  var appQrUrl   = document.getElementById('appQrUrl');
+  var appQrClose = document.getElementById('appQrClose');
+  var appQrFrom  = null;
+
+  function appQrOpen(card){
+    if(!appQrModal || !card) return;
+    var a  = card.querySelector('.app-link');
+    var h2 = card.querySelector('h2');
+    var p  = card.querySelector('p');
+    var en = isEn();
+    var name = h2 ? h2.textContent.trim() : '';
+    var sub  = p ? p.textContent.trim() : '';
+    var url = location.href;
+    try{ url = new URL(a ? a.getAttribute('href') : './', location.href).href; }catch(e){}
+    appQrTitle.textContent = '📷 ' + name;
+    appQrDesc.textContent  = sub;
+    if(appQrDesc) appQrDesc.hidden = !sub;
+    try{ appQrBig.innerHTML = QRGEN.svg(url, en ? name + ' QR code' : name + ' QR 코드'); }catch(e){ appQrBig.innerHTML = ''; }
+    appQrUrl.textContent = url;
+    appQrFrom = card.querySelector('.qchip');
+    appQrModal.hidden = false;
+    try{ appQrClose.focus(); }catch(e){}
+  }
+  function appQrHide(){
+    if(!appQrModal) return;
+    appQrModal.hidden = true;
+    try{ if(appQrFrom) appQrFrom.focus(); }catch(e){}
+  }
+  if(appQrClose) appQrClose.addEventListener('click', appQrHide);
+  if(appQrModal) appQrModal.addEventListener('click', function(e){ if(e.target === appQrModal) appQrHide(); });
+  document.addEventListener('keydown', function(e){
+    if((e.key === 'Escape' || e.key === 'Esc') && appQrModal && !appQrModal.hidden) appQrHide();
+  });
+  document.addEventListener('click', function(e){
+    var t = e.target;
+    while(t && t.nodeType === 1){
+      if(t.classList && t.classList.contains('qchip')){
+        var card = t;
+        while(card && !(card.classList && card.classList.contains('app'))) card = card.parentNode;
+        appQrOpen(card);
+        return;
+      }
+      if(t === document.body) break;
+      t = t.parentNode;
+    }
+  });
+
+  /* 카드 링크·QR 단추 읽어 주기(한/EN) */
+  function syncCardAria(){
+    var en = isEn();
+    var cards = document.querySelectorAll('.app');
+    for(var i = 0; i < cards.length; i++){
+      var c = cards[i], a = c.querySelector('.app-link'), q = c.querySelector('.qchip');
+      var h2 = c.querySelector('h2'), p = c.querySelector('p');
+      var name = h2 ? (en ? h2.getAttribute('data-en') : h2.getAttribute('data-ko')) : '';
+      var sub  = p  ? (en ? p.getAttribute('data-en')  : p.getAttribute('data-ko'))  : '';
+      if(!name) continue;
+      if(h2 && !h2.id) h2.id = 'appT' + i;
+      if(a && h2){
+        a.setAttribute('aria-labelledby', h2.id);
+        a.removeAttribute('aria-label');
+      }
+      if(q){
+        q.setAttribute('aria-label', (en ? name + ' QR code · show big' : name + ' QR 코드 · 크게 보기'));
+        q.setAttribute('title', en ? 'Show the QR code' : 'QR 코드 크게 보기');
+      }
+    }
+  }
+  syncCardAria();
 
   renderToday();
   renderMood();
