@@ -1,0 +1,24 @@
+{
+  "name": "와글링 테이블 (손님용)",
+  "short_name": "와글링 테이블",
+  "description": "QR로 찍으면 바로 열리는 큰 글씨 메뉴판 · 주문 앱",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FFF7E9",
+  "theme_color": "#3E2C22",
+  "lang": "ko",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
