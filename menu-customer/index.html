@@ -1338,18 +1338,25 @@ function openShop(i){
 function delShop(i){
   var s = shops[i];
   if(!s) return;
-  var wasLast = lastToken() === s.tok;
+  var prevLast = lastToken(), wasLast = prevLast === s.tok;
   var list = readShops();
   list.splice(i, 1);
   writeShops(list);
-  if(!list.length && wasLast){ try { localStorage.removeItem(K_LAST); } catch(e){} }
+  if(wasLast){
+    try {
+      if(list.length) localStorage.setItem(K_LAST, list[0].tok);
+      else localStorage.removeItem(K_LAST);
+    } catch(e){}
+  }
   renderShops();
   if(sheet === 'shops') renderSheet();
   toast(t("'" + s.name + "' 저장을 지웠어요", "Removed '" + s.name + "'"), function(){
     var l = readShops();
     l.splice(i, 0, s);
     writeShops(l);
-    if(wasLast){ try { localStorage.setItem(K_LAST, s.tok); } catch(e){} }
+    try {
+      if(prevLast) localStorage.setItem(K_LAST, prevLast);
+    } catch(e){}
     renderShops();
     if(sheet === 'shops') renderSheet();
   });
