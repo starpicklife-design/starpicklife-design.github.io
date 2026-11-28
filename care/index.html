@@ -117,7 +117,7 @@ html.big .hibtn .hitt em{font-size:.68rem}
 .keepbtn:active{transform:scale(.99)}
 .keepbtn .ki{flex:0 0 auto;font-size:1.45rem;line-height:1;opacity:.85}
 .keepbtn .kt{flex:1 1 auto;min-width:0}
-.keepbtn .kt b{display:block;font-size:.95rem;font-weight:900;letter-spacing:-.035em;line-height:1.22;
+.keepbtn .kt b{display:block;font-size:.92rem;font-weight:900;letter-spacing:-.035em;line-height:1.22;
   white-space:normal;word-break:keep-all;overflow-wrap:anywhere}
 .keepbtn .kt em{display:block;margin-top:.09rem;font-size:.71rem;font-weight:800;font-style:normal;
   line-height:1.3;color:#2A7168;white-space:normal;word-break:keep-all;overflow-wrap:anywhere}
@@ -129,11 +129,14 @@ html.big .hibtn .hitt em{font-size:.68rem}
 .keepbtn[aria-pressed="true"]{border-color:#2F8B82;background:linear-gradient(135deg,#DAF2EC,#BCE5DA);color:#12514B;
   box-shadow:0 4px 15px rgba(47,139,130,.24)}
 .keepbtn[aria-pressed="true"] .ki{opacity:1}
+/* 켜짐 글씨가 길어 좁은 폰에서도 한 줄에 들어가게 (2026-11-28) */
+.keepbtn[aria-pressed="true"] .kt b{font-size:.84rem;letter-spacing:-.045em}
 .keepbtn[aria-pressed="true"] .kdot{background:#2F8B82}
 .keepbtn[aria-pressed="true"] .kdot::after{left:calc(100% - .81rem)}
 @media (prefers-reduced-motion:reduce){.keepbtn .kdot,.keepbtn .kdot::after{transition:none}}
 html.big .keepbtn{min-height:3.5rem;padding:.5rem .54rem}
 html.big .keepbtn .kt b{font-size:.86rem}
+html.big .keepbtn[aria-pressed="true"] .kt b{font-size:.79rem}
 html.big .keepbtn .kt em{font-size:.65rem}
 html.big .keepbtn .ki{font-size:1.3rem}
 
