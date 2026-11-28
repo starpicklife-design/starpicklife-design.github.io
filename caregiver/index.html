@@ -1,0 +1,1634 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light" />
+<meta name="theme-color" content="#FFF6E8" />
+<meta name="description" content="와글링 요양돌봄 — 재가 요양보호사를 위한 어르신 댁별 방문·돌봄 기록. 방문 시간 타이머, 식사·약·화장실 체크, 어르신 상태와 나만 보는 개인 메모, 보호자 보고 문자까지 한 화면에. 가입 없이, 광고 없이, 100% 무료. 기록은 이 기기에만 저장됩니다." />
+<title>와글링 요양돌봄 · 어르신 댁별 방문 기록</title>
+<link rel="icon" type="image/png" href="./icon-192.png" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+<link rel="manifest" href="./manifest.webmanifest" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="apple-mobile-web-app-title" content="요양돌봄" />
+<style>
+  :root{
+    --bg:#FFF6E8;
+    --card:#FFFFFF;
+    --ink:#2B2118;
+    --ink2:#6B5A48;
+    --line:#EDE0CC;
+    --line2:#E7D8C3;
+    --green:#1F7A5C;
+    --green-d:#12543F;
+    --green-l:#E8F5EF;
+    --amber:#B45309;
+    --amber-l:#FFF4E0;
+    --red:#C62828;
+    --blue:#2F7BA8;
+    --blue-d:#14567A;
+    --blue-l:#EDF8FE;
+    --shadow:0 2px 0 rgba(90,60,20,.03), 0 5px 14px rgba(90,60,20,.06);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR",system-ui,sans-serif;
+    background:var(--bg);color:var(--ink);font-size:17px;line-height:1.4;
+    -webkit-text-size-adjust:100%;
+    background-image:radial-gradient(120% 55% at 50% 0%,#FFFDF7 0%,#FFF6E8 58%,#FDEFD9 100%);
+    background-attachment:fixed;
+  }
+  body.noscroll{overflow:hidden}
+  button{font-family:inherit;color:inherit;cursor:pointer}
+  a{color:inherit}
+  .wrap{max-width:430px;margin:0 auto;padding:10px 12px calc(20px + env(safe-area-inset-bottom))}
+
+  /* ── 머리 ─────────────────────────── */
+  .hd{padding:2px 2px 6px}
+  .brand{display:flex;align-items:center;gap:9px}
+  .logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(160deg,#FFE7B8,#FFD287);display:grid;place-items:center;font-size:22px;box-shadow:var(--shadow);flex:0 0 auto}
+  .bt{min-width:0;flex:1}
+  .bt h1{margin:0;font-size:20px;font-weight:900;letter-spacing:-.5px;line-height:1.15}
+  .bt p{margin:1px 0 0;font-size:12.5px;font-weight:700;color:var(--ink2)}
+  .tools{display:flex;gap:6px;flex:0 0 auto}
+  .icobtn{width:38px;height:38px;border-radius:12px;border:2px solid var(--line2);background:#fff;font-size:17px;line-height:1;display:grid;place-items:center;box-shadow:var(--shadow)}
+  .dateline{margin-top:8px;display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;font-size:21px;font-weight:900;letter-spacing:-.6px;line-height:1.2}
+  .dateline .wx{font-size:15.5px;font-weight:800;color:var(--ink2);letter-spacing:-.3px}
+  .dateline .wx.off{font-size:13.5px}
+
+  /* ── 댁 선택 바 ───────────────────── */
+  .homebar{width:100%;display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:16px;border:2px solid #E7D3B4;background:linear-gradient(180deg,#FFFDF7,#FFF3DF);box-shadow:var(--shadow);text-align:left;margin-top:2px}
+  .homebar .hbi{font-size:24px;flex:0 0 auto;line-height:1}
+  .homebar .hbt{flex:1;min-width:0;display:block}
+  .homebar .hbt b{display:block;font-size:18px;font-weight:900;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .homebar .hbt em{display:block;font-size:12.5px;font-style:normal;color:var(--ink2);font-weight:800;margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .homebar .hbc{flex:0 0 auto;font-size:13px;font-weight:900;color:var(--green);background:var(--green-l);border-radius:999px;padding:4px 9px}
+  .homebar .hbg{flex:0 0 auto;font-size:22px;font-weight:900;color:#B79B74;line-height:1}
+
+  /* ── 카드 ─────────────────────────── */
+  .card{margin-top:7px;background:var(--card);border:2px solid var(--line);border-radius:18px;padding:9px 11px 10px;box-shadow:var(--shadow)}
+  .chead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:5px}
+  .chead h2{margin:0;font-size:16.5px;font-weight:900;letter-spacing:-.3px}
+  .state{font-size:12.5px;font-weight:900;color:var(--ink2);background:#F4EDE2;border-radius:999px;padding:3px 8px;white-space:nowrap}
+  .state.run{color:var(--green-d);background:var(--green-l)}
+  .state.done{color:#8A5A12;background:var(--amber-l)}
+  .state.priv{color:#5B4478;background:#F1E9FA}
+
+  /* 타이머 */
+  .tnum{font-size:38px;font-weight:900;letter-spacing:-1.5px;font-variant-numeric:tabular-nums;text-align:center;line-height:1.02}
+  .tsub{text-align:center;font-size:12.5px;font-weight:800;color:var(--ink2);margin-top:2px;letter-spacing:-.2px}
+  .tsub.over{color:var(--amber)}
+  .progress{height:8px;border-radius:99px;background:#F1E6D6;margin-top:7px;overflow:hidden}
+  .progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#3AAE86,#1F7A5C);border-radius:99px;transition:width .45s}
+  .alertrow{margin-top:7px;border-radius:12px;background:var(--amber-l);border:2px solid #F3CF95;color:#7A4306;font-size:14px;font-weight:900;padding:7px 9px;text-align:center;line-height:1.35}
+  .alertrow.over{background:#FFF1F1;border-color:#F3B4B4;color:#9B1C1C}
+  .alertrow[hidden]{display:none}
+  .tbtns{display:flex;gap:8px;margin-top:8px}
+  .start,.stop{flex:1;min-height:50px;border-radius:14px;border:0;font-size:17.5px;font-weight:900;color:#fff;letter-spacing:-.3px}
+  .start{background:linear-gradient(180deg,#2C9474,#1F7A5C);box-shadow:0 3px 0 #12543F}
+  .start:active{transform:translateY(2px);box-shadow:0 1px 0 #12543F}
+  .stop{background:linear-gradient(180deg,#E25757,#C62828);box-shadow:0 3px 0 #8E1B1B}
+  .stop:active{transform:translateY(2px);box-shadow:0 1px 0 #8E1B1B}
+  .start[hidden],.stop[hidden]{display:none}
+  .tlog{margin-top:7px;font-size:12px;font-weight:800;color:var(--ink2);text-align:center;line-height:1.4}
+
+  /* 체크 공통 */
+  .row{display:flex;align-items:center;gap:8px;min-height:46px;padding:2px 0;border-bottom:1px dashed #F0E4D2}
+  .rl{flex:0 0 46px;font-size:14px;font-weight:900;color:var(--ink2);letter-spacing:-.3px}
+  .chips{display:flex;gap:6px;flex:1;min-width:0}
+  .chips button{flex:1;min-width:0;min-height:43px;border-radius:12px;border:2px solid var(--line2);background:#FFFDF8;font-size:14.5px;font-weight:800;color:var(--ink);padding:0 3px;white-space:nowrap;letter-spacing:-.5px}
+  .chips button.on{border-color:var(--green);background:var(--green-l);color:var(--green-d);box-shadow:inset 0 0 0 1px #B7E0CF}
+  .chips.wide{width:100%}
+  .chips.wide button{min-height:42px;font-size:14px;padding:0 2px}
+  .counters{display:flex;gap:9px;flex:1;min-width:0}
+  .cnt{display:flex;align-items:center;gap:3px;flex:1;min-width:0}
+  .cnt em{font-size:13px;font-style:normal;font-weight:900;color:var(--ink2);flex:0 0 auto;width:24px}
+  .cnt button{width:38px;height:42px;flex:0 0 auto;border-radius:11px;border:2px solid var(--line2);background:#FFFDF8;font-size:20px;font-weight:900;line-height:1;padding:0}
+  .cnt button:active{background:#F3EADB}
+  .cnt b{flex:1;min-width:20px;text-align:center;font-size:19px;font-weight:900;font-variant-numeric:tabular-nums}
+  .memorow{display:flex;align-items:center;gap:8px;margin-top:8px}
+  .memorow input{flex:1;min-width:0;height:44px;border-radius:12px;border:2px solid var(--line2);background:#FFFDF8;font-size:15px;font-weight:700;padding:0 10px;font-family:inherit;color:var(--ink)}
+  .memorow input::placeholder{color:#A8937A;font-weight:700}
+  .savehint{margin-top:5px;font-size:11.5px;font-weight:800;color:#9A866D;text-align:right}
+  .linkbtn{border:0;background:transparent;font-size:12.5px;font-weight:900;color:var(--green);padding:4px 2px;text-decoration:underline;text-underline-offset:2px}
+
+  /* 어르신 상태 */
+  .sgroup{margin-bottom:7px}
+  .slabel{font-size:12.5px;font-weight:900;color:var(--ink2);margin-bottom:4px;letter-spacing:-.2px}
+  .sgroup:last-of-type{margin-bottom:0}
+
+  /* 문자 */
+  .msgbox{background:#FBF6EC;border:2px dashed #E7D8C3;border-radius:14px;padding:9px 11px;font-size:14.5px;line-height:1.52;font-weight:700;color:#33281D;white-space:pre-wrap;word-break:keep-all;letter-spacing:-.2px}
+  .msgbtns{display:flex;gap:8px;margin-top:8px}
+  .primary{flex:1.35;min-height:50px;border:0;border-radius:14px;background:linear-gradient(180deg,#2C9474,#1F7A5C);box-shadow:0 3px 0 #12543F;color:#fff;font-size:17px;font-weight:900;letter-spacing:-.4px}
+  .primary:active{transform:translateY(2px);box-shadow:0 1px 0 #12543F}
+  .ghost{flex:1;min-height:50px;border:2px solid var(--green);border-radius:14px;background:#fff;color:var(--green-d);font-size:16px;font-weight:900;letter-spacing:-.4px}
+  .ghost:active{background:#F1FAF6}
+
+  /* 냉장고 */
+  .frow{display:flex;gap:6px}
+  .frow button{flex:1;min-width:0;min-height:43px;border-radius:12px;border:2px solid #BFDDEA;background:#F7FCFF;font-size:14.5px;font-weight:900;color:#1F4E66;padding:0 2px;white-space:nowrap;letter-spacing:-.3px}
+  .frow button.on{border-color:var(--blue);background:#DDF0FB;color:#0F4057;box-shadow:inset 0 0 0 1px #A9D5EA}
+  .ftags{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+  .ftag{border:2px solid #BFDDEA;background:#F2FAFF;color:#14567A;border-radius:999px;padding:5px 10px;font-size:13px;font-weight:900;line-height:1.2}
+  .finput{display:flex;gap:6px;margin-top:7px}
+  .finput input{flex:1;min-width:0;height:44px;border-radius:12px;border:2px solid var(--line2);background:#fff;font-size:15px;font-weight:700;padding:0 10px;font-family:inherit;color:var(--ink)}
+  .finput input::placeholder{color:#A8937A;font-weight:700;font-size:14px}
+  .finput button{width:54px;flex:0 0 auto;height:44px;border-radius:12px;border:0;background:var(--blue);color:#fff;font-size:22px;font-weight:900;line-height:1}
+  .fsum{margin-top:6px;font-size:12px;font-weight:800;color:#3E6B80;line-height:1.45;word-break:keep-all}
+  .fsum[hidden]{display:none}
+  .fridgelink{display:block;margin-top:8px;text-align:center;text-decoration:none;min-height:46px;line-height:42px;border-radius:12px;border:2px dashed #A9D5EA;background:#F2FAFF;color:var(--blue-d);font-size:15px;font-weight:900;letter-spacing:-.4px}
+  .fridgelink:active{background:#E1F3FC}
+
+  /* 개인 메모 */
+  .private{background:#FCF8FF;border-color:#E4D8F2}
+  .private .chead h2{color:#4B3A66}
+  #pnoteIn{width:100%;min-height:66px;border-radius:12px;border:2px solid #DCCFEB;background:#fff;font-size:15px;font-weight:700;line-height:1.45;padding:8px 10px;font-family:inherit;color:var(--ink);resize:none}
+  #pnoteIn::placeholder{color:#A996BC;font-weight:700}
+  .phelp{margin-top:5px;font-size:11.5px;font-weight:800;color:#7A6A8C;line-height:1.45;letter-spacing:-.2px}
+
+  /* 전화 */
+  .calls{display:flex;gap:7px}
+  .call{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:1px;padding:8px 3px;border-radius:14px;border:2px solid var(--line2);background:#FFFDF8;text-decoration:none;color:var(--ink)}
+  .call .ci{font-size:21px;line-height:1.2}
+  .call b{font-size:14.5px;font-weight:900;letter-spacing:-.3px}
+  .call em{font-size:11px;font-style:normal;color:var(--ink2);font-weight:800;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:-.2px}
+  .call.empty em{color:#B08A5E}
+  .call.sos{border-color:#F1B0B0;background:#FFF1F1}
+  .call.sos b{color:var(--red)}
+
+  .foot{text-align:center;font-size:11.5px;font-weight:800;color:#8A7660;line-height:1.6;margin:12px 4px 0;letter-spacing:-.2px}
+  .foot b{color:#6B5A48}
+
+  /* ── 시트 ─────────────────────────── */
+  .scrim{position:fixed;inset:0;background:rgba(43,33,24,.42);opacity:0;pointer-events:none;transition:opacity .24s;z-index:60}
+  .scrim.open{opacity:1;pointer-events:auto}
+  .sheet{position:fixed;left:0;right:0;bottom:0;z-index:70;max-width:430px;margin:0 auto;max-height:92vh;overflow-y:auto;-webkit-overflow-scrolling:touch;background:#FFFCF5;border-radius:22px 22px 0 0;box-shadow:0 -10px 34px rgba(60,40,10,.2);transform:translateY(104%);transition:transform .28s cubic-bezier(.22,.8,.3,1);padding:6px 14px calc(16px + env(safe-area-inset-bottom));visibility:hidden}
+  .sheet.open{transform:translateY(0);visibility:visible}
+  .sheetgrab{width:44px;height:5px;border-radius:99px;background:#DDCBB2;margin:4px auto 8px}
+  .sheethead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+  .sheethead h2{margin:0;font-size:20px;font-weight:900;letter-spacing:-.5px}
+  .sheethead .x{width:38px;height:38px;border-radius:12px;border:2px solid var(--line2);background:#fff;font-size:17px;font-weight:900;line-height:1;flex:0 0 auto}
+  .privacy{background:#F3F8F1;border:2px solid #D8E8D8;border-radius:12px;padding:8px 10px;font-size:12.5px;font-weight:800;color:#3E5A3E;line-height:1.5;margin:0 0 9px;letter-spacing:-.2px;word-break:keep-all}
+  .privacy b{color:#1F5A2E}
+
+  .hrow{display:flex;align-items:stretch;gap:6px;margin-bottom:7px}
+  .hmain{flex:1;min-width:0;display:flex;align-items:center;gap:9px;text-align:left;padding:10px;border-radius:14px;border:2px solid var(--line2);background:#fff;box-shadow:var(--shadow)}
+  .hrow.on .hmain{border-color:var(--green);background:var(--green-l);box-shadow:inset 0 0 0 1px #B7E0CF}
+  .hmain .hii{font-size:22px;line-height:1;flex:0 0 auto}
+  .hmain .hit{flex:1;min-width:0;display:block}
+  .hmain .hit b{display:block;font-size:16.5px;font-weight:900;letter-spacing:-.4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .hmain .hit em{display:block;font-size:12px;font-style:normal;font-weight:800;color:var(--ink2);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .hmain .hit em.hp{color:#8A7460;font-size:11.5px}
+  .runbadge,.onbadge{flex:0 0 auto;font-size:11.5px;font-weight:900;border-radius:999px;padding:4px 7px;white-space:nowrap}
+  .runbadge{color:#fff;background:var(--green)}
+  .onbadge{color:var(--green-d);background:#CDEBDD}
+  .hedit{width:50px;flex:0 0 auto;border-radius:14px;border:2px solid var(--line2);background:#FFFDF8;font-size:19px;line-height:1}
+  .empty{text-align:center;font-size:14px;font-weight:800;color:var(--ink2);line-height:1.6;padding:16px 8px;margin:0}
+  .addbtn{width:100%;min-height:52px;margin-top:4px;border-radius:14px;border:2px dashed #C9AE86;background:#FFF8EB;color:#7A5A28;font-size:17px;font-weight:900;letter-spacing:-.3px}
+
+  /* 최근 기록 */
+  .drow{border:2px solid var(--line);border-radius:14px;padding:9px 11px;margin-bottom:7px;background:#fff}
+  .dhead{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:3px}
+  .dhead b{font-size:15px;font-weight:900}
+  .dhead span{font-size:11.5px;font-weight:800;color:var(--ink2);text-align:right}
+  .dbody{font-size:13px;font-weight:800;color:#3E3227;line-height:1.55;word-break:keep-all}
+  .dmemo{margin-top:4px;font-size:12.5px;font-weight:800;color:#6B5A48;background:#FBF6EC;border-radius:9px;padding:5px 8px;word-break:keep-all}
+
+  /* 입력 폼 */
+  .form label{display:block;margin-bottom:9px}
+  .form label span{display:block;font-size:13px;font-weight:900;color:var(--ink2);margin-bottom:4px;letter-spacing:-.2px}
+  .form input{width:100%;height:48px;border-radius:12px;border:2px solid var(--line2);background:#fff;font-size:16px;font-weight:700;padding:0 11px;font-family:inherit;color:var(--ink)}
+  .form input::placeholder{color:#B3A08A;font-weight:700;font-size:14px}
+  .flabel{font-size:13px;font-weight:900;color:var(--ink2);margin-bottom:4px;letter-spacing:-.2px}
+  .minchips{display:flex;gap:6px;margin-bottom:7px}
+  .minchips button{flex:1;min-height:44px;border-radius:12px;border:2px solid var(--line2);background:#fff;font-size:15px;font-weight:900;color:var(--ink2);padding:0 2px;white-space:nowrap}
+  .minchips button.on{border-color:var(--green);background:var(--green-l);color:var(--green-d)}
+  .hint{font-size:11.5px;font-weight:800;color:#9A866D;margin:2px 0 10px;line-height:1.5}
+  .fbtns{display:flex;gap:8px;margin-top:4px}
+  .fbtns .primary,.fbtns .ghost{flex:1}
+  .danger{width:100%;min-height:48px;margin-top:9px;border-radius:14px;border:2px solid #F1B0B0;background:#FFF1F1;color:#A61B1B;font-size:15.5px;font-weight:900}
+  .danger[hidden]{display:none}
+
+  /* 설치 */
+  .installsteps{margin:2px 0 10px;padding-left:1.15rem;font-size:13.5px;font-weight:800;line-height:1.6;color:#3E3227}
+  .installsteps li{margin-bottom:4px}
+  .iosbox{font-size:12.5px;font-weight:800;color:#5B4B39;background:#FBF6EC;border-radius:11px;padding:8px 10px;line-height:1.5;margin-bottom:10px}
+
+  /* 토스트 */
+  .toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));transform:translate(-50%,18px);background:#2B2118;color:#fff;border-radius:14px;padding:10px 13px;font-size:14px;font-weight:800;display:flex;align-items:center;gap:9px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:90;max-width:min(93vw,400px);line-height:1.4}
+  .toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+  .toast button{background:#FFD98A;color:#2B2118;border:0;border-radius:10px;padding:7px 10px;font-weight:900;font-size:13.5px;flex:0 0 auto;white-space:nowrap}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hd">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">🏡</div>
+      <div class="bt">
+        <h1>와글링 요양돌봄</h1>
+        <p>어르신 댁별 방문 · 돌봄 기록</p>
+      </div>
+      <div class="tools">
+        <button type="button" class="icobtn" id="shareBtn" aria-label="이 앱 공유하기">📤</button>
+        <button type="button" class="icobtn" id="installBtn" aria-label="홈 화면에 앱으로 두기 안내">📲</button>
+      </div>
+    </div>
+    <div class="dateline">
+      <span id="dateTxt">오늘</span>
+      <span class="wx" id="wxTxt">날씨 확인 중</span>
+    </div>
+  </header>
+
+  <button type="button" class="homebar" id="homeBar" aria-haspopup="dialog" aria-label="방문 중인 어르신 댁 고르기">
+    <span class="hbi" aria-hidden="true">🏡</span>
+    <span class="hbt">
+      <b id="homeName">댁을 골라 주세요</b>
+      <em id="homeSub">누르면 어르신 댁을 저장하고 바꿔요</em>
+    </span>
+    <span class="hbc" id="homeCount">0곳</span>
+    <span class="hbg" aria-hidden="true">›</span>
+  </button>
+
+  <!-- ① 방문 시간 -->
+  <section class="card" aria-labelledby="timerHead">
+    <div class="chead">
+      <h2 id="timerHead">① 방문 시간</h2>
+      <span class="state" id="timerState">시작 전</span>
+    </div>
+    <div class="tnum" id="elapsed">00:00:00</div>
+    <div class="tsub" id="remainTxt">먼저 어르신 댁을 골라 주세요</div>
+    <div class="progress" aria-hidden="true"><i id="pbar"></i></div>
+    <div class="alertrow" id="alertRow" hidden></div>
+    <div class="tbtns">
+      <button type="button" class="start" id="startBtn">▶ 방문 시작</button>
+      <button type="button" class="stop" id="stopBtn" hidden>⏹ 방문 종료</button>
+    </div>
+    <div class="tlog" id="tlog">시작·종료 시각이 자동으로 기록돼요.</div>
+  </section>
+
+  <!-- ② 오늘 돌봄 체크 -->
+  <section class="card" id="careCard" aria-labelledby="careHead">
+    <div class="chead">
+      <h2 id="careHead">② 오늘 돌봄 체크</h2>
+      <button type="button" class="linkbtn" id="histBtn">어제·최근 기록</button>
+    </div>
+
+    <div class="row">
+      <span class="rl">식사</span>
+      <div class="chips" role="group" aria-label="식사">
+        <button type="button" data-g="meal" data-v="well" aria-pressed="false">잘 드심</button>
+        <button type="button" data-g="meal" data-v="some" aria-pressed="false">조금 드심</button>
+        <button type="button" data-g="meal" data-v="none" aria-pressed="false">안 드심</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <span class="rl">약 복용</span>
+      <div class="chips" role="group" aria-label="약 복용">
+        <button type="button" data-g="med" data-v="m" aria-pressed="false">아침약</button>
+        <button type="button" data-g="med" data-v="n" aria-pressed="false">점심약</button>
+        <button type="button" data-g="med" data-v="e" aria-pressed="false">저녁약</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <span class="rl">화장실</span>
+      <div class="counters">
+        <div class="cnt">
+          <em>소변</em>
+          <button type="button" data-t="tu" data-d="-1" aria-label="소변 횟수 줄이기">−</button>
+          <b id="tuCnt">0</b>
+          <button type="button" data-t="tu" data-d="1" aria-label="소변 횟수 늘리기">+</button>
+        </div>
+        <div class="cnt">
+          <em>대변</em>
+          <button type="button" data-t="tb" data-d="-1" aria-label="대변 횟수 줄이기">−</button>
+          <b id="tbCnt">0</b>
+          <button type="button" data-t="tb" data-d="1" aria-label="대변 횟수 늘리기">+</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ③ 어르신 상태 -->
+  <section class="card" id="statusCard" aria-labelledby="statusHead">
+    <div class="chead">
+      <h2 id="statusHead">③ 오늘 어르신 상태</h2>
+    </div>
+
+    <div class="sgroup">
+      <div class="slabel">기분 · 정서</div>
+      <div class="chips wide" role="group" aria-label="기분">
+        <button type="button" data-g="mood" data-v="calm" aria-pressed="false">평온</button>
+        <button type="button" data-g="mood" data-v="low" aria-pressed="false">기운 없음</button>
+        <button type="button" data-g="mood" data-v="upset" aria-pressed="false">짜증·불안</button>
+      </div>
+    </div>
+
+    <div class="sgroup">
+      <div class="slabel">몸 상태 · 통증 (여러 개 골라도 돼요)</div>
+      <div class="chips wide" role="group" aria-label="몸 상태">
+        <button type="button" data-g="body" data-v="fine" aria-pressed="false">괜찮음</button>
+        <button type="button" data-g="body" data-v="pain" aria-pressed="false">통증 있음</button>
+        <button type="button" data-g="body" data-v="dizzy" aria-pressed="false">어지러움</button>
+        <button type="button" data-g="body" data-v="fever" aria-pressed="false">열·기침</button>
+      </div>
+    </div>
+
+    <div class="sgroup">
+      <div class="slabel">수면 · 거동</div>
+      <div class="chips wide" role="group" aria-label="수면과 거동">
+        <button type="button" data-g="sleep" data-v="good" aria-pressed="false">잘 주무심</button>
+        <button type="button" data-g="sleep" data-v="light" aria-pressed="false">설침</button>
+        <button type="button" data-g="sleep" data-v="move" aria-pressed="false">거동 불편</button>
+      </div>
+    </div>
+
+    <div class="memorow">
+      <span class="rl">메모</span>
+      <input type="text" id="memoIn" maxlength="90" placeholder="혈압·혈당·부종·상처 등" aria-label="오늘 상태 메모" autocomplete="off" />
+    </div>
+    <div class="savehint" id="saveHint">이 기기에 자동 저장돼요</div>
+  </section>
+
+  <!-- ④ 냉장고 · 부족한 것 -->
+  <section class="card" id="fridgeCard" aria-labelledby="fridgeHead">
+    <div class="chead">
+      <h2 id="fridgeHead">④ 냉장고 · 부족한 것</h2>
+      <span class="state" style="color:#14567A;background:#EDF8FE">보호자께 알려요</span>
+    </div>
+    <div class="frow" id="fridgeQuick">
+      <button type="button" data-f="우유" aria-pressed="false">우유</button>
+      <button type="button" data-f="달걀" aria-pressed="false">달걀</button>
+      <button type="button" data-f="두부" aria-pressed="false">두부</button>
+      <button type="button" data-f="물" aria-pressed="false">물</button>
+    </div>
+    <div class="ftags" id="fridgeTags"></div>
+    <div class="finput">
+      <input type="text" id="fridgeIn" maxlength="14" placeholder="직접 적기 (예: 두유, 반찬)" aria-label="부족한 것 직접 적기" autocomplete="off" />
+      <button type="button" id="fridgeAdd" aria-label="부족한 것 추가">＋</button>
+    </div>
+    <div class="fsum" id="fridgeSum" hidden></div>
+    <a class="fridgelink" href="https://starpicklife-design.github.io/fridge/" target="_blank" rel="noopener">🧊 와글링 장바구니(냉장고) 열기 →</a>
+  </section>
+
+  <!-- ⑤ 나만 보는 개인 메모 -->
+  <section class="card private" aria-labelledby="pnoteHead">
+    <div class="chead">
+      <h2 id="pnoteHead">⑤ 🔒 나만 보는 개인 메모</h2>
+      <span class="state priv">이 기기에만</span>
+    </div>
+    <textarea id="pnoteIn" rows="2" maxlength="400" aria-label="나만 보는 개인 메모" placeholder="좋아하는 음식 · 습관 · 다음 방문 때 챙길 일"></textarea>
+    <div class="phelp">이 메모는 선생님 폰에만 저장되고, 보호자 문자에는 들어가지 않아요.</div>
+  </section>
+
+  <!-- ⑥ 보호자 보고 문자 -->
+  <section class="card" aria-labelledby="msgHead">
+    <div class="chead">
+      <h2 id="msgHead">⑥ 보호자 보고 문자</h2>
+    </div>
+    <div class="msgbox" id="msgBox">보호자께 보낼 문자를 여기에서 만들어 드려요.</div>
+    <div class="msgbtns">
+      <button type="button" class="primary" id="copyBtn">📋 문자 복사하기</button>
+      <button type="button" class="ghost" id="smsBtn">💬 보내기</button>
+    </div>
+  </section>
+
+  <!-- ⑦ 바로 전화 -->
+  <section class="card" aria-labelledby="callHead">
+    <div class="chead">
+      <h2 id="callHead">⑦ 바로 전화</h2>
+    </div>
+    <div class="calls">
+      <a class="call" id="callGuardian" href="#">
+        <span class="ci" aria-hidden="true">📞</span>
+        <b>보호자</b>
+        <em id="gNum">번호 저장</em>
+      </a>
+      <a class="call" id="callCenter" href="#">
+        <span class="ci" aria-hidden="true">☎️</span>
+        <b>센터</b>
+        <em id="cNum">번호 저장</em>
+      </a>
+      <a class="call sos" href="tel:119">
+        <span class="ci" aria-hidden="true">🚨</span>
+        <b>119</b>
+        <em>위급할 때</em>
+      </a>
+    </div>
+  </section>
+
+  <p class="foot">
+    <b>무료 · 회원가입 없음</b> · 광고 없음<br />
+    댁 정보·돌봄 기록·개인 메모는 <b>이 기기에만</b> 저장돼요 (서버로 보내지 않아요)
+  </p>
+</div>
+
+<!-- ── 어르신 댁 목록 시트 ─────────────────────────── -->
+<div class="scrim" id="scrim"></div>
+
+<section class="sheet" id="homesSheet" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="homesHead">
+  <div class="sheetgrab" aria-hidden="true"></div>
+  <div class="sheethead">
+    <h2 id="homesHead">🏡 어르신 댁</h2>
+    <button type="button" class="x" data-close aria-label="닫기">✕</button>
+  </div>
+  <p class="privacy">
+    🔒 개인정보 보호를 위해 성함 대신 <b>별칭(예: 김OO 댁)</b>을 적어 주세요.<br />
+    댁 정보·연락처·기록은 이 기기에만 저장되고 어디에도 보내지 않아요.
+  </p>
+  <div id="homeList"></div>
+  <button type="button" class="addbtn" id="addHome">➕ 새 댁 추가</button>
+</section>
+
+<!-- ── 댁 추가·수정 시트 ─────────────────────────── -->
+<section class="sheet" id="formSheet" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="formHead">
+  <div class="sheetgrab" aria-hidden="true"></div>
+  <div class="sheethead">
+    <h2 id="formHead">새 댁 추가</h2>
+    <button type="button" class="x" data-close aria-label="닫기">✕</button>
+  </div>
+  <div class="form">
+    <label for="fName">
+      <span>별칭 (집 이름)</span>
+      <input type="text" id="fName" maxlength="24" placeholder="예: 김OO 어르신 댁" autocomplete="off" />
+    </label>
+
+    <div class="flabel">기본 방문 시간</div>
+    <div class="minchips" id="fMinsChips">
+      <button type="button" data-mins="90">90분</button>
+      <button type="button" data-mins="120">120분</button>
+      <button type="button" data-mins="180">180분</button>
+      <button type="button" data-mins="240">240분</button>
+    </div>
+    <label for="fMinsInput">
+      <span>직접 입력 (분)</span>
+      <input type="number" id="fMinsInput" min="10" max="720" step="10" inputmode="numeric" placeholder="180" />
+    </label>
+
+    <label for="fNote">
+      <span>주의사항 메모</span>
+      <input type="text" id="fNote" maxlength="60" placeholder="예: 당뇨 · 저염식 · 보행기" autocomplete="off" />
+    </label>
+    <label for="fGuardian">
+      <span>보호자 연락처</span>
+      <input type="tel" id="fGuardian" maxlength="20" inputmode="tel" placeholder="010-0000-0000" autocomplete="off" />
+    </label>
+    <label for="fCenter">
+      <span>센터 연락처</span>
+      <input type="tel" id="fCenter" maxlength="20" inputmode="tel" placeholder="055-000-0000" autocomplete="off" />
+    </label>
+    <p class="hint">번호도 이 기기에만 저장돼요.</p>
+
+    <div class="fbtns">
+      <button type="button" class="primary" id="fSave">저장</button>
+      <button type="button" class="ghost" data-close>취소</button>
+    </div>
+    <button type="button" class="danger" id="fDelete" hidden>이 댁 삭제</button>
+  </div>
+</section>
+
+<!-- ── 최근 기록 시트 ─────────────────────────── -->
+<section class="sheet" id="histSheet" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="histHead">
+  <div class="sheetgrab" aria-hidden="true"></div>
+  <div class="sheethead">
+    <h2 id="histHead">🗓 최근 기록</h2>
+    <button type="button" class="x" data-close aria-label="닫기">✕</button>
+  </div>
+  <p class="privacy" id="histSub" style="background:#FBF6EC;border-color:#E7D8C3;color:#5B4B39">이 기기에 저장된 최근 기록이에요.</p>
+  <div id="histList"></div>
+</section>
+
+<!-- ── 설치 안내 시트 ─────────────────────────── -->
+<section class="sheet" id="installSheet" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="installHead">
+  <div class="sheetgrab" aria-hidden="true"></div>
+  <div class="sheethead">
+    <h2 id="installHead">📲 홈 화면에 앱으로 두기</h2>
+    <button type="button" class="x" data-close aria-label="닫기">✕</button>
+  </div>
+  <p class="privacy" style="background:#FBF6EC;border-color:#E7D8C3;color:#5B4B39">설치는 무료이고, 기록은 지금 쓰는 이 기기에 그대로 남아요.</p>
+  <ol class="installsteps">
+    <li>안드로이드 <b>크롬</b>에서 화면 오른쪽 위 <b>⋮</b>를 눌러요.</li>
+    <li><b>앱 설치</b> 또는 <b>홈 화면에 추가</b>를 골라요.</li>
+    <li>홈 화면의 <b>🏡 와글링 요양돌봄</b> 아이콘을 누르면 앱처럼 열려요.</li>
+  </ol>
+  <div class="iosbox">아이폰은 사파리 아래쪽 <b>공유(⬆️)</b> → <b>홈 화면에 추가</b>를 눌러 주세요.</div>
+  <button type="button" class="primary" id="installGo" style="width:100%">📲 지금 설치하기</button>
+</section>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  'use strict';
+
+  var LSK = 'wagling.care.v1';
+  var GIMHAE = { lat: 35.2342, lon: 128.8894 };
+  var QUICK_FRIDGE = ['우유', '달걀', '두부', '물'];
+  var $ = function(s, r){ return (r || document).querySelector(s); };
+  var $$ = function(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  function p2(n){ return (n < 10 ? '0' : '') + n; }
+  function ymd(d){ d = d || new Date(); return d.getFullYear() + '-' + p2(d.getMonth() + 1) + '-' + p2(d.getDate()); }
+  function hm(ts){ var d = new Date(ts); return p2(d.getHours()) + ':' + p2(d.getMinutes()); }
+  function hms(ms){ ms = Math.max(0, ms); var s = Math.floor(ms / 1000); return p2(Math.floor(s / 3600)) + ':' + p2(Math.floor(s % 3600 / 60)) + ':' + p2(s % 60); }
+  function humanDur(ms){
+    var m = Math.round(Math.max(0, ms) / 60000);
+    if(ms > 0 && m === 0) m = 1;
+    var h = Math.floor(m / 60);
+    return (h ? h + '시간 ' : '') + (m % 60) + '분';
+  }
+  function clampInt(v, lo, hi){ v = parseInt(v, 10); if(!isFinite(v)) return lo; return Math.min(hi, Math.max(lo, v)); }
+  function esc(s){
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+  function uid(){ return 'h' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5); }
+
+  /* ── 저장 ───────────────────────────── */
+  var S = null;
+
+  function blank(){ return { v: 1, homes: [], sel: null, days: {}, timers: {} }; }
+
+  function normalize(j){
+    var out = blank();
+    (j.homes || []).forEach(function(h){
+      if(!h || !h.id) return;
+      out.homes.push({
+        id: String(h.id),
+        name: String(h.name || '이름 없는 댁'),
+        mins: clampInt(h.mins, 10, 720),
+        note: String(h.note || ''),
+        guardian: String(h.guardian || ''),
+        center: String(h.center || ''),
+        pnote: String(h.pnote || '')
+      });
+    });
+    out.sel = out.homes.some(function(h){ return h.id === j.sel; }) ? j.sel : (out.homes[0] ? out.homes[0].id : null);
+    if(j.days && typeof j.days === 'object') out.days = j.days;
+    if(j.timers && typeof j.timers === 'object') out.timers = j.timers;
+    return out;
+  }
+
+  function load(){
+    try{
+      var raw = localStorage.getItem(LSK);
+      if(!raw) return null;
+      var j = JSON.parse(raw);
+      if(j && Array.isArray(j.homes)) return normalize(j);
+    }catch(e){}
+    return null;
+  }
+
+  function save(){
+    try{ localStorage.setItem(LSK, JSON.stringify(S)); }catch(e){}
+  }
+
+  function seed(){
+    var a = uid(), b = uid();
+    S.homes = [
+      { id: a, name: '김OO 어르신 댁', mins: 180, note: '당뇨 · 저염식 · 보행기', guardian: '', center: '', pnote: '' },
+      { id: b, name: '박OO 어르신 댁', mins: 240, note: '고혈압 · 무릎이 불편하심', guardian: '', center: '', pnote: '' }
+    ];
+    S.sel = a;
+  }
+
+  var todayKey = ymd();
+
+  function curHome(){ return S.homes.filter(function(h){ return h.id === S.sel; })[0] || null; }
+  function timerOf(id){ return S.timers[id] || null; }
+
+  function dayOf(id, date){
+    if(!S.days[id]) S.days[id] = {};
+    var m = S.days[id];
+    if(!m[date]) m[date] = {};
+    var r = m[date];
+    if(typeof r.meal !== 'string') r.meal = '';
+    if(!Array.isArray(r.meds)) r.meds = [];
+    if(typeof r.tu !== 'number') r.tu = 0;
+    if(typeof r.tb !== 'number') r.tb = 0;
+    if(typeof r.mood !== 'string') r.mood = '';
+    if(!Array.isArray(r.body)) r.body = [];
+    if(typeof r.sleep !== 'string') r.sleep = '';
+    if(!Array.isArray(r.fridge)) r.fridge = [];
+    if(!Array.isArray(r.runs)) r.runs = [];
+    if(typeof r.memo !== 'string') r.memo = '';
+    if(typeof r.start !== 'string') r.start = '';
+    if(typeof r.end !== 'string') r.end = '';
+    if(typeof r.visitMin !== 'number') r.visitMin = 0;
+    return r;
+  }
+  function curDay(){ return S.sel ? dayOf(S.sel, todayKey) : null; }
+
+  var MEAL = { well: '잘 드심', some: '조금 드심', none: '안 드심' };
+  var MED = { m: '아침약', n: '점심약', e: '저녁약' };
+  var MOOD = { calm: '평온', low: '기운 없음', upset: '짜증·불안' };
+  var BODY = { fine: '괜찮음', pain: '통증', dizzy: '어지러움', fever: '열·기침' };
+  var SLEEP = { good: '잘 주무심', light: '설침', move: '거동 불편' };
+
+  function hasData(d){
+    return !!(d && (d.meal || (d.meds && d.meds.length) || d.tu || d.tb || d.mood || (d.body && d.body.length) ||
+      d.sleep || (d.fridge && d.fridge.length) || (d.memo && d.memo.trim()) || d.start || d.end));
+  }
+
+  /* 받침에 따라 '이/가' */
+  function josaGa(word){
+    var w = String(word || '');
+    if(!w) return '가';
+    var c = w.charCodeAt(w.length - 1);
+    if(c < 0xAC00 || c > 0xD7A3) return '가';
+    return (c - 0xAC00) % 28 !== 0 ? '이' : '가';
+  }
+
+  /* ── 화면: 머리 ─────────────────────── */
+  function renderDate(){
+    var d = new Date();
+    var wd = '일월화수목금토'[d.getDay()];
+    $('#dateTxt').textContent = (d.getMonth() + 1) + '월 ' + d.getDate() + '일 ' + wd + '요일';
+  }
+
+  /* 날씨 — 김해 기본, 위치를 이미 허용했다면 지금 계신 곳 */
+  var WX = { lat: GIMHAE.lat, lon: GIMHAE.lon, place: '김해', temp: null, code: null, tmax: null, tmin: null, at: 0, busy: false };
+
+  function wxIcon(c){
+    if(c === 0) return '☀️';
+    if(c === 1) return '🌤';
+    if(c === 2) return '⛅';
+    if(c === 3) return '☁️';
+    if(c === 45 || c === 48) return '🌁';
+    if(c >= 51 && c <= 57) return '🌦';
+    if(c >= 61 && c <= 67) return '🌧';
+    if(c >= 71 && c <= 77) return '❄️';
+    if(c >= 80 && c <= 82) return '🌦';
+    if(c === 85 || c === 86) return '🌨';
+    if(c >= 95) return '⛈';
+    return '🌡';
+  }
+  function wxWord(c){
+    if(c === 0) return '맑음';
+    if(c === 1) return '대체로 맑음';
+    if(c === 2) return '구름 조금';
+    if(c === 3) return '흐림';
+    if(c === 45 || c === 48) return '안개';
+    if(c >= 51 && c <= 57) return '이슬비';
+    if(c >= 61 && c <= 67) return '비';
+    if(c >= 71 && c <= 77) return '눈';
+    if(c >= 80 && c <= 82) return '소나기';
+    if(c === 85 || c === 86) return '눈소나기';
+    if(c >= 95) return '천둥번개';
+    return '날씨';
+  }
+  function renderWx(){
+    var el = $('#wxTxt');
+    el.classList.remove('off');
+    if(WX.temp == null){ el.textContent = '날씨 확인 중'; return; }
+    var t = WX.temp + '°';
+    if(WX.tmax != null && WX.tmin != null && WX.tmax !== WX.tmin) t += ' (' + WX.tmin + '~' + WX.tmax + '°)';
+    el.textContent = wxIcon(WX.code) + ' ' + wxWord(WX.code) + ' ' + t + ' · ' + WX.place;
+  }
+  function loadWx(force){
+    if(!force && WX.temp != null && Date.now() - WX.at < 600000){ renderWx(); return; }
+    if(WX.busy) return;
+    WX.busy = true;
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + WX.lat + '&longitude=' + WX.lon +
+              '&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min&timezone=Asia%2FSeoul';
+    var ctl = null, done = false;
+    function fin(ok){
+      if(done) return;
+      done = true; WX.busy = false;
+      if(!ok){
+        var el = $('#wxTxt');
+        el.classList.add('off');
+        if(WX.temp == null) el.textContent = '날씨는 연결되면 보여 드려요';
+      } else renderWx();
+    }
+    var timer = setTimeout(function(){ try{ if(ctl) ctl.abort(); }catch(e){} fin(false); }, 7000);
+    try{
+      if(window.AbortController) ctl = new AbortController();
+      fetch(url, ctl ? { cache: 'no-store', signal: ctl.signal } : { cache: 'no-store' }).then(function(r){
+        return r && r.ok ? r.json() : null;
+      }).then(function(j){
+        var cur = j && j.current;
+        if(!cur || cur.temperature_2m == null){ clearTimeout(timer); return fin(false); }
+        WX.temp = Math.round(Number(cur.temperature_2m));
+        WX.code = cur.weather_code;
+        var dl = j.daily || {};
+        WX.tmax = dl.temperature_2m_max ? Math.round(Number(dl.temperature_2m_max[0])) : null;
+        WX.tmin = dl.temperature_2m_min ? Math.round(Number(dl.temperature_2m_min[0])) : null;
+        WX.at = Date.now();
+        clearTimeout(timer);
+        fin(true);
+      }).catch(function(){ clearTimeout(timer); fin(false); });
+    }catch(e){ clearTimeout(timer); fin(false); }
+  }
+  function tryGeo(){
+    try{
+      if(!navigator.geolocation || !navigator.permissions || !navigator.permissions.query) return;
+      navigator.permissions.query({ name: 'geolocation' }).then(function(p){
+        if(!p || p.state !== 'granted') return;
+        navigator.geolocation.getCurrentPosition(function(pos){
+          if(!pos || !pos.coords) return;
+          WX.lat = Math.round(pos.coords.latitude * 10000) / 10000;
+          WX.lon = Math.round(pos.coords.longitude * 10000) / 10000;
+          WX.place = '지금 계신 곳';
+          WX.at = 0;
+          loadWx(true);
+        }, function(){}, { enableHighAccuracy: false, timeout: 8000, maximumAge: 600000 });
+      }).catch(function(){});
+    }catch(e){}
+  }
+
+  /* ── 화면: 댁 선택 바 ───────────────── */
+  function renderHomeBar(){
+    var h = curHome();
+    $('#homeCount').textContent = S.homes.length + '곳';
+    if(!h){
+      $('#homeName').textContent = '댁을 골라 주세요';
+      $('#homeSub').textContent = '누르면 어르신 댁을 저장하고 바꿔요';
+      return;
+    }
+    $('#homeName').textContent = h.name;
+    var otherRunning = false;
+    Object.keys(S.timers).forEach(function(k){
+      var t = S.timers[k];
+      if(k !== h.id && t && !t.endedAt) otherRunning = true;
+    });
+    var sub = '기본 ' + h.mins + '분';
+    if(h.note) sub += ' · ' + h.note;
+    if(otherRunning) sub = '⏱ 다른 댁 방문 중 · ' + sub;
+    $('#homeSub').textContent = sub;
+  }
+
+  /* ── 화면: 타이머 ───────────────────── */
+  function renderTimer(){
+    var h = curHome(), t = h ? timerOf(h.id) : null;
+    var el = $('#elapsed'), sub = $('#remainTxt'), bar = $('#pbar'), st = $('#timerState');
+    var startBtn = $('#startBtn'), stopBtn = $('#stopBtn'), alertRow = $('#alertRow');
+
+    if(!h){
+      el.textContent = '00:00:00';
+      sub.textContent = '먼저 어르신 댁을 골라 주세요';
+      sub.classList.remove('over');
+      bar.style.width = '0%';
+      st.textContent = '시작 전'; st.className = 'state';
+      startBtn.hidden = false; stopBtn.hidden = true;
+      startBtn.textContent = '▶ 방문 시작';
+      alertRow.hidden = true;
+      return;
+    }
+
+    var plan = (t ? t.plannedMin : h.mins) * 60000;
+
+    if(!t){
+      el.textContent = '00:00:00';
+      sub.textContent = '예정 ' + h.mins + '분 · 방문 시작을 눌러 주세요';
+      sub.classList.remove('over');
+      bar.style.width = '0%';
+      st.textContent = '시작 전'; st.className = 'state';
+      startBtn.hidden = false; stopBtn.hidden = true;
+      startBtn.textContent = '▶ 방문 시작';
+      alertRow.hidden = true;
+      return;
+    }
+
+    if(!t.endedAt){
+      var elapsed = Date.now() - t.startedAt;
+      var rem = plan - elapsed;
+      el.textContent = hms(elapsed);
+      if(rem > 0){
+        sub.textContent = '남은 시간 ' + hms(rem) + ' (예정 ' + t.plannedMin + '분)';
+        sub.classList.remove('over');
+      } else {
+        sub.textContent = '예정보다 ' + hms(-rem) + ' 지났어요';
+        sub.classList.add('over');
+      }
+      bar.style.width = Math.min(100, plan > 0 ? elapsed / plan * 100 : 0) + '%';
+      st.textContent = '방문 중'; st.className = 'state run';
+      startBtn.hidden = true; stopBtn.hidden = false;
+      renderTlog();
+      return;
+    }
+
+    var total = t.endedAt - t.startedAt;
+    el.textContent = hms(total);
+    sub.textContent = '총 ' + humanDur(total) + ' 방문 · ' + hm(t.startedAt) + '~' + hm(t.endedAt);
+    sub.classList.remove('over');
+    bar.style.width = '100%';
+    st.textContent = '마침'; st.className = 'state done';
+    startBtn.hidden = false; stopBtn.hidden = true;
+    startBtn.textContent = '▶ 다시 방문 시작';
+    alertRow.hidden = true;
+    renderTlog();
+  }
+
+  function renderTlog(){
+    var h = curHome();
+    var note = $('#tlog');
+    if(!h){ note.textContent = '시작·종료 시각이 자동으로 기록돼요.'; return; }
+    var t = timerOf(h.id);
+    var d = dayOf(h.id, todayKey);
+    if(t && !t.endedAt){
+      note.textContent = '오늘 ' + hm(t.startedAt) + ' 시작 · 아직 방문 중';
+    } else if(t && t.endedAt){
+      note.textContent = '오늘 ' + hm(t.startedAt) + ' 시작 · ' + hm(t.endedAt) + ' 종료 (' + humanDur(t.endedAt - t.startedAt) + ')';
+    } else if(d.start && d.end){
+      note.textContent = '오늘 ' + d.start + ' ~ ' + d.end + ' 방문 (' + humanDur((d.visitMin || 0) * 60000) + ')';
+    } else if(d.start){
+      note.textContent = '오늘 ' + d.start + ' 시작 기록이 있어요';
+    } else {
+      note.textContent = '시작·종료 시각이 자동으로 기록돼요.';
+    }
+  }
+
+  /* ── 화면: 체크 ─────────────────────── */
+  function syncChecks(){
+    var d = curDay();
+    $$('button[data-g]').forEach(function(b){
+      var g = b.getAttribute('data-g'), v = b.getAttribute('data-v'), on = false;
+      if(d){
+        if(g === 'meal') on = d.meal === v;
+        else if(g === 'med') on = d.meds.indexOf(v) >= 0;
+        else if(g === 'mood') on = d.mood === v;
+        else if(g === 'body') on = d.body.indexOf(v) >= 0;
+        else if(g === 'sleep') on = d.sleep === v;
+      }
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    $('#tuCnt').textContent = d ? d.tu : 0;
+    $('#tbCnt').textContent = d ? d.tb : 0;
+    var memo = $('#memoIn');
+    if(document.activeElement !== memo) memo.value = d ? d.memo : '';
+    syncFridge();
+  }
+
+  function flashSaved(){
+    var h = $('#saveHint');
+    h.textContent = '✓ 저장됐어요';
+    clearTimeout(flashSaved._t);
+    flashSaved._t = setTimeout(function(){ h.textContent = '이 기기에 자동 저장돼요'; }, 1300);
+  }
+
+  /* ── 화면: 냉장고 ───────────────────── */
+  function syncFridge(){
+    var d = curDay();
+    var items = d ? d.fridge : [];
+    $$('#fridgeQuick button').forEach(function(b){
+      var on = items.indexOf(b.getAttribute('data-f')) >= 0;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    var tags = $('#fridgeTags');
+    var custom = items.filter(function(x){ return QUICK_FRIDGE.indexOf(x) < 0; });
+    tags.innerHTML = custom.map(function(x){
+      return '<button type="button" class="ftag" data-rm="' + esc(x) + '" aria-label="' + esc(x) + ' 빼기">' + esc(x) + ' ✕</button>';
+    }).join('');
+    var sum = $('#fridgeSum');
+    if(items.length){
+      sum.hidden = false;
+      sum.textContent = '부족한 것: ' + items.join(', ') + ' — 보고 문자에 함께 들어가요';
+    } else {
+      sum.hidden = true;
+      sum.textContent = '';
+    }
+  }
+
+  function toggleFridge(name){
+    if(!requireHome()) return;
+    var d = curDay();
+    var i = d.fridge.indexOf(name);
+    if(i >= 0) d.fridge.splice(i, 1); else d.fridge.push(name);
+    save(); syncFridge(); renderMsg(); flashSaved();
+  }
+
+  function addFridge(){
+    if(!requireHome()) return;
+    var inp = $('#fridgeIn');
+    var v = inp.value.trim().replace(/\s+/g, ' ');
+    if(!v){ inp.focus(); return; }
+    if(v.length > 14) v = v.slice(0, 14);
+    var d = curDay();
+    if(d.fridge.indexOf(v) < 0){
+      d.fridge.push(v);
+      save(); renderMsg(); flashSaved();
+    }
+    inp.value = '';
+    syncFridge();
+  }
+
+  /* ── 화면: 개인 메모 ────────────────── */
+  function renderPnote(){
+    var h = curHome();
+    var ta = $('#pnoteIn');
+    if(document.activeElement !== ta) ta.value = h ? (h.pnote || '') : '';
+    ta.disabled = !h;
+    growPnote();
+  }
+  function growPnote(){
+    var ta = $('#pnoteIn');
+    ta.style.height = 'auto';
+    ta.style.height = Math.min(190, Math.max(66, ta.scrollHeight)) + 'px';
+  }
+
+  var pnoteT = null;
+  function onPnote(){
+    var h = curHome();
+    if(!h){ $('#pnoteIn').value = ''; return; }
+    h.pnote = $('#pnoteIn').value.slice(0, 400);
+    growPnote();
+    clearTimeout(pnoteT);
+    pnoteT = setTimeout(function(){ save(); }, 300);
+  }
+
+  /* ── 화면: 문자 ─────────────────────── */
+  function ensurePeriod(s){
+    s = String(s || '').trim();
+    if(!s) return '';
+    return /[.!?]$/.test(s) ? s : s + '.';
+  }
+
+  /* 문장: [줄기...] → 'A고, B고, C습니다.' */
+  function sent(stems){
+    if(!stems.length) return '';
+    if(stems.length === 1) return stems[0] + '습니다.';
+    return stems.slice(0, -1).join('고, ') + '고, ' + stems[stems.length - 1] + '습니다.';
+  }
+
+  function buildMsg(){
+    var h = curHome();
+    if(!h) return '먼저 위에서 어르신 댁을 골라 주세요.';
+    var d = curDay();
+    var who = h.name.split('(')[0].replace(/\s*댁\s*$/, '').trim() || h.name;
+    if(!/(어르신|님|할머니|할아버지|선생|사모님)/.test(who)) who += ' 어르신';
+
+    var care = [];
+    if(d.meal) care.push('식사는 ' + ({ well: '잘 드셨', some: '조금 드셨', none: '거의 못 드셨' }[d.meal]));
+    if(d.meds.length){
+      var names = ['m', 'n', 'e'].filter(function(k){ return d.meds.indexOf(k) >= 0; }).map(function(k){ return MED[k]; });
+      care.push(names.join('·') + ' 챙겨 드렸');
+    }
+    var tu = d.tu || 0, tb = d.tb || 0;
+    if(tu || tb){
+      var wp = [];
+      if(tu) wp.push('소변 ' + tu + '회');
+      if(tb) wp.push('대변 ' + tb + '회');
+      care.push('화장실은 ' + wp.join('·') + '였');
+    } else if(d.meal || d.meds.length){
+      care.push('화장실은 특이사항이 없었');
+    }
+
+    var stat = [];
+    if(d.mood === 'calm') stat.push('기분은 평온하셨');
+    else if(d.mood === 'low') stat.push('기분은 조금 가라앉아 보이셨');
+    else if(d.mood === 'upset') stat.push('기분이 조금 불안해 보이셨');
+    if(d.body.length){
+      if(d.body.indexOf('fine') >= 0){
+        stat.push('몸 상태는 괜찮으셨');
+      } else {
+        var bn = ['pain', 'dizzy', 'fever'].filter(function(k){ return d.body.indexOf(k) >= 0; }).map(function(k){ return BODY[k]; });
+        var last = bn[bn.length - 1];
+        stat.push('몸에 ' + bn.join('·') + josaGa(last) + ' 있었');
+      }
+    }
+    if(d.sleep === 'good') stat.push('잠은 잘 주무셨');
+    else if(d.sleep === 'light') stat.push('잠을 설쳐 조금 피곤해 보이셨');
+    else if(d.sleep === 'move') stat.push('거동이 조금 불편하셨');
+
+    var ts = '', te = '';
+    var tt = timerOf(h.id);
+    if(tt && ymd(new Date(tt.startedAt)) === todayKey){
+      ts = hm(tt.startedAt);
+      te = tt.endedAt ? hm(tt.endedAt) : '';
+    } else { ts = d.start; te = d.end; }
+
+    var head = '오늘 ';
+    if(ts && te) head = '오늘 방문(' + ts + '~' + te + ') 중 ';
+    else if(ts) head = '오늘 ' + ts + '부터 방문해 ';
+
+    var out = [];
+    out.push('안녕하세요, ' + who + ' 보호자님.');
+    var careS = sent(care);
+    var statS = sent(stat);
+    if(careS) out.push(head + careS);
+    if(statS) out.push(statS);
+    if(!careS && !statS) out.push(head + '별다른 특이사항 없이 잘 지내고 계십니다.');
+    if(d.memo && d.memo.trim()) out.push(ensurePeriod(d.memo));
+    if(d.fridge.length){
+      var f = d.fridge;
+      out.push('냉장고에 ' + f.join(', ') + josaGa(f[f.length - 1]) + ' 떨어져 확인 부탁드립니다.');
+    }
+    if(te) out.push('오늘 돌봄 잘 마쳤습니다. 감사합니다.');
+    else if(ts) out.push('남은 시간도 잘 돌보겠습니다.');
+    return out.join(' ');
+  }
+
+  function renderMsg(){ $('#msgBox').textContent = buildMsg(); }
+
+  /* ── 화면: 전화 ─────────────────────── */
+  function renderCalls(){
+    var h = curHome();
+    var g = $('#callGuardian'), c = $('#callCenter');
+    var gnum = h ? (h.guardian || '') : '';
+    var cnum = h ? (h.center || '') : '';
+    $('#gNum').textContent = gnum || '번호 저장';
+    $('#cNum').textContent = cnum || '번호 저장';
+    g.setAttribute('href', gnum ? 'tel:' + gnum : '#');
+    c.setAttribute('href', cnum ? 'tel:' + cnum : '#');
+    g.classList.toggle('empty', !gnum);
+    c.classList.toggle('empty', !cnum);
+  }
+
+  function render(){
+    renderHomeBar();
+    syncChecks();
+    renderTimer();
+    renderTlog();
+    renderPnote();
+    renderMsg();
+    renderCalls();
+  }
+
+  /* ── 방문 시작·종료 ─────────────────── */
+  var ac = null, tapped = false;
+  document.addEventListener('pointerdown', function(){ tapped = true; }, true);
+  document.addEventListener('keydown', function(){ tapped = true; }, true);
+  function unlockAudio(){
+    try{
+      var C = window.AudioContext || window.webkitAudioContext;
+      if(!C) return;
+      if(!ac) ac = new C();
+      if(ac.state === 'suspended') ac.resume();
+    }catch(e){}
+  }
+  function beep(){
+    if(!ac) return;
+    try{
+      var t0 = ac.currentTime;
+      [0, 0.3].forEach(function(off, i){
+        var o = ac.createOscillator(), g = ac.createGain();
+        o.type = 'sine';
+        o.frequency.value = i ? 880 : 660;
+        g.gain.setValueAtTime(0.0001, t0 + off);
+        g.gain.exponentialRampToValueAtTime(0.15, t0 + off + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, t0 + off + 0.24);
+        o.connect(g); g.connect(ac.destination);
+        o.start(t0 + off); o.stop(t0 + off + 0.26);
+      });
+    }catch(e){}
+  }
+  function vibrate(p){ try{ if(tapped && navigator.vibrate) navigator.vibrate(p); }catch(e){} }
+
+  function requireHome(){
+    if(curHome()) return true;
+    toast('먼저 어르신 댁을 골라 주세요');
+    openHomes();
+    return false;
+  }
+
+  function startVisit(){
+    var h = curHome();
+    if(!h){ requireHome(); return; }
+    var t = timerOf(h.id);
+    if(t && !t.endedAt){ toast('이미 방문 중이에요'); return; }
+    var now = Date.now();
+    S.timers[h.id] = { startedAt: now, plannedMin: h.mins, endedAt: null, alerted: false, over: false };
+    var d = dayOf(h.id, ymd(new Date(now)));
+    if(!d.start) d.start = hm(now);
+    d.end = '';
+    save();
+    unlockAudio();
+    $('#alertRow').hidden = true;
+    render();
+    toast('방문을 시작했어요 · ' + hm(now) + ' 기록');
+  }
+
+  function stopVisit(){
+    var h = curHome();
+    if(!h) return;
+    var t = timerOf(h.id);
+    if(!t || t.endedAt) return;
+    var now = Date.now();
+    t.endedAt = now;
+    t.plannedMin = t.plannedMin || h.mins;
+    var d = dayOf(h.id, ymd(new Date(now)));
+    if(!d.start) d.start = hm(t.startedAt);
+    d.end = hm(now);
+    d.visitMin = (d.visitMin || 0) + Math.round((now - t.startedAt) / 60000);
+    d.runs = d.runs || [];
+    d.runs.push({ s: hm(t.startedAt), e: hm(now) });
+    save();
+    render();
+    toast('방문을 마쳤어요 · ' + hm(now) + ' 종료');
+  }
+
+  /* ── 1초마다 ────────────────────────── */
+  function tick(){
+    var tk = ymd();
+    if(tk !== todayKey){
+      todayKey = tk;
+      renderDate();
+      render();
+    }
+    var h = curHome(), t = h ? timerOf(h.id) : null;
+    if(t && !t.endedAt){
+      var plan = t.plannedMin * 60000;
+      var rem = plan - (Date.now() - t.startedAt);
+      if(!t.alerted && plan > 600000 && rem <= 600000 && rem > 0){
+        t.alerted = true; save();
+        var a = $('#alertRow');
+        a.className = 'alertrow';
+        a.innerHTML = '⏰ 종료 10분 전이에요. 정리하고 마무리해 주세요.';
+        a.hidden = false;
+        vibrate([200, 90, 200]);
+        beep();
+      }
+      if(!t.over && rem <= 0){
+        t.over = true; save();
+        var b = $('#alertRow');
+        b.className = 'alertrow over';
+        b.innerHTML = '예정 시간을 넘었어요. 마치면 <b>방문 종료</b>를 눌러 주세요.';
+        b.hidden = false;
+        vibrate([120, 60, 120, 60, 120]);
+      }
+    }
+    renderTimer();
+  }
+
+  /* ── 체크 조작 ──────────────────────── */
+  function onCheckClick(ev){
+    var b = ev.target.closest ? ev.target.closest('button[data-g], button[data-t]') : null;
+    if(!b) return;
+    if(!requireHome()) return;
+    var d = curDay();
+
+    var g = b.getAttribute('data-g');
+    if(g){
+      var v = b.getAttribute('data-v');
+      if(g === 'meal'){
+        d.meal = (d.meal === v ? '' : v);
+      } else if(g === 'mood'){
+        d.mood = (d.mood === v ? '' : v);
+      } else if(g === 'sleep'){
+        d.sleep = (d.sleep === v ? '' : v);
+      } else if(g === 'med'){
+        var i = d.meds.indexOf(v);
+        if(i >= 0) d.meds.splice(i, 1); else d.meds.push(v);
+        d.meds = ['m', 'n', 'e'].filter(function(k){ return d.meds.indexOf(k) >= 0; });
+      } else if(g === 'body'){
+        if(v === 'fine'){
+          d.body = (d.body.indexOf('fine') >= 0) ? [] : ['fine'];
+        } else {
+          d.body = d.body.filter(function(k){ return k !== 'fine'; });
+          var j = d.body.indexOf(v);
+          if(j >= 0) d.body.splice(j, 1); else d.body.push(v);
+          d.body = ['pain', 'dizzy', 'fever'].filter(function(k){ return d.body.indexOf(k) >= 0; });
+        }
+      }
+      save(); syncChecks(); renderMsg(); flashSaved();
+      return;
+    }
+
+    var k = b.getAttribute('data-t');
+    var delta = parseInt(b.getAttribute('data-d'), 10) || 0;
+    if(k === 'tu' || k === 'tb'){
+      d[k] = clampInt((d[k] || 0) + delta, 0, 50);
+      save(); syncChecks(); renderMsg(); flashSaved();
+    }
+  }
+
+  var memoT = null;
+  function onMemo(ev){
+    if(!requireHome()){ ev.target.value = ''; return; }
+    var d = curDay();
+    d.memo = ev.target.value.slice(0, 90);
+    clearTimeout(memoT);
+    memoT = setTimeout(function(){ save(); renderMsg(); flashSaved(); }, 320);
+  }
+
+  /* ── 문자 복사·보내기 ───────────────── */
+  function copyText(t){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      return navigator.clipboard.writeText(t).then(function(){ return true; }).catch(function(){ return fallbackCopy(t); });
+    }
+    return Promise.resolve(fallbackCopy(t));
+  }
+  function fallbackCopy(t){
+    try{
+      var ta = document.createElement('textarea');
+      ta.value = t;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.top = '-1000px';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, t.length);
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      return !!ok;
+    }catch(e){ return false; }
+  }
+
+  function onCopy(){
+    if(!requireHome()) return;
+    var txt = buildMsg();
+    copyText(txt).then(function(ok){
+      var btn = $('#copyBtn');
+      if(ok){
+        btn.textContent = '✓ 복사했어요';
+        setTimeout(function(){ btn.textContent = '📋 문자 복사하기'; }, 1800);
+        toast('문자를 복사했어요. 카톡·문자에 붙여넣으세요');
+      } else {
+        toast('복사가 안 됐어요. 글자를 길게 눌러 복사해 주세요');
+      }
+    });
+  }
+
+  function onSms(){
+    var h = curHome();
+    if(!h){ requireHome(); return; }
+    if(!h.guardian){ toast('보호자 번호를 먼저 저장해 주세요'); openForm(h.id); return; }
+    var body = encodeURIComponent(buildMsg());
+    try{ location.href = 'sms:' + h.guardian + '?body=' + body; }
+    catch(e){ toast('문자 앱을 열 수 없어요. 문자를 복사해 붙여넣어 주세요'); }
+  }
+
+  /* ── 시트 열고 닫기 (폰 뒤로가기) ───── */
+  var layerStack = [], pendingPops = 0;
+
+  function openLayer(id){
+    var el = document.getElementById(id);
+    if(!el || el.classList.contains('open')) return;
+    el.classList.add('open');
+    el.removeAttribute('aria-hidden');
+    layerStack.push(id);
+    document.body.classList.add('noscroll');
+    $('#scrim').classList.add('open');
+    try{ history.pushState({ wgl: layerStack.length }, ''); }catch(e){}
+    el.scrollTop = 0;
+  }
+  function closeTopLayer(){
+    var id = layerStack.pop();
+    if(!id) return false;
+    var el = document.getElementById(id);
+    if(el){ el.classList.remove('open'); el.setAttribute('aria-hidden', 'true'); }
+    if(!layerStack.length){
+      document.body.classList.remove('noscroll');
+      $('#scrim').classList.remove('open');
+    }
+    return id;
+  }
+  function backClose(){ if(layerStack.length){ pendingPops = 0; try{ history.back(); }catch(e){ closeTopLayer(); } } }
+  function closeAllLayers(){
+    var n = layerStack.length;
+    while(layerStack.length) closeTopLayer();
+    if(n){
+      pendingPops = n;
+      try{ history.go(-n); }catch(e){}
+      setTimeout(function(){ pendingPops = 0; }, 500);
+    }
+  }
+  window.addEventListener('popstate', function(){
+    if(pendingPops > 0){ pendingPops--; return; }
+    if(layerStack.length) closeTopLayer();
+  });
+
+  /* ── 댁 목록 ────────────────────────── */
+  function renderHomeList(){
+    var box = $('#homeList');
+    if(!S.homes.length){
+      box.innerHTML = '<p class="empty">아직 저장한 댁이 없어요.<br>아래 <b>➕ 새 댁 추가</b>를 눌러 주세요.</p>';
+      return;
+    }
+    box.innerHTML = S.homes.map(function(h){
+      var t = timerOf(h.id);
+      var running = !!(t && !t.endedAt);
+      var badge = running ? '<span class="runbadge">⏱ 방문 중</span>' : (h.id === S.sel ? '<span class="onbadge">✓</span>' : '');
+      var phone = h.guardian ? ('📞 보호자 ' + esc(h.guardian)) : '📞 보호자 번호 없음';
+      if(h.center) phone += ' · ☎️ 센터 ' + esc(h.center);
+      return '<div class="hrow' + (h.id === S.sel ? ' on' : '') + '">' +
+        '<button type="button" class="hmain" data-pick="' + esc(h.id) + '" aria-label="' + esc(h.name) + ' 선택">' +
+          '<span class="hii" aria-hidden="true">🏡</span>' +
+          '<span class="hit">' +
+            '<b>' + esc(h.name) + '</b>' +
+            '<em>기본 ' + h.mins + '분' + (h.note ? ' · ' + esc(h.note) : '') + '</em>' +
+            '<em class="hp">' + phone + '</em>' +
+          '</span>' +
+          badge +
+        '</button>' +
+        '<button type="button" class="hedit" data-edit="' + esc(h.id) + '" aria-label="' + esc(h.name) + ' 고치기">✏️</button>' +
+      '</div>';
+    }).join('');
+  }
+
+  function openHomes(){
+    renderHomeList();
+    openLayer('homesSheet');
+  }
+
+  function pickHome(id){
+    if(!S.homes.some(function(h){ return h.id === id; })) return;
+    S.sel = id;
+    save();
+    backClose();
+    render();
+    var h = curHome();
+    toast('🏡 ' + (h ? h.name : '') + ' 로 바꿨어요');
+  }
+
+  /* ── 댁 추가·수정 ───────────────────── */
+  var formId = null;
+
+  function setMins(v){
+    v = clampInt(v, 10, 720);
+    $('#fMinsInput').value = String(v);
+    $$('#fMinsChips button').forEach(function(b){
+      b.classList.toggle('on', parseInt(b.getAttribute('data-mins'), 10) === v);
+    });
+  }
+
+  function openForm(id){
+    var h = null;
+    if(id){ h = S.homes.filter(function(x){ return x.id === id; })[0] || null; }
+    formId = h ? h.id : null;
+    $('#formHead').textContent = h ? '댁 정보 고치기' : '새 댁 추가';
+    $('#fName').value = h ? h.name : '';
+    $('#fNote').value = h ? h.note : '';
+    $('#fGuardian').value = h ? h.guardian : '';
+    $('#fCenter').value = h ? h.center : '';
+    setMins(h ? h.mins : 180);
+    $('#fDelete').hidden = !h;
+    openLayer('formSheet');
+  }
+
+  function cleanPhone(v){
+    return String(v || '').replace(/[^\d+\-]/g, '').slice(0, 20);
+  }
+
+  function saveForm(){
+    var name = $('#fName').value.trim();
+    if(!name){
+      toast('별칭(집 이름)을 적어 주세요');
+      try{ $('#fName').focus(); }catch(e){}
+      return;
+    }
+    var mins = clampInt($('#fMinsInput').value, 10, 720);
+    var note = $('#fNote').value.trim().slice(0, 60);
+    var guardian = cleanPhone($('#fGuardian').value);
+    var center = cleanPhone($('#fCenter').value);
+
+    var h = formId ? S.homes.filter(function(x){ return x.id === formId; })[0] : null;
+    if(h){
+      h.name = name; h.mins = mins; h.note = note; h.guardian = guardian; h.center = center;
+      save(); backClose(); render();
+      toast('댁 정보를 저장했어요');
+    } else {
+      var nh = { id: uid(), name: name, mins: mins, note: note, guardian: guardian, center: center, pnote: '' };
+      S.homes.push(nh);
+      S.sel = nh.id;
+      save(); closeAllLayers(); render();
+      toast('🏡 ' + (name.length > 12 ? name.slice(0, 12) + '…' : name) + ' 를 저장했어요');
+    }
+  }
+
+  function deleteHome(){
+    var id = formId;
+    var idx = S.homes.map(function(h){ return h.id; }).indexOf(id);
+    if(idx < 0) return;
+    var snap = {
+      home: S.homes[idx],
+      days: S.days[id] || null,
+      timer: S.timers[id] || null,
+      idx: idx,
+      sel: S.sel
+    };
+    S.homes.splice(idx, 1);
+    delete S.days[id];
+    delete S.timers[id];
+    if(S.sel === id) S.sel = S.homes[0] ? S.homes[0].id : null;
+    save();
+    closeAllLayers();
+    formId = null;
+    render();
+    showToast('댁을 지웠어요', '되돌리기', function(){
+      S.homes.splice(Math.min(snap.idx, S.homes.length), 0, snap.home);
+      if(snap.days) S.days[snap.home.id] = snap.days;
+      if(snap.timer) S.timers[snap.home.id] = snap.timer;
+      if(snap.sel === snap.home.id) S.sel = snap.home.id;
+      save(); render();
+      if($('#homesSheet').classList.contains('open')) renderHomeList();
+      toast('되돌렸어요');
+    });
+  }
+
+  /* ── 최근 기록 ──────────────────────── */
+  function fmtDay(k){
+    var p = k.split('-').map(Number);
+    var d = new Date(p[0], p[1] - 1, p[2]);
+    return p[1] + '월 ' + p[2] + '일 (' + '일월화수목금토'[d.getDay()] + ')';
+  }
+  function dayLine(d){
+    var out = [];
+    if(d.meal) out.push('식사 ' + MEAL[d.meal]);
+    if(d.meds && d.meds.length) out.push('약 ' + d.meds.map(function(k){ return MED[k]; }).join('·'));
+    if(d.tu || d.tb) out.push('화장실 소변 ' + (d.tu || 0) + '·대변 ' + (d.tb || 0));
+    var st = [];
+    if(d.mood) st.push(MOOD[d.mood]);
+    if(d.body && d.body.length) st.push(d.body.map(function(k){ return BODY[k]; }).join('·'));
+    if(d.sleep) st.push(SLEEP[d.sleep]);
+    if(st.length) out.push('상태 ' + st.join(' · '));
+    if(d.fridge && d.fridge.length) out.push('냉장고 부족 ' + d.fridge.join(', '));
+    return out.length ? out.join(' · ') : '체크한 내용이 없어요';
+  }
+  function renderHistory(){
+    var h = curHome();
+    var box = $('#histList');
+    if(!h){ box.innerHTML = '<p class="empty">먼저 어르신 댁을 골라 주세요.</p>'; return; }
+    $('#histSub').textContent = '🏡 ' + h.name + ' · 최근 기록';
+    var m = S.days[h.id] || {};
+    var keys = Object.keys(m).filter(function(k){ return hasData(m[k]); }).sort().reverse().slice(0, 14);
+    if(!keys.length){
+      box.innerHTML = '<p class="empty">아직 기록이 없어요.<br>오늘 돌봄을 체크하면 여기에 하루씩 쌓여요.</p>';
+      return;
+    }
+    box.innerHTML = keys.map(function(k){
+      var d = m[k];
+      var t = '';
+      var runs = d.runs || [];
+      if(runs.length > 1){
+        t = '방문 ' + runs.length + '회' + (d.visitMin ? ' · 총 ' + humanDur(d.visitMin * 60000) : '');
+      } else if(d.start){
+        t = d.start + (d.end && d.end !== d.start ? '~' + d.end : (d.end ? ' 종료' : '부터'));
+        if(d.visitMin) t += ' · ' + humanDur(d.visitMin * 60000);
+      }
+      return '<div class="drow">' +
+        '<div class="dhead"><b>' + fmtDay(k) + '</b><span>' + esc(t || '방문 시간 없음') + '</span></div>' +
+        '<div class="dbody">' + esc(dayLine(d)) + '</div>' +
+        (d.memo ? '<div class="dmemo">📝 ' + esc(d.memo) + '</div>' : '') +
+      '</div>';
+    }).join('');
+  }
+
+  /* ── 토스트 ─────────────────────────── */
+  var toastT = null;
+  function showToast(msg, actionLabel, actionFn){
+    var t = $('#toast');
+    t.innerHTML = '';
+    var span = document.createElement('span');
+    span.textContent = msg;
+    t.appendChild(span);
+    if(actionLabel && actionFn){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = actionLabel;
+      b.addEventListener('click', function(){ hideToast(); actionFn(); }, { once: true });
+      t.appendChild(b);
+    }
+    t.classList.add('show');
+    clearTimeout(toastT);
+    toastT = setTimeout(hideToast, actionLabel ? 6500 : 2600);
+  }
+  function hideToast(){
+    var t = $('#toast');
+    t.classList.remove('show');
+    clearTimeout(toastT);
+  }
+  function toast(msg){ showToast(msg); }
+
+  /* ── 설치·공유 ──────────────────────── */
+  var deferredPrompt = null;
+  window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); deferredPrompt = e; });
+  $('#installBtn').addEventListener('click', function(){ openLayer('installSheet'); });
+  $('#installGo').addEventListener('click', function(){
+    if(deferredPrompt){
+      try{
+        deferredPrompt.prompt();
+        deferredPrompt = null;
+        backClose();
+        return;
+      }catch(e){}
+    }
+    toast('크롬 오른쪽 위 ⋮ → 앱 설치 를 눌러 주세요');
+  });
+  function appUrl(){ return location.href.split('#')[0]; }
+  $('#shareBtn').addEventListener('click', function(){
+    var data = {
+      title: '와글링 요양돌봄',
+      text: '어르신 댁별 방문·돌봄 기록 앱이에요. 무료이고 기록은 기기에만 저장돼요.',
+      url: appUrl()
+    };
+    if(navigator.share){
+      navigator.share(data).catch(function(){});
+      return;
+    }
+    copyText(data.text + ' ' + data.url).then(function(ok){
+      toast(ok ? '공유 문구와 주소를 복사했어요' : '주소를 복사하지 못했어요');
+    });
+  });
+
+  /* ── 이벤트 연결 ────────────────────── */
+  $('#homeBar').addEventListener('click', openHomes);
+  $('#startBtn').addEventListener('click', startVisit);
+  $('#stopBtn').addEventListener('click', stopVisit);
+  $('#copyBtn').addEventListener('click', onCopy);
+  $('#smsBtn').addEventListener('click', onSms);
+  $('#careCard').addEventListener('click', onCheckClick);
+  $('#statusCard').addEventListener('click', onCheckClick);
+  $('#memoIn').addEventListener('input', onMemo);
+  $('#pnoteIn').addEventListener('input', onPnote);
+  $('#histBtn').addEventListener('click', function(){
+    if(!requireHome()) return;
+    renderHistory();
+    openLayer('histSheet');
+  });
+  $('#addHome').addEventListener('click', function(){ openForm(null); });
+  $('#fSave').addEventListener('click', saveForm);
+  $('#fDelete').addEventListener('click', deleteHome);
+  $('#fMinsChips').addEventListener('click', function(ev){
+    var b = ev.target.closest ? ev.target.closest('button[data-mins]') : null;
+    if(!b) return;
+    setMins(parseInt(b.getAttribute('data-mins'), 10));
+  });
+  $('#fMinsInput').addEventListener('input', function(){
+    var v = parseInt(this.value, 10);
+    $$('#fMinsChips button').forEach(function(b){
+      b.classList.toggle('on', isFinite(v) && parseInt(b.getAttribute('data-mins'), 10) === v);
+    });
+  });
+
+  $('#fridgeCard').addEventListener('click', function(ev){
+    var q = ev.target.closest ? ev.target.closest('button[data-f]') : null;
+    if(q){ toggleFridge(q.getAttribute('data-f')); return; }
+    var rm = ev.target.closest ? ev.target.closest('button[data-rm]') : null;
+    if(rm){ toggleFridge(rm.getAttribute('data-rm')); }
+  });
+  $('#fridgeAdd').addEventListener('click', addFridge);
+  $('#fridgeIn').addEventListener('keydown', function(ev){
+    if(ev.key === 'Enter'){ ev.preventDefault(); addFridge(); }
+  });
+
+  $('#homesSheet').addEventListener('click', function(ev){
+    var pick = ev.target.closest ? ev.target.closest('[data-pick]') : null;
+    if(pick){ pickHome(pick.getAttribute('data-pick')); return; }
+    var edit = ev.target.closest ? ev.target.closest('[data-edit]') : null;
+    if(edit){ openForm(edit.getAttribute('data-edit')); }
+  });
+
+  $('#scrim').addEventListener('click', backClose);
+  document.addEventListener('click', function(ev){
+    var c = ev.target.closest ? ev.target.closest('[data-close]') : null;
+    if(c){ backClose(); }
+  });
+
+  ['#callGuardian', '#callCenter'].forEach(function(sel){
+    $(sel).addEventListener('click', function(ev){
+      var h = curHome();
+      var num = sel === '#callGuardian' ? (h && h.guardian) : (h && h.center);
+      if(num) return;
+      ev.preventDefault();
+      if(!h){ requireHome(); return; }
+      toast(sel === '#callGuardian' ? '보호자 번호를 먼저 저장해 주세요' : '센터 번호를 먼저 저장해 주세요');
+      openForm(h.id);
+    });
+  });
+
+  document.addEventListener('visibilitychange', function(){
+    if(!document.hidden){
+      var tk = ymd();
+      if(tk !== todayKey){ todayKey = tk; renderDate(); render(); }
+      if(WX.temp != null && Date.now() - WX.at > 1800000) loadWx(true);
+    }
+  });
+
+  /* ── 시작 ───────────────────────────── */
+  function boot(){
+    S = load();
+    if(!S){ S = blank(); seed(); save(); }
+    renderDate();
+    loadWx(false);
+    tryGeo();
+    render();
+    setInterval(tick, 1000);
+  }
+
+  boot();
+
+  /* ── 홈 화면 설치용 Service Worker (화면은 늘 네트워크 우선 → 새 버전 바로 반영) ── */
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(function(){});
+    });
+  }
+})();
+</script>
+</body>
+</html>

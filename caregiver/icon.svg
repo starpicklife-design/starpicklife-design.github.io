@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="와글링 요양돌봄 아이콘">
+  <defs>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#268D6A"/>
+      <stop offset="1" stop-color="#1A6A50"/>
+    </linearGradient>
+  </defs>
+  <!-- 지붕 -->
+  <path d="M256 92 58 262l26 30 172-149 172 149 26-30z" fill="#144B39"/>
+  <!-- 집 몸통 -->
+  <path d="M86 268h340v152a30 30 0 0 1-30 30H116a30 30 0 0 1-30-30z" fill="url(#wall)"/>
+  <!-- 하트(돌봄) -->
+  <path d="M256 296c-11-18-37-13-37 10 0 18 24 32 37 40 13-8 37-22 37-40 0-23-26-28-37-10z" fill="#FFD287"/>
+  <!-- 문 -->
+  <rect x="214" y="356" width="84" height="94" rx="14" fill="#FFF6E8"/>
+  <!-- 문손잡이 -->
+  <circle cx="280" cy="404" r="8" fill="#B45309"/>
+</svg>

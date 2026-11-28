@@ -1,0 +1,24 @@
+{
+  "name": "와글링 요양돌봄",
+  "short_name": "요양돌봄",
+  "description": "재가 요양보호사를 위한 어르신 댁별 방문·돌봄 기록 — 방문 시간 타이머, 식사·약·화장실 체크, 어르신 상태와 나만 보는 개인 메모, 보호자 보고 문자. 가입 없이, 광고 없이, 100% 무료. 기록은 이 기기에만 저장됩니다.",
+  "lang": "ko",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "id": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait",
+  "background_color": "#FFF6E8",
+  "theme_color": "#FFF6E8",
+  "categories": ["health", "lifestyle", "productivity"],
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "오늘 기록 열기", "short_name": "오늘 기록", "url": "./" }
+  ]
+}
