@@ -274,8 +274,8 @@ body[data-lang="en"] .cat{font-size:.68rem}
 
 /* ── 토스트 ── */
 .toast{position:fixed;left:50%;transform:translateX(-50%) translateY(1.2rem);bottom:calc(5.4rem + env(safe-area-inset-bottom));
-  z-index:90;background:#2C2150;color:#fff;border-radius:.8rem;padding:.55rem .75rem;font-size:.86rem;font-weight:800;
-  display:flex;align-items:center;gap:.6rem;max-width:calc(100vw - 1.4rem);box-shadow:0 6px 18px rgba(30,20,60,.28);
+  z-index:130;background:#2C2150;color:#fff;border-radius:.8rem;padding:.55rem .75rem;font-size:.86rem;font-weight:800;
+  display:flex;align-items:center;gap:.6rem;width:max-content;max-width:calc(100vw - 1.4rem);box-shadow:0 6px 18px rgba(30,20,60,.28);
   opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;line-height:1.4}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:none}
 .toast button{background:#fff;color:#2C2150;border-radius:.5rem;padding:.18rem .5rem;font-size:.8rem;font-weight:900;flex:0 0 auto;pointer-events:auto}
@@ -353,7 +353,6 @@ body.study-open .toast.on{transform:translateX(-50%) translateY(0)}
 
 <section id="study" class="study" hidden aria-label="학습 화면"></section>
 
-<div id="toast" class="toast" role="status"></div>
 
 <div id="installModal" class="modal" hidden>
   <div class="mbox">
@@ -370,6 +369,8 @@ body.study-open .toast.on{transform:translateX(-50%) translateY(0)}
 </div>
 
 </div>
+
+<div id="toast" class="toast" role="status"></div>
 
 <script>
 "use strict";
@@ -1268,7 +1269,7 @@ function showInstall(){
 }
 function closeInstall(){ $('#installModal').hidden = true; }
 function copyInstallUrl(){
-  var done = function(){ toast(t('주소를 복사했어요. 크롬·삼성 인터넷 주소창에 붙여 넣어 열어 주세요','Link copied. Paste it in Chrome or Samsung Internet')); };
+  var done = function(){ toast(t('주소를 복사했어요 · 크롬·삼성 인터넷 주소창에 붙여 넣으세요','Link copied · paste it in Chrome or Samsung Internet')); };
   var fail = function(){ toast(t('복사가 안 됐어요. 위 주소를 길게 눌러 복사해 주세요','Could not copy. Long-press the link to copy it')); };
   if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(INSTALL_URL).then(done, function(){ legacyCopy(INSTALL_URL, done, fail); }); }
   else legacyCopy(INSTALL_URL, done, fail);
