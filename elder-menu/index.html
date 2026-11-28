@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 <meta name="theme-color" content="#3E2C22" />
 <meta name="color-scheme" content="light" />
-<!-- build: 2026-11-24 · 어르신용 와글링 테이블 v2 (Wagling Elder Table)
+<!-- build: 2026-11-28 · 어르신용 와글링 테이블 v3 (Wagling Elder Table)
      · 와글링 테이블(menu/)은 그대로 두고, 어르신만 쓰는 전용 앱을 새로 만들었다
+     · v3 · 사장님 QR(menu-owner 의 #m=토큰)을 그대로 읽어 그 가게 메뉴판을 큰 글씨·그림으로 연다
+       (#m= 로 열면 localStorage 에 자동 저장 → 📌 저장된 가게 / 📷 가게 QR 찍기 버튼)
      · 가격 없음 · 그림 + 큰 한글 이름 + －/＋ 만
      · ☕ 따뜻한 음료(왼쪽) 8종 · 🧊 차가운 음료(오른쪽) 8종 두 열 — 양쪽 길이가 같아 아래가 비지 않는다
      · v2 · 차가운 칸 맨 아래에 레몬에이드 · 블루베리스무디 추가(주문서에는 '레몬에이드 1잔' 그대로)
@@ -236,6 +238,106 @@ html.big .card .pic{height:90px}
   line-height:1.4;padding:10px 14px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.26);
   opacity:0;pointer-events:none;transition:opacity .18s ease}
 .hint.show{opacity:1}
+
+/* ══════ 오늘 날짜·요일·날씨 (작은 줄) ══════ */
+.toprow{display:flex;align-items:center;gap:6px;padding:0 var(--pad) 8px}
+.today{flex:1 1 auto;min-width:0;display:flex;align-items:center;gap:4px;
+  min-height:34px;padding:0 9px;border-radius:999px;border:2px solid #E7D9C6;
+  background:#FFFDF8;color:#5A4739;font-size:12.5px;font-weight:800;letter-spacing:-.03em;
+  white-space:nowrap;overflow:hidden}
+.today .td{flex:0 0 auto;font-weight:900;color:var(--coffee)}
+.today .tsep{flex:0 0 auto;color:#D8C6B4}
+.today .twx{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.today .twx.loading{color:#A9977F}
+.today .tpl{flex:0 0 auto;color:#A08C79;font-size:11px;font-weight:800}
+
+/* ══════ 🏠 가게 메뉴판 (사장님 QR 연동) ══════ */
+.shopbar{display:flex;flex-direction:column;gap:6px;padding:0 var(--pad) 8px}
+.storebar{display:flex;align-items:center;gap:6px;padding:6px 9px;border-radius:12px;
+  background:#FFF3E1;border:2px solid #E9C69B;color:#6B3A16;min-width:0}
+.storebar .sb-ic{flex:0 0 auto;font-size:17px;line-height:1}
+.storebar .sb-nm{flex:1 1 auto;min-width:0;font-size:15.5px;font-weight:900;letter-spacing:-.03em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.storebar .sb-sub{flex:0 0 auto;font-size:11.5px;font-weight:900;color:#9A6B44;letter-spacing:-.02em}
+html.big .storebar .sb-nm{font-size:17px}
+.shoprow{display:grid;grid-template-columns:1fr auto;gap:6px}
+.scanbtn{min-height:46px;border-radius:12px;border:2px solid #8F3C1C;
+  background:linear-gradient(180deg,#E2703F,#B2451B);color:#FFF8EC;
+  font-size:15px;font-weight:900;letter-spacing:-.03em;box-shadow:0 3px 0 #8F3C1C;
+  display:flex;align-items:center;justify-content:center;gap:4px;padding:0 8px}
+.savedbtn{min-height:46px;padding:0 11px;border-radius:12px;border:2px solid #D8C6B1;
+  background:#FFFDF8;color:var(--coffee);font-size:13.5px;font-weight:900;
+  letter-spacing:-.03em;white-space:nowrap;display:flex;align-items:center;justify-content:center;gap:3px}
+.savedbtn .cnt{font-size:11px;font-weight:900;color:#8A6A4C;background:#F3E3CB;
+  border-radius:999px;padding:1px 6px;min-width:18px}
+.scanbtn:active,.savedbtn:active{transform:translateY(1px);box-shadow:none}
+@media (max-width:344px){.scanbtn{font-size:13.5px}.savedbtn{font-size:12px;padding:0 8px}}
+
+/* 카테고리별 두 칸 (사장님 가게 메뉴) */
+#storeMenu{padding:0 var(--pad)}
+.ssec{margin:0 0 10px}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:start}
+.secHead.food{background:linear-gradient(180deg,#EDF6E3,#DCEDCB);border-color:#9CC17A;color:#365B1F}
+.card.food .pic{background:radial-gradient(circle at 50% 62%,#EAF5DC 0%,#FBFEF6 72%)}
+.card.food .plus{background:linear-gradient(180deg,#7FA455,#4F7A2E);border:2px solid #3F6427;color:#F6FFEC;box-shadow:0 2px 0 #3F6427}
+.card.food.on{border-color:#5B8A3C;background:#F8FDF2;box-shadow:0 3px 10px rgba(79,122,46,.16)}
+.card.food.on .qty{background:#4F7A2E;color:#fff}
+.card .pic{position:relative}
+.card .pic .emo{display:flex;align-items:center;justify-content:center;width:100%;height:100%;
+  font-size:48px;line-height:1}
+html.big .card .pic .emo{font-size:52px}
+.pr{font-size:calc(var(--name) * .94);font-weight:900;color:#8A4A1B;text-align:center;
+  line-height:1.15;padding:.1em 4px .32em;letter-spacing:-.03em;font-variant-numeric:tabular-nums;
+  word-break:keep-all}
+.soldTag{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-8deg);
+  background:#B2451B;color:#FFF8EC;font-size:13px;font-weight:900;letter-spacing:-.02em;
+  padding:4px 11px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.28)}
+.card.out{border-color:#E3D6C6;background:#FAF4EC}
+.card.out .pic{filter:grayscale(.6);opacity:.7}
+.card.out .plus{background:#E7DCCB;border-color:#D8C6B1;color:#9A8674;box-shadow:none}
+.card.out .metalabel{color:#8B7867}
+
+/* 📌 저장된 가게 목록 */
+.shopRow{display:flex;align-items:stretch;gap:6px;margin:0 0 7px}
+.shopPick{flex:1 1 auto;min-width:0;text-align:left;display:flex;flex-direction:column;gap:1px;
+  min-height:52px;padding:7px 11px;border-radius:12px;border:2px solid #E7D9C6;background:#FFFDF8;color:var(--ink)}
+.shopPick .sp-nm{font-size:16px;font-weight:900;letter-spacing:-.03em;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+.shopPick .sp-sub{font-size:12px;font-weight:800;color:#9A8674;letter-spacing:-.02em}
+.shopPick.on{border-color:#C0562B;background:#FFF6EA}
+.shopPick.on .sp-sub{color:#B2451B}
+.sp-del{flex:0 0 auto;width:44px;border-radius:12px;border:2px solid #E7D9C6;background:#FFFDF8;
+  color:#8B7867;font-size:16px;font-weight:900}
+.sp-del:active{transform:translateY(1px)}
+.emptyTip{margin:0 0 12px;padding:12px;border-radius:12px;background:#FFF8EC;border:2px dashed #E2CDB0;
+  font-size:14px;font-weight:800;color:#6B5747;line-height:1.5;text-align:center}
+.demoBtn{width:100%;min-height:48px;margin:2px 0 10px;border-radius:12px;border:2px solid #D8C6B1;
+  background:#FFFDF8;color:var(--coffee);font-size:14.5px;font-weight:900;letter-spacing:-.02em}
+
+/* 📷 QR 찍기 (카메라) */
+.scan{position:fixed;inset:0;z-index:170;display:flex;flex-direction:column;gap:8px;
+  background:rgba(24,16,11,.96);
+  padding:calc(10px + env(safe-area-inset-top)) 12px calc(12px + env(safe-area-inset-bottom));
+  color:#FFF6E8}
+.scan[hidden]{display:none}
+.scanTop{flex:0 0 auto;display:flex;align-items:center;gap:8px}
+.scanTop h2{margin:0;flex:1 1 auto;font-size:18px;font-weight:900;letter-spacing:-.03em;color:#FFF6E8}
+.scanClose{flex:0 0 auto;min-height:44px;padding:0 13px;border-radius:12px;border:2px solid #6B5747;
+  background:#2E241C;color:#FFF6E8;font-size:15px;font-weight:900}
+.scanWrap{position:relative;flex:1 1 auto;min-height:0;display:flex;align-items:center;
+  justify-content:center;overflow:hidden;border-radius:18px;background:#000}
+#scanVideo{width:100%;height:100%;max-height:100%;object-fit:cover;background:#000}
+.scanFrame{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(74vw,300px);aspect-ratio:1;border:3px solid #FFF;
+  border-radius:16px;box-shadow:0 0 0 100vmax rgba(0,0,0,.34)}
+.scanMsg{flex:0 0 auto;margin:0;font-size:15px;font-weight:800;line-height:1.4;
+  color:#FFE7C6;text-align:center;letter-spacing:-.02em}
+.scanMsg.bad{color:#FFC9A6}
+.scanBtns{flex:0 0 auto;display:grid;gap:8px}
+.scanBtns button{min-height:52px;border-radius:14px;font-size:16px;font-weight:900;letter-spacing:-.02em;
+  display:flex;align-items:center;justify-content:center;gap:5px}
+.scanFileBtn{background:#FFF6E8;border:2px solid #C6AE92;color:#3E2C22}
+.scanFileBtn:active{transform:translateY(1px)}
 </style>
 </head>
 <body>
@@ -251,13 +353,31 @@ html.big .card .pic{height:90px}
   </button>
 </header>
 
-<div class="tools">
+<div class="toprow">
+  <button type="button" class="today" id="todayCard" aria-label="오늘 날짜와 날씨 — 누르면 새로 고침">
+    <span class="td" id="todayDate">오늘</span>
+    <span class="tsep" aria-hidden="true">·</span>
+    <span class="twx loading" id="todayWx">날씨 확인 중</span>
+    <span class="tpl" id="wxPlace">김해</span>
+  </button>
   <button type="button" class="toolbtn" id="installBtn" aria-haspopup="dialog" aria-label="앱 설치 안내">📲 설치</button>
   <button type="button" class="toolbtn" id="shareBtn" aria-label="이 앱 공유하기">📤 공유</button>
 </div>
 
+<div class="shopbar">
+  <div class="storebar" id="storeBar" hidden>
+    <span class="sb-ic" aria-hidden="true">🏠</span>
+    <span class="sb-nm" id="storeBarName">우리 가게</span>
+    <span class="sb-sub" id="storeBarSub">메뉴</span>
+  </div>
+  <div class="shoprow">
+    <button type="button" class="scanbtn" id="scanBtn">📷 가게 QR 찍기</button>
+    <button type="button" class="savedbtn" id="savedBtn">📌 저장된 가게 <span class="cnt" id="savedCnt">0</span></button>
+  </div>
+</div>
+
 <main>
-  <div class="cols">
+  <div class="cols" id="demoMenu">
     <section class="col" aria-labelledby="hotHead">
       <h2 class="secHead hot" id="hotHead">
         <span class="se" aria-hidden="true">☕</span><span class="st">따뜻한 음료</span><span class="tag">핫</span>
@@ -271,6 +391,8 @@ html.big .card .pic{height:90px}
       <div class="cards" id="iceCards"></div>
     </section>
   </div>
+
+  <div id="storeMenu" hidden></div>
 
   <div class="direct" id="directRow">
     <input id="directInput" type="text" inputmode="text" autocomplete="off" maxlength="30"
@@ -332,6 +454,33 @@ html.big .card .pic{height:90px}
 </div>
 
 <div class="hint" id="hint" role="status" aria-live="polite"></div>
+
+<!-- 📌 저장된 가게 -->
+<div class="modal" id="shopsModal" role="dialog" aria-modal="true" aria-labelledby="shopsTitle" hidden>
+  <div class="modalCard">
+    <h2 id="shopsTitle">📌 저장된 가게</h2>
+    <p class="lead">사장님 QR을 찍으면 그 가게 메뉴판이 이 폰에 저장돼요.</p>
+    <div id="shopList"></div>
+    <button type="button" class="close" id="shopsClose">닫기</button>
+  </div>
+</div>
+
+<!-- 📷 가게 QR 찍기 (카메라 · 사진) -->
+<div class="scan" id="scanModal" role="dialog" aria-modal="true" aria-labelledby="scanTitle" hidden>
+  <div class="scanTop">
+    <h2 id="scanTitle">📷 가게 QR 찍기</h2>
+    <button type="button" class="scanClose" id="scanClose">✕ 닫기</button>
+  </div>
+  <div class="scanWrap">
+    <video id="scanVideo" playsinline autoplay muted></video>
+    <div class="scanFrame" aria-hidden="true"></div>
+  </div>
+  <p class="scanMsg" id="scanMsg">사장님이 붙여 둔 QR을 네모 안에 맞춰 주세요</p>
+  <div class="scanBtns">
+    <button type="button" class="scanFileBtn" id="scanPhoto">🖼️ QR 사진으로 고르기</button>
+  </div>
+  <input type="file" id="scanFile" accept="image/*" hidden aria-label="QR 사진 고르기" />
+</div>
 
 <script>
 (function(){
@@ -564,16 +713,247 @@ var ICE = [
     } }
 ];
 
-var ALL = HOT.concat(ICE);
-var ALL_IDS = ALL.map(function(d){ return d.id; });
-var DRINK = {};
-ALL.forEach(function(d){ DRINK[d.id] = d; });
+/* ════════════════════════════════════════════════════════════
+   2-B. 사장님 QR(#m=토큰) 읽기 — 와글링 테이블 손님용과 같은 규격
+      · 만든 곳: menu-owner/index.html 의 WTData
+      · 형식: 'W','T', ver=1, [가게이름], [메뉴 수], 메뉴마다 {분류, 품절, 가격, 이름}
+      · 분류 0 = ☕ 따뜻한 / 1 = 🧊 차가운 / 2 = 🍽️ 다른 메뉴
+   ════════════════════════════════════════════════════════════ */
+var WTData = (function(){
+  'use strict';
+  var AB = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+  function fromUtf8(bytes){
+    if(window.TextDecoder) return new TextDecoder().decode(new Uint8Array(bytes));
+    var s = '', i;
+    for(i = 0; i < bytes.length; i++) s += String.fromCharCode(bytes[i]);
+    try { return decodeURIComponent(escape(s)); } catch(e){ return s; }
+  }
+  function unb64(s){
+    var by = [], i, c, d, e, f;
+    s = String(s || '').replace(/[^A-Za-z0-9\-_]/g, '');
+    for(i = 0; i < s.length; i += 4){
+      c = AB.indexOf(s.charAt(i)); d = AB.indexOf(s.charAt(i + 1));
+      e = AB.indexOf(s.charAt(i + 2)); f = AB.indexOf(s.charAt(i + 3));
+      if(c < 0 || d < 0) break;
+      by.push((c << 2) | (d >> 4));
+      if(e >= 0) by.push(((d & 15) << 4) | (e >> 2));
+      if(f >= 0) by.push(((e & 3) << 6) | f);
+    }
+    return by;
+  }
+  function rvint(bytes, p){
+    var n = 0, sh = 0, b;
+    do {
+      if(p.i >= bytes.length) throw new Error('short');
+      b = bytes[p.i++];
+      n += (b & 127) * Math.pow(2, sh);
+      sh += 7;
+    } while(b & 128);
+    return n;
+  }
+  function dec(token){
+    try {
+      var bytes = unb64(token), p = { i: 0 };
+      if(bytes.length < 5 || bytes[0] !== 87 || bytes[1] !== 84 || bytes[2] !== 1) return null;
+      p.i = 3;
+      var nameLen = rvint(bytes, p), name = fromUtf8(bytes.slice(p.i, p.i + nameLen));
+      p.i += nameLen;
+      var n = rvint(bytes, p), items = [], k, c, s, price, nl, nm;
+      if(n > 400) return null;
+      for(k = 0; k < n; k++){
+        c = bytes[p.i++]; s = bytes[p.i++];
+        price = rvint(bytes, p);
+        nl = rvint(bytes, p);
+        nm = fromUtf8(bytes.slice(p.i, p.i + nl));
+        p.i += nl;
+        items.push({ n: nm, p: price, c: (c > 2 ? 2 : c), s: !!s });
+      }
+      return { name: name, items: items };
+    } catch(e){ return null; }
+  }
+  return { dec: dec };
+})();
+
+/* ── 화면에 그릴 메뉴 — 기본 카페 16종 또는 사장님 가게 ── */
+var STORE = null;                          /* { name, items, tok } — 사장님 QR 로 연 가게 */
+var RENDER = [];                           /* 지금 화면에 있는 메뉴 (그리기·주문 공통) */
+var K_SHOPS = 'wagling_saved_shops_v1';    /* 📌 저장된 가게 — 손님용 앱과 같은 목록을 함께 쓴다 */
+var K_LAST = 'wagling_elder_store_v1';     /* 마지막으로 연 가게 (그냥 열어도 이어서) */
+
+function buildDemo(){
+  var out = [];
+  HOT.forEach(function(d){ out.push({ id: d.id, name: d.name, price: 0, cat: 0, sold: false, art: d.art }); });
+  ICE.forEach(function(d){ out.push({ id: d.id, name: d.name, price: 0, cat: 1, sold: false, art: d.art }); });
+  return out;
+}
+var hasId = function(id){ for(var i = 0; i < RENDER.length; i++){ if(RENDER[i].id === id) return true; } return false; };
+
+/* ── 이름으로 그림 고르기 (낯선 메뉴도 그림이 나오게) ── */
+function foodEmoji(name){
+  var s = String(name == null ? '' : name).toLowerCase();
+  var M = [
+    [/크루아상|croissant/, '🥐'], [/토스트|toast|베이글|bagel|빵|bread/, '🍞'],
+    [/케이크|cake/, '🍰'], [/쿠키|cookie|마카롱|macaron/, '🍪'], [/와플|waffle/, '🧇'],
+    [/도넛|donut|doughnut/, '🍩'], [/김밥|kimbap|gimbap|주먹밥/, '🍙'],
+    [/라면|ramen|국수|noodle|우동|udon|칼국수/, '🍜'], [/떡볶이|tteok/, '🍲'], [/순대/, '🥘'],
+    [/튀김|fritter|tempura|감자/, '🍤'], [/어묵|fish[\s-]*cake|오뎅/, '🍢'], [/밥|rice/, '🍚'],
+    [/아이스크림|ice[\s-]*cream/, '🍦'], [/피자|pizza/, '🍕'], [/치킨|chicken/, '🍗'],
+    [/샌드위치|sandwich/, '🥪'], [/햄버거|burger/, '🍔'], [/만두|dumpling/, '🥟'],
+    [/샐러드|salad/, '🥗'], [/계란|egg/, '🍳'], [/과일|fruit|사과|apple|바나나|banana/, '🍎'],
+    [/죽|porridge/, '🥣'], [/빙수|bingsu/, '🍧']
+  ];
+  for(var i = 0; i < M.length; i++){ if(M[i][0].test(s)) return M[i][1]; }
+  return '🍽️';
+}
+function foodArt(name){
+  return '<span class="emo" aria-hidden="true">' + foodEmoji(name) + '</span>';
+}
+function pickArt(name, kind){
+  var s = String(name == null ? '' : name).toLowerCase();
+  function has(re){ return re.test(s); }
+  var R = {
+    americano: /(아메리카노|americano|콜드브루|cold[\s-]*brew|에스프레소|espresso|롱블랙|long[\s-]*black)/,
+    latte: /(라떼|latte|카푸치노|cappuccino|플랫화이트|flat[\s-]*white|마키아토|마끼아또|macchiato)/,
+    vanilla: /(바닐라|vanilla)/,
+    sweetpotato: /(고구마|sweet[\s-]*potato)/,
+    choco: /(초코|초콜릿|choco|코코아|cocoa)/,
+    citron: /(유자|레몬|citron|lemon)/,
+    grapefruit: /(자몽|grapefruit)/,
+    peach: /(복숭아|peach|아이스티|iced[\s-]*tea)/,
+    plum: /(매실|plum|오미자|omija|뱅쇼|bansho)/,
+    sikhye: /(식혜|sikhye)/,
+    sujeonggwa: /(수정과|sujeonggwa|대추|jujube)/,
+    greentea: /(녹차|말차|green[\s-]*tea|matcha)/,
+    smoothie: /(스무디|smoothie|주스|juice|쉐이크|셰이크|shake)/,
+    berry: /(블루베리|blueberry|베리|berry|딸기|strawberry|라즈베리|raspberry)/,
+    teaword: /(차|tea)/,
+    water: /(생수|물|water|탄산수|soda)/
+  };
+  var latteLine = '<path d="M44 74 q16 5 32 0" stroke="#FFFBF2" stroke-width="4" fill="none" opacity=".7"/>';
+  if(kind === 1){
+    if(has(R.smoothie)) return glassArt(has(R.berry)
+      ? { top:'#A272C4', rim:'#8B58AE', bottom:'#4E2A62', straw:'#6F4AA8', garnish:blueberrySVG(80,17,4.4),
+          inner:blueberrySVG(50,50,5) + blueberrySVG(66,58,4.6) + blueberrySVG(57,70,4.8) }
+      : { top:'#F2B96A', rim:'#F7CE94', bottom:'#D98E33', straw:'#E2703F' });
+    if(has(R.americano) && !has(R.latte)) return glassArt({ top:'#6B4326', rim:'#6B4326', bottom:'#37200F', ice:true, straw:'#C0562B' });
+    if(has(R.sweetpotato)) return glassArt({ top:'#EFC078', rim:'#F9EACB', bottom:'#D2913F', ice:true,
+      art:'<path d="M46 27 q6 6 12 0 q5 -4 10 2 q2 3 6 1" stroke="#8A5A8E" stroke-width="2.6" fill="none" stroke-linecap="round" opacity=".9"/>',
+      inner:'<path d="M43.5 52 q17 5 33 0" stroke="#F9EACB" stroke-width="3" fill="none" opacity=".55"/>' });
+    if(has(R.vanilla)) return glassArt({ top:'#E7C795', rim:'#F6E6C8', bottom:'#FBF3E2', ice:true, inner:latteLine });
+    if(has(R.latte)) return glassArt({ top:'#BE9164', rim:'#D9BB92', bottom:'#F8EEDD', ice:true, inner:latteLine });
+    if(has(R.choco)) return glassArt({ top:'#9A6544', rim:'#B07C57', bottom:'#5A3520', ice:true, straw:'#C0562B' });
+    if(has(R.grapefruit)) return glassArt({ top:'#F58F7E', rim:'#FFB3A4', bottom:'#E2664F', ice:true, garnish:citronSlice(79,19,-18) });
+    if(has(R.citron)) return glassArt({ top:'#F8D64A', rim:'#FFF08A', bottom:'#EFBE22', ice:true, straw:'#E2703F', garnish:citronSlice(79,19,-18) });
+    if(has(R.berry)) return glassArt({ top:'#B4638C', rim:'#C97FA3', bottom:'#7B2E55', ice:true, straw:'#8E4A78', garnish:blueberrySVG(80,17,4.4),
+      inner:blueberrySVG(50,50,5) + blueberrySVG(66,58,4.6) + blueberrySVG(57,70,4.8) });
+    if(has(R.peach)) return glassArt({ top:'#F6A96C', rim:'#FFC596', bottom:'#E8803F', ice:true, straw:'#E2703F' });
+    if(has(R.plum)) return glassArt({ top:'#9E3A44', rim:'#B8525C', bottom:'#5E1E28', ice:true, straw:'#C0562B' });
+    if(has(R.sujeonggwa)) return glassArt({ top:'#8A3524', rim:'#8A3524', bottom:'#571C10', ice:true });
+    if(has(R.sikhye)) return glassArt({ top:'#F8F0D8', rim:'#FBF5E4', bottom:'#E8D9B4', ice:true });
+    if(has(R.greentea)) return glassArt({ top:'#8FB35E', rim:'#A9C77B', bottom:'#5E8438', ice:true, garnish:leafSVG(80,18,20,.9) });
+    if(has(R.water)) return glassArt({ top:'#CFEAF7', rim:'#E7F6FC', bottom:'#9FD2E8', ice:true, straw:'#2E86AB' });
+    return glassArt({ top:'#C08339', rim:'#C08339', bottom:'#8A4A1B', ice:true, straw:'#C0562B' });
+  }
+  /* ☕ 따뜻한 음료 */
+  if(has(R.americano) && !has(R.latte)) return mugArt({ top:'#4A2B1B',
+    art:'<ellipse cx="55" cy="44.4" rx="18" ry="4.3" fill="#B0713B" opacity=".55"/>'
+      + '<path d="M48 61 q7 4 13 0" stroke="#E4D6C3" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/>' });
+  if(has(R.sweetpotato)) return mugArt({ top:'#EFC078',
+    art:'<ellipse cx="55" cy="44.4" rx="17" ry="4" fill="#F9EACB" opacity=".8"/>' });
+  if(has(R.vanilla) || has(R.latte)) return mugArt({ top: has(R.vanilla) ? '#EBD3AC' : '#EFD9B9',
+    art:'<path d="M55 40.4 c-2 -2.7 -6.4 -2 -6.4 1.3 c0 2.5 4.3 5.4 6.4 6.5 c2.1 -1.1 6.4 -4 6.4 -6.5 c0 -3.3 -4.4 -4 -6.4 -1.3 z" fill="#A56A38" opacity=".92"/>'
+      + '<ellipse cx="55" cy="44" rx="20" ry="4.7" fill="none" stroke="#DCC6A4" stroke-width="1.6"/>' });
+  if(has(R.choco)) return mugArt({ top:'#7A4B32' });
+  if(has(R.citron)) return cupArt({ top:'#F2B62C',
+    art:citronSlice(85,43,-22)
+      + '<path d="M40 52 q6 -4 12 -2" stroke="#E0921C" stroke-width="2.6" fill="none" stroke-linecap="round" opacity=".85"/>' });
+  if(has(/생강|ginger/)) return cupArt({ top:'#E3A23A', art:gingerSVG(52,49,-16) + gingerSVG(69,53,12) + gingerSVG(60,47,40) });
+  if(has(R.sujeonggwa)) return cupArt({ top:'#7E3220', art:jujubeSVG(51,48,-18) + jujubeSVG(66,52,14) + jujubeSVG(59,46,6) });
+  if(has(/쌍화|ssanghwa/)) return cupArt({ top:'#51301D',
+    art:'<circle cx="60" cy="50" r="8.4" fill="#F5C63C" stroke="#B98A2A" stroke-width="1.6"/>' + jujubeSVG(74,53,12) });
+  if(has(R.greentea)) return cupArt({ top:'#7FA455', art:leafSVG(50,48,-18,1.05) + leafSVG(70,53,160,1) });
+  if(has(R.peach)) return cupArt({ top:'#E8A15B' });
+  if(has(R.plum)) return cupArt({ top:'#A8622A' });
+  if(has(R.teaword) || has(R.water)) return cupArt({ top:'#B0713B' });
+  return mugArt({ top:'#B0713B' });
+}
+/* 사장님 가게 메뉴 하나 → 그림. 기본 앱에 같은 이름이 있으면 그 그림을 그대로 쓴다 */
+function artFor(name, c){
+  if(c === 2) return function(){ return foodArt(name); };
+  var all = HOT.concat(ICE), i;
+  for(i = 0; i < all.length; i++){ if(all[i].name === name) return all[i].art; }
+  return function(){ return pickArt(name, c); };
+}
+function storeList(){
+  return STORE.items.map(function(it, i){
+    var c = it.c | 0; c = c > 2 ? 2 : (c < 0 ? 0 : c);
+    var name = String(it.n == null ? '' : it.n).trim().slice(0, 18) || '메뉴';
+    return {
+      id: 'm' + i, name: name,
+      price: Math.max(0, Math.min(999999, it.p | 0)),
+      cat: c, sold: !!it.s,
+      art: artFor(name, c)
+    };
+  });
+}
+
+/* ── 저장된 가게 목록 (손님용 앱과 같은 localStorage 열쇠) ── */
+function readShops(){
+  var j;
+  try { j = JSON.parse(localStorage.getItem(K_SHOPS) || '[]'); } catch(e){ return []; }
+  if(!Array.isArray(j)) return [];
+  return j.filter(function(x){ return x && typeof x.tok === 'string' && x.tok && typeof x.name === 'string'; })
+    .slice(0, 12)
+    .map(function(x){ var at = Number(x.at); return { name: String(x.name).slice(0, 40), tok: String(x.tok), at: isFinite(at) ? at : 0 }; });
+}
+function writeShops(list){
+  list = list.slice(0, 12);
+  try { localStorage.setItem(K_SHOPS, JSON.stringify(list)); }catch(e){}
+}
+function rememberShop(name, tok){
+  var nm = (String(name == null ? '' : name).trim() || '우리 가게').slice(0, 40);
+  var list = readShops(), hit = -1, i;
+  for(i = 0; i < list.length; i++){ if(list[i].name === nm){ hit = i; break; } }
+  var res = 'new';
+  if(hit >= 0){
+    res = list[hit].tok === tok ? 'same' : 'updated';
+    list.splice(hit, 1);
+  }
+  list.unshift({ name: nm, tok: tok, at: Date.now() });
+  writeShops(list);
+  paintSavedCount();
+  return res;
+}
+function paintSavedCount(){
+  var el = $('#savedCnt');
+  if(el) el.textContent = readShops().length;
+}
+function hashToken(){
+  var m = /[#&?]m=([A-Za-z0-9\-_]+)/.exec(location.hash || '');
+  return m ? m[1] : '';
+}
+function lastTok(){
+  try { return localStorage.getItem(K_LAST) || ''; }catch(e){ return ''; }
+}
+/* 토큰 → 가게. 성공하면 STORE·RENDER·state.tok 를 바꾸고 true
+   remember=true 면 📌 저장된 가게 목록에도 넣는다 (QR 로 새로 연 가게) */
+function loadStore(tok, remember){
+  var d = WTData.dec(tok);
+  if(!d || !d.items || !d.items.length) return false;
+  var nm = String(d.name == null ? '' : d.name).trim() || '우리 가게';
+  STORE = { name: nm, items: d.items, tok: tok };
+  RENDER = storeList();
+  state.tok = tok;
+  try { localStorage.setItem(K_LAST, tok); }catch(e){}
+  if(remember) rememberShop(nm, tok);
+  return true;
+}
 
 /* ════════════════════════════════════════════════════════════
    3. 상태 — 폰 안에만 저장 (개인정보 없음)
    ════════════════════════════════════════════════════════════ */
 var KEY = 'wagling-elder-order-v1';
-var state = { big:true, qty:{}, direct:{ text:'', qty:0 } };
+var state = { big:true, qty:{}, direct:{ text:'', qty:0 }, tok:'' };
 
 function save(){
   try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){}
@@ -583,9 +963,10 @@ function restore(){
     var d = JSON.parse(localStorage.getItem(KEY) || 'null');
     if(!d || typeof d !== 'object') return;
     if(typeof d.big === 'boolean') state.big = d.big;
-    if(d.qty && typeof d.qty === 'object'){
+    /* 담아 둔 주문은 같은 가게일 때만 살린다 (다른 가게 메뉴와 섞이지 않게) */
+    if(d.qty && typeof d.qty === 'object' && String(d.tok || '') === String(state.tok || '')){
       for(var k in d.qty){
-        if(ALL_IDS.indexOf(k) < 0) continue;
+        if(!hasId(k)) continue;
         var n = clampInt(d.qty[k], 0, 99);
         if(n > 0) state.qty[k] = n;
       }
@@ -603,37 +984,91 @@ var qtyOf = function(id){ return state.qty[id] || 0; };
 /* ════════════════════════════════════════════════════════════
    4. 카드 만들기
    ════════════════════════════════════════════════════════════ */
-function cardHTML(d, kind){
-  var nm = esc(d.name);
-  return '<div class="card ' + kind + '" data-id="' + d.id + '">'
-    + '<div class="pic">' + d.art() + '</div>'
+function cardHTML(it, kind){
+  var nm = esc(it.name);
+  var cls = kind + (it.sold ? ' out' : '');
+  return '<div class="card ' + cls + '" data-id="' + esc(it.id) + '">'
+    + '<div class="pic">' + it.art() + (it.sold ? '<span class="soldTag">품절</span>' : '') + '</div>'
     + '<div class="nm">' + nm + '</div>'
+    + (it.price > 0 ? '<div class="pr">' + it.price.toLocaleString('ko-KR') + '원</div>' : '')
     + '<div class="step">'
-    +   '<button type="button" class="minus" data-act="minus" data-id="' + d.id + '" aria-label="' + nm + ' 한 잔 빼기" disabled>−</button>'
-    +   '<span class="qty" data-qty="' + d.id + '" aria-hidden="true">0</span>'
-    +   '<button type="button" class="plus" data-act="plus" data-id="' + d.id + '" aria-label="' + nm + ' 한 잔 담기">＋</button>'
+    +   '<button type="button" class="minus" data-act="minus" data-id="' + esc(it.id) + '" aria-label="' + nm + ' 하나 빼기"' + (it.sold ? ' disabled' : '') + '>−</button>'
+    +   '<span class="qty" data-qty="' + esc(it.id) + '" aria-hidden="true">0</span>'
+    +   '<button type="button" class="plus" data-act="plus" data-id="' + esc(it.id) + '" aria-label="' + nm + ' 하나 담기"' + (it.sold ? ' disabled' : '') + '>＋</button>'
     + '</div>'
     + '</div>';
 }
-function buildCards(){
-  $('#hotCards').innerHTML = HOT.map(function(d){ return cardHTML(d, 'hot'); }).join('');
-  $('#iceCards').innerHTML = ICE.map(function(d){ return cardHTML(d, 'ice'); }).join('');
+var CATS = [
+  { c: 0, cls: 'hot', ic: '☕', t: '따뜻한 음료' },
+  { c: 1, cls: 'ice', ic: '🧊', t: '차가운 음료' },
+  { c: 2, cls: 'food', ic: '🍽️', t: '다른 메뉴' }
+];
+function renderMenu(){
+  var demo = !STORE;
+  $('#demoMenu').hidden = !demo;
+  $('#storeMenu').hidden = demo;
+  if(demo){
+    $('#hotCards').innerHTML = RENDER.filter(function(it){ return it.cat === 0; })
+      .map(function(it){ return cardHTML(it, 'hot'); }).join('');
+    $('#iceCards').innerHTML = RENDER.filter(function(it){ return it.cat === 1; })
+      .map(function(it){ return cardHTML(it, 'ice'); }).join('');
+    return;
+  }
+  var html = '';
+  CATS.forEach(function(k){
+    var list = RENDER.filter(function(it){ return it.cat === k.c; });
+    if(!list.length) return;
+    html += '<section class="ssec">'
+      + '<h2 class="secHead ' + k.cls + '"><span class="se" aria-hidden="true">' + k.ic + '</span>'
+      + '<span class="st">' + k.t + '</span><span class="tag">' + list.length + '가지</span></h2>'
+      + '<div class="sgrid">' + list.map(function(it){ return cardHTML(it, k.cls); }).join('') + '</div>'
+      + '</section>';
+  });
+  $('#storeMenu').innerHTML = html;
+}
+/* 가게 띠 · 메뉴 그리기 · 주문칸 맞추기 한 번에 */
+function paintStore(){
+  var bar = $('#storeBar');
+  if(bar){
+    bar.hidden = !STORE;
+    if(STORE){
+      $('#storeBarName').textContent = STORE.name;
+      $('#storeBarSub').textContent = '메뉴 ' + STORE.items.length + '가지';
+    }
+  }
+  paintSavedCount();
+  renderMenu();
+  syncCards();
+  syncDirect(true);
+  updateBar();
+  save();
+  requestAnimationFrame(measureBar);
 }
 
 /* ════════════════════════════════════════════════════════════
    5. 주문 내역 — 화면에 보이는 그대로의 이름으로
    ════════════════════════════════════════════════════════════ */
-function hotLabel(name){ return '따뜻한 ' + name; }
+function hotLabel(name){ return (/^따뜻한|^핫/.test(name)) ? name : '따뜻한 ' + name; }
 /* v2 · 에이드·스무디는 이름 그대로 — “아이스 레몬에이드”처럼 어색하게 앞을 붙이지 않는다 */
 function iceLabel(name){ return (name.indexOf('아이스') === 0 || /에이드|스무디/.test(name)) ? name : '아이스 ' + name; }
+function labelFor(it){
+  if(it.cat === 1) return iceLabel(it.name);
+  if(it.cat === 0) return hotLabel(it.name);
+  return it.name;                 /* 🍽️ 다른 메뉴는 이름 그대로 */
+}
 
 function orderItems(){
   var out = [];
-  HOT.forEach(function(d){ var q = qtyOf(d.id); if(q > 0) out.push({ label: hotLabel(d.name), qty: q }); });
-  ICE.forEach(function(d){ var q = qtyOf(d.id); if(q > 0) out.push({ label: iceLabel(d.name), qty: q }); });
+  RENDER.forEach(function(it){
+    var q = qtyOf(it.id);
+    if(q > 0) out.push({ label: labelFor(it), qty: q, price: it.price || 0 });
+  });
   var t = state.direct.text.trim();
-  if(t && state.direct.qty > 0) out.push({ label: t, qty: state.direct.qty, direct: true });
+  if(t && state.direct.qty > 0) out.push({ label: t, qty: state.direct.qty, direct: true, price: 0 });
   return out;
+}
+function totalPrice(items){
+  return items.reduce(function(a, b){ return a + (b.price || 0) * b.qty; }, 0);
 }
 function totalCups(items){
   return items.reduce(function(a, b){ return a + b.qty; }, 0);
@@ -647,13 +1082,13 @@ function orderSentence(items){
    6. 화면 맞추기 — 카드 수량·하단 바·직접 입력
    ════════════════════════════════════════════════════════════ */
 function syncCards(){
-  ALL.forEach(function(d){
-    var q = qtyOf(d.id);
-    var card = $('.card[data-id="' + d.id + '"]');
+  RENDER.forEach(function(it){
+    var q = qtyOf(it.id);
+    var card = $('.card[data-id="' + it.id + '"]');
     if(!card) return;
     var qEl = $('.qty', card), minus = $('.minus', card);
     if(qEl) qEl.textContent = q;
-    if(minus) minus.disabled = q <= 0;
+    if(minus) minus.disabled = q <= 0 || it.sold;
     card.classList.toggle('on', q > 0);
   });
 }
@@ -692,7 +1127,10 @@ function afterChange(){
    7. 담기 · 빼기
    ════════════════════════════════════════════════════════════ */
 function addDrink(id, delta){
-  if(ALL_IDS.indexOf(id) < 0) return;
+  if(!hasId(id)) return;
+  var it = null, i;
+  for(i = 0; i < RENDER.length; i++){ if(RENDER[i].id === id) it = RENDER[i]; }
+  if(it && it.sold){ showHint('이 메뉴는 오늘 다 팔렸어요 (품절)'); return; }
   var q = clampInt(qtyOf(id) + delta, 0, 99);
   if(q > 0) state.qty[id] = q; else delete state.qty[id];
   afterChange();
@@ -751,7 +1189,7 @@ function renderSheet(){
       return esc(i.label) + ' <b class="q">' + i.qty + '잔</b>';
     }).join(', ') + ' <span class="ask">주세요</span>';
     tot.hidden = false;
-    tot.textContent = '모두 ' + total + '잔';
+    tot.textContent = '모두 ' + total + '잔' + (totalPrice(items) > 0 ? ' · ' + totalPrice(items).toLocaleString('ko-KR') + '원' : '');
     hint.textContent = '이 화면을 직원에게 보여 주세요';
     sp.disabled = false;
     sp.style.opacity = '';
@@ -787,18 +1225,22 @@ function fitSheet(){
   }
 }
 function openSheet(){
+  if(!$('#sheet').hidden) return;
   lastFocus = document.activeElement;
   hideToast();                 /* '처음부터' 알림이 주문서 위에 뜨지 않게 */
   renderSheet();
   $('#sheet').hidden = false;
   document.body.style.overflow = 'hidden';
+  ovOpen('sheet');
   var close = $('#closeSheet');
   if(close) close.focus();
 }
-function closeSheet(){
+function closeSheet(fromBack){
+  if($('#sheet').hidden) return;
   $('#sheet').hidden = true;
   document.body.style.overflow = '';
   stopSpeak();
+  if(!fromBack) ovClose('sheet');
   if(lastFocus && lastFocus.focus) { try{ lastFocus.focus(); }catch(e){} }
 }
 $('#openSheet').addEventListener('click', openSheet);
@@ -970,17 +1412,419 @@ else{ window.addEventListener('resize', measureBar); }
 window.addEventListener('orientationchange', function(){ setTimeout(measureBar, 120); });
 
 /* ════════════════════════════════════════════════════════════
-   13. 시작
+   13. 폰 뒤로가기 — 겹쳐 뜬 창부터 닫는다
    ════════════════════════════════════════════════════════════ */
-restore();
-buildCards();
-applyBig();
-syncCards();
-syncDirect(true);
-updateBar();
-measureBar();
-setTimeout(measureBar, 60);
-window.addEventListener('load', function(){ measureBar(); });
+var ovStack = [], ovSkip = 0;
+function ovOpen(name){
+  ovStack.push(name);
+  try { history.pushState({ ov: name }, ''); } catch(e){}
+}
+function ovClose(name){
+  var i = ovStack.lastIndexOf(name);
+  if(i < 0) return;
+  ovStack.splice(i, 1);
+  ovSkip++;
+  try { history.back(); } catch(e){ ovSkip--; }
+}
+window.addEventListener('popstate', function(){
+  if(ovSkip > 0){ ovSkip--; return; }
+  var name = ovStack.pop();
+  if(!name) return;
+  if(name === 'sheet') closeSheet(true);
+  else if(name === 'scan') closeScan(true);
+  else if(name === 'shops') closeShops(true);
+});
+
+/* ════════════════════════════════════════════════════════════
+   14. 📌 저장된 가게
+   ════════════════════════════════════════════════════════════ */
+function agoText(at){
+  if(!at) return '저장됨';
+  var d = new Date(at), now = new Date();
+  var day = Math.floor((new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    - new Date(d.getFullYear(), d.getMonth(), d.getDate())) / 86400000);
+  if(day <= 0) return '오늘 저장';
+  if(day === 1) return '어제 저장';
+  if(day < 7) return day + '일 전 저장';
+  return (d.getMonth() + 1) + '월 ' + d.getDate() + '일 저장';
+}
+function shopsHTML(){
+  var list = readShops();
+  var demo = '<div class="shopRow">'
+    + '<button type="button" class="shopPick' + (STORE ? '' : ' on') + '" data-shop="demo">'
+    +   '<span class="sp-nm">☕ 기본 카페 메뉴</span>'
+    +   '<span class="sp-sub">' + (STORE ? '가게 QR 없이 쓰는 그림 메뉴판' : '지금 보고 있어요') + '</span>'
+    + '</button></div>';
+  if(!list.length){
+    return demo + '<h2 class="emptyTip">아직 저장된 가게가 없어요.<br>위의 <b>📷 가게 QR 찍기</b>로 사장님 QR을 찍으면<br>그 가게 메뉴판이 여기에 저장돼요.</h2>';
+  }
+  return demo + list.map(function(s, i){
+    var on = !!(STORE && STORE.tok === s.tok);
+    return '<div class="shopRow">'
+      + '<button type="button" class="shopPick' + (on ? ' on' : '') + '" data-shop="' + i + '" aria-label="' + esc(s.name) + ' 메뉴판 열기">'
+      +   '<span class="sp-nm">' + esc(s.name) + '</span>'
+      +   '<span class="sp-sub">' + (on ? '지금 보고 있어요' : agoText(s.at)) + '</span>'
+      + '</button>'
+      + '<button type="button" class="sp-del" data-shopdel="' + i + '" aria-label="' + esc(s.name) + ' 저장 지우기">✕</button>'
+      + '</div>';
+  }).join('');
+}
+function openShops(){
+  $('#shopList').innerHTML = shopsHTML();
+  $('#shopsModal').hidden = false;
+  document.body.style.overflow = 'hidden';
+  ovOpen('shops');
+  try { $('#shopsClose').focus(); }catch(e){}
+}
+function closeShops(fromBack){
+  if($('#shopsModal').hidden) return;
+  $('#shopsModal').hidden = true;
+  document.body.style.overflow = '';
+  if(!fromBack) ovClose('shops');
+  try { $('#savedBtn').focus(); }catch(e){}
+}
+/* 앱 안에서 가게를 바꾸면 #m= 주소는 지우고, 마지막 가게(K_LAST)로 기억한다 */
+function clearHash(){
+  try { history.replaceState(null, '', location.pathname + location.search); }catch(e){}
+}
+/* 창을 닫으며 기록을 되돌린 뒤에 지운다 — 먼저 지우면 예전 주소가 다시 남는다 */
+function cleanHashSoon(){ setTimeout(clearHash, 400); }
+function useDemoMenu(){
+  STORE = null;
+  state.tok = '';
+  state.qty = {};
+  RENDER = buildDemo();
+  try { localStorage.removeItem(K_LAST); }catch(e){}
+  paintStore();
+  showHint('☕ 기본 카페 메뉴판으로 돌아왔어요');
+  cleanHashSoon();
+}
+function useStore(i){
+  var s = readShops()[i];
+  if(!s) return false;
+  var prev = STORE ? STORE.tok : '';
+  if(prev !== s.tok) state.qty = {};        /* 가게가 바뀌면 주문은 새로 */
+  if(!loadStore(s.tok, false)){ showHint('이 가게 메뉴판을 읽지 못했어요. QR을 다시 찍어 주세요'); return false; }
+  paintStore();
+  showHint("🏠 '" + STORE.name + "' 메뉴판으로 열었어요");
+  cleanHashSoon();
+  return true;
+}
+function dropShop(i){
+  var list = readShops();
+  if(!list[i]) return;
+  var nm = list[i].name;
+  list.splice(i, 1);
+  writeShops(list);
+  $('#shopList').innerHTML = shopsHTML();
+  paintSavedCount();
+  showHint("'" + nm + "' 저장을 지웠어요");
+}
+
+/* ════════════════════════════════════════════════════════════
+   15. 📷 가게 QR 찍기 — 카메라(BarcodeDetector) · 사진(jsQR)
+      · 안드로이드 크롬은 BarcodeDetector 로 바로 읽고,
+        못 읽거나 지원하지 않는 브라우저에서는 jsqr.js 로 한 번 더 읽는다
+   ════════════════════════════════════════════════════════════ */
+var scan = { stream: null, raf: 0, busy: false, detector: null, hold: 0, last: 0, cv: null };
+var jsqrP = null;
+function loadJsQR(){
+  if(window.jsQR) return Promise.resolve(window.jsQR);
+  if(jsqrP) return jsqrP;
+  jsqrP = new Promise(function(res, rej){
+    var s = document.createElement('script');
+    s.src = './jsqr.js';
+    s.async = true;
+    s.onload = function(){ if(window.jsQR) res(window.jsQR); else rej(new Error('empty')); };
+    s.onerror = function(){ rej(new Error('net')); };
+    document.head.appendChild(s);
+  }).catch(function(){ jsqrP = null; return null; });
+  return jsqrP;
+}
+function scanMsg(t, bad){
+  var el = $('#scanMsg');
+  if(!el) return;
+  el.textContent = t;
+  el.classList.toggle('bad', !!bad);
+}
+function frameCanvas(src, sw, sh){
+  var cv = scan.cv || (scan.cv = document.createElement('canvas'));
+  var k = Math.min(1, 900 / Math.max(sw || 1, sh || 1));
+  cv.width = Math.max(1, Math.round((sw || 1) * k));
+  cv.height = Math.max(1, Math.round((sh || 1) * k));
+  cv.getContext('2d', { willReadFrequently: true }).drawImage(src, 0, 0, cv.width, cv.height);
+  return cv;
+}
+function jsDecode(src, sw, sh){
+  return loadJsQR().then(function(lib){
+    if(!lib) return '';
+    var cv = frameCanvas(src, sw, sh), img;
+    try { img = cv.getContext('2d').getImageData(0, 0, cv.width, cv.height); }catch(e){ return ''; }
+    var r = lib(img.data, cv.width, cv.height, { inversionAttempts: 'dontInvert' });
+    return (r && r.data) ? r.data : '';
+  }).catch(function(){ return ''; });
+}
+function detectCode(src, sw, sh){
+  if(window.BarcodeDetector){
+    try { if(!scan.detector) scan.detector = new window.BarcodeDetector({ formats: ['qr_code'] }); }
+    catch(e){ scan.detector = null; }
+    if(scan.detector){
+      return scan.detector.detect(src).then(function(list){
+        return (list && list.length && list[0].rawValue) ? list[0].rawValue : jsDecode(src, sw, sh);
+      }).catch(function(){ return jsDecode(src, sw, sh); });
+    }
+  }
+  return jsDecode(src, sw, sh);
+}
+function onCode(txt){
+  if(!txt) return false;
+  var m = /[#&?]m=([A-Za-z0-9\-_]+)/.exec(txt);
+  var tok = m ? m[1] : (/^[A-Za-z0-9\-_]{16,}$/.test(txt) ? txt : '');
+  if(!tok) return false;                      /* 메뉴판 QR이 아님 — 계속 찾는다 */
+  if(!WTData.dec(tok)){
+    scan.hold = Date.now() + 2500;
+    scanMsg('이 QR은 가게 메뉴판이 아니에요. 사장님 QR을 다시 비춰 주세요', true);
+    return true;
+  }
+  var prev = STORE ? STORE.tok : '';
+  if(prev !== tok) state.qty = {};
+  if(!loadStore(tok, true)) return false;
+  closeScan();
+  paintStore();
+  showHint("🏠 '" + STORE.name + "' 메뉴판을 열었어요");
+  cleanHashSoon();
+  return true;
+}
+function scanLoop(ts){
+  scan.raf = 0;
+  if($('#scanModal').hidden) return;
+  scan.raf = requestAnimationFrame(scanLoop);
+  if(scan.busy || Date.now() < scan.hold) return;
+  if(ts - scan.last < 220) return;
+  scan.last = ts;
+  var v = $('#scanVideo');
+  if(!v || !v.videoWidth || v.readyState < 2) return;
+  scan.busy = true;
+  detectCode(v, v.videoWidth, v.videoHeight).then(function(txt){
+    scan.busy = false;
+    if(txt) onCode(txt);
+  }, function(){ scan.busy = false; });
+}
+function startCam(){
+  var v = $('#scanVideo');
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    scanMsg('이 브라우저는 카메라를 바로 못 열어요 — 아래 🖼️ QR 사진으로 골라 주세요', true);
+    return;
+  }
+  navigator.mediaDevices.getUserMedia({
+    video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 } },
+    audio: false
+  }).then(function(st){
+    if($('#scanModal').hidden){ try { st.getTracks().forEach(function(t){ t.stop(); }); }catch(e){} return; }
+    scan.stream = st;
+    v.srcObject = st;
+    var p = v.play();
+    if(p && p.catch) p.catch(function(){});
+    scan.last = 0;
+    if(!scan.raf) scan.raf = requestAnimationFrame(scanLoop);
+  }).catch(function(){
+    scanMsg('카메라를 열지 못했어요 — 아래 🖼️ QR 사진으로 골라 주세요', true);
+  });
+}
+function stopCam(){
+  if(scan.raf){ try { cancelAnimationFrame(scan.raf); }catch(e){} scan.raf = 0; }
+  if(scan.stream){
+    try { scan.stream.getTracks().forEach(function(t){ t.stop(); }); }catch(e){}
+    scan.stream = null;
+  }
+  var v = $('#scanVideo');
+  if(v){ try { v.pause(); }catch(e){} try { v.srcObject = null; }catch(e){} }
+}
+function openScan(){
+  $('#scanModal').hidden = false;
+  document.body.style.overflow = 'hidden';
+  ovOpen('scan');
+  scanMsg('사장님이 붙여 둔 QR을 네모 안에 맞춰 주세요');
+  startCam();
+}
+function closeScan(fromBack){
+  if($('#scanModal').hidden) return;
+  stopCam();
+  $('#scanModal').hidden = true;
+  document.body.style.overflow = '';
+  if(!fromBack) ovClose('scan');
+  try { $('#scanBtn').focus(); }catch(e){}
+}
+function decodePhoto(file){
+  scanMsg('사진에서 QR을 찾는 중…');
+  var url = URL.createObjectURL(file);
+  var img = new Image();
+  img.onload = function(){
+    detectCode(img, img.naturalWidth, img.naturalHeight).then(function(txt){
+      try { URL.revokeObjectURL(url); }catch(e){}
+      if(txt && onCode(txt)) return;
+      if(!txt) scanMsg('사진에서 QR을 찾지 못했어요. QR만 크게 나오게 다시 찍어 주세요', true);
+    });
+  };
+  img.onerror = function(){
+    try { URL.revokeObjectURL(url); }catch(e){}
+    scanMsg('사진을 열지 못했어요. 다른 사진으로 해 보세요', true);
+  };
+  img.src = url;
+}
+$('#scanBtn').addEventListener('click', openScan);
+$('#scanClose').addEventListener('click', function(){ closeScan(); });
+$('#scanPhoto').addEventListener('click', function(){ $('#scanFile').click(); });
+$('#scanFile').addEventListener('change', function(){
+  var f = this.files && this.files[0];
+  this.value = '';
+  if(f) decodePhoto(f);
+});
+$('#savedBtn').addEventListener('click', openShops);
+$('#shopsClose').addEventListener('click', function(){ closeShops(); });
+$('#shopsModal').addEventListener('click', function(e){ if(e.target === this) closeShops(); });
+$('#shopList').addEventListener('click', function(e){
+  var del = e.target.closest ? e.target.closest('[data-shopdel]') : null;
+  if(del){ dropShop(parseInt(del.getAttribute('data-shopdel'), 10)); return; }
+  var pick = e.target.closest ? e.target.closest('[data-shop]') : null;
+  if(!pick) return;
+  var v = pick.getAttribute('data-shop');
+  if(v === 'demo'){ useDemoMenu(); closeShops(); return; }
+  if(useStore(parseInt(v, 10))) closeShops();
+});
+window.addEventListener('hashchange', function(){
+  var t = hashToken();
+  if(!t || (STORE && STORE.tok === t)) return;
+  if(loadStore(t, true)){ state.qty = {}; paintStore(); }
+});
+
+/* ════════════════════════════════════════════════════════════
+   16. 오늘 날짜·요일·날씨 — 김해 기본, 누르면 현위치
+   ════════════════════════════════════════════════════════════ */
+var WTDay = (function(){
+  'use strict';
+  var DOW = ['일','월','화','수','목','금','토'];
+  var WMO = {
+    0:['☀️','맑음'], 1:['🌤️','대체로 맑음'], 2:['⛅','구름 조금'], 3:['☁️','흐림'],
+    45:['🌫️','안개'], 48:['🌫️','안개'],
+    51:['🌦️','이슬비'], 53:['🌦️','이슬비'], 55:['🌦️','이슬비'],
+    61:['🌧️','비'], 63:['🌧️','비'], 65:['🌧️','비'], 66:['🌧️','어는 비'], 67:['🌧️','어는 비'],
+    71:['🌨️','눈'], 73:['🌨️','눈'], 75:['🌨️','눈'], 77:['🌨️','눈'],
+    80:['🌦️','소나기'], 81:['🌦️','소나기'], 82:['🌧️','소나기'],
+    85:['🌨️','눈 소나기'], 86:['🌨️','눈 소나기'],
+    95:['⛈️','천둥번개'], 96:['⛈️','천둥번개'], 99:['⛈️','천둥번개']
+  };
+  var LAT = 35.23, LON = 128.89, KEY = 'wt_weather_v1', TTL = 20 * 60 * 1000;
+  var wx = null, at = 0, failed = false, place = 'gimhae', busy = false, seq = 0, rank = 0;
+  function paint(){
+    var d = new Date();
+    var el = $('#todayDate');
+    if(el) el.textContent = (d.getMonth() + 1) + '월 ' + d.getDate() + '일 (' + DOW[d.getDay()] + ')';
+    var w = $('#todayWx');
+    if(w){
+      var txt, loading = false;
+      if(wx) txt = wx.emoji + ' ' + (WMO[wx.code] ? WMO[wx.code][1] : '날씨') + ' ' + wx.t + '°';
+      else if(failed) txt = '날씨 정보 없음';
+      else { txt = '날씨 확인 중'; loading = true; }
+      w.textContent = txt;
+      w.classList.toggle('loading', loading);
+    }
+    var p = $('#wxPlace');
+    if(p) p.textContent = place === 'here' ? '내 위치' : '김해';
+    var c = $('#todayCard');
+    if(c) c.setAttribute('aria-label', '오늘 ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일 '
+      + DOW[d.getDay()] + '요일, ' + (w ? w.textContent : '') + ' — 누르면 현위치 날씨로 새로고침');
+  }
+  function loadCache(){
+    try {
+      var j = JSON.parse(localStorage.getItem(KEY) || 'null');
+      if(!j || typeof j.t !== 'number') return;
+      if(Date.now() - j.at > 12 * 60 * 60 * 1000) return;
+      wx = { emoji: (WMO[j.code] || ['🌡️'])[0], code: j.code, t: Math.round(j.t) };
+      at = j.at;
+      place = j.place === 'here' ? 'here' : 'gimhae';
+    } catch(e){}
+  }
+  function saveCache(code, t){
+    try { localStorage.setItem(KEY, JSON.stringify({ code: code, t: t, at: Date.now(), place: place })); }catch(e){}
+  }
+  function fetchWx(lat, lon, r){
+    if(!window.fetch || navigator.onLine === false){ failed = true; paint(); return Promise.resolve(false); }
+    r = r || 1;
+    failed = false;
+    var my = seq, ctl = window.AbortController ? new AbortController() : null, to = null;
+    if(ctl) to = setTimeout(function(){ try { ctl.abort(); }catch(e){} }, 8000);
+    return fetch('https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon
+        + '&current=temperature_2m,weather_code&timezone=auto',
+        ctl ? { cache: 'no-store', signal: ctl.signal } : { cache: 'no-store' })
+      .then(function(res){ return res.ok ? res.json() : null; })
+      .then(function(j){
+        if(to) clearTimeout(to);
+        var c = j && j.current;
+        if(!c || typeof c.temperature_2m !== 'number'){ failed = true; paint(); return false; }
+        if(my !== seq || r < rank) return false;
+        rank = r;
+        wx = { emoji: (WMO[c.weather_code] || ['🌡️'])[0], code: c.weather_code, t: Math.round(c.temperature_2m) };
+        at = Date.now();
+        saveCache(c.weather_code, c.temperature_2m);
+        paint();
+        return true;
+      })
+      .catch(function(){ if(to) clearTimeout(to); failed = true; paint(); return false; });
+  }
+  function refreshHere(){
+    if(!navigator.geolocation){ fetchWx(LAT, LON, 1); return; }
+    if(navigator.onLine === false){ failed = true; paint(); return; }
+    navigator.geolocation.getCurrentPosition(function(pos){
+      var c = pos && pos.coords;
+      if(!c){ fetchWx(LAT, LON, 1); return; }
+      place = 'here'; seq++; rank = 2;
+      fetchWx(Math.round(c.latitude * 100) / 100, Math.round(c.longitude * 100) / 100, 2);
+    }, function(){ fetchWx(LAT, LON, 1); }, { enableHighAccuracy: false, timeout: 8000, maximumAge: 600000 });
+  }
+  function init(){
+    loadCache();
+    paint();
+    var card = $('#todayCard');
+    if(card) card.addEventListener('click', function(){
+      if(busy) return;
+      busy = true;
+      refreshHere();
+      setTimeout(function(){ busy = false; }, 1500);
+    });
+    if(!at || Date.now() - at > TTL) fetchWx(LAT, LON, 1);
+    setInterval(paint, 60 * 1000);
+  }
+  return { init: init, paint: paint };
+})();
+
+/* ════════════════════════════════════════════════════════════
+   17. 시작
+   ════════════════════════════════════════════════════════════ */
+(function boot(){
+  var ok = false, tok = hashToken();
+  /* 이 아래 설치·공유 코드가 준비되기 전이라, 안내는 잠깐 뒤에 띄운다 */
+  var hintSoon = function(msg){ setTimeout(function(){ showHint(msg); }, 0); };
+  if(tok){
+    ok = loadStore(tok, true);                     /* QR·링크로 연 가게는 자동 저장 */
+    if(ok) hintSoon("📌 '" + STORE.name + "' 메뉴판을 폰에 저장했어요");
+    else hintSoon('메뉴판 주소를 읽지 못했어요. QR을 다시 찍어 주세요');
+  }
+  if(!ok){
+    var last = lastTok();
+    if(last) ok = loadStore(last, false);          /* 그냥 열어도 지난 가게 그대로 */
+  }
+  if(!ok){ STORE = null; RENDER = buildDemo(); }
+  state.tok = STORE ? STORE.tok : '';
+
+  restore();
+  applyBig();
+  paintStore();
+  measureBar();
+  setTimeout(measureBar, 60);
+  WTDay.init();
+  window.addEventListener('load', function(){ measureBar(); });
+})();
 
 if('serviceWorker' in navigator && /^https?:$/.test(location.protocol)){
   window.addEventListener('load', function(){

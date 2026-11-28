@@ -3,7 +3,7 @@
    - 외부(다른 사이트) 요청은 절대 건드리지 않음 · 개인정보 0%
    - 화면(index.html)은 항상 네트워크 우선 → 새 버전이 바로 반영됨 */
 
-const CACHE = 'wagling-elder-v1-icons2';
+const CACHE = 'wagling-elder-v3-qr';
 const SHELL = [
   './',
   './index.html',
@@ -11,7 +11,8 @@ const SHELL = [
   './icon-192.png',
   './icon-512.png',
   './icon-maskable-512.png',
-  './apple-touch-icon.png'
+  './apple-touch-icon.png',
+  './jsqr.js'
 ];
 
 self.addEventListener('install', (event) => {
@@ -61,8 +62,8 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 아이콘·매니페스트 같은 정적 파일: 캐시 우선
-  if (/\.(png|svg|webp|jpe?g|webmanifest|ico|json)$/i.test(url.pathname)) {
+  // 아이콘·매니페스트·라이브러리(jsqr) 같은 정적 파일: 캐시 우선
+  if (/\.(png|svg|webp|jpe?g|webmanifest|ico|json|js)$/i.test(url.pathname)) {
     event.respondWith((async () => {
       const cache = await caches.open(CACHE);
       const hit = await cache.match(req);
