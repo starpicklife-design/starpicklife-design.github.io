@@ -78,6 +78,16 @@ html.big .ctrl{margin-top:.38rem}
 .datebar .db-place{flex:0 0 auto;color:#A08C79;font-size:.7rem;font-weight:800}
 .datebar .db-go{flex:0 0 auto;color:#B9A491;font-size:.72rem}
 
+/* 저장한 가게 띠 */
+.shopbar{display:flex;align-items:center;gap:.3rem;margin-top:.3rem;padding:.26rem .55rem;width:100%;
+  background:#F6E6C6;border-radius:.8rem;color:#5B3F14;text-align:left;font-size:.78rem;
+  box-shadow:inset 0 0 0 1.5px #E4CB9C}
+.shopbar .sb-ic{flex:0 0 auto;font-size:.86rem}
+.shopbar .sb-nm{flex:1 1 auto;min-width:0;font-weight:900;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shopbar .sb-n{flex:0 0 auto;font-size:.7rem;font-weight:900;background:#EAD3A6;border-radius:2rem;padding:.05rem .4rem}
+.shopbar .sb-go{flex:0 0 auto;font-size:.8rem;color:#8A6A2E}
+html.big .shopbar{font-size:.84rem;padding:.3rem .55rem}
+
 /* ── 분류 탭 ───────────────────────────────────────── */
 .cats{display:flex;flex-wrap:wrap;gap:.28rem;padding:.55rem .7rem .3rem;
   position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--cream) 76%,rgba(255,247,233,0))}
@@ -87,50 +97,91 @@ html.big .ctrl{margin-top:.38rem}
 .cat[aria-pressed="true"]{background:var(--coffee);border-color:var(--coffee);color:#FFF7E9}
 .cat:active{transform:translateY(1px)}
 
+/* ── 메뉴 직접 추가 (접이식) ─────────────────────────── */
+.addwrap{margin:.1rem .7rem .05rem}
+.addtoggle{display:flex;align-items:center;justify-content:center;gap:.3rem;width:100%;min-height:2.15rem;
+  border-radius:.8rem;border:2px dashed #D9C4A6;background:#FFFDF6;color:var(--ink2);
+  font-size:.84rem;font-weight:900;letter-spacing:-.03em}
+.addtoggle[aria-expanded="true"]{background:#FBF1DE;border-style:solid;border-color:var(--gold);color:#6B4A18}
+.addtoggle:active{transform:translateY(1px)}
+.addform{margin-top:.4rem;padding:.45rem .55rem .55rem;background:#FFFDF6;border:2px solid var(--line);
+  border-radius:.9rem;display:grid;grid-template-columns:1fr 1fr;gap:.36rem;box-shadow:var(--shadow)}
+.afld{display:grid;gap:.16rem;min-width:0}
+.afld.full{grid-column:1 / -1}
+.afld label{font-size:.74rem;font-weight:900;color:var(--ink2);letter-spacing:-.02em}
+.afld input,.afld select{width:100%;min-height:2.4rem;border:2px solid var(--line);border-radius:.6rem;background:#fff;
+  padding:0 .5rem;font-family:inherit;font-size:.92rem;font-weight:800;color:var(--ink);-webkit-appearance:none;appearance:none}
+.afld select{background-image:linear-gradient(45deg,transparent 50%,#8B7A6B 50%),linear-gradient(135deg,#8B7A6B 50%,transparent 50%);
+  background-position:calc(100% - .95rem) 1rem,calc(100% - .62rem) 1rem;background-size:.34rem .34rem,.34rem .34rem;
+  background-repeat:no-repeat;padding-right:1.5rem}
+.afld input::placeholder{color:#B7A692;font-weight:700}
+.afld input:focus,.afld select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(192,86,43,.14)}
+.addgo{grid-column:1 / -1;min-height:2.6rem;border-radius:.65rem;background:var(--accent);color:#fff;
+  font-size:.98rem;font-weight:900;letter-spacing:-.02em;box-shadow:0 3px 10px rgba(192,86,43,.28)}
+.addgo:active{transform:translateY(1px)}
+.addnote{grid-column:1 / -1;margin:0;font-size:.72rem;font-weight:700;color:var(--ink3);letter-spacing:-.02em;line-height:1.35}
+.minewrap{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:.24rem}
+.chip{display:flex;align-items:center;gap:.2rem;background:#fff;border:1.5px solid var(--line);border-radius:2rem;
+  padding:.18rem .3rem .18rem .5rem;font-size:.74rem;font-weight:900;color:var(--ink2);max-width:100%}
+.chip span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip button{flex:0 0 auto;width:1.15rem;height:1.15rem;border-radius:50%;background:#F7E7DA;color:#B24A22;
+  display:grid;place-items:center;font-size:.66rem;font-weight:900;line-height:1}
+html.big .addtoggle{min-height:2.6rem;font-size:.94rem}
+html.big .addform{grid-template-columns:1fr}
+html.big .afld label{font-size:.82rem}
+html.big .afld input,html.big .afld select{min-height:2.9rem;font-size:1rem}
+html.big .addgo{min-height:3rem;font-size:1.06rem}
+html.big .addnote{font-size:.78rem}
+
 /* ── 메뉴판 ─────────────────────────────────────────── */
 main{padding:0 .7rem}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-top:.28rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:.44rem;margin-top:.2rem}
 html.big .grid{grid-template-columns:1fr;gap:.5rem}
 html.big .cats{display:grid;grid-template-columns:1fr 1fr;overflow:visible;gap:.4rem;padding-top:.5rem}
 html.big .cat{justify-content:center;font-size:.9rem;min-height:2.5rem;letter-spacing:-.03em}
 .card{position:relative;display:flex;flex-direction:column;align-items:stretch;text-align:left;cursor:pointer;
-  background:var(--card);border:2px solid var(--line);border-radius:1.05rem;padding:.42rem .42rem .48rem;
+  background:var(--card);border:2px solid var(--line);border-radius:.9rem;padding:.3rem .36rem .36rem;
   box-shadow:var(--shadow);min-width:0;transition:transform .1s,box-shadow .15s}
 .card:active{transform:scale(.985)}
-.card .pic{display:block;border-radius:.75rem;background:var(--hotbg);padding:.1rem .25rem;line-height:0}
+.card .head{display:grid;grid-template-columns:3.5rem 1fr;align-items:center;gap:.34rem;min-width:0}
+.card .pic{position:relative;display:grid;place-items:center;width:3.5rem;height:3.5rem;border-radius:.62rem;
+  background:var(--hotbg);padding:.1rem .14rem;line-height:0;overflow:hidden;flex:0 0 auto}
 .card.t-ice .pic{background:var(--icebg)}
 .card.t-food .pic{background:var(--foodbg)}
 .card .pic svg{width:100%;height:auto;display:block}
 .card .txt{display:block;min-width:0}
-.card .emo{display:grid;place-items:center;font-size:2.9rem;height:5.05rem;line-height:1}
-.card .nm{display:block;margin-top:.3rem;font-size:1.02rem;font-weight:900;letter-spacing:-.03em;
-  line-height:1.24;word-break:keep-all;color:var(--ink)}
-.card .pr{display:block;margin-top:.12rem;font-size:.98rem;font-weight:900;color:var(--accent2);letter-spacing:-.02em}
-.card .hit{position:absolute;top:.44rem;right:.44rem;background:var(--accent);color:#fff;border-radius:2rem;
-  min-width:1.55rem;height:1.55rem;padding:0 .3rem;display:grid;place-items:center;font-size:.86rem;font-weight:900;
+.card .emo{display:grid;place-items:center;font-size:1.9rem;line-height:1}
+.card .nm{display:block;font-size:.98rem;font-weight:900;letter-spacing:-.03em;
+  line-height:1.2;word-break:keep-all;overflow-wrap:anywhere;color:var(--ink)}
+.card .pr{display:block;margin-top:.08rem;font-size:.92rem;font-weight:900;color:var(--accent2);letter-spacing:-.02em}
+.card .hit{position:absolute;top:.06rem;left:.06rem;background:var(--accent);color:#fff;border-radius:2rem;
+  min-width:1.15rem;height:1.15rem;padding:0 .22rem;display:grid;place-items:center;font-size:.72rem;font-weight:900;
   box-shadow:0 2px 6px rgba(0,0,0,.22)}
 .card.sold{opacity:.62}
 .card.sold .pic{filter:grayscale(.7)}
-.card .soldtag{position:absolute;top:.5rem;left:.5rem;background:#4A4038;color:#fff;border-radius:.5rem;
-  padding:.1rem .38rem;font-size:.72rem;font-weight:900}
-.card .step{margin-top:.35rem;display:grid;grid-template-columns:1fr 1.35fr;gap:.3rem}
-.card .step button{min-height:2.35rem;border-radius:.7rem;font-size:1.12rem;font-weight:900;
+.card .soldtag{position:absolute;left:.06rem;bottom:.06rem;background:#4A4038;color:#fff;border-radius:.4rem;
+  padding:.03rem .24rem;font-size:.56rem;font-weight:900}
+.card .del{position:absolute;right:.06rem;bottom:.06rem;width:1.25rem;height:1.25rem;border-radius:50%;
+  background:#F7E7DA;color:#B24A22;border:1.5px solid #E3C6B2;display:grid;place-items:center;
+  font-size:.72rem;font-weight:900;line-height:1;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.card .step{margin-top:.3rem;display:grid;grid-template-columns:1fr 1.3fr;gap:.28rem}
+.card .step button{min-height:2.05rem;border-radius:.55rem;font-size:1.04rem;font-weight:900;
   border:2px solid var(--line);background:#FAF4E8;color:var(--ink2);display:grid;place-items:center;line-height:1}
 .card .step button.plus{background:var(--accent);border-color:var(--accent);color:#fff}
 .card .step button:disabled{opacity:.42}
 
 /* 큰 글씨 모드 — 한 줄에 하나, 그림·이름·가격은 크게 + 수량은 아래 가득 */
-html.big .card{display:grid;grid-template-columns:4.5rem 1fr;column-gap:.6rem;row-gap:.45rem;align-items:center;
-  padding:.55rem .6rem .6rem;border-radius:1.15rem}
-html.big .card .pic{grid-column:1;grid-row:1;width:4.5rem;height:4.5rem;display:grid;place-items:center;border-radius:.9rem}
-html.big .card .pic svg{width:4.2rem;height:auto}
-html.big .card .emo{height:auto;font-size:2.5rem}
-html.big .card .txt{grid-column:2;grid-row:1;flex:1 1 auto;min-width:0}
-html.big .card .nm{font-size:1.22rem;margin-top:0;line-height:1.22}
+html.big .card{padding:.5rem .55rem .55rem;border-radius:1.05rem}
+html.big .card .head{grid-template-columns:4.6rem 1fr;column-gap:.6rem}
+html.big .card .pic{width:4.6rem;height:4.6rem;border-radius:.85rem;padding:.12rem .18rem}
+html.big .card .emo{font-size:2.6rem}
+html.big .card .nm{font-size:1.22rem;line-height:1.22}
 html.big .card .pr{font-size:1.06rem;margin-top:.16rem}
-html.big .card .step{grid-column:1 / -1;grid-row:2;margin-top:.1rem;grid-template-columns:1fr 1.4fr;gap:.36rem}
+html.big .card .step{margin-top:.4rem;grid-template-columns:1fr 1.4fr;gap:.36rem}
 html.big .card .step button{min-height:2.9rem;font-size:1.3rem;border-radius:.75rem}
-html.big .card .hit{top:.4rem;right:.45rem;min-width:1.7rem;height:1.7rem;font-size:.9rem}
+html.big .card .hit{min-width:1.5rem;height:1.5rem;font-size:.84rem}
+html.big .card .del{width:1.6rem;height:1.6rem;font-size:.86rem}
+html.big .card .soldtag{font-size:.66rem;padding:.05rem .3rem}
 
 .empty{display:flex;flex-direction:column;align-items:center;gap:.6rem;padding:3rem 1rem;color:var(--ink2);text-align:center}
 .empty .e{font-size:2.6rem}
@@ -190,6 +241,19 @@ html.big body{padding-bottom:11.4rem}
 .split .per{flex:0 0 auto;font-size:.98rem;font-weight:900;color:var(--green)}
 .perline{display:flex;align-items:baseline;justify-content:flex-end;gap:.4rem;margin-top:.4rem;font-size:.9rem;font-weight:900;color:var(--ink2)}
 .perline b{font-size:1.12rem;color:var(--green);letter-spacing:-.02em}
+/* 주문서 입력칸 — 테이블 번호 · 요청사항 */
+.fields{display:grid;gap:.42rem;margin-top:.55rem}
+.fld{display:grid;gap:.2rem;min-width:0}
+.fld > label{font-size:.84rem;font-weight:900;color:var(--ink2);letter-spacing:-.02em}
+.fld > label em{font-style:normal;font-weight:800;color:var(--ink3);font-size:.74rem}
+.fld input{width:100%;min-height:2.9rem;border:2px solid var(--line);border-radius:.7rem;background:#fff;
+  padding:0 .65rem;font-family:inherit;font-size:1rem;font-weight:800;color:var(--ink);-webkit-appearance:none;appearance:none}
+.fld input::placeholder{color:#B7A692;font-weight:700;font-size:.9rem}
+.fld input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(192,86,43,.14)}
+.fld.num{max-width:9rem}
+html.big .fld > label{font-size:.92rem}
+html.big .fld input{min-height:3.1rem;font-size:1.06rem}
+html.big .fld.num{max-width:none}
 .acts{display:grid;grid-template-columns:1fr;gap:.45rem;margin-top:.75rem}
 .bigbtn{min-height:3.5rem;border-radius:1rem;font-size:1.12rem;font-weight:900;letter-spacing:-.02em;
   display:flex;align-items:center;justify-content:center;gap:.4rem}
@@ -206,6 +270,11 @@ html.big body{padding-bottom:11.4rem}
 .done .list{text-align:left;margin-top:.7rem;background:#fff;border:2px solid var(--line);border-radius:.9rem;padding:.6rem .7rem}
 .done .list div{display:flex;justify-content:space-between;gap:.5rem;font-size:.95rem;font-weight:800;padding:.16rem 0}
 .done .list div b{color:var(--accent2)}
+.done .tbl{display:inline-flex;align-items:center;gap:.3rem;margin:.4rem auto 0;background:#FFF3DF;color:#6B4A18;
+  border:2px solid #E9CFA4;border-radius:.8rem;padding:.3rem .85rem;font-size:1.1rem;font-weight:900;letter-spacing:-.02em}
+.done .req{text-align:left;margin-top:.55rem;background:#FFFDF6;border:2px dashed #E2D2B9;border-radius:.9rem;
+  padding:.5rem .7rem;font-size:.98rem;font-weight:800;color:var(--ink);line-height:1.4;word-break:keep-all}
+.done .req b{display:block;font-size:.78rem;color:var(--ink3);letter-spacing:-.02em;margin-bottom:.1rem}
 
 /* 큰 글씨 모드 주문서 — 이름이 잘리지 않게 (이름·가격 왼쪽 / 수량 오른쪽) */
 html.big .row{display:grid;grid-template-columns:1fr auto;grid-template-areas:"nm qs" "pr qs";
@@ -220,10 +289,27 @@ html.big .split .t{flex:1 1 100%;font-size:.94rem}
 html.big .split .q{margin-left:auto}
 html.big .split .q button{width:2.6rem;height:2.6rem}
 
+/* 저장한 가게 목록 */
+.shoplist{display:flex;flex-direction:column;gap:.42rem}
+.shoprow{display:flex;align-items:stretch;gap:.34rem}
+.shoprow .sr-open{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:.06rem;
+  background:#fff;border:2px solid var(--line);border-radius:.9rem;padding:.5rem .65rem;text-align:left}
+.shoprow.on .sr-open{border-color:#D9A227;background:#FFF9EA}
+.shoprow .sr-nm{font-size:1rem;font-weight:900;letter-spacing:-.02em;color:var(--ink);line-height:1.25;
+  max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.shoprow .sr-at{font-size:.76rem;font-weight:800;color:var(--ink3);letter-spacing:-.02em}
+.shoprow .sr-del{flex:0 0 auto;width:2.5rem;border-radius:.8rem;background:#F7E7DA;border:2px solid #E3C6B2;
+  color:#B24A22;font-size:1rem;font-weight:900;display:grid;place-items:center;line-height:1}
+.shoprow .sr-del:active{transform:translateY(1px)}
+html.big .shoprow .sr-nm{font-size:1.08rem}
+html.big .shoprow .sr-del{width:2.9rem;font-size:1.1rem}
+
 /* 알림 토스트 */
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:9.2rem;z-index:80;background:rgba(42,33,27,.94);
   color:#FFF7E9;border-radius:1rem;padding:.62rem 1rem;font-size:.92rem;font-weight:900;letter-spacing:-.02em;
   max-width:min(92vw,26rem);text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.25);animation:pop .18s ease-out}
+.toast.undo{display:flex;align-items:center;gap:.55rem;padding-right:.5rem;text-align:left}
+.toast.undo button{flex:0 0 auto;background:#F3D391;color:#3A2A1B;border-radius:.6rem;padding:.34rem .6rem;font-size:.82rem;font-weight:900;letter-spacing:-.02em}
 @keyframes pop{from{transform:translate(-50%,8px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
 
 /* 아주 좁은 폰 */
@@ -263,9 +349,42 @@ html.big .split .q button{width:2.6rem;height:2.6rem}
     <span class="db-place" id="wxPlace">김해</span>
     <span class="db-go" aria-hidden="true">↻</span>
   </button>
+  <button type="button" class="shopbar" id="shopBar" hidden aria-haspopup="dialog" aria-label="저장한 가게 메뉴판 고르기">
+    <span class="sb-ic" aria-hidden="true">📌</span>
+    <span class="sb-nm" id="shopBarName">저장한 가게</span>
+    <span class="sb-n" id="shopBarN"></span>
+    <span class="sb-go" aria-hidden="true">⌄</span>
+  </button>
 </header>
 
 <nav class="cats" id="cats" aria-label="메뉴 분류"></nav>
+
+<section class="addwrap" id="addWrap">
+  <button type="button" class="addtoggle" id="addToggle" aria-expanded="false" aria-controls="addForm">
+    <span aria-hidden="true">✏️</span><span id="addToggleTxt">메뉴 직접 추가</span>
+  </button>
+  <div class="addform" id="addForm" hidden>
+    <div class="afld">
+      <label for="addName" id="addNameL">메뉴 이름</label>
+      <input id="addName" type="text" autocomplete="off" maxlength="30" placeholder="예: 아메리카노" />
+    </div>
+    <div class="afld">
+      <label for="addPrice" id="addPriceL">가격(원)</label>
+      <input id="addPrice" type="text" inputmode="numeric" autocomplete="off" maxlength="7" placeholder="예: 4500" />
+    </div>
+    <div class="afld full">
+      <label for="addCat" id="addCatL">분류</label>
+      <select id="addCat">
+        <option value="0">☕ 따뜻한</option>
+        <option value="1">🧊 차가운</option>
+        <option value="2">🍽️ 다른 메뉴</option>
+      </select>
+    </div>
+    <button type="button" class="addgo" id="addGo">메뉴판에 넣기</button>
+    <div class="minewrap" id="mineWrap"></div>
+    <p class="addnote" id="addNote">이 폰에만 저장돼요 · 내가 넣은 메뉴는 그림의 ✕ 로 지울 수 있어요</p>
+  </div>
+</section>
 
 <main>
   <div class="grid" id="board"></div>
@@ -716,6 +835,7 @@ var $ = function(s){ return document.querySelector(s); };
 var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
 
 var K_LANG = 'wt_cust_lang', K_BIG = 'wt_cust_big', K_SOUND = 'wt_cust_sound', K_LAST = 'wt_cust_last', K_NO = 'wt_order_no';
+var K_SHOPS = 'wagling_saved_shops_v1', K_EXTRA = 'wt_cust_extra_v1';
 var LANG = 'ko', BIG = false, SOUND = true;
 var CATS = [
   { id: 'all', ko: '전체', en: 'All' },
@@ -726,6 +846,7 @@ var CATS = [
 var store = null, DEMO = false;
 var cart = {};          /* 메뉴 번호 → 수량 */
 var persons = 1, curCat = 'all', sheet = 'closed', lastOrder = null;
+var shops = [], extra = [], extraId = 'demo', tblNo = '', reqTxt = '';
 
 function t(ko, en){ return LANG === 'en' ? en : ko; }
 function money(n){
@@ -743,6 +864,33 @@ function lastToken(){
   try { return localStorage.getItem(K_LAST) || ''; } catch(e){ return ''; }
 }
 function saveLast(tok){ try { localStorage.setItem(K_LAST, tok); } catch(e){} }
+function readShops(){
+  var j;
+  try { j = JSON.parse(localStorage.getItem(K_SHOPS) || '[]'); } catch(e){ return []; }
+  if(!Array.isArray(j)) return [];
+  return j.filter(function(x){ return x && typeof x.tok === 'string' && x.tok && typeof x.name === 'string'; })
+    .slice(0, 12)
+    .map(function(x){ var at = Number(x.at); return { name: String(x.name).slice(0, 40), tok: String(x.tok), at: isFinite(at) ? at : 0 }; });
+}
+function writeShops(list){
+  list = list.slice(0, 12);
+  try { localStorage.setItem(K_SHOPS, JSON.stringify(list)); } catch(e){}
+  shops = list;
+}
+/* QR로 연 가게를 저장 목록에 넣는다 — 같은 이름이면 최신 메뉴로 바꾸고 맨 앞으로 */
+function rememberShop(name, tok){
+  var nm = (String(name == null ? '' : name).trim() || t('이름 없는 가게', 'Unnamed shop')).slice(0, 40);
+  var list = readShops(), hit = -1, i;
+  for(i = 0; i < list.length; i++){ if(list[i].name === nm){ hit = i; break; } }
+  var res = 'new';
+  if(hit >= 0){
+    res = list[hit].tok === tok ? 'same' : 'updated';
+    list.splice(hit, 1);
+  }
+  list.unshift({ name: nm, tok: tok, at: Date.now() });
+  writeShops(list);
+  return res;
+}
 function demoStore(){
   return {
     name: t('동네 단골 카페', 'Neighborhood Cafe'),
@@ -764,18 +912,47 @@ function demoStore(){
     ]
   };
 }
-function readStore(){
-  var h = location.hash || '', m = /[#&?]m=([A-Za-z0-9\-_]+)/.exec(h), d;
+function readStore(useDemo){
+  if(useDemo){ DEMO = true; extraId = 'demo'; return demoStore(); }
+  var h = location.hash || '', m = /[#&?]m=([A-Za-z0-9\-_]+)/.exec(h), d, st, nm;
   if(m){
     d = WTData.dec(m[1]);
-    if(d && d.items.length){ DEMO = false; saveLast(m[1]); return d; }
+    if(d && d.items.length){
+      DEMO = false;
+      extraId = m[1];
+      saveLast(m[1]);
+      nm = String(d.name || '').trim();
+      st = rememberShop(nm, m[1]);
+      if(st === 'new') toast(t("📌 '" + (nm || '메뉴판') + "' 메뉴판을 폰에 저장했어요",
+        "📌 Saved '" + (nm || 'menu') + "' to your phone"));
+      else if(st === 'updated') toast(t("📌 '" + (nm || '메뉴판') + "' 새 메뉴판으로 바꿨어요",
+        "📌 '" + (nm || 'menu') + "' updated to the newest menu"));
+      return d;
+    }
     toast(t('메뉴판 주소를 읽지 못했어요. QR을 다시 찍어 주세요.', 'Could not read this menu link. Please scan the QR again.'));
   }
   d = WTData.dec(lastToken());
-  if(d && d.items.length){ DEMO = false; return d; }
+  if(d && d.items.length){ DEMO = false; extraId = lastToken(); return d; }
   DEMO = true;
+  extraId = 'demo';
   return demoStore();
 }
+
+/* ── 내가 직접 넣은 메뉴 (그 가게마다 폰에 저장) ─────── */
+function extraKey(){ return K_EXTRA + ':' + (extraId || 'demo'); }
+function loadExtra(){
+  var j;
+  try { j = JSON.parse(localStorage.getItem(extraKey()) || '[]'); } catch(e){ j = []; }
+  extra = Array.isArray(j) ? j.filter(function(x){ return x && typeof x.n === 'string' && x.n; }).slice(0, 60)
+    .map(function(x){
+      var c = x.c | 0;
+      return { n: String(x.n).slice(0, 30), p: Math.max(0, Math.min(999999, x.p | 0)), c: c > 2 ? 2 : (c < 0 ? 0 : c) };
+    }) : [];
+}
+function saveExtra(){
+  try { localStorage.setItem(extraKey(), JSON.stringify(extra)); } catch(e){}
+}
+function allItems(){ return store.items.concat(extra); }
 
 /* ── 그리기 ─────────────────────────────────────────── */
 function renderHead(){
@@ -795,9 +972,49 @@ function renderHead(){
   $('#soundBtn').setAttribute('aria-label', SOUND ? t('메뉴 읽어 주기 끄기', 'Turn reading off') : t('메뉴 읽어 주기 켜기', 'Turn reading on'));
   document.title = (store.name || t('와글링 테이블', 'Wagling Table')) + ' · ' + t('와글링 테이블', 'Wagling Table');
 }
+function renderShops(){
+  var bar = $('#shopBar'), nm = $('#shopBarName'), n = $('#shopBarN');
+  if(!bar) return;
+  bar.hidden = shops.length === 0;
+  if(!shops.length) return;
+  nm.textContent = DEMO ? t('예시 메뉴판', 'Sample menu') : (store.name || t('메뉴판', 'Menu'));
+  n.textContent = t(shops.length + '곳', shops.length + (shops.length === 1 ? ' shop' : ' shops'));
+  bar.setAttribute('aria-label', t('저장한 가게 ' + shops.length + '곳 고르기 — 지금은 ' + nm.textContent,
+    'Choose from ' + shops.length + ' saved shops — now showing ' + nm.textContent));
+}
+/* 메뉴 직접 추가 — 글자·내가 넣은 메뉴 목록 */
+function renderAdd(){
+  $('#addToggleTxt').textContent = t('메뉴 직접 추가', 'Add a menu item');
+  $('#addNameL').textContent = t('메뉴 이름', 'Menu name');
+  $('#addPriceL').textContent = t('가격(원)', 'Price (₩)');
+  $('#addCatL').textContent = t('분류', 'Category');
+  $('#addName').placeholder = t('예: 아메리카노', 'e.g. Americano');
+  $('#addPrice').placeholder = t('예: 4500', 'e.g. 4500');
+  $('#addGo').textContent = t('메뉴판에 넣기', 'Put it on the menu');
+  $('#addNote').textContent = t('이 폰에만 저장돼요 · 내가 넣은 메뉴는 그림의 ✕ 로 지울 수 있어요',
+    'Saved on this phone only · tap ✕ on the picture to remove your own item');
+  var sel = $('#addCat');
+  if(sel && sel.options.length === 3){
+    sel.options[0].textContent = t('☕ 따뜻한', '☕ Hot');
+    sel.options[1].textContent = t('🧊 차가운', '🧊 Iced');
+    sel.options[2].textContent = t('🍽️ 다른 메뉴', '🍽️ More');
+  }
+  /* 내가 넣은 메뉴 목록 — 접어 둔 상태에서도 지울 수 있게 */
+  var wrap = $('#mineWrap'), base = store.items.length;
+  if(extra.length){
+    wrap.innerHTML = extra.map(function(it, k){
+      return '<span class="chip"><span>' + esc(it.n) + '</span>'
+        + '<button type="button" data-del="' + (base + k) + '" aria-label="' + t('지우기', 'Remove') + '">✕</button></span>';
+    }).join('');
+    wrap.hidden = false;
+  } else {
+    wrap.innerHTML = '';
+    wrap.hidden = true;
+  }
+}
 function renderCats(){
   var used = {};
-  store.items.forEach(function(it){ used[it.c] = 1; });
+  allItems().forEach(function(it){ used[it.c] = 1; });
   var list = CATS.filter(function(c){ return c.id === 'all' || used[c.id]; });
   if(curCat !== 'all' && !used[curCat]) curCat = 'all';
   $('#cats').innerHTML = list.map(function(c){
@@ -806,31 +1023,37 @@ function renderCats(){
       + (LANG === 'en' ? c.en : c.ko) + '</button>';
   }).join('');
 }
-function picHtml(it){
-  var k = kindOf(it.c);
-  if(k === 'food') return '<span class="pic"><span class="emo" aria-hidden="true">' + ELART.food(it.n) + '</span></span>';
-  return '<span class="pic" aria-hidden="true">' + ELART.pick(it.n, k) + '</span>';
+function picHtml(it, i){
+  var k = kindOf(it.c), q = cart[i] || 0, mine = i >= store.items.length;
+  var art = k === 'food'
+    ? '<span class="emo" aria-hidden="true">' + ELART.food(it.n) + '</span>'
+    : ELART.pick(it.n, k);
+  return '<span class="pic">' + art
+    + (q ? '<span class="hit" aria-hidden="true">' + q + '</span>' : '')
+    + (it.s ? '<span class="soldtag">' + t('품절', 'Sold out') + '</span>' : '')
+    + (mine ? '<button type="button" class="del" data-del="' + i + '" aria-label="'
+        + t('내가 넣은 메뉴 지우기', 'Remove my menu item') + '">✕</button>' : '')
+    + '</span>';
 }
 function cardHtml(it, i){
   var q = cart[i] || 0;
-  var cls = 'card t-' + kindOf(it.c) + (q ? ' hasq' : '') + (it.s ? ' sold' : '');
+  var cls = 'card t-' + kindOf(it.c) + (q ? ' hasq' : '') + (it.s ? ' sold' : '') + (i >= store.items.length ? ' mine' : '');
   return '<div class="' + cls + '" role="button" tabindex="0" data-i="' + i + '" aria-label="'
       + esc(it.n) + ' ' + money(it.p) + (it.s ? ', ' + t('품절', 'sold out') : ', ' + t('담기', 'add')) + '">'
-    + picHtml(it)
-    + '<span class="txt"><span class="nm">' + esc(it.n) + '</span><span class="pr">' + money(it.p) + '</span></span>'
+    + '<span class="head">' + picHtml(it, i)
+      + '<span class="txt"><span class="nm">' + esc(it.n) + '</span><span class="pr">' + money(it.p) + '</span></span>'
+    + '</span>'
     + '<span class="step">'
       + '<button type="button" class="minus" data-m="' + i + '" aria-label="' + t('하나 빼기', 'Remove one') + '"' + (q ? '' : ' disabled') + '>−</button>'
       + '<button type="button" class="plus" data-p="' + i + '" aria-label="' + t('하나 더 담기', 'Add one') + '">＋</button>'
     + '</span>'
-    + (q ? '<span class="hit" aria-hidden="true">' + q + '</span>' : '')
-    + (it.s ? '<span class="soldtag">' + t('품절', 'Sold out') + '</span>' : '')
     + '</div>';
 }
 function esc(s){
   return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 function renderBoard(){
-  var items = store.items.map(function(it, i){ return { it: it, i: i }; })
+  var items = allItems().map(function(it, i){ return { it: it, i: i }; })
     .filter(function(x){ return curCat === 'all' || x.it.c === curCat; });
   $('#board').innerHTML = items.map(function(x){ return cardHtml(x.it, x.i); }).join('');
   $('#empty').hidden = items.length > 0;
@@ -839,23 +1062,23 @@ function renderBoard(){
 function updateCard(i){
   var el = $('#board .card[data-i="' + i + '"]');
   if(!el) return;
-  var q = cart[i] || 0;
+  var q = cart[i] || 0, pic = el.querySelector('.pic');
   el.classList.toggle('hasq', !!q);
-  var hit = el.querySelector('.hit');
+  var hit = pic ? pic.querySelector('.hit') : null;
   if(q){
-    if(!hit){ hit = document.createElement('span'); hit.className = 'hit'; hit.setAttribute('aria-hidden', 'true'); el.appendChild(hit); }
-    hit.textContent = q;
+    if(!hit && pic){ hit = document.createElement('span'); hit.className = 'hit'; hit.setAttribute('aria-hidden', 'true'); pic.appendChild(hit); }
+    if(hit) hit.textContent = q;
   } else if(hit){ hit.remove(); }
   var mi = el.querySelector('.minus');
   if(mi) mi.disabled = !q;
 }
 function count(){ var n = 0, k; for(k in cart) n += cart[k]; return n; }
-function total(){ var s = 0, k; for(k in cart) s += cart[k] * (store.items[k] ? store.items[k].p : 0); return s; }
+function total(){ var s = 0, k, list = allItems(); for(k in cart) s += cart[k] * (list[k] ? list[k].p : 0); return s; }
 function renderBasket(){
-  var n = count(), sum = total(), b = $('#bsCount'), s2 = $('#bsTotal'), go = $('#bsGo');
-  var unit = n && store.items[0] && store.items[0].c === 2 ? t('개', ' items') : t('잔', ' cups');
+  var n = count(), sum = total(), b = $('#bsCount'), s2 = $('#bsTotal'), go = $('#bsGo'), list = allItems();
+  var unit = n && list[0] && list[0].c === 2 ? t('개', ' items') : t('잔', ' cups');
   var anyFood = false, anyDrink = false, k;
-  for(k in cart){ if(cart[k]){ if(store.items[k].c === 2) anyFood = true; else anyDrink = true; } }
+  for(k in cart){ if(cart[k]){ if(list[k] && list[k].c === 2) anyFood = true; else anyDrink = true; } }
   var un = anyFood && anyDrink ? t('가지', ' items') : (anyFood ? t('개', ' items') : t('잔', ' cups'));
   if(n){
     b.textContent = t(n + un + ' 담았어요', n + (n === 1 ? ' item' : ' items') + ' in your tray');
@@ -871,11 +1094,11 @@ function renderBasket(){
     go.textContent = t('주문서 보기', 'Review order');
   }
 }
-function render(){ renderHead(); renderCats(); renderBoard(); renderBasket(); }
+function render(){ renderHead(); renderCats(); renderAdd(); renderBoard(); renderBasket(); renderShops(); }
 
 /* ── 담기 · 빼기 ────────────────────────────────────── */
 function addQty(i, d){
-  var it = store.items[i];
+  var it = allItems()[i];
   if(!it) return;
   if(it.s && d > 0){ toast(t('지금은 다 팔렸어요', 'Sold out right now')); return; }
   var q = (cart[i] || 0) + d;
@@ -906,6 +1129,7 @@ function openSheet(which){
   sheet = which || 'cart';
   renderSheet();
   $('#sheetWrap').hidden = false;
+  $('#toast').hidden = true;
   document.body.style.overflow = 'hidden';
   stopSay();
   if(sheet === 'cart') say(t('주문서를 열었어요', 'Your order'));
@@ -919,6 +1143,7 @@ function closeSheet(){
 function renderSheet(){
   var body = $('#sheetBody');
   if(sheet === 'done'){ body.innerHTML = doneHtml(); return; }
+  if(sheet === 'shops'){ body.innerHTML = shopsHtml(); return; }
   var n = count(), sum = total(), keys = Object.keys(cart).filter(function(k){ return cart[k] > 0; });
   if(!keys.length){
     body.innerHTML = '<h2 id="sheetTitle">' + t('🧾 주문서', '🧾 Your order') + '</h2>'
@@ -927,7 +1152,7 @@ function renderSheet(){
     return;
   }
   var rows = keys.map(function(k){
-    var it = store.items[k], q = cart[k];
+    var it = allItems()[k], q = cart[k];
     return '<div class="row">'
       + '<span class="rn">' + esc(it.n) + '</span>'
       + '<span class="qs">'
@@ -943,6 +1168,14 @@ function renderSheet(){
       '<h2 id="sheetTitle">' + t('🧾 주문서', '🧾 Your order') + '</h2>'
     + '<p class="sub">' + esc(store.name) + ' · ' + t(n + '가지', n + (n === 1 ? ' item' : ' items')) + '</p>'
     + '<div class="rows">' + rows + '</div>'
+    + '<div class="fields">'
+      + '<div class="fld num"><label for="tblNo">' + t('🪑 테이블 번호', '🪑 Table no.') + ' <em>' + t('(선택)', '(optional)') + '</em></label>'
+        + '<input id="tblNo" type="text" inputmode="numeric" autocomplete="off" maxlength="3" placeholder="'
+        + t('예: 3', 'e.g. 3') + '" value="' + esc(tblNo) + '" /></div>'
+      + '<div class="fld"><label for="reqTxt">' + t('📝 요청사항', '📝 Requests') + '</label>'
+        + '<input id="reqTxt" type="text" autocomplete="off" maxlength="60" placeholder="'
+        + t('예: 얼음 적게, 덜 달게', 'e.g. less ice, less sugar') + '" value="' + esc(reqTxt) + '" /></div>'
+    + '</div>'
     + '<div class="tot"><span class="k">' + t('합계', 'Total') + '</span><span class="v">' + money(sum) + '</span></div>'
     + '<div class="split"><span class="t">' + t('몇 명이서 나눠요?', 'Split between how many?') + '</span>'
       + '<span class="q">'
@@ -957,8 +1190,41 @@ function renderSheet(){
       + '<button type="button" class="bigbtn ghost" data-close="1">' + t('닫기', 'Close') + '</button>'
     + '</div>';
 }
+/* ── 저장한 가게 목록 ───────────────────────── */
+function whenText(at){
+  if(!at) return t('저장됨', 'saved');
+  var d = new Date(at), now = new Date();
+  var d0 = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+  var n0 = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+  var day = Math.round((n0 - d0) / 86400000);
+  if(day <= 0) return t('오늘 저장', 'saved today');
+  if(day === 1) return t('어제 저장', 'saved yesterday');
+  if(day < 7) return t(day + '일 전 저장', 'saved ' + day + ' days ago');
+  return t((d.getMonth() + 1) + '월 ' + d.getDate() + '일 저장', 'saved ' + (d.getMonth() + 1) + '/' + d.getDate());
+}
+function shopsHtml(){
+  var cur = DEMO ? '' : lastToken();
+  var rows = shops.map(function(s, i){
+    var on = !!cur && s.tok === cur;
+    return '<div class="shoprow' + (on ? ' on' : '') + '">'
+      + '<button type="button" class="sr-open" data-shopopen="' + i + '">'
+        + '<span class="sr-nm">' + esc(s.name) + '</span>'
+        + '<span class="sr-at">' + whenText(s.at) + (on ? ' · ' + t('지금 보는 중', 'showing now') : '') + '</span>'
+      + '</button>'
+      + '<button type="button" class="sr-del" data-shopdel="' + i + '" aria-label="' + t('저장한 가게 지우기', 'Remove saved shop') + '">✕</button>'
+    + '</div>';
+  }).join('');
+  return '<h2 id="sheetTitle">' + t('📌 저장한 가게', '📌 Saved shops') + '</h2>'
+    + '<p class="sub">' + t(shops.length + '곳 · 누르면 그 가게 메뉴판이 바로 열려요',
+        shops.length + ' saved · tap one to open its menu') + '</p>'
+    + '<div class="shoplist">' + rows + '</div>'
+    + '<div class="acts">'
+      + '<button type="button" class="bigbtn ghost" id="demoGo">' + t('🍽️ 예시 메뉴판 보기', '🍽️ See the sample menu') + '</button>'
+      + '<button type="button" class="bigbtn ghost" data-close="1">' + t('닫기', 'Close') + '</button>'
+    + '</div>';
+}
 function doneHtml(){
-  var o = lastOrder || { no: 0, items: [], total: 0, persons: 1 };
+  var o = lastOrder || { no: 0, items: [], total: 0, persons: 1, tbl: '', req: '' };
   var rows = o.items.map(function(x){
     return '<div><span>' + esc(x.n) + ' × ' + x.q + '</span><b>' + money(x.p * x.q) + '</b></div>';
   }).join('');
@@ -967,32 +1233,37 @@ function doneHtml(){
     + '<div class="ck" aria-hidden="true">✅</div>'
     + '<h2 id="sheetTitle">' + t('주문했어요!', 'Order placed!') + '</h2>'
     + '<div class="no">' + t('주문번호 ', 'No. ') + String(o.no).padStart(2, '0') + '</div>'
+    + (o.tbl ? '<div class="tbl">🪑 ' + t('테이블 ', 'Table ') + esc(o.tbl) + '</div>' : '')
     + '<p>' + t('이 화면을 직원에게 보여 주세요.', 'Show this screen to the staff.') + '</p>'
     + '<div class="list">' + rows
       + '<div style="border-top:1px dashed #E2D2B9;margin-top:.35rem;padding-top:.35rem"><span><b>' + t('합계', 'Total') + '</b></span><b>' + money(o.total) + '</b></div>'
       + (o.persons > 1 ? '<div><span>' + o.persons + t('명이서 나누면', ' split ' + o.persons + ' ways') + '</span><b>' + t('1인당 ', 'each ') + money(per) + '</b></div>' : '')
     + '</div>'
+    + (o.req ? '<div class="req"><b>📝 ' + t('요청사항', 'Requests') + '</b>' + esc(o.req) + '</div>' : '')
     + '<div class="acts">'
       + '<button type="button" class="bigbtn main" data-close="1">' + t('확인', 'Done') + '</button>'
       + '<button type="button" class="bigbtn ghost" id="newOrder">' + t('새로 주문하기', 'Start a new order') + '</button>'
     + '</div></div>';
 }
 function placeOrder(){
-  var keys = Object.keys(cart).filter(function(k){ return cart[k] > 0; });
+  var keys = Object.keys(cart).filter(function(k){ return cart[k] > 0; }), list = allItems();
   if(!keys.length) return;
-  var o = { no: nextNo(), items: [], total: total(), persons: persons };
+  var o = { no: nextNo(), items: [], total: total(), persons: persons, tbl: tblNo, req: reqTxt.trim() };
   keys.forEach(function(k){
-    var it = store.items[k];
+    var it = list[k];
     o.items.push({ n: it.n, p: it.p, q: cart[k] });
   });
   lastOrder = o;
   cart = {};
+  reqTxt = '';
   renderBoard();
   renderBasket();
   sheet = 'done';
   renderSheet();
-  say(t('주문번호 ' + String(o.no).padStart(2, '0') + '번, 합계 ' + money(o.total) + '입니다. 직원에게 보여 주세요.',
-        'Order number ' + o.no + ', total ' + money(o.total) + '. Please show this to the staff.'));
+  say(t('주문번호 ' + String(o.no).padStart(2, '0') + '번' + (o.tbl ? ', 테이블 ' + o.tbl + '번' : '') + ', 합계 ' + money(o.total) + '입니다.'
+      + (o.req ? ' 요청사항 ' + o.req + '.' : '') + ' 직원에게 보여 주세요.',
+        'Order number ' + o.no + (o.tbl ? ', table ' + o.tbl : '') + ', total ' + money(o.total) + '.'
+      + (o.req ? ' Requests: ' + o.req + '.' : '') + ' Please show this to the staff.'));
 }
 function nextNo(){
   var n = 1;
@@ -1006,13 +1277,116 @@ function nextNo(){
 }
 
 /* ── 알림 ───────────────────────────────────────────── */
+/* ── 메뉴 직접 추가 ─────────────────────────────────── */
+function toggleAdd(open){
+  var f = $('#addForm'), b = $('#addToggle');
+  var vis = (open == null) ? f.hidden : !!open;
+  f.hidden = !vis;
+  b.setAttribute('aria-expanded', vis ? 'true' : 'false');
+  if(vis){ try { $('#addName').focus(); } catch(e){} }
+}
+function addMyMenu(){
+  var nm = String($('#addName').value || '').trim().replace(/\s+/g, ' ').slice(0, 30);
+  var pv = String($('#addPrice').value || '').replace(/[^0-9]/g, '');
+  var c = parseInt($('#addCat').value, 10);
+  if(!nm){ toast(t('메뉴 이름을 적어 주세요', 'Please type the menu name')); try { $('#addName').focus(); } catch(e){} return; }
+  if(extra.length >= 60){ toast(t('내가 넣는 메뉴는 60개까지예요', 'Up to 60 of your own items')); return; }
+  var price = pv ? Math.min(999999, parseInt(pv, 10)) : 0;
+  extra.push({ n: nm, p: price, c: (c > 2 || c < 0) ? 0 : c });
+  saveExtra();
+  var idx = store.items.length + extra.length - 1;
+  curCat = 'all';
+  render();
+  $('#addName').value = '';
+  $('#addPrice').value = '';
+  try { $('#addName').focus(); } catch(e){}
+  var card = $('#board .card[data-i="' + idx + '"]');
+  if(card && card.scrollIntoView) card.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  toast(t("'" + nm + "' 메뉴를 넣었어요", "'" + nm + "' added"));
+  say(nm);
+}
+function delMyMenu(i){
+  var base = store.items.length;
+  if(!(i >= base) || !extra[i - base]) return;
+  var item = extra[i - base], k = i - base;
+  var backCart = {};
+  Object.keys(cart).forEach(function(s){ var n = +s; if(n === i) return; backCart[n > i ? n - 1 : n] = cart[s]; });
+  cart = backCart;
+  extra.splice(k, 1);
+  saveExtra();
+  render();
+  toast(t("'" + item.n + "' 메뉴를 지웠어요", "'" + item.n + "' removed"), function(){
+    extra.splice(k, 0, item);
+    saveExtra();
+    var re = {};
+    Object.keys(cart).forEach(function(s){ var n = +s; re[n >= i ? n + 1 : n] = cart[s]; });
+    cart = re;
+    render();
+    if(sheet === 'cart') renderSheet();
+  });
+}
+/* ── 저장한 가게 — 열기 · 지우기 · 예시 ─────────────── */
+function openShop(i){
+  var s = shops[i];
+  if(!s) return;
+  var same = !DEMO && lastToken() === s.tok;
+  closeSheet();
+  if(same){ render(); return; }
+  if(location.hash === '#m=' + s.tok){ store = readStore(); loadExtra(); render(); return; }
+  location.hash = '#m=' + s.tok;
+}
+function delShop(i){
+  var s = shops[i];
+  if(!s) return;
+  var wasLast = lastToken() === s.tok;
+  var list = readShops();
+  list.splice(i, 1);
+  writeShops(list);
+  if(!list.length && wasLast){ try { localStorage.removeItem(K_LAST); } catch(e){} }
+  renderShops();
+  if(sheet === 'shops') renderSheet();
+  toast(t("'" + s.name + "' 저장을 지웠어요", "Removed '" + s.name + "'"), function(){
+    var l = readShops();
+    l.splice(i, 0, s);
+    writeShops(l);
+    if(wasLast){ try { localStorage.setItem(K_LAST, s.tok); } catch(e){} }
+    renderShops();
+    if(sheet === 'shops') renderSheet();
+  });
+}
+function showDemo(){
+  closeSheet();
+  if(location.hash){
+    try { history.replaceState(null, '', location.pathname + location.search); } catch(e){ location.hash = ''; }
+  }
+  store = readStore(true);
+  cart = {};
+  persons = 1;
+  curCat = 'all';
+  loadExtra();
+  render();
+  try { window.scrollTo(0, 0); } catch(e){}
+}
+
 var toastT = null;
-function toast(msg){
+function toast(msg, undoFn){
   var el = $('#toast');
-  el.textContent = msg;
+  el.className = 'toast';
+  if(undoFn){
+    el.className = 'toast undo';
+    el.innerHTML = '<span>' + esc(msg) + '</span><button type="button" id="undoBtn">' + t('되돌리기', 'Undo') + '</button>';
+    el.querySelector('#undoBtn').addEventListener('click', function(ev){
+      ev.stopPropagation();
+      el.hidden = true; el.className = 'toast';
+      clearTimeout(toastT);
+      undoFn();
+    });
+  } else {
+    el.textContent = msg;
+  }
   el.hidden = false;
   clearTimeout(toastT);
-  toastT = setTimeout(function(){ el.hidden = true; }, 1900);
+  toastT = setTimeout(function(){ el.hidden = true; el.className = 'toast'; }, undoFn ? 5000 : 1900);
 }
 
 /* ── 설정 저장 ──────────────────────────────────────── */
@@ -1068,7 +1442,9 @@ function bind(){
   });
   $('#board').addEventListener('click', function(e){
     var m = e.target.closest('[data-m]'), p = e.target.closest('[data-p]'), c = e.target.closest('.card');
+    var dl = e.target.closest('[data-del]');
     stopSay();
+    if(dl){ e.stopPropagation(); delMyMenu(parseInt(dl.getAttribute('data-del'), 10)); return; }
     if(p){ e.stopPropagation(); addQty(parseInt(p.getAttribute('data-p'), 10), 1); return; }
     if(m){ e.stopPropagation(); addQty(parseInt(m.getAttribute('data-m'), 10), -1); return; }
     if(c) addQty(parseInt(c.getAttribute('data-i'), 10), 1);
@@ -1082,6 +1458,10 @@ function bind(){
   });
   $('#bsGo').addEventListener('click', function(){ if(count()) openSheet('cart'); });
   $('#sheetBody').addEventListener('click', function(e){
+    var op = e.target.closest('[data-shopopen]'), sd = e.target.closest('[data-shopdel]');
+    if(op){ openShop(parseInt(op.getAttribute('data-shopopen'), 10)); return; }
+    if(sd){ delShop(parseInt(sd.getAttribute('data-shopdel'), 10)); return; }
+    if(e.target.closest('#demoGo')){ showDemo(); return; }
     var q = e.target.closest('[data-qs]'), pe = e.target.closest('[data-pers]'), cl = e.target.closest('[data-close]');
     if(q){
       var i = parseInt(q.getAttribute('data-qs'), 10), d = parseInt(q.getAttribute('data-d'), 10);
@@ -1099,16 +1479,42 @@ function bind(){
     if(e.target.closest('#orderGo')){ placeOrder(); return; }
     if(e.target.closest('#newOrder')){ closeSheet(); }
     if(e.target.closest('#orderRead')){
-      var n = count(), sum = total(), per = Math.ceil(sum / Math.max(1, persons));
+      var n = count(), sum = total(), per = Math.ceil(sum / Math.max(1, persons)), list = allItems();
       var txt = t('주문서입니다. ', 'Your order. ');
+      if(tblNo) txt += t('테이블 ' + tblNo + '번. ', 'Table ' + tblNo + '. ');
       Object.keys(cart).filter(function(k){ return cart[k] > 0; }).forEach(function(k){
-        var it = store.items[k];
-        txt += it.n + ' ' + cart[k] + t('개, ', ', ') ;
+        var it = list[k];
+        if(it) txt += it.n + ' ' + cart[k] + t('개, ', ', ') ;
       });
       txt += t('합계 ' + money(sum) + '입니다. ' + persons + '명이서 나누면 1인당 ' + money(per) + '입니다.',
                'Total ' + money(sum) + '. Split ' + persons + ' ways, ' + money(per) + ' each.');
+      if(reqTxt.trim()) txt += t(' 요청사항은 ' + reqTxt.trim() + '입니다.', ' Requests: ' + reqTxt.trim() + '.');
       say(txt);
     }
+  });
+  $('#sheetBody').addEventListener('input', function(e){
+    if(e.target.id === 'tblNo'){
+      var v = String(e.target.value || '').replace(/[^0-9]/g, '').slice(0, 3);
+      if(v !== e.target.value) e.target.value = v;
+      tblNo = v;
+    } else if(e.target.id === 'reqTxt'){
+      reqTxt = String(e.target.value || '').slice(0, 60);
+    }
+  });
+  $('#shopBar').addEventListener('click', function(){ openSheet('shops'); });
+  $('#addToggle').addEventListener('click', function(){ toggleAdd(); });
+  $('#addGo').addEventListener('click', addMyMenu);
+  $('#addForm').addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && e.target.tagName === 'INPUT'){ e.preventDefault(); addMyMenu(); }
+  });
+  $('#addPrice').addEventListener('input', function(e){
+    var v = String(e.target.value || '').replace(/[^0-9]/g, '').slice(0, 7);
+    if(v !== e.target.value) e.target.value = v;
+  });
+  $('#mineWrap').addEventListener('click', function(e){
+    var b = e.target.closest('[data-del]');
+    if(!b) return;
+    delMyMenu(parseInt(b.getAttribute('data-del'), 10));
   });
   $('#scrim').addEventListener('click', closeSheet);
   document.addEventListener('keydown', function(e){
@@ -1116,6 +1522,7 @@ function bind(){
   });
   window.addEventListener('hashchange', function(){
     store = readStore();
+    loadExtra();
     cart = {};
     persons = 1;
     curCat = 'all';
@@ -1125,7 +1532,9 @@ function bind(){
 
 /* ── 시작 ───────────────────────────────────────────── */
 loadPrefs();
+shops = readShops();
 store = readStore();
+loadExtra();
 bind();
 render();
 WTDay.init();
