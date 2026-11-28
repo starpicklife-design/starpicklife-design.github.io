@@ -172,6 +172,41 @@
   .ctl[aria-pressed="true"]{background:var(--coffee);border-color:var(--coffee);color:#FFF7E9}
   .ctl:active{transform:scale(.98)}
 
+  /* ── 🗂 분류 탭 (전체 · 👴 어르신용 · 🏠 생활 · 🎈 놀이) ──
+     칩 폭은 글자에 맞추고, 좁은 폰에서는 2+2, 넓은 화면에서는 한 줄 4개 */
+  .cats{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(7rem,1fr));
+    gap:.3rem;margin:.46rem 0 0;
+  }
+  .cat{
+    display:inline-flex;align-items:center;justify-content:center;gap:.26rem;
+    min-width:0;min-height:2.25rem;padding:.2rem .4rem;border-radius:999px;cursor:pointer;
+    background:#fff;color:var(--ink2);border:2px solid var(--line);
+    font-family:inherit;font-size:.74rem;font-weight:900;letter-spacing:-.02em;
+    line-height:1.2;white-space:nowrap;-webkit-tap-highlight-color:transparent;
+    transition:transform .16s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+  }
+  .cat .cat-e{font-size:1.04em;line-height:1}
+  .cat .cat-n{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:1.4rem;height:1.25rem;padding:0 .3rem;margin-left:.06rem;
+    border-radius:999px;background:#F2E7D2;color:#7A6244;
+    font-size:.62rem;font-weight:900;line-height:1;
+  }
+  .cat[aria-pressed="true"]{
+    background:var(--coffee);border-color:var(--coffee);color:#FFF7E9;
+    box-shadow:0 .22rem .6rem rgba(58,40,25,.2);
+  }
+  .cat[aria-pressed="true"] .cat-n{background:rgba(255,247,233,.24);color:#FFF7E9}
+  .cat:active{transform:scale(.97)}
+  .cat:focus-visible{outline:3px solid rgba(217,162,39,.55);outline-offset:2px}
+  @media (max-width:21.5rem){
+    .cats{gap:.24rem}
+    .cat{padding:.16rem .3rem;font-size:.68rem;min-height:2rem;gap:.2rem}
+    .cat .cat-n{min-width:1.2rem;height:1.12rem;font-size:.57rem}
+  }
+  @media (prefers-reduced-motion:reduce){ .cat{transition:none} }
+
   /* ── 📲 설치 · 🔗 공유 (맨 위 큰 버튼) ── */
   .cta{
     display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.4rem;
@@ -264,6 +299,12 @@
   .app:active{transform:translateY(0) scale(.995)}
   /* 카드 전체를 누르면 열리는 링크(카드 위에 겹쳐 놓기) + 오른쪽 아래 작은 QR 단추 */
   .app{position:relative}
+  /* 분류 탭에서 걸러 낸 카드는 자리·읽어 주기 모두에서 빠짐 */
+  .app[hidden]{display:none !important}
+  /* 탭을 눌러 새로 나타난 카드만 살짝 떠오르며 나타남 */
+  .app.cat-in{animation:catIn .26s ease}
+  @keyframes catIn{from{opacity:0;transform:translateY(.3rem)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){ .app.cat-in{animation:none} }
   .app-link{position:absolute;inset:0;z-index:1;border-radius:inherit;text-decoration:none}
   .app:focus-within{outline:3px solid rgba(217,162,39,.55);outline-offset:2px}
   .footrow{display:flex;align-items:center;justify-content:space-between;gap:.3rem;margin-top:auto}
@@ -444,11 +485,18 @@
       <button class="ctl" id="langBtn" type="button" aria-pressed="false" aria-label="영어로 보기">🌐 <span data-ko="한 / EN" data-en="EN / 한">한 / EN</span></button>
       <button class="ctl" id="bigBtn" type="button" aria-pressed="false" aria-label="글씨 크게 보기">🔍 <span data-ko="글씨 크게" data-en="Bigger text">글씨 크게</span></button>
     </div>
+
+    <div class="cats" id="cats" role="group" aria-label="앱 분류">
+      <button type="button" class="cat" data-cat="all" aria-pressed="true"><span class="cat-e" aria-hidden="true">🗂️</span><span class="cat-w" data-ko="전체" data-en="All">전체</span><span class="cat-n">25</span></button>
+      <button type="button" class="cat" data-cat="senior" aria-pressed="false"><span class="cat-e" aria-hidden="true">👴</span><span class="cat-w" data-ko="어르신용" data-en="Seniors">어르신용</span><span class="cat-n">3</span></button>
+      <button type="button" class="cat" data-cat="life" aria-pressed="false"><span class="cat-e" aria-hidden="true">🏠</span><span class="cat-w" data-ko="생활" data-en="Life">생활</span><span class="cat-n">15</span></button>
+      <button type="button" class="cat" data-cat="play" aria-pressed="false"><span class="cat-e" aria-hidden="true">🎈</span><span class="cat-w" data-ko="놀이" data-en="Play">놀이</span><span class="cat-n">7</span></button>
+    </div>
   </header>
 
   <main>
 
-    <div class="app" data-app="table-customer">
+    <div class="app" data-app="table-customer" data-cat="life">
       <a class="app-link" href="./menu-customer/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">☕</span>
@@ -461,7 +509,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="table-owner">
+    <div class="app" data-app="table-owner" data-cat="life">
       <a class="app-link" href="./menu-owner/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">📷</span>
@@ -474,7 +522,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="elder">
+    <div class="app" data-app="elder" data-cat="senior">
       <a class="app-link" href="./elder-menu/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">👴</span>
@@ -487,7 +535,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="cart">
+    <div class="app" data-app="cart" data-cat="life">
       <a class="app-link" href="./fridge/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🛒</span>
@@ -500,7 +548,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="pill">
+    <div class="app" data-app="pill" data-cat="senior">
       <a class="app-link" href="./care/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">💊</span>
@@ -513,7 +561,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="phone">
+    <div class="app" data-app="phone" data-cat="senior">
       <a class="app-link" href="./phonebook/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">📞</span>
@@ -526,7 +574,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="namecard">
+    <div class="app" data-app="namecard" data-cat="life">
       <a class="app-link" href="./namecard/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">📇</span>
@@ -539,7 +587,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="trip">
+    <div class="app" data-app="trip" data-cat="life">
       <a class="app-link" href="./dining/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🍽️</span>
@@ -552,7 +600,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="party">
+    <div class="app" data-app="party" data-cat="life">
       <a class="app-link" href="./party/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🎄</span>
@@ -565,7 +613,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="lyrics">
+    <div class="app" data-app="lyrics" data-cat="life">
       <a class="app-link" href="./lyrics/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🎤</span>
@@ -578,7 +626,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="piano">
+    <div class="app" data-app="piano" data-cat="play">
       <a class="app-link" href="./piano/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🎹</span>
@@ -591,7 +639,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="lang">
+    <div class="app" data-app="lang" data-cat="play">
       <a class="app-link" href="./pronounce/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🔤</span>
@@ -604,7 +652,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="fit">
+    <div class="app" data-app="fit" data-cat="life">
       <a class="app-link" href="./fit/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🏃</span>
@@ -617,7 +665,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="fortune">
+    <div class="app" data-app="fortune" data-cat="life">
       <a class="app-link" href="./fortune/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🔮</span>
@@ -630,7 +678,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="card">
+    <div class="app" data-app="card" data-cat="life">
       <a class="app-link" href="./card/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">💳</span>
@@ -643,7 +691,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="autopay">
+    <div class="app" data-app="autopay" data-cat="life">
       <a class="app-link" href="./autopay/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">📅</span>
@@ -656,7 +704,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="cardmaker">
+    <div class="app" data-app="cardmaker" data-cat="life">
       <a class="app-link" href="./card-maker/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">💌</span>
@@ -669,7 +717,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="diary">
+    <div class="app" data-app="diary" data-cat="life">
       <a class="app-link" href="./diary/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">💎</span>
@@ -682,7 +730,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="sansu">
+    <div class="app" data-app="sansu" data-cat="play">
       <a class="app-link" href="./sansu/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🧮</span>
@@ -695,7 +743,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="math">
+    <div class="app" data-app="math" data-cat="play">
       <a class="app-link" href="./math/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">📘</span>
@@ -708,7 +756,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="brain">
+    <div class="app" data-app="brain" data-cat="play">
       <a class="app-link" href="./brain/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🧩</span>
@@ -721,7 +769,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="english-hole">
+    <div class="app" data-app="english-hole" data-cat="play">
       <a class="app-link" href="./english-hole/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🕳️</span>
@@ -734,7 +782,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="science">
+    <div class="app" data-app="science" data-cat="play">
       <a class="app-link" href="./science/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🔬</span>
@@ -747,7 +795,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="garden">
+    <div class="app" data-app="garden" data-cat="life">
       <a class="app-link" href="./garden/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🌱</span>
@@ -760,7 +808,7 @@
       </div>
     </div>
 
-    <div class="app" data-app="tour">
+    <div class="app" data-app="tour" data-cat="life">
       <a class="app-link" href="./tour/" aria-label="바로 열기"></a>
       <div class="app-main">
         <span class="ico" aria-hidden="true">🏯</span>
@@ -850,6 +898,7 @@
     renderMood();
     renderQr();
     syncCardAria();
+    syncCatAria();
   }
 
   function applyBig(on){
@@ -1427,6 +1476,118 @@
     }
   }
   syncCardAria();
+
+  /* ═════════ 🗂 분류 탭 — 전체 · 👴 어르신용 · 🏠 생활 · 🎈 놀이 ═════════
+     - 카드마다 data-cat="senior | life | play" 로 분류
+     - 기본 진입은 ‘전체’, 마지막에 본 탭은 주소(#senior·#life·#play)와
+       이 기기(localStorage)에 기억해 두었다가 다시 열 때 그 탭으로
+     - 거른 카드는 hidden 으로 빼고, 새로 나온 카드만 살짝 떠오르게 */
+  var CAT_KEY  = 'wagling.portal.cat';
+  var CAT_LIST = ['all', 'senior', 'life', 'play'];
+  var CAT_WORD = { all:['전체','All'], senior:['어르신용','Seniors'], life:['생활','Life'], play:['놀이','Play'] };
+  var catsEl   = document.getElementById('cats');
+  var catBtns  = catsEl ? catsEl.querySelectorAll('.cat') : [];
+  var catNow   = 'all';
+
+  function catTxt(cat){ var w = CAT_WORD[cat] || CAT_WORD.all; return isEn() ? w[1] : w[0]; }
+
+  /* 카드의 data-cat 을 세어서 탭 옆 숫자를 맞춤(카드를 늘리거나 옮기면 숫자도 따라감) */
+  function countCats(){
+    var cards = document.querySelectorAll('main > .app');
+    var n = { all:0, senior:0, life:0, play:0 };
+    for(var i = 0; i < cards.length; i++){
+      var c = cards[i].getAttribute('data-cat') || '';
+      n.all++;
+      if(c !== 'all' && n.hasOwnProperty(c)) n[c]++;
+    }
+    for(var j = 0; j < catBtns.length; j++){
+      var k = catBtns[j].getAttribute('data-cat');
+      var box = catBtns[j].querySelector('.cat-n');
+      if(box && n.hasOwnProperty(k)) box.textContent = n[k];
+    }
+    return n;
+  }
+
+  /* 탭을 읽어 주는 이름(한/EN) — 개수·지금 보고 있는 탭까지 */
+  function syncCatAria(){
+    var en = isEn();
+    for(var i = 0; i < catBtns.length; i++){
+      var b = catBtns[i], k = b.getAttribute('data-cat');
+      var box = b.querySelector('.cat-n');
+      var num = box ? box.textContent : '';
+      var name = catTxt(k);
+      var label = name + (num ? ' ' + num + (en ? ' apps' : '개') : '');
+      if(b.getAttribute('aria-pressed') === 'true') label += en ? ' · showing now' : ' · 지금 보고 있음';
+      b.setAttribute('aria-label', label);
+      b.setAttribute('title', name + (num ? ' · ' + num + (en ? '' : '개') : ''));
+    }
+    if(catsEl) catsEl.setAttribute('aria-label', en ? 'App categories' : '앱 분류');
+  }
+
+  function catFromHash(){
+    var h = '';
+    try{ h = (location.hash || '').replace(/^#/, '').toLowerCase(); }catch(e){}
+    return CAT_LIST.indexOf(h) >= 0 ? h : '';
+  }
+
+  /* 주소 끝에 #senior·#life·#play — 링크로 바로 그 탭을 열 수 있게(뒤로가기는 그대로) */
+  function writeCatUrl(cat){
+    try{
+      if(!history.replaceState) return;
+      if(cat === 'all'){
+        if(/^#(senior|life|play)$/i.test(location.hash || ''))
+          history.replaceState(null, '', location.pathname + location.search);
+      } else if(location.hash !== '#' + cat){
+        history.replaceState(null, '', location.pathname + location.search + '#' + cat);
+      }
+    }catch(e){}
+  }
+
+  function applyCat(cat){
+    if(CAT_LIST.indexOf(cat) < 0) cat = 'all';
+    var cards = document.querySelectorAll('main > .app');
+    for(var i = 0; i < cards.length; i++){
+      var c = cards[i];
+      var show = cat === 'all' || c.getAttribute('data-cat') === cat;
+      if(show){
+        if(c.hidden){
+          c.hidden = false;
+          c.classList.remove('cat-in');
+          void c.offsetWidth;              /* 애니메이션을 처음부터 다시 */
+          c.classList.add('cat-in');
+        }
+      } else if(!c.hidden){
+        c.hidden = true;
+        c.classList.remove('cat-in');
+      }
+    }
+    for(var j = 0; j < catBtns.length; j++){
+      catBtns[j].setAttribute('aria-pressed', catBtns[j].getAttribute('data-cat') === cat ? 'true' : 'false');
+    }
+    catNow = cat;
+    store(CAT_KEY, cat);
+    writeCatUrl(cat);
+    syncCatAria();
+    return cat;
+  }
+
+  countCats();
+  for(var ci = 0; ci < catBtns.length; ci++){
+    catBtns[ci].addEventListener('click', function(){
+      applyCat(this.getAttribute('data-cat'));
+    });
+  }
+  window.addEventListener('hashchange', function(){
+    var h = catFromHash();
+    if(h && h !== catNow) applyCat(h);
+    else if(!h && catNow !== 'all') applyCat('all');
+  });
+  var startCat = catFromHash();
+  if(!startCat){
+    var savedCat = load(CAT_KEY);
+    if(savedCat && CAT_LIST.indexOf(savedCat) >= 0) startCat = savedCat;
+  }
+  applyCat(startCat || 'all');
 
   renderToday();
   renderMood();
