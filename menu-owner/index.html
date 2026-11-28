@@ -1128,7 +1128,7 @@ function drawSticker(name, qr){
   txt(ctx, name, W / 2, 218, nf, '#3B2A1F');
   rr(ctx, W / 2 - Math.min(nw + 64, W - 180) / 2, 254, Math.min(nw + 64, W - 180), 14, 7);
   ctx.fillStyle = 'rgba(217,162,39,.45)'; ctx.fill();
-  txt(ctx, WHO === 'elder' ? '👴 어르신용 · 큰 글씨 메뉴판' : '큰 글씨 메뉴판 · 테이블 주문', W / 2, 300, font(700, 33), '#8B6A4B');
+  txt(ctx, WHO === 'elder' ? '어르신용 · 큰 글씨 메뉴판' : '큰 글씨 메뉴판 · 테이블 주문', W / 2, 300, font(700, 33), '#8B6A4B');
 
   /* QR 판 */
   ctx.save();
@@ -1165,6 +1165,7 @@ function renderQR(scrollTo){
   lastQR = p.qr; lastURL = p.url;
   drawSticker(p.name, p.qr);
   $('#sticker').setAttribute('data-qr-url', p.url);
+  $('#sticker').setAttribute('aria-label', (WHO === 'elder' ? '어르신용' : '손님용') + ' QR 스티커 미리보기');
   var st = statusText(p);
   info.textContent = st.msg;
   info.className = 'info' + (st.warn ? ' warn' : '');
