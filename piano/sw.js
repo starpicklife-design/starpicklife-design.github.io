@@ -1,11 +1,11 @@
-/* 와글링 피아노 · 가벼운 Service Worker (v3)
+/* 와글링 피아노 · 가벼운 Service Worker (v4)
    - 홈 화면 설치 요건(매니페스트 + 아이콘 + fetch 핸들러) 충족
    - 화면(index.html)은 항상 네트워크 우선 → 새 버전이 바로 반영됨
    - 인터넷이 끊겨도 마지막으로 열었던 화면이 뜨도록 껍데기만 캐시
    - 소리(Web Audio)는 기기 안에서 만들어지므로 인터넷이 필요 없음
    - 외부(다른 사이트) 요청은 절대 건드리지 않음 · 개인정보 0% */
 
-const CACHE = 'wagle-piano-v3';
+const CACHE = 'wagle-piano-v4';
 const SHELL = [
   './',
   './index.html',
