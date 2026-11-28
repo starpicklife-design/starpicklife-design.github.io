@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FFF7E9">
+<meta name="description" content="와글링 어르신 — 부모님·어르신을 위한 큰 글씨 홈. 약 드실 시간 알림(효도 약통), 큰 글씨 그림 메뉴판(와글링 테이블), 가족·119·112 원터치 전화(전화부)를 한 화면에서. 가입 없이, 광고 없이, 100% 무료.">
+<title>와글링 어르신 · 부모님을 위한 큰 글씨 홈</title>
+<link rel="icon" type="image/png" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="와글링 어르신">
+<style>
+  :root{
+    --cream:#FFF7E9; --cream2:#FDF0D9; --card:#FFFDF7;
+    --ink:#2A211B; --ink2:#4A382C; --ink3:#6A5648;
+    --coffee:#3E2C22; --gold:#D9A227; --line:#E6D7BC; --line2:#D6C29E;
+  }
+  *{box-sizing:border-box}
+  html{font-size:18px;-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--cream);color:var(--ink);
+    font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",system-ui,-apple-system,sans-serif;
+    line-height:1.5;word-break:keep-all;overflow-wrap:break-word;
+    min-height:100vh;-webkit-tap-highlight-color:transparent;
+  }
+  .wrap{
+    max-width:430px;margin:0 auto;
+    padding:calc(10px + env(safe-area-inset-top)) 14px calc(12px + env(safe-area-inset-bottom));
+  }
+
+  /* ── 로고 + 이름 ─────────────────────────── */
+  .brand{display:flex;align-items:center;gap:11px;margin:0 0 10px}
+  .brand img{
+    display:block;flex:0 0 auto;width:56px;height:56px;padding:3px;
+    background:#fff;border:2px solid var(--line);border-radius:15px;
+    box-shadow:0 2px 8px rgba(58,40,25,.08);
+  }
+  .brand-txt{min-width:0}
+  .brand h1{
+    margin:0;font-size:30px;line-height:1.15;font-weight:900;
+    letter-spacing:-.045em;color:var(--coffee);
+  }
+  .brand p{
+    margin:3px 0 0;font-size:18px;line-height:1.25;font-weight:700;
+    letter-spacing:-.03em;color:var(--ink3);
+  }
+
+  /* ── 오늘 날짜·요일·날씨 (한 줄 크게 · 누르면 읽어 줌) ── */
+  .today{
+    display:flex;align-items:center;gap:7px;width:100%;margin:0;padding:9px 11px;
+    background:#FFFFFF;border:2px solid var(--line);border-radius:16px;
+    box-shadow:0 3px 10px rgba(58,40,25,.07);
+    font-family:inherit;text-align:left;color:var(--coffee);cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .today:active{transform:scale(.995);background:#FFFCF3}
+  .today:focus-visible{outline:3px solid rgba(217,162,39,.6);outline-offset:2px}
+  .today .line{
+    flex:1 1 auto;min-width:0;
+    font-size:clamp(20px,6.4vw,26px);line-height:1.3;font-weight:900;letter-spacing:-.04em;
+  }
+  .today .w{color:#5B4635}
+  .today .w.loading{color:#7A6349;font-weight:800}
+  .today .dot{color:#B79A6E;font-weight:900}
+
+  /* ── 화면 읽어주기 ─────────────────────────── */
+  .readbtn{
+    display:flex;align-items:center;justify-content:center;gap:9px;width:100%;
+    margin-top:8px;min-height:60px;padding:8px 12px;
+    font-family:inherit;font-size:23px;font-weight:900;letter-spacing:-.03em;
+    color:var(--coffee);background:var(--cream2);
+    border:2px solid var(--line2);border-radius:16px;cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .readbtn:active{transform:scale(.99)}
+  .readbtn[data-on="1"]{background:#FBE6BC;border-color:var(--gold)}
+  .readbtn:focus-visible{outline:3px solid rgba(217,162,39,.6);outline-offset:2px}
+
+  /* ── 앱 카드 3종 ─────────────────────────── */
+  .cards{display:grid;gap:13px;margin-top:12px;padding:0;list-style:none}
+  .card{
+    display:grid;grid-template-columns:64px minmax(0,1fr);grid-template-rows:auto auto;
+    gap:8px 12px;padding:12px 13px 13px;
+    background:var(--card);border:2px solid var(--line);border-radius:20px;
+    box-shadow:0 4px 12px rgba(58,40,25,.09);
+    text-decoration:none;color:inherit;
+    transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease;
+  }
+  .card:active{transform:scale(.985);box-shadow:0 2px 6px rgba(58,40,25,.10);border-color:var(--line2)}
+  .card:focus-visible{outline:3px solid rgba(217,162,39,.7);outline-offset:2px}
+  .card .ic{
+    grid-column:1;grid-row:1;display:flex;align-items:center;justify-content:center;
+    width:64px;height:64px;border-radius:18px;font-size:37px;line-height:1;
+    background:#F4EBD9;border:2px solid #E8D9BE;
+  }
+  .card.pill .ic{background:#E7F2EA;border-color:#CFE3D6}
+  .card.food .ic{background:#FCEDD8;border-color:#F0D6AE}
+  .card.call .ic{background:#E4EEF6;border-color:#C9DCEB}
+  .card .txt{grid-column:2;grid-row:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:3px}
+  .card .t{
+    font-size:24px;line-height:1.22;font-weight:900;letter-spacing:-.05em;color:var(--coffee);
+  }
+  .card .d{font-size:18px;line-height:1.32;font-weight:700;letter-spacing:-.025em;color:var(--ink2)}
+  .card .go{
+    grid-column:1 / -1;grid-row:2;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    min-height:48px;border-radius:13px;
+    background:linear-gradient(#F8CE68,#EFBA3E);
+    border:1.5px solid #E0A82A;color:#3A2616;
+    font-size:22px;font-weight:900;letter-spacing:-.02em;
+  }
+  .card .go .arrow{font-size:23px;line-height:1}
+
+  /* ── 하단 ─────────────────────────── */
+  .foot{margin-top:15px;text-align:center}
+  .free{
+    display:inline-block;margin:0;padding:5px 13px;border-radius:999px;
+    background:#F3E8D5;color:var(--ink2);
+    font-size:18px;font-weight:800;letter-spacing:-.02em;
+  }
+  .installbtn{
+    display:flex;align-items:center;justify-content:center;gap:7px;width:100%;
+    margin-top:9px;min-height:44px;padding:6px 10px;
+    font-family:inherit;font-size:18px;font-weight:800;letter-spacing:-.02em;
+    color:#6A5648;background:transparent;
+    border:2px dashed #CBB993;border-radius:13px;cursor:pointer;
+  }
+  .installbtn:active{background:#FAF1E1}
+
+  /* ── 홈 화면에 깔기 안내 ─────────────────── */
+  .sheet{position:fixed;inset:0;z-index:50;display:none;align-items:flex-end;justify-content:center;
+    padding:14px;background:rgba(42,33,27,.55)}
+  .sheet[data-open="1"]{display:flex}
+  .sheet-box{
+    width:100%;max-width:430px;background:#fff;border-radius:22px;
+    padding:18px 17px calc(17px + env(safe-area-inset-bottom));
+    max-height:calc(100vh - 28px);max-height:calc(100dvh - 28px);overflow-y:auto;
+    box-shadow:0 -8px 26px rgba(0,0,0,.28);
+  }
+  .sheet-box h2{margin:0 0 6px;font-size:24px;line-height:1.25;font-weight:900;letter-spacing:-.04em;color:var(--coffee)}
+  .sheet-box p.lead{margin:0 0 10px;font-size:18px;font-weight:700;color:var(--ink2)}
+  .sheet-box ol{margin:0 0 14px;padding-left:1.35em;font-size:20px;line-height:1.65;font-weight:700;color:var(--ink)}
+  .sheet-box ol li{margin:0 0 6px}
+  .sheet-box .note{
+    margin:0 0 14px;padding:9px 11px;border-radius:12px;background:#FDF0D9;
+    font-size:17px;line-height:1.5;font-weight:700;color:#5B4635;letter-spacing:-.02em;
+  }
+  .sheet-box .close{
+    width:100%;min-height:54px;border:0;border-radius:14px;
+    background:var(--coffee);color:#fff;font-family:inherit;font-size:21px;font-weight:900;cursor:pointer;
+  }
+  .sheet-box .close:active{background:#2C1F17}
+
+  /* ── 큰 화면(태블릿) ─────────────────── */
+  @media (min-width:560px){
+    .wrap{max-width:520px;padding-left:18px;padding-right:18px}
+    .brand img{width:64px;height:64px}
+    .brand h1{font-size:36px}
+    .brand p{font-size:19px}
+    .today{padding:11px 14px}
+    .today .line{font-size:28px}
+    .readbtn{min-height:62px;font-size:23px}
+    .card{grid-template-columns:76px minmax(0,1fr);gap:9px 14px;padding:13px 15px 14px}
+    .card .ic{width:76px;height:76px;font-size:44px;border-radius:20px}
+    .card .t{font-size:27px}
+    .card .d{font-size:20px}
+    .card .go{min-height:52px;font-size:23px}
+    .free,.installbtn{font-size:19px}
+  }
+  @media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <img id="logo" alt="와글링 로고" width="56" height="56" src="./icon-192.png">
+      <div class="brand-txt">
+        <h1>와글링 어르신</h1>
+        <p>부모님·어르신을 위한 큰 글씨 홈</p>
+      </div>
+    </div>
+
+    <button type="button" class="today" id="todayBtn" aria-label="오늘 날짜와 날씨를 소리로 들려 드려요">
+      <span class="line"><span id="dateTxt">오늘</span><span class="dot" aria-hidden="true"> · </span><span class="w loading" id="wxTxt">날씨 확인 중</span></span>
+    </button>
+
+    <button type="button" class="readbtn" id="readBtn" data-on="0" aria-live="polite">
+      <span aria-hidden="true">🔊</span><span id="readLabel">화면 읽어주기</span>
+    </button>
+  </header>
+
+  <main>
+    <ul class="cards">
+      <li>
+        <a class="card pill" href="https://starpicklife-design.github.io/care/" aria-label="와글링 효도 약통 — 약 드실 시간 알림과 긴급 버튼. 열기">
+          <span class="ic" aria-hidden="true">💊</span>
+          <span class="txt">
+            <span class="t">와글링 효도 약통</span>
+            <span class="d">약 드실 시간 알림 · 긴급 버튼</span>
+          </span>
+          <span class="go">열기 <span class="arrow" aria-hidden="true">→</span></span>
+        </a>
+      </li>
+      <li>
+        <a class="card food" href="https://starpicklife-design.github.io/elder-menu/" aria-label="어르신용 와글링 테이블 — 큰 글씨 그림 메뉴판과 주문. 열기">
+          <span class="ic" aria-hidden="true">🍽️</span>
+          <span class="txt">
+            <span class="t">어르신용 와글링 테이블</span>
+            <span class="d">큰 글씨 그림 메뉴판 · 주문</span>
+          </span>
+          <span class="go">열기 <span class="arrow" aria-hidden="true">→</span></span>
+        </a>
+      </li>
+      <li>
+        <a class="card call" href="https://starpicklife-design.github.io/phonebook/" aria-label="와글링 전화부 — 가족 전화와 119, 112 바로 걸기. 열기">
+          <span class="ic" aria-hidden="true">📞</span>
+          <span class="txt">
+            <span class="t">와글링 전화부</span>
+            <span class="d">가족 전화 · 119·112 바로 걸기</span>
+          </span>
+          <span class="go">열기 <span class="arrow" aria-hidden="true">→</span></span>
+        </a>
+      </li>
+    </ul>
+  </main>
+
+  <footer class="foot">
+    <p class="free">가입 없이 · 광고 없이 · 100% 무료</p>
+    <button type="button" class="installbtn" id="installBtn">
+      <span aria-hidden="true">📲</span><span>홈 화면에 깔기</span>
+    </button>
+  </footer>
+</div>
+
+<!-- 홈 화면에 깔기 안내 -->
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" aria-hidden="true">
+  <div class="sheet-box">
+    <h2 id="sheetTitle">📲 홈 화면에 깔기</h2>
+    <p class="lead">아래처럼 하시면, 다음부터는 한 번에 열려요.</p>
+    <ol>
+      <li>화면 맨 위 <strong>오른쪽 점 세 개(⋮)</strong>를 누르세요.</li>
+      <li><strong>‘홈 화면에 추가’</strong>를 누르세요.</li>
+      <li><strong>‘추가’</strong>를 누르세요. 끝이에요.</li>
+    </ol>
+    <p class="note">
+      카카오톡·문자 안에서 열렸다면, 먼저 <strong>오른쪽 위 ⋯ → ‘다른 브라우저로 열기’</strong>를 눌러 크롬으로 열어 주세요.<br>
+      아이폰은 아래 <strong>공유(⬆️) → ‘홈 화면에 추가’</strong>예요.
+    </p>
+    <button type="button" class="close" id="sheetClose">알겠어요</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ════════════════════════════════════════════════════════
+     1. 오늘 날짜 · 요일 (한 줄 크게)
+     ════════════════════════════════════════════════════════ */
+  var DOW = ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];
+  var dateEl  = document.getElementById('dateTxt');
+  var wxEl    = document.getElementById('wxTxt');
+  var todayBtn= document.getElementById('todayBtn');
+
+  function dateText(d){
+    return (d.getMonth() + 1) + '월 ' + d.getDate() + '일 ' + DOW[d.getDay()];
+  }
+
+  /* ════════════════════════════════════════════════════════
+     2. 날씨 — 오픈메테오(무료·열쇠 없음)
+        · 위치 권한이 이미 허용된 경우에만 현위치로 조용히 바꿉니다.
+        · 권한이 없으면 김해 기준 (부모님 댁 근처)
+     ════════════════════════════════════════════════════════ */
+  var WMO = {
+    0:['☀️','맑음'],   1:['🌤️','맑음'],   2:['⛅','구름'],   3:['☁️','흐림'],
+    45:['🌫️','안개'],  48:['🌫️','안개'],
+    51:['🌦️','이슬비'], 53:['🌦️','이슬비'], 55:['🌦️','이슬비'],
+    56:['🌧️','어는 비'],57:['🌧️','어는 비'],
+    61:['🌧️','비'],    63:['🌧️','비'],    65:['🌧️','비'],
+    66:['🌧️','어는 비'],67:['🌧️','어는 비'],
+    71:['🌨️','눈'],    73:['🌨️','눈'],    75:['🌨️','눈'],    77:['🌨️','눈'],
+    80:['🌦️','소나기'], 81:['🌦️','소나기'], 82:['🌧️','소나기'],
+    85:['🌨️','눈'],    86:['🌨️','눈'],
+    95:['⛈️','천둥'],   96:['⛈️','천둥'],   99:['⛈️','천둥']
+  };
+  var WX_DEFAULT = { lat:35.23, lon:128.89 };   /* 김해 */
+  var wx = null;          /* {emoji,name,t} */
+  var wxTried = false;    /* 한 번이라도 받아 보았는지 — 실패하면 ‘잠시 뒤’로 보여 줍니다 */
+  var wxAt = 0, wxBusy = false, wxSeq = 0, wxRank = 0;
+  var WX_TTL = 20 * 60 * 1000;
+
+  function isOnline(){ try{ return navigator.onLine !== false; }catch(e){ return true; } }
+
+  function renderWx(){
+    if(!wxEl) return;
+    if(wx){
+      wxEl.textContent = wx.emoji + ' ' + wx.name + ' ' + wx.t + '°';
+      wxEl.classList.remove('loading');
+    }else{
+      wxEl.textContent = wxTried ? '날씨는 잠시 뒤' : '날씨 확인 중';
+      wxEl.classList.add('loading');
+    }
+    todayBtn.setAttribute('aria-label', dateText(new Date()) + (wx ? ', ' + wx.name + ' ' + wx.t + '도' : '') + ' — 누르면 소리로 들려 드려요');
+  }
+
+  function fetchWx(lat, lon, rank){
+    if(!window.fetch || !isOnline()) return Promise.resolve(false);
+    var seq = wxSeq;
+    var url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon
+            + '&current=temperature_2m,weather_code&timezone=auto';
+    var ctl = window.AbortController ? new AbortController() : null;
+    var to = null;
+    if(ctl){ to = setTimeout(function(){ try{ ctl.abort(); }catch(e){} }, 8000); }
+    return fetch(url, ctl ? { cache:'no-store', signal:ctl.signal } : { cache:'no-store' })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(j){
+        if(to) clearTimeout(to);
+        var cur = j && j.current;
+        if(!cur || typeof cur.temperature_2m !== 'number') return false;
+        if(seq !== wxSeq || rank < wxRank) return false;
+        var m = WMO[cur.weather_code] || ['🌡️','날씨'];
+        wxRank = rank;
+        wx = { emoji:m[0], name:m[1], t:Math.round(cur.temperature_2m) || 0 };
+        wxAt = Date.now();
+        renderWx();
+        return true;
+      })
+      .catch(function(){ if(to) clearTimeout(to); return false; });
+  }
+
+  function geoCoords(){
+    return new Promise(function(resolve){
+      if(!navigator.geolocation) return resolve(null);
+      try{
+        navigator.geolocation.getCurrentPosition(function(pos){
+          var c = pos && pos.coords;
+          if(!c) return resolve(null);
+          resolve({ lat: Math.round(c.latitude * 100) / 100, lon: Math.round(c.longitude * 100) / 100 });
+        }, function(){ resolve(null); }, { enableHighAccuracy:false, timeout:8000, maximumAge:600000 });
+      }catch(e){ resolve(null); }
+    });
+  }
+
+  function loadWeather(){
+    if(!isOnline()){ renderWx(); return Promise.resolve(false); }
+    if(wxBusy) return Promise.resolve(false);
+    wxBusy = true;
+    wxSeq++; wxRank = 0;
+    var p = fetchWx(WX_DEFAULT.lat, WX_DEFAULT.lon, 1).then(function(ok){
+      wxBusy = false;
+      wxTried = true;
+      if(!ok && !wx) renderWx();
+      return ok;
+    });
+    try{
+      if(navigator.geolocation && navigator.permissions && navigator.permissions.query){
+        navigator.permissions.query({ name:'geolocation' }).then(function(st){
+          if(!st || st.state !== 'granted') return;
+          geoCoords().then(function(c){ if(c) fetchWx(c.lat, c.lon, 2); });
+        }).catch(function(){});
+      }
+    }catch(e){}
+    return p;
+  }
+
+  /* ════════════════════════════════════════════════════════
+     3. 🔊 화면 읽어주기 — 또박또박 천천히 (한국어)
+        · 안드로이드는 getVoices()에 미설치 음성까지 올라와서
+          음성을 콕 집으면 무음이 됩니다 → lang 만 넘깁니다.
+        · 말이 시작되지 않은 채 굳으면 한 번 풀고 다시 시도합니다.
+     ════════════════════════════════════════════════════════ */
+  var ss = ('speechSynthesis' in window) ? window.speechSynthesis : null;
+  var IS_ANDROID = /Android/i.test(navigator.userAgent || '');
+  var voices = [], speakGen = 0, guard = null, restart = null, started = false;
+  var readBtn = document.getElementById('readBtn');
+  var readLabel = document.getElementById('readLabel');
+
+  function loadVoices(){ try{ voices = ss ? ss.getVoices() : []; }catch(e){ voices = []; } }
+  if(ss){ loadVoices(); try{ ss.onvoiceschanged = loadVoices; }catch(e){} }
+
+  function setReadLabel(on){
+    readLabel.textContent = on ? '그만 듣기' : '화면 읽어주기';
+    readBtn.setAttribute('data-on', on ? '1' : '0');
+    readBtn.firstElementChild.textContent = on ? '⏹' : '🔊';
+  }
+
+  function stopSpeak(){
+    speakGen++;
+    try{ clearTimeout(guard); clearTimeout(restart); }catch(e){}
+    try{ if(ss) ss.cancel(); }catch(e){}
+    setReadLabel(false);
+  }
+
+  function screenText(){
+    var d = new Date();
+    var s = '안녕하세요. ' + dateText(d) + '이에요. ';
+    s += wx ? ('오늘 날씨는 ' + wx.name + ', ' + wx.t + '도예요. ') : '';
+    s += '아래에 세 가지가 있어요. ';
+    s += '첫째, 효도 약통. 약 드실 시간을 알려 주고, 긴급 버튼이 있어요. ';
+    s += '둘째, 어르신용 와글링 테이블. 큰 글씨 그림 메뉴판으로 주문할 수 있어요. ';
+    s += '셋째, 전화부. 가족에게 전화하거나 119, 112로 바로 걸 수 있어요. ';
+    s += '하고 싶으신 것을 한 번 눌러 주세요.';
+    return s;
+  }
+
+  function speak(text){
+    if(!ss || typeof SpeechSynthesisUtterance === 'undefined') return false;
+    var gen = ++speakGen, tries = 0;
+    started = false;
+    try{ clearTimeout(guard); clearTimeout(restart); }catch(e){}
+
+    function make(){
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = 'ko-KR';
+      u.rate = 0.8;      /* 어르신이 듣기 편하게 천천히 */
+      u.pitch = 1;
+      u.volume = 1;
+      if(!IS_ANDROID){
+        if(!voices.length) loadVoices();
+        for(var i = 0; i < voices.length; i++){
+          var vl = String(voices[i].lang || '').toLowerCase().replace(/_/g, '-');
+          if(vl.indexOf('ko') === 0){ u.voice = voices[i]; break; }
+        }
+      }
+      return u;
+    }
+
+    function fire(){
+      if(gen !== speakGen) return;
+      tries++;
+      var u = make();
+      started = false;
+      u.onstart = function(){ if(gen === speakGen) started = true; };
+      u.onend = function(){ if(gen === speakGen) setReadLabel(false); };
+      u.onerror = function(){ if(gen === speakGen) setReadLabel(false); };
+      try{ ss.speak(u); }catch(e){ setReadLabel(false); return; }
+      try{ clearTimeout(guard); }catch(e){}
+      guard = setTimeout(function(){
+        if(gen !== speakGen || started) return;
+        if(tries >= 2){ setReadLabel(false); return; }
+        try{ if(ss.speaking || ss.pending) ss.cancel(); }catch(e){}
+        restart = setTimeout(fire, 150);
+      }, 1600);
+    }
+
+    try{
+      if(ss.speaking || ss.pending || ss.paused){
+        ss.cancel();
+        if(ss.paused){ try{ ss.resume(); }catch(e){} }
+        restart = setTimeout(fire, 130);
+      }else{
+        fire();
+      }
+    }catch(e){ fire(); }
+    return true;
+  }
+
+  readBtn.addEventListener('click', function(){
+    if(readBtn.getAttribute('data-on') === '1'){ stopSpeak(); return; }
+    if(!wx) loadWeather();
+    var ok = speak(screenText());
+    if(ok){
+      setReadLabel(true);
+    }else{
+      readLabel.textContent = '이 기기에서는 소리를 낼 수 없어요';
+      readBtn.setAttribute('data-on', '0');
+      setTimeout(function(){ setReadLabel(false); }, 2500);
+    }
+  });
+
+  /* 날짜·날씨 줄을 누르면 그 줄만 읽어 줍니다 (날씨도 새로 받아요) */
+  todayBtn.addEventListener('click', function(){
+    stopSpeak();
+    var said = dateText(new Date()) + (wx ? (' 이고, 날씨는 ' + wx.name + ' ' + wx.t + '도예요.') : '이에요.');
+    if(speak(said)){
+      setReadLabel(true);
+    }else{
+      readLabel.textContent = '이 기기에서는 소리를 낼 수 없어요';
+      setTimeout(function(){ setReadLabel(false); }, 2500);
+    }
+    loadWeather();
+  });
+
+  /* 페이지를 떠나거나 가려지면 소리를 멈춥니다 */
+  window.addEventListener('pagehide', stopSpeak);
+  document.addEventListener('visibilitychange', function(){
+    if(document.visibilityState === 'hidden') stopSpeak();
+  });
+
+  /* ════════════════════════════════════════════════════════
+     4. 📲 홈 화면에 깔기 안내 (폰 뒤로가기도 닫기로 동작)
+     ════════════════════════════════════════════════════════ */
+  var sheet = document.getElementById('sheet');
+  var installBtn = document.getElementById('installBtn');
+  var sheetClose = document.getElementById('sheetClose');
+  var sheetOpen = false;
+
+  function openSheet(push){
+    if(sheetOpen) return;
+    sheetOpen = true;
+    sheet.setAttribute('data-open', '1');
+    sheet.setAttribute('aria-hidden', 'false');
+    if(push){ try{ history.pushState({ sheet:1 }, ''); }catch(e){} }
+    setTimeout(function(){ try{ sheetClose.focus(); }catch(e){} }, 60);
+  }
+  function closeSheet(fromPop){
+    if(!sheetOpen) return;
+    sheetOpen = false;
+    sheet.setAttribute('data-open', '0');
+    sheet.setAttribute('aria-hidden', 'true');
+    if(!fromPop){ try{ if(history.state && history.state.sheet) history.back(); }catch(e){} }
+    try{ installBtn.focus(); }catch(e){}
+  }
+
+  installBtn.addEventListener('click', function(){ openSheet(true); });
+  sheetClose.addEventListener('click', function(){ closeSheet(false); });
+  sheet.addEventListener('click', function(e){ if(e.target === sheet) closeSheet(false); });
+  window.addEventListener('popstate', function(){ closeSheet(true); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && sheetOpen) closeSheet(false);
+  });
+
+  /* ════════════════════════════════════════════════════════
+     5. 시작
+     ════════════════════════════════════════════════════════ */
+  function paintDate(){ dateEl.textContent = dateText(new Date()); }
+  paintDate();
+  renderWx();
+  loadWeather();
+
+  setInterval(paintDate, 60 * 1000);
+  setInterval(function(){ if(Date.now() - wxAt > WX_TTL) loadWeather(); }, 5 * 60 * 1000);
+  document.addEventListener('visibilitychange', function(){
+    if(document.visibilityState === 'visible'){
+      paintDate();
+      if(Date.now() - wxAt > WX_TTL) loadWeather();
+    }
+  });
+
+  /* ════════════════════════════════════════════════════════
+     6. 홈 화면 설치 요건(매니페스트 + 아이콘 + fetch 핸들러)
+        · 실패해도 화면은 그대로 — 조용히 넘어갑니다
+     ════════════════════════════════════════════════════════ */
+  if('serviceWorker' in navigator){
+    window.addEventListener('load', function(){
+      navigator.serviceWorker.register('./sw.js').catch(function(){});
+    });
+  }
+})();
+</script>
+</body>
+</html>
