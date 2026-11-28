@@ -13,7 +13,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&family=Nanum+Pen+Script&display=swap" rel="stylesheet" />
-<!-- build: 2026-11-26 💎 다이아몬드 성 탈출 다꾸 (미미 & 테오) v3 — 스티커 이름표 제거·한 손가락 크기 손잡이
+<!-- build: 2026-11-28 💎 다이아몬드 성 탈출 다꾸 v4 — 무조건 진하게 또렷
+     · v4: 연한 회색·파스텔 글씨를 진한 차콜(#111827~#1F2937)로, 버튼·카드 테두리 또렷하게, 글씨는 굵게
+     · v4: 속지 모눈선은 더 연하게(#F2E7D6) — 글씨가 선보다 훨씬 진하게 돋보이도록
+     · build: 2026-11-26 💎 다이아몬드 성 탈출 다꾸 (미미 & 테오) v3 — 스티커 이름표 제거·한 손가락 크기 손잡이
      · 맨 위 오늘 날짜·요일·날씨(김해 기본, 누르면 현위치 — Open-Meteo 무료)
      · 오프닝 동화: 다이아몬드 성 비밀 방에 갇힌 미미·테오, 벽 속에 잠든 🌀 차원의 문
      · 💎 탈출 열쇠 게이지 4단계(속지 고르기·기분 도장·스티커 3개·한 줄 일기) → 🌀 차원의 문 열고 탈출
@@ -399,6 +402,101 @@ a{color:inherit}
   .scene{max-width:250px}
   .storyTop{margin-bottom:.25rem}
 }
+
+/* ═══════════ v4 (2026-11-28) — 무조건 진하게 또렷 ═══════════
+   연한 회색·파스텔 글씨를 진한 차콜(#111827~#1F2937)로, 테두리는 또렷하게,
+   종이 모눈선은 연하게 두어 글씨가 훨씬 진하게 돋보이도록 */
+:root{
+  --ink:#111827; --ink2:#1F2937; --ink3:#374151;
+  --pink:#D93A68; --pink-deep:#B02450; --pink-soft:#FFE2EC;
+  --violet:#5B3BB0; --sky:#2A6FA8; --mint:#2E8B78;
+  --line:#D2ADBF; --line2:#C29CAC;
+  --shadow:0 6px 16px rgba(130,70,100,.16);
+}
+body{color:#111827}
+
+/* ── 날짜·머리말 ── */
+.datebar{border-color:#D2ADBF;border-width:1.5px;color:#111827;box-shadow:0 3px 10px rgba(130,70,100,.14)}
+.db-date{color:#111827}
+.db-sep{color:#8E7284}
+.db-wx{color:#8A4E00}
+.db-place{color:#3B2670;background:#E9E2FF;border:1px solid #CFC0F2}
+.head h1{color:#111827}
+.head .sub{color:#1F2937;font-weight:800}
+.chip{color:#1F2937;border-color:#D2ADBF;background:#fff}
+.dnav,.recbtn{color:#1F2937;border-color:#DCC0CC;background:#fff}
+.daytxt{color:#111827}
+.todaychip{background:#D93A68;color:#fff}
+
+/* ── 기분·탈출 열쇠 ── */
+.mlabel{color:#1F2937}
+.mood{border-color:#DCC0CC}
+.qbadge{color:#3B2670;background:#EFE9FF;border-color:#CFC0F2}
+.qbadge b{color:#3B2670}
+.qhint{color:#1F2937}
+.qstep{color:#4B5563;border-color:#DCC0CC}
+.qstep .qi{filter:none;opacity:.9}
+.qstep.on{background:#FFF2CC;border-color:#D9A93C;color:#7A4A00}
+.qdone{color:#3B2670;background:#EFE9FF;border-color:#CFC0F2}
+.escapeBtn{color:#2A0E57;background:linear-gradient(180deg,#DCCBFF,#A98BEC)}
+
+/* ── 종이(속지) — 선은 연하게, 글씨는 진하게 ── */
+.paper{--pline:#F2E7D6; --pdot:#E4D8C4;
+  box-shadow:0 10px 24px rgba(130,70,100,.18), inset 0 0 0 1.5px rgba(196,150,172,.95)}
+.pghead{color:#1F2937;font-weight:800}
+.pgmood{border-color:#C98CA4;background:rgba(255,255,255,.94)}
+.pgtext{color:var(--fc,#111827);font-weight:700;
+  text-shadow:0 0 .012em currentColor}
+.paper[data-font="pen"] .pgtext{font-weight:400;
+  text-shadow:0 0 .02em currentColor}
+.pgtext::placeholder{color:#8A7684}
+.polcap{color:#1F2937;font-weight:700}
+
+/* ── 도구 줄 ── */
+.objcap{color:#1F2937}
+.objcap .sz{color:#4B5563}
+.tool,.obtn{color:#1F2937;border-color:#D2ADBF;border-width:1.5px}
+.tool .ic{filter:saturate(1.15)}
+#smallBtn,#bigBtn{color:#A3234D;background:#FFE2EC;border-color:#EBB4C6}
+.obtn.del{color:#A3234D;background:#FFE4EA;border-color:#EBB4C6}
+.bigsave{background:linear-gradient(180deg,#F0568A,#D22C60);box-shadow:0 8px 18px rgba(200,44,92,.32)}
+.foot{color:#374151;font-weight:800}
+.objctl button{color:#1F2937}
+.objctl .sml,.objctl .big{color:#A3234D;background:#FFE2EC}
+
+/* ── 팝업들 ── */
+.sheet h2{color:#111827}
+.sheet .lead{color:#1F2937;font-weight:700}
+.sheet .x{color:#A3234D;background:#FFE4EA}
+.psw{border-color:#E4CBD6}
+.psw .nm{color:#1F2937}
+.st{border-color:#E4CBD6}
+.stab{color:#1F2937;border-color:#DCC0CC}
+.stab.on{color:#A3234D;border-color:#D93A68;background:#FFE4EC}
+.pill{color:#1F2937;border-color:#DCC0CC}
+.pill.on{color:#A3234D;border-color:#D93A68;background:#FFE4EC}
+.prevbox{border-color:#DCC0CC;background:#FFEEF4}
+.prevbox .ph{color:#1F2937}
+.sbtn.pri{background:linear-gradient(180deg,#F0568A,#D22C60)}
+.sbtn.ghost{color:#1F2937;border-color:#CBABB9}
+.calhead .cm{color:#111827}
+.calnav{color:#1F2937;border-color:#DCC0CC}
+.wd{color:#4B5563}
+.wd.sun{color:#B02A55}
+.cd{color:#1F2937;border-color:#E4CBD6}
+.cd.has{color:#A3234D;border-color:#E0A8BC;background:#FFE4EC}
+.recrow{border-color:#DCC0CC}
+.recrow .rd{color:#8E2E57}
+.recrow .rt{color:#1F2937}
+.recempty{color:#374151}
+.instSteps li{color:#1F2937;border-bottom-color:#E4CBD6}
+.instSteps .num{background:#FFE2EC;color:#A3234D}
+.instTip{color:#1F2937}
+.instChrome{background:#DDEEFF;color:#124A78;border:1.5px solid #A9CDEC}
+.instOk{background:linear-gradient(180deg,#F0568A,#D22C60)}
+.qnew{background:linear-gradient(180deg,#F0568A,#D22C60)}
+.toast{color:#111827;border-color:#DCC0CC}
+.qdoneRow .qdone{color:#3B2670}
 </style>
 </head>
 <body>
@@ -809,7 +907,7 @@ a{color:inherit}
     pen:   { name: '손글씨', css: '"Nanum Pen Script","Gowun Dodum",cursive', canvas: 'Nanum Pen Script', mult: 1.28, lh: 1.42 },
     jua:   { name: '주아', css: '"Jua","Gowun Dodum",sans-serif', canvas: 'Jua', mult: 0.98, lh: 1.6 }
   };
-  var COLORS = ['#4A3547', '#E4567A', '#2E86C1', '#2E8B57', '#D9720C', '#7A4FBF'];
+  var COLORS = ['#111827', '#C42B58', '#1D6AA8', '#1F6E45', '#A85A00', '#5B2FA8'];
   var MOODS = [
     { e: '😊', n: '좋아요' }, { e: '☀️', n: '맑음' }, { e: '☁️', n: '뭉게' },
     { e: '🌧️', n: '비' }, { e: '💪', n: '힘냄' }, { e: '😴', n: '졸림' }
@@ -957,7 +1055,7 @@ a{color:inherit}
 
   /* ═════════════ 저장소 ═════════════ */
   var LS = 'wagleDiary.v1';
-  var db = { days: {}, photos: {}, lastPaper: 'grid', lastFont: 'gowun', lastColor: '#4A3547', lastFs: 17 };
+  var db = { days: {}, photos: {}, lastPaper: 'grid', lastFont: 'gowun', lastColor: '#111827', lastFs: 17 };
   var view = todayKey(), work = null, selId = null, cardCanvas = null, cardBlob = null, cardUrl = '';
 
   function loadDB() {
@@ -970,7 +1068,7 @@ a{color:inherit}
       db.photos = (j.photos && typeof j.photos === 'object') ? j.photos : {};
       db.lastPaper = PAPERS[j.lastPaper] ? j.lastPaper : 'grid';
       db.lastFont = FONTS[j.lastFont] ? j.lastFont : 'gowun';
-      db.lastColor = typeof j.lastColor === 'string' ? j.lastColor : '#4A3547';
+      db.lastColor = typeof j.lastColor === 'string' ? j.lastColor : '#111827';
       db.lastFs = +j.lastFs || 17;
     } catch (e) {}
   }
@@ -980,7 +1078,7 @@ a{color:inherit}
   }
   function cloneDay(d) {
     var o = { text: d.text || '', paper: d.paper || 'grid', mood: d.mood || '', font: d.font || 'gowun',
-      color: d.color || '#4A3547', fs: +d.fs || 17, objs: [], chosePaper: !!d.chosePaper, escaped: !!d.escaped };
+      color: d.color || '#111827', fs: +d.fs || 17, objs: [], chosePaper: !!d.chosePaper, escaped: !!d.escaped };
     (d.objs || []).forEach(function (s) {
       o.objs.push({ id: s.id, kind: s.kind, key: s.key, pid: s.pid, fx: s.fx, fy: s.fy, s: s.s, r: s.r });
     });
@@ -1799,7 +1897,7 @@ a{color:inherit}
         g.setLineDash([]);
         g.textAlign = 'center'; g.textBaseline = 'middle';
         g.font = Math.round(rr * 0.92) + 'px "Noto Color Emoji","Apple Color Emoji",sans-serif';
-        g.fillStyle = '#4A3547';
+        g.fillStyle = '#111827';
         g.fillText(work.mood, 0, rr * 0.04);
         g.restore();
       }
