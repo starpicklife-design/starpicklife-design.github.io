@@ -1,10 +1,10 @@
-/* 와글링 카드계산기 · 가벼운 Service Worker (v1)
+/* 와글링 신용카드 · 가벼운 Service Worker (v2)
    - 홈 화면 설치 요건(매니페스트 + 아이콘 + fetch 핸들러) 충족
    - 화면(index.html)은 항상 네트워크 우선 → 새 버전이 바로 반영됨
    - 인터넷이 끊겨도 마지막으로 열었던 화면이 뜨도록 껍데기만 캐시
    - 내역·문자는 브라우저(localStorage)에만 있고, 어떤 요청도 다른 곳으로 보내지 않음 */
 
-const CACHE = 'wagle-card-v1';
+const CACHE = 'wagle-card-v2';
 const SHELL = [
   './',
   './index.html',
@@ -52,7 +52,7 @@ self.addEventListener('fetch', (event) => {
       } catch (e) {
         const cache = await caches.open(CACHE);
         return (await cache.match('./index.html')) || (await cache.match('./')) ||
-          new Response('와글링 카드계산기 · 인터넷이 없어 화면을 열지 못했어요.', {
+          new Response('와글링 신용카드 · 인터넷이 없어 화면을 열지 못했어요.', {
             status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' }
           });
       }

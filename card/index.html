@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content" />
 <meta name="theme-color" content="#1D3D4A" />
-<!-- build: 2026-11-28 와글링 카드계산기 (Wagling Card) v3 — 기본 글씨 크게·또렷하게(색 대비·줄간격·여백) · 🔠 크게 모드는 한 단계 더 · 날씨 줄 '내 위치' 중복 정리
+<!-- build: 2026-11-28 와글링 신용카드 (Wagling Card) v3 — '카드계산기'에서 이름 변경 · 기본 글씨 크게·또렷하게(색 대비·줄간격·여백) · 🔠 크게 모드는 한 단계 더 · 날씨 줄 '내 위치' 중복 정리
      · 맨 위 오늘 날짜·요일·날씨(김해 기본, 누르면 현위치 날씨로 새로고침 — Open-Meteo)
      · ➕ 입력: 분류 버튼(식비·교통·마트·카페·병원·통신·경조사·기타) → 카드 버튼 → 금액만 넣고 저장
      · 📊 이번 달: 총합계 = 변동 + 고정, 목표 예산 게이지, 분류별 합계·카드사별 합계, 사용 내역 최신순
@@ -22,14 +22,14 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-<meta name="apple-mobile-web-app-title" content="와글링 카드" />
-<meta name="description" content="와글링 카드계산기 — 분류와 카드를 고르고 금액만 넣으면 바로 기록, 카드 결제 문자를 붙여넣으면 자동으로 나눠 담아 이번 달 카드값·분류별 합계·고정 카드값을 계산해 주는 무료 앱. 내역은 이 기기에만 저장되고 광고가 없어요." />
-<title>와글링 카드계산기 · 이번 달 카드값 한눈에</title>
+<meta name="apple-mobile-web-app-title" content="와글링 신용카드" />
+<meta name="description" content="와글링 신용카드 — 분류와 카드를 고르고 금액만 넣으면 바로 기록, 카드 결제 문자를 붙여넣으면 자동으로 나눠 담아 이번 달 카드값·분류별 합계·고정 카드값을 계산해 주는 무료 앱. 내역은 이 기기에만 저장되고 광고가 없어요." />
+<title>와글링 신용카드 · 이번 달 카드값 한눈에</title>
 <style>
 :root{
   --cream:#FFF9EF; --card:#FFFFFF; --ink:#15202B; --ink2:#39444F;
   --teal:#183744; --teal2:#1E4859; --tealbg:#D9E8EC; --tealline:#84AEB9;
-  --orange:#C4620A; --orange2:#964803; --orangebg:#FFE5C6; --orangeline:#DE9E58;
+  --orange:#BC5703; --orange2:#964803; --orangebg:#FFE5C6; --orangeline:#DE9E58;
   --red:#A81B1B; --red2:#C8281E; --redbg:#F8D8D3; --redline:#D0887E;
   --green:#196044; --greenbg:#D7EDDF; --greenline:#74B790;
   --gold:#AC7C24; --line:#CDBD9E; --shadow:0 2px 10px rgba(60,40,20,.13);
@@ -132,7 +132,7 @@ html.big .toolhint{display:none}
   padding:.48rem .55rem;border:2px solid #B7A98F;border-radius:.7rem;background:#fff;min-height:2.6rem}
 .memo:focus{border-color:var(--teal2);outline:none}
 .savebtn{display:flex;align-items:center;justify-content:center;width:100%;min-height:3.1rem;margin-top:.4rem;
-  border-radius:.8rem;background:linear-gradient(165deg,#D4720E,#A9500A);border:1.5px solid #8B3F05;
+  border-radius:.8rem;background:linear-gradient(165deg,#BC5703,#96430A);border:1.5px solid #7A3403;
   color:#FFFDF6;font-size:.98rem;font-weight:900;letter-spacing:-.02em;box-shadow:0 2px 0 rgba(120,60,10,.2)}
 .savebtn:active{transform:translateY(1px);filter:brightness(.97)}
 .qmore{display:grid;grid-template-columns:1fr 1fr;gap:.34rem;margin-top:.5rem}
@@ -259,7 +259,7 @@ html.big .item{gap:.34rem}
 .empty b{display:block;margin-top:.12rem;font-size:.88rem;font-weight:900;color:var(--teal);letter-spacing:-.02em}
 .empty p{margin:.18rem 0 .5rem;font-size:.7rem;font-weight:800;color:var(--ink2);line-height:1.45}
 .empty button{display:block;width:100%;min-height:2.7rem;border-radius:.72rem;font-size:.84rem;font-weight:900;
-  background:var(--orange);color:#FFFDF6;border:1.5px solid #A94F0B}
+  background:var(--orange);color:#FFFDF6;border:1.5px solid #7A3403}
 .empty button + button{margin-top:.32rem;background:#FFFDF7;color:var(--teal2);border-color:var(--tealline)}
 
 /* 📌 고정 */
@@ -357,7 +357,7 @@ html.big .item{gap:.34rem}
 @media (max-width:359px){.two{grid-template-columns:1fr}}
 html.big .two{grid-template-columns:1fr}
 .primary{display:flex;align-items:center;justify-content:center;gap:.3rem;width:100%;min-height:3.1rem;margin-top:.68rem;
-  border-radius:.8rem;background:linear-gradient(165deg,#D4720E,#A9500A);color:#FFFDF6;font-size:.96rem;font-weight:900;
+  border-radius:.8rem;background:linear-gradient(165deg,#BC5703,#96430A);color:#FFFDF6;font-size:.96rem;font-weight:900;
   letter-spacing:-.02em;border:1.5px solid #8B3F05;box-shadow:0 2px 0 rgba(120,60,10,.2)}
 .primary:active{transform:translateY(1px);filter:brightness(.97)}
 .clipbtn{display:flex;align-items:center;justify-content:center;gap:.3rem;width:100%;min-height:3.1rem;
@@ -576,7 +576,7 @@ main{padding:.58rem .6rem 0}
   <div class="brand">
     <img class="logo" src="./icon-192.png" alt="" width="30" height="30" />
     <div class="btxt">
-      <h1>와글링 카드계산기</h1>
+      <h1>와글링 신용카드</h1>
       <p class="sub">이번 달 카드값 한눈에</p>
     </div>
     <div class="topbtns">
@@ -963,7 +963,7 @@ main{padding:.58rem .6rem 0}
 
 <div id="toast" role="status" aria-live="polite"><span id="toastMsg"></span><button type="button" id="toastAct" hidden></button></div>
 
-<noscript><p style="margin:1rem;font-weight:900">와글링 카드계산기는 자바스크립트가 필요해요.</p></noscript>
+<noscript><p style="margin:1rem;font-weight:900">와글링 신용카드는 자바스크립트가 필요해요.</p></noscript>
 
 <script>
 (function () {
@@ -2130,10 +2130,10 @@ main{padding:.58rem .6rem 0}
     var kg = groupSums(items, function (it) { return it.cardShort || '카드'; });
     var catOrder = CATS.map(function (c) { return c.k; }).filter(function (k) { return cg.map[k]; });
     var cardOrder = kg.order.slice().sort(function (a, b) { return Math.abs(kg.map[b]) - Math.abs(kg.map[a]); });
-    var subject = '와글링 카드계산기 · ' + cur.y + '년 ' + cur.mo + '월 카드값 정리';
+    var subject = '와글링 신용카드 · ' + cur.y + '년 ' + cur.mo + '월 카드값 정리';
 
     var L = [];
-    L.push('[와글링 카드계산기] ' + cur.y + '년 ' + cur.mo + '월 카드값 정리');
+    L.push('[와글링 신용카드] ' + cur.y + '년 ' + cur.mo + '월 카드값 정리');
     L.push('(' + stampNow() + ' 기준 · 이 기기에 저장된 내역)');
     L.push('');
     L.push('■ 이번 달 총합계 ' + won(total));
@@ -2184,10 +2184,10 @@ main{padding:.58rem .6rem 0}
     });
     if (items.length > 60) L.push('… 그 밖에 ' + (items.length - 60) + '건 더 있어요');
     L.push('');
-    L.push('※ 이 정리는 와글링 카드계산기에서 만들었어요. 내역은 앱을 쓰는 기기에만 저장됩니다.');
+    L.push('※ 이 정리는 와글링 신용카드에서 만들었어요. 내역은 앱을 쓰는 기기에만 저장됩니다.');
 
     var S2 = [];
-    S2.push('[와글링 카드계산기] ' + cur.y + '년 ' + cur.mo + '월 카드값 요약');
+    S2.push('[와글링 신용카드] ' + cur.y + '년 ' + cur.mo + '월 카드값 요약');
     S2.push('');
     S2.push('총합계 ' + won(total));
     S2.push('· 변동 ' + won(s.total) + ' (' + items.length + '건) + 고정 ' + won(fx) + ' (' + S.fixed.length + '개)');
@@ -2281,7 +2281,7 @@ main{padding:.58rem .6rem 0}
       '크롬에서 이 화면을 연 상태에서',
       '오른쪽 위 <b>점 세 개</b>를 눌러 주세요',
       '<b>홈 화면에 추가</b> 또는 <b>앱 설치</b>를 눌러 주세요',
-      '바탕화면에 <b>와글링 카드계산기</b> 아이콘이 생겨요'
+      '바탕화면에 <b>와글링 신용카드</b> 아이콘이 생겨요'
     ].map(function (s) { return '<li>' + s + '</li>'; }).join('');
     var ch = $('#instChrome'), show = isAndroidUA() && inAppBrowser();
     ch.hidden = !show;
@@ -2323,7 +2323,7 @@ main{padding:.58rem .6rem 0}
   }
   function shareApp() {
     var p = {
-      title: '와글링 카드계산기 · 이번 달 카드값 한눈에',
+      title: '와글링 신용카드 · 이번 달 카드값 한눈에',
       text: '분류와 카드를 고르고 금액만 넣으면 바로 기록, 카드 문자를 붙여넣으면 자동으로 정리되는 무료 앱이에요. 내역은 이 폰에만 저장돼요.',
       url: 'https://starpicklife-design.github.io/card/'
     };
