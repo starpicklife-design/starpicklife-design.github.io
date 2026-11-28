@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content" />
 <meta name="theme-color" content="#B32433" />
 <meta name="description" content="해마다 간지·띠·설날 날짜가 저절로 바뀌는 새해·설날, 크리스마스, 생일·감사·응원 카드를 스스로 꾸며서 카톡·문자로 바로 보내는 무료 카드 만들기 앱. 한국 전통 문양과 십이지신 스티커 89종." />
-<title>💌 와글링 카드 · 스스로 꾸미는 카드 만들기</title>
-<!-- build: 2026-11-27 와글링 카드 (card-maker) v3 — 해마다 자동으로 간지·띠·설날·크리스마스 D-day·배경 캐릭터 전환
+<title>💌 와글링 카드꾸미기 · 스스로 꾸미는 카드 만들기</title>
+<!-- build: 2026-11-27 와글링 카드꾸미기 (card-maker) v3 — 해마다 자동으로 간지·띠·설날·크리스마스 D-day·배경 캐릭터 전환
      · 설날(음력 1월 1일) 양력 날짜표 2024~2050(한국천문연구원 음양력) + 60갑자 천간 색(푸른·붉은·황금·하얀·검은)·12지신 띠 자동 계산
      · 3월부터 다음 해 설날로 자동 전환, 홈 배지·설명·D-day·테마 이름·추천 문구·히어로 캐릭터·배경 띠 동물까지 연동
      · v3: 해마다 자동 전환 · v2: 2D 일러스트 / 3D 입체 / 내 사진 3가지 모드
@@ -19,7 +19,7 @@
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-<meta name="apple-mobile-web-app-title" content="와글링 카드" />
+<meta name="apple-mobile-web-app-title" content="와글링 카드꾸미기" />
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 <link rel="icon" href="./icon-192.png" />
@@ -292,7 +292,13 @@
     .hero p{max-width:70%;font-size:14.5px}
     .hero .sheep{width:84px;bottom:14px}
     .hero .cta{width:calc(100% - 94px)}
-    .brand b{font-size:20px}
+    /* 이름이 길어도 잘리지 않게: 좁은 화면에서 상단 이름·버튼 폭을 줄여 한 줄에 담기 */
+    .topbar{gap:6px}
+    .brand{gap:5px}
+    .brand .logo{font-size:25px}
+    .acts{gap:4px}
+    .acts button{min-width:46px;padding:0 4px}
+    .brand b{font-size:18px}
     .modes button{font-size:16.5px}
     .modes button small{font-size:11px}
     .editBar button{font-size:14.5px}
@@ -306,8 +312,8 @@
     .hero p{font-size:13.8px;max-width:72%}
     .ddays .dd{font-size:13.5px;padding:7px 10px}
     .hero .cta{font-size:19px;min-height:52px}
-    .acts button{min-width:46px;height:48px}
-    .brand b{font-size:18.5px}
+    .acts button{min-width:44px;height:48px;padding:0 3px}
+    .brand b{font-size:16px}
     .filters button{font-size:15px;padding:0 12px}
     .sect h2{font-size:21px}
   }
@@ -325,7 +331,7 @@
     <div class="brand">
       <span class="logo">💌</span>
       <div>
-        <b data-i18n="brand">와글링 카드</b>
+        <b data-i18n="brand">와글링 카드꾸미기</b>
         <small data-i18n="brandSub">스스로 꾸며서 카톡으로 보내요</small>
       </div>
     </div>
@@ -550,8 +556,8 @@
   /* ── 문구 사전 ── */
   var I18N = {
     ko: {
-      appTitle: '💌 와글링 카드 · 스스로 꾸미는 카드 만들기',
-      brand: '와글링 카드', brandSub: '카톡으로 바로 보내요',
+      appTitle: '💌 와글링 카드꾸미기 · 스스로 꾸미는 카드 만들기',
+      brand: '와글링 카드꾸미기', brandSub: '카톡으로 바로 보내요',
       inst: '설치', share: '공유', back: '뒤로', close: '닫기',
       heroTag: '{Y} {G}년 · {A}의 해',
       heroH1: '새해도 크리스마스도,<br>내 손으로 꾸며 보내요',
@@ -608,11 +614,11 @@
       toastLinkCopy: '🔗 주소를 복사했어요 · 카톡에 붙여 넣어 보세요', toastLinkFail: '주소를 복사하지 못했어요. 주소창 주소를 길게 눌러 복사해 주세요.',
       toastLang: 'English로 바꿨어요', toastLangKo: '한국어로 바꿨어요',
       shareAppText: '{Y} {G}년 새해·설날, 크리스마스, 생일·감사·응원 카드를 내 손으로 꾸며 카톡으로 바로 보내요. 무료·광고 없음, 설치 없이 폰에서 바로!',
-      shareTitle: '💌 와글링 카드 · 스스로 꾸미는 카드 만들기'
+      shareTitle: '💌 와글링 카드꾸미기 · 스스로 꾸미는 카드 만들기'
     },
     en: {
-      appTitle: '💌 Wagling Card · Make your own card',
-      brand: 'Wagling Card', brandSub: 'Decorate it yourself, send on KakaoTalk',
+      appTitle: '💌 Wagling Card Maker · Make your own card',
+      brand: 'Wagling Card Maker', brandSub: 'Decorate it yourself, send on KakaoTalk',
       inst: 'Install', share: 'Share', back: 'Back', close: 'Close',
       heroTag: '{Y} · Year of the {AE}',
       heroH1: 'New Year or Christmas,<br>make it with your own hands',
@@ -669,7 +675,7 @@
       toastLinkCopy: '🔗 Link copied · paste it in KakaoTalk', toastLinkFail: 'Could not copy. Long-press the address bar to copy it.',
       toastLang: 'Switched to English', toastLangKo: 'Switched to Korean',
       shareAppText: 'Make your own {Y} New Year, Christmas, birthday and thank-you cards and send them on KakaoTalk. Free, no ads, no install.',
-      shareTitle: '💌 Wagling Card · Make your own card'
+      shareTitle: '💌 Wagling Card Maker · Make your own card'
     }
   };
   var LANG = 'ko';

@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content" />
 <meta name="theme-color" content="#123240" />
-<!-- build: 2026-11-27 자동이체 알리미 v1 (Auto-pay Reminder) · 0원 정적 웹앱
+<!-- build: 2026-11-27 와글링 자동이체 v1 (Wagling Auto-pay) · 0원 정적 웹앱
      · 오늘(D-Day)·내일(D-1)·3일 안(D-3) 나갈 자동이체를 맨 위 빨강·주황 배지로
      · 이번 달 총 예정 / 빠져나간 돈 / 앞으로 필요한 돈 + 통장 별명별 남은 합계
      · 내역 등록·고치기(localStorage) · 달력 보기 · 이체 완료 체크(달마다 따로)
@@ -15,9 +15,9 @@
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-title" content="자동이체 알리미" />
-<meta name="description" content="자동이체 알리미 — 매달 나가는 휴대폰 요금·보험·월세·공과금을 적어 두면 3일 전부터 미리 알려 드리고, 통장별로 앞으로 나갈 돈을 한눈에 보여 주는 무료 앱. 기록은 이 기기에만 저장되고 광고가 없어요." />
-<title>자동이체 알리미 · 매달 나갈 돈 미리 알기</title>
+<meta name="apple-mobile-web-app-title" content="와글링 자동이체" />
+<meta name="description" content="와글링 자동이체 — 매달 나가는 휴대폰 요금·보험·월세·공과금을 적어 두면 3일 전부터 미리 알려 드리고, 통장별로 앞으로 나갈 돈을 한눈에 보여 주는 무료 앱. 기록은 이 기기에만 저장되고 광고가 없어요." />
+<title>와글링 자동이체 · 매달 나갈 돈 미리 알기</title>
 <style>
 :root{
   --cream:#FFF8EC; --card:#FFFFFF; --ink:#1B2A34; --ink2:#5C6E7B;
@@ -345,7 +345,7 @@ h1,h2,h3{margin:0}
   <div class="brand">
     <span class="logo" aria-hidden="true"></span>
     <div class="btxt">
-      <h1>자동이체 알리미</h1>
+      <h1>와글링 자동이체</h1>
       <p class="sub" data-i18n="sub">매달 나갈 돈, 미리 알려 드려요</p>
     </div>
   </div>
@@ -353,10 +353,10 @@ h1,h2,h3{margin:0}
     <button type="button" class="hbtn" id="langBtn" aria-label="한국어와 English 바꾸기 / Switch language">
       <span aria-hidden="true">🌐</span><b>한/EN</b>
     </button>
-    <button type="button" class="hbtn install" id="installTop" aria-label="폰 홈 화면에 자동이체 알리미 설치하기">
+    <button type="button" class="hbtn install" id="installTop" aria-label="폰 홈 화면에 와글링 자동이체 설치하기">
       <span aria-hidden="true">📲</span><b data-i18n="install">설치</b>
     </button>
-    <button type="button" class="hbtn" id="shareTop" aria-label="자동이체 알리미를 카톡·문자로 공유하기">
+    <button type="button" class="hbtn" id="shareTop" aria-label="와글링 자동이체를 카톡·문자로 공유하기">
       <span aria-hidden="true">📤</span><b data-i18n="share">공유</b>
     </button>
   </div>
@@ -565,7 +565,7 @@ h1,h2,h3{margin:0}
       <p class="hint" data-i18n="privacyDesc">받는 것은 항목 이름·금액·출금일·통장 별명뿐이에요. 계좌번호·카드번호·비밀번호는 넣지 마세요. 적은 내용은 서버로 보내지 않고 이 기기(브라우저 저장소)에만 남아요.</p>
     </div>
 
-    <p class="ver" data-i18n="ver">자동이체 알리미 v1 · 별의별 살림 · 무료 · 광고 없음 · 기록은 이 기기에만</p>
+    <p class="ver" data-i18n="ver">와글링 자동이체 v1 · 별의별 살림 · 무료 · 광고 없음 · 기록은 이 기기에만</p>
   </section>
 </main>
 
@@ -583,7 +583,7 @@ h1,h2,h3{margin:0}
 <!-- 📲 설치 안내 -->
 <div class="instWrap" id="instWrap" role="dialog" aria-modal="true" aria-labelledby="instTitle" hidden>
   <div class="instCard">
-    <h3 id="instTitle">📲 홈 화면에 자동이체 알리미 두기</h3>
+    <h3 id="instTitle">📲 홈 화면에 와글링 자동이체 두기</h3>
     <p class="lead">한 번만 담아 두면 다음부터 앱처럼 바로 열려요.</p>
     <ol class="isteps" id="instSteps"></ol>
     <p class="instTip" id="instTip"></p>
@@ -629,7 +629,7 @@ h1,h2,h3{margin:0}
       seedBtn: '예시 3건 넣기', wipeBtn: '내 기록 모두 지우기',
       privacyTitle: '🔒 개인정보',
       privacyDesc: '받는 것은 항목 이름·금액·출금일·통장 별명뿐이에요. 계좌번호·카드번호·비밀번호는 넣지 마세요. 적은 내용은 서버로 보내지 않고 이 기기(브라우저 저장소)에만 남아요.',
-      ver: '자동이체 알리미 v1 · 별의별 살림 · 무료 · 광고 없음 · 기록은 이 기기에만',
+      ver: '와글링 자동이체 v1 · 별의별 살림 · 무료 · 광고 없음 · 기록은 이 기기에만',
       addBtn: '자동이체 추가', icsAllShort: '전체 캘린더 알림', undo: '되돌리기',
       sumTitle: '{m} 자동이체', leftCnt: '{n}건 남음', progTx: '{t}건 중 {p}건 완료 ({pct}%)',
       acctSub: '{n}건 · 완료 {p}건', acctTotal: '이번 달 {a}', acctDone: '다 나갔어요',
@@ -653,18 +653,18 @@ h1,h2,h3{margin:0}
       icsToast: '캘린더 파일(.ics)을 내려받았어요. 받은 파일을 눌러 열면 캘린더에 등록돼요.',
       icsOneToast: '{name} 캘린더 파일을 내려받았어요.', icsNone: '넣을 자동이체가 없어요.',
       exportToast: '백업 파일을 내려받았어요.', importedN: '{n}건을 불러왔어요.',
-      importBad: '이 파일은 자동이체 알리미 백업이 아니에요.', importErr: '파일을 읽지 못했어요.',
+      importBad: '이 파일은 와글링 자동이체 백업이 아니에요.', importErr: '파일을 읽지 못했어요.',
       wiped: '모두 지웠어요.', seeded: '예시 3건을 넣었어요.',
       notifOn: '알림이 켜져 있어요. 앱을 열어 둘 때 알려 드려요.', notifOff: '알림이 꺼져 있어요.',
       notifDenied: '브라우저에서 알림이 막혀 있어요. 주소창 옆 자물쇠 → 알림 → 허용으로 바꿔 주세요.',
       notifNo: '이 브라우저는 알림을 지원하지 않아요. 캘린더 알림을 써 주세요.',
-      notifAsk: '알림을 허용해 주세요.', notifTitleApp: '자동이체 알리미',
+      notifAsk: '알림을 허용해 주세요.', notifTitleApp: '와글링 자동이체',
       notifBody: '오늘 {name} {a}이(가) 나가요. 통장을 확인해 주세요.',
       notifBtnOn: '알림 끄기', notifBtnOff: '알림 허용하기',
-      shareTitle: '자동이체 알리미', shareText: '매달 자동이체, 3일 전부터 미리 알려 주는 무료 앱',
-      calName: '자동이체 알리미', noAccount: '통장 미지정', todayTag: '오늘', tomorrowTag: '내일',
+      shareTitle: '와글링 자동이체', shareText: '매달 자동이체, 3일 전부터 미리 알려 주는 무료 앱',
+      calName: '와글링 자동이체', noAccount: '통장 미지정', todayTag: '오늘', tomorrowTag: '내일',
       dayTag: '{d}일', dueName: '{name} {a}', icsEventDesc: '자동이체 알림 · {account} · {cat}',
-      installTitle: '📲 홈 화면에 자동이체 알리미 두기', installLead: '한 번만 담아 두면 다음부터 앱처럼 바로 열려요.',
+      installTitle: '📲 홈 화면에 와글링 자동이체 두기', installLead: '한 번만 담아 두면 다음부터 앱처럼 바로 열려요.',
       installOk: '알겠어요', copied: '주소를 복사했어요. 카톡·문자에 붙여 넣어 보세요.',
       copyFail: '주소창의 주소를 복사해 주세요.', installed: '홈 화면에 넣었어요!',
       alreadyApp: '이미 홈 화면 앱으로 열려 있어요.'
@@ -693,7 +693,7 @@ h1,h2,h3{margin:0}
       seedBtn: 'Add 3 samples', wipeBtn: 'Delete all my items',
       privacyTitle: '🔒 Privacy',
       privacyDesc: 'The app only takes a name, amount, day and account nickname. Never enter account, card or PIN numbers. Nothing is sent to a server; it stays in this browser.',
-      ver: 'Auto-pay Reminder v1 · Byeolbyeol Salim · Free · No ads · Data stays on this device',
+      ver: 'Wagling Auto-pay v1 · Byeolbyeol Salim · Free · No ads · Data stays on this device',
       addBtn: 'Add auto-pay', icsAllShort: 'All to calendar', undo: 'Undo',
       sumTitle: '{m} auto-pay', leftCnt: '{n} left', progTx: '{p} of {t} paid ({pct}%)',
       acctSub: '{n} item(s) · {p} paid', acctTotal: 'This month {a}', acctDone: 'All paid',
@@ -717,18 +717,18 @@ h1,h2,h3{margin:0}
       icsToast: 'Calendar file (.ics) downloaded. Open the file to add it to your calendar.',
       icsOneToast: 'Calendar file for {name} downloaded.', icsNone: 'There is nothing to add yet.',
       exportToast: 'Backup file downloaded.', importedN: 'Imported {n} item(s).',
-      importBad: 'This file is not an Auto-pay Reminder backup.', importErr: 'Could not read the file.',
+      importBad: 'This file is not a Wagling Auto-pay backup.', importErr: 'Could not read the file.',
       wiped: 'Everything deleted.', seeded: 'Added 3 sample items.',
       notifOn: 'Notifications are on while this app is open.', notifOff: 'Notifications are off.',
       notifDenied: 'Notifications are blocked. Tap the lock icon next to the address → Notifications → Allow.',
       notifNo: 'This browser does not support notifications. Please use the calendar alert.',
-      notifAsk: 'Please allow notifications.', notifTitleApp: 'Auto-pay Reminder',
+      notifAsk: 'Please allow notifications.', notifTitleApp: 'Wagling Auto-pay',
       notifBody: '{name} {a} is due today. Check your account.',
       notifBtnOn: 'Turn notifications off', notifBtnOff: 'Allow notifications',
-      shareTitle: 'Auto-pay Reminder', shareText: 'A free app that warns you 3 days before every monthly auto-pay',
-      calName: 'Auto-pay Reminder', noAccount: 'No account', todayTag: 'today', tomorrowTag: 'tomorrow',
+      shareTitle: 'Wagling Auto-pay', shareText: 'A free app that warns you 3 days before every monthly auto-pay',
+      calName: 'Wagling Auto-pay', noAccount: 'No account', todayTag: 'today', tomorrowTag: 'tomorrow',
       dayTag: '{d}', dueName: '{name} {a}', icsEventDesc: 'Auto-pay · {account} · {cat}',
-      installTitle: '📲 Add Auto-pay Reminder to your home screen', installLead: 'Add it once and it opens like an app.',
+      installTitle: '📲 Add Wagling Auto-pay to your home screen', installLead: 'Add it once and it opens like an app.',
       installOk: 'Got it', copied: 'Link copied. Paste it into a message.', copyFail: 'Please copy the address from the address bar.',
       installed: 'Added to your home screen!', alreadyApp: 'You are already using the home screen app.'
     }

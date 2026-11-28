@@ -1,4 +1,4 @@
-/* 📅 자동이체 알리미 (Auto-pay Reminder) · 가벼운 Service Worker
+/* 📅 와글링 자동이체 (Wagling Auto-pay) · 가벼운 Service Worker
    - 홈 화면 설치 요건 충족 + 인터넷이 끊겨도 앱 껍데기만 열리도록 캐시
    - 외부 사이트 요청은 절대 가로채지 않음 · 개인정보 0%
    - 화면(index.html)은 항상 네트워크 우선 → 새 버전이 바로 반영됨 */
@@ -53,7 +53,7 @@ self.addEventListener('fetch', (event) => {
         const cache = await caches.open(CACHE);
         return (await cache.match('./index.html')) ||
                (await cache.match('./')) ||
-               new Response('자동이체 알리미 · 인터넷이 없어 열지 못했어요. / Auto-pay Reminder · offline.', {
+               new Response('와글링 자동이체 · 인터넷이 없어 열지 못했어요. / Wagling Auto-pay · offline.', {
                  status: 503, headers: { 'Content-Type': 'text/plain; charset=utf-8' }
                });
       }
