@@ -277,6 +277,8 @@ html.big .storebar .sb-nm{font-size:17px}
 #storeMenu{padding:0 var(--pad)}
 .ssec{margin:0 0 10px}
 .sgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:start}
+/* 한 가지만 있는 분류는 카드가 한 줄을 다 쓴다 — 반쪽이 빈 것처럼 보이지 않게 */
+.sgrid > .card:only-child{grid-column:1 / -1}
 .secHead.food{background:linear-gradient(180deg,#EDF6E3,#DCEDCB);border-color:#9CC17A;color:#365B1F}
 .card.food .pic{background:radial-gradient(circle at 50% 62%,#EAF5DC 0%,#FBFEF6 72%)}
 .card.food .plus{background:linear-gradient(180deg,#7FA455,#4F7A2E);border:2px solid #3F6427;color:#F6FFEC;box-shadow:0 2px 0 #3F6427}
