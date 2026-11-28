@@ -1,7 +1,7 @@
-/* ⚡🚒 와글링 안전 특공대 — 서비스 워커
+/* ⚡🚒 와글링 수호대 — 서비스 워커
    · /safety/ 안의 화면만 담당해요. 화면은 네트워크 우선, 끊기면 캐시로 열려요.
    · 날씨(Open-Meteo)·폰트(Google) 같은 바깥 주소는 그대로 지나가게 둡니다. */
-const CACHE = 'wagle-safety-v2';
+const CACHE = 'wagle-guardians-v3';
 const CORE = ['./', './index.html', './manifest.json', './icon-192.png', './icon-512.png', './icon.svg'];
 
 self.addEventListener('install', (e) => {

@@ -4,7 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content" />
 <meta name="theme-color" content="#FFF1DF" />
-<!-- build: 2026-11-28 ⚡🚒 와글링 안전 특공대 v5 (소방은 글이 커야지! 전체 글씨 한두 단계 확대 · 기본 20px·큰 글씨 25px · 머리말 부제 '와글링 수호대 2인조')
+<!-- build: 2026-11-28 ⚡🚒 와글링 수호대 v6 (앱 이름 '와글링 안전 특공대' → '와글링 수호대'로 통일 · 머리말 부제 '전기 · 소방 2인조')
+     · v6: 제목·머리말·설명·공유 문구·매니페스트·아이콘 이름을 모두 '와글링 수호대'로 (영문 Wagle Guardians)
+     · build: 2026-11-28 ⚡🚒 와글링 안전 특공대 v5 (소방은 글이 커야지! 전체 글씨 한두 단계 확대 · 기본 20px·큰 글씨 25px · 머리말 부제 '와글링 수호대 2인조')
      · v5: 루트 18px→20px, 큰 글씨 21px→25px, 배너·119·3단계·소화기·완강기·전기화재·점검·퀴즈·연락 전반 확대
      · build: 2026-11-28 ⚡🚒 와글링 안전 특공대 v4 (무조건 진하게 또렷 · 상단 바 겹침 해결 · 섹션 이름 '와글링 수호대 2인조')
      · v4: 날짜·날씨 바를 full-width 띠(.dbwrap)로 감싸 sticky 상태에서도 아래 내용이 새어 나오지 않게
@@ -26,9 +28,9 @@
 <link rel="manifest" href="manifest.json" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-title" content="안전 특공대" />
-<meta name="description" content="⚡🚒 와글링 안전 특공대 — 와트믹·파이어릭 2인조 전기·소방 특공대와 함께 불 대피 3단계·소화기·완강기, 전기 화재 대처, 우리 집 전기·소방 점검 14가지, 안전 OX 퀴즈 10문제, 119·123 원터치. 한국어/영어 전환. 기록은 이 기기에만 저장되고 광고가 없어요." />
-<title>⚡🚒 와글링 안전 특공대 · 전기·소방 2인조 특공대</title>
+<meta name="apple-mobile-web-app-title" content="와글링 수호대" />
+<meta name="description" content="⚡🚒 와글링 수호대 — 와트믹·파이어릭 전기·소방 2인조와 함께 불 대피 3단계·소화기·완강기, 전기 화재 대처, 우리 집 전기·소방 점검 14가지, 안전 OX 퀴즈 10문제, 119·123 원터치. 한국어/영어 전환. 기록은 이 기기에만 저장되고 광고가 없어요." />
+<title>⚡🚒 와글링 수호대 · 전기·소방 2인조</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet" />
@@ -701,8 +703,8 @@ html.big body{padding-bottom:calc(7rem + env(safe-area-inset-bottom))}
   <div class="brand">
     <span class="logo" aria-hidden="true">🚒</span>
     <div class="btxt">
-      <h1 data-en="⚡🚒 Wagle Safety Squad">⚡🚒 와글링 안전 특공대</h1>
-      <p class="sub" data-en="Wagle Guardian Duo">와글링 수호대 2인조</p>
+      <h1 data-en="⚡🚒 Wagle Guardians">⚡🚒 와글링 수호대</h1>
+      <p class="sub" data-en="Electricity &amp; Fire Duo">전기 · 소방 2인조</p>
     </div>
     <div class="topbtns">
       <button type="button" id="langBtn" class="lang" aria-pressed="false" aria-label="영어로 보기 — Switch to English">
@@ -740,15 +742,15 @@ html.big body{padding-bottom:calc(7rem + env(safe-area-inset-bottom))}
       <p class="sos-note" data-en="When you call, give your address first (street, building, unit)">신고할 때는 주소(도로명·동·호수)부터 말해요</p>
     </div>
 
-    <div class="sh"><span data-en="⚡🚒 Wagle Guardian Duo">⚡🚒 와글링 수호대 2인조</span> <span class="sh-s" data-en="Tap a hero to jump in">눌러서 그 분야로</span></div>
+    <div class="sh"><span data-en="⚡🚒 Wattmic &amp; Fireric Duo">⚡🚒 와트믹 · 파이어릭 2인조</span> <span class="sh-s" data-en="Tap a hero to jump in">눌러서 그 분야로</span></div>
     <div class="heroes">
-      <button type="button" class="hero h-watt" data-hero="watt" aria-label="와트믹 — 전기 특공대. 와트, 와트메이커" data-en-aria="Wattmic — electricity squad. Watt, WattMaker">
+      <button type="button" class="hero h-watt" data-hero="watt" aria-label="와트믹 — 전기 수호대. 와트, 와트메이커" data-en-aria="Wattmic — electricity guardian. Watt, WattMaker">
         <span class="hav" aria-hidden="true">⚡</span>
         <b data-en="Wattmic">와트믹</b>
         <em data-en="Watt">와트</em>
         <span class="hn" data-en="WattMaker">와트메이커</span>
       </button>
-      <button type="button" class="hero h-fire" data-hero="fire" aria-label="파이어릭 — 소방 특공대. 피트, 파이어레스큐" data-en-aria="Fireric — fire squad. Pete, FireRescue">
+      <button type="button" class="hero h-fire" data-hero="fire" aria-label="파이어릭 — 소방 수호대. 피트, 파이어레스큐" data-en-aria="Fireric — fire guardian. Pete, FireRescue">
         <span class="hav" aria-hidden="true">🚒</span>
         <b data-en="Fireric">파이어릭</b>
         <em data-en="Pete">피트</em>
@@ -1046,13 +1048,13 @@ try{
 }catch(e){}
 
 var TITLE = {
-  ko: '⚡🚒 와글링 안전 특공대 · 전기·소방 2인조 특공대',
-  en: '⚡🚒 Wagle Safety Squad · Electricity & Fire Duo'
+  ko: '⚡🚒 와글링 수호대 · 전기·소방 2인조',
+  en: '⚡🚒 Wagle Guardians · Electricity & Fire Duo'
 };
-var SHARE_TITLE = { ko: '와글링 전기·소방 안전', en: 'Wagle Safety Squad' };
+var SHARE_TITLE = { ko: '와글링 수호대 — 전기·소방 안전', en: 'Wagle Guardians' };
 var SHARE_TEXT = {
-  ko: '⚡🚒 안전 특공대 — 불 났을 때 대피 3단계·소화기·완강기, 전기 화재 대처, 우리 집 전기·소방 점검 14가지, 🎮 OX 퀴즈 10문제까지 링크만 누르면 바로 열려요.',
-  en: '⚡🚒 Wagle Safety Squad — 3 evacuation steps, how to use an extinguisher and a descent rope, electrical fires, a 14-point home electricity · fire check, and a 10-question OX quiz. One tap on the link opens it all.'
+  ko: '⚡🚒 와글링 수호대 — 불 났을 때 대피 3단계·소화기·완강기, 전기 화재 대처, 우리 집 전기·소방 점검 14가지, 🎮 OX 퀴즈 10문제까지 링크만 누르면 바로 열려요.',
+  en: '⚡🚒 Wagle Guardians — 3 evacuation steps, how to use an extinguisher and a descent rope, electrical fires, a 14-point home electricity · fire check, and a 10-question OX quiz. One tap on the link opens it all.'
 };
 
 function applyLang(){
@@ -1755,7 +1757,7 @@ function finishQuiz(){
   $('#doneEng').textContent = qDoneFull ? ENG[Math.floor(Math.random() * ENG.length)] : 'Good job! 💪';
   renderDone();
   try{ done.scrollIntoView({ block:'center', behavior:'smooth' }); }catch(e){}
-  if(qDoneFull) toast(B('만점이에요! 두 특공대가 엄지척! ⚡🚒', 'A perfect score! The duo gives you a thumbs-up! ⚡🚒'));
+  if(qDoneFull) toast(B('만점이에요! 두 수호대가 엄지척! ⚡🚒', 'A perfect score! The duo gives you a thumbs-up! ⚡🚒'));
 }
 $('#qAgain').addEventListener('click', startQuiz);
 $('#qHome').addEventListener('click', function(){
