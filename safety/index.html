@@ -4,7 +4,9 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content" />
 <meta name="theme-color" content="#FFF1DF" />
-<!-- build: 2026-11-28 ⚡🚒 와글링 안전 특공대 v4 (무조건 진하게 또렷 · 상단 바 겹침 해결 · 섹션 이름 '와글링 수호대 2인조')
+<!-- build: 2026-11-28 ⚡🚒 와글링 안전 특공대 v5 (소방은 글이 커야지! 전체 글씨 한두 단계 확대 · 기본 20px·큰 글씨 25px · 머리말 부제 '와글링 수호대 2인조')
+     · v5: 루트 18px→20px, 큰 글씨 21px→25px, 배너·119·3단계·소화기·완강기·전기화재·점검·퀴즈·연락 전반 확대
+     · build: 2026-11-28 ⚡🚒 와글링 안전 특공대 v4 (무조건 진하게 또렷 · 상단 바 겹침 해결 · 섹션 이름 '와글링 수호대 2인조')
      · v4: 날짜·날씨 바를 full-width 띠(.dbwrap)로 감싸 sticky 상태에서도 아래 내용이 새어 나오지 않게
      · v4: 보조 글씨 전부 진한 차콜(#111827~#1F2937)·굵게, 카드 테두리 진하게 · 이름 와트믹/파이어릭 그대로
      · build: 2026-11-26 ⚡🚒 와글링 안전 특공대 v3 (전기·소방 2인조 · 한/EN 전환)
@@ -492,6 +494,171 @@ main{padding-top:.1rem}
 .isteps li span{color:#1F2937}
 .iappnote{color:#6B4A00;border-color:#E9C77E}
 .grab{background:#C9B49C}
+
+/* ═══════════ v5 (2026-11-28) — 소방은 글이 커야지! 전체 글씨 한두 단계 확대 ═══════════
+   · 기본 루트 18px → 20px (큰 글씨 21px → 25px). rem 기반이라 여백·아이콘·줄간격이 함께 여유롭게 커짐
+   · 응급 상황 1순위: 불 났어요 배너·119 버튼·대피 3단계·소화기·완강기는 한 단계 더 크게
+   · 좌우 넘침 방지: 카드 패딩·줄간격 동시 확대, 날씨 줄은 말줄임 유지 */
+html{font-size:20px}
+html.big{font-size:25px}
+body{line-height:1.55}
+
+/* ── 머리말 ── */
+.btxt h1{font-size:.95rem;line-height:1.25;text-wrap:balance}
+.btxt .sub{font-size:.66rem;line-height:1.25;text-wrap:balance}
+.logo{width:2.2rem;height:2.2rem;font-size:1.15rem}
+.topbtns button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.16rem;
+  min-width:2.7rem;height:auto;min-height:2.95rem;padding:.28rem .16rem .36rem;font-size:.56rem;line-height:1.1;
+  white-space:nowrap}
+.topbtns button span.ic{font-size:1.05rem}
+.topbtns .lgl{font-size:.62rem}
+.topbtns .lgl .lgs{font-size:.6rem}
+html[lang="en"] .btxt h1{font-size:.95rem}
+html[lang="en"] .btxt .sub{font-size:.7rem}
+
+/* ── 날짜·날씨 ── */
+.datebar{font-size:.85rem;padding:.55rem .6rem}
+.datebar .db-date{font-size:.95rem}
+.datebar .db-wx{font-size:.9rem}
+.datebar .db-place{font-size:.78rem}
+.datebar .db-go{font-size:.76rem}
+
+/* ── 섹션 제목 ── */
+.sh{font-size:1.2rem;margin:1.15rem .1rem .6rem}
+.sh .sh-s{font-size:.85rem;line-height:1.35}
+
+/* ── 🔥 불 났어요 배너 (가장 크게) ── */
+.sos{padding:1.15rem 1.1rem 1.15rem;border-radius:22px}
+.sos-t{font-size:1.62rem;line-height:1.22}
+.sos-s{font-size:1rem;line-height:1.55;margin-top:.45rem}
+.sos-btn{margin-top:.9rem;min-height:3.5rem;border-radius:16px;font-size:1.4rem}
+.sos-note{font-size:.84rem;line-height:1.45;margin-top:.55rem;text-wrap:balance}
+
+/* ── 대피 3단계 ── */
+.step{padding:.72rem .7rem;border-radius:18px;gap:.55rem;margin-bottom:.55rem}
+.sno{width:1.7rem;height:1.7rem;font-size:.9rem}
+.semo{width:2.85rem;height:2.85rem;border-radius:.9rem;font-size:1.45rem}
+.stxt b{font-size:1.14rem;line-height:1.3;text-wrap:balance}
+.stxt em{font-size:.9rem;line-height:1.45;margin-top:.2rem;text-wrap:balance}
+.sarrow{font-size:1.4rem;padding-right:0}
+
+/* ── 소화기 4단계 ── */
+.extcard{padding:.35rem .35rem .55rem}
+.extno{width:1.55rem;height:1.55rem;font-size:.86rem;top:.35rem;left:.35rem}
+.exttx{font-size:1.02rem;line-height:1.3}
+.extsub{font-size:.82rem;line-height:1.4;margin-top:.15rem;text-wrap:balance}
+.extnote{font-size:.9rem;line-height:1.55;padding:.6rem .7rem;margin-top:.65rem}
+
+/* ── 완강기 ── */
+.rope{flex-direction:column;gap:.7rem;padding:.8rem .85rem}
+.rope svg{flex:none;width:64%;max-width:15rem;align-self:center}
+.rope ul{gap:.5rem}
+.rope li{font-size:.94rem;line-height:1.5;padding-left:1.45rem;text-wrap:balance}
+.rope li::before{width:1.15rem;height:1.15rem;font-size:.72rem}
+
+/* ── 전기 화재 ── */
+.el-h{font-size:1.2rem;align-items:flex-start}
+.el-h>span:first-child{margin-top:.15rem}
+.el-h>span:last-child{text-wrap:balance}
+.el-sub{font-size:.9rem;line-height:1.45;margin-top:.2rem}
+.el-col{padding:.65rem .55rem}
+.el-col span{font-size:1.65rem}
+.el-col b{font-size:.94rem;line-height:1.3}
+.el-col em{font-size:.8rem;line-height:1.4;margin-top:.2rem}
+.el-steps li{font-size:.94rem;line-height:1.5;padding-left:1.25rem}
+
+/* ── 2인조 프로필 ── */
+.hero{padding:.6rem .25rem .6rem}
+.hero .hav{width:2.2rem;height:2.2rem;font-size:1.2rem}
+.hero b{font-size:.96rem;line-height:1.2}
+.hero em{font-size:.78rem;line-height:1.25}
+.hero .hn{font-size:.7rem}
+.who{font-size:.82rem}
+.qheroes{font-size:.85rem}
+
+/* ── 셀프 체크 ── */
+.prog-top{font-size:.95rem}
+.prog-top b{font-size:1.3rem}
+.bar{height:.72rem}
+#chkMsg{font-size:.9rem;line-height:1.5}
+.prog-foot span{font-size:.8rem}
+.prog-foot button{font-size:.82rem;padding:.35rem .6rem}
+.cg-h b{font-size:1.1rem}
+.cg-e{font-size:1.2rem}
+.cg-n{font-size:.8rem}
+.citem{padding:.62rem .15rem;gap:.65rem}
+.cbox{width:1.6rem;height:1.6rem;font-size:1rem}
+.ctxt{font-size:.96rem;line-height:1.5}
+
+/* ── 퀴즈 ── */
+.qh{font-size:1.4rem}
+.qs{font-size:.98rem;line-height:1.6}
+.qbest{font-size:.9rem}
+.qtop>span{font-size:1rem}
+.qcard{min-height:7rem;padding:1rem}
+.qcard p{font-size:1.15rem;line-height:1.6}
+.ox span{font-size:2.8rem}
+.ox em{font-size:1.02rem}
+.qhint{font-size:.9rem}
+.fb-t{font-size:1.15rem}
+.fb-w{font-size:.94rem;line-height:1.55}
+.qhelp p{font-size:.92rem;line-height:1.55}
+.eng{font-size:1.75rem}
+.doneKo{font-size:.96rem;line-height:1.55}
+.doneScore{font-size:1.15rem}
+
+/* ── 긴급 연락 ── */
+.callrow{padding:.8rem .85rem;min-height:4.7rem;gap:.75rem}
+.callrow .ci{width:3rem;height:3rem;font-size:1.4rem}
+.callrow .ct b{font-size:1.16rem;line-height:1.3}
+.callrow .ct em{font-size:.86rem;line-height:1.4;margin-top:.15rem;text-wrap:balance}
+.callrow .cn{font-size:1.2rem}
+.c1588 .cn{font-size:1.08rem}
+.say-t{font-size:1.15rem}
+.sayl li{font-size:.94rem;line-height:1.55;padding-left:1.7rem}
+.sayl li::before{width:1.3rem;height:1.3rem;font-size:.78rem}
+.chip{font-size:.95rem;min-height:3.15rem}
+
+/* ── 탭바 ── */
+.tab{font-size:.72rem;padding:.42rem .05rem .36rem}
+.tab span{font-size:1.3rem}
+body{padding-bottom:calc(6.6rem + env(safe-area-inset-bottom))}
+
+/* ── 버튼·시트·공통 ── */
+.btn{font-size:1.1rem;min-height:3.3rem}
+.btn.ghost{font-size:1rem;min-height:2.9rem}
+.btn.small{font-size:.95rem}
+.fine{font-size:.82rem;line-height:1.6}
+.sheet h2{font-size:1.25rem}
+.sheet .note{font-size:.9rem;line-height:1.55}
+.sheet ul.sl li{font-size:.98rem;line-height:1.55;padding-left:1.4rem}
+.isteps li{font-size:.95rem;line-height:1.5;padding:.6rem .7rem}
+.isteps li b{font-size:1rem}
+.isteps li span{font-size:.9rem;line-height:1.45;margin-top:.2rem}
+.iappnote{font-size:.9rem;line-height:1.5}
+.chromeopen{font-size:.96rem;min-height:3.1rem}
+.kit p{font-size:.92rem;line-height:1.5}
+.kit button{font-size:.84rem;max-width:8rem}
+#toast{font-size:.92rem}
+/* 단어 중간이 끊기지 않게 (코·입 → 코· / 입 같은 어색한 줄바꿈 방지) */
+.stxt b,.stxt em,.rope li,.el-steps li,.ctxt,.sayl li,.extnote,.sos-s,.sos-note,
+.callrow .ct em,.extsub,.qhelp p,.qcard p{overflow-wrap:normal}
+
+/* 큰 글씨 모드: 머리말이 너무 높아지지 않게 — 로고를 숨기고 머리말만 살짝 잡아 줌 */
+html.big .logo{display:none}
+html.big .btxt h1{font-size:.82rem}
+html.big .btxt .sub{font-size:.56rem}
+html.big .topbtns button{min-width:2.5rem;min-height:2.7rem;font-size:.5rem;padding:.25rem .12rem .3rem}
+html.big .topbtns button span.ic{font-size:.95rem}
+
+/* 아주 좁은 폰(360px 이하)에서만 살짝 줄여 넘침 방지 */
+@media (max-width:365px){
+  .sos-t{font-size:1.5rem}
+  .sos-btn{font-size:1.3rem}
+  .hero b{font-size:.9rem}
+  .el-col b{font-size:.88rem}
+  .exttx{font-size:.96rem}
+}
 </style>
 </head>
 <body>
@@ -532,7 +699,7 @@ main{padding-top:.1rem}
     <span class="logo" aria-hidden="true">🚒</span>
     <div class="btxt">
       <h1 data-en="⚡🚒 Wagle Safety Squad">⚡🚒 와글링 안전 특공대</h1>
-      <p class="sub" data-en="Electricity · Fire Duo">전기 · 소방 특공대 2인조</p>
+      <p class="sub" data-en="Wagle Guardian Duo">와글링 수호대 2인조</p>
     </div>
     <div class="topbtns">
       <button type="button" id="langBtn" class="lang" aria-pressed="false" aria-label="영어로 보기 — Switch to English">
@@ -596,7 +763,7 @@ main{padding-top:.1rem}
     <button type="button" class="step" data-step="s2">
       <span class="sno" aria-hidden="true">2</span>
       <span class="semo" aria-hidden="true">🧻</span>
-      <span class="stxt"><b data-en="Stay low">낮은 자세로</b><em data-en="Cover nose and mouth with a wet towel, keep a hand on the wall">젖은 수건으로 코·입 막고 벽을 짚어요</em></span>
+      <span class="stxt"><b data-en="Stay low">낮은 자세로</b><em data-en="Cover nose and mouth with a wet towel, keep a hand on the wall">젖은 수건으로 코와 입을 막고 벽을 짚어요</em></span>
       <span class="sarrow" aria-hidden="true">›</span>
     </button>
     <button type="button" class="step" data-step="s3">
